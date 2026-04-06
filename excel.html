@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de positionnement — Excel Intermédiaire | Akademia Formation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ak-blue: #2563EB;
+            --ak-purple: #7C3AED;
+            --ak-gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+            --ak-gradient-soft: linear-gradient(135deg, rgba(37,99,235,0.06) 0%, rgba(124,58,237,0.06) 100%);
+            --ak-green: #10B981;
+            --ak-turquoise: #06B6D4;
+            --ak-orange: #F97316;
+            --ak-black: #0F172A;
+            --ak-gray-800: #1E293B;
+            --ak-gray-700: #334155;
+            --ak-gray-600: #475569;
+            --ak-gray-500: #64748B;
+            --ak-gray-400: #94A3B8;
+            --ak-gray-300: #CBD5E1;
+            --ak-gray-200: #E5E7EB;
+            --ak-gray-100: #F1F5F9;
+            --ak-gray-50: #F8FAFC;
+            --ak-white: #FFFFFF;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background: var(--ak-white);
+            color: var(--ak-gray-700);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ─── Fixed progress ─── */
+        .progress-track {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--ak-gray-100);
+            z-index: 200;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--ak-gradient);
+            width: 0%;
+            transition: width 0.4s cubic-bezier(.4,0,.2,1);
+        }
+
+        /* ─── Fixed sidebar nav ─── */
+        .side-nav {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 12px 0 12px 16px;
+        }
+
+        .side-nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            padding: 8px 16px 8px 12px;
+            border-radius: 0 20px 20px 0;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: var(--ak-gray-400);
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .side-nav a .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--ak-gray-300);
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .side-nav a:hover, .side-nav a.active {
+            color: var(--ak-blue);
+            background: rgba(37,99,235,0.06);
+        }
+
+        .side-nav a:hover .dot, .side-nav a.active .dot {
+            background: var(--ak-gradient);
+            box-shadow: 0 0 8px rgba(37,99,235,0.4);
+        }
+
+        /* ─── Hero ─── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--ak-black);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--ak-gradient);
+            opacity: 0.9;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(16,185,129,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(124,58,237,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6,182,212,0.1) 0%, transparent 60%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 80px 80px 80px 120px;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 60px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-left h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+        }
+
+        .hero-left h1 .gradient-text {
+            background: linear-gradient(135deg, #a5f3fc, #c4b5fd, #86efac);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-left .subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 32px;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+        .hero-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .hero-tags .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            color: white;
+            font-size: 0.82rem;
+            font-weight: 500;
+        }
+
+        .hero-tags .tag .tag-icon {
+            font-size: 0.9rem;
+        }
+
+        .hero-right {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 24px;
+            padding: 36px;
+            color: white;
+        }
+
+        .hero-right h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 16px;
+        }
+
+        .hero-right ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .hero-right ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .hero-right ul li .check {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(16,185,129,0.2);
+            color: #6ee7b7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.7rem;
+            margin-top: 1px;
+        }
+
+        .hero-right .duration {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+            background: linear-gradient(135deg, #a5f3fc, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-logo {
+            position: absolute;
+            top: 32px;
+            left: 48px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-logo span {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-logo .formation-label {
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            display: block;
+            margin-top: -2px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(6px); }
+        }
+
+        /* ─── Sections ─── */
+        .form-section {
+            scroll-margin-top: 20px;
+        }
+
+        .section-band {
+            padding: 64px 80px 64px 120px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-alt {
+            background: var(--ak-gray-50);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .section-header .sec-num {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: var(--ak-gradient);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .section-header .sec-info h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ak-black);
+            letter-spacing: -0.02em;
+        }
+
+        .section-header .sec-info p {
+            font-size: 0.88rem;
+            color: var(--ak-gray-500);
+            margin-top: 2px;
+        }
+
+        /* ─── Identity grid ─── */
+        .identity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        .identity-grid .span-full { grid-column: 1 / -1; }
+
+        .field-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 14px;
+            padding: 20px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .section-alt .field-card {
+            background: var(--ak-white);
+        }
+
+        .field-card:focus-within {
+            border-color: var(--ak-blue);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.08);
+        }
+
+        .field-card label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--ak-gray-500);
+            margin-bottom: 8px;
+        }
+
+        .field-card input,
+        .field-card select,
+        .field-card textarea {
+            width: 100%;
+            border: none;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            color: var(--ak-black);
+            background: transparent;
+            outline: none;
+        }
+
+        .field-card input::placeholder,
+        .field-card textarea::placeholder {
+            color: var(--ak-gray-400);
+        }
+
+        .field-card select {
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            background: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right center;
+            padding-right: 20px;
+        }
+
+        .field-card textarea {
+            resize: vertical;
+            min-height: 70px;
+            line-height: 1.6;
+        }
+
+        /* ─── Self-assessment ─── */
+        .assess-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .assess-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 14px;
+            padding: 20px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .assess-card .assess-label {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--ak-gray-700);
+        }
+
+        .assess-card .stars {
+            display: flex;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .assess-card .stars button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--ak-gray-200);
+            transition: color 0.15s, transform 0.15s;
+            padding: 0 1px;
+            line-height: 1;
+        }
+
+        .assess-card .stars button:hover,
+        .assess-card .stars button.active {
+            color: var(--ak-orange);
+            transform: scale(1.1);
+        }
+
+        .assess-card.has-value {
+            border-color: rgba(249,115,22,0.25);
+            background: rgba(249,115,22,0.02);
+        }
+
+        /* ─── Question cards ─── */
+        .questions-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .q-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .q-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--ak-gray-100);
+            transition: background 0.3s;
+        }
+
+        .q-card.answered::before {
+            background: var(--ak-gradient);
+        }
+
+        .q-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        .q-card .q-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .q-card .q-module {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--ak-purple);
+            background: rgba(124,58,237,0.06);
+            padding: 3px 10px;
+            border-radius: 6px;
+        }
+
+        .q-card .q-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--ak-gray-400);
+        }
+
+        .q-card .q-text {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--ak-black);
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .q-card .options label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 9px 12px;
+            margin-bottom: 4px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-size: 0.85rem;
+            color: var(--ak-gray-700);
+            line-height: 1.45;
+        }
+
+        .q-card .options label:hover {
+            background: var(--ak-gray-50);
+        }
+
+        .q-card .options input[type="radio"] {
+            margin-top: 3px;
+            accent-color: var(--ak-blue);
+            flex-shrink: 0;
+        }
+
+        /* ─── Attentes ─── */
+        .attentes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* ─── Submit ─── */
+        .submit-band {
+            text-align: center;
+            padding: 48px 40px;
+            background: var(--ak-gradient-soft);
+            border-top: 1px solid var(--ak-gray-100);
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--ak-gradient);
+            color: white;
+            border: none;
+            padding: 16px 52px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 14px;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: transform 0.2s, box-shadow 0.2s;
+            letter-spacing: -0.01em;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(37,99,235,0.3);
+        }
+
+        .btn-submit svg { flex-shrink: 0; }
+
+        .submit-note {
+            font-size: 0.78rem;
+            color: var(--ak-gray-400);
+            margin-top: 12px;
+        }
+
+        /* ─── Results ─── */
+        .results-wrapper { display: none; }
+        .results-wrapper.visible { display: block; }
+
+        .results-hero {
+            background: var(--ak-gradient);
+            padding: 64px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(16,185,129,0.1) 0%, transparent 50%);
+        }
+
+        .results-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .results-ring {
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+
+        .results-ring svg { transform: rotate(-90deg); }
+
+        .results-ring .ring-text {
+            position: absolute;
+            top: 44%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .results-ring .ring-label {
+            position: absolute;
+            top: 64%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .results-meta h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .results-meta .level-pill {
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        .pill-debutant { background: rgba(220,38,38,0.2); color: #fca5a5; }
+        .pill-elementaire { background: rgba(249,115,22,0.2); color: #fdba74; }
+        .pill-intermediaire { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+        .pill-avance { background: rgba(6,182,212,0.2); color: #67e8f9; }
+
+        .results-meta p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.92rem;
+            max-width: 520px;
+            line-height: 1.6;
+        }
+
+        .module-bars {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .mod-bar-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .mod-bar-card .mbc-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 10px;
+        }
+
+        .mod-bar-card .mbc-track {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .mod-bar-card .mbc-fill {
+            height: 100%;
+            background: white;
+            border-radius: 3px;
+            transition: width 0.8s ease;
+        }
+
+        .mod-bar-card .mbc-score {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: white;
+            margin-top: 8px;
+        }
+
+        /* Review detail */
+        .review-band {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 48px 80px;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .review-card {
+            background: var(--ak-gray-50);
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .review-card .rc-q {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ak-black);
+            margin-bottom: 8px;
+            line-height: 1.45;
+        }
+
+        .review-card .rc-badge {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 6px;
+        }
+
+        .rc-correct { background: #D1FAE5; color: #065F46; }
+        .rc-incorrect { background: #FEE2E2; color: #B91C1C; }
+
+        .review-card .rc-expl {
+            font-size: 0.8rem;
+            color: var(--ak-gray-500);
+            margin-top: 8px;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .attentes-review {
+            background: var(--ak-gray-50);
+            border-radius: 14px;
+            padding: 28px;
+            margin-top: 24px;
+        }
+
+        .attentes-review h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--ak-black);
+            margin-bottom: 14px;
+        }
+
+        .attentes-review p {
+            font-size: 0.88rem;
+            color: var(--ak-gray-600);
+            margin-bottom: 8px;
+        }
+
+        /* Email confirm toast */
+        .email-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--ak-black);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 14px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 300;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            animation: slideIn 0.4s ease;
+        }
+
+        .email-toast.show { display: flex; }
+
+        .email-toast .toast-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(16,185,129,0.2);
+            color: #6ee7b7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 40px;
+            background: var(--ak-gray-50);
+            border-top: 1px solid var(--ak-gray-100);
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer span {
+            font-size: 0.78rem;
+            color: var(--ak-gray-400);
+        }
+
+        .footer .sep {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--ak-gray-300);
+        }
+
+        .btn-print {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            color: var(--ak-gray-600);
+            padding: 10px 24px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: all 0.15s;
+        }
+
+        .btn-print:hover {
+            border-color: var(--ak-blue);
+            color: var(--ak-blue);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 1100px) {
+            .hero-content { grid-template-columns: 1fr; padding: 100px 40px 60px; }
+            .hero-right { max-width: 420px; }
+            .section-band { padding: 48px 40px; }
+            .side-nav { display: none; }
+            .questions-layout { grid-template-columns: 1fr; }
+            .attentes-grid { grid-template-columns: 1fr; }
+            .identity-grid { grid-template-columns: 1fr 1fr; }
+            .assess-grid { grid-template-columns: 1fr; }
+            .results-inner { grid-template-columns: 1fr; text-align: center; }
+            .results-ring { margin: 0 auto; }
+            .results-meta p { margin: 0 auto; }
+            .module-bars { grid-template-columns: 1fr 1fr; }
+            .results-hero { padding: 48px 40px; }
+            .review-band { padding: 40px; }
+            .review-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .hero-left h1 { font-size: 2.2rem; }
+            .hero-content { padding: 90px 24px 40px; }
+            .section-band { padding: 36px 20px; }
+            .identity-grid { grid-template-columns: 1fr; }
+            .module-bars { grid-template-columns: 1fr; }
+            .results-hero { padding: 36px 20px; }
+            .review-band { padding: 24px 20px; }
+        }
+
+        @media print {
+            .hero { min-height: auto; }
+            .side-nav, .progress-track, .btn-submit, .btn-print, .scroll-hint, .email-toast { display: none !important; }
+            .q-card, .review-card { break-inside: avoid; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="email-toast" id="emailToast">
+        <div class="toast-icon">&#10003;</div>
+        <span>Réponses prêtes à envoyer — vérifiez votre messagerie</span>
+    </div>
+
+    <!-- Side nav -->
+    <nav class="side-nav" id="sideNav">
+        <a href="#sec-info" class="active"><span class="dot"></span>Informations</a>
+        <a href="#sec-eval"><span class="dot"></span>Auto-évaluation</a>
+        <a href="#sec-qcm"><span class="dot"></span>Connaissances</a>
+        <a href="#sec-attentes"><span class="dot"></span>Attentes</a>
+    </nav>
+
+    <!-- ═══ FORM ═══ -->
+    <div id="formWrapper">
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-pattern"></div>
+            <div class="hero-grid"></div>
+
+            <div class="hero-logo">
+                <svg width="40" height="40" viewBox="0 0 80 80">
+                    <defs><linearGradient id="lgHero" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.2)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.08)"/></linearGradient></defs>
+                    <rect width="80" height="80" rx="16" fill="url(#lgHero)"/>
+                    <path d="M 40 20 L 50 50 L 44 50 L 42 44 L 38 44 L 36 50 L 30 50 L 40 20 Z M 40 28 L 38 40 L 42 40 L 40 28 Z" fill="white"/>
+                    <circle cx="55" cy="28" r="6" fill="#10B981" opacity="0.9"/>
+                </svg>
+                <div>
+                    <span>AKADEMIA</span>
+                    <span class="formation-label">Formation</span>
+                </div>
+            </div>
+
+            <div class="hero-content">
+                <div class="hero-left">
+                    <h1>Test de<br>positionnement<br><span class="gradient-text">Excel Intermédiaire</span></h1>
+                    <p class="subtitle">Évaluez votre niveau en quelques minutes. Vos réponses permettront au formateur d'adapter le contenu à vos besoins réels.</p>
+                    <div class="hero-tags">
+                        <div class="tag"><span class="tag-icon">&#9201;</span> 5 à 8 minutes</div>
+                        <div class="tag"><span class="tag-icon">&#128205;</span> Saint-Pierre, La Réunion</div>
+                        <div class="tag"><span class="tag-icon">&#128197;</span> 8 & 9 avril 2026</div>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <h3>Ce test permet de</h3>
+                    <ul>
+                        <li><div class="check">&#10003;</div> Évaluer votre niveau actuel sur Excel</li>
+                        <li><div class="check">&#10003;</div> Adapter le contenu de la formation à votre profil</li>
+                        <li><div class="check">&#10003;</div> Recueillir vos attentes spécifiques</li>
+                        <li><div class="check">&#10003;</div> Permettre au formateur de personnaliser les exercices</li>
+                    </ul>
+                    <div class="duration">14 heures de formation en présentiel</div>
+                </div>
+            </div>
+
+            <div class="scroll-hint">
+                Commencer le test<br>&#8595;
+            </div>
+        </section>
+
+        <!-- Section 1: Identité -->
+        <section class="form-section" id="sec-info">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">1</div>
+                    <div class="sec-info">
+                        <h2>Vos informations</h2>
+                        <p>Quelques informations pour mieux vous connaître</p>
+                    </div>
+                </div>
+                <div class="identity-grid">
+                    <div class="field-card">
+                        <label>Nom *</label>
+                        <input type="text" id="nom" required placeholder="Votre nom de famille">
+                    </div>
+                    <div class="field-card">
+                        <label>Prénom *</label>
+                        <input type="text" id="prenom" required placeholder="Votre prénom">
+                    </div>
+                    <div class="field-card">
+                        <label>Entreprise</label>
+                        <input type="text" id="entreprise" placeholder="Nom de votre entreprise">
+                    </div>
+                    <div class="field-card">
+                        <label>Poste / Fonction</label>
+                        <input type="text" id="poste" placeholder="Ex : Assistante comptable">
+                    </div>
+                    <div class="field-card">
+                        <label>Fréquence d'utilisation d'Excel</label>
+                        <select id="frequence">
+                            <option value="">— Choisir —</option>
+                            <option value="Tous les jours">Tous les jours</option>
+                            <option value="Plusieurs fois par semaine">Plusieurs fois par semaine</option>
+                            <option value="Quelques fois par mois">Quelques fois par mois</option>
+                            <option value="Rarement">Rarement</option>
+                            <option value="Jamais ou presque">Jamais ou presque</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Auto-évaluation -->
+        <section class="form-section section-alt" id="sec-eval">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">2</div>
+                    <div class="sec-info">
+                        <h2>Auto-évaluation rapide</h2>
+                        <p>Évaluez votre aisance de 1 à 4 étoiles sur chaque thème</p>
+                    </div>
+                </div>
+                <div class="assess-grid">
+                    <div class="assess-card" id="ac-bases">
+                        <span class="assess-label">Saisie, mise en forme, formats de cellules</span>
+                        <div class="stars" data-assess="bases">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-formules">
+                        <span class="assess-label">Formules de calcul (SOMME, MOYENNE, SI...)</span>
+                        <div class="stars" data-assess="formules">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-listes">
+                        <span class="assess-label">Tri, filtres et gestion de listes</span>
+                        <div class="stars" data-assess="listes">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-graphiques">
+                        <span class="assess-label">Graphiques</span>
+                        <div class="stars" data-assess="graphiques">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-tcd" style="grid-column: 1 / -1; max-width: 50%;">
+                        <span class="assess-label">Tableaux croisés dynamiques (TCD)</span>
+                        <div class="stars" data-assess="tcd">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: QCM -->
+        <section class="form-section" id="sec-qcm">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">3</div>
+                    <div class="sec-info">
+                        <h2>Questions de connaissances</h2>
+                        <p>12 questions pour évaluer votre niveau — répondez spontanément, il n'y a pas de piège !</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Rappels</span><span class="q-num">01</span></div>
+                        <div class="q-text">Dans Excel, quelle est la différence entre une référence relative (A1) et absolue ($A$1) ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q1" value="a"> Aucune différence, juste une question de présentation</label>
+                            <label><input type="radio" name="q1" value="b"> La référence absolue ne change pas quand on recopie la formule</label>
+                            <label><input type="radio" name="q1" value="c"> La référence absolue verrouille la feuille</label>
+                            <label><input type="radio" name="q1" value="d"> Je ne sais pas</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Rappels</span><span class="q-num">02</span></div>
+                        <div class="q-text">Pour recopier une série de mois (Janvier, Février...) rapidement, quelle méthode utiliser ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q2" value="a"> Taper chaque mois manuellement</label>
+                            <label><input type="radio" name="q2" value="b"> Écrire « Janvier » puis utiliser la poignée de recopie</label>
+                            <label><input type="radio" name="q2" value="c"> Utiliser la fonction MOIS()</label>
+                            <label><input type="radio" name="q2" value="d"> Je ne sais pas</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Rappels</span><span class="q-num">03</span></div>
+                        <div class="q-text">Pour additionner la cellule B5 de 3 feuilles (Janvier, Février, Mars), quelle approche ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q3" value="a"> =Janvier!B5 + Février!B5 + Mars!B5</label>
+                            <label><input type="radio" name="q3" value="b"> Copier les données sur une seule feuille d'abord</label>
+                            <label><input type="radio" name="q3" value="c"> Je ne sais pas référencer une autre feuille</label>
+                            <label><input type="radio" name="q3" value="d"> Je ne sais pas</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Fonctions</span><span class="q-num">04</span></div>
+                        <div class="q-text">Que fait la formule =SI(A1>=10; "Admis"; "Refusé") ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q4" value="a"> Additionne les valeurs supérieures à 10</label>
+                            <label><input type="radio" name="q4" value="b"> Affiche « Admis » si A1 ≥ 10, sinon « Refusé »</label>
+                            <label><input type="radio" name="q4" value="c"> Compte les cellules contenant 10</label>
+                            <label><input type="radio" name="q4" value="d"> Je ne sais pas</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Fonctions</span><span class="q-num">05</span></div>
+                        <div class="q-text">Pour calculer la somme des ventes du produit « Stylo » uniquement, quelle fonction ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q5" value="a"> =SOMME()</label>
+                            <label><input type="radio" name="q5" value="b"> =SOMME.SI()</label>
+                            <label><input type="radio" name="q5" value="c"> =NB.SI()</label>
+                            <label><input type="radio" name="q5" value="d"> Je ne sais pas</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Fonctions</span><span class="q-num">06</span></div>
+                        <div class="q-text">Dans =SI(ET(A1>5; B1<10); "OK"; "NON"), quand obtient-on « OK » ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q6" value="a"> Quand A1 > 5 OU B1 < 10</label>
+                            <label><input type="radio" name="q6" value="b"> Quand A1 > 5 ET B1 < 10 en même temps</label>
+                            <label><input type="radio" name="q6" value="c"> Quand A1 et B1 sont tous deux égaux à 5</label>
+                            <label><input type="radio" name="q6" value="d"> Je ne sais pas</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Fonctions</span><span class="q-num">07</span></div>
+                        <div class="q-text">À quoi sert le « nommage de plages » (ex : nommer B2:B50 « Ventes ») ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q7" value="a"> Rendre les formules plus lisibles : =SOMME(Ventes)</label>
+                            <label><input type="radio" name="q7" value="b"> Protéger les cellules contre la modification</label>
+                            <label><input type="radio" name="q7" value="c"> Changer la couleur des cellules automatiquement</label>
+                            <label><input type="radio" name="q7" value="d"> Je ne sais pas</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Listes & TCD</span><span class="q-num">08</span></div>
+                        <div class="q-text">Pour afficher uniquement les clients de La Réunion dans une liste de 500, quel outil ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q8" value="a"> Supprimer manuellement les autres lignes</label>
+                            <label><input type="radio" name="q8" value="b"> Utiliser un filtre automatique sur la colonne « Région »</label>
+                            <label><input type="radio" name="q8" value="c"> Utiliser Ctrl+F pour chercher « Réunion »</label>
+                            <label><input type="radio" name="q8" value="d"> Je ne sais pas</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Listes & TCD</span><span class="q-num">09</span></div>
+                        <div class="q-text">À quoi sert la « validation de données » (liste déroulante) dans Excel ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q9" value="a"> Limiter les valeurs de saisie (choisir dans une liste)</label>
+                            <label><input type="radio" name="q9" value="b"> Vérifier si un fichier Excel est valide</label>
+                            <label><input type="radio" name="q9" value="c"> Corriger automatiquement les fautes d'orthographe</label>
+                            <label><input type="radio" name="q9" value="d"> Je ne sais pas</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Listes & TCD</span><span class="q-num">10</span></div>
+                        <div class="q-text">Un tableau croisé dynamique (TCD) sert principalement à :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q10" value="a"> Mettre en forme un tableau avec des couleurs</label>
+                            <label><input type="radio" name="q10" value="b"> Résumer et analyser rapidement de grandes quantités de données</label>
+                            <label><input type="radio" name="q10" value="c"> Fusionner plusieurs fichiers Excel entre eux</label>
+                            <label><input type="radio" name="q10" value="d"> Je ne sais pas / Jamais utilisé de TCD</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Graphiques</span><span class="q-num">11</span></div>
+                        <div class="q-text">Pour comparer les ventes mensuelles de 3 produits sur un an, quel graphique ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q11" value="a"> Un camembert (secteurs)</label>
+                            <label><input type="radio" name="q11" value="b"> Un histogramme groupé ou courbes</label>
+                            <label><input type="radio" name="q11" value="c"> Un nuage de points</label>
+                            <label><input type="radio" name="q11" value="d"> Je ne sais pas</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Graphiques</span><span class="q-num">12</span></div>
+                        <div class="q-text">La mise en forme conditionnelle permet de :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q12" value="a"> Changer l'apparence d'une cellule selon sa valeur (rouge si négatif...)</label>
+                            <label><input type="radio" name="q12" value="b"> Appliquer un mot de passe au classeur</label>
+                            <label><input type="radio" name="q12" value="c"> Imprimer uniquement certaines cellules</label>
+                            <label><input type="radio" name="q12" value="d"> Je ne sais pas</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Attentes -->
+        <section class="form-section section-alt" id="sec-attentes">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">4</div>
+                    <div class="sec-info">
+                        <h2>Vos attentes</h2>
+                        <p>Aidez-nous à personnaliser la formation pour vous</p>
+                    </div>
+                </div>
+                <div class="attentes-grid">
+                    <div class="field-card">
+                        <label>Tâches courantes sur Excel</label>
+                        <textarea id="taches" placeholder="Ex : tableaux de suivi, factures, reporting mensuel, gestion de stock..."></textarea>
+                    </div>
+                    <div class="field-card">
+                        <label>Points à approfondir</label>
+                        <textarea id="attentes" placeholder="Ex : les formules SI, les tableaux croisés dynamiques, les graphiques..."></textarea>
+                    </div>
+                    <div class="field-card">
+                        <label>Difficultés à résoudre</label>
+                        <textarea id="difficultes" placeholder="Ex : je perds du temps sur des tâches manuelles, mes graphiques ne sont pas clairs..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submit -->
+        <div class="submit-band">
+            <button class="btn-submit" onclick="submitTest()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+                Valider et envoyer mes réponses
+            </button>
+            <p class="submit-note">Vos réponses seront transmises au formateur pour adapter la session à votre niveau.</p>
+        </div>
+
+    </div>
+
+    <!-- ═══ RESULTS ═══ -->
+    <div class="results-wrapper" id="resultsWrapper">
+
+        <div class="results-hero">
+            <div class="results-inner">
+                <div class="results-ring">
+                    <svg width="200" height="200">
+                        <defs>
+                            <linearGradient id="ringG" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:rgba(255,255,255,0.3)"/>
+                                <stop offset="100%" style="stop-color:rgba(255,255,255,0.1)"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12"/>
+                        <circle id="scoreCircle" cx="100" cy="100" r="82" fill="none" stroke="white" stroke-width="12"
+                                stroke-dasharray="515.2" stroke-dashoffset="515.2" stroke-linecap="round"/>
+                    </svg>
+                    <div class="ring-text" id="scoreText">0/12</div>
+                    <div class="ring-label">bonnes réponses</div>
+                </div>
+                <div class="results-meta">
+                    <h2 id="resultTitle">Vos résultats</h2>
+                    <div id="levelBadge" class="level-pill"></div>
+                    <p id="levelDesc"></p>
+                    <div class="module-bars" id="moduleBars"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-band">
+            <h3 style="font-size:1.2rem; font-weight:700; color:var(--ak-black); margin-bottom:20px;">Détail des réponses</h3>
+            <div class="review-grid" id="reviewGrid"></div>
+
+            <div class="attentes-review" id="attentesReview">
+                <h3>Vos attentes (transmises au formateur)</h3>
+                <div id="attentesContent"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-inner">
+                <button class="btn-print" onclick="window.print()">Imprimer / PDF</button>
+                <span class="sep"></span>
+                <span>Akademia Formation — Pro Conduite SAS</span>
+                <span class="sep"></span>
+                <span>Démarche qualité Qualiopi</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ── Stars ──
+        function setStars(btn, value) {
+            var container = btn.parentElement;
+            var buttons = container.querySelectorAll('button');
+            buttons.forEach(function(b, i) { b.classList.toggle('active', i < value); });
+            container.dataset.value = value;
+            container.closest('.assess-card').classList.add('has-value');
+            updateProgress();
+        }
+
+        // ── Progress ──
+        function updateProgress() {
+            var answered = 0;
+            for (var i = 1; i <= 12; i++) {
+                if (document.querySelector('input[name="q'+i+'"]:checked')) answered++;
+            }
+            document.getElementById('progressFill').style.width = (answered / 12 * 100) + '%';
+            document.querySelectorAll('.q-card').forEach(function(card, idx) {
+                if (document.querySelector('input[name="q'+(idx+1)+'"]:checked')) {
+                    card.classList.add('answered');
+                } else {
+                    card.classList.remove('answered');
+                }
+            });
+        }
+        document.querySelectorAll('input[type="radio"]').forEach(function(r) { r.addEventListener('change', updateProgress); });
+
+        // ── Side nav scroll tracking ──
+        var sections = ['sec-info','sec-eval','sec-qcm','sec-attentes'];
+        window.addEventListener('scroll', function() {
+            var scrollY = window.scrollY + 200;
+            var current = '';
+            sections.forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el && el.offsetTop <= scrollY) current = id;
+            });
+            document.querySelectorAll('.side-nav a').forEach(function(a) {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        });
+
+        // ── Answers ──
+        var correct = {q1:'b',q2:'b',q3:'a',q4:'b',q5:'b',q6:'b',q7:'a',q8:'b',q9:'a',q10:'b',q11:'b',q12:'a'};
+        var explanations = {
+            q1:"La référence absolue ($A$1) reste fixe lors de la recopie, la relative s'ajuste. Essentiel pour construire des formules recopiables.",
+            q2:"La poignée de recopie détecte les séries (mois, jours, nombres) et les poursuit automatiquement.",
+            q3:"La syntaxe Feuille!Cellule permet de référencer des données sur d'autres feuilles — base de la consolidation.",
+            q4:"SI teste une condition et renvoie une valeur si VRAI, une autre si FAUX. Fonction logique la plus utilisée.",
+            q5:"SOMME.SI additionne les cellules remplissant un critère. NB.SI compte. SOMME additionne tout.",
+            q6:"ET exige que TOUTES les conditions soient vraies simultanément. Avec OU, une seule suffit.",
+            q7:"Nommer une plage rend les formules lisibles et réduit les erreurs. =SOMME(Ventes) est plus clair.",
+            q8:"Le filtre automatique affiche/masque des lignes selon des critères sans supprimer de données.",
+            q9:"La validation de données contrôle la saisie via des listes déroulantes, évitant erreurs et incohérences.",
+            q10:"Le TCD synthétise et analyse des données massives en quelques clics sans modifier les données sources.",
+            q11:"L'histogramme ou la courbe compare l'évolution de plusieurs séries dans le temps. Le camembert : une seule série.",
+            q12:"La mise en forme conditionnelle applique automatiquement un format visuel selon des règles définies."
+        };
+        var moduleMap = {q1:1,q2:1,q3:1,q4:2,q5:2,q6:2,q7:2,q8:3,q9:3,q10:3,q11:4,q12:4};
+        var moduleNames = {1:"Rappels & productivité",2:"Fonctions de calcul",3:"Listes & TCD",4:"Graphiques & mise en forme"};
+        var moduleTotal = {1:3,2:4,3:3,4:2};
+
+        function submitTest() {
+            var nom = document.getElementById('nom').value.trim();
+            var prenom = document.getElementById('prenom').value.trim();
+            if (!nom || !prenom) { alert('Merci de renseigner votre nom et prénom.'); document.getElementById('nom').focus(); return; }
+
+            var cnt = 0;
+            for (var i=1;i<=12;i++) { if (document.querySelector('input[name="q'+i+'"]:checked')) cnt++; }
+            if (cnt < 6) { alert('Merci de répondre à au moins 6 questions sur 12.'); return; }
+
+            var totalCorrect = 0;
+            var modCorrect = {1:0,2:0,3:0,4:0};
+            var results = {};
+            for (var i=1;i<=12;i++) {
+                var k='q'+i, s=document.querySelector('input[name="'+k+'"]:checked');
+                var ua=s?s.value:null, ok=ua===correct[k];
+                if(ok){totalCorrect++;modCorrect[moduleMap[k]]++;}
+                results[k]={ua:ua,ok:ok};
+            }
+
+            var pct=totalCorrect/12;
+            var level,lc,ld;
+            if(pct>=0.85){level="Niveau avancé";lc="pill-avance";ld="Vous maîtrisez déjà bien les fonctions intermédiaires. La formation consolidera vos acquis et vous fera découvrir des techniques avancées.";}
+            else if(pct>=0.6){level="Niveau intermédiaire";lc="pill-intermediaire";ld="Bonnes bases ! Cette formation est parfaitement adaptée à votre profil pour passer au niveau supérieur.";}
+            else if(pct>=0.35){level="Niveau élémentaire";lc="pill-elementaire";ld="Vous connaissez les bases d'Excel. La formation vous apportera des outils concrets pour gagner en efficacité.";}
+            else{level="Niveau débutant";lc="pill-debutant";ld="Pas d'inquiétude ! Le formateur adaptera le rythme. Les rappels du Module 1 vous permettront de bien démarrer.";}
+
+            // Build email
+            var entreprise=document.getElementById('entreprise').value.trim();
+            var poste=document.getElementById('poste').value.trim();
+            var frequence=document.getElementById('frequence').value;
+            var taches=document.getElementById('taches').value.trim();
+            var attentes=document.getElementById('attentes').value.trim();
+            var difficultes=document.getElementById('difficultes').value.trim();
+
+            var assessLabels={bases:'Bases/Mise en forme',formules:'Formules',listes:'Tri/Filtres',graphiques:'Graphiques',tcd:'TCD'};
+            var sa='';
+            document.querySelectorAll('.stars').forEach(function(s){
+                sa+='  - '+(assessLabels[s.dataset.assess]||s.dataset.assess)+' : '+(s.dataset.value||'-')+'/4\n';
+            });
+
+            var dq='';
+            for(var i=1;i<=12;i++){
+                var k='q'+i,r=results[k];
+                var st=r.ua===null?'Non répondu':(r.ok?'Correct':'Incorrect');
+                var ut='Non répondu';
+                if(r.ua){ut=document.querySelector('input[name="'+k+'"][value="'+r.ua+'"]').parentElement.textContent.trim();}
+                dq+='Q'+i+' ['+st+'] : '+ut+'\n';
+            }
+
+            var body='TEST DE POSITIONNEMENT - EXCEL INTERMEDIAIRE\n'
+                +'=============================================\n\n'
+                +'STAGIAIRE\n'
+                +'Nom : '+nom+' '+prenom+'\n'
+                +'Entreprise : '+(entreprise||'-')+'\n'
+                +'Poste : '+(poste||'-')+'\n'
+                +'Fréquence Excel : '+(frequence||'-')+'\n\n'
+                +'AUTO-EVALUATION\n'+sa+'\n'
+                +'SCORE QCM : '+totalCorrect+'/12 ('+Math.round(pct*100)+'%) — '+level+'\n'
+                +'  Module 1 (Rappels) : '+modCorrect[1]+'/'+moduleTotal[1]+'\n'
+                +'  Module 2 (Fonctions) : '+modCorrect[2]+'/'+moduleTotal[2]+'\n'
+                +'  Module 3 (Listes/TCD) : '+modCorrect[3]+'/'+moduleTotal[3]+'\n'
+                +'  Module 4 (Graphiques) : '+modCorrect[4]+'/'+moduleTotal[4]+'\n\n'
+                +'DETAIL DES REPONSES\n'+dq+'\n'
+                +'ATTENTES\n'
+                +'Tâches courantes : '+(taches||'-')+'\n'
+                +'Points à approfondir : '+(attentes||'-')+'\n'
+                +'Difficultés : '+(difficultes||'-')+'\n';
+
+            var subj='Test de positionnement Excel Intermédiaire — '+prenom+' '+nom;
+            window.location.href='mailto:b.yassmine@ecf-proconduite.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+
+            // Show results
+            document.getElementById('formWrapper').style.display='none';
+            document.getElementById('sideNav').style.display='none';
+            var rw=document.getElementById('resultsWrapper');
+            rw.classList.add('visible');
+
+            // Toast
+            var toast=document.getElementById('emailToast');
+            toast.classList.add('show');
+            setTimeout(function(){toast.classList.remove('show');},5000);
+
+            // Ring animation
+            var circ=document.getElementById('scoreCircle');
+            var circumference=2*Math.PI*82;
+            circ.style.transition='stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1)';
+            setTimeout(function(){circ.style.strokeDashoffset=circumference-(pct*circumference);},200);
+
+            document.getElementById('scoreText').textContent=totalCorrect+'/12';
+            document.getElementById('resultTitle').textContent=prenom+', vos résultats';
+            var badge=document.getElementById('levelBadge');
+            badge.className='level-pill '+lc;
+            badge.textContent=level;
+            document.getElementById('levelDesc').textContent=ld;
+
+            // Module bars
+            var mbHtml='';
+            for(var m=1;m<=4;m++){
+                var p=Math.round((modCorrect[m]/moduleTotal[m])*100);
+                mbHtml+='<div class="mod-bar-card">'
+                    +'<div class="mbc-title">'+moduleNames[m]+'</div>'
+                    +'<div class="mbc-track"><div class="mbc-fill" style="width:'+p+'%"></div></div>'
+                    +'<div class="mbc-score">'+modCorrect[m]+'/'+moduleTotal[m]+'</div>'
+                    +'</div>';
+            }
+            document.getElementById('moduleBars').innerHTML=mbHtml;
+
+            // Review grid
+            var qTexts=document.querySelectorAll('.q-card .q-text');
+            var rHtml='';
+            for(var i=1;i<=12;i++){
+                var k='q'+i,r=results[k];
+                var cls=r.ok?'rc-correct':'rc-incorrect';
+                var txt=r.ok?'Bonne réponse':(r.ua?'Réponse incorrecte':'Non répondu');
+                var qText=qTexts[i-1].textContent;
+                rHtml+='<div class="review-card">'
+                    +'<div class="rc-q">'+i+'. '+qText+'</div>'
+                    +'<span class="rc-badge '+cls+'">'+txt+'</span>'
+                    +(!r.ok?'<div class="rc-expl">'+explanations[k]+'</div>':'')
+                    +'</div>';
+            }
+            document.getElementById('reviewGrid').innerHTML=rHtml;
+
+            // Attentes
+            var aHtml='';
+            if(taches) aHtml+='<p><strong>Tâches courantes :</strong> '+taches+'</p>';
+            if(attentes) aHtml+='<p><strong>Points à approfondir :</strong> '+attentes+'</p>';
+            if(difficultes) aHtml+='<p><strong>Difficultés :</strong> '+difficultes+'</p>';
+            if(!aHtml) aHtml='<p style="color:var(--ak-gray-400)">Aucune attente renseignée.</p>';
+            document.getElementById('attentesContent').innerHTML=aHtml;
+
+            window.scrollTo({top:0,behavior:'smooth'});
+        }
+    </script>
+</body>
+</html>

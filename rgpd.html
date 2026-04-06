@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test de positionnement RGPD — Akademia Formation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',Calibri,sans-serif; background:#F1F5F9; color:#0F172A; min-height:100vh; }
+  .header { background:linear-gradient(135deg,#2563EB,#7C3AED); color:#fff; padding:32px 24px; text-align:center; }
+  .header h1 { font-size:1.6rem; margin-bottom:6px; }
+  .header p { font-size:0.95rem; opacity:0.9; }
+  .container { max-width:760px; margin:0 auto; padding:24px 16px 60px; }
+  .intro { background:#fff; border-radius:12px; padding:24px; margin-bottom:24px; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+  .intro p { font-size:0.92rem; color:#475569; line-height:1.6; }
+  .question-card { background:#fff; border-radius:12px; padding:24px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,0.08); transition:border 0.2s; border-left:4px solid #E5E7EB; }
+  .question-card.answered { border-left-color:#2563EB; }
+  .question-card.correct { border-left-color:#10B981; }
+  .question-card.incorrect { border-left-color:#DC2626; }
+  .q-number { font-size:0.75rem; font-weight:600; color:#7C3AED; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .q-text { font-size:0.95rem; font-weight:600; color:#0F172A; margin-bottom:16px; line-height:1.5; }
+  .options { display:flex; flex-direction:column; gap:8px; }
+  .option { display:flex; align-items:flex-start; gap:10px; padding:10px 14px; border-radius:8px; border:1.5px solid #E5E7EB; cursor:pointer; transition:all 0.15s; font-size:0.9rem; line-height:1.4; }
+  .option:hover { border-color:#2563EB; background:#EFF6FF; }
+  .option.selected { border-color:#2563EB; background:#EFF6FF; }
+  .option.correct-answer { border-color:#10B981; background:#ECFDF5; }
+  .option.wrong-answer { border-color:#DC2626; background:#FEF2F2; }
+  .option.disabled { pointer-events:none; opacity:0.7; }
+  .option.disabled.correct-answer { opacity:1; }
+  .option.disabled.wrong-answer { opacity:1; }
+  .option input { margin-top:2px; accent-color:#2563EB; }
+  .feedback { margin-top:12px; padding:10px 14px; border-radius:8px; font-size:0.85rem; line-height:1.5; display:none; }
+  .feedback.show { display:block; }
+  .feedback.correct { background:#ECFDF5; color:#065F46; }
+  .feedback.incorrect { background:#FEF2F2; color:#991B1B; }
+  .btn-submit { display:block; width:100%; max-width:320px; margin:32px auto 0; padding:14px 28px; background:linear-gradient(135deg,#2563EB,#7C3AED); color:#fff; border:none; border-radius:10px; font-size:1rem; font-weight:600; cursor:pointer; transition:transform 0.1s,box-shadow 0.2s; }
+  .btn-submit:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(37,99,235,0.3); }
+  .btn-submit:disabled { opacity:0.5; cursor:not-allowed; transform:none; box-shadow:none; }
+  .result-card { display:none; background:#fff; border-radius:12px; padding:32px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.1); margin-top:24px; }
+  .result-card.show { display:block; }
+  .score-circle { width:120px; height:120px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:2rem; font-weight:700; color:#fff; }
+  .score-circle.high { background:linear-gradient(135deg,#10B981,#059669); }
+  .score-circle.mid { background:linear-gradient(135deg,#F97316,#EA580C); }
+  .score-circle.low { background:linear-gradient(135deg,#DC2626,#B91C1C); }
+  .result-title { font-size:1.3rem; font-weight:700; margin-bottom:8px; }
+  .result-desc { font-size:0.92rem; color:#475569; line-height:1.6; max-width:500px; margin:0 auto; }
+  .footer { text-align:center; padding:20px; font-size:0.75rem; color:#94A3B8; }
+  .id-form { background:#fff; border-radius:12px; padding:28px; margin-bottom:24px; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+  .id-form h2 { font-size:1rem; font-weight:700; color:#0F172A; margin-bottom:16px; }
+  .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .form-group { display:flex; flex-direction:column; gap:4px; }
+  .form-group.full { grid-column:1/-1; }
+  .form-group label { font-size:0.8rem; font-weight:600; color:#475569; }
+  .form-group input, .form-group select { padding:10px 12px; border:1.5px solid #E5E7EB; border-radius:8px; font-size:0.9rem; font-family:inherit; transition:border 0.2s; }
+  .form-group input:focus, .form-group select:focus { outline:none; border-color:#2563EB; box-shadow:0 0 0 3px rgba(37,99,235,0.1); }
+  .form-group input.error { border-color:#DC2626; }
+  .btn-start { display:block; width:100%; max-width:280px; margin:20px auto 0; padding:12px 24px; background:linear-gradient(135deg,#2563EB,#7C3AED); color:#fff; border:none; border-radius:10px; font-size:0.95rem; font-weight:600; cursor:pointer; transition:transform 0.1s; }
+  .btn-start:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(37,99,235,0.3); }
+  .quiz-section { display:none; }
+  .quiz-section.show { display:block; }
+  .progress-bar { height:4px; background:#E5E7EB; border-radius:2px; margin-bottom:24px; overflow:hidden; }
+  .progress-fill { height:100%; background:linear-gradient(90deg,#2563EB,#7C3AED); transition:width 0.3s; border-radius:2px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Test de positionnement RGPD</h1>
+  <p>Akademia Formation — Ref. AKTO 199636 — 15 questions</p>
+</div>
+<div class="container">
+
+  <!-- IDENTIFICATION FORM -->
+  <div class="id-form" id="idForm">
+    <h2>Informations du participant</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="lastName">Nom *</label>
+        <input type="text" id="lastName" placeholder="Votre nom" required>
+      </div>
+      <div class="form-group">
+        <label for="firstName">Prénom *</label>
+        <input type="text" id="firstName" placeholder="Votre prénom" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input type="email" id="email" placeholder="votre.email@exemple.com" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Téléphone</label>
+        <input type="tel" id="phone" placeholder="06 00 00 00 00">
+      </div>
+      <div class="form-group">
+        <label for="company">Entreprise / Organisme *</label>
+        <input type="text" id="company" placeholder="Nom de votre entreprise" required>
+      </div>
+      <div class="form-group">
+        <label for="position">Fonction / Poste</label>
+        <input type="text" id="position" placeholder="Ex : Responsable RH, Dirigeant...">
+      </div>
+      <div class="form-group full">
+        <label for="sector">Secteur d'activité</label>
+        <select id="sector">
+          <option value="">-- Sélectionnez --</option>
+          <option value="services">Services</option>
+          <option value="commerce">Commerce / Distribution</option>
+          <option value="industrie">Industrie / BTP</option>
+          <option value="sante">Santé / Médico-social</option>
+          <option value="education">Éducation / Formation</option>
+          <option value="public">Administration publique</option>
+          <option value="tech">Informatique / Numérique</option>
+          <option value="transport">Transport / Logistique</option>
+          <option value="autre">Autre</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-start" onclick="startQuiz()">Commencer le test</button>
+  </div>
+
+  <!-- QUIZ SECTION (hidden until form submitted) -->
+  <div class="quiz-section" id="quizSection">
+    <div class="intro">
+      <p><strong>Objectif :</strong> évaluer votre niveau de connaissances sur le RGPD avant la formation. Ce test n'est pas noté. Répondez à chaque question puis cliquez sur <em>Valider mes réponses</em>.</p>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div id="questionsContainer"></div>
+    <button class="btn-submit" id="btnSubmit" onclick="submitQuiz()">Valider mes réponses</button>
+    <div class="result-card" id="resultCard">
+      <div class="score-circle" id="scoreCircle"></div>
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-desc" id="resultDesc"></div>
+      <p style="margin-top:16px;font-size:0.85rem;color:#64748B;" id="resultParticipant"></p>
+      <button class="btn-start" id="btnSendResults" style="display:none;margin-top:20px;" onclick="sendResults()">📧 Envoyer mes résultats au formateur</button>
+      <p id="sendConfirm" style="display:none;margin-top:12px;font-size:0.85rem;color:#10B981;font-weight:600;">✅ Votre client email va s'ouvrir avec les résultats pré-remplis. Cliquez sur Envoyer.</p>
+    </div>
+  </div>
+
+</div>
+<div class="footer">Les fondamentaux de la RGPD — Akademia Formation | Ref. AKTO 199636</div>
+
+<script>
+let participantInfo = {};
+
+function startQuiz() {
+  const lastName = document.getElementById('lastName').value.trim();
+  const firstName = document.getElementById('firstName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const company = document.getElementById('company').value.trim();
+
+  // Validate required fields
+  let valid = true;
+  ['lastName','firstName','email','company'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) { el.classList.add('error'); valid = false; }
+    else { el.classList.remove('error'); }
+  });
+
+  if (!valid) { alert('Veuillez remplir les champs obligatoires (*)'); return; }
+
+  participantInfo = {
+    nom: lastName,
+    prenom: firstName,
+    email: email,
+    telephone: document.getElementById('phone').value.trim(),
+    entreprise: company,
+    fonction: document.getElementById('position').value.trim(),
+    secteur: document.getElementById('sector').value
+  };
+
+  document.getElementById('idForm').style.display = 'none';
+  document.getElementById('quizSection').classList.add('show');
+  renderQuestions();
+}
+
+const questions = [
+  {
+    q: "Que signifie l'acronyme RGPD ?",
+    options: [
+      "Reglement General de Protection Digitale",
+      "Reglement General sur la Protection des Donnees",
+      "Reglementation Generale des Processus de Donnees",
+      "Reglement Global de Protection des Droits"
+    ],
+    correct: 1,
+    explanation: "RGPD = Reglement General sur la Protection des Donnees, adopte le 27 avril 2016 par l'Union europeenne."
+  },
+  {
+    q: "Depuis quelle date le RGPD est-il applicable ?",
+    options: [
+      "27 avril 2016",
+      "1er janvier 2018",
+      "25 mai 2018",
+      "25 mai 2020"
+    ],
+    correct: 2,
+    explanation: "Le RGPD a ete adopte le 27 avril 2016 mais n'est applicable que depuis le 25 mai 2018."
+  },
+  {
+    q: "Laquelle de ces informations est une donnee personnelle ?",
+    options: [
+      "Le chiffre d'affaires d'une entreprise",
+      "Le nom de marque d'un produit",
+      "Une adresse IP",
+      "Le numero SIRET d'une societe"
+    ],
+    correct: 2,
+    explanation: "Une adresse IP permet d'identifier indirectement une personne physique : c'est une donnee personnelle (art. 4.1)."
+  },
+  {
+    q: "Qu'est-ce qu'une donnee sensible au sens du RGPD ?",
+    options: [
+      "Toute donnee confidentielle de l'entreprise",
+      "Les donnees de sante, opinions politiques, convictions religieuses, etc.",
+      "Les donnees chiffrees en base de donnees",
+      "Les donnees des clients VIP"
+    ],
+    correct: 1,
+    explanation: "L'article 9 du RGPD definit les categories particulieres : sante, opinions politiques, convictions religieuses, donnees biometriques, etc."
+  },
+  {
+    q: "Combien de principes fondamentaux le RGPD enumere-t-il a l'article 5 ?",
+    options: [
+      "4",
+      "6",
+      "8",
+      "10"
+    ],
+    correct: 1,
+    explanation: "L'article 5 enumere 6 principes : liceite, limitation des finalites, minimisation, exactitude, limitation de conservation, integrite/confidentialite."
+  },
+  {
+    q: "Le principe de minimisation signifie :",
+    options: [
+      "Reduire le nombre de salaries ayant acces aux donnees",
+      "Ne collecter que les donnees strictement necessaires a la finalite",
+      "Minimiser les couts de stockage des donnees",
+      "Limiter le nombre de traitements dans le registre"
+    ],
+    correct: 1,
+    explanation: "Art. 5.1.c : ne collecter que les donnees adequates, pertinentes et limitees a ce qui est necessaire."
+  },
+  {
+    q: "Combien de bases legales le RGPD prevoit-il pour autoriser un traitement ?",
+    options: [
+      "2 (consentement et contrat)",
+      "4",
+      "6",
+      "8"
+    ],
+    correct: 2,
+    explanation: "Art. 6 : consentement, contrat, obligation legale, interet vital, mission publique, interet legitime."
+  },
+  {
+    q: "Le consentement RGPD doit etre :",
+    options: [
+      "Ecrit et signe devant temoin",
+      "Implicite si la personne ne refuse pas",
+      "Libre, specifique, eclaire et univoque",
+      "Donne une seule fois pour toujours"
+    ],
+    correct: 2,
+    explanation: "Art. 4.11 : le consentement doit etre libre, specifique, eclaire et univoque. Une case pre-cochee n'est pas valide."
+  },
+  {
+    q: "Qui est le responsable de traitement ?",
+    options: [
+      "Le prestataire informatique qui heberge les donnees",
+      "Le DPO de l'entreprise",
+      "La personne ou l'organisme qui determine les finalites et moyens du traitement",
+      "La CNIL"
+    ],
+    correct: 2,
+    explanation: "Art. 4.7 : le responsable de traitement determine les finalites et les moyens. C'est souvent l'entreprise elle-meme."
+  },
+  {
+    q: "Dans quel delai devez-vous repondre a une demande d'acces aux donnees ?",
+    options: [
+      "48 heures",
+      "2 semaines",
+      "1 mois",
+      "3 mois"
+    ],
+    correct: 2,
+    explanation: "Art. 12 : le delai de reponse est d'1 mois maximum, prolongeable a 3 mois en cas de complexite."
+  },
+  {
+    q: "Le droit d'opposition a la prospection commerciale est :",
+    options: [
+      "Soumis a la justification d'un motif legitime",
+      "Absolu — aucune justification necessaire",
+      "Limite aux emails uniquement",
+      "Impossible si le consentement initial a ete donne"
+    ],
+    correct: 1,
+    explanation: "Art. 21 : pour la prospection commerciale, le droit d'opposition est absolu, sans besoin de motif."
+  },
+  {
+    q: "Qu'est-ce que le registre des traitements ?",
+    options: [
+      "Un registre des salaries de l'entreprise",
+      "Un document recensant tous les traitements de donnees personnelles de l'organisme",
+      "Un fichier contenant toutes les donnees collectees",
+      "Un registre des sanctions CNIL"
+    ],
+    correct: 1,
+    explanation: "Art. 30 : tout organisme doit tenir un registre listant l'ensemble de ses traitements de donnees personnelles."
+  },
+  {
+    q: "En cas de violation de donnees, dans quel delai faut-il notifier la CNIL ?",
+    options: [
+      "24 heures",
+      "72 heures",
+      "7 jours",
+      "1 mois"
+    ],
+    correct: 1,
+    explanation: "Art. 33 : notification a la CNIL dans les 72 heures si la violation presente un risque pour les droits des personnes."
+  },
+  {
+    q: "Quel est le montant maximum d'amende prevu par le RGPD ?",
+    options: [
+      "150 000 euros",
+      "1 million d'euros",
+      "10 millions d'euros ou 2% du CA mondial",
+      "20 millions d'euros ou 4% du CA mondial annuel"
+    ],
+    correct: 3,
+    explanation: "Art. 83 : l'amende peut atteindre 20 millions d'euros ou 4% du chiffre d'affaires annuel mondial (le plus eleve)."
+  },
+  {
+    q: "Le principe d'accountability signifie que :",
+    options: [
+      "L'entreprise doit publier un rapport annuel sur ses traitements",
+      "La CNIL doit prouver la faute de l'entreprise",
+      "Le responsable de traitement doit pouvoir demontrer sa conformite au RGPD",
+      "Les donnees doivent etre comptabilisees dans un registre financier"
+    ],
+    correct: 2,
+    explanation: "Art. 5.2 : le responsable de traitement doit pouvoir DEMONTRER sa conformite. La charge de la preuve est inversee."
+  }
+];
+
+let answered = 0;
+
+function renderQuestions() {
+  const container = document.getElementById('questionsContainer');
+  container.innerHTML = '';
+  answered = 0;
+  questions.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'q' + i;
+    let optionsHtml = q.options.map((o, j) =>
+      `<label class="option" id="opt${i}_${j}" onclick="selectOption(${i},${j})">
+        <input type="radio" name="q${i}" value="${j}"> ${o}
+      </label>`
+    ).join('');
+    card.innerHTML = `
+      <div class="q-number">Question ${i+1} / ${questions.length}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">${optionsHtml}</div>
+      <div class="feedback" id="fb${i}"></div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function selectOption(qi, oi) {
+  const card = document.getElementById('q' + qi);
+  if (card.classList.contains('correct') || card.classList.contains('incorrect')) return;
+  card.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  document.getElementById('opt' + qi + '_' + oi).classList.add('selected');
+  if (!card.classList.contains('answered')) {
+    card.classList.add('answered');
+    answered++;
+    document.getElementById('progressFill').style.width = (answered/questions.length*100) + '%';
+  }
+}
+
+function submitQuiz() {
+  let score = 0;
+  questions.forEach((q, i) => {
+    const card = document.getElementById('q' + i);
+    const sel = card.querySelector('input[type=radio]:checked');
+    const fb = document.getElementById('fb' + i);
+
+    card.querySelectorAll('.option').forEach(o => o.classList.add('disabled'));
+
+    // Highlight correct
+    document.getElementById('opt' + i + '_' + q.correct).classList.add('correct-answer');
+
+    if (sel) {
+      const chosen = parseInt(sel.value);
+      if (chosen === q.correct) {
+        score++;
+        card.classList.add('correct');
+        fb.className = 'feedback correct show';
+        fb.innerHTML = '<strong>✓ Bonne reponse !</strong> ' + q.explanation;
+      } else {
+        card.classList.add('incorrect');
+        document.getElementById('opt' + i + '_' + chosen).classList.add('wrong-answer');
+        fb.className = 'feedback incorrect show';
+        fb.innerHTML = '<strong>✗ Mauvaise reponse.</strong> ' + q.explanation;
+      }
+    } else {
+      card.classList.add('incorrect');
+      fb.className = 'feedback incorrect show';
+      fb.innerHTML = '<strong>✗ Pas de reponse.</strong> ' + q.explanation;
+    }
+  });
+
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('btnSubmit').disabled = true;
+
+  // Show result
+  const pct = Math.round(score / questions.length * 100);
+  const circle = document.getElementById('scoreCircle');
+  const title = document.getElementById('resultTitle');
+  const desc = document.getElementById('resultDesc');
+
+  circle.textContent = score + '/' + questions.length;
+  if (pct >= 70) {
+    circle.className = 'score-circle high';
+    title.textContent = 'Bon niveau !';
+    title.style.color = '#10B981';
+    desc.textContent = 'Vous avez de solides bases en RGPD (' + pct + '%). La formation vous permettra d\'approfondir vos connaissances et de les mettre en pratique avec des cas concrets.';
+  } else if (pct >= 40) {
+    circle.className = 'score-circle mid';
+    title.textContent = 'Niveau intermediaire';
+    title.style.color = '#F97316';
+    desc.textContent = 'Vous connaissez certaines notions de base (' + pct + '%), mais des lacunes subsistent. La formation vous apportera les connaissances necessaires pour maitriser le sujet.';
+  } else {
+    circle.className = 'score-circle low';
+    title.textContent = 'Niveau debutant';
+    title.style.color = '#DC2626';
+    desc.textContent = 'Le RGPD est un sujet nouveau pour vous (' + pct + '%). C\'est tout a fait normal ! La formation est concue pour partir de zero et vous rendre autonome.';
+  }
+
+  // Show participant info in results
+  const partEl = document.getElementById('resultParticipant');
+  if (partEl && participantInfo.prenom) {
+    partEl.textContent = 'Participant : ' + participantInfo.prenom + ' ' + participantInfo.nom + ' — ' + participantInfo.entreprise;
+  }
+
+  // Store score for email
+  window.quizScore = score;
+  window.quizTotal = questions.length;
+  window.quizPct = pct;
+
+  // Show send button
+  document.getElementById('btnSendResults').style.display = 'block';
+
+  document.getElementById('resultCard').classList.add('show');
+  document.getElementById('resultCard').scrollIntoView({ behavior:'smooth', block:'center' });
+}
+
+function sendResults() {
+  const p = participantInfo;
+  const score = window.quizScore;
+  const total = window.quizTotal;
+  const pct = window.quizPct;
+
+  // Build detailed results
+  let details = '';
+  questions.forEach((q, i) => {
+    const card = document.getElementById('q' + i);
+    const sel = card.querySelector('input[type=radio]:checked');
+    const chosen = sel ? parseInt(sel.value) : -1;
+    const correct = chosen === q.correct;
+    details += 'Q' + (i+1) + '. ' + q.q + '%0D%0A';
+    details += '   Réponse : ' + (chosen >= 0 ? q.options[chosen] : 'Pas de réponse') + (correct ? ' ✓' : ' ✗') + '%0D%0A';
+    if (!correct) {
+      details += '   Bonne réponse : ' + q.options[q.correct] + '%0D%0A';
+    }
+    details += '%0D%0A';
+  });
+
+  const niveau = pct >= 70 ? 'Bon niveau' : (pct >= 40 ? 'Intermédiaire' : 'Débutant');
+
+  const subject = encodeURIComponent('Test de positionnement RGPD — ' + p.prenom + ' ' + p.nom + ' — ' + score + '/' + total);
+
+  const body = 'RÉSULTATS DU TEST DE POSITIONNEMENT RGPD%0D%0A'
+    + '========================================%0D%0A%0D%0A'
+    + 'PARTICIPANT%0D%0A'
+    + 'Nom : ' + p.nom + '%0D%0A'
+    + 'Prénom : ' + p.prenom + '%0D%0A'
+    + 'Email : ' + p.email + '%0D%0A'
+    + 'Téléphone : ' + (p.telephone || 'Non renseigné') + '%0D%0A'
+    + 'Entreprise : ' + p.entreprise + '%0D%0A'
+    + 'Fonction : ' + (p.fonction || 'Non renseigné') + '%0D%0A'
+    + 'Secteur : ' + (p.secteur || 'Non renseigné') + '%0D%0A'
+    + '%0D%0A'
+    + 'SCORE : ' + score + '/' + total + ' (' + pct + '%) — Niveau : ' + niveau + '%0D%0A'
+    + '========================================%0D%0A%0D%0A'
+    + 'DÉTAIL DES RÉPONSES%0D%0A%0D%0A'
+    + details
+    + '========================================%0D%0A'
+    + 'Formation : Les fondamentaux de la RGPD — Réf. AKTO 199636%0D%0A'
+    + 'Akademia Formation';
+
+  window.location.href = 'mailto:b.yassmine@ecf-proconduite.com?subject=' + subject + '&body=' + body;
+
+  document.getElementById('sendConfirm').style.display = 'block';
+}
+</script>
+</body>
+</html>
