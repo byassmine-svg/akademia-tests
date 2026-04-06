@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test de positionnement — Excel Initiation | Akademia Formation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',Calibri,sans-serif; background:#F1F5F9; color:#0F172A; min-height:100vh; }
+  .header { background:linear-gradient(135deg,#2563EB,#7C3AED); color:#fff; padding:32px 24px; text-align:center; }
+  .header h1 { font-size:1.6rem; margin-bottom:6px; }
+  .header p { font-size:0.95rem; opacity:0.9; }
+  .container { max-width:760px; margin:0 auto; padding:24px 16px 60px; }
+  .id-form { background:#fff; border-radius:12px; padding:28px; margin-bottom:24px; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+  .id-form h2 { font-size:1rem; font-weight:700; color:#0F172A; margin-bottom:16px; }
+  .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .form-group { display:flex; flex-direction:column; gap:4px; }
+  .form-group.full { grid-column:1/-1; }
+  .form-group label { font-size:0.8rem; font-weight:600; color:#475569; }
+  .form-group input, .form-group select { padding:10px 12px; border:1.5px solid #E5E7EB; border-radius:8px; font-size:0.9rem; font-family:inherit; transition:border 0.2s; }
+  .form-group input:focus, .form-group select:focus { outline:none; border-color:#2563EB; box-shadow:0 0 0 3px rgba(37,99,235,0.1); }
+  .form-group input.error { border-color:#DC2626; }
+  .btn-start { display:block; width:100%; max-width:280px; margin:20px auto 0; padding:12px 24px; background:linear-gradient(135deg,#2563EB,#7C3AED); color:#fff; border:none; border-radius:10px; font-size:0.95rem; font-weight:600; cursor:pointer; transition:transform 0.1s; }
+  .btn-start:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(37,99,235,0.3); }
+  .quiz-section { display:none; }
+  .quiz-section.show { display:block; }
+  .intro { background:#fff; border-radius:12px; padding:24px; margin-bottom:24px; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+  .intro p { font-size:0.92rem; color:#475569; line-height:1.6; }
+  .question-card { background:#fff; border-radius:12px; padding:24px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,0.08); transition:border 0.2s; border-left:4px solid #E5E7EB; }
+  .question-card.answered { border-left-color:#2563EB; }
+  .question-card.correct { border-left-color:#10B981; }
+  .question-card.incorrect { border-left-color:#DC2626; }
+  .q-number { font-size:0.75rem; font-weight:600; color:#7C3AED; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .q-text { font-size:0.95rem; font-weight:600; color:#0F172A; margin-bottom:16px; line-height:1.5; }
+  .options { display:flex; flex-direction:column; gap:8px; }
+  .option { display:flex; align-items:flex-start; gap:10px; padding:10px 14px; border-radius:8px; border:1.5px solid #E5E7EB; cursor:pointer; transition:all 0.15s; font-size:0.9rem; line-height:1.4; }
+  .option:hover { border-color:#2563EB; background:#EFF6FF; }
+  .option.selected { border-color:#2563EB; background:#EFF6FF; }
+  .option.correct-answer { border-color:#10B981; background:#ECFDF5; }
+  .option.wrong-answer { border-color:#DC2626; background:#FEF2F2; }
+  .option.disabled { pointer-events:none; opacity:0.7; }
+  .option.disabled.correct-answer { opacity:1; }
+  .option.disabled.wrong-answer { opacity:1; }
+  .option input { margin-top:2px; accent-color:#2563EB; }
+  .feedback { margin-top:12px; padding:10px 14px; border-radius:8px; font-size:0.85rem; line-height:1.5; display:none; }
+  .feedback.show { display:block; }
+  .feedback.correct { background:#ECFDF5; color:#065F46; }
+  .feedback.incorrect { background:#FEF2F2; color:#991B1B; }
+  .btn-submit { display:block; width:100%; max-width:320px; margin:32px auto 0; padding:14px 28px; background:linear-gradient(135deg,#2563EB,#7C3AED); color:#fff; border:none; border-radius:10px; font-size:1rem; font-weight:600; cursor:pointer; transition:transform 0.1s,box-shadow 0.2s; }
+  .btn-submit:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(37,99,235,0.3); }
+  .btn-submit:disabled { opacity:0.5; cursor:not-allowed; transform:none; box-shadow:none; }
+  .result-card { display:none; background:#fff; border-radius:12px; padding:32px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.1); margin-top:24px; }
+  .result-card.show { display:block; }
+  .score-circle { width:120px; height:120px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:2rem; font-weight:700; color:#fff; }
+  .score-circle.high { background:linear-gradient(135deg,#10B981,#059669); }
+  .score-circle.mid { background:linear-gradient(135deg,#F97316,#EA580C); }
+  .score-circle.low { background:linear-gradient(135deg,#DC2626,#B91C1C); }
+  .result-title { font-size:1.3rem; font-weight:700; margin-bottom:8px; }
+  .result-desc { font-size:0.92rem; color:#475569; line-height:1.6; max-width:500px; margin:0 auto; }
+  .progress-bar { height:4px; background:#E5E7EB; border-radius:2px; margin-bottom:24px; overflow:hidden; }
+  .progress-fill { height:100%; background:linear-gradient(90deg,#2563EB,#7C3AED); transition:width 0.3s; border-radius:2px; }
+  .footer { text-align:center; padding:20px; font-size:0.75rem; color:#94A3B8; }
+  @media(max-width:600px){ .form-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Test de positionnement — Excel Initiation</h1>
+  <p>Akademia Formation — Réf. AKTO 199623 — 15 questions</p>
+</div>
+<div class="container">
+
+  <div class="id-form" id="idForm">
+    <h2>Informations du participant</h2>
+    <div class="form-grid">
+      <div class="form-group"><label for="lastName">Nom *</label><input type="text" id="lastName" placeholder="Votre nom" required></div>
+      <div class="form-group"><label for="firstName">Prénom *</label><input type="text" id="firstName" placeholder="Votre prénom" required></div>
+      <div class="form-group"><label for="email">Email *</label><input type="email" id="email" placeholder="votre.email@exemple.com" required></div>
+      <div class="form-group"><label for="phone">Téléphone</label><input type="tel" id="phone" placeholder="06 00 00 00 00"></div>
+      <div class="form-group"><label for="company">Entreprise / Organisme *</label><input type="text" id="company" placeholder="Nom de votre entreprise" required></div>
+      <div class="form-group"><label for="position">Fonction / Poste</label><input type="text" id="position" placeholder="Ex : Assistante, Manager..."></div>
+      <div class="form-group full">
+        <label for="excelUsage">Utilisez-vous Excel actuellement ?</label>
+        <select id="excelUsage">
+          <option value="">-- Sélectionnez --</option>
+          <option value="jamais">Jamais — je n'ai jamais ouvert Excel</option>
+          <option value="rarement">Rarement — quelques fois par an</option>
+          <option value="occasionnel">Occasionnellement — quelques fois par mois</option>
+          <option value="regulier">Régulièrement — plusieurs fois par semaine</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-start" onclick="startQuiz()">Commencer le test</button>
+  </div>
+
+  <div class="quiz-section" id="quizSection">
+    <div class="intro">
+      <p><strong>Objectif :</strong> évaluer votre niveau actuel sur Excel avant la formation. Ce test n'est <strong>pas noté</strong> — il n'y a aucune mauvaise réponse embarrassante. Répondez spontanément, même si vous n'êtes pas sûr(e). Vos réponses permettront au formateur d'adapter le contenu à vos besoins.</p>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div id="questionsContainer"></div>
+    <button class="btn-submit" id="btnSubmit" onclick="submitQuiz()">Valider mes réponses</button>
+    <div class="result-card" id="resultCard">
+      <div class="score-circle" id="scoreCircle"></div>
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-desc" id="resultDesc"></div>
+      <p style="margin-top:16px;font-size:0.85rem;color:#64748B;" id="resultParticipant"></p>
+      <p id="sendConfirm" style="display:none;margin-top:12px;font-size:0.85rem;color:#10B981;font-weight:600;"></p>
+    </div>
+  </div>
+
+</div>
+<div class="footer">Excel Initiation — Akademia Formation | Réf. AKTO 199623</div>
+
+<script>
+let participantInfo = {};
+
+function startQuiz() {
+  let valid = true;
+  ['lastName','firstName','email','company'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) { el.classList.add('error'); valid = false; }
+    else { el.classList.remove('error'); }
+  });
+  if (!valid) { alert('Veuillez remplir les champs obligatoires (*)'); return; }
+
+  participantInfo = {
+    nom: document.getElementById('lastName').value.trim(),
+    prenom: document.getElementById('firstName').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    telephone: document.getElementById('phone').value.trim(),
+    entreprise: document.getElementById('company').value.trim(),
+    fonction: document.getElementById('position').value.trim(),
+    utilisation: document.getElementById('excelUsage').value
+  };
+
+  document.getElementById('idForm').style.display = 'none';
+  document.getElementById('quizSection').classList.add('show');
+  renderQuestions();
+}
+
+const questions = [
+  {
+    q: "Qu'est-ce qu'un classeur Excel ?",
+    options: ["Un dossier sur l'ordinateur","Un fichier Excel contenant une ou plusieurs feuilles de calcul","Un logiciel de traitement de texte","Un tableau imprimé"],
+    correct: 1,
+    explanation: "Un classeur est un fichier Excel (.xlsx) qui peut contenir plusieurs feuilles (onglets) de calcul."
+  },
+  {
+    q: "Comment s'appelle l'intersection d'une ligne et d'une colonne ?",
+    options: ["Un champ","Un bloc","Une cellule","Un pixel"],
+    correct: 2,
+    explanation: "L'intersection d'une ligne (numéro) et d'une colonne (lettre) forme une cellule, identifiée par son adresse (ex : B3)."
+  },
+  {
+    q: "Quelle est l'adresse de la cellule en colonne C, ligne 5 ?",
+    options: ["5C","C5","C-5","Cellule 5,3"],
+    correct: 1,
+    explanation: "L'adresse d'une cellule = lettre de colonne + numéro de ligne. Colonne C, ligne 5 = C5."
+  },
+  {
+    q: "Pour enregistrer un fichier Excel, quel raccourci clavier utilise-t-on ?",
+    options: ["Ctrl+E","Ctrl+P","Ctrl+S","Ctrl+N"],
+    correct: 2,
+    explanation: "Ctrl+S (Save) enregistre le fichier. Ctrl+P = imprimer, Ctrl+N = nouveau fichier."
+  },
+  {
+    q: "Quelle formule permet d'additionner les cellules A1 à A10 ?",
+    options: ["=ADDITION(A1:A10)","=SOMME(A1:A10)","=TOTAL(A1:A10)","=A1+A2+A3+A4+A5+A6+A7+A8+A9+A10"],
+    correct: 1,
+    explanation: "La fonction =SOMME(A1:A10) additionne toutes les valeurs de A1 à A10. C'est la fonction la plus utilisée dans Excel."
+  },
+  {
+    q: "Que signifie le symbole « : » dans la formule =SOMME(B2:B20) ?",
+    options: ["Division","De... à... (plage de cellules)","Multiplication","Séparateur d'arguments"],
+    correct: 1,
+    explanation: "Le « : » désigne une plage continue. B2:B20 signifie « de B2 à B20, toutes les cellules incluses »."
+  },
+  {
+    q: "Comment calcule-t-on la moyenne des cellules C1 à C8 ?",
+    options: ["=MOY(C1:C8)","=MOYENNE(C1:C8)","=AVERAGE(C1:C8)","=SOMME(C1:C8)/8"],
+    correct: 1,
+    explanation: "La fonction française est =MOYENNE(). =AVERAGE() est la version anglaise. Les deux dernières fonctionnent aussi mais MOYENNE est la bonne pratique."
+  },
+  {
+    q: "Par défaut, les nombres dans Excel sont alignés :",
+    options: ["À gauche","Au centre","À droite","Ça dépend du nombre"],
+    correct: 2,
+    explanation: "Excel aligne automatiquement les nombres à droite et le texte à gauche. C'est un bon indicateur pour vérifier qu'Excel reconnaît bien un nombre."
+  },
+  {
+    q: "Quel onglet du ruban contient les options de mise en forme (police, couleurs, bordures) ?",
+    options: ["Insertion","Mise en page","Accueil","Données"],
+    correct: 2,
+    explanation: "L'onglet Accueil contient les outils de mise en forme les plus courants : police, taille, couleurs, alignement, bordures, format des nombres."
+  },
+  {
+    q: "Pour mettre en gras le texte d'une cellule, quel raccourci utilise-t-on ?",
+    options: ["Ctrl+G","Ctrl+B","Ctrl+M","Ctrl+I"],
+    correct: 1,
+    explanation: "Ctrl+B (Bold) met en gras. Ctrl+I = italique, Ctrl+U = souligné. Le G n'existe pas comme raccourci Excel."
+  },
+  {
+    q: "Qu'est-ce que le remplissage automatique (poignée de recopie) ?",
+    options: ["Un outil pour colorier les cellules","Le petit carré en bas à droite de la cellule qui permet de recopier ou créer des séries","Un raccourci pour remplir tout le tableau","Une fonction de calcul"],
+    correct: 1,
+    explanation: "La poignée de recopie est le petit carré noir en bas à droite de la sélection. En le tirant, on peut recopier des formules ou créer des séries (1,2,3... ou Lundi, Mardi...)."
+  },
+  {
+    q: "Quel type de graphique est le mieux adapté pour comparer des valeurs entre catégories (ex : CA par région) ?",
+    options: ["Un camembert (secteur)","Une courbe","Un histogramme (barres)","Un nuage de points"],
+    correct: 2,
+    explanation: "L'histogramme (barres verticales) est idéal pour comparer des valeurs entre catégories. Le camembert montre des proportions, la courbe des évolutions."
+  },
+  {
+    q: "Pour créer un graphique dans Excel, on utilise l'onglet :",
+    options: ["Accueil","Mise en page","Insertion","Formules"],
+    correct: 2,
+    explanation: "Les graphiques se créent depuis l'onglet Insertion > Graphiques. Sélectionnez d'abord vos données, puis choisissez le type de graphique."
+  },
+  {
+    q: "Que fait la touche Suppr sur une cellule sélectionnée ?",
+    options: ["Supprime la cellule entière","Efface le contenu de la cellule (en gardant la mise en forme)","Supprime la ligne entière","Ferme le fichier"],
+    correct: 1,
+    explanation: "La touche Suppr efface le contenu de la cellule mais conserve la mise en forme (couleurs, bordures). Pour tout supprimer : clic droit > Effacer tout."
+  },
+  {
+    q: "Quelle est la différence entre « Enregistrer » et « Enregistrer sous » ?",
+    options: ["Il n'y a aucune différence","Enregistrer met à jour le fichier existant, Enregistrer sous crée une nouvelle copie","Enregistrer sous est plus rapide","Enregistrer sous supprime l'ancien fichier"],
+    correct: 1,
+    explanation: "Enregistrer (Ctrl+S) met à jour le fichier actuel. Enregistrer sous (F12) permet de créer une copie avec un nouveau nom ou un nouvel emplacement."
+  }
+];
+
+let answered = 0;
+
+function renderQuestions() {
+  const container = document.getElementById('questionsContainer');
+  container.innerHTML = '';
+  answered = 0;
+  questions.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'q' + i;
+    let optionsHtml = q.options.map((o, j) =>
+      `<label class="option" id="opt${i}_${j}" onclick="selectOption(${i},${j})">
+        <input type="radio" name="q${i}" value="${j}"> ${o}
+      </label>`
+    ).join('');
+    card.innerHTML = `
+      <div class="q-number">Question ${i+1} / ${questions.length}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">${optionsHtml}</div>
+      <div class="feedback" id="fb${i}"></div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function selectOption(qi, oi) {
+  const card = document.getElementById('q' + qi);
+  if (card.classList.contains('correct') || card.classList.contains('incorrect')) return;
+  card.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  document.getElementById('opt' + qi + '_' + oi).classList.add('selected');
+  if (!card.classList.contains('answered')) {
+    card.classList.add('answered');
+    answered++;
+    document.getElementById('progressFill').style.width = (answered/questions.length*100) + '%';
+  }
+}
+
+function submitQuiz() {
+  let score = 0;
+  questions.forEach((q, i) => {
+    const card = document.getElementById('q' + i);
+    const sel = card.querySelector('input[type=radio]:checked');
+    const fb = document.getElementById('fb' + i);
+    card.querySelectorAll('.option').forEach(o => o.classList.add('disabled'));
+    document.getElementById('opt' + i + '_' + q.correct).classList.add('correct-answer');
+    if (sel) {
+      const chosen = parseInt(sel.value);
+      if (chosen === q.correct) {
+        score++;
+        card.classList.add('correct');
+        fb.className = 'feedback correct show';
+        fb.innerHTML = '<strong>✓ Bonne réponse !</strong> ' + q.explanation;
+      } else {
+        card.classList.add('incorrect');
+        document.getElementById('opt' + i + '_' + chosen).classList.add('wrong-answer');
+        fb.className = 'feedback incorrect show';
+        fb.innerHTML = '<strong>✗ Réponse incorrecte.</strong> ' + q.explanation;
+      }
+    } else {
+      card.classList.add('incorrect');
+      fb.className = 'feedback incorrect show';
+      fb.innerHTML = '<strong>✗ Pas de réponse.</strong> ' + q.explanation;
+    }
+  });
+
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('btnSubmit').disabled = true;
+
+  const pct = Math.round(score / questions.length * 100);
+  const circle = document.getElementById('scoreCircle');
+  const title = document.getElementById('resultTitle');
+  const desc = document.getElementById('resultDesc');
+
+  circle.textContent = score + '/' + questions.length;
+  if (pct >= 70) {
+    circle.className = 'score-circle high';
+    title.textContent = 'Bon niveau !';
+    title.style.color = '#10B981';
+    desc.textContent = 'Vous avez déjà de bonnes bases en Excel (' + pct + '%). La formation vous permettra de consolider vos acquis et de découvrir de nouvelles fonctionnalités.';
+  } else if (pct >= 40) {
+    circle.className = 'score-circle mid';
+    title.textContent = 'Niveau intermédiaire';
+    title.style.color = '#F97316';
+    desc.textContent = 'Vous connaissez quelques notions (' + pct + '%), mais il reste des bases à acquérir. La formation est parfaitement adaptée à votre profil.';
+  } else {
+    circle.className = 'score-circle low';
+    title.textContent = 'Niveau débutant';
+    title.style.color = '#DC2626';
+    desc.textContent = 'Excel est un sujet nouveau pour vous (' + pct + '%). C\'est exactement le but de cette formation ! Elle est conçue pour partir de zéro et vous rendre autonome.';
+  }
+
+  const partEl = document.getElementById('resultParticipant');
+  if (partEl && participantInfo.prenom) {
+    partEl.textContent = 'Participant : ' + participantInfo.prenom + ' ' + participantInfo.nom + ' — ' + participantInfo.entreprise;
+  }
+
+  // Auto-send results
+  autoSendResults(score, questions.length, pct);
+
+  document.getElementById('resultCard').classList.add('show');
+  document.getElementById('resultCard').scrollIntoView({ behavior:'smooth', block:'center' });
+}
+
+function autoSendResults(score, total, pct) {
+  const p = participantInfo;
+  const niveau = pct >= 70 ? 'Bon niveau' : (pct >= 40 ? 'Intermédiaire' : 'Débutant');
+
+  let details = '';
+  questions.forEach((q, i) => {
+    const card = document.getElementById('q' + i);
+    const sel = card.querySelector('input[type=radio]:checked');
+    const chosen = sel ? parseInt(sel.value) : -1;
+    const correct = chosen === q.correct;
+    details += 'Q' + (i+1) + '. ' + q.q + '\n';
+    details += '   Réponse : ' + (chosen >= 0 ? q.options[chosen] : 'Pas de réponse') + (correct ? ' ✓' : ' ✗') + '\n';
+    if (!correct) details += '   Bonne réponse : ' + q.options[q.correct] + '\n';
+    details += '\n';
+  });
+
+  fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      _subject: 'Test Excel Initiation — ' + p.prenom + ' ' + p.nom + ' — ' + score + '/' + total + ' (' + pct + '%)',
+      Nom: p.nom,
+      'Prénom': p.prenom,
+      Email: p.email,
+      'Téléphone': p.telephone || '-',
+      Entreprise: p.entreprise,
+      Fonction: p.fonction || '-',
+      'Utilisation Excel': p.utilisation || '-',
+      Score: score + '/' + total + ' (' + pct + '%) — ' + niveau,
+      'Détail': details,
+      _template: 'table'
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById('sendConfirm').style.display = 'block';
+    document.getElementById('sendConfirm').textContent = '✅ Résultats envoyés automatiquement au formateur.';
+  })
+  .catch(err => {
+    document.getElementById('sendConfirm').style.display = 'block';
+    document.getElementById('sendConfirm').innerHTML = '⚠️ Envoi automatique échoué. <a href="mailto:b.yassmine@ecf-proconduite.com?subject=Test Excel Initiation — ' + encodeURIComponent(p.prenom + ' ' + p.nom) + '&body=' + encodeURIComponent('Score: ' + score + '/' + total) + '">Cliquez ici pour envoyer manuellement</a>';
+    document.getElementById('sendConfirm').style.color = '#F97316';
+  });
+}
+</script>
+</body>
+</html>
