@@ -1463,8 +1463,37 @@
                 +'Points à approfondir : '+(attentes||'-')+'\n'
                 +'Difficultés : '+(difficultes||'-')+'\n';
 
-            var subj='Test de positionnement Excel Intermédiaire — '+prenom+' '+nom;
-            window.location.href='mailto:b.yassmine@ecf-proconduite.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+            var subj='Test Excel Intermédiaire — '+prenom+' '+nom+' — '+totalCorrect+'/12 ('+Math.round(pct*100)+'%)';
+
+            // Auto-send via FormSubmit (no manual action needed)
+            fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    _subject: subj,
+                    Nom: nom + ' ' + prenom,
+                    Entreprise: entreprise || '-',
+                    Poste: poste || '-',
+                    'Fréquence Excel': frequence || '-',
+                    Score: totalCorrect + '/12 (' + Math.round(pct*100) + '%) — ' + level,
+                    'Module 1': modCorrect[1]+'/'+moduleTotal[1],
+                    'Module 2': modCorrect[2]+'/'+moduleTotal[2],
+                    'Module 3': modCorrect[3]+'/'+moduleTotal[3],
+                    'Module 4': modCorrect[4]+'/'+moduleTotal[4],
+                    'Détail réponses': dq,
+                    'Attentes': (attentes||'-'),
+                    'Difficultés': (difficultes||'-'),
+                    _template: 'table'
+                })
+            }).then(function(r){return r.json();}).then(function(data){
+                var toast=document.getElementById('emailToast');
+                toast.textContent='✅ Résultats envoyés automatiquement au formateur';
+                toast.classList.add('show');
+                setTimeout(function(){toast.classList.remove('show');},5000);
+            }).catch(function(err){
+                // Fallback mailto
+                window.location.href='mailto:b.yassmine@ecf-proconduite.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+            });
 
             // Show results
             document.getElementById('formWrapper').style.display='none';

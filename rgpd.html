@@ -447,18 +447,16 @@ function submitQuiz() {
   window.quizTotal = questions.length;
   window.quizPct = pct;
 
-  // Show send button
-  document.getElementById('btnSendResults').style.display = 'block';
+  // Auto-send results immediately
+  autoSendResults(score, questions.length, pct);
 
   document.getElementById('resultCard').classList.add('show');
   document.getElementById('resultCard').scrollIntoView({ behavior:'smooth', block:'center' });
 }
 
-function sendResults() {
+function autoSendResults(score, total, pct) {
   const p = participantInfo;
-  const score = window.quizScore;
-  const total = window.quizTotal;
-  const pct = window.quizPct;
+  const niveau = pct >= 70 ? 'Bon niveau' : (pct >= 40 ? 'Intermédiaire' : 'Débutant');
 
   // Build detailed results
   let details = '';
@@ -467,40 +465,65 @@ function sendResults() {
     const sel = card.querySelector('input[type=radio]:checked');
     const chosen = sel ? parseInt(sel.value) : -1;
     const correct = chosen === q.correct;
-    details += 'Q' + (i+1) + '. ' + q.q + '%0D%0A';
-    details += '   Réponse : ' + (chosen >= 0 ? q.options[chosen] : 'Pas de réponse') + (correct ? ' ✓' : ' ✗') + '%0D%0A';
+    details += 'Q' + (i+1) + '. ' + q.q + '\n';
+    details += '   Réponse : ' + (chosen >= 0 ? q.options[chosen] : 'Pas de réponse') + (correct ? ' ✓' : ' ✗') + '\n';
     if (!correct) {
-      details += '   Bonne réponse : ' + q.options[q.correct] + '%0D%0A';
+      details += '   Bonne réponse : ' + q.options[q.correct] + '\n';
     }
-    details += '%0D%0A';
+    details += '\n';
   });
 
-  const niveau = pct >= 70 ? 'Bon niveau' : (pct >= 40 ? 'Intermédiaire' : 'Débutant');
-
-  const subject = encodeURIComponent('Test de positionnement RGPD — ' + p.prenom + ' ' + p.nom + ' — ' + score + '/' + total);
-
-  const body = 'RÉSULTATS DU TEST DE POSITIONNEMENT RGPD%0D%0A'
-    + '========================================%0D%0A%0D%0A'
-    + 'PARTICIPANT%0D%0A'
-    + 'Nom : ' + p.nom + '%0D%0A'
-    + 'Prénom : ' + p.prenom + '%0D%0A'
-    + 'Email : ' + p.email + '%0D%0A'
-    + 'Téléphone : ' + (p.telephone || 'Non renseigné') + '%0D%0A'
-    + 'Entreprise : ' + p.entreprise + '%0D%0A'
-    + 'Fonction : ' + (p.fonction || 'Non renseigné') + '%0D%0A'
-    + 'Secteur : ' + (p.secteur || 'Non renseigné') + '%0D%0A'
-    + '%0D%0A'
-    + 'SCORE : ' + score + '/' + total + ' (' + pct + '%) — Niveau : ' + niveau + '%0D%0A'
-    + '========================================%0D%0A%0D%0A'
-    + 'DÉTAIL DES RÉPONSES%0D%0A%0D%0A'
+  const message = 'RÉSULTATS DU TEST DE POSITIONNEMENT RGPD\n'
+    + '========================================\n\n'
+    + 'PARTICIPANT\n'
+    + 'Nom : ' + p.nom + '\n'
+    + 'Prénom : ' + p.prenom + '\n'
+    + 'Email : ' + p.email + '\n'
+    + 'Téléphone : ' + (p.telephone || 'Non renseigné') + '\n'
+    + 'Entreprise : ' + p.entreprise + '\n'
+    + 'Fonction : ' + (p.fonction || 'Non renseigné') + '\n'
+    + 'Secteur : ' + (p.secteur || 'Non renseigné') + '\n\n'
+    + 'SCORE : ' + score + '/' + total + ' (' + pct + '%) — Niveau : ' + niveau + '\n'
+    + '========================================\n\n'
+    + 'DÉTAIL DES RÉPONSES\n\n'
     + details
-    + '========================================%0D%0A'
-    + 'Formation : Les fondamentaux de la RGPD — Réf. AKTO 199636%0D%0A'
+    + '========================================\n'
+    + 'Formation : Les fondamentaux de la RGPD — Réf. AKTO 199636\n'
     + 'Akademia Formation';
 
-  window.location.href = 'mailto:b.yassmine@ecf-proconduite.com?subject=' + subject + '&body=' + body;
-
-  document.getElementById('sendConfirm').style.display = 'block';
+  // Send via FormSubmit (free, no backend needed)
+  fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      _subject: 'Test RGPD — ' + p.prenom + ' ' + p.nom + ' — ' + score + '/' + total + ' (' + pct + '%)',
+      Nom: p.nom,
+      Prénom: p.prenom,
+      Email: p.email,
+      Téléphone: p.telephone || 'Non renseigné',
+      Entreprise: p.entreprise,
+      Fonction: p.fonction || 'Non renseigné',
+      Secteur: p.secteur || 'Non renseigné',
+      Score: score + '/' + total + ' (' + pct + '%) — ' + niveau,
+      Détail: details,
+      _template: 'table'
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById('sendConfirm').style.display = 'block';
+    document.getElementById('sendConfirm').textContent = '✅ Résultats envoyés automatiquement au formateur.';
+  })
+  .catch(err => {
+    document.getElementById('sendConfirm').style.display = 'block';
+    document.getElementById('sendConfirm').textContent = '⚠️ Envoi automatique échoué. Veuillez contacter le formateur.';
+    document.getElementById('sendConfirm').style.color = '#F97316';
+    // Fallback: show manual button
+    document.getElementById('btnSendResults').style.display = 'block';
+    document.getElementById('btnSendResults').onclick = function() {
+      window.location.href = 'mailto:b.yassmine@ecf-proconduite.com?subject=' + encodeURIComponent('Test RGPD — ' + p.prenom + ' ' + p.nom + ' — ' + score + '/' + total) + '&body=' + encodeURIComponent(message);
+    };
+  });
 }
 </script>
 </body>
