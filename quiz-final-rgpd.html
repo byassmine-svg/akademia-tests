@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Final — Les fondamentaux de la RGPD | Akademia Formation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ak-blue: #2563EB;
+            --ak-purple: #7C3AED;
+            --ak-gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+            --ak-gradient-soft: linear-gradient(135deg, rgba(37,99,235,0.06) 0%, rgba(124,58,237,0.06) 100%);
+            --ak-green: #10B981;
+            --ak-turquoise: #06B6D4;
+            --ak-orange: #F97316;
+            --ak-black: #0F172A;
+            --ak-gray-800: #1E293B;
+            --ak-gray-700: #334155;
+            --ak-gray-600: #475569;
+            --ak-gray-500: #64748B;
+            --ak-gray-400: #94A3B8;
+            --ak-gray-300: #CBD5E1;
+            --ak-gray-200: #E5E7EB;
+            --ak-gray-100: #F1F5F9;
+            --ak-gray-50: #F8FAFC;
+            --ak-white: #FFFFFF;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background: var(--ak-white);
+            color: var(--ak-gray-700);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ─── Fixed progress ─── */
+        .progress-track {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--ak-gray-100);
+            z-index: 200;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--ak-gradient);
+            width: 0%;
+            transition: width 0.4s cubic-bezier(.4,0,.2,1);
+        }
+
+        /* ─── Fixed sidebar nav ─── */
+        .side-nav {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 12px 0 12px 16px;
+        }
+
+        .side-nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            padding: 8px 16px 8px 12px;
+            border-radius: 0 20px 20px 0;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: var(--ak-gray-400);
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .side-nav a .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--ak-gray-300);
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .side-nav a:hover, .side-nav a.active {
+            color: var(--ak-blue);
+            background: rgba(37,99,235,0.06);
+        }
+
+        .side-nav a:hover .dot, .side-nav a.active .dot {
+            background: var(--ak-gradient);
+            box-shadow: 0 0 8px rgba(37,99,235,0.4);
+        }
+
+        /* ─── Hero ─── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--ak-black);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--ak-gradient);
+            opacity: 0.9;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(16,185,129,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(124,58,237,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6,182,212,0.1) 0%, transparent 60%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 80px 80px 80px 120px;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 60px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-left h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+        }
+
+        .hero-left h1 .gradient-text {
+            background: linear-gradient(135deg, #a5f3fc, #c4b5fd, #86efac);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-left .subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 32px;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+        .hero-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .hero-tags .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            color: white;
+            font-size: 0.82rem;
+            font-weight: 500;
+        }
+
+        .hero-tags .tag .tag-icon {
+            font-size: 0.9rem;
+        }
+
+        .hero-right {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 24px;
+            padding: 36px;
+            color: white;
+        }
+
+        .hero-right h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 16px;
+        }
+
+        .hero-right ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .hero-right ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .hero-right ul li .check {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(16,185,129,0.2);
+            color: #6ee7b7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.7rem;
+            margin-top: 1px;
+        }
+
+        .hero-right .duration {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+            background: linear-gradient(135deg, #a5f3fc, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-logo {
+            position: absolute;
+            top: 32px;
+            left: 48px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-logo span {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-logo .formation-label {
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            display: block;
+            margin-top: -2px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(6px); }
+        }
+
+        /* ─── Sections ─── */
+        .form-section {
+            scroll-margin-top: 20px;
+        }
+
+        .section-band {
+            padding: 64px 80px 64px 120px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-alt {
+            background: var(--ak-gray-50);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .section-header .sec-num {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: var(--ak-gradient);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .section-header .sec-info h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ak-black);
+            letter-spacing: -0.02em;
+        }
+
+        .section-header .sec-info p {
+            font-size: 0.88rem;
+            color: var(--ak-gray-500);
+            margin-top: 2px;
+        }
+
+        /* ─── Identity grid ─── */
+        .identity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        .identity-grid .span-full { grid-column: 1 / -1; }
+
+        .field-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 14px;
+            padding: 20px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .section-alt .field-card {
+            background: var(--ak-white);
+        }
+
+        .field-card:focus-within {
+            border-color: var(--ak-blue);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.08);
+        }
+
+        .field-card label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--ak-gray-500);
+            margin-bottom: 8px;
+        }
+
+        .field-card input,
+        .field-card select,
+        .field-card textarea {
+            width: 100%;
+            border: none;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            color: var(--ak-black);
+            background: transparent;
+            outline: none;
+        }
+
+        .field-card input::placeholder,
+        .field-card textarea::placeholder {
+            color: var(--ak-gray-400);
+        }
+
+        .field-card select {
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            background: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right center;
+            padding-right: 20px;
+        }
+
+        .field-card textarea {
+            resize: vertical;
+            min-height: 70px;
+            line-height: 1.6;
+        }
+
+        /* ─── Programme modules ─── */
+        .programme-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .programme-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 14px;
+            padding: 22px 24px;
+            transition: border-color 0.2s;
+        }
+
+        .programme-card .prog-num {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--ak-purple);
+            background: rgba(124,58,237,0.06);
+            padding: 3px 10px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .programme-card .prog-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--ak-black);
+            margin-bottom: 4px;
+        }
+
+        .programme-card .prog-desc {
+            font-size: 0.82rem;
+            color: var(--ak-gray-500);
+            line-height: 1.5;
+        }
+
+        /* ─── Question cards ─── */
+        .questions-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .q-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .q-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--ak-gray-100);
+            transition: background 0.3s;
+        }
+
+        .q-card.answered::before {
+            background: var(--ak-gradient);
+        }
+
+        .q-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        .q-card .q-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .q-card .q-module {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--ak-purple);
+            background: rgba(124,58,237,0.06);
+            padding: 3px 10px;
+            border-radius: 6px;
+        }
+
+        .q-card .q-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--ak-gray-400);
+        }
+
+        .q-card .q-text {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--ak-black);
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .q-card .options label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 9px 12px;
+            margin-bottom: 4px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-size: 0.85rem;
+            color: var(--ak-gray-700);
+            line-height: 1.45;
+        }
+
+        .q-card .options label:hover {
+            background: var(--ak-gray-50);
+        }
+
+        .q-card .options input[type="radio"] {
+            margin-top: 3px;
+            accent-color: var(--ak-blue);
+            flex-shrink: 0;
+        }
+
+        /* ─── Evaluation formation ─── */
+        .attentes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* ─── Submit ─── */
+        .submit-band {
+            text-align: center;
+            padding: 48px 40px;
+            background: var(--ak-gradient-soft);
+            border-top: 1px solid var(--ak-gray-100);
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--ak-gradient);
+            color: white;
+            border: none;
+            padding: 16px 52px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 14px;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: transform 0.2s, box-shadow 0.2s;
+            letter-spacing: -0.01em;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(37,99,235,0.3);
+        }
+
+        .btn-submit svg { flex-shrink: 0; }
+
+        .submit-note {
+            font-size: 0.78rem;
+            color: var(--ak-gray-400);
+            margin-top: 12px;
+        }
+
+        /* ─── Results ─── */
+        .results-wrapper { display: none; }
+        .results-wrapper.visible { display: block; }
+
+        .results-hero {
+            background: var(--ak-gradient);
+            padding: 64px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(16,185,129,0.1) 0%, transparent 50%);
+        }
+
+        .results-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .results-ring {
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+
+        .results-ring svg { transform: rotate(-90deg); }
+
+        .results-ring .ring-text {
+            position: absolute;
+            top: 44%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .results-ring .ring-label {
+            position: absolute;
+            top: 64%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .results-meta h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .results-meta .level-pill {
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        .pill-green { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+        .pill-orange { background: rgba(249,115,22,0.2); color: #fdba74; }
+        .pill-red { background: rgba(220,38,38,0.2); color: #fca5a5; }
+
+        .results-meta p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.92rem;
+            max-width: 520px;
+            line-height: 1.6;
+        }
+
+        .module-bars {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .mod-bar-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .mod-bar-card .mbc-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 10px;
+        }
+
+        .mod-bar-card .mbc-track {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .mod-bar-card .mbc-fill {
+            height: 100%;
+            background: white;
+            border-radius: 3px;
+            transition: width 0.8s ease;
+        }
+
+        .mod-bar-card .mbc-score {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: white;
+            margin-top: 8px;
+        }
+
+        /* Review detail */
+        .review-band {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 48px 80px;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .review-card {
+            background: var(--ak-gray-50);
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .review-card .rc-q {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ak-black);
+            margin-bottom: 8px;
+            line-height: 1.45;
+        }
+
+        .review-card .rc-badge {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 6px;
+        }
+
+        .rc-correct { background: #D1FAE5; color: #065F46; }
+        .rc-incorrect { background: #FEE2E2; color: #B91C1C; }
+
+        .review-card .rc-expl {
+            font-size: 0.8rem;
+            color: var(--ak-gray-500);
+            margin-top: 8px;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .attentes-review {
+            background: var(--ak-gray-50);
+            border-radius: 14px;
+            padding: 28px;
+            margin-top: 24px;
+        }
+
+        .attentes-review h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--ak-black);
+            margin-bottom: 14px;
+        }
+
+        .attentes-review p {
+            font-size: 0.88rem;
+            color: var(--ak-gray-600);
+            margin-bottom: 8px;
+        }
+
+        /* Email confirm toast */
+        .email-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--ak-black);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 14px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 300;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            animation: slideIn 0.4s ease;
+        }
+
+        .email-toast.show { display: flex; }
+
+        .email-toast .toast-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(16,185,129,0.2);
+            color: #6ee7b7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 40px;
+            background: var(--ak-gray-50);
+            border-top: 1px solid var(--ak-gray-100);
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer span {
+            font-size: 0.78rem;
+            color: var(--ak-gray-400);
+        }
+
+        .footer .sep {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--ak-gray-300);
+        }
+
+        .btn-print {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            color: var(--ak-gray-600);
+            padding: 10px 24px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: all 0.15s;
+        }
+
+        .btn-print:hover {
+            border-color: var(--ak-blue);
+            color: var(--ak-blue);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 1100px) {
+            .hero-content { grid-template-columns: 1fr; padding: 100px 40px 60px; }
+            .hero-right { max-width: 420px; }
+            .section-band { padding: 48px 40px; }
+            .side-nav { display: none; }
+            .questions-layout { grid-template-columns: 1fr; }
+            .attentes-grid { grid-template-columns: 1fr; }
+            .identity-grid { grid-template-columns: 1fr 1fr; }
+            .programme-grid { grid-template-columns: 1fr; }
+            .results-inner { grid-template-columns: 1fr; text-align: center; }
+            .results-ring { margin: 0 auto; }
+            .results-meta p { margin: 0 auto; }
+            .module-bars { grid-template-columns: 1fr 1fr; }
+            .results-hero { padding: 48px 40px; }
+            .review-band { padding: 40px; }
+            .review-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .hero-left h1 { font-size: 2.2rem; }
+            .hero-content { padding: 90px 24px 40px; }
+            .section-band { padding: 36px 20px; }
+            .identity-grid { grid-template-columns: 1fr; }
+            .module-bars { grid-template-columns: 1fr; }
+            .results-hero { padding: 36px 20px; }
+            .review-band { padding: 24px 20px; }
+        }
+
+        @media print {
+            .hero { min-height: auto; }
+            .side-nav, .progress-track, .btn-submit, .btn-print, .scroll-hint, .email-toast { display: none !important; }
+            .q-card, .review-card { break-inside: avoid; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="email-toast" id="emailToast">
+        <div class="toast-icon">&#10003;</div>
+        <span>Résultats envoyés automatiquement au formateur</span>
+    </div>
+
+    <!-- Side nav -->
+    <nav class="side-nav" id="sideNav">
+        <a href="#sec-info" class="active"><span class="dot"></span>Infos</a>
+        <a href="#sec-mod1"><span class="dot"></span>Module 1</a>
+        <a href="#sec-mod2"><span class="dot"></span>Module 2</a>
+        <a href="#sec-mod3"><span class="dot"></span>Module 3</a>
+        <a href="#sec-mod4"><span class="dot"></span>Module 4</a>
+        <a href="#sec-eval"><span class="dot"></span>Évaluation</a>
+    </nav>
+
+    <!-- ═══ FORM ═══ -->
+    <div id="formWrapper">
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-pattern"></div>
+            <div class="hero-grid"></div>
+
+            <div class="hero-logo">
+                <svg width="40" height="40" viewBox="0 0 80 80">
+                    <defs><linearGradient id="lgHero" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.2)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.08)"/></linearGradient></defs>
+                    <rect width="80" height="80" rx="16" fill="url(#lgHero)"/>
+                    <path d="M 40 20 L 50 50 L 44 50 L 42 44 L 38 44 L 36 50 L 30 50 L 40 20 Z M 40 28 L 38 40 L 42 40 L 40 28 Z" fill="white"/>
+                    <circle cx="55" cy="28" r="6" fill="#10B981" opacity="0.9"/>
+                </svg>
+                <div>
+                    <span>AKADEMIA</span>
+                    <span class="formation-label">Formation</span>
+                </div>
+            </div>
+
+            <div class="hero-content">
+                <div class="hero-left">
+                    <h1>Quiz Final<br><span class="gradient-text">Les fondamentaux<br>de la RGPD</span></h1>
+                    <p class="subtitle">Évaluation des connaissances acquises pendant la formation</p>
+                    <div class="hero-tags">
+                        <div class="tag"><span class="tag-icon">&#9201;</span> 15 à 20 minutes</div>
+                        <div class="tag"><span class="tag-icon">&#128221;</span> 30 questions</div>
+                        <div class="tag"><span class="tag-icon">&#127891;</span> Évaluation finale</div>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <h3>Ce quiz permet de</h3>
+                    <ul>
+                        <li><div class="check">&#10003;</div> Valider les connaissances acquises</li>
+                        <li><div class="check">&#10003;</div> Évaluer la maîtrise de chaque module</li>
+                        <li><div class="check">&#10003;</div> Identifier les points à approfondir</li>
+                        <li><div class="check">&#10003;</div> Obtenir votre attestation de réussite</li>
+                    </ul>
+                    <div class="duration">7 heures de formation en présentiel</div>
+                </div>
+            </div>
+
+            <div class="scroll-hint">
+                Commencer le quiz<br>&#8595;
+            </div>
+        </section>
+
+        <!-- Section 1: Identité -->
+        <section class="form-section" id="sec-info">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">1</div>
+                    <div class="sec-info">
+                        <h2>Vos informations</h2>
+                        <p>Quelques informations pour identifier votre évaluation</p>
+                    </div>
+                </div>
+                <div class="identity-grid">
+                    <div class="field-card">
+                        <label>Nom *</label>
+                        <input type="text" id="nom" required placeholder="Votre nom de famille">
+                    </div>
+                    <div class="field-card">
+                        <label>Prénom *</label>
+                        <input type="text" id="prenom" required placeholder="Votre prénom">
+                    </div>
+                    <div class="field-card">
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="votre@email.com">
+                    </div>
+                    <div class="field-card">
+                        <label>Entreprise</label>
+                        <input type="text" id="entreprise" placeholder="Nom de votre entreprise">
+                    </div>
+                    <div class="field-card">
+                        <label>Poste / Fonction</label>
+                        <input type="text" id="poste" placeholder="Ex : Assistante RH, Gérant...">
+                    </div>
+                    <div class="field-card">
+                        <label>Comment évaluez-vous cette formation ?</label>
+                        <select id="evalFormation">
+                            <option value="">— Choisir —</option>
+                            <option value="Excellente">Excellente</option>
+                            <option value="Très bien">Très bien</option>
+                            <option value="Bien">Bien</option>
+                            <option value="Moyenne">Moyenne</option>
+                            <option value="Insuffisante">Insuffisante</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Programme -->
+                <div style="margin-top: 48px;">
+                    <div class="section-header">
+                        <div class="sec-num" style="background: rgba(124,58,237,0.1); color: var(--ak-purple);">&#9776;</div>
+                        <div class="sec-info">
+                            <h2>Programme évalué</h2>
+                            <p>4 modules — Réf. AKTO 199636</p>
+                        </div>
+                    </div>
+                    <div class="programme-grid">
+                        <div class="programme-card">
+                            <div class="prog-num">Module 1</div>
+                            <div class="prog-title">Notions clés et principes</div>
+                            <div class="prog-desc">Définitions, principes, bases légales, CNIL</div>
+                        </div>
+                        <div class="programme-card">
+                            <div class="prog-num">Module 2</div>
+                            <div class="prog-title">Acteurs et droits</div>
+                            <div class="prog-desc">Responsable, sous-traitant, DPO, 8 droits des personnes</div>
+                        </div>
+                        <div class="programme-card">
+                            <div class="prog-num">Module 3</div>
+                            <div class="prog-title">Mise en conformité</div>
+                            <div class="prog-desc">Registre, mentions, sécurité, AIPD, transferts</div>
+                        </div>
+                        <div class="programme-card">
+                            <div class="prog-num">Module 4</div>
+                            <div class="prog-title">Approfondissement</div>
+                            <div class="prog-desc">Violations, cookies, vidéosurveillance, IA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Module 1 — Notions clés (Q1-Q8) -->
+        <section class="form-section section-alt" id="sec-mod1">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">2</div>
+                    <div class="sec-info">
+                        <h2>Module 1 — Notions clés et principes</h2>
+                        <p>8 questions sur les définitions, principes fondamentaux et bases légales du RGPD</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">01</span></div>
+                        <div class="q-text">Le RGPD est entré en application le :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q1" value="a"> 27 avril 2016</label>
+                            <label><input type="radio" name="q1" value="b"> 25 mai 2018</label>
+                            <label><input type="radio" name="q1" value="c"> 1er janvier 2020</label>
+                            <label><input type="radio" name="q1" value="d"> 25 mai 2020</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">02</span></div>
+                        <div class="q-text">Une donnée personnelle est :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q2" value="a"> Toute information permettant d'identifier une personne</label>
+                            <label><input type="radio" name="q2" value="b"> Uniquement le nom et prénom</label>
+                            <label><input type="radio" name="q2" value="c"> Uniquement les données numériques</label>
+                            <label><input type="radio" name="q2" value="d"> Les données des entreprises</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">03</span></div>
+                        <div class="q-text">Le principe de minimisation signifie :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q3" value="a"> Ne collecter que les données strictement nécessaires</label>
+                            <label><input type="radio" name="q3" value="b"> Réduire le nombre de salariés ayant accès</label>
+                            <label><input type="radio" name="q3" value="c"> Minimiser les coûts de traitement</label>
+                            <label><input type="radio" name="q3" value="d"> Réduire la taille des fichiers</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">04</span></div>
+                        <div class="q-text">Le consentement RGPD doit être :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q4" value="a"> Libre, spécifique, éclairé et univoque</label>
+                            <label><input type="radio" name="q4" value="b"> Écrit et signé</label>
+                            <label><input type="radio" name="q4" value="c"> Implicite</label>
+                            <label><input type="radio" name="q4" value="d"> Donné une seule fois pour toujours</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">05</span></div>
+                        <div class="q-text">Combien de bases légales le RGPD prévoit-il ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q5" value="a"> 2</label>
+                            <label><input type="radio" name="q5" value="b"> 4</label>
+                            <label><input type="radio" name="q5" value="c"> 6</label>
+                            <label><input type="radio" name="q5" value="d"> 8</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">06</span></div>
+                        <div class="q-text">La base légale « obligation légale » s'applique quand :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q6" value="a"> La loi impose le traitement (ex : paie, déclarations fiscales)</label>
+                            <label><input type="radio" name="q6" value="b"> L'entreprise s'oblige elle-même</label>
+                            <label><input type="radio" name="q6" value="c"> Le client l'exige</label>
+                            <label><input type="radio" name="q6" value="d"> Le sous-traitant le demande</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">07</span></div>
+                        <div class="q-text">Les données sensibles (santé, religion, opinions politiques) :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q7" value="a"> Sont interdites de traitement sauf exceptions</label>
+                            <label><input type="radio" name="q7" value="b"> Peuvent être traitées librement</label>
+                            <label><input type="radio" name="q7" value="c"> Concernent uniquement la santé</label>
+                            <label><input type="radio" name="q7" value="d"> Nécessitent juste un mot de passe</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">08</span></div>
+                        <div class="q-text">L'amende maximale prévue par le RGPD est de :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q8" value="a"> 1 M€</label>
+                            <label><input type="radio" name="q8" value="b"> 10 M€ ou 2% du CA</label>
+                            <label><input type="radio" name="q8" value="c"> 20 M€ ou 4% du CA mondial annuel</label>
+                            <label><input type="radio" name="q8" value="d"> 50 M€</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Module 2 — Acteurs et droits (Q9-Q16) -->
+        <section class="form-section" id="sec-mod2">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">3</div>
+                    <div class="sec-info">
+                        <h2>Module 2 — Acteurs et droits</h2>
+                        <p>8 questions sur les acteurs du RGPD et les droits des personnes concernées</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">09</span></div>
+                        <div class="q-text">Le DPO est obligatoire pour :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q9" value="a"> Les autorités publiques et organismes traitant des données à grande échelle</label>
+                            <label><input type="radio" name="q9" value="b"> Toutes les entreprises</label>
+                            <label><input type="radio" name="q9" value="c"> Les entreprises de +250 salariés</label>
+                            <label><input type="radio" name="q9" value="d"> Uniquement les entreprises du numérique</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">10</span></div>
+                        <div class="q-text">Le délai de réponse à une demande d'accès est de :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q10" value="a"> 48 heures</label>
+                            <label><input type="radio" name="q10" value="b"> 2 semaines</label>
+                            <label><input type="radio" name="q10" value="c"> 1 mois</label>
+                            <label><input type="radio" name="q10" value="d"> 3 mois</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">11</span></div>
+                        <div class="q-text">Le droit à la portabilité permet de :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q11" value="a"> Recevoir ses données dans un format lisible et les transmettre</label>
+                            <label><input type="radio" name="q11" value="b"> Changer de pays avec ses données</label>
+                            <label><input type="radio" name="q11" value="c"> Transporter ses données sur une clé USB</label>
+                            <label><input type="radio" name="q11" value="d"> Accéder aux données des autres</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">12</span></div>
+                        <div class="q-text">Le droit d'opposition pour la prospection commerciale est :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q12" value="a"> Absolu — sans besoin de justification</label>
+                            <label><input type="radio" name="q12" value="b"> Soumis à l'accord de l'entreprise</label>
+                            <label><input type="radio" name="q12" value="c"> Limité aux personnes de +18 ans</label>
+                            <label><input type="radio" name="q12" value="d"> Payant</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">13</span></div>
+                        <div class="q-text">Un sous-traitant au sens du RGPD :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q13" value="a"> Traite des données pour le compte du responsable</label>
+                            <label><input type="radio" name="q13" value="b"> Décide des finalités</label>
+                            <label><input type="radio" name="q13" value="c"> N'a aucune obligation RGPD</label>
+                            <label><input type="radio" name="q13" value="d"> Est toujours situé hors UE</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">14</span></div>
+                        <div class="q-text">Le droit à l'effacement :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q14" value="a"> Admet des exceptions (obligation légale, intérêt public)</label>
+                            <label><input type="radio" name="q14" value="b"> Est absolu — suppression obligatoire</label>
+                            <label><input type="radio" name="q14" value="c"> Ne concerne que les réseaux sociaux</label>
+                            <label><input type="radio" name="q14" value="d"> Est payant</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">15</span></div>
+                        <div class="q-text">L'exercice des droits par une personne concernée est :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q15" value="a"> Gratuit, avec réponse sous 1 mois</label>
+                            <label><input type="radio" name="q15" value="b"> Payant (5€ par demande)</label>
+                            <label><input type="radio" name="q15" value="c"> Gratuit mais sans délai imposé</label>
+                            <label><input type="radio" name="q15" value="d"> Réservé aux résidents français</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">16</span></div>
+                        <div class="q-text">Le responsable de traitement est :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q16" value="a"> Celui qui détermine les finalités et les moyens du traitement</label>
+                            <label><input type="radio" name="q16" value="b"> Le prestataire informatique</label>
+                            <label><input type="radio" name="q16" value="c"> Le DPO</label>
+                            <label><input type="radio" name="q16" value="d"> La CNIL</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Module 3 — Conformité (Q17-Q24) -->
+        <section class="form-section section-alt" id="sec-mod3">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">4</div>
+                    <div class="sec-info">
+                        <h2>Module 3 — Mise en conformité</h2>
+                        <p>8 questions sur le registre, les mentions, la sécurité et les procédures</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">17</span></div>
+                        <div class="q-text">Le registre des traitements est obligatoire pour :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q17" value="a"> Tout organisme (avec exemptions partielles)</label>
+                            <label><input type="radio" name="q17" value="b"> Les entreprises de +250 salariés uniquement</label>
+                            <label><input type="radio" name="q17" value="c"> Uniquement les administrations</label>
+                            <label><input type="radio" name="q17" value="d"> Les entreprises du numérique</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">18</span></div>
+                        <div class="q-text">En cas de violation de données, le délai de notification à la CNIL est de :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q18" value="a"> 24 heures</label>
+                            <label><input type="radio" name="q18" value="b"> 72 heures</label>
+                            <label><input type="radio" name="q18" value="c"> 7 jours</label>
+                            <label><input type="radio" name="q18" value="d"> 1 mois</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">19</span></div>
+                        <div class="q-text">La durée de conservation recommandée pour un CV non retenu est de :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q19" value="a"> 6 mois</label>
+                            <label><input type="radio" name="q19" value="b"> 2 ans</label>
+                            <label><input type="radio" name="q19" value="c"> 5 ans</label>
+                            <label><input type="radio" name="q19" value="d"> Durée illimitée</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">20</span></div>
+                        <div class="q-text">L'accountability signifie :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q20" value="a"> Pouvoir démontrer sa conformité au RGPD</label>
+                            <label><input type="radio" name="q20" value="b"> Avoir un comptable dédié</label>
+                            <label><input type="radio" name="q20" value="c"> Rendre des comptes aux actionnaires</label>
+                            <label><input type="radio" name="q20" value="d"> Publier un rapport annuel</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">21</span></div>
+                        <div class="q-text">Les mentions d'information doivent indiquer :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q21" value="a"> Finalité, base légale, durée, droits, contact DPO...</label>
+                            <label><input type="radio" name="q21" value="b"> Uniquement le nom de l'entreprise</label>
+                            <label><input type="radio" name="q21" value="c"> Uniquement la durée de conservation</label>
+                            <label><input type="radio" name="q21" value="d"> Le chiffre d'affaires de l'entreprise</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">22</span></div>
+                        <div class="q-text">Un contrat avec un sous-traitant (art. 28) doit préciser :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q22" value="a"> Instructions, sécurité, sort des données en fin de contrat</label>
+                            <label><input type="radio" name="q22" value="b"> Uniquement le prix</label>
+                            <label><input type="radio" name="q22" value="c"> Rien de particulier</label>
+                            <label><input type="radio" name="q22" value="d"> Le nom du DPO</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">23</span></div>
+                        <div class="q-text">Une AIPD est obligatoire quand :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q23" value="a"> Le traitement engendre un risque élevé pour les droits des personnes</label>
+                            <label><input type="radio" name="q23" value="b"> On traite plus de 100 données</label>
+                            <label><input type="radio" name="q23" value="c"> On a plus de 50 salariés</label>
+                            <label><input type="radio" name="q23" value="d"> On utilise un logiciel américain</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">24</span></div>
+                        <div class="q-text">Pour se mettre en conformité, la 1re étape CNIL est :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q24" value="a"> Recenser les traitements dans un registre</label>
+                            <label><input type="radio" name="q24" value="b"> Nommer un DPO</label>
+                            <label><input type="radio" name="q24" value="c"> Acheter un logiciel RGPD</label>
+                            <label><input type="radio" name="q24" value="d"> Chiffrer toutes les données</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Module 4 — Approfondissement (Q25-Q30) -->
+        <section class="form-section" id="sec-mod4">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">5</div>
+                    <div class="sec-info">
+                        <h2>Module 4 — Approfondissement</h2>
+                        <p>6 questions sur les cas pratiques : cookies, vidéosurveillance, sanctions, IA</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Module 4</span><span class="q-num">25</span></div>
+                        <div class="q-text">Le consentement pour les cookies doit :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q25" value="a"> Permettre de refuser aussi facilement que d'accepter</label>
+                            <label><input type="radio" name="q25" value="b"> Être implicite si navigation</label>
+                            <label><input type="radio" name="q25" value="c"> Être demandé une seule fois</label>
+                            <label><input type="radio" name="q25" value="d"> Être obligatoire</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Module 4</span><span class="q-num">26</span></div>
+                        <div class="q-text">La vidéosurveillance au travail :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q26" value="a"> Doit être proportionnée et les salariés informés</label>
+                            <label><input type="radio" name="q26" value="b"> Est toujours autorisée</label>
+                            <label><input type="radio" name="q26" value="c"> Est interdite</label>
+                            <label><input type="radio" name="q26" value="d"> Ne nécessite pas d'information</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Module 4</span><span class="q-num">27</span></div>
+                        <div class="q-text">Le RGPD s'applique aux données :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q27" value="a"> Numériques ET papier</label>
+                            <label><input type="radio" name="q27" value="b"> Uniquement numériques</label>
+                            <label><input type="radio" name="q27" value="c"> Uniquement sur internet</label>
+                            <label><input type="radio" name="q27" value="d"> Uniquement dans les bases de données</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Module 4</span><span class="q-num">28</span></div>
+                        <div class="q-text">La CNIL peut contrôler :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q28" value="a"> Tout organisme, sur place, en ligne ou sur pièces</label>
+                            <label><input type="radio" name="q28" value="b"> Uniquement les grandes entreprises</label>
+                            <label><input type="radio" name="q28" value="c"> Uniquement sur plainte</label>
+                            <label><input type="radio" name="q28" value="d"> Uniquement les sites web</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Module 4</span><span class="q-num">29</span></div>
+                        <div class="q-text">FREE a été sanctionné en 2026 pour :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q29" value="a"> Mesures de sécurité insuffisantes (42 M€)</label>
+                            <label><input type="radio" name="q29" value="b"> Absence de DPO</label>
+                            <label><input type="radio" name="q29" value="c"> Non-respect du droit à l'oubli</label>
+                            <label><input type="radio" name="q29" value="d"> Cookies non conformes</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Module 4</span><span class="q-num">30</span></div>
+                        <div class="q-text">À la fin de cette formation, vous devez être capable de :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q30" value="a"> Identifier les risques et engager une démarche de conformité</label>
+                            <label><input type="radio" name="q30" value="b"> Tout savoir par cœur</label>
+                            <label><input type="radio" name="q30" value="c"> Devenir DPO certifié</label>
+                            <label><input type="radio" name="q30" value="d"> Rédiger des textes de loi</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Évaluation de la formation -->
+        <section class="form-section section-alt" id="sec-eval">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">6</div>
+                    <div class="sec-info">
+                        <h2>Évaluation de la formation</h2>
+                        <p>Vos retours nous permettent d'améliorer continuellement nos formations</p>
+                    </div>
+                </div>
+                <div class="attentes-grid">
+                    <div class="field-card">
+                        <label>Points forts</label>
+                        <textarea id="appreciation" placeholder="Qu'avez-vous le plus apprécié dans cette formation ?"></textarea>
+                    </div>
+                    <div class="field-card">
+                        <label>Points à approfondir</label>
+                        <textarea id="approfondir" placeholder="Y a-t-il des points que vous auriez aimé approfondir davantage ?"></textarea>
+                    </div>
+                    <div class="field-card">
+                        <label>Suggestions</label>
+                        <textarea id="suggestions" placeholder="Avez-vous des suggestions d'amélioration ?"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submit -->
+        <div class="submit-band">
+            <button class="btn-submit" onclick="submitTest()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+                Valider et envoyer mes réponses
+            </button>
+            <p class="submit-note">Vos réponses seront transmises au formateur pour validation de vos acquis.</p>
+        </div>
+
+    </div>
+
+    <!-- ═══ RESULTS ═══ -->
+    <div class="results-wrapper" id="resultsWrapper">
+
+        <div class="results-hero">
+            <div class="results-inner">
+                <div class="results-ring">
+                    <svg width="200" height="200">
+                        <defs>
+                            <linearGradient id="ringG" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:rgba(255,255,255,0.3)"/>
+                                <stop offset="100%" style="stop-color:rgba(255,255,255,0.1)"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12"/>
+                        <circle id="scoreCircle" cx="100" cy="100" r="82" fill="none" stroke="white" stroke-width="12"
+                                stroke-dasharray="515.2" stroke-dashoffset="515.2" stroke-linecap="round"/>
+                    </svg>
+                    <div class="ring-text" id="scoreText">0/30</div>
+                    <div class="ring-label">bonnes réponses</div>
+                </div>
+                <div class="results-meta">
+                    <h2 id="resultTitle">Vos résultats</h2>
+                    <div id="levelBadge" class="level-pill"></div>
+                    <p id="levelDesc"></p>
+                    <div class="module-bars" id="moduleBars"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-band">
+            <h3 style="font-size:1.2rem; font-weight:700; color:var(--ak-black); margin-bottom:20px;">Détail des réponses</h3>
+            <div class="review-grid" id="reviewGrid"></div>
+
+            <div class="attentes-review" id="attentesReview">
+                <h3>Évaluation de la formation (transmise au formateur)</h3>
+                <div id="attentesContent"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-inner">
+                <button class="btn-print" onclick="window.print()">Imprimer / PDF</button>
+                <span class="sep"></span>
+                <span>Akademia Formation — Pro Conduite SAS</span>
+                <span class="sep"></span>
+                <span>Démarche qualité Qualiopi</span>
+                <span class="sep"></span>
+                <span>Réf. AKTO 199636</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ── Progress ──
+        var totalQ = 30;
+        function updateProgress() {
+            var answered = 0;
+            for (var i = 1; i <= totalQ; i++) {
+                if (document.querySelector('input[name="q'+i+'"]:checked')) answered++;
+            }
+            document.getElementById('progressFill').style.width = (answered / totalQ * 100) + '%';
+            document.querySelectorAll('.q-card').forEach(function(card, idx) {
+                if (document.querySelector('input[name="q'+(idx+1)+'"]:checked')) {
+                    card.classList.add('answered');
+                } else {
+                    card.classList.remove('answered');
+                }
+            });
+        }
+        document.querySelectorAll('input[type="radio"]').forEach(function(r) { r.addEventListener('change', updateProgress); });
+
+        // ── Side nav scroll tracking ──
+        var sections = ['sec-info','sec-mod1','sec-mod2','sec-mod3','sec-mod4','sec-eval'];
+        window.addEventListener('scroll', function() {
+            var scrollY = window.scrollY + 200;
+            var current = '';
+            sections.forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el && el.offsetTop <= scrollY) current = id;
+            });
+            document.querySelectorAll('.side-nav a').forEach(function(a) {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        });
+
+        // ── Answers ──
+        var correct = {
+            q1:'b',q2:'a',q3:'a',q4:'a',q5:'c',q6:'a',q7:'a',q8:'c',
+            q9:'a',q10:'c',q11:'a',q12:'a',q13:'a',q14:'a',q15:'a',q16:'a',
+            q17:'a',q18:'b',q19:'b',q20:'a',q21:'a',q22:'a',q23:'a',q24:'a',
+            q25:'a',q26:'a',q27:'a',q28:'a',q29:'a',q30:'a'
+        };
+
+        var explanations = {
+            q1:"Le RGPD a été adopté le 27 avril 2016 mais est entré en application le 25 mai 2018.",
+            q2:"Art. 4.1 : toute information se rapportant à une personne identifiée ou identifiable.",
+            q3:"Art. 5.1.c : données adéquates, pertinentes et limitées à ce qui est nécessaire.",
+            q4:"Art. 4.11 : ces 4 conditions sont cumulatives.",
+            q5:"Art. 6 : consentement, contrat, obligation légale, intérêt vital, mission publique, intérêt légitime.",
+            q6:"Art. 6.1.c : le traitement est nécessaire au respect d'une obligation légale.",
+            q7:"Art. 9 : le traitement est interdit par principe, sauf 10 exceptions limitées.",
+            q8:"Art. 83.5 : le montant le plus élevé entre 20 M€ et 4% du CA mondial.",
+            q9:"Art. 37 : 3 cas obligatoires — autorités publiques, suivi systématique, données sensibles à grande échelle.",
+            q10:"Art. 12.3 : 1 mois, prolongeable à 3 mois en cas de complexité.",
+            q11:"Art. 20 : format structuré, couramment utilisé et lisible par machine.",
+            q12:"Art. 21.2 : droit d'opposition absolu, sans motif, pour la prospection.",
+            q13:"Art. 4.8 et 28 : le sous-traitant agit sur instruction du responsable.",
+            q14:"Art. 17.3 : des exceptions existent, notamment les obligations légales de conservation.",
+            q15:"Art. 12.5 : gratuit, réponse sous 1 mois.",
+            q16:"Art. 4.7 : c'est l'organisme qui décide du pourquoi et du comment.",
+            q17:"Art. 30 : obligatoire pour tous, exemptions partielles pour les -250 salariés.",
+            q18:"Art. 33 : notification dans les 72 heures après en avoir pris connaissance.",
+            q19:"Recommandation CNIL : 2 ans maximum après le dernier contact avec le candidat.",
+            q20:"Art. 5.2 : la charge de la preuve est inversée — c'est à l'organisme de prouver sa conformité.",
+            q21:"Art. 13-14 : liste exhaustive des mentions obligatoires.",
+            q22:"Art. 28.3 : le contrat doit préciser les instructions, la sécurité, la sous-sous-traitance, les audits, etc.",
+            q23:"Art. 35 : obligatoire si risque élevé. La CNIL a publié une liste de 14 types de traitements concernés.",
+            q24:"cnil.fr : les 4 étapes = recenser, trier, respecter les droits, sécuriser.",
+            q25:"Lignes directrices CNIL sur les cookies : refuser doit être aussi simple qu'accepter.",
+            q26:"La CNIL a sanctionné 16 entreprises en 2025 pour vidéosurveillance excessive des salariés.",
+            q27:"Le RGPD s'applique à tout traitement, automatisé ou non.",
+            q28:"La CNIL dispose de pouvoirs de contrôle étendus, y compris sans plainte préalable.",
+            q29:"Janvier 2026 : 27 M€ + 15 M€ pour mesures de sécurité inadaptées.",
+            q30:"L'objectif est l'autonomie dans la démarche de conformité, pas l'expertise juridique."
+        };
+
+        var moduleMap = {
+            q1:1,q2:1,q3:1,q4:1,q5:1,q6:1,q7:1,q8:1,
+            q9:2,q10:2,q11:2,q12:2,q13:2,q14:2,q15:2,q16:2,
+            q17:3,q18:3,q19:3,q20:3,q21:3,q22:3,q23:3,q24:3,
+            q25:4,q26:4,q27:4,q28:4,q29:4,q30:4
+        };
+        var moduleNames = {1:"Notions clés et principes",2:"Acteurs et droits",3:"Mise en conformité",4:"Approfondissement"};
+        var moduleTotal = {1:8,2:8,3:8,4:6};
+
+        function submitTest() {
+            var nom = document.getElementById('nom').value.trim();
+            var prenom = document.getElementById('prenom').value.trim();
+            if (!nom || !prenom) { alert('Merci de renseigner votre nom et prénom.'); document.getElementById('nom').focus(); return; }
+
+            var cnt = 0;
+            for (var i=1;i<=totalQ;i++) { if (document.querySelector('input[name="q'+i+'"]:checked')) cnt++; }
+            if (cnt < 15) { alert('Merci de répondre à au moins 15 questions sur 30.'); return; }
+
+            var totalCorrect = 0;
+            var modCorrect = {1:0,2:0,3:0,4:0};
+            var results = {};
+            for (var i=1;i<=totalQ;i++) {
+                var k='q'+i, s=document.querySelector('input[name="'+k+'"]:checked');
+                var ua=s?s.value:null, ok=ua===correct[k];
+                if(ok){totalCorrect++;modCorrect[moduleMap[k]]++;}
+                results[k]={ua:ua,ok:ok};
+            }
+
+            var pct=totalCorrect/totalQ;
+            var pctRound=Math.round(pct*100);
+            var level,lc,ld;
+            if(pctRound>=80){
+                level="Félicitations !";
+                lc="pill-green";
+                ld="Vous maîtrisez les fondamentaux du RGPD. Votre attestation de réussite vous sera délivrée.";
+            } else if(pctRound>=60){
+                level="Bon niveau !";
+                lc="pill-orange";
+                ld="Quelques points restent à consolider. Nous vous recommandons de revoir les fiches mémo des modules concernés.";
+            } else {
+                level="À consolider";
+                lc="pill-red";
+                ld="Des lacunes subsistent. Nous vous recommandons de revoir les fiches mémo et de reprendre contact avec votre formateur.";
+            }
+
+            // Build email
+            var email=document.getElementById('email').value.trim();
+            var entreprise=document.getElementById('entreprise').value.trim();
+            var poste=document.getElementById('poste').value.trim();
+            var evalFormation=document.getElementById('evalFormation').value;
+            var appreciation=document.getElementById('appreciation').value.trim();
+            var approfondir=document.getElementById('approfondir').value.trim();
+            var suggestions=document.getElementById('suggestions').value.trim();
+
+            var dq='';
+            for(var i=1;i<=totalQ;i++){
+                var k='q'+i,r=results[k];
+                var st=r.ua===null?'Non répondu':(r.ok?'Correct':'Incorrect');
+                var ut='Non répondu';
+                if(r.ua){ut=document.querySelector('input[name="'+k+'"][value="'+r.ua+'"]').parentElement.textContent.trim();}
+                dq+='Q'+i+' ['+st+'] : '+ut+'\n';
+            }
+
+            var body='QUIZ FINAL - RGPD FONDAMENTAUX\n'
+                +'=============================================\n\n'
+                +'STAGIAIRE\n'
+                +'Nom : '+nom+' '+prenom+'\n'
+                +'Email : '+(email||'-')+'\n'
+                +'Entreprise : '+(entreprise||'-')+'\n'
+                +'Poste : '+(poste||'-')+'\n'
+                +'Évaluation formation : '+(evalFormation||'-')+'\n\n'
+                +'SCORE QCM : '+totalCorrect+'/'+totalQ+' ('+pctRound+'%) — '+level+'\n'
+                +'  Module 1 (Notions clés) : '+modCorrect[1]+'/'+moduleTotal[1]+'\n'
+                +'  Module 2 (Acteurs/droits) : '+modCorrect[2]+'/'+moduleTotal[2]+'\n'
+                +'  Module 3 (Conformité) : '+modCorrect[3]+'/'+moduleTotal[3]+'\n'
+                +'  Module 4 (Approfondissement) : '+modCorrect[4]+'/'+moduleTotal[4]+'\n\n'
+                +'DETAIL DES REPONSES\n'+dq+'\n'
+                +'EVALUATION DE LA FORMATION\n'
+                +'Points forts : '+(appreciation||'-')+'\n'
+                +'Points à approfondir : '+(approfondir||'-')+'\n'
+                +'Suggestions : '+(suggestions||'-')+'\n';
+
+            var subj='Quiz Final RGPD — '+prenom+' '+nom+' — '+totalCorrect+'/'+totalQ+' ('+pctRound+'%)';
+
+            // Auto-send via FormSubmit
+            fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    _subject: subj,
+                    Nom: nom + ' ' + prenom,
+                    Email: email || '-',
+                    Entreprise: entreprise || '-',
+                    Poste: poste || '-',
+                    'Évaluation formation': evalFormation || '-',
+                    Score: totalCorrect + '/' + totalQ + ' (' + pctRound + '%) — ' + level,
+                    'Module 1': modCorrect[1]+'/'+moduleTotal[1],
+                    'Module 2': modCorrect[2]+'/'+moduleTotal[2],
+                    'Module 3': modCorrect[3]+'/'+moduleTotal[3],
+                    'Module 4': modCorrect[4]+'/'+moduleTotal[4],
+                    'Détail réponses': dq,
+                    'Points forts': (appreciation||'-'),
+                    'Points à approfondir': (approfondir||'-'),
+                    'Suggestions': (suggestions||'-'),
+                    _template: 'table'
+                })
+            }).then(function(r){return r.json();}).then(function(data){
+                var toast=document.getElementById('emailToast');
+                toast.innerHTML='<div class="toast-icon">&#10003;</div><span>Résultats envoyés automatiquement au formateur</span>';
+                toast.classList.add('show');
+                setTimeout(function(){toast.classList.remove('show');},5000);
+            }).catch(function(err){
+                // Fallback mailto
+                window.location.href='mailto:b.yassmine@ecf-proconduite.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+            });
+
+            // Show results
+            document.getElementById('formWrapper').style.display='none';
+            document.getElementById('sideNav').style.display='none';
+            var rw=document.getElementById('resultsWrapper');
+            rw.classList.add('visible');
+
+            // Toast
+            var toast=document.getElementById('emailToast');
+            toast.classList.add('show');
+            setTimeout(function(){toast.classList.remove('show');},5000);
+
+            // Ring animation
+            var circ=document.getElementById('scoreCircle');
+            var circumference=2*Math.PI*82;
+            circ.style.transition='stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1)';
+            setTimeout(function(){circ.style.strokeDashoffset=circumference-(pct*circumference);},200);
+
+            document.getElementById('scoreText').textContent=totalCorrect+'/'+totalQ;
+            document.getElementById('resultTitle').textContent=prenom+', vos résultats';
+            var badge=document.getElementById('levelBadge');
+            badge.className='level-pill '+lc;
+            badge.textContent=level;
+            document.getElementById('levelDesc').textContent=ld;
+
+            // Module bars
+            var mbHtml='';
+            for(var m=1;m<=4;m++){
+                var p=Math.round((modCorrect[m]/moduleTotal[m])*100);
+                mbHtml+='<div class="mod-bar-card">'
+                    +'<div class="mbc-title">'+moduleNames[m]+'</div>'
+                    +'<div class="mbc-track"><div class="mbc-fill" style="width:'+p+'%"></div></div>'
+                    +'<div class="mbc-score">'+modCorrect[m]+'/'+moduleTotal[m]+'</div>'
+                    +'</div>';
+            }
+            document.getElementById('moduleBars').innerHTML=mbHtml;
+
+            // Review grid
+            var qTexts=document.querySelectorAll('.q-card .q-text');
+            var rHtml='';
+            for(var i=1;i<=totalQ;i++){
+                var k='q'+i,r=results[k];
+                var cls=r.ok?'rc-correct':'rc-incorrect';
+                var txt=r.ok?'Bonne réponse':(r.ua?'Réponse incorrecte':'Non répondu');
+                var qText=qTexts[i-1].textContent;
+                rHtml+='<div class="review-card">'
+                    +'<div class="rc-q">'+i+'. '+qText+'</div>'
+                    +'<span class="rc-badge '+cls+'">'+txt+'</span>'
+                    +(!r.ok?'<div class="rc-expl">'+explanations[k]+'</div>':'')
+                    +'</div>';
+            }
+            document.getElementById('reviewGrid').innerHTML=rHtml;
+
+            // Evaluation feedback
+            var aHtml='';
+            if(appreciation) aHtml+='<p><strong>Points forts :</strong> '+appreciation+'</p>';
+            if(approfondir) aHtml+='<p><strong>Points à approfondir :</strong> '+approfondir+'</p>';
+            if(suggestions) aHtml+='<p><strong>Suggestions :</strong> '+suggestions+'</p>';
+            if(!aHtml) aHtml='<p style="color:var(--ak-gray-400)">Aucune évaluation renseignée.</p>';
+            document.getElementById('attentesContent').innerHTML=aHtml;
+
+            window.scrollTo({top:0,behavior:'smooth'});
+        }
+    </script>
+</body>
+</html>
