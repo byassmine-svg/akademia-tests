@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Final — Excel Intermédiaire | Akademia Formation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ak-blue: #2563EB;
+            --ak-purple: #7C3AED;
+            --ak-gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+            --ak-gradient-soft: linear-gradient(135deg, rgba(37,99,235,0.06) 0%, rgba(124,58,237,0.06) 100%);
+            --ak-green: #10B981;
+            --ak-turquoise: #06B6D4;
+            --ak-orange: #F97316;
+            --ak-black: #0F172A;
+            --ak-gray-800: #1E293B;
+            --ak-gray-700: #334155;
+            --ak-gray-600: #475569;
+            --ak-gray-500: #64748B;
+            --ak-gray-400: #94A3B8;
+            --ak-gray-300: #CBD5E1;
+            --ak-gray-200: #E5E7EB;
+            --ak-gray-100: #F1F5F9;
+            --ak-gray-50: #F8FAFC;
+            --ak-white: #FFFFFF;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background: var(--ak-white);
+            color: var(--ak-gray-700);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ─── Fixed progress ─── */
+        .progress-track {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--ak-gray-100);
+            z-index: 200;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--ak-gradient);
+            width: 0%;
+            transition: width 0.4s cubic-bezier(.4,0,.2,1);
+        }
+
+        /* ─── Fixed sidebar nav ─── */
+        .side-nav {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 12px 0 12px 16px;
+        }
+
+        .side-nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            padding: 8px 16px 8px 12px;
+            border-radius: 0 20px 20px 0;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: var(--ak-gray-400);
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .side-nav a .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--ak-gray-300);
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .side-nav a:hover, .side-nav a.active {
+            color: var(--ak-blue);
+            background: rgba(37,99,235,0.06);
+        }
+
+        .side-nav a:hover .dot, .side-nav a.active .dot {
+            background: var(--ak-gradient);
+            box-shadow: 0 0 8px rgba(37,99,235,0.4);
+        }
+
+        /* ─── Hero ─── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--ak-black);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--ak-gradient);
+            opacity: 0.9;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(16,185,129,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(124,58,237,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6,182,212,0.1) 0%, transparent 60%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 80px 80px 80px 120px;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 60px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-left h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+        }
+
+        .hero-left h1 .gradient-text {
+            background: linear-gradient(135deg, #a5f3fc, #c4b5fd, #86efac);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-left .subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 32px;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+        .hero-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .hero-tags .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            color: white;
+            font-size: 0.82rem;
+            font-weight: 500;
+        }
+
+        .hero-tags .tag .tag-icon {
+            font-size: 0.9rem;
+        }
+
+        .hero-right {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 24px;
+            padding: 36px;
+            color: white;
+        }
+
+        .hero-right h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 16px;
+        }
+
+        .hero-right ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .hero-right ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .hero-right ul li .check {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(16,185,129,0.2);
+            color: #6ee7b7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.7rem;
+            margin-top: 1px;
+        }
+
+        .hero-right .duration {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+            background: linear-gradient(135deg, #a5f3fc, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-right .ref-tag {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-weight: 500;
+        }
+
+        .hero-logo {
+            position: absolute;
+            top: 32px;
+            left: 48px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-logo span {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-logo .formation-label {
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            display: block;
+            margin-top: -2px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(6px); }
+        }
+
+        /* ─── Sections ─── */
+        .form-section {
+            scroll-margin-top: 20px;
+        }
+
+        .section-band {
+            padding: 64px 80px 64px 120px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-alt {
+            background: var(--ak-gray-50);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .section-header .sec-num {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: var(--ak-gradient);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .section-header .sec-info h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ak-black);
+            letter-spacing: -0.02em;
+        }
+
+        .section-header .sec-info p {
+            font-size: 0.88rem;
+            color: var(--ak-gray-500);
+            margin-top: 2px;
+        }
+
+        /* ─── Identity grid ─── */
+        .identity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        .identity-grid .span-full { grid-column: 1 / -1; }
+
+        .field-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 14px;
+            padding: 20px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .section-alt .field-card {
+            background: var(--ak-white);
+        }
+
+        .field-card:focus-within {
+            border-color: var(--ak-blue);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.08);
+        }
+
+        .field-card label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--ak-gray-500);
+            margin-bottom: 8px;
+        }
+
+        .field-card input,
+        .field-card select,
+        .field-card textarea {
+            width: 100%;
+            border: none;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            color: var(--ak-black);
+            background: transparent;
+            outline: none;
+        }
+
+        .field-card input::placeholder,
+        .field-card textarea::placeholder {
+            color: var(--ak-gray-400);
+        }
+
+        .field-card select {
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            background: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right center;
+            padding-right: 20px;
+        }
+
+        .field-card textarea {
+            resize: vertical;
+            min-height: 70px;
+            line-height: 1.6;
+        }
+
+        /* ─── Question cards ─── */
+        .questions-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .q-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .q-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--ak-gray-100);
+            transition: background 0.3s;
+        }
+
+        .q-card.answered::before {
+            background: var(--ak-gradient);
+        }
+
+        .q-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        .q-card .q-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .q-card .q-module {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--ak-purple);
+            background: rgba(124,58,237,0.06);
+            padding: 3px 10px;
+            border-radius: 6px;
+        }
+
+        .q-card .q-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--ak-gray-400);
+        }
+
+        .q-card .q-text {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--ak-black);
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .q-card .options label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 9px 12px;
+            margin-bottom: 4px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-size: 0.85rem;
+            color: var(--ak-gray-700);
+            line-height: 1.45;
+        }
+
+        .q-card .options label:hover {
+            background: var(--ak-gray-50);
+        }
+
+        .q-card .options input[type="radio"] {
+            margin-top: 3px;
+            accent-color: var(--ak-blue);
+            flex-shrink: 0;
+        }
+
+        /* ─── Attentes ─── */
+        .attentes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* ─── Submit ─── */
+        .submit-band {
+            text-align: center;
+            padding: 48px 40px;
+            background: var(--ak-gradient-soft);
+            border-top: 1px solid var(--ak-gray-100);
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--ak-gradient);
+            color: white;
+            border: none;
+            padding: 16px 52px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 14px;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: transform 0.2s, box-shadow 0.2s;
+            letter-spacing: -0.01em;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(37,99,235,0.3);
+        }
+
+        .btn-submit svg { flex-shrink: 0; }
+
+        .submit-note {
+            font-size: 0.78rem;
+            color: var(--ak-gray-400);
+            margin-top: 12px;
+        }
+
+        /* ─── Results ─── */
+        .results-wrapper { display: none; }
+        .results-wrapper.visible { display: block; }
+
+        .results-hero {
+            background: var(--ak-gradient);
+            padding: 64px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(16,185,129,0.1) 0%, transparent 50%);
+        }
+
+        .results-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .results-ring {
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+
+        .results-ring svg { transform: rotate(-90deg); }
+
+        .results-ring .ring-text {
+            position: absolute;
+            top: 44%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .results-ring .ring-label {
+            position: absolute;
+            top: 64%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .results-meta h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .results-meta .level-pill {
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        .pill-red { background: rgba(220,38,38,0.2); color: #fca5a5; }
+        .pill-orange { background: rgba(249,115,22,0.2); color: #fdba74; }
+        .pill-green { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+
+        .results-meta p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.92rem;
+            max-width: 520px;
+            line-height: 1.6;
+        }
+
+        .module-bars {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .mod-bar-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .mod-bar-card .mbc-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 10px;
+        }
+
+        .mod-bar-card .mbc-track {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .mod-bar-card .mbc-fill {
+            height: 100%;
+            background: white;
+            border-radius: 3px;
+            transition: width 0.8s ease;
+        }
+
+        .mod-bar-card .mbc-score {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: white;
+            margin-top: 8px;
+        }
+
+        /* Review detail */
+        .review-band {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 48px 80px;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .review-card {
+            background: var(--ak-gray-50);
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .review-card .rc-q {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ak-black);
+            margin-bottom: 8px;
+            line-height: 1.45;
+        }
+
+        .review-card .rc-badge {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 6px;
+        }
+
+        .rc-correct { background: #D1FAE5; color: #065F46; }
+        .rc-incorrect { background: #FEE2E2; color: #B91C1C; }
+
+        .review-card .rc-expl {
+            font-size: 0.8rem;
+            color: var(--ak-gray-500);
+            margin-top: 8px;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .attentes-review {
+            background: var(--ak-gray-50);
+            border-radius: 14px;
+            padding: 28px;
+            margin-top: 24px;
+        }
+
+        .attentes-review h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--ak-black);
+            margin-bottom: 14px;
+        }
+
+        .attentes-review p {
+            font-size: 0.88rem;
+            color: var(--ak-gray-600);
+            margin-bottom: 8px;
+        }
+
+        /* Email confirm toast */
+        .email-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--ak-black);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 14px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 300;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            animation: slideIn 0.4s ease;
+        }
+
+        .email-toast.show { display: flex; }
+
+        .email-toast .toast-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(16,185,129,0.2);
+            color: #6ee7b7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 40px;
+            background: var(--ak-gray-50);
+            border-top: 1px solid var(--ak-gray-100);
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer span {
+            font-size: 0.78rem;
+            color: var(--ak-gray-400);
+        }
+
+        .footer .sep {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--ak-gray-300);
+        }
+
+        .btn-print {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            color: var(--ak-gray-600);
+            padding: 10px 24px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: all 0.15s;
+        }
+
+        .btn-print:hover {
+            border-color: var(--ak-blue);
+            color: var(--ak-blue);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 1100px) {
+            .hero-content { grid-template-columns: 1fr; padding: 100px 40px 60px; }
+            .hero-right { max-width: 420px; }
+            .section-band { padding: 48px 40px; }
+            .side-nav { display: none; }
+            .questions-layout { grid-template-columns: 1fr; }
+            .attentes-grid { grid-template-columns: 1fr; }
+            .identity-grid { grid-template-columns: 1fr 1fr; }
+            .results-inner { grid-template-columns: 1fr; text-align: center; }
+            .results-ring { margin: 0 auto; }
+            .results-meta p { margin: 0 auto; }
+            .module-bars { grid-template-columns: 1fr 1fr; }
+            .results-hero { padding: 48px 40px; }
+            .review-band { padding: 40px; }
+            .review-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .hero-left h1 { font-size: 2.2rem; }
+            .hero-content { padding: 90px 24px 40px; }
+            .section-band { padding: 36px 20px; }
+            .identity-grid { grid-template-columns: 1fr; }
+            .module-bars { grid-template-columns: 1fr; }
+            .results-hero { padding: 36px 20px; }
+            .review-band { padding: 24px 20px; }
+        }
+
+        @media print {
+            .hero { min-height: auto; }
+            .side-nav, .progress-track, .btn-submit, .btn-print, .scroll-hint, .email-toast { display: none !important; }
+            .q-card, .review-card { break-inside: avoid; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="email-toast" id="emailToast">
+        <div class="toast-icon">&#10003;</div>
+        <span>Résultats envoyés automatiquement au formateur</span>
+    </div>
+
+    <!-- Side nav -->
+    <nav class="side-nav" id="sideNav">
+        <a href="#sec-info" class="active"><span class="dot"></span>Infos</a>
+        <a href="#sec-mod1"><span class="dot"></span>Module 1</a>
+        <a href="#sec-mod2"><span class="dot"></span>Module 2</a>
+        <a href="#sec-mod3"><span class="dot"></span>Module 3</a>
+        <a href="#sec-mod4"><span class="dot"></span>Module 4</a>
+        <a href="#sec-eval-formation"><span class="dot"></span>Évaluation</a>
+    </nav>
+
+    <!-- FORM -->
+    <div id="formWrapper">
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-pattern"></div>
+            <div class="hero-grid"></div>
+
+            <div class="hero-logo">
+                <svg width="40" height="40" viewBox="0 0 80 80">
+                    <defs><linearGradient id="lgHero" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.2)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.08)"/></linearGradient></defs>
+                    <rect width="80" height="80" rx="16" fill="url(#lgHero)"/>
+                    <path d="M 40 20 L 50 50 L 44 50 L 42 44 L 38 44 L 36 50 L 30 50 L 40 20 Z M 40 28 L 38 40 L 42 40 L 40 28 Z" fill="white"/>
+                    <circle cx="55" cy="28" r="6" fill="#10B981" opacity="0.9"/>
+                </svg>
+                <div>
+                    <span>AKADEMIA</span>
+                    <span class="formation-label">Formation</span>
+                </div>
+            </div>
+
+            <div class="hero-content">
+                <div class="hero-left">
+                    <h1>Quiz Final<br><span class="gradient-text">Excel Intermédiaire</span></h1>
+                    <p class="subtitle">Évaluation des connaissances acquises pendant la formation</p>
+                    <div class="hero-tags">
+                        <div class="tag"><span class="tag-icon">&#9201;</span> 15 à 20 minutes</div>
+                        <div class="tag"><span class="tag-icon">&#128221;</span> 30 questions</div>
+                        <div class="tag"><span class="tag-icon">&#127891;</span> Évaluation finale</div>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <h3>Ce quiz permet de</h3>
+                    <ul>
+                        <li><div class="check">&#10003;</div> Valider les connaissances acquises</li>
+                        <li><div class="check">&#10003;</div> Évaluer la maîtrise de chaque module</li>
+                        <li><div class="check">&#10003;</div> Identifier les points à approfondir</li>
+                        <li><div class="check">&#10003;</div> Obtenir votre attestation de réussite</li>
+                    </ul>
+                    <div class="duration">14 heures de formation en présentiel</div>
+                    <div class="ref-tag">Réf. AKTO 199627</div>
+                </div>
+            </div>
+
+            <div class="scroll-hint">
+                Commencer le quiz<br>&#8595;
+            </div>
+        </section>
+
+        <!-- Section 1: Identité -->
+        <section class="form-section" id="sec-info">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">1</div>
+                    <div class="sec-info">
+                        <h2>Vos informations</h2>
+                        <p>Quelques informations pour mieux vous connaître</p>
+                    </div>
+                </div>
+                <div class="identity-grid">
+                    <div class="field-card">
+                        <label>Nom *</label>
+                        <input type="text" id="nom" required placeholder="Votre nom de famille">
+                    </div>
+                    <div class="field-card">
+                        <label>Prénom *</label>
+                        <input type="text" id="prenom" required placeholder="Votre prénom">
+                    </div>
+                    <div class="field-card">
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="votre@email.com">
+                    </div>
+                    <div class="field-card">
+                        <label>Entreprise</label>
+                        <input type="text" id="entreprise" placeholder="Nom de votre entreprise">
+                    </div>
+                    <div class="field-card">
+                        <label>Poste / Fonction</label>
+                        <input type="text" id="poste" placeholder="Ex : Assistante comptable">
+                    </div>
+                    <div class="field-card">
+                        <label>Comment évaluez-vous cette formation ?</label>
+                        <select id="evalFormation">
+                            <option value="">— Choisir —</option>
+                            <option value="Excellente">Excellente</option>
+                            <option value="Très bien">Très bien</option>
+                            <option value="Bien">Bien</option>
+                            <option value="Moyenne">Moyenne</option>
+                            <option value="Insuffisante">Insuffisante</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Module 1 — Références & productivité (Q1-6) -->
+        <section class="form-section section-alt" id="sec-mod1">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">2</div>
+                    <div class="sec-info">
+                        <h2>Module 1 — Références & productivité</h2>
+                        <p>Références, formats, séries, consolidation multi-feuilles</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">01</span></div>
+                        <div class="q-text">La formule =B2*$D$1, recopiée en B3, devient :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q1" value="a"> =B3*$D$1</label>
+                            <label><input type="radio" name="q1" value="b"> =B2*$D$1</label>
+                            <label><input type="radio" name="q1" value="c"> =B3*$D$2</label>
+                            <label><input type="radio" name="q1" value="d"> =B2*$D$2</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">02</span></div>
+                        <div class="q-text">Pour consolider C5 des feuilles Jan, Fév, Mar :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q2" value="a"> =SOMME(Jan:Mar!C5)</label>
+                            <label><input type="radio" name="q2" value="b"> =Jan!C5+Fév!C5+Mar!C5</label>
+                            <label><input type="radio" name="q2" value="c"> =CONSOLIDER(C5)</label>
+                            <label><input type="radio" name="q2" value="d"> =SOMME(C5;C5;C5)</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">03</span></div>
+                        <div class="q-text">Le raccourci F4 dans une formule permet de :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q3" value="a"> Basculer entre réf. relative, absolue et mixte</label>
+                            <label><input type="radio" name="q3" value="b"> Supprimer la formule</label>
+                            <label><input type="radio" name="q3" value="c"> Copier la cellule</label>
+                            <label><input type="radio" name="q3" value="d"> Ouvrir l'aide</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">04</span></div>
+                        <div class="q-text">Pour créer la série Lundi→Dimanche :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q4" value="a"> Écrire Lundi puis tirer la poignée de recopie</label>
+                            <label><input type="radio" name="q4" value="b"> Taper chaque jour</label>
+                            <label><input type="radio" name="q4" value="c"> Utiliser JOUR()</label>
+                            <label><input type="radio" name="q4" value="d"> Insertion → Série</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">05</span></div>
+                        <div class="q-text">Ctrl+Home ramène :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q5" value="a"> À la cellule A1</label>
+                            <label><input type="radio" name="q5" value="b"> À la dernière cellule</label>
+                            <label><input type="radio" name="q5" value="c"> Au début de la ligne</label>
+                            <label><input type="radio" name="q5" value="d"> À la feuille précédente</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Module 1</span><span class="q-num">06</span></div>
+                        <div class="q-text">Pour figer la première ligne d'en-têtes :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q6" value="a"> Affichage → Figer les volets (ligne 2 sélectionnée)</label>
+                            <label><input type="radio" name="q6" value="b"> Accueil → Figer</label>
+                            <label><input type="radio" name="q6" value="c"> Mise en page → Imprimer les titres</label>
+                            <label><input type="radio" name="q6" value="d"> Impossible</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Module 2 — Fonctions de calcul (Q7-18) -->
+        <section class="form-section" id="sec-mod2">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">3</div>
+                    <div class="sec-info">
+                        <h2>Module 2 — Fonctions de calcul</h2>
+                        <p>SI, SOMME.SI, NB.SI, RECHERCHEV, SIERREUR</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">07</span></div>
+                        <div class="q-text">=SI(A1>=10;"Admis";"Refusé") si A1=10 :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q7" value="a"> Admis</label>
+                            <label><input type="radio" name="q7" value="b"> Refusé</label>
+                            <label><input type="radio" name="q7" value="c"> 10</label>
+                            <label><input type="radio" name="q7" value="d"> ERREUR</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">08</span></div>
+                        <div class="q-text">=SI(ET(A1>5;B1>5);"OK";"NON") si A1=8, B1=3 :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q8" value="a"> NON</label>
+                            <label><input type="radio" name="q8" value="b"> OK</label>
+                            <label><input type="radio" name="q8" value="c"> VRAI</label>
+                            <label><input type="radio" name="q8" value="d"> #VALEUR!</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">09</span></div>
+                        <div class="q-text">Au-delà de combien de SI imbriqués recommande-t-on RECHERCHEV ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q9" value="a"> 3-4</label>
+                            <label><input type="radio" name="q9" value="b"> 2</label>
+                            <label><input type="radio" name="q9" value="c"> 7</label>
+                            <label><input type="radio" name="q9" value="d"> 64</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">10</span></div>
+                        <div class="q-text">=SOMME.SI(A2:A100;"Paris";C2:C100) calcule :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q10" value="a"> La somme de C quand A="Paris"</label>
+                            <label><input type="radio" name="q10" value="b"> Le nombre de Paris</label>
+                            <label><input type="radio" name="q10" value="c"> La somme de A2:A100</label>
+                            <label><input type="radio" name="q10" value="d"> La somme de C2:C100</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">11</span></div>
+                        <div class="q-text">Différence SOMME.SI vs SOMME.SI.ENS :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q11" value="a"> SOMME.SI.ENS = plusieurs critères</label>
+                            <label><input type="radio" name="q11" value="b"> Aucune</label>
+                            <label><input type="radio" name="q11" value="c"> SOMME.SI.ENS est plus rapide</label>
+                            <label><input type="radio" name="q11" value="d"> Texte uniquement</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">12</span></div>
+                        <div class="q-text">=NB.SI(B:B;"Widget") retourne :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q12" value="a"> Le nombre de cellules contenant Widget</label>
+                            <label><input type="radio" name="q12" value="b"> La somme des Widget</label>
+                            <label><input type="radio" name="q12" value="c"> La position de Widget</label>
+                            <label><input type="radio" name="q12" value="d"> VRAI si Widget existe</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">13</span></div>
+                        <div class="q-text">=RECHERCHEV(A2;$B$1:$D$50;3;FAUX) — le 3 signifie :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q13" value="a"> Retourner la 3e colonne du tableau</label>
+                            <label><input type="radio" name="q13" value="b"> Chercher dans la 3e ligne</label>
+                            <label><input type="radio" name="q13" value="c"> Chercher 3 correspondances</label>
+                            <label><input type="radio" name="q13" value="d"> Arrondir à 3 décimales</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">14</span></div>
+                        <div class="q-text">RECHERCHEV retourne #N/A. Cause probable :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q14" value="a"> Valeur absente de la 1re colonne</label>
+                            <label><input type="radio" name="q14" value="b"> Tableau trop grand</label>
+                            <label><input type="radio" name="q14" value="c"> N° colonne trop petit</label>
+                            <label><input type="radio" name="q14" value="d"> Point-virgule manquant</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">15</span></div>
+                        <div class="q-text">=SIERREUR(RECHERCHEV(…);"Inconnu") si trouvé :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q15" value="a"> Affiche la valeur trouvée</label>
+                            <label><input type="radio" name="q15" value="b"> Affiche Inconnu</label>
+                            <label><input type="radio" name="q15" value="c"> Affiche VRAI</label>
+                            <label><input type="radio" name="q15" value="d"> Affiche A2</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">16</span></div>
+                        <div class="q-text">=DATEDIF(A2;AUJOURDHUI();"y") calcule :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q16" value="a"> Le nombre d'années complètes</label>
+                            <label><input type="radio" name="q16" value="b"> Le nombre de jours</label>
+                            <label><input type="radio" name="q16" value="c"> La date dans un an</label>
+                            <label><input type="radio" name="q16" value="d"> L'année de A2</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">17</span></div>
+                        <div class="q-text">Nommer B2:B100 "Ventes" permet :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q17" value="a"> =SOMME(Ventes)</label>
+                            <label><input type="radio" name="q17" value="b"> =SOMME(B2:B100) uniquement</label>
+                            <label><input type="radio" name="q17" value="c"> =Ventes</label>
+                            <label><input type="radio" name="q17" value="d"> Rien</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Module 2</span><span class="q-num">18</span></div>
+                        <div class="q-text">=JOURSEM(A2;2) retourne 6 signifie :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q18" value="a"> Samedi (type 2 : lun=1, sam=6)</label>
+                            <label><input type="radio" name="q18" value="b"> Vendredi</label>
+                            <label><input type="radio" name="q18" value="c"> Dimanche</label>
+                            <label><input type="radio" name="q18" value="d"> 6e jour du mois</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Module 3 — Listes & TCD (Q19-24) -->
+        <section class="form-section section-alt" id="sec-mod3">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">4</div>
+                    <div class="sec-info">
+                        <h2>Module 3 — Listes & TCD</h2>
+                        <p>Tri, filtres, validation, tableaux structurés, TCD</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">19</span></div>
+                        <div class="q-text">Avant de trier, il faut :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q19" value="a"> Sélectionner la totalité du tableau</label>
+                            <label><input type="radio" name="q19" value="b"> Sauvegarder</label>
+                            <label><input type="radio" name="q19" value="c"> Supprimer les formules</label>
+                            <label><input type="radio" name="q19" value="d"> Mettre en forme</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">20</span></div>
+                        <div class="q-text">Pour créer une liste déroulante :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q20" value="a"> Données → Validation des données → Liste</label>
+                            <label><input type="radio" name="q20" value="b"> Accueil → Liste</label>
+                            <label><input type="radio" name="q20" value="c"> Insertion → Menu déroulant</label>
+                            <label><input type="radio" name="q20" value="d"> Format → Liste</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">21</span></div>
+                        <div class="q-text">Ctrl+Maj+L active :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q21" value="a"> Les filtres automatiques</label>
+                            <label><input type="radio" name="q21" value="b"> Le verrouillage</label>
+                            <label><input type="radio" name="q21" value="c"> La MFC</label>
+                            <label><input type="radio" name="q21" value="d"> Les liens hypertexte</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">22</span></div>
+                        <div class="q-text">Ctrl+T sur une plage :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q22" value="a"> Tableau structuré avec filtres et extension auto</label>
+                            <label><input type="radio" name="q22" value="b"> Tri alphabétique</label>
+                            <label><input type="radio" name="q22" value="c"> Transforme en TCD</label>
+                            <label><input type="radio" name="q22" value="d"> Exporte en PDF</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">23</span></div>
+                        <div class="q-text">Un TCD permet de :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q23" value="a"> Résumer et croiser sans modifier la source</label>
+                            <label><input type="radio" name="q23" value="b"> Modifier les sources</label>
+                            <label><input type="radio" name="q23" value="c"> Fusionner fichiers</label>
+                            <label><input type="radio" name="q23" value="d"> Protéger les données</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Module 3</span><span class="q-num">24</span></div>
+                        <div class="q-text">Pour actualiser un TCD :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q24" value="a"> Clic droit → Actualiser</label>
+                            <label><input type="radio" name="q24" value="b"> Supprimer et recréer</label>
+                            <label><input type="radio" name="q24" value="c"> F5</label>
+                            <label><input type="radio" name="q24" value="d"> Automatique</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Module 4 — Graphiques & mise en forme (Q25-30) -->
+        <section class="form-section" id="sec-mod4">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">5</div>
+                    <div class="sec-info">
+                        <h2>Module 4 — Graphiques & mise en forme</h2>
+                        <p>Graphiques, sparklines, MFC, impression, dashboard</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Module 4</span><span class="q-num">25</span></div>
+                        <div class="q-text">Pour comparer l'évolution mensuelle de 3 produits :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q25" value="a"> Histogramme groupé ou courbes</label>
+                            <label><input type="radio" name="q25" value="b"> Camembert</label>
+                            <label><input type="radio" name="q25" value="c"> Nuage de points</label>
+                            <label><input type="radio" name="q25" value="d"> Organigramme</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Module 4</span><span class="q-num">26</span></div>
+                        <div class="q-text">Pour lier un titre de graphique à une cellule :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q26" value="a"> Cliquer titre → = → cliquer cellule</label>
+                            <label><input type="radio" name="q26" value="b"> Taper le texte</label>
+                            <label><input type="radio" name="q26" value="c"> Format → Titre dynamique</label>
+                            <label><input type="radio" name="q26" value="d"> Impossible</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Module 4</span><span class="q-num">27</span></div>
+                        <div class="q-text">Les sparklines sont :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q27" value="a"> Mini-graphiques dans une cellule</label>
+                            <label><input type="radio" name="q27" value="b"> Graphiques sur feuille séparée</label>
+                            <label><input type="radio" name="q27" value="c"> Animations Excel</label>
+                            <label><input type="radio" name="q27" value="d"> Formules statistiques</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Module 4</span><span class="q-num">28</span></div>
+                        <div class="q-text">MFC =$E2="En retard" sur $A$2:$F$100 :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q28" value="a"> Toute la ligne quand E=En retard</label>
+                            <label><input type="radio" name="q28" value="b"> Uniquement E2</label>
+                            <label><input type="radio" name="q28" value="c"> Toute la colonne E</label>
+                            <label><input type="radio" name="q28" value="d"> Rien</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Module 4</span><span class="q-num">29</span></div>
+                        <div class="q-text">Répéter l'en-tête sur chaque page imprimée :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q29" value="a"> Mise en page → Imprimer les titres</label>
+                            <label><input type="radio" name="q29" value="b"> Copier sur chaque page</label>
+                            <label><input type="radio" name="q29" value="c"> Figer les volets</label>
+                            <label><input type="radio" name="q29" value="d"> Affichage → Répéter</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Module 4</span><span class="q-num">30</span></div>
+                        <div class="q-text">Principe n°1 d'un bon tableau de bord :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q30" value="a"> Lisible en 10s, 1 page, 5 indicateurs max</label>
+                            <label><input type="radio" name="q30" value="b"> Maximum de couleurs</label>
+                            <label><input type="radio" name="q30" value="c"> Toutes les données brutes</label>
+                            <label><input type="radio" name="q30" value="d"> Uniquement des camemberts</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Évaluation de la formation -->
+        <section class="form-section section-alt" id="sec-eval-formation">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">6</div>
+                    <div class="sec-info">
+                        <h2>Évaluation de la formation</h2>
+                        <p>Vos retours nous aident à améliorer nos formations</p>
+                    </div>
+                </div>
+                <div class="attentes-grid">
+                    <div class="field-card">
+                        <label>Qu'avez-vous le plus apprécié dans cette formation ?</label>
+                        <textarea id="apprecie" placeholder="Ex : les exercices pratiques, les explications du formateur, les supports..."></textarea>
+                    </div>
+                    <div class="field-card">
+                        <label>Y a-t-il des points que vous auriez aimé approfondir davantage ?</label>
+                        <textarea id="approfondir" placeholder="Ex : les TCD, les formules conditionnelles, les graphiques..."></textarea>
+                    </div>
+                    <div class="field-card">
+                        <label>Avez-vous des suggestions d'amélioration ?</label>
+                        <textarea id="suggestions" placeholder="Ex : plus de temps sur les exercices, des cas pratiques de mon métier..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submit -->
+        <div class="submit-band">
+            <button class="btn-submit" onclick="submitTest()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+                Valider et envoyer mes réponses
+            </button>
+            <p class="submit-note">Vos réponses seront transmises au formateur pour évaluation.</p>
+        </div>
+
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results-wrapper" id="resultsWrapper">
+
+        <div class="results-hero">
+            <div class="results-inner">
+                <div class="results-ring">
+                    <svg width="200" height="200">
+                        <defs>
+                            <linearGradient id="ringG" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:rgba(255,255,255,0.3)"/>
+                                <stop offset="100%" style="stop-color:rgba(255,255,255,0.1)"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12"/>
+                        <circle id="scoreCircle" cx="100" cy="100" r="82" fill="none" stroke="white" stroke-width="12"
+                                stroke-dasharray="515.2" stroke-dashoffset="515.2" stroke-linecap="round"/>
+                    </svg>
+                    <div class="ring-text" id="scoreText">0/30</div>
+                    <div class="ring-label">bonnes réponses</div>
+                </div>
+                <div class="results-meta">
+                    <h2 id="resultTitle">Vos résultats</h2>
+                    <div id="levelBadge" class="level-pill"></div>
+                    <p id="levelDesc"></p>
+                    <div class="module-bars" id="moduleBars"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-band">
+            <h3 style="font-size:1.2rem; font-weight:700; color:var(--ak-black); margin-bottom:20px;">Détail des réponses</h3>
+            <div class="review-grid" id="reviewGrid"></div>
+
+            <div class="attentes-review" id="attentesReview">
+                <h3>Évaluation de la formation (transmise au formateur)</h3>
+                <div id="attentesContent"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-inner">
+                <button class="btn-print" onclick="window.print()">Imprimer / PDF</button>
+                <span class="sep"></span>
+                <span>Akademia Formation — Pro Conduite SAS</span>
+                <span class="sep"></span>
+                <span>Démarche qualité Qualiopi</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var TOTAL_Q = 30;
+
+        // ── Progress ──
+        function updateProgress() {
+            var answered = 0;
+            for (var i = 1; i <= TOTAL_Q; i++) {
+                if (document.querySelector('input[name="q'+i+'"]:checked')) answered++;
+            }
+            document.getElementById('progressFill').style.width = (answered / TOTAL_Q * 100) + '%';
+            document.querySelectorAll('.q-card').forEach(function(card, idx) {
+                if (document.querySelector('input[name="q'+(idx+1)+'"]:checked')) {
+                    card.classList.add('answered');
+                } else {
+                    card.classList.remove('answered');
+                }
+            });
+        }
+        document.querySelectorAll('input[type="radio"]').forEach(function(r) { r.addEventListener('change', updateProgress); });
+
+        // ── Side nav scroll tracking ──
+        var sections = ['sec-info','sec-mod1','sec-mod2','sec-mod3','sec-mod4','sec-eval-formation'];
+        window.addEventListener('scroll', function() {
+            var scrollY = window.scrollY + 200;
+            var current = '';
+            sections.forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el && el.offsetTop <= scrollY) current = id;
+            });
+            document.querySelectorAll('.side-nav a').forEach(function(a) {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        });
+
+        // ── Answers ──
+        var correct = {
+            q1:'a',q2:'a',q3:'a',q4:'a',q5:'a',q6:'a',
+            q7:'a',q8:'a',q9:'a',q10:'a',q11:'a',q12:'a',q13:'a',q14:'a',q15:'a',q16:'a',q17:'a',q18:'a',
+            q19:'a',q20:'a',q21:'a',q22:'a',q23:'a',q24:'a',
+            q25:'a',q26:'a',q27:'a',q28:'a',q29:'a',q30:'a'
+        };
+
+        var explanations = {
+            q1:"Seule la référence relative B2 change (→B3). $D$1 est absolue et ne bouge pas.",
+            q2:"La formule 3D =SOMME(Jan:Mar!C5) additionne C5 sur toutes les feuilles entre Jan et Mar.",
+            q3:"F4 bascule cycliquement : A1 → $A$1 → A$1 → $A1 → A1",
+            q4:"Excel reconnaît les jours comme série automatique.",
+            q5:"Ctrl+Home = retour en A1. Ctrl+Fin = dernière cellule utilisée.",
+            q6:"Sélectionner la ligne SOUS celle à figer, puis Affichage → Figer les volets.",
+            q7:"10>=10 est VRAI, donc SI renvoie Admis.",
+            q8:"ET exige TOUTES les conditions vraies. B1=3 < 5 → FAUX → NON.",
+            q9:"Au-delà de 3-4 niveaux, utiliser RECHERCHEV ou SI.CONDITIONS.",
+            q10:"SOMME.SI additionne la plage_somme (C) quand le critère (Paris) est trouvé dans la plage_critères (A).",
+            q11:"SOMME.SI = 1 critère, SOMME.SI.ENS = plusieurs critères simultanés.",
+            q12:"NB.SI compte les cellules correspondant au critère.",
+            q13:"Le 3e argument est le numéro de colonne à renvoyer dans le tableau.",
+            q14:"RECHERCHEV cherche dans la 1re colonne. Si la valeur n'y est pas → #N/A.",
+            q15:"SIERREUR ne s'active QUE si la formule produit une erreur. Sinon elle renvoie le résultat normal.",
+            q16:"DATEDIF avec \"y\" renvoie le nombre d'années entières entre deux dates.",
+            q17:"Les noms de plages remplacent les références dans les formules.",
+            q18:"Avec type 2 : lundi=1, mardi=2... samedi=6, dimanche=7.",
+            q19:"Si on ne sélectionne pas tout, seule une colonne est triée → données décalées.",
+            q20:"C'est dans le menu Données → Validation, autoriser : Liste.",
+            q21:"Ctrl+Maj+L = raccourci pour activer/désactiver les filtres automatiques.",
+            q22:"Ctrl+T convertit en tableau structuré avec filtres, extension auto, références structurées.",
+            q23:"Le TCD crée une vue séparée — il ne modifie JAMAIS les données source.",
+            q24:"Clic droit → Actualiser après modification des données source.",
+            q25:"Courbes ou histogramme groupé pour montrer l'évolution dans le temps.",
+            q26:"Sélectionner le titre, taper = dans la barre de formule, cliquer la cellule.",
+            q27:"Sparklines = mini-graphiques insérés directement dans une cellule.",
+            q28:"$ sur la colonne ($E2) + plage sur toute la ligne = colorie la ligne entière.",
+            q29:"Mise en page → Imprimer les titres → Lignes à répéter en haut.",
+            q30:"Simplicité : un dashboard doit être lisible en 10 secondes."
+        };
+
+        var moduleMap = {
+            q1:1,q2:1,q3:1,q4:1,q5:1,q6:1,
+            q7:2,q8:2,q9:2,q10:2,q11:2,q12:2,q13:2,q14:2,q15:2,q16:2,q17:2,q18:2,
+            q19:3,q20:3,q21:3,q22:3,q23:3,q24:3,
+            q25:4,q26:4,q27:4,q28:4,q29:4,q30:4
+        };
+        var moduleNames = {1:"Références & productivité",2:"Fonctions de calcul",3:"Listes & TCD",4:"Graphiques & mise en forme"};
+        var moduleTotal = {1:6,2:12,3:6,4:6};
+
+        function submitTest() {
+            var nom = document.getElementById('nom').value.trim();
+            var prenom = document.getElementById('prenom').value.trim();
+            if (!nom || !prenom) { alert('Merci de renseigner votre nom et prénom.'); document.getElementById('nom').focus(); return; }
+
+            var cnt = 0;
+            for (var i=1;i<=TOTAL_Q;i++) { if (document.querySelector('input[name="q'+i+'"]:checked')) cnt++; }
+            if (cnt < 15) { alert('Merci de répondre à au moins 15 questions sur 30.'); return; }
+
+            var totalCorrect = 0;
+            var modCorrect = {1:0,2:0,3:0,4:0};
+            var results = {};
+            for (var i=1;i<=TOTAL_Q;i++) {
+                var k='q'+i, s=document.querySelector('input[name="'+k+'"]:checked');
+                var ua=s?s.value:null, ok=ua===correct[k];
+                if(ok){totalCorrect++;modCorrect[moduleMap[k]]++;}
+                results[k]={ua:ua,ok:ok};
+            }
+
+            var pct=Math.round(totalCorrect/TOTAL_Q*100);
+            var level,lc,ld;
+            if(pct>=80){level="Réussi";lc="pill-green";ld="Félicitations ! Vous avez validé les compétences de la formation Excel Intermédiaire avec succès.";}
+            else if(pct>=60){level="À consolider";lc="pill-orange";ld="Vous avez acquis une bonne partie des compétences. Certains points méritent d'être revus pour consolider vos acquis.";}
+            else{level="À retravailler";lc="pill-red";ld="Certaines notions nécessitent un approfondissement. N'hésitez pas à revoir les supports de formation et à pratiquer.";}
+
+            // Build email
+            var email=document.getElementById('email').value.trim();
+            var entreprise=document.getElementById('entreprise').value.trim();
+            var poste=document.getElementById('poste').value.trim();
+            var evalFormation=document.getElementById('evalFormation').value;
+            var apprecie=document.getElementById('apprecie').value.trim();
+            var approfondir=document.getElementById('approfondir').value.trim();
+            var suggestions=document.getElementById('suggestions').value.trim();
+
+            var dq='';
+            for(var i=1;i<=TOTAL_Q;i++){
+                var k='q'+i,r=results[k];
+                var st=r.ua===null?'Non répondu':(r.ok?'Correct':'Incorrect');
+                var ut='Non répondu';
+                if(r.ua){ut=document.querySelector('input[name="'+k+'"][value="'+r.ua+'"]').parentElement.textContent.trim();}
+                dq+='Q'+i+' ['+st+'] : '+ut+'\n';
+            }
+
+            var subj='Quiz Final Excel Intermédiaire — '+prenom+' '+nom+' — '+totalCorrect+'/30 ('+pct+'%)';
+
+            // Auto-send via FormSubmit
+            fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    _subject: subj,
+                    Nom: nom + ' ' + prenom,
+                    Email: email || '-',
+                    Entreprise: entreprise || '-',
+                    Poste: poste || '-',
+                    'Évaluation formation': evalFormation || '-',
+                    Score: totalCorrect + '/30 (' + pct + '%) — ' + level,
+                    'Module 1': modCorrect[1]+'/'+moduleTotal[1],
+                    'Module 2': modCorrect[2]+'/'+moduleTotal[2],
+                    'Module 3': modCorrect[3]+'/'+moduleTotal[3],
+                    'Module 4': modCorrect[4]+'/'+moduleTotal[4],
+                    'Détail réponses': dq,
+                    'Le plus apprécié': apprecie || '-',
+                    'À approfondir': approfondir || '-',
+                    'Suggestions': suggestions || '-',
+                    _template: 'table'
+                })
+            }).then(function(r){return r.json();}).then(function(data){
+                var toast=document.getElementById('emailToast');
+                toast.querySelector('span').textContent='Résultats envoyés automatiquement au formateur';
+                toast.classList.add('show');
+                setTimeout(function(){toast.classList.remove('show');},5000);
+            }).catch(function(err){
+                var body='QUIZ FINAL - EXCEL INTERMEDIAIRE\n'
+                    +'=================================\n\n'
+                    +'STAGIAIRE\nNom : '+nom+' '+prenom+'\nEmail : '+(email||'-')+'\nEntreprise : '+(entreprise||'-')+'\nPoste : '+(poste||'-')+'\nÉvaluation formation : '+(evalFormation||'-')+'\n\n'
+                    +'SCORE : '+totalCorrect+'/30 ('+pct+'%) — '+level+'\n'
+                    +'  Module 1 : '+modCorrect[1]+'/'+moduleTotal[1]+'\n'
+                    +'  Module 2 : '+modCorrect[2]+'/'+moduleTotal[2]+'\n'
+                    +'  Module 3 : '+modCorrect[3]+'/'+moduleTotal[3]+'\n'
+                    +'  Module 4 : '+modCorrect[4]+'/'+moduleTotal[4]+'\n\n'
+                    +'DETAIL DES REPONSES\n'+dq+'\n'
+                    +'EVALUATION\n'
+                    +'Le plus apprécié : '+(apprecie||'-')+'\n'
+                    +'À approfondir : '+(approfondir||'-')+'\n'
+                    +'Suggestions : '+(suggestions||'-')+'\n';
+                window.location.href='mailto:b.yassmine@ecf-proconduite.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+            });
+
+            // Show results
+            document.getElementById('formWrapper').style.display='none';
+            document.getElementById('sideNav').style.display='none';
+            var rw=document.getElementById('resultsWrapper');
+            rw.classList.add('visible');
+
+            // Toast
+            var toast=document.getElementById('emailToast');
+            toast.classList.add('show');
+            setTimeout(function(){toast.classList.remove('show');},5000);
+
+            // Ring animation
+            var circ=document.getElementById('scoreCircle');
+            var circumference=2*Math.PI*82;
+            var pctDecimal=totalCorrect/TOTAL_Q;
+            circ.style.transition='stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1)';
+            setTimeout(function(){circ.style.strokeDashoffset=circumference-(pctDecimal*circumference);},200);
+
+            document.getElementById('scoreText').textContent=totalCorrect+'/30';
+            document.getElementById('resultTitle').textContent=prenom+', vos résultats';
+            var badge=document.getElementById('levelBadge');
+            badge.className='level-pill '+lc;
+            badge.textContent=level;
+            document.getElementById('levelDesc').textContent=ld;
+
+            // Module bars
+            var mbHtml='';
+            for(var m=1;m<=4;m++){
+                var p=Math.round((modCorrect[m]/moduleTotal[m])*100);
+                mbHtml+='<div class="mod-bar-card">'
+                    +'<div class="mbc-title">'+moduleNames[m]+'</div>'
+                    +'<div class="mbc-track"><div class="mbc-fill" style="width:'+p+'%"></div></div>'
+                    +'<div class="mbc-score">'+modCorrect[m]+'/'+moduleTotal[m]+'</div>'
+                    +'</div>';
+            }
+            document.getElementById('moduleBars').innerHTML=mbHtml;
+
+            // Review grid
+            var qTexts=document.querySelectorAll('.q-card .q-text');
+            var rHtml='';
+            for(var i=1;i<=TOTAL_Q;i++){
+                var k='q'+i,r=results[k];
+                var cls=r.ok?'rc-correct':'rc-incorrect';
+                var txt=r.ok?'Bonne réponse':(r.ua?'Réponse incorrecte':'Non répondu');
+                var qText=qTexts[i-1].textContent;
+                rHtml+='<div class="review-card">'
+                    +'<div class="rc-q">'+i+'. '+qText+'</div>'
+                    +'<span class="rc-badge '+cls+'">'+txt+'</span>'
+                    +(!r.ok?'<div class="rc-expl">'+explanations[k]+'</div>':'')
+                    +'</div>';
+            }
+            document.getElementById('reviewGrid').innerHTML=rHtml;
+
+            // Evaluation
+            var aHtml='';
+            if(evalFormation) aHtml+='<p><strong>Évaluation globale :</strong> '+evalFormation+'</p>';
+            if(apprecie) aHtml+='<p><strong>Le plus apprécié :</strong> '+apprecie+'</p>';
+            if(approfondir) aHtml+='<p><strong>À approfondir :</strong> '+approfondir+'</p>';
+            if(suggestions) aHtml+='<p><strong>Suggestions :</strong> '+suggestions+'</p>';
+            if(!aHtml) aHtml='<p style="color:var(--ak-gray-400)">Aucune évaluation renseignée.</p>';
+            document.getElementById('attentesContent').innerHTML=aHtml;
+
+            window.scrollTo({top:0,behavior:'smooth'});
+        }
+    </script>
+</body>
+</html>
