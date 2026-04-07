@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de positionnement — Initiation à l'Intelligence Artificielle | Akademia Formation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ak-blue: #2563EB;
+            --ak-purple: #7C3AED;
+            --ak-gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+            --ak-gradient-soft: linear-gradient(135deg, rgba(37,99,235,0.06) 0%, rgba(124,58,237,0.06) 100%);
+            --ak-green: #10B981;
+            --ak-turquoise: #06B6D4;
+            --ak-orange: #F97316;
+            --ak-black: #0F172A;
+            --ak-gray-800: #1E293B;
+            --ak-gray-700: #334155;
+            --ak-gray-600: #475569;
+            --ak-gray-500: #64748B;
+            --ak-gray-400: #94A3B8;
+            --ak-gray-300: #CBD5E1;
+            --ak-gray-200: #E5E7EB;
+            --ak-gray-100: #F1F5F9;
+            --ak-gray-50: #F8FAFC;
+            --ak-white: #FFFFFF;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background: var(--ak-white);
+            color: var(--ak-gray-700);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ─── Fixed progress ─── */
+        .progress-track {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--ak-gray-100);
+            z-index: 200;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--ak-gradient);
+            width: 0%;
+            transition: width 0.4s cubic-bezier(.4,0,.2,1);
+        }
+
+        /* ─── Fixed sidebar nav ─── */
+        .side-nav {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 12px 0 12px 16px;
+        }
+
+        .side-nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            padding: 8px 16px 8px 12px;
+            border-radius: 0 20px 20px 0;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: var(--ak-gray-400);
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .side-nav a .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--ak-gray-300);
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .side-nav a:hover, .side-nav a.active {
+            color: var(--ak-blue);
+            background: rgba(37,99,235,0.06);
+        }
+
+        .side-nav a:hover .dot, .side-nav a.active .dot {
+            background: var(--ak-gradient);
+            box-shadow: 0 0 8px rgba(37,99,235,0.4);
+        }
+
+        /* ─── Hero ─── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--ak-black);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--ak-gradient);
+            opacity: 0.9;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(16,185,129,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(124,58,237,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6,182,212,0.1) 0%, transparent 60%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 80px 80px 80px 120px;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 60px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-left h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+        }
+
+        .hero-left h1 .gradient-text {
+            background: linear-gradient(135deg, #a5f3fc, #c4b5fd, #86efac);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-left .subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 32px;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+        .hero-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .hero-tags .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            color: white;
+            font-size: 0.82rem;
+            font-weight: 500;
+        }
+
+        .hero-tags .tag .tag-icon {
+            font-size: 0.9rem;
+        }
+
+        .hero-right {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 24px;
+            padding: 36px;
+            color: white;
+        }
+
+        .hero-right h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 16px;
+        }
+
+        .hero-right ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .hero-right ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .hero-right ul li .check {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(16,185,129,0.2);
+            color: #6ee7b7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.7rem;
+            margin-top: 1px;
+        }
+
+        .hero-right .duration {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+            background: linear-gradient(135deg, #a5f3fc, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-logo {
+            position: absolute;
+            top: 32px;
+            left: 48px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-logo span {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-logo .formation-label {
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            display: block;
+            margin-top: -2px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(6px); }
+        }
+
+        /* ─── Sections ─── */
+        .form-section {
+            scroll-margin-top: 20px;
+        }
+
+        .section-band {
+            padding: 64px 80px 64px 120px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-alt {
+            background: var(--ak-gray-50);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .section-header .sec-num {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: var(--ak-gradient);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .section-header .sec-info h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ak-black);
+            letter-spacing: -0.02em;
+        }
+
+        .section-header .sec-info p {
+            font-size: 0.88rem;
+            color: var(--ak-gray-500);
+            margin-top: 2px;
+        }
+
+        /* ─── Programme grid ─── */
+        .programme-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .programme-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 14px;
+            padding: 22px;
+            transition: border-color 0.2s;
+        }
+
+        .programme-card .prog-module {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--ak-purple);
+            background: rgba(124,58,237,0.06);
+            padding: 3px 10px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .programme-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--ak-black);
+            margin-bottom: 6px;
+        }
+
+        .programme-card p {
+            font-size: 0.85rem;
+            color: var(--ak-gray-500);
+            line-height: 1.5;
+        }
+
+        /* ─── Identity grid ─── */
+        .identity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        .identity-grid .span-full { grid-column: 1 / -1; }
+
+        .field-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 14px;
+            padding: 20px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .section-alt .field-card {
+            background: var(--ak-white);
+        }
+
+        .field-card:focus-within {
+            border-color: var(--ak-blue);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.08);
+        }
+
+        .field-card label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--ak-gray-500);
+            margin-bottom: 8px;
+        }
+
+        .field-card input,
+        .field-card select,
+        .field-card textarea {
+            width: 100%;
+            border: none;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            color: var(--ak-black);
+            background: transparent;
+            outline: none;
+        }
+
+        .field-card input::placeholder,
+        .field-card textarea::placeholder {
+            color: var(--ak-gray-400);
+        }
+
+        .field-card select {
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            background: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right center;
+            padding-right: 20px;
+        }
+
+        .field-card textarea {
+            resize: vertical;
+            min-height: 70px;
+            line-height: 1.6;
+        }
+
+        /* ─── Self-assessment ─── */
+        .assess-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .assess-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 14px;
+            padding: 20px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .assess-card .assess-label {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--ak-gray-700);
+        }
+
+        .assess-card .stars {
+            display: flex;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .assess-card .stars button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--ak-gray-200);
+            transition: color 0.15s, transform 0.15s;
+            padding: 0 1px;
+            line-height: 1;
+        }
+
+        .assess-card .stars button:hover,
+        .assess-card .stars button.active {
+            color: var(--ak-orange);
+            transform: scale(1.1);
+        }
+
+        .assess-card.has-value {
+            border-color: rgba(249,115,22,0.25);
+            background: rgba(249,115,22,0.02);
+        }
+
+        /* ─── Question cards ─── */
+        .questions-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .q-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .q-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--ak-gray-100);
+            transition: background 0.3s;
+        }
+
+        .q-card.answered::before {
+            background: var(--ak-gradient);
+        }
+
+        .q-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        .q-card .q-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .q-card .q-module {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--ak-purple);
+            background: rgba(124,58,237,0.06);
+            padding: 3px 10px;
+            border-radius: 6px;
+        }
+
+        .q-card .q-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--ak-gray-400);
+        }
+
+        .q-card .q-text {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--ak-black);
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .q-card .options label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 9px 12px;
+            margin-bottom: 4px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-size: 0.85rem;
+            color: var(--ak-gray-700);
+            line-height: 1.45;
+        }
+
+        .q-card .options label:hover {
+            background: var(--ak-gray-50);
+        }
+
+        .q-card .options input[type="radio"] {
+            margin-top: 3px;
+            accent-color: var(--ak-blue);
+            flex-shrink: 0;
+        }
+
+        /* ─── Attentes ─── */
+        .attentes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* ─── Submit ─── */
+        .submit-band {
+            text-align: center;
+            padding: 48px 40px;
+            background: var(--ak-gradient-soft);
+            border-top: 1px solid var(--ak-gray-100);
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--ak-gradient);
+            color: white;
+            border: none;
+            padding: 16px 52px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 14px;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: transform 0.2s, box-shadow 0.2s;
+            letter-spacing: -0.01em;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(37,99,235,0.3);
+        }
+
+        .btn-submit svg { flex-shrink: 0; }
+
+        .submit-note {
+            font-size: 0.78rem;
+            color: var(--ak-gray-400);
+            margin-top: 12px;
+        }
+
+        /* ─── Results ─── */
+        .results-wrapper { display: none; }
+        .results-wrapper.visible { display: block; }
+
+        .results-hero {
+            background: var(--ak-gradient);
+            padding: 64px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(16,185,129,0.1) 0%, transparent 50%);
+        }
+
+        .results-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .results-ring {
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+
+        .results-ring svg { transform: rotate(-90deg); }
+
+        .results-ring .ring-text {
+            position: absolute;
+            top: 44%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .results-ring .ring-label {
+            position: absolute;
+            top: 64%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .results-meta h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .results-meta .level-pill {
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        .pill-debutant { background: rgba(220,38,38,0.2); color: #fca5a5; }
+        .pill-elementaire { background: rgba(249,115,22,0.2); color: #fdba74; }
+        .pill-intermediaire { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+        .pill-avance { background: rgba(6,182,212,0.2); color: #67e8f9; }
+
+        .results-meta p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.92rem;
+            max-width: 520px;
+            line-height: 1.6;
+        }
+
+        .module-bars {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .mod-bar-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .mod-bar-card .mbc-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 10px;
+        }
+
+        .mod-bar-card .mbc-track {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .mod-bar-card .mbc-fill {
+            height: 100%;
+            background: white;
+            border-radius: 3px;
+            transition: width 0.8s ease;
+        }
+
+        .mod-bar-card .mbc-score {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: white;
+            margin-top: 8px;
+        }
+
+        /* Review detail */
+        .review-band {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 48px 80px;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .review-card {
+            background: var(--ak-gray-50);
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .review-card .rc-q {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ak-black);
+            margin-bottom: 8px;
+            line-height: 1.45;
+        }
+
+        .review-card .rc-badge {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 6px;
+        }
+
+        .rc-correct { background: #D1FAE5; color: #065F46; }
+        .rc-incorrect { background: #FEE2E2; color: #B91C1C; }
+
+        .review-card .rc-expl {
+            font-size: 0.8rem;
+            color: var(--ak-gray-500);
+            margin-top: 8px;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .attentes-review {
+            background: var(--ak-gray-50);
+            border-radius: 14px;
+            padding: 28px;
+            margin-top: 24px;
+        }
+
+        .attentes-review h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--ak-black);
+            margin-bottom: 14px;
+        }
+
+        .attentes-review p {
+            font-size: 0.88rem;
+            color: var(--ak-gray-600);
+            margin-bottom: 8px;
+        }
+
+        /* Email confirm toast */
+        .email-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--ak-black);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 14px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 300;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            animation: slideIn 0.4s ease;
+        }
+
+        .email-toast.show { display: flex; }
+
+        .email-toast .toast-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(16,185,129,0.2);
+            color: #6ee7b7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 40px;
+            background: var(--ak-gray-50);
+            border-top: 1px solid var(--ak-gray-100);
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer span {
+            font-size: 0.78rem;
+            color: var(--ak-gray-400);
+        }
+
+        .footer .sep {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--ak-gray-300);
+        }
+
+        .btn-print {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            color: var(--ak-gray-600);
+            padding: 10px 24px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: all 0.15s;
+        }
+
+        .btn-print:hover {
+            border-color: var(--ak-blue);
+            color: var(--ak-blue);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 1100px) {
+            .hero-content { grid-template-columns: 1fr; padding: 100px 40px 60px; }
+            .hero-right { max-width: 420px; }
+            .section-band { padding: 48px 40px; }
+            .side-nav { display: none; }
+            .questions-layout { grid-template-columns: 1fr; }
+            .attentes-grid { grid-template-columns: 1fr; }
+            .identity-grid { grid-template-columns: 1fr 1fr; }
+            .assess-grid { grid-template-columns: 1fr; }
+            .programme-grid { grid-template-columns: 1fr; }
+            .results-inner { grid-template-columns: 1fr; text-align: center; }
+            .results-ring { margin: 0 auto; }
+            .results-meta p { margin: 0 auto; }
+            .module-bars { grid-template-columns: 1fr 1fr; }
+            .results-hero { padding: 48px 40px; }
+            .review-band { padding: 40px; }
+            .review-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .hero-left h1 { font-size: 2.2rem; }
+            .hero-content { padding: 90px 24px 40px; }
+            .section-band { padding: 36px 20px; }
+            .identity-grid { grid-template-columns: 1fr; }
+            .module-bars { grid-template-columns: 1fr; }
+            .results-hero { padding: 36px 20px; }
+            .review-band { padding: 24px 20px; }
+        }
+
+        @media print {
+            .hero { min-height: auto; }
+            .side-nav, .progress-track, .btn-submit, .btn-print, .scroll-hint, .email-toast { display: none !important; }
+            .q-card, .review-card { break-inside: avoid; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="email-toast" id="emailToast">
+        <div class="toast-icon">&#10003;</div>
+        <span>Réponses prêtes à envoyer — vérifiez votre messagerie</span>
+    </div>
+
+    <!-- Side nav -->
+    <nav class="side-nav" id="sideNav">
+        <a href="#sec-info" class="active"><span class="dot"></span>Infos</a>
+        <a href="#sec-eval"><span class="dot"></span>Auto-évaluation</a>
+        <a href="#sec-mod1"><span class="dot"></span>Module 1</a>
+        <a href="#sec-mod2"><span class="dot"></span>Module 2</a>
+        <a href="#sec-mod3"><span class="dot"></span>Module 3</a>
+        <a href="#sec-mod4"><span class="dot"></span>Module 4</a>
+        <a href="#sec-attentes"><span class="dot"></span>Attentes</a>
+    </nav>
+
+    <!-- ═══ FORM ═══ -->
+    <div id="formWrapper">
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-pattern"></div>
+            <div class="hero-grid"></div>
+
+            <div class="hero-logo">
+                <svg width="40" height="40" viewBox="0 0 80 80">
+                    <defs><linearGradient id="lgHero" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.2)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.08)"/></linearGradient></defs>
+                    <rect width="80" height="80" rx="16" fill="url(#lgHero)"/>
+                    <path d="M 40 20 L 50 50 L 44 50 L 42 44 L 38 44 L 36 50 L 30 50 L 40 20 Z M 40 28 L 38 40 L 42 40 L 40 28 Z" fill="white"/>
+                    <circle cx="55" cy="28" r="6" fill="#10B981" opacity="0.9"/>
+                </svg>
+                <div>
+                    <span>AKADEMIA</span>
+                    <span class="formation-label">Formation</span>
+                </div>
+            </div>
+
+            <div class="hero-content">
+                <div class="hero-left">
+                    <h1>Test de<br>positionnement<br><span class="gradient-text">Intelligence Artificielle</span></h1>
+                    <p class="subtitle">Évaluez vos connaissances sur l'IA en quelques minutes. Vos réponses permettront au formateur d'adapter le contenu à vos besoins réels.</p>
+                    <div class="hero-tags">
+                        <div class="tag"><span class="tag-icon">&#9201;</span> 5 à 8 minutes</div>
+                        <div class="tag"><span class="tag-icon">&#128203;</span> 15 questions</div>
+                        <div class="tag"><span class="tag-icon">&#129302;</span> Réf. AKTO 199635</div>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <h3>Ce test permet de</h3>
+                    <ul>
+                        <li><div class="check">&#10003;</div> Évaluer votre niveau sur l'IA</li>
+                        <li><div class="check">&#10003;</div> Adapter la formation à votre profil</li>
+                        <li><div class="check">&#10003;</div> Recueillir vos attentes spécifiques</li>
+                        <li><div class="check">&#10003;</div> Personnaliser les exercices pratiques</li>
+                    </ul>
+                    <div class="duration">7 heures de formation en présentiel</div>
+                </div>
+            </div>
+
+            <div class="scroll-hint">
+                Commencer le test<br>&#8595;
+            </div>
+        </section>
+
+        <!-- Programme -->
+        <section class="form-section" id="sec-programme">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">&#128218;</div>
+                    <div class="sec-info">
+                        <h2>Programme de la formation</h2>
+                        <p>Initiation à l'Intelligence Artificielle — Réf. AKTO 199635 — 7 heures</p>
+                    </div>
+                </div>
+                <div class="programme-grid">
+                    <div class="programme-card">
+                        <span class="prog-module">Module 1</span>
+                        <h4>Qu'est-ce que l'IA ?</h4>
+                        <p>Définitions, Machine Learning, Deep Learning, NLP, comment l'IA apprend</p>
+                    </div>
+                    <div class="programme-card">
+                        <span class="prog-module">Module 2</span>
+                        <h4>L'IA en action</h4>
+                        <p>ChatGPT, Copilot, Gemini, DALL-E, cas d'usage métier concrets</p>
+                    </div>
+                    <div class="programme-card">
+                        <span class="prog-module">Module 3</span>
+                        <h4>Choisir les bons outils</h4>
+                        <p>Critères de choix, outils par métier, limites et risques</p>
+                    </div>
+                    <div class="programme-card">
+                        <span class="prog-module">Module 4</span>
+                        <h4>Plan d'action IA</h4>
+                        <p>Identifier les tâches automatisables, construire son plan personnalisé</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Identité -->
+        <section class="form-section section-alt" id="sec-info">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">1</div>
+                    <div class="sec-info">
+                        <h2>Vos informations</h2>
+                        <p>Quelques informations pour mieux vous connaître</p>
+                    </div>
+                </div>
+                <div class="identity-grid">
+                    <div class="field-card">
+                        <label>Nom *</label>
+                        <input type="text" id="nom" required placeholder="Votre nom de famille">
+                    </div>
+                    <div class="field-card">
+                        <label>Prénom *</label>
+                        <input type="text" id="prenom" required placeholder="Votre prénom">
+                    </div>
+                    <div class="field-card">
+                        <label>Entreprise</label>
+                        <input type="text" id="entreprise" placeholder="Nom de votre entreprise">
+                    </div>
+                    <div class="field-card">
+                        <label>Poste / Fonction</label>
+                        <input type="text" id="poste" placeholder="Ex : Assistante administrative">
+                    </div>
+                    <div class="field-card">
+                        <label>Utilisez-vous déjà des outils d'IA ?</label>
+                        <select id="frequence">
+                            <option value="">— Choisir —</option>
+                            <option value="Jamais — je n'ai jamais essayé">Jamais — je n'ai jamais essayé</option>
+                            <option value="Rarement — j'ai testé une ou deux fois">Rarement — j'ai testé une ou deux fois</option>
+                            <option value="Occasionnellement — quelques fois par mois">Occasionnellement — quelques fois par mois</option>
+                            <option value="Régulièrement — plusieurs fois par semaine">Régulièrement — plusieurs fois par semaine</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Auto-évaluation -->
+        <section class="form-section" id="sec-eval">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">2</div>
+                    <div class="sec-info">
+                        <h2>Auto-évaluation rapide</h2>
+                        <p>Évaluez votre aisance de 1 à 4 étoiles sur chaque thème</p>
+                    </div>
+                </div>
+                <div class="assess-grid">
+                    <div class="assess-card" id="ac-definition">
+                        <span class="assess-label">Expliquer ce qu'est l'intelligence artificielle avec des mots simples</span>
+                        <div class="stars" data-assess="definition">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-exemples">
+                        <span class="assess-label">Citer des exemples d'IA dans la vie quotidienne</span>
+                        <div class="stars" data-assess="exemples">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-chatgpt">
+                        <span class="assess-label">Utiliser un outil comme ChatGPT pour une tâche professionnelle</span>
+                        <div class="stars" data-assess="chatgpt">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-concepts">
+                        <span class="assess-label">Distinguer Machine Learning, Deep Learning et NLP</span>
+                        <div class="stars" data-assess="concepts">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-limites">
+                        <span class="assess-label">Identifier les limites et risques de l'IA</span>
+                        <div class="stars" data-assess="limites">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-usages">
+                        <span class="assess-label">Imaginer comment l'IA pourrait améliorer votre travail</span>
+                        <div class="stars" data-assess="usages">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Module 1 — Qu'est-ce que l'IA ? -->
+        <section class="form-section section-alt" id="sec-mod1">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">3</div>
+                    <div class="sec-info">
+                        <h2>Module 1 — Qu'est-ce que l'IA ?</h2>
+                        <p>4 questions sur les concepts fondamentaux de l'intelligence artificielle</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Qu'est-ce que l'IA ?</span><span class="q-num">01</span></div>
+                        <div class="q-text">L'intelligence artificielle, c'est :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q1" value="a"> Un robot humanoïde</label>
+                            <label><input type="radio" name="q1" value="b"> Un programme informatique capable d'apprendre à partir de données</label>
+                            <label><input type="radio" name="q1" value="c"> Un super-ordinateur</label>
+                            <label><input type="radio" name="q1" value="d"> Un réseau social</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Qu'est-ce que l'IA ?</span><span class="q-num">02</span></div>
+                        <div class="q-text">Le Machine Learning (apprentissage automatique) signifie que :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q2" value="a"> La machine est programmée pour chaque situation</label>
+                            <label><input type="radio" name="q2" value="b"> La machine apprend à partir d'exemples sans être programmée explicitement</label>
+                            <label><input type="radio" name="q2" value="c"> La machine remplace l'humain</label>
+                            <label><input type="radio" name="q2" value="d"> La machine se connecte à Internet</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Qu'est-ce que l'IA ?</span><span class="q-num">03</span></div>
+                        <div class="q-text">Lequel de ces exemples utilise l'IA au quotidien ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q3" value="a"> Une calculatrice</label>
+                            <label><input type="radio" name="q3" value="b"> Le filtre anti-spam de votre boîte email</label>
+                            <label><input type="radio" name="q3" value="c"> Un fichier Excel</label>
+                            <label><input type="radio" name="q3" value="d"> Une clé USB</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Qu'est-ce que l'IA ?</span><span class="q-num">04</span></div>
+                        <div class="q-text">Le NLP (Natural Language Processing) permet à l'IA de :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q4" value="a"> Créer des images</label>
+                            <label><input type="radio" name="q4" value="b"> Comprendre et générer du texte en langage humain</label>
+                            <label><input type="radio" name="q4" value="c"> Faire des calculs mathématiques</label>
+                            <label><input type="radio" name="q4" value="d"> Stocker des fichiers</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Module 2 — L'IA en action -->
+        <section class="form-section" id="sec-mod2">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">4</div>
+                    <div class="sec-info">
+                        <h2>Module 2 — L'IA en action</h2>
+                        <p>4 questions sur les outils et cas d'usage concrets</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">L'IA en action</span><span class="q-num">05</span></div>
+                        <div class="q-text">ChatGPT est un outil qui permet principalement de :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q5" value="a"> Créer des sites web automatiquement</label>
+                            <label><input type="radio" name="q5" value="b"> Générer du texte, répondre à des questions, résumer des documents</label>
+                            <label><input type="radio" name="q5" value="c"> Remplacer un comptable</label>
+                            <label><input type="radio" name="q5" value="d"> Gérer une base de données</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">L'IA en action</span><span class="q-num">06</span></div>
+                        <div class="q-text">DALL-E et Midjourney sont des outils d'IA qui permettent de :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q6" value="a"> Éditer des vidéos</label>
+                            <label><input type="radio" name="q6" value="b"> Générer des images à partir d'une description textuelle</label>
+                            <label><input type="radio" name="q6" value="c"> Créer des tableaux Excel</label>
+                            <label><input type="radio" name="q6" value="d"> Envoyer des emails</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">L'IA en action</span><span class="q-num">07</span></div>
+                        <div class="q-text">Dans quel cas l'IA peut-elle aider un professionnel RH ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q7" value="a"> Signer les contrats de travail</label>
+                            <label><input type="radio" name="q7" value="b"> Trier des CV et pré-sélectionner des candidats</label>
+                            <label><input type="radio" name="q7" value="c"> Remplacer les entretiens d'embauche</label>
+                            <label><input type="radio" name="q7" value="d"> Calculer les charges sociales</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">L'IA en action</span><span class="q-num">08</span></div>
+                        <div class="q-text">Microsoft Copilot est intégré dans :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q8" value="a"> Google Chrome uniquement</label>
+                            <label><input type="radio" name="q8" value="b"> Les applications Microsoft 365 (Word, Excel, PowerPoint, Outlook)</label>
+                            <label><input type="radio" name="q8" value="c"> Les réseaux sociaux</label>
+                            <label><input type="radio" name="q8" value="d"> Les logiciels de comptabilité</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Module 3 — Choisir les bons outils -->
+        <section class="form-section section-alt" id="sec-mod3">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">5</div>
+                    <div class="sec-info">
+                        <h2>Module 3 — Choisir les bons outils</h2>
+                        <p>4 questions sur les critères de choix, limites et risques</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Choisir les bons outils</span><span class="q-num">09</span></div>
+                        <div class="q-text">Quel est le principal risque lié à l'utilisation de ChatGPT en entreprise ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q9" value="a"> Il coûte trop cher</label>
+                            <label><input type="radio" name="q9" value="b"> Les réponses peuvent contenir des erreurs présentées comme des faits (hallucinations)</label>
+                            <label><input type="radio" name="q9" value="c"> Il est trop lent</label>
+                            <label><input type="radio" name="q9" value="d"> Il ne fonctionne qu'en anglais</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Choisir les bons outils</span><span class="q-num">10</span></div>
+                        <div class="q-text">Pour choisir un outil d'IA adapté à son métier, il faut d'abord :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q10" value="a"> Choisir le plus cher</label>
+                            <label><input type="radio" name="q10" value="b"> Identifier le problème ou la tâche qu'on veut résoudre ou automatiser</label>
+                            <label><input type="radio" name="q10" value="c"> Demander à un informaticien</label>
+                            <label><input type="radio" name="q10" value="d"> Attendre que tout le monde l'utilise</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Choisir les bons outils</span><span class="q-num">11</span></div>
+                        <div class="q-text">Les données personnelles saisies dans ChatGPT :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q11" value="a"> Sont totalement privées et sécurisées</label>
+                            <label><input type="radio" name="q11" value="b"> Peuvent être utilisées pour entraîner le modèle — prudence avec les données sensibles</label>
+                            <label><input type="radio" name="q11" value="c"> Sont automatiquement supprimées</label>
+                            <label><input type="radio" name="q11" value="d"> Ne sont jamais lues par personne</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Choisir les bons outils</span><span class="q-num">12</span></div>
+                        <div class="q-text">L'IA peut-elle remplacer complètement un salarié ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q12" value="a"> Oui, dans tous les métiers</label>
+                            <label><input type="radio" name="q12" value="b"> Non, elle automatise des tâches mais nécessite toujours une supervision humaine</label>
+                            <label><input type="radio" name="q12" value="c"> Oui, uniquement dans l'informatique</label>
+                            <label><input type="radio" name="q12" value="d"> Non, l'IA ne sert à rien en entreprise</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Module 4 — Plan d'action -->
+        <section class="form-section" id="sec-mod4">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">6</div>
+                    <div class="sec-info">
+                        <h2>Module 4 — Plan d'action IA</h2>
+                        <p>3 questions sur la mise en pratique dans votre quotidien professionnel</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Plan d'action</span><span class="q-num">13</span></div>
+                        <div class="q-text">Pour intégrer l'IA dans son travail, la première étape est de :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q13" value="a"> Acheter le logiciel le plus cher</label>
+                            <label><input type="radio" name="q13" value="b"> Lister ses tâches répétitives et chronophages qui pourraient être automatisées</label>
+                            <label><input type="radio" name="q13" value="c"> Suivre une formation de développeur</label>
+                            <label><input type="radio" name="q13" value="d"> Attendre les directives de la direction</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Plan d'action</span><span class="q-num">14</span></div>
+                        <div class="q-text">Un prompt est :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q14" value="a"> Un logiciel d'IA</label>
+                            <label><input type="radio" name="q14" value="b"> Une instruction ou question qu'on donne à une IA pour obtenir un résultat</label>
+                            <label><input type="radio" name="q14" value="c"> Un type d'ordinateur</label>
+                            <label><input type="radio" name="q14" value="d"> Un langage de programmation</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Plan d'action</span><span class="q-num">15</span></div>
+                        <div class="q-text">Quel est le meilleur conseil pour bien utiliser l'IA au travail ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q15" value="a"> Tout automatiser d'un coup</label>
+                            <label><input type="radio" name="q15" value="b"> Commencer petit, tester sur une tâche simple, puis élargir progressivement</label>
+                            <label><input type="radio" name="q15" value="c"> Ne l'utiliser que pour les emails</label>
+                            <label><input type="radio" name="q15" value="d"> Attendre que la technologie soit parfaite</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Attentes -->
+        <section class="form-section section-alt" id="sec-attentes">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">7</div>
+                    <div class="sec-info">
+                        <h2>Vos attentes</h2>
+                        <p>Aidez-nous à personnaliser la formation pour vous</p>
+                    </div>
+                </div>
+                <div class="attentes-grid">
+                    <div class="field-card">
+                        <label>Tâches à automatiser</label>
+                        <textarea id="taches" placeholder="Ex : rédaction d'emails, synthèse de documents, tri de données..."></textarea>
+                    </div>
+                    <div class="field-card">
+                        <label>Outils à découvrir</label>
+                        <textarea id="outils" placeholder="Ex : ChatGPT, Copilot, DALL-E, outils de transcription..."></textarea>
+                    </div>
+                    <div class="field-card">
+                        <label>Craintes ou questions</label>
+                        <textarea id="craintes" placeholder="Ex : confidentialité des données, fiabilité, impact sur l'emploi..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submit -->
+        <div class="submit-band">
+            <button class="btn-submit" onclick="submitTest()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+                Valider et envoyer mes réponses
+            </button>
+            <p class="submit-note">Vos réponses seront transmises au formateur pour adapter la session à votre niveau.</p>
+        </div>
+
+    </div>
+
+    <!-- ═══ RESULTS ═══ -->
+    <div class="results-wrapper" id="resultsWrapper">
+
+        <div class="results-hero">
+            <div class="results-inner">
+                <div class="results-ring">
+                    <svg width="200" height="200">
+                        <defs>
+                            <linearGradient id="ringG" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:rgba(255,255,255,0.3)"/>
+                                <stop offset="100%" style="stop-color:rgba(255,255,255,0.1)"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12"/>
+                        <circle id="scoreCircle" cx="100" cy="100" r="82" fill="none" stroke="white" stroke-width="12"
+                                stroke-dasharray="515.2" stroke-dashoffset="515.2" stroke-linecap="round"/>
+                    </svg>
+                    <div class="ring-text" id="scoreText">0/15</div>
+                    <div class="ring-label">bonnes réponses</div>
+                </div>
+                <div class="results-meta">
+                    <h2 id="resultTitle">Vos résultats</h2>
+                    <div id="levelBadge" class="level-pill"></div>
+                    <p id="levelDesc"></p>
+                    <div class="module-bars" id="moduleBars"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-band">
+            <h3 style="font-size:1.2rem; font-weight:700; color:var(--ak-black); margin-bottom:20px;">Détail des réponses</h3>
+            <div class="review-grid" id="reviewGrid"></div>
+
+            <div class="attentes-review" id="attentesReview">
+                <h3>Vos attentes (transmises au formateur)</h3>
+                <div id="attentesContent"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-inner">
+                <button class="btn-print" onclick="window.print()">Imprimer / PDF</button>
+                <span class="sep"></span>
+                <span>Akademia Formation — Pro Conduite SAS</span>
+                <span class="sep"></span>
+                <span>Démarche qualité Qualiopi</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ── Stars ──
+        function setStars(btn, value) {
+            var container = btn.parentElement;
+            var buttons = container.querySelectorAll('button');
+            buttons.forEach(function(b, i) { b.classList.toggle('active', i < value); });
+            container.dataset.value = value;
+            container.closest('.assess-card').classList.add('has-value');
+            updateProgress();
+        }
+
+        // ── Progress ──
+        function updateProgress() {
+            var answered = 0;
+            for (var i = 1; i <= 15; i++) {
+                if (document.querySelector('input[name="q'+i+'"]:checked')) answered++;
+            }
+            document.getElementById('progressFill').style.width = (answered / 15 * 100) + '%';
+            document.querySelectorAll('.q-card').forEach(function(card, idx) {
+                if (document.querySelector('input[name="q'+(idx+1)+'"]:checked')) {
+                    card.classList.add('answered');
+                } else {
+                    card.classList.remove('answered');
+                }
+            });
+        }
+        document.querySelectorAll('input[type="radio"]').forEach(function(r) { r.addEventListener('change', updateProgress); });
+
+        // ── Side nav scroll tracking ──
+        var sections = ['sec-info','sec-eval','sec-mod1','sec-mod2','sec-mod3','sec-mod4','sec-attentes'];
+        window.addEventListener('scroll', function() {
+            var scrollY = window.scrollY + 200;
+            var current = '';
+            sections.forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el && el.offsetTop <= scrollY) current = id;
+            });
+            document.querySelectorAll('.side-nav a').forEach(function(a) {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        });
+
+        // ── Answers ──
+        var correct = {q1:'b',q2:'b',q3:'b',q4:'b',q5:'b',q6:'b',q7:'b',q8:'b',q9:'b',q10:'b',q11:'b',q12:'b',q13:'b',q14:'b',q15:'b'};
+        var explanations = {
+            q1:"L'IA est un ensemble de techniques permettant aux machines d'apprendre et de prendre des décisions à partir de données.",
+            q2:"Le ML permet à la machine de détecter des patterns dans les données et d'améliorer ses performances avec l'expérience.",
+            q3:"Le filtre anti-spam analyse les emails pour détecter automatiquement les indésirables — c'est du Machine Learning.",
+            q4:"Le NLP est la branche de l'IA qui traite le langage humain — c'est ce qui fait fonctionner ChatGPT, les traducteurs automatiques, etc.",
+            q5:"ChatGPT est un assistant conversationnel basé sur le NLP, capable de rédiger, résumer, traduire, expliquer.",
+            q6:"Ces outils créent des images originales à partir d'un prompt (description en texte).",
+            q7:"L'IA peut analyser des CV pour identifier les profils correspondant aux critères, mais la décision finale reste humaine.",
+            q8:"Copilot est l'assistant IA de Microsoft, intégré dans Word, Excel, PowerPoint, Outlook et Teams.",
+            q9:"Les hallucinations sont un risque majeur : l'IA peut inventer des informations fausses avec assurance. Il faut toujours vérifier.",
+            q10:"La démarche commence toujours par le besoin : quel problème voulez-vous résoudre ? Ensuite on cherche l'outil adapté.",
+            q11:"Par défaut, les données saisies peuvent servir à l'entraînement. Il faut éviter de saisir des données confidentielles ou personnelles.",
+            q12:"L'IA est un outil d'assistance. Elle augmente la productivité mais ne remplace pas le jugement, la créativité et les relations humaines.",
+            q13:"La démarche commence par identifier les tâches à faible valeur ajoutée que l'IA pourrait prendre en charge.",
+            q14:"Le prompt est la consigne que vous écrivez pour guider l'IA. Plus il est précis, meilleur sera le résultat.",
+            q15:"La meilleure approche est itérative : commencer par un cas d'usage simple, apprendre, puis étendre progressivement."
+        };
+        var moduleMap = {q1:1,q2:1,q3:1,q4:1,q5:2,q6:2,q7:2,q8:2,q9:3,q10:3,q11:3,q12:3,q13:4,q14:4,q15:4};
+        var moduleNames = {1:"Qu'est-ce que l'IA ?",2:"L'IA en action",3:"Choisir les bons outils",4:"Plan d'action IA"};
+        var moduleTotal = {1:4,2:4,3:4,4:3};
+
+        function submitTest() {
+            var nom = document.getElementById('nom').value.trim();
+            var prenom = document.getElementById('prenom').value.trim();
+            if (!nom || !prenom) { alert('Merci de renseigner votre nom et prénom.'); document.getElementById('nom').focus(); return; }
+
+            var cnt = 0;
+            for (var i=1;i<=15;i++) { if (document.querySelector('input[name="q'+i+'"]:checked')) cnt++; }
+            if (cnt < 8) { alert('Merci de répondre à au moins 8 questions sur 15.'); return; }
+
+            var totalCorrect = 0;
+            var modCorrect = {1:0,2:0,3:0,4:0};
+            var results = {};
+            for (var i=1;i<=15;i++) {
+                var k='q'+i, s=document.querySelector('input[name="'+k+'"]:checked');
+                var ua=s?s.value:null, ok=ua===correct[k];
+                if(ok){totalCorrect++;modCorrect[moduleMap[k]]++;}
+                results[k]={ua:ua,ok:ok};
+            }
+
+            var pct=totalCorrect/15;
+            var level,lc,ld;
+            if(pct>=0.70){level="Bonnes bases";lc="pill-avance";ld="Vous avez déjà de bonnes bases sur l'IA ! La formation vous permettra d'approfondir et de passer à la pratique.";}
+            else if(pct>=0.40){level="Notions acquises";lc="pill-intermediaire";ld="Vous connaissez quelques notions. La formation est parfaitement adaptée pour structurer vos connaissances.";}
+            else{level="Découverte";lc="pill-debutant";ld="L'IA est un sujet nouveau pour vous. C'est exactement le but de cette formation — elle part de zéro !";}
+
+            // Build email
+            var entreprise=document.getElementById('entreprise').value.trim();
+            var poste=document.getElementById('poste').value.trim();
+            var frequence=document.getElementById('frequence').value;
+            var taches=document.getElementById('taches').value.trim();
+            var outils=document.getElementById('outils').value.trim();
+            var craintes=document.getElementById('craintes').value.trim();
+
+            var assessLabels={definition:'Expliquer l\'IA',exemples:'Exemples quotidiens',chatgpt:'Utiliser ChatGPT',concepts:'ML/DL/NLP',limites:'Limites & risques',usages:'IA au travail'};
+            var sa='';
+            document.querySelectorAll('.stars').forEach(function(s){
+                sa+='  - '+(assessLabels[s.dataset.assess]||s.dataset.assess)+' : '+(s.dataset.value||'-')+'/4\n';
+            });
+
+            var dq='';
+            for(var i=1;i<=15;i++){
+                var k='q'+i,r=results[k];
+                var st=r.ua===null?'Non répondu':(r.ok?'Correct':'Incorrect');
+                var ut='Non répondu';
+                if(r.ua){ut=document.querySelector('input[name="'+k+'"][value="'+r.ua+'"]').parentElement.textContent.trim();}
+                dq+='Q'+i+' ['+st+'] : '+ut+'\n';
+            }
+
+            var body='TEST DE POSITIONNEMENT - INITIATION A L\'INTELLIGENCE ARTIFICIELLE\n'
+                +'====================================================================\n\n'
+                +'STAGIAIRE\n'
+                +'Nom : '+nom+' '+prenom+'\n'
+                +'Entreprise : '+(entreprise||'-')+'\n'
+                +'Poste : '+(poste||'-')+'\n'
+                +'Utilisation IA : '+(frequence||'-')+'\n\n'
+                +'AUTO-EVALUATION\n'+sa+'\n'
+                +'SCORE QCM : '+totalCorrect+'/15 ('+Math.round(pct*100)+'%) — '+level+'\n'
+                +'  Module 1 (Qu\'est-ce que l\'IA ?) : '+modCorrect[1]+'/'+moduleTotal[1]+'\n'
+                +'  Module 2 (L\'IA en action) : '+modCorrect[2]+'/'+moduleTotal[2]+'\n'
+                +'  Module 3 (Choisir les bons outils) : '+modCorrect[3]+'/'+moduleTotal[3]+'\n'
+                +'  Module 4 (Plan d\'action IA) : '+modCorrect[4]+'/'+moduleTotal[4]+'\n\n'
+                +'DETAIL DES REPONSES\n'+dq+'\n'
+                +'ATTENTES\n'
+                +'Tâches à automatiser : '+(taches||'-')+'\n'
+                +'Outils à découvrir : '+(outils||'-')+'\n'
+                +'Craintes / questions : '+(craintes||'-')+'\n';
+
+            var subj='Test IA Initiation — '+prenom+' '+nom+' — '+totalCorrect+'/15 ('+Math.round(pct*100)+'%)';
+
+            // Auto-send via FormSubmit (no manual action needed)
+            fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    _subject: subj,
+                    Nom: nom + ' ' + prenom,
+                    Entreprise: entreprise || '-',
+                    Poste: poste || '-',
+                    'Utilisation IA': frequence || '-',
+                    Score: totalCorrect + '/15 (' + Math.round(pct*100) + '%) — ' + level,
+                    'Module 1': modCorrect[1]+'/'+moduleTotal[1],
+                    'Module 2': modCorrect[2]+'/'+moduleTotal[2],
+                    'Module 3': modCorrect[3]+'/'+moduleTotal[3],
+                    'Module 4': modCorrect[4]+'/'+moduleTotal[4],
+                    'Détail réponses': dq,
+                    'Tâches à automatiser': (taches||'-'),
+                    'Outils à découvrir': (outils||'-'),
+                    'Craintes': (craintes||'-'),
+                    _template: 'table'
+                })
+            }).then(function(r){return r.json();}).then(function(data){
+                var toast=document.getElementById('emailToast');
+                toast.textContent='✅ Résultats envoyés automatiquement au formateur';
+                toast.classList.add('show');
+                setTimeout(function(){toast.classList.remove('show');},5000);
+            }).catch(function(err){
+                // Fallback mailto
+                window.location.href='mailto:b.yassmine@ecf-proconduite.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+            });
+
+            // Show results
+            document.getElementById('formWrapper').style.display='none';
+            document.getElementById('sideNav').style.display='none';
+            var rw=document.getElementById('resultsWrapper');
+            rw.classList.add('visible');
+
+            // Toast
+            var toast=document.getElementById('emailToast');
+            toast.classList.add('show');
+            setTimeout(function(){toast.classList.remove('show');},5000);
+
+            // Ring animation
+            var circ=document.getElementById('scoreCircle');
+            var circumference=2*Math.PI*82;
+            circ.style.transition='stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1)';
+            setTimeout(function(){circ.style.strokeDashoffset=circumference-(pct*circumference);},200);
+
+            document.getElementById('scoreText').textContent=totalCorrect+'/15';
+            document.getElementById('resultTitle').textContent=prenom+', vos résultats';
+            var badge=document.getElementById('levelBadge');
+            badge.className='level-pill '+lc;
+            badge.textContent=level;
+            document.getElementById('levelDesc').textContent=ld;
+
+            // Module bars
+            var mbHtml='';
+            for(var m=1;m<=4;m++){
+                var p=Math.round((modCorrect[m]/moduleTotal[m])*100);
+                mbHtml+='<div class="mod-bar-card">'
+                    +'<div class="mbc-title">'+moduleNames[m]+'</div>'
+                    +'<div class="mbc-track"><div class="mbc-fill" style="width:'+p+'%"></div></div>'
+                    +'<div class="mbc-score">'+modCorrect[m]+'/'+moduleTotal[m]+'</div>'
+                    +'</div>';
+            }
+            document.getElementById('moduleBars').innerHTML=mbHtml;
+
+            // Review grid
+            var qTexts=document.querySelectorAll('.q-card .q-text');
+            var rHtml='';
+            for(var i=1;i<=15;i++){
+                var k='q'+i,r=results[k];
+                var cls=r.ok?'rc-correct':'rc-incorrect';
+                var txt=r.ok?'Bonne réponse':(r.ua?'Réponse incorrecte':'Non répondu');
+                var qText=qTexts[i-1].textContent;
+                rHtml+='<div class="review-card">'
+                    +'<div class="rc-q">'+i+'. '+qText+'</div>'
+                    +'<span class="rc-badge '+cls+'">'+txt+'</span>'
+                    +(!r.ok?'<div class="rc-expl">'+explanations[k]+'</div>':'')
+                    +'</div>';
+            }
+            document.getElementById('reviewGrid').innerHTML=rHtml;
+
+            // Attentes
+            var aHtml='';
+            if(taches) aHtml+='<p><strong>Tâches à automatiser :</strong> '+taches+'</p>';
+            if(outils) aHtml+='<p><strong>Outils à découvrir :</strong> '+outils+'</p>';
+            if(craintes) aHtml+='<p><strong>Craintes / questions :</strong> '+craintes+'</p>';
+            if(!aHtml) aHtml='<p style="color:var(--ak-gray-400)">Aucune attente renseignée.</p>';
+            document.getElementById('attentesContent').innerHTML=aHtml;
+
+            window.scrollTo({top:0,behavior:'smooth'});
+        }
+    </script>
+</body>
+</html>
