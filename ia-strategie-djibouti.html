@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de positionnement — IA &amp; Transformation Digitale (Djibouti Telecom) | Akademia Formation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ak-blue: #2563EB;
+            --ak-purple: #7C3AED;
+            --ak-gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+            --ak-gradient-soft: linear-gradient(135deg, rgba(37,99,235,0.06) 0%, rgba(124,58,237,0.06) 100%);
+            --ak-green: #10B981;
+            --ak-turquoise: #06B6D4;
+            --ak-orange: #F97316;
+            --ak-black: #0F172A;
+            --ak-gray-800: #1E293B;
+            --ak-gray-700: #334155;
+            --ak-gray-600: #475569;
+            --ak-gray-500: #64748B;
+            --ak-gray-400: #94A3B8;
+            --ak-gray-300: #CBD5E1;
+            --ak-gray-200: #E5E7EB;
+            --ak-gray-100: #F1F5F9;
+            --ak-gray-50: #F8FAFC;
+            --ak-white: #FFFFFF;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background: var(--ak-white);
+            color: var(--ak-gray-700);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ─── Fixed progress ─── */
+        .progress-track {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--ak-gray-100);
+            z-index: 200;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--ak-gradient);
+            width: 0%;
+            transition: width 0.4s cubic-bezier(.4,0,.2,1);
+        }
+
+        /* ─── Fixed sidebar nav ─── */
+        .side-nav {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 12px 0 12px 16px;
+        }
+
+        .side-nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            padding: 8px 16px 8px 12px;
+            border-radius: 0 20px 20px 0;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: var(--ak-gray-400);
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .side-nav a .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--ak-gray-300);
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .side-nav a:hover, .side-nav a.active {
+            color: var(--ak-blue);
+            background: rgba(37,99,235,0.06);
+        }
+
+        .side-nav a:hover .dot, .side-nav a.active .dot {
+            background: var(--ak-gradient);
+            box-shadow: 0 0 8px rgba(37,99,235,0.4);
+        }
+
+        /* ─── Hero ─── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--ak-black);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--ak-gradient);
+            opacity: 0.9;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(16,185,129,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(124,58,237,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6,182,212,0.1) 0%, transparent 60%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 80px 80px 80px 120px;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 60px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-left h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+        }
+
+        .hero-left h1 .gradient-text {
+            background: linear-gradient(135deg, #a5f3fc, #c4b5fd, #86efac);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-left .subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 32px;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+        .hero-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .hero-tags .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            color: white;
+            font-size: 0.82rem;
+            font-weight: 500;
+        }
+
+        .hero-tags .tag .tag-icon {
+            font-size: 0.9rem;
+        }
+
+        .hero-right {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 24px;
+            padding: 36px;
+            color: white;
+        }
+
+        .hero-right h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 16px;
+        }
+
+        .hero-right ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .hero-right ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .hero-right ul li .check {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(16,185,129,0.2);
+            color: #6ee7b7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.7rem;
+            margin-top: 1px;
+        }
+
+        .hero-right .duration {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+            background: linear-gradient(135deg, #a5f3fc, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-logo {
+            position: absolute;
+            top: 32px;
+            left: 48px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-logo span {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-logo .formation-label {
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            display: block;
+            margin-top: -2px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(6px); }
+        }
+
+        /* ─── Sections ─── */
+        .form-section {
+            scroll-margin-top: 20px;
+        }
+
+        .section-band {
+            padding: 64px 80px 64px 120px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-alt {
+            background: var(--ak-gray-50);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .section-header .sec-num {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: var(--ak-gradient);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .section-header .sec-info h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ak-black);
+            letter-spacing: -0.02em;
+        }
+
+        .section-header .sec-info p {
+            font-size: 0.88rem;
+            color: var(--ak-gray-500);
+            margin-top: 2px;
+        }
+
+        /* ─── Programme grid ─── */
+        .programme-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .programme-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 14px;
+            padding: 22px;
+            transition: border-color 0.2s;
+        }
+
+        .programme-card .prog-module {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--ak-purple);
+            background: rgba(124,58,237,0.06);
+            padding: 3px 10px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .programme-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--ak-black);
+            margin-bottom: 6px;
+        }
+
+        .programme-card p {
+            font-size: 0.85rem;
+            color: var(--ak-gray-500);
+            line-height: 1.5;
+        }
+
+        /* ─── Identity grid ─── */
+        .identity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        .identity-grid .span-full { grid-column: 1 / -1; }
+
+        .field-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 14px;
+            padding: 20px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .section-alt .field-card {
+            background: var(--ak-white);
+        }
+
+        .field-card:focus-within {
+            border-color: var(--ak-blue);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.08);
+        }
+
+        .field-card label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--ak-gray-500);
+            margin-bottom: 8px;
+        }
+
+        .field-card input,
+        .field-card select,
+        .field-card textarea {
+            width: 100%;
+            border: none;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            color: var(--ak-black);
+            background: transparent;
+            outline: none;
+        }
+
+        .field-card input::placeholder,
+        .field-card textarea::placeholder {
+            color: var(--ak-gray-400);
+        }
+
+        .field-card select {
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            background: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right center;
+            padding-right: 20px;
+        }
+
+        .field-card textarea {
+            resize: vertical;
+            min-height: 70px;
+            line-height: 1.6;
+        }
+
+        /* ─── Self-assessment ─── */
+        .assess-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .assess-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 14px;
+            padding: 20px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .assess-card .assess-label {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--ak-gray-700);
+        }
+
+        .assess-card .stars {
+            display: flex;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .assess-card .stars button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--ak-gray-200);
+            transition: color 0.15s, transform 0.15s;
+            padding: 0 1px;
+            line-height: 1;
+        }
+
+        .assess-card .stars button:hover,
+        .assess-card .stars button.active {
+            color: var(--ak-orange);
+            transform: scale(1.1);
+        }
+
+        .assess-card.has-value {
+            border-color: rgba(249,115,22,0.25);
+            background: rgba(249,115,22,0.02);
+        }
+
+        /* ─── Question cards ─── */
+        .questions-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .q-card {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .q-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--ak-gray-100);
+            transition: background 0.3s;
+        }
+
+        .q-card.answered::before {
+            background: var(--ak-gradient);
+        }
+
+        .q-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        .q-card .q-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .q-card .q-module {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--ak-purple);
+            background: rgba(124,58,237,0.06);
+            padding: 3px 10px;
+            border-radius: 6px;
+        }
+
+        .q-card .q-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--ak-gray-400);
+        }
+
+        .q-card .q-text {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--ak-black);
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .q-card .options label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 9px 12px;
+            margin-bottom: 4px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-size: 0.85rem;
+            color: var(--ak-gray-700);
+            line-height: 1.45;
+        }
+
+        .q-card .options label:hover {
+            background: var(--ak-gray-50);
+        }
+
+        .q-card .options input[type="radio"] {
+            margin-top: 3px;
+            accent-color: var(--ak-blue);
+            flex-shrink: 0;
+        }
+
+        /* ─── Attentes ─── */
+        .attentes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* ─── Submit ─── */
+        .submit-band {
+            text-align: center;
+            padding: 48px 40px;
+            background: var(--ak-gradient-soft);
+            border-top: 1px solid var(--ak-gray-100);
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--ak-gradient);
+            color: white;
+            border: none;
+            padding: 16px 52px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 14px;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: transform 0.2s, box-shadow 0.2s;
+            letter-spacing: -0.01em;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(37,99,235,0.3);
+        }
+
+        .btn-submit svg { flex-shrink: 0; }
+
+        .submit-note {
+            font-size: 0.78rem;
+            color: var(--ak-gray-400);
+            margin-top: 12px;
+        }
+
+        /* ─── Results ─── */
+        .results-wrapper { display: none; }
+        .results-wrapper.visible { display: block; }
+
+        .results-hero {
+            background: var(--ak-gradient);
+            padding: 64px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(16,185,129,0.1) 0%, transparent 50%);
+        }
+
+        .results-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .results-ring {
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+
+        .results-ring svg { transform: rotate(-90deg); }
+
+        .results-ring .ring-text {
+            position: absolute;
+            top: 44%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .results-ring .ring-label {
+            position: absolute;
+            top: 64%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .results-meta h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .results-meta .level-pill {
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        .pill-debutant { background: rgba(220,38,38,0.2); color: #fca5a5; }
+        .pill-elementaire { background: rgba(249,115,22,0.2); color: #fdba74; }
+        .pill-intermediaire { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+        .pill-avance { background: rgba(6,182,212,0.2); color: #67e8f9; }
+
+        .results-meta p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.92rem;
+            max-width: 520px;
+            line-height: 1.6;
+        }
+
+        .module-bars {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .mod-bar-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .mod-bar-card .mbc-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 10px;
+        }
+
+        .mod-bar-card .mbc-track {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .mod-bar-card .mbc-fill {
+            height: 100%;
+            background: white;
+            border-radius: 3px;
+            transition: width 0.8s ease;
+        }
+
+        .mod-bar-card .mbc-score {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: white;
+            margin-top: 8px;
+        }
+
+        /* Review detail */
+        .review-band {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 48px 80px;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .review-card {
+            background: var(--ak-gray-50);
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .review-card .rc-q {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ak-black);
+            margin-bottom: 8px;
+            line-height: 1.45;
+        }
+
+        .review-card .rc-badge {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 6px;
+        }
+
+        .rc-correct { background: #D1FAE5; color: #065F46; }
+        .rc-incorrect { background: #FEE2E2; color: #B91C1C; }
+
+        .review-card .rc-expl {
+            font-size: 0.8rem;
+            color: var(--ak-gray-500);
+            margin-top: 8px;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .attentes-review {
+            background: var(--ak-gray-50);
+            border-radius: 14px;
+            padding: 28px;
+            margin-top: 24px;
+        }
+
+        .attentes-review h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--ak-black);
+            margin-bottom: 14px;
+        }
+
+        .attentes-review p {
+            font-size: 0.88rem;
+            color: var(--ak-gray-600);
+            margin-bottom: 8px;
+        }
+
+        /* Email confirm toast */
+        .email-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--ak-black);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 14px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 300;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            animation: slideIn 0.4s ease;
+        }
+
+        .email-toast.show { display: flex; }
+
+        .email-toast .toast-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(16,185,129,0.2);
+            color: #6ee7b7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 40px;
+            background: var(--ak-gray-50);
+            border-top: 1px solid var(--ak-gray-100);
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer span {
+            font-size: 0.78rem;
+            color: var(--ak-gray-400);
+        }
+
+        .footer .sep {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--ak-gray-300);
+        }
+
+        .btn-print {
+            background: var(--ak-white);
+            border: 1.5px solid var(--ak-gray-200);
+            color: var(--ak-gray-600);
+            padding: 10px 24px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: all 0.15s;
+        }
+
+        .btn-print:hover {
+            border-color: var(--ak-blue);
+            color: var(--ak-blue);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 1100px) {
+            .hero-content { grid-template-columns: 1fr; padding: 100px 40px 60px; }
+            .hero-right { max-width: 420px; }
+            .section-band { padding: 48px 40px; }
+            .side-nav { display: none; }
+            .questions-layout { grid-template-columns: 1fr; }
+            .attentes-grid { grid-template-columns: 1fr; }
+            .identity-grid { grid-template-columns: 1fr 1fr; }
+            .assess-grid { grid-template-columns: 1fr; }
+            .programme-grid { grid-template-columns: 1fr; }
+            .results-inner { grid-template-columns: 1fr; text-align: center; }
+            .results-ring { margin: 0 auto; }
+            .results-meta p { margin: 0 auto; }
+            .module-bars { grid-template-columns: 1fr 1fr; }
+            .results-hero { padding: 48px 40px; }
+            .review-band { padding: 40px; }
+            .review-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .hero-left h1 { font-size: 2.2rem; }
+            .hero-content { padding: 90px 24px 40px; }
+            .section-band { padding: 36px 20px; }
+            .identity-grid { grid-template-columns: 1fr; }
+            .module-bars { grid-template-columns: 1fr; }
+            .results-hero { padding: 36px 20px; }
+            .review-band { padding: 24px 20px; }
+        }
+
+        @media print {
+            .hero { min-height: auto; }
+            .side-nav, .progress-track, .btn-submit, .btn-print, .scroll-hint, .email-toast { display: none !important; }
+            .q-card, .review-card { break-inside: avoid; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="email-toast" id="emailToast">
+        <div class="toast-icon">&#10003;</div>
+        <span>Réponses prêtes à envoyer — vérifiez votre messagerie</span>
+    </div>
+
+    <!-- Side nav -->
+    <nav class="side-nav" id="sideNav">
+        <a href="#sec-info" class="active"><span class="dot"></span>Infos</a>
+        <a href="#sec-eval"><span class="dot"></span>Auto-évaluation</a>
+        <a href="#sec-mod1"><span class="dot"></span>Module 1</a>
+        <a href="#sec-mod2"><span class="dot"></span>Module 2</a>
+        <a href="#sec-mod3"><span class="dot"></span>Module 3</a>
+        <a href="#sec-mod4"><span class="dot"></span>Module 4</a>
+        <a href="#sec-attentes"><span class="dot"></span>Attentes</a>
+    </nav>
+
+    <!-- ═══ FORM ═══ -->
+    <div id="formWrapper">
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-pattern"></div>
+            <div class="hero-grid"></div>
+
+            <div class="hero-logo">
+                <svg width="40" height="40" viewBox="0 0 80 80">
+                    <defs><linearGradient id="lgHero" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.2)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.08)"/></linearGradient></defs>
+                    <rect width="80" height="80" rx="16" fill="url(#lgHero)"/>
+                    <path d="M 40 20 L 50 50 L 44 50 L 42 44 L 38 44 L 36 50 L 30 50 L 40 20 Z M 40 28 L 38 40 L 42 40 L 40 28 Z" fill="white"/>
+                    <circle cx="55" cy="28" r="6" fill="#10B981" opacity="0.9"/>
+                </svg>
+                <div>
+                    <span>AKADEMIA</span>
+                    <span class="formation-label">Formation</span>
+                </div>
+            </div>
+
+            <div class="hero-content">
+                <div class="hero-left">
+                    <h1>Test de<br>positionnement<br><span class="gradient-text">IA &amp; Transformation Digitale</span></h1>
+                    <p class="subtitle">Avant les 11 et 12 mai 2026, ce questionnaire permet au formateur d'ajuster les exemples, le rythme et les ateliers à votre périmètre Djibouti Telecom et à votre niveau de maturité IA.</p>
+                    <div class="hero-tags">
+                        <div class="tag"><span class="tag-icon">&#9201;</span> 8 à 12 minutes</div>
+                        <div class="tag"><span class="tag-icon">&#128203;</span> 12 questions</div>
+                        <div class="tag"><span class="tag-icon">&#127760;</span> Djibouti Telecom · Mai 2026</div>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <h3>Ce test permet au formateur de</h3>
+                    <ul>
+                        <li><div class="check">&#10003;</div> Calibrer la profondeur des frameworks stratégiques</li>
+                        <li><div class="check">&#10003;</div> Adapter les cas pratiques à votre périmètre OSS / PFS / DSI</li>
+                        <li><div class="check">&#10003;</div> Cibler les enjeux prioritaires pour Djibouti Telecom</li>
+                        <li><div class="check">&#10003;</div> Préparer un atelier feuille de route 18 mois sur-mesure</li>
+                    </ul>
+                    <div class="duration">2 jours · 14 heures · présentiel Wojo Paris 8e</div>
+                </div>
+            </div>
+
+            <div class="scroll-hint">
+                Commencer le test<br>&#8595;
+            </div>
+        </section>
+
+        <!-- Programme -->
+        <section class="form-section" id="sec-programme">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">&#128218;</div>
+                    <div class="sec-info">
+                        <h2>Programme de la formation</h2>
+                        <p>IA &amp; Transformation Digitale — Intégrer l'IA dans sa Stratégie · 2 jours · 14 heures</p>
+                    </div>
+                </div>
+                <div class="programme-grid">
+                    <div class="programme-card">
+                        <span class="prog-module">Module 1 · 3h30</span>
+                        <h4>L'IA, moteur de la transformation digitale</h4>
+                        <p>Maturité, vagues d'IA, AI Factory, gap adoption / capture de valeur, jurisprudence et risques</p>
+                    </div>
+                    <div class="programme-card">
+                        <span class="prog-module">Module 2 · 3h30</span>
+                        <h4>Construire sa stratégie IA</h4>
+                        <p>Vision, portfolio prioritization, build vs buy, gouvernance NIST AI RMF / EU AI Act / ISO 42001</p>
+                    </div>
+                    <div class="programme-card">
+                        <span class="prog-module">Module 3 · 3h30</span>
+                        <h4>Conduite du changement &amp; adoption</h4>
+                        <p>Kotter 8 steps, ADKAR, sécurité psychologique Edmondson, co-intelligence Mollick, jagged frontier</p>
+                    </div>
+                    <div class="programme-card">
+                        <span class="prog-module">Module 4 · 3h30</span>
+                        <h4>Feuille de route 18 mois</h4>
+                        <p>Now-Next-Later, OKR, KPI IA, budget, gouvernance des risques, ancrage ARMD / Vision Djibouti 2035</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Identité -->
+        <section class="form-section section-alt" id="sec-info">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">1</div>
+                    <div class="sec-info">
+                        <h2>Vos informations</h2>
+                        <p>Quelques informations pour mieux vous connaître</p>
+                    </div>
+                </div>
+                <div class="identity-grid">
+                    <div class="field-card">
+                        <label>Nom *</label>
+                        <input type="text" id="nom" required placeholder="Votre nom de famille">
+                    </div>
+                    <div class="field-card">
+                        <label>Prénom *</label>
+                        <input type="text" id="prenom" required placeholder="Votre prénom">
+                    </div>
+                    <div class="field-card">
+                        <label>Entreprise</label>
+                        <input type="text" id="entreprise" placeholder="Nom de votre entreprise">
+                    </div>
+                    <div class="field-card">
+                        <label>Poste / Fonction</label>
+                        <input type="text" id="poste" placeholder="Ex : Chef Service OSS, Chef Division PFS, DSI...">
+                    </div>
+                    <div class="field-card">
+                        <label>Maturité de votre direction sur l'IA aujourd'hui</label>
+                        <select id="frequence">
+                            <option value="">— Choisir —</option>
+                            <option value="Découverte — pas de cas d'usage IA déployé">Découverte — pas de cas d'usage IA déployé</option>
+                            <option value="Pilotes isolés — 1 à 3 expérimentations en cours">Pilotes isolés — 1 à 3 expérimentations en cours</option>
+                            <option value="Pilotes multiples — plusieurs cas d'usage, pas encore industrialisés">Pilotes multiples — plusieurs cas d'usage, pas encore industrialisés</option>
+                            <option value="Industrialisation partielle — cas d'usage en production sur 1 ou 2 fonctions">Industrialisation partielle — cas d'usage en production sur 1 ou 2 fonctions</option>
+                            <option value="Industrialisation à l'échelle — IA intégrée au modèle d'exploitation">Industrialisation à l'échelle — IA intégrée au modèle d'exploitation</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Auto-évaluation -->
+        <section class="form-section" id="sec-eval">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">2</div>
+                    <div class="sec-info">
+                        <h2>Auto-évaluation rapide</h2>
+                        <p>Évaluez votre aisance de 1 à 4 étoiles sur chaque thème</p>
+                    </div>
+                </div>
+                <div class="assess-grid">
+                    <div class="assess-card" id="ac-maturite">
+                        <span class="assess-label">Diagnostiquer la maturité IA d'une organisation (donnée, talents, gouvernance, exécution)</span>
+                        <div class="stars" data-assess="maturite">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-strategie">
+                        <span class="assess-label">Construire une stratégie IA cohérente avec les objectifs business et les contraintes opérateur télécom</span>
+                        <div class="stars" data-assess="strategie">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-portefeuille">
+                        <span class="assess-label">Prioriser un portefeuille de cas d'usage IA selon impact, faisabilité et coût (build vs buy)</span>
+                        <div class="stars" data-assess="portefeuille">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-gouvernance">
+                        <span class="assess-label">Mettre en place une gouvernance IA (NIST AI RMF, ISO/IEC 42001, EU AI Act, conformité ARMD)</span>
+                        <div class="stars" data-assess="gouvernance">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-changement">
+                        <span class="assess-label">Conduire le changement et favoriser l'adoption IA dans des équipes techniques (Kotter, ADKAR)</span>
+                        <div class="stars" data-assess="changement">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                    <div class="assess-card" id="ac-roadmap">
+                        <span class="assess-label">Construire une feuille de route 18 mois avec OKR, KPI IA et jalons trimestriels</span>
+                        <div class="stars" data-assess="roadmap">
+                            <button onclick="setStars(this,1)">&#9733;</button>
+                            <button onclick="setStars(this,2)">&#9733;</button>
+                            <button onclick="setStars(this,3)">&#9733;</button>
+                            <button onclick="setStars(this,4)">&#9733;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Module 1 — IA, moteur de la transformation digitale -->
+        <section class="form-section section-alt" id="sec-mod1">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">3</div>
+                    <div class="sec-info">
+                        <h2>Module 1 — L'IA, moteur de la transformation digitale</h2>
+                        <p>3 questions sur la maturité du marché, les frameworks et le gap adoption / capture de valeur</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Maturité &amp; transformation</span><span class="q-num">01</span></div>
+                        <div class="q-text">Selon McKinsey State of AI 2025 (novembre 2025), à propos de l'adoption de l'IA en entreprise :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q1" value="a"> Moins de 50 % des organisations utilisent l'IA dans au moins une fonction</label>
+                            <label><input type="radio" name="q1" value="b"> Environ 88 % déclarent un usage régulier de l'IA, mais seules 6 % se classent « high performers »</label>
+                            <label><input type="radio" name="q1" value="c"> 100 % des opérateurs télécoms ont déjà industrialisé l'IA</label>
+                            <label><input type="radio" name="q1" value="d"> L'adoption est stable depuis 2022</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Maturité &amp; transformation</span><span class="q-num">02</span></div>
+                        <div class="q-text">Le cadre « AI Factory » de Marco Iansiti et Karim Lakhani (Harvard Business School, 2020) défend l'idée que :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q2" value="a"> L'IA n'a d'impact que dans les fonctions support</label>
+                            <label><input type="radio" name="q2" value="b"> L'avantage compétitif vient d'une architecture de données centralisée et d'un modèle d'exploitation industrialisé qui transforme la donnée en décisions</label>
+                            <label><input type="radio" name="q2" value="c"> Il faut acheter le maximum de modèles propriétaires</label>
+                            <label><input type="radio" name="q2" value="d"> Le ROI de l'IA dépend uniquement du volume de calcul disponible</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="1">
+                        <div class="q-header"><span class="q-module">Maturité &amp; transformation</span><span class="q-num">03</span></div>
+                        <div class="q-text">L'écart « adoption / capture de valeur » désigne :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q3" value="a"> La différence entre le coût d'achat et le coût d'usage des modèles</label>
+                            <label><input type="radio" name="q3" value="b"> L'écart entre le nombre d'organisations qui utilisent l'IA et celles qui en mesurent un impact financier matériel — il s'explique surtout par des freins organisationnels (silos, gouvernance, compétences) plus que techniques</label>
+                            <label><input type="radio" name="q3" value="c"> L'écart de prix entre les LLM open-source et propriétaires</label>
+                            <label><input type="radio" name="q3" value="d"> Un terme uniquement utilisé en communication marketing</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Module 2 — Construire sa stratégie IA -->
+        <section class="form-section" id="sec-mod2">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">4</div>
+                    <div class="sec-info">
+                        <h2>Module 2 — Construire sa stratégie de transformation IA</h2>
+                        <p>3 questions sur la priorisation, les arbitrages build vs buy et la gouvernance</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Stratégie IA</span><span class="q-num">04</span></div>
+                        <div class="q-text">Pour prioriser un portefeuille de cas d'usage IA dans un opérateur télécom, le critère le plus pertinent est :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q4" value="a"> Le coût d'achat de la licence du modèle</label>
+                            <label><input type="radio" name="q4" value="b"> Le couple impact business attendu × faisabilité (qualité de la donnée, talents, intégration SI), avec une logique de portfolio (quick wins / paris stratégiques / fondations)</label>
+                            <label><input type="radio" name="q4" value="c"> La nouveauté technique du modèle</label>
+                            <label><input type="radio" name="q4" value="d"> L'avis du DSI uniquement</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Stratégie IA</span><span class="q-num">05</span></div>
+                        <div class="q-text">L'arbitrage « build vs buy » pour un cas d'usage IA dépend principalement :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q5" value="a"> Du caractère stratégique du cas d'usage (différenciation client) et de la capacité interne à exploiter et maintenir le modèle dans la durée — on ne fait du build que si l'IA est cœur de l'avantage compétitif</label>
+                            <label><input type="radio" name="q5" value="b"> Uniquement du prix unitaire des appels API</label>
+                            <label><input type="radio" name="q5" value="c"> De la disponibilité d'un fournisseur local</label>
+                            <label><input type="radio" name="q5" value="d"> De la mode du moment dans l'industrie</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="2">
+                        <div class="q-header"><span class="q-module">Stratégie IA</span><span class="q-num">06</span></div>
+                        <div class="q-text">Pour structurer la gouvernance des risques IA dans une entreprise, les cadres de référence aujourd'hui les plus utilisés sont :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q6" value="a"> Le NIST AI Risk Management Framework (US, 2023), l'EU AI Act (règlement 2024/1689) et la norme ISO/IEC 42001:2023 sur les systèmes de management de l'IA</label>
+                            <label><input type="radio" name="q6" value="b"> Le RGPD seul</label>
+                            <label><input type="radio" name="q6" value="c"> Les conditions générales du fournisseur cloud</label>
+                            <label><input type="radio" name="q6" value="d"> Aucun — il n'existe pas de cadre formalisé</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Module 3 — Conduite du changement -->
+        <section class="form-section section-alt" id="sec-mod3">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">5</div>
+                    <div class="sec-info">
+                        <h2>Module 3 — Conduite du changement &amp; adoption IA</h2>
+                        <p>3 questions sur les frameworks de conduite du changement et la « jagged frontier »</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Changement &amp; adoption</span><span class="q-num">07</span></div>
+                        <div class="q-text">Le modèle ADKAR de Prosci (Hiatt, 2006) décrit le changement individuel par cinq étapes successives qui sont :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q7" value="a"> Analyse, Décision, Action, Résultat, Mesure</label>
+                            <label><input type="radio" name="q7" value="b"> Awareness (conscience), Desire (envie), Knowledge (savoir), Ability (savoir-faire), Reinforcement (renforcement)</label>
+                            <label><input type="radio" name="q7" value="c"> Audit, Diagnostic, Kaizen, Application, Revue</label>
+                            <label><input type="radio" name="q7" value="d"> Aucun de ces choix</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Changement &amp; adoption</span><span class="q-num">08</span></div>
+                        <div class="q-text">Le concept de « jagged frontier » (Dell'Acqua et al., Harvard Business School, 2023) appliqué à l'IA générative en entreprise signifie que :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q8" value="a"> L'IA est uniformément excellente sur toutes les tâches</label>
+                            <label><input type="radio" name="q8" value="b"> La frontière des capacités IA est irrégulière : certaines tâches sont mieux exécutées avec l'IA, d'autres bien moins, et l'utilisateur ne le sait pas toujours — d'où la nécessité de calibrer l'usage par tâche</label>
+                            <label><input type="radio" name="q8" value="c"> L'IA est inutile dans 95 % des cas</label>
+                            <label><input type="radio" name="q8" value="d"> Seuls les ingénieurs peuvent utiliser l'IA</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="3">
+                        <div class="q-header"><span class="q-module">Changement &amp; adoption</span><span class="q-num">09</span></div>
+                        <div class="q-text">Selon Amy Edmondson (Harvard Business School), la « sécurité psychologique » est essentielle au déploiement de l'IA en entreprise parce que :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q9" value="a"> Elle empêche les pannes système</label>
+                            <label><input type="radio" name="q9" value="b"> Elle permet aux équipes d'admettre l'usage réel de l'IA, de remonter les erreurs et hallucinations, et de partager les apprentissages — sans elle, l'usage devient clandestin et l'organisation perd l'apprentissage collectif</label>
+                            <label><input type="radio" name="q9" value="c"> Elle protège juridiquement l'entreprise</label>
+                            <label><input type="radio" name="q9" value="d"> Elle garantit le respect du RGPD</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Module 4 — Feuille de route 18 mois -->
+        <section class="form-section" id="sec-mod4">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">6</div>
+                    <div class="sec-info">
+                        <h2>Module 4 — Feuille de route 18 mois</h2>
+                        <p>3 questions sur l'exécution, les OKR, les KPI IA et la gouvernance de portefeuille</p>
+                    </div>
+                </div>
+                <div class="questions-layout">
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Feuille de route</span><span class="q-num">10</span></div>
+                        <div class="q-text">Une feuille de route IA structurée selon le modèle « Now / Next / Later » a pour vocation principale :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q10" value="a"> De fixer des engagements rigides à 36 mois</label>
+                            <label><input type="radio" name="q10" value="b"> De séquencer les chantiers en fonction de leur niveau de certitude — Now (engagé, livrables précis), Next (cadré mais ajustable), Later (intentions à valider) — pour piloter sous incertitude technologique</label>
+                            <label><input type="radio" name="q10" value="c"> De reporter toutes les décisions IA à 18 mois</label>
+                            <label><input type="radio" name="q10" value="d"> Une simple liste de tâches priorisée</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Feuille de route</span><span class="q-num">11</span></div>
+                        <div class="q-text">Parmi ces indicateurs, lesquels sont les plus pertinents pour suivre l'avancement d'une stratégie IA d'opérateur télécom ?</div>
+                        <div class="options">
+                            <label><input type="radio" name="q11" value="a"> Le nombre de pilotes lancés</label>
+                            <label><input type="radio" name="q11" value="b"> Un panier d'indicateurs combinant adoption (utilisateurs actifs / cible), valeur (impact EBIT, NPS, productivité mesurée), maturité (% cas d'usage en production), et risque (incidents, conformité ARMD/EU AI Act)</label>
+                            <label><input type="radio" name="q11" value="c"> Uniquement le coût total de la licence cloud</label>
+                            <label><input type="radio" name="q11" value="d"> La vitesse d'inférence des modèles</label>
+                        </div>
+                    </div>
+
+                    <div class="q-card" data-module="4">
+                        <div class="q-header"><span class="q-module">Feuille de route</span><span class="q-num">12</span></div>
+                        <div class="q-text">Pour ancrer la stratégie IA de Djibouti Telecom dans la réalité du pays et de la région, il est cohérent de s'appuyer sur :</div>
+                        <div class="options">
+                            <label><input type="radio" name="q12" value="a"> Les seules pratiques européennes</label>
+                            <label><input type="radio" name="q12" value="b"> Le cadre de Vision Djibouti 2035, la régulation de l'ARMD, l'AU Continental AI Strategy 2024 et l'alliance Smart Africa, articulés avec les standards internationaux (NIST AI RMF, EU AI Act, ISO 42001)</label>
+                            <label><input type="radio" name="q12" value="c"> Uniquement les recommandations du fournisseur cloud principal</label>
+                            <label><input type="radio" name="q12" value="d"> Aucun cadre n'est utile à ce stade</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Attentes -->
+        <section class="form-section section-alt" id="sec-attentes">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">7</div>
+                    <div class="sec-info">
+                        <h2>Vos attentes</h2>
+                        <p>Aidez-nous à personnaliser la formation pour vous</p>
+                    </div>
+                </div>
+                <div class="attentes-grid">
+                    <div class="field-card">
+                        <label>Cas d'usage IA prioritaires pour votre direction</label>
+                        <textarea id="taches" placeholder="Ex : prédiction de churn, optimisation OSS, copilotes service client, anti-fraude PFS, supervision réseau, prédiction de panne..."></textarea>
+                    </div>
+                    <div class="field-card">
+                        <label>Freins ou points de blocage identifiés</label>
+                        <textarea id="outils" placeholder="Ex : qualité données OSS, gouvernance data, contraintes ARMD, compétences internes, arbitrage build vs buy, alignement DG..."></textarea>
+                    </div>
+                    <div class="field-card">
+                        <label>Questions stratégiques à traiter en formation</label>
+                        <textarea id="craintes" placeholder="Ex : par où démarrer concrètement ? comment cadrer un portefeuille IA ? quels KPI suivre ? quelle gouvernance des risques IA ?"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submit -->
+        <div class="submit-band">
+            <button class="btn-submit" onclick="submitTest()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+                Valider et envoyer mes réponses
+            </button>
+            <p class="submit-note">Vos réponses seront transmises au formateur pour adapter la session à votre niveau.</p>
+        </div>
+
+    </div>
+
+    <!-- ═══ RESULTS ═══ -->
+    <div class="results-wrapper" id="resultsWrapper">
+
+        <div class="results-hero">
+            <div class="results-inner">
+                <div class="results-ring">
+                    <svg width="200" height="200">
+                        <defs>
+                            <linearGradient id="ringG" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:rgba(255,255,255,0.3)"/>
+                                <stop offset="100%" style="stop-color:rgba(255,255,255,0.1)"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12"/>
+                        <circle id="scoreCircle" cx="100" cy="100" r="82" fill="none" stroke="white" stroke-width="12"
+                                stroke-dasharray="515.2" stroke-dashoffset="515.2" stroke-linecap="round"/>
+                    </svg>
+                    <div class="ring-text" id="scoreText">0/12</div>
+                    <div class="ring-label">bonnes réponses</div>
+                </div>
+                <div class="results-meta">
+                    <h2 id="resultTitle">Vos résultats</h2>
+                    <div id="levelBadge" class="level-pill"></div>
+                    <p id="levelDesc"></p>
+                    <div class="module-bars" id="moduleBars"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-band">
+            <h3 style="font-size:1.2rem; font-weight:700; color:var(--ak-black); margin-bottom:20px;">Détail des réponses</h3>
+            <div class="review-grid" id="reviewGrid"></div>
+
+            <div class="attentes-review" id="attentesReview">
+                <h3>Vos attentes (transmises au formateur)</h3>
+                <div id="attentesContent"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-inner">
+                <button class="btn-print" onclick="window.print()">Imprimer / PDF</button>
+                <span class="sep"></span>
+                <span>Akademia Formation — Pro Conduite SAS</span>
+                <span class="sep"></span>
+                <span>Démarche qualité Qualiopi</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ── Stars ──
+        function setStars(btn, value) {
+            var container = btn.parentElement;
+            var buttons = container.querySelectorAll('button');
+            buttons.forEach(function(b, i) { b.classList.toggle('active', i < value); });
+            container.dataset.value = value;
+            container.closest('.assess-card').classList.add('has-value');
+            updateProgress();
+        }
+
+        // ── Progress ──
+        function updateProgress() {
+            var answered = 0;
+            for (var i = 1; i <= 12; i++) {
+                if (document.querySelector('input[name="q'+i+'"]:checked')) answered++;
+            }
+            document.getElementById('progressFill').style.width = (answered / 12 * 100) + '%';
+            document.querySelectorAll('.q-card').forEach(function(card, idx) {
+                if (document.querySelector('input[name="q'+(idx+1)+'"]:checked')) {
+                    card.classList.add('answered');
+                } else {
+                    card.classList.remove('answered');
+                }
+            });
+        }
+        document.querySelectorAll('input[type="radio"]').forEach(function(r) { r.addEventListener('change', updateProgress); });
+
+        // ── Side nav scroll tracking ──
+        var sections = ['sec-info','sec-eval','sec-mod1','sec-mod2','sec-mod3','sec-mod4','sec-attentes'];
+        window.addEventListener('scroll', function() {
+            var scrollY = window.scrollY + 200;
+            var current = '';
+            sections.forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el && el.offsetTop <= scrollY) current = id;
+            });
+            document.querySelectorAll('.side-nav a').forEach(function(a) {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        });
+
+        // ── Answers ──
+        var correct = {q1:'b',q2:'b',q3:'b',q4:'b',q5:'a',q6:'a',q7:'b',q8:'b',q9:'b',q10:'b',q11:'b',q12:'b'};
+        var explanations = {
+            q1:"McKinsey State of AI (novembre 2025) : 88 % des organisations utilisent l'IA dans au moins une fonction (vs 78 % un an plus tôt) mais seules 6 % se classent « high performers », et 39 % rapportent un impact EBIT mesurable.",
+            q2:"L'AI Factory de Iansiti & Lakhani (HBS, 2020) postule qu'un avantage compétitif IA durable repose sur une architecture de données centralisée et un modèle d'exploitation industrialisé qui transforme la donnée en décisions à grande échelle.",
+            q3:"L'écart adoption / capture de valeur désigne le décalage entre le nombre d'organisations qui « font » de l'IA et celles qui en mesurent un impact financier matériel. Les freins sont surtout organisationnels (silos, gouvernance, compétences) — pas techniques.",
+            q4:"Un portefeuille IA se priorise par le couple impact business × faisabilité (qualité de la donnée, talents, intégration SI), structuré en quick wins / paris stratégiques / fondations — pas par la nouveauté technique ni par le seul coût des licences.",
+            q5:"On ne fait du build que si l'IA est cœur d'avantage compétitif et qu'on a la capacité interne à exploiter et maintenir le modèle dans la durée. Sinon, le buy (LLM as a service, modèles fournisseurs) est plus rationnel.",
+            q6:"Les trois cadres de référence pour la gouvernance des risques IA sont : NIST AI Risk Management Framework (US, 2023), EU AI Act (règlement 2024/1689) et ISO/IEC 42001:2023 (management des systèmes IA). Le RGPD couvre les données personnelles, pas le risque IA spécifique.",
+            q7:"ADKAR (Hiatt, 2006) = Awareness, Desire, Knowledge, Ability, Reinforcement. Les 5 étapes du changement individuel sur lesquelles s'aligne tout plan de conduite du changement IA.",
+            q8:"La « jagged frontier » (Dell'Acqua et al., HBS 2023) : la frontière des capacités IA est irrégulière. Certaines tâches sont mieux exécutées avec l'IA, d'autres bien moins, et l'utilisateur ne le sait pas toujours — d'où la nécessité de calibrer l'usage par tâche.",
+            q9:"Edmondson : la sécurité psychologique permet aux équipes d'admettre l'usage réel de l'IA, de remonter erreurs et hallucinations, de partager les apprentissages. Sans elle, l'usage devient clandestin (« shadow AI ») et l'organisation perd l'apprentissage collectif.",
+            q10:"Le modèle Now / Next / Later séquence les chantiers selon leur niveau de certitude — Now (engagé, livrables précis), Next (cadré mais ajustable), Later (intentions à valider) — pour piloter sous incertitude technologique.",
+            q11:"Un panier d'indicateurs IA combine adoption (utilisateurs actifs / cible), valeur (impact EBIT, NPS, productivité mesurée), maturité (% cas d'usage en production) et risque (incidents, conformité ARMD / EU AI Act). Pas de KPI unique.",
+            q12:"La stratégie IA de Djibouti Telecom s'ancre dans Vision Djibouti 2035, la régulation ARMD, l'AU Continental AI Strategy 2024 et l'alliance Smart Africa, articulés avec les standards internationaux (NIST AI RMF, EU AI Act, ISO 42001)."
+        };
+        var moduleMap = {q1:1,q2:1,q3:1,q4:2,q5:2,q6:2,q7:3,q8:3,q9:3,q10:4,q11:4,q12:4};
+        var moduleNames = {1:"L'IA, moteur de la transformation",2:"Construire sa stratégie IA",3:"Conduite du changement & adoption",4:"Feuille de route 18 mois"};
+        var moduleTotal = {1:3,2:3,3:3,4:3};
+
+        function submitTest() {
+            var nom = document.getElementById('nom').value.trim();
+            var prenom = document.getElementById('prenom').value.trim();
+            if (!nom || !prenom) { alert('Merci de renseigner votre nom et prénom.'); document.getElementById('nom').focus(); return; }
+
+            var cnt = 0;
+            for (var i=1;i<=12;i++) { if (document.querySelector('input[name="q'+i+'"]:checked')) cnt++; }
+            if (cnt < 6) { alert('Merci de répondre à au moins 6 questions sur 12.'); return; }
+
+            var totalCorrect = 0;
+            var modCorrect = {1:0,2:0,3:0,4:0};
+            var results = {};
+            for (var i=1;i<=12;i++) {
+                var k='q'+i, s=document.querySelector('input[name="'+k+'"]:checked');
+                var ua=s?s.value:null, ok=ua===correct[k];
+                if(ok){totalCorrect++;modCorrect[moduleMap[k]]++;}
+                results[k]={ua:ua,ok:ok};
+            }
+
+            var pct=totalCorrect/12;
+            var level,lc,ld;
+            if(pct>=0.75){level="Niveau confirmé";lc="pill-avance";ld="Vous maîtrisez les frameworks stratégiques IA. La formation va consolider votre cadre de pilotage et accélérer la production des 4 livrables (grille de maturité, canvas, plan d'acculturation, feuille de route 18 mois).";}
+            else if(pct>=0.50){level="Bases stratégiques posées";lc="pill-intermediaire";ld="Vous avez les fondamentaux. La formation va structurer votre approche et vous permettre de bâtir une stratégie IA actionnable pour Djibouti Telecom — du diagnostic à la feuille de route.";}
+            else{level="Acculturation à approfondir";lc="pill-debutant";ld="Les frameworks stratégiques IA sont à découvrir. La formation est parfaitement calibrée — elle part du diagnostic de maturité et vous emmène jusqu'à la feuille de route 18 mois.";}
+
+            // Build email
+            var entreprise=document.getElementById('entreprise').value.trim();
+            var poste=document.getElementById('poste').value.trim();
+            var frequence=document.getElementById('frequence').value;
+            var taches=document.getElementById('taches').value.trim();
+            var outils=document.getElementById('outils').value.trim();
+            var craintes=document.getElementById('craintes').value.trim();
+
+            var assessLabels={maturite:'Diagnostic maturité IA',strategie:'Définir vision & ambition IA',portefeuille:'Prioriser portefeuille cas d\'usage',gouvernance:'Gouvernance données / risques / éthique',changement:'Conduite du changement & adoption',roadmap:'Construire feuille de route 18 mois'};
+            var sa='';
+            document.querySelectorAll('.stars').forEach(function(s){
+                sa+='  - '+(assessLabels[s.dataset.assess]||s.dataset.assess)+' : '+(s.dataset.value||'-')+'/4\n';
+            });
+
+            var dq='';
+            for(var i=1;i<=12;i++){
+                var k='q'+i,r=results[k];
+                var st=r.ua===null?'Non répondu':(r.ok?'Correct':'Incorrect');
+                var ut='Non répondu';
+                if(r.ua){ut=document.querySelector('input[name="'+k+'"][value="'+r.ua+'"]').parentElement.textContent.trim();}
+                dq+='Q'+i+' ['+st+'] : '+ut+'\n';
+            }
+
+            var body='TEST DE POSITIONNEMENT - IA & TRANSFORMATION DIGITALE (DJIBOUTI TELECOM)\n'
+                +'==========================================================================\n\n'
+                +'STAGIAIRE\n'
+                +'Nom : '+nom+' '+prenom+'\n'
+                +'Entreprise : '+(entreprise||'-')+'\n'
+                +'Poste : '+(poste||'-')+'\n'
+                +'Maturité IA direction : '+(frequence||'-')+'\n\n'
+                +'AUTO-EVALUATION\n'+sa+'\n'
+                +'SCORE QCM : '+totalCorrect+'/12 ('+Math.round(pct*100)+'%) — '+level+'\n'
+                +'  Module 1 (L\'IA, moteur de la transformation) : '+modCorrect[1]+'/'+moduleTotal[1]+'\n'
+                +'  Module 2 (Construire sa stratégie IA) : '+modCorrect[2]+'/'+moduleTotal[2]+'\n'
+                +'  Module 3 (Conduite du changement & adoption) : '+modCorrect[3]+'/'+moduleTotal[3]+'\n'
+                +'  Module 4 (Feuille de route 18 mois) : '+modCorrect[4]+'/'+moduleTotal[4]+'\n\n'
+                +'DETAIL DES REPONSES\n'+dq+'\n'
+                +'ATTENTES\n'
+                +'Cas d\'usage IA prioritaires : '+(taches||'-')+'\n'
+                +'Freins / points de blocage : '+(outils||'-')+'\n'
+                +'Questions stratégiques : '+(craintes||'-')+'\n';
+
+            var subj='Test IA Stratégie Djibouti — '+prenom+' '+nom+' — '+totalCorrect+'/12 ('+Math.round(pct*100)+'%)';
+
+            // Auto-send via FormSubmit (no manual action needed)
+            fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    _subject: subj,
+                    Nom: nom + ' ' + prenom,
+                    Entreprise: entreprise || '-',
+                    Poste: poste || '-',
+                    'Maturité IA direction': frequence || '-',
+                    Score: totalCorrect + '/12 (' + Math.round(pct*100) + '%) — ' + level,
+                    'Module 1': modCorrect[1]+'/'+moduleTotal[1],
+                    'Module 2': modCorrect[2]+'/'+moduleTotal[2],
+                    'Module 3': modCorrect[3]+'/'+moduleTotal[3],
+                    'Module 4': modCorrect[4]+'/'+moduleTotal[4],
+                    'Auto-évaluation': sa,
+                    'Détail réponses': dq,
+                    'Cas d\'usage prioritaires': (taches||'-'),
+                    'Freins identifiés': (outils||'-'),
+                    'Questions stratégiques': (craintes||'-'),
+                    _template: 'table'
+                })
+            }).then(function(r){return r.json();}).then(function(data){
+                var toast=document.getElementById('emailToast');
+                toast.textContent='✅ Résultats envoyés automatiquement au formateur';
+                toast.classList.add('show');
+                setTimeout(function(){toast.classList.remove('show');},5000);
+            }).catch(function(err){
+                // Fallback mailto
+                window.location.href='mailto:b.yassmine@ecf-proconduite.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+            });
+
+            // Show results
+            document.getElementById('formWrapper').style.display='none';
+            document.getElementById('sideNav').style.display='none';
+            var rw=document.getElementById('resultsWrapper');
+            rw.classList.add('visible');
+
+            // Toast
+            var toast=document.getElementById('emailToast');
+            toast.classList.add('show');
+            setTimeout(function(){toast.classList.remove('show');},5000);
+
+            // Ring animation
+            var circ=document.getElementById('scoreCircle');
+            var circumference=2*Math.PI*82;
+            circ.style.transition='stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1)';
+            setTimeout(function(){circ.style.strokeDashoffset=circumference-(pct*circumference);},200);
+
+            document.getElementById('scoreText').textContent=totalCorrect+'/12';
+            document.getElementById('resultTitle').textContent=prenom+', vos résultats';
+            var badge=document.getElementById('levelBadge');
+            badge.className='level-pill '+lc;
+            badge.textContent=level;
+            document.getElementById('levelDesc').textContent=ld;
+
+            // Module bars
+            var mbHtml='';
+            for(var m=1;m<=4;m++){
+                var p=Math.round((modCorrect[m]/moduleTotal[m])*100);
+                mbHtml+='<div class="mod-bar-card">'
+                    +'<div class="mbc-title">'+moduleNames[m]+'</div>'
+                    +'<div class="mbc-track"><div class="mbc-fill" style="width:'+p+'%"></div></div>'
+                    +'<div class="mbc-score">'+modCorrect[m]+'/'+moduleTotal[m]+'</div>'
+                    +'</div>';
+            }
+            document.getElementById('moduleBars').innerHTML=mbHtml;
+
+            // Review grid
+            var qTexts=document.querySelectorAll('.q-card .q-text');
+            var rHtml='';
+            for(var i=1;i<=12;i++){
+                var k='q'+i,r=results[k];
+                var cls=r.ok?'rc-correct':'rc-incorrect';
+                var txt=r.ok?'Bonne réponse':(r.ua?'Réponse incorrecte':'Non répondu');
+                var qText=qTexts[i-1].textContent;
+                rHtml+='<div class="review-card">'
+                    +'<div class="rc-q">'+i+'. '+qText+'</div>'
+                    +'<span class="rc-badge '+cls+'">'+txt+'</span>'
+                    +(!r.ok?'<div class="rc-expl">'+explanations[k]+'</div>':'')
+                    +'</div>';
+            }
+            document.getElementById('reviewGrid').innerHTML=rHtml;
+
+            // Attentes
+            var aHtml='';
+            if(taches) aHtml+='<p><strong>Cas d\'usage IA prioritaires :</strong> '+taches+'</p>';
+            if(outils) aHtml+='<p><strong>Freins / points de blocage :</strong> '+outils+'</p>';
+            if(craintes) aHtml+='<p><strong>Questions stratégiques :</strong> '+craintes+'</p>';
+            if(!aHtml) aHtml='<p style="color:var(--ak-gray-400)">Aucune attente renseignée.</p>';
+            document.getElementById('attentesContent').innerHTML=aHtml;
+
+            window.scrollTo({top:0,behavior:'smooth'});
+        }
+    </script>
+</body>
+</html>
