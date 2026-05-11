@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier 1 — Diagnostic de maturité IA (Djibouti Telecom) | Akademia Formation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ak-blue: #2563EB;
+            --ak-purple: #7C3AED;
+            --ak-gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+            --ak-gradient-soft: linear-gradient(135deg, rgba(37,99,235,0.06) 0%, rgba(124,58,237,0.06) 100%);
+            --ak-green: #10B981;
+            --ak-turquoise: #06B6D4;
+            --ak-orange: #F97316;
+            --ak-black: #0F172A;
+            --ak-gray-800: #1E293B;
+            --ak-gray-700: #334155;
+            --ak-gray-600: #475569;
+            --ak-gray-500: #64748B;
+            --ak-gray-400: #94A3B8;
+            --ak-gray-300: #CBD5E1;
+            --ak-gray-200: #E5E7EB;
+            --ak-gray-100: #F1F5F9;
+            --ak-gray-50: #F8FAFC;
+            --ak-white: #FFFFFF;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background: var(--ak-white);
+            color: var(--ak-gray-700);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .progress-track { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: var(--ak-gray-100); z-index: 200; }
+        .progress-fill { height: 100%; background: var(--ak-gradient); width: 0%; transition: width 0.4s cubic-bezier(.4,0,.2,1); }
+
+        .side-nav { position: fixed; left: 0; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 2px; padding: 12px 0 12px 16px; }
+        .side-nav a { display: flex; align-items: center; gap: 10px; text-decoration: none; padding: 8px 16px 8px 12px; border-radius: 0 20px 20px 0; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.3px; color: var(--ak-gray-400); transition: all 0.2s; white-space: nowrap; }
+        .side-nav a .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ak-gray-300); flex-shrink: 0; transition: all 0.2s; }
+        .side-nav a:hover, .side-nav a.active { color: var(--ak-blue); background: rgba(37,99,235,0.06); }
+        .side-nav a:hover .dot, .side-nav a.active .dot { background: var(--ak-gradient); box-shadow: 0 0 8px rgba(37,99,235,0.4); }
+
+        /* Hero */
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; background: var(--ak-black); overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; background: var(--ak-gradient); opacity: 0.9; }
+        .hero-pattern { position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 80%, rgba(16,185,129,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(124,58,237,0.2) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(6,182,212,0.1) 0%, transparent 60%); }
+        .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+        .hero-content { position: relative; z-index: 2; width: 100%; padding: 80px 80px 80px 120px; display: grid; grid-template-columns: 1fr 380px; gap: 60px; align-items: center; max-width: 1400px; margin: 0 auto; }
+        .hero-left .pill-atelier { display: inline-block; padding: 6px 16px; border-radius: 100px; background: rgba(16,185,129,0.18); color: #6ee7b7; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 18px; }
+        .hero-left h1 { font-size: 3.2rem; font-weight: 800; color: white; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 16px; }
+        .hero-left h1 .gradient-text { background: linear-gradient(135deg, #a5f3fc, #c4b5fd, #86efac); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-left .subtitle { font-size: 1.1rem; color: rgba(255,255,255,0.75); margin-bottom: 28px; max-width: 540px; line-height: 1.65; }
+        .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+        .hero-tags .tag { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; color: white; font-size: 0.82rem; font-weight: 500; }
+        .hero-right { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; padding: 36px; color: white; }
+        .hero-right h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+        .hero-right ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+        .hero-right ul li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; line-height: 1.5; color: rgba(255,255,255,0.85); }
+        .hero-right ul li .step-num { width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.15); color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.75rem; font-weight: 700; margin-top: 1px; }
+        .hero-right .duration { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.95rem; font-weight: 600; text-align: center; background: linear-gradient(135deg, #a5f3fc, #c4b5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-logo { position: absolute; top: 32px; left: 48px; z-index: 3; display: flex; align-items: center; gap: 12px; }
+        .hero-logo span { font-size: 1.3rem; font-weight: 700; color: white; letter-spacing: -0.5px; }
+        .hero-logo .formation-label { font-size: 0.65rem; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); display: block; margin-top: -2px; }
+        .scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 3; color: rgba(255,255,255,0.4); font-size: 0.75rem; font-weight: 500; display: flex; flex-direction: column; align-items: center; gap: 6px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+
+        /* Sections */
+        .form-section { scroll-margin-top: 20px; }
+        .section-band { padding: 64px 80px 64px 120px; max-width: 1400px; margin: 0 auto; }
+        .section-alt { background: var(--ak-gray-50); }
+        .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
+        .section-header .sec-num { width: 44px; height: 44px; border-radius: 14px; background: var(--ak-gradient); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 700; flex-shrink: 0; }
+        .section-header .sec-info h2 { font-size: 1.5rem; font-weight: 700; color: var(--ak-black); letter-spacing: -0.02em; }
+        .section-header .sec-info p { font-size: 0.88rem; color: var(--ak-gray-500); margin-top: 2px; }
+
+        /* Identity */
+        .identity-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+        .field-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 20px; transition: border-color 0.2s, box-shadow 0.2s; }
+        .field-card:focus-within { border-color: var(--ak-blue); box-shadow: 0 0 0 4px rgba(37,99,235,0.08); }
+        .field-card label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ak-gray-500); margin-bottom: 8px; }
+        .field-card input, .field-card select, .field-card textarea { width: 100%; border: none; font-family: var(--font); font-size: 0.95rem; color: var(--ak-black); background: transparent; outline: none; }
+        .field-card select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right center; padding-right: 20px; }
+
+        /* Method intro */
+        .method-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+        .method-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 22px; }
+        .method-card .mc-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; color: var(--ak-purple); background: rgba(124,58,237,0.06); padding: 3px 10px; border-radius: 6px; display: inline-block; margin-bottom: 10px; }
+        .method-card h4 { font-size: 1rem; font-weight: 700; color: var(--ak-black); margin-bottom: 4px; }
+        .method-card p { font-size: 0.85rem; color: var(--ak-gray-500); line-height: 1.5; }
+
+        /* Dimension cards (grille de maturité) */
+        .dimension-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 26px 28px; margin-bottom: 16px; transition: all 0.25s; position: relative; overflow: hidden; }
+        .dimension-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--ak-gray-100); transition: background 0.3s; }
+        .dimension-card.filled::before { background: var(--ak-gradient); }
+        .dimension-card .dim-head { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+        .dimension-card .dim-icon { width: 38px; height: 38px; border-radius: 10px; background: var(--ak-gradient-soft); color: var(--ak-blue); display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; font-weight: 700; }
+        .dimension-card .dim-title { font-size: 1.05rem; font-weight: 700; color: var(--ak-black); }
+        .dimension-card .dim-desc { font-size: 0.86rem; color: var(--ak-gray-500); margin-bottom: 18px; line-height: 1.55; padding-left: 52px; }
+        .level-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+        .level-option { display: block; cursor: pointer; border: 1.5px solid var(--ak-gray-200); border-radius: 12px; padding: 14px 12px; text-align: left; transition: all 0.15s; background: var(--ak-white); }
+        .level-option input { display: none; }
+        .level-option:hover { border-color: var(--ak-blue); background: var(--ak-gray-50); }
+        .level-option .lvl-name { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ak-gray-500); margin-bottom: 4px; }
+        .level-option .lvl-desc { font-size: 0.78rem; color: var(--ak-gray-400); line-height: 1.4; }
+        .level-option.selected { background: var(--ak-gradient-soft); border-color: var(--ak-blue); }
+        .level-option.selected .lvl-name { color: var(--ak-blue); }
+        .level-option.selected .lvl-desc { color: var(--ak-gray-700); }
+        .justif-field label { display: block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-gray-500); margin-bottom: 6px; }
+        .justif-field textarea { width: 100%; min-height: 64px; resize: vertical; border: 1.5px solid var(--ak-gray-200); border-radius: 10px; padding: 12px 14px; font-family: var(--font); font-size: 0.88rem; color: var(--ak-black); transition: border-color 0.2s; }
+        .justif-field textarea:focus { border-color: var(--ak-blue); outline: none; }
+
+        /* Priority */
+        .priority-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .priority-option { display: flex; align-items: center; gap: 10px; padding: 14px 16px; background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 12px; cursor: pointer; transition: all 0.15s; font-size: 0.92rem; font-weight: 500; color: var(--ak-gray-700); }
+        .priority-option:hover { border-color: var(--ak-blue); }
+        .priority-option input { accent-color: var(--ak-blue); }
+        .priority-option.checked { background: var(--ak-gradient-soft); border-color: var(--ak-blue); color: var(--ak-blue); font-weight: 600; }
+
+        /* Submit */
+        .submit-band { text-align: center; padding: 48px 40px; background: var(--ak-gradient-soft); border-top: 1px solid var(--ak-gray-100); }
+        .btn-submit { display: inline-flex; align-items: center; gap: 10px; background: var(--ak-gradient); color: white; border: none; padding: 16px 52px; font-size: 1rem; font-weight: 600; border-radius: 14px; cursor: pointer; font-family: var(--font); transition: transform 0.2s, box-shadow 0.2s; letter-spacing: -0.01em; }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(37,99,235,0.3); }
+        .submit-note { font-size: 0.78rem; color: var(--ak-gray-400); margin-top: 12px; }
+
+        /* Results */
+        .results-wrapper { display: none; }
+        .results-wrapper.visible { display: block; }
+        .results-hero { background: var(--ak-gradient); padding: 64px 80px; position: relative; overflow: hidden; }
+        .results-hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(16,185,129,0.1) 0%, transparent 50%); }
+        .results-inner { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; }
+        .results-inner h2 { font-size: 2rem; font-weight: 800; color: white; margin-bottom: 6px; }
+        .results-inner .sub { color: rgba(255,255,255,0.7); font-size: 0.95rem; max-width: 700px; line-height: 1.6; margin-bottom: 24px; }
+        .priority-banner { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+        .priority-banner .pri-pill { background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 100px; color: white; font-weight: 600; font-size: 0.92rem; }
+        .priority-banner .pri-pill .pri-rank { display: inline-block; background: rgba(16,185,129,0.25); color: #6ee7b7; padding: 2px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 700; margin-right: 8px; }
+        .review-band { max-width: 1400px; margin: 0 auto; padding: 48px 80px; }
+        .review-band h3 { font-size: 1.2rem; font-weight: 700; color: var(--ak-black); margin-bottom: 20px; }
+        .maturity-result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .result-dim-card { background: var(--ak-gray-50); border-radius: 14px; padding: 22px; position: relative; }
+        .result-dim-card.is-priority { background: var(--ak-gradient-soft); border: 2px solid var(--ak-blue); }
+        .result-dim-card .rdc-name { font-size: 0.98rem; font-weight: 700; color: var(--ak-black); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+        .result-dim-card .priority-tag { background: var(--ak-gradient); color: white; font-size: 0.65rem; font-weight: 700; padding: 3px 9px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .result-dim-card .rdc-level { display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; margin-bottom: 10px; }
+        .lvl-initial { background: #FEE2E2; color: #B91C1C; }
+        .lvl-developpe { background: #FED7AA; color: #C2410C; }
+        .lvl-avance { background: #D1FAE5; color: #065F46; }
+        .lvl-leader { background: #DBEAFE; color: #1E40AF; }
+        .result-dim-card .rdc-justif { font-size: 0.86rem; color: var(--ak-gray-600); line-height: 1.55; font-style: italic; }
+        .rationale-card { background: var(--ak-gray-50); border-radius: 14px; padding: 28px; margin-top: 24px; }
+        .rationale-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--ak-black); margin-bottom: 12px; }
+        .rationale-card p { font-size: 0.92rem; color: var(--ak-gray-600); line-height: 1.65; }
+
+        /* Toast */
+        .email-toast { position: fixed; top: 20px; right: 20px; background: var(--ak-black); color: white; padding: 16px 24px; border-radius: 14px; font-size: 0.88rem; font-weight: 500; display: none; align-items: center; gap: 10px; z-index: 300; box-shadow: 0 20px 50px rgba(0,0,0,0.2); animation: slideIn 0.4s ease; }
+        .email-toast.show { display: flex; }
+        .email-toast .toast-icon { width: 28px; height: 28px; border-radius: 8px; background: rgba(16,185,129,0.2); color: #6ee7b7; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+        /* Footer */
+        .footer { text-align: center; padding: 32px 40px; background: var(--ak-gray-50); border-top: 1px solid var(--ak-gray-100); }
+        .footer-inner { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; }
+        .footer span { font-size: 0.78rem; color: var(--ak-gray-400); }
+        .footer .sep { width: 4px; height: 4px; border-radius: 50%; background: var(--ak-gray-300); }
+        .btn-print { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); color: var(--ak-gray-600); padding: 10px 24px; font-size: 0.82rem; font-weight: 600; border-radius: 10px; cursor: pointer; font-family: var(--font); transition: all 0.15s; }
+        .btn-print:hover { border-color: var(--ak-blue); color: var(--ak-blue); }
+
+        @media (max-width: 1100px) {
+            .hero-content { grid-template-columns: 1fr; padding: 100px 40px 60px; }
+            .hero-right { max-width: 460px; }
+            .section-band { padding: 48px 40px; }
+            .side-nav { display: none; }
+            .identity-grid, .method-grid, .priority-grid { grid-template-columns: 1fr 1fr; }
+            .level-row { grid-template-columns: 1fr 1fr; }
+            .maturity-result-grid { grid-template-columns: 1fr; }
+            .results-hero { padding: 48px 40px; }
+            .review-band { padding: 40px; }
+        }
+        @media (max-width: 640px) {
+            .hero-left h1 { font-size: 2.2rem; }
+            .hero-content { padding: 90px 24px 40px; }
+            .section-band { padding: 36px 20px; }
+            .identity-grid, .method-grid, .priority-grid { grid-template-columns: 1fr; }
+            .dimension-card .dim-desc { padding-left: 0; }
+            .review-band { padding: 24px 20px; }
+        }
+        @media print {
+            .hero { min-height: auto; }
+            .side-nav, .progress-track, .btn-submit, .btn-print, .scroll-hint, .email-toast { display: none !important; }
+            .dimension-card, .result-dim-card { break-inside: avoid; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="email-toast" id="emailToast">
+        <div class="toast-icon">&#10003;</div>
+        <span>Diagnostic envoyé au formateur</span>
+    </div>
+
+    <nav class="side-nav" id="sideNav">
+        <a href="#sec-info" class="active"><span class="dot"></span>Identité</a>
+        <a href="#sec-grille"><span class="dot"></span>Grille de maturité</a>
+        <a href="#sec-priorites"><span class="dot"></span>Priorités</a>
+    </nav>
+
+    <div id="formWrapper">
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-pattern"></div>
+            <div class="hero-grid"></div>
+
+            <div class="hero-logo">
+                <svg width="40" height="40" viewBox="0 0 80 80">
+                    <defs><linearGradient id="lgHero" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.2)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.08)"/></linearGradient></defs>
+                    <rect width="80" height="80" rx="16" fill="url(#lgHero)"/>
+                    <path d="M 40 20 L 50 50 L 44 50 L 42 44 L 38 44 L 36 50 L 30 50 L 40 20 Z M 40 28 L 38 40 L 42 40 L 40 28 Z" fill="white"/>
+                    <circle cx="55" cy="28" r="6" fill="#10B981" opacity="0.9"/>
+                </svg>
+                <div>
+                    <span>AKADEMIA</span>
+                    <span class="formation-label">Formation</span>
+                </div>
+            </div>
+
+            <div class="hero-content">
+                <div class="hero-left">
+                    <span class="pill-atelier">Atelier · Module 1</span>
+                    <h1>Diagnostic de<br>maturité<br><span class="gradient-text">IA Djibouti Telecom</span></h1>
+                    <p class="subtitle">Évaluez Djibouti Telecom sur les 6 dimensions clés de la maturité IA. À l'issue de cet atelier, votre diagnostic guidera la stratégie, le plan d'acculturation et la feuille de route 18 mois construits dans les modules 2, 3 et 4.</p>
+                    <div class="hero-tags">
+                        <div class="tag"><span>&#9201;</span> 30 minutes</div>
+                        <div class="tag"><span>&#128202;</span> 6 dimensions &middot; 4 niveaux</div>
+                        <div class="tag"><span>&#127919;</span> Livrable 1 sur 4</div>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <h3>Déroulé de l'atelier</h3>
+                    <ul>
+                        <li><div class="step-num">1</div>Présentation de la grille et exemples de positionnement (10 min · formateur)</li>
+                        <li><div class="step-num">2</div>Auto-évaluation individuelle silencieuse (15 min)</li>
+                        <li><div class="step-num">3</div>Confrontation des évaluations entre les deux participants (5 min)</li>
+                    </ul>
+                    <div class="duration">Formation IA &amp; Transformation Digitale · 11 mai 2026</div>
+                </div>
+            </div>
+
+            <div class="scroll-hint">Commencer l'atelier<br>&#8595;</div>
+        </section>
+
+        <!-- Section 1: Identité -->
+        <section class="form-section section-alt" id="sec-info">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">1</div>
+                    <div class="sec-info">
+                        <h2>Votre identité</h2>
+                        <p>Pour personnaliser la restitution et garder une trace de votre diagnostic</p>
+                    </div>
+                </div>
+                <div class="identity-grid">
+                    <div class="field-card">
+                        <label>Stagiaire *</label>
+                        <select id="stagiaire" required>
+                            <option value="">— Choisir —</option>
+                            <option value="Doualeh YACIN ELMI">Doualeh YACIN ELMI</option>
+                            <option value="Ismaël MOURAD HASSAN">Ismaël MOURAD HASSAN</option>
+                            <option value="autre">Autre (préciser)</option>
+                        </select>
+                    </div>
+                    <div class="field-card">
+                        <label>Poste / Fonction</label>
+                        <input type="text" id="poste" placeholder="Ex : Chef Service OSS, Chef Division PFS">
+                    </div>
+                    <div class="field-card">
+                        <label>Date</label>
+                        <input type="date" id="date" value="2026-05-11">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Méthodologie -->
+        <section class="form-section" id="sec-method">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">2</div>
+                    <div class="sec-info">
+                        <h2>Comment lire la grille</h2>
+                        <p>Quatre niveaux de maturité, à appliquer à chaque dimension</p>
+                    </div>
+                </div>
+                <div class="method-grid">
+                    <div class="method-card">
+                        <span class="mc-num">Niveau 1</span>
+                        <h4>Initial</h4>
+                        <p>Pratique non formalisée, dépend des initiatives isolées, pas de gouvernance dédiée.</p>
+                    </div>
+                    <div class="method-card">
+                        <span class="mc-num">Niveau 2</span>
+                        <h4>Développé</h4>
+                        <p>Pratique partielle, encore en silo ou expérimentale. Premiers cas d'usage déployés.</p>
+                    </div>
+                    <div class="method-card">
+                        <span class="mc-num">Niveau 3</span>
+                        <h4>Avancé</h4>
+                        <p>Pratique généralisée, gouvernance en place, mesure de la valeur engagée.</p>
+                    </div>
+                    <div class="method-card">
+                        <span class="mc-num">Niveau 4</span>
+                        <h4>Leader</h4>
+                        <p>Pratique source d'avantage compétitif, industrialisée, alignée stratégie d'entreprise.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Grille -->
+        <section class="form-section section-alt" id="sec-grille">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">3</div>
+                    <div class="sec-info">
+                        <h2>Grille de maturité — 6 dimensions</h2>
+                        <p>Positionnez Djibouti Telecom sur chaque dimension et justifiez en 2-3 lignes</p>
+                    </div>
+                </div>
+                <div id="dimensionsContainer"></div>
+            </div>
+        </section>
+
+        <!-- Section 4: Priorités -->
+        <section class="form-section" id="sec-priorites">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">4</div>
+                    <div class="sec-info">
+                        <h2>Vos 2 dimensions prioritaires</h2>
+                        <p>Celles à fort effet de levier qui guideront la stratégie des modules suivants</p>
+                    </div>
+                </div>
+                <div class="priority-grid" id="priorityGrid"></div>
+                <div class="field-card" style="margin-top: 8px;">
+                    <label>Pourquoi ces deux dimensions ? Quels effets de levier attendus ?</label>
+                    <textarea id="rationale" rows="4" placeholder="Ex : Sans données unifiées (silos OSS/BSS), aucun cas d'usage IA prédictif n'est exploitable. Et sans une gouvernance Data/IA portée par la DSI, les expérimentations resteront isolées..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <div class="submit-band">
+            <button class="btn-submit" onclick="submitAtelier()">
+                <span>Envoyer mon diagnostic</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <div class="submit-note">Votre diagnostic est transmis au formateur et conservé pour la suite de la formation</div>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div class="results-wrapper" id="resultsWrapper">
+        <div class="results-hero">
+            <div class="results-inner">
+                <h2 id="resultTitle">Votre diagnostic — Djibouti Telecom</h2>
+                <p class="sub" id="resultSub">Voici la synthèse de votre évaluation. Le formateur reprend ces inputs en module 2 pour construire la stratégie IA cible.</p>
+                <div class="priority-banner" id="priorityBanner"></div>
+            </div>
+        </div>
+        <div class="review-band">
+            <h3>Positionnement par dimension</h3>
+            <div class="maturity-result-grid" id="dimensionsResult"></div>
+            <div class="rationale-card" id="rationaleCard" style="display:none;">
+                <h4>Rationale priorités</h4>
+                <p id="rationaleText"></p>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-inner">
+                <button class="btn-print" onclick="window.print()">Imprimer / PDF</button>
+                <span class="sep"></span>
+                <span>Akademia Formation — Pro Conduite SAS</span>
+                <span class="sep"></span>
+                <span>SIRET 81194469300027 · NDA 11910773991</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dimensions data
+        var dimensions = [
+            { id:'strategie', icon:'S', name:'Stratégie', desc:'Existence d\'une vision IA, intégration au plan stratégique, sponsorship exécutif (DG, COMEX) sur les enjeux IA.' },
+            { id:'donnees', icon:'D', name:'Données', desc:'Qualité, accessibilité, unification des données (OSS, BSS, parcours client, supervision réseau). Architecture data partagée.' },
+            { id:'talents', icon:'T', name:'Talents', desc:'Compétences IA internes : data scientists, MLOps, product owners IA, business translators. Capacité à recruter et retenir.' },
+            { id:'technologie', icon:'Te', name:'Technologie', desc:'Plateformes IA en place (cloud, MLOps, LLM as a service), capacité à déployer en production, maturité DevOps.' },
+            { id:'gouvernance', icon:'G', name:'Gouvernance', desc:'Cadre de pilotage des risques IA (NIST AI RMF, EU AI Act, ISO 42001, régulation ARMD), comité IA, processus de validation.' },
+            { id:'culture', icon:'C', name:'Culture', desc:'Acculturation IA des collaborateurs et managers, sécurité psychologique pour expérimenter, ouverture à la co-intelligence humain-IA.' }
+        ];
+
+        var levels = [
+            { id:'initial', name:'Initial', desc:'Pratique non formalisée' },
+            { id:'developpe', name:'Développé', desc:'Pratique partielle, en silo' },
+            { id:'avance', name:'Avancé', desc:'Généralisée, gouvernée' },
+            { id:'leader', name:'Leader', desc:'Source d\'avantage compétitif' }
+        ];
+
+        // Render dimension cards
+        var container = document.getElementById('dimensionsContainer');
+        dimensions.forEach(function(d) {
+            var html = '<div class="dimension-card" id="card-' + d.id + '">';
+            html += '<div class="dim-head"><div class="dim-icon">' + d.icon + '</div><div class="dim-title">' + d.name + '</div></div>';
+            html += '<div class="dim-desc">' + d.desc + '</div>';
+            html += '<div class="level-row">';
+            levels.forEach(function(l, idx) {
+                html += '<label class="level-option" data-level="' + l.id + '">';
+                html += '<input type="radio" name="lvl-' + d.id + '" value="' + l.id + '">';
+                html += '<div class="lvl-name">' + (idx+1) + ' · ' + l.name + '</div>';
+                html += '<div class="lvl-desc">' + l.desc + '</div>';
+                html += '</label>';
+            });
+            html += '</div>';
+            html += '<div class="justif-field">';
+            html += '<label>Justification (2-3 lignes)</label>';
+            html += '<textarea id="just-' + d.id + '" placeholder="Pour ' + d.name.toLowerCase() + ', je note ce niveau parce que..."></textarea>';
+            html += '</div>';
+            html += '</div>';
+            container.innerHTML += html;
+        });
+
+        // Render priority grid
+        var priorityGrid = document.getElementById('priorityGrid');
+        dimensions.forEach(function(d) {
+            var html = '<label class="priority-option" data-dim="' + d.id + '">';
+            html += '<input type="checkbox" value="' + d.id + '" data-name="' + d.name + '">';
+            html += '<span>' + d.name + '</span>';
+            html += '</label>';
+            priorityGrid.innerHTML += html;
+        });
+
+        // Level selection styling
+        document.querySelectorAll('.level-option').forEach(function(opt) {
+            opt.addEventListener('click', function() {
+                var card = opt.closest('.dimension-card');
+                card.querySelectorAll('.level-option').forEach(function(o) { o.classList.remove('selected'); });
+                opt.classList.add('selected');
+                opt.querySelector('input').checked = true;
+                card.classList.add('filled');
+                updateProgress();
+            });
+        });
+
+        // Priority checkbox: max 2 + styling
+        document.querySelectorAll('.priority-option').forEach(function(opt) {
+            opt.addEventListener('click', function(e) {
+                if (e.target.tagName === 'INPUT') return; // let the input change fire
+                var input = opt.querySelector('input');
+                input.checked = !input.checked;
+                handlePriorityChange();
+            });
+            opt.querySelector('input').addEventListener('change', handlePriorityChange);
+        });
+
+        function handlePriorityChange() {
+            var checked = document.querySelectorAll('.priority-option input:checked');
+            if (checked.length > 2) {
+                checked[0].checked = false;
+            }
+            document.querySelectorAll('.priority-option').forEach(function(opt) {
+                opt.classList.toggle('checked', opt.querySelector('input').checked);
+            });
+            updateProgress();
+        }
+
+        function updateProgress() {
+            var total = dimensions.length + 1; // 6 dims + priorities
+            var done = 0;
+            dimensions.forEach(function(d) {
+                if (document.querySelector('input[name="lvl-' + d.id + '"]:checked')) done++;
+            });
+            var priChecked = document.querySelectorAll('.priority-option input:checked').length;
+            if (priChecked === 2) done++;
+            document.getElementById('progressFill').style.width = (done / total * 100) + '%';
+        }
+
+        // Side nav scroll tracking
+        var sections = ['sec-info','sec-grille','sec-priorites'];
+        window.addEventListener('scroll', function() {
+            var scrollY = window.scrollY + 200;
+            var current = '';
+            sections.forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el && el.offsetTop <= scrollY) current = id;
+            });
+            document.querySelectorAll('.side-nav a').forEach(function(a) {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        });
+
+        function levelLabel(lvlId) {
+            var l = levels.find(function(x){return x.id===lvlId;});
+            return l ? l.name : '-';
+        }
+
+        function submitAtelier() {
+            var stagiaire = document.getElementById('stagiaire').value;
+            if (!stagiaire) { alert('Merci de sélectionner votre nom.'); document.getElementById('stagiaire').focus(); return; }
+
+            var unanswered = dimensions.filter(function(d) { return !document.querySelector('input[name="lvl-' + d.id + '"]:checked'); });
+            if (unanswered.length > 0) {
+                if (!confirm(unanswered.length + ' dimension(s) sans niveau. Envoyer quand même ?')) return;
+            }
+
+            var priorities = Array.from(document.querySelectorAll('.priority-option input:checked')).map(function(i){return i.dataset.name;});
+
+            // Collect data
+            var poste = document.getElementById('poste').value.trim();
+            var date = document.getElementById('date').value;
+            var rationale = document.getElementById('rationale').value.trim();
+            var diagnostic = {};
+            dimensions.forEach(function(d) {
+                var lvl = document.querySelector('input[name="lvl-' + d.id + '"]:checked');
+                var justif = document.getElementById('just-' + d.id).value.trim();
+                diagnostic[d.name] = { level: lvl ? lvl.value : null, justification: justif };
+            });
+
+            // Build email body
+            var body = 'ATELIER 1 — DIAGNOSTIC DE MATURITÉ IA — DJIBOUTI TELECOM\n';
+            body += '========================================================\n\n';
+            body += 'STAGIAIRE : ' + stagiaire + '\n';
+            body += 'POSTE : ' + (poste || '-') + '\n';
+            body += 'DATE : ' + (date || '-') + '\n\n';
+            body += 'ÉVALUATION PAR DIMENSION\n';
+            body += '------------------------\n';
+            dimensions.forEach(function(d, i) {
+                var dx = diagnostic[d.name];
+                body += (i+1) + '. ' + d.name + ' : ' + (dx.level ? levelLabel(dx.level).toUpperCase() : 'NON ÉVALUÉE') + '\n';
+                body += '   Justification : ' + (dx.justification || '(non renseignée)') + '\n\n';
+            });
+            body += '2 DIMENSIONS PRIORITAIRES\n';
+            body += '-------------------------\n';
+            if (priorities.length === 0) body += '(aucune sélectionnée)\n';
+            else priorities.forEach(function(p, i) { body += (i+1) + '. ' + p + '\n'; });
+            body += '\nRATIONALE PRIORITÉS\n';
+            body += '-------------------\n';
+            body += (rationale || '(non renseignée)') + '\n\n';
+            body += '— Diagnostic produit lors de l\'Atelier 1 (Module 1) — utiliser comme input pour les modules 2, 3 et 4.\n';
+
+            var subj = 'Atelier 1 (Maturité IA) — ' + stagiaire + (priorities.length ? ' — Priorités : ' + priorities.join(' + ') : '');
+
+            // FormSubmit payload
+            var payload = {
+                _subject: subj,
+                Atelier: 'Module 1 — Diagnostic de maturité IA',
+                Stagiaire: stagiaire,
+                Poste: poste || '-',
+                Date: date || '-',
+                'Dimensions prioritaires': priorities.join(' + ') || '(aucune)',
+                'Rationale priorités': rationale || '-',
+                _template: 'table'
+            };
+            dimensions.forEach(function(d) {
+                var dx = diagnostic[d.name];
+                payload['Niveau ' + d.name] = dx.level ? levelLabel(dx.level) : 'Non évaluée';
+                payload['Justif ' + d.name] = dx.justification || '-';
+            });
+
+            fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(function(r){return r.json();}).then(function(data){
+                showToast('✅ Diagnostic envoyé au formateur');
+            }).catch(function(err){
+                window.location.href = 'mailto:b.yassmine@ecf-proconduite.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+            });
+
+            // Show results
+            document.getElementById('formWrapper').style.display = 'none';
+            document.getElementById('sideNav').style.display = 'none';
+            var rw = document.getElementById('resultsWrapper');
+            rw.classList.add('visible');
+
+            // Title
+            var firstName = stagiaire.split(' ')[0];
+            document.getElementById('resultTitle').textContent = firstName + ', votre diagnostic est enregistré';
+
+            // Priority banner
+            var pbHtml = '';
+            priorities.forEach(function(p, i) {
+                pbHtml += '<div class="pri-pill"><span class="pri-rank">Priorité ' + (i+1) + '</span>' + p + '</div>';
+            });
+            if (priorities.length === 0) pbHtml = '<div class="pri-pill"><span class="pri-rank">À compléter</span>Aucune priorité sélectionnée</div>';
+            document.getElementById('priorityBanner').innerHTML = pbHtml;
+
+            // Result grid
+            var prioritySet = new Set(priorities);
+            var grid = '';
+            dimensions.forEach(function(d) {
+                var dx = diagnostic[d.name];
+                var isPri = prioritySet.has(d.name);
+                var lvlClass = dx.level ? 'lvl-' + dx.level : '';
+                grid += '<div class="result-dim-card' + (isPri ? ' is-priority' : '') + '">';
+                grid += '<div class="rdc-name">' + d.name + (isPri ? ' <span class="priority-tag">Prioritaire</span>' : '') + '</div>';
+                grid += '<div class="rdc-level ' + lvlClass + '">' + (dx.level ? levelLabel(dx.level) : 'Non évaluée') + '</div>';
+                grid += '<div class="rdc-justif">' + (dx.justification ? '« ' + dx.justification + ' »' : 'Aucune justification renseignée.') + '</div>';
+                grid += '</div>';
+            });
+            document.getElementById('dimensionsResult').innerHTML = grid;
+
+            if (rationale) {
+                document.getElementById('rationaleCard').style.display = 'block';
+                document.getElementById('rationaleText').textContent = rationale;
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showToast(msg) {
+            var toast = document.getElementById('emailToast');
+            toast.querySelector('span').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(function(){ toast.classList.remove('show'); }, 5000);
+        }
+    </script>
+</body>
+</html>
