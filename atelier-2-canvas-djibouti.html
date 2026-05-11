@@ -27,16 +27,8 @@
             --ak-white: #FFFFFF;
             --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: var(--font);
-            background: var(--ak-white);
-            color: var(--ak-gray-700);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        body { font-family: var(--font); background: var(--ak-white); color: var(--ak-gray-700); line-height: 1.6; overflow-x: hidden; }
 
         .progress-track { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: var(--ak-gray-100); z-index: 200; }
         .progress-fill { height: 100%; background: var(--ak-gradient); width: 0%; transition: width 0.4s cubic-bezier(.4,0,.2,1); }
@@ -95,27 +87,40 @@
         .method-card h4 { font-size: 1rem; font-weight: 700; color: var(--ak-black); margin-bottom: 4px; }
         .method-card p { font-size: 0.85rem; color: var(--ak-gray-500); line-height: 1.5; }
 
-        /* Canvas grid: 9 cases en layout 3x3 */
-        .canvas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-        .canvas-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 22px 24px; transition: all 0.25s; position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 320px; }
+        /* Canvas card */
+        .canvas-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 28px 30px; margin-bottom: 16px; transition: all 0.25s; position: relative; overflow: hidden; }
         .canvas-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--ak-gray-100); transition: background 0.3s; }
         .canvas-card.filled::before { background: var(--ak-gradient); }
-        .canvas-card .cc-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-        .canvas-card .cc-num { width: 30px; height: 30px; border-radius: 8px; background: var(--ak-gradient-soft); color: var(--ak-blue); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; }
-        .canvas-card .cc-title { font-size: 1rem; font-weight: 700; color: var(--ak-black); line-height: 1.3; }
-        .canvas-card .cc-prompt { font-size: 0.82rem; color: var(--ak-gray-500); margin-bottom: 12px; line-height: 1.5; font-style: italic; }
-        .canvas-card .cc-example { background: var(--ak-gray-50); border-left: 3px solid var(--ak-gray-300); padding: 10px 14px; margin-bottom: 14px; border-radius: 6px; font-size: 0.78rem; color: var(--ak-gray-600); line-height: 1.55; }
-        .canvas-card .cc-example .ex-label { font-size: 0.65rem; font-weight: 700; color: var(--ak-purple); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
-        .canvas-card textarea { width: 100%; flex: 1; min-height: 90px; resize: vertical; border: 1.5px solid var(--ak-gray-200); border-radius: 10px; padding: 12px 14px; font-family: var(--font); font-size: 0.88rem; color: var(--ak-black); transition: border-color 0.2s; line-height: 1.5; }
-        .canvas-card textarea:focus { border-color: var(--ak-blue); outline: none; }
+        .canvas-card .cc-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 10px; }
+        .canvas-card .cc-icon { width: 38px; height: 38px; border-radius: 10px; background: var(--ak-gradient-soft); color: var(--ak-blue); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0; font-weight: 700; }
+        .canvas-card .cc-title-block { flex: 1; }
+        .canvas-card .cc-title { font-size: 1.08rem; font-weight: 700; color: var(--ak-black); margin-bottom: 4px; }
+        .canvas-card .cc-amorce { font-size: 0.86rem; color: var(--ak-gray-500); line-height: 1.55; }
+        .canvas-card .cc-example { background: var(--ak-gray-50); border-left: 3px solid var(--ak-purple); padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 0.82rem; color: var(--ak-gray-600); margin: 14px 0 18px 52px; line-height: 1.55; font-style: italic; }
+        .canvas-card .cc-example .ex-tag { display: inline-block; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.8px; color: var(--ak-purple); text-transform: uppercase; margin-right: 8px; font-style: normal; }
 
-        /* Synthese */
-        .synthese-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-        .synthese-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 24px 28px; }
-        .synthese-card .sc-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ak-gray-500); margin-bottom: 4px; }
-        .synthese-card .sc-helper { font-size: 0.82rem; color: var(--ak-gray-500); margin-bottom: 12px; line-height: 1.5; }
-        .synthese-card textarea, .synthese-card input { width: 100%; border: 1.5px solid var(--ak-gray-200); border-radius: 10px; padding: 12px 14px; font-family: var(--font); font-size: 0.95rem; color: var(--ak-black); transition: border-color 0.2s; resize: vertical; }
-        .synthese-card textarea:focus, .synthese-card input:focus { border-color: var(--ak-blue); outline: none; }
+        /* Sub-fields */
+        .sub-fields { display: grid; gap: 12px; }
+        .sub-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .sub-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        .sub-row-4 { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 12px; }
+        .sub-row-full { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .sub-field { display: flex; flex-direction: column; }
+        .sub-field label { display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-gray-500); margin-bottom: 6px; }
+        .sub-field input, .sub-field textarea, .sub-field select { width: 100%; border: 1.5px solid var(--ak-gray-200); border-radius: 10px; padding: 10px 12px; font-family: var(--font); font-size: 0.88rem; color: var(--ak-black); transition: border-color 0.2s; line-height: 1.5; background: var(--ak-white); }
+        .sub-field textarea { min-height: 70px; resize: vertical; }
+        .sub-field input:focus, .sub-field textarea:focus, .sub-field select:focus { border-color: var(--ak-blue); outline: none; }
+        .sub-field .helper { font-size: 0.72rem; color: var(--ak-gray-400); margin-top: 3px; font-style: italic; }
+        .sub-field select { cursor: pointer; -webkit-appearance: none; appearance: none; background: var(--ak-white) url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 12px center; padding-right: 28px; }
+
+        .repeat-block { background: var(--ak-gray-50); border-radius: 12px; padding: 16px 18px; margin-bottom: 10px; }
+        .repeat-block .repeat-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-purple); margin-bottom: 10px; display: inline-block; padding: 2px 10px; background: rgba(124,58,237,0.08); border-radius: 6px; }
+
+        /* Synthesis cards */
+        .decision-block { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 20px 24px; margin-bottom: 12px; }
+        .decision-block .deci-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-purple); margin-bottom: 10px; display: inline-block; padding: 3px 10px; background: rgba(124,58,237,0.08); border-radius: 6px; }
+        .decision-block textarea { width: 100%; min-height: 80px; border: 1.5px solid var(--ak-gray-200); border-radius: 10px; padding: 12px 14px; font-family: var(--font); font-size: 0.9rem; color: var(--ak-black); resize: vertical; line-height: 1.5; }
+        .decision-block textarea:focus { border-color: var(--ak-blue); outline: none; }
 
         /* Submit */
         .submit-band { text-align: center; padding: 48px 40px; background: var(--ak-gradient-soft); border-top: 1px solid var(--ak-gray-100); }
@@ -130,21 +135,17 @@
         .results-hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(16,185,129,0.1) 0%, transparent 50%); }
         .results-inner { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; }
         .results-inner h2 { font-size: 2rem; font-weight: 800; color: white; margin-bottom: 6px; }
-        .results-inner .sub { color: rgba(255,255,255,0.7); font-size: 0.95rem; max-width: 700px; line-height: 1.6; margin-bottom: 24px; }
-        .vision-banner { background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); padding: 22px 26px; border-radius: 16px; margin-top: 12px; }
-        .vision-banner .vb-label { color: rgba(255,255,255,0.5); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; }
-        .vision-banner .vb-text { color: white; font-size: 1.15rem; font-weight: 600; line-height: 1.55; }
+        .results-inner .sub { color: rgba(255,255,255,0.7); font-size: 0.95rem; max-width: 700px; line-height: 1.6; }
         .review-band { max-width: 1400px; margin: 0 auto; padding: 48px 80px; }
         .review-band h3 { font-size: 1.2rem; font-weight: 700; color: var(--ak-black); margin-bottom: 20px; }
-        .canvas-result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-        .result-canvas-card { background: var(--ak-gray-50); border-radius: 14px; padding: 20px; }
-        .result-canvas-card .rcc-name { font-size: 0.92rem; font-weight: 700; color: var(--ak-black); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .result-canvas-card .rcc-num { width: 24px; height: 24px; border-radius: 6px; background: var(--ak-gradient); color: white; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-        .result-canvas-card .rcc-text { font-size: 0.86rem; color: var(--ak-gray-700); line-height: 1.55; white-space: pre-wrap; }
-        .result-canvas-card .rcc-empty { font-size: 0.82rem; color: var(--ak-gray-400); font-style: italic; }
-        .actions-banner { margin-top: 28px; background: var(--ak-gradient-soft); border-radius: 16px; padding: 26px; border: 1.5px solid rgba(37,99,235,0.15); }
-        .actions-banner h4 { font-size: 1rem; font-weight: 700; color: var(--ak-black); margin-bottom: 12px; }
-        .actions-banner p { font-size: 0.92rem; color: var(--ak-gray-700); line-height: 1.65; white-space: pre-wrap; }
+        .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .review-card { background: var(--ak-gray-50); border-radius: 14px; padding: 22px; }
+        .review-card .rc-name { font-size: 1rem; font-weight: 700; color: var(--ak-black); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .review-card .rc-name .rc-icon { width: 28px; height: 28px; border-radius: 8px; background: var(--ak-gradient-soft); color: var(--ak-blue); display: inline-flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 700; }
+        .review-card .rc-pair { margin-top: 10px; }
+        .review-card .rc-pair-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-gray-500); margin-bottom: 4px; }
+        .review-card .rc-pair-value { font-size: 0.84rem; color: var(--ak-gray-700); line-height: 1.55; white-space: pre-wrap; }
+        .review-card .rc-pair-value.empty { color: var(--ak-gray-400); font-style: italic; }
 
         /* Toast */
         .email-toast { position: fixed; top: 20px; right: 20px; background: var(--ak-black); color: white; padding: 16px 24px; border-radius: 14px; font-size: 0.88rem; font-weight: 500; display: none; align-items: center; gap: 10px; z-index: 300; box-shadow: 0 20px 50px rgba(0,0,0,0.2); animation: slideIn 0.4s ease; }
@@ -166,7 +167,8 @@
             .section-band { padding: 48px 40px; }
             .side-nav { display: none; }
             .identity-grid, .method-grid { grid-template-columns: 1fr 1fr; }
-            .canvas-grid, .canvas-result-grid { grid-template-columns: 1fr 1fr; }
+            .sub-row, .sub-row-3, .sub-row-4 { grid-template-columns: 1fr; }
+            .review-grid { grid-template-columns: 1fr; }
             .results-hero { padding: 48px 40px; }
             .review-band { padding: 40px; }
         }
@@ -174,446 +176,808 @@
             .hero-left h1 { font-size: 2.2rem; }
             .hero-content { padding: 90px 24px 40px; }
             .section-band { padding: 36px 20px; }
-            .identity-grid, .method-grid, .canvas-grid, .canvas-result-grid { grid-template-columns: 1fr; }
-            .review-band { padding: 24px 20px; }
+            .identity-grid, .method-grid { grid-template-columns: 1fr; }
+            .canvas-card .cc-example { margin-left: 0; }
         }
         @media print {
-            .hero { min-height: auto; }
-            .side-nav, .progress-track, .btn-submit, .btn-print, .scroll-hint, .email-toast { display: none !important; }
-            .canvas-card, .result-canvas-card { break-inside: avoid; }
             body { background: white; }
+            .progress-track, .side-nav, .submit-band, .footer, .hero, .email-toast { display: none !important; }
+            .results-wrapper { display: block !important; }
+            .results-hero { background: white !important; color: var(--ak-black); padding: 24px; }
+            .results-inner h2, .results-inner .sub { color: var(--ak-black) !important; }
+            .review-band { padding: 24px; }
+            .review-card, .field-card, .canvas-card, .decision-block { break-inside: avoid; page-break-inside: avoid; }
         }
     </style>
 </head>
 <body>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
 
-    <div class="email-toast" id="emailToast">
-        <div class="toast-icon">&#10003;</div>
-        <span>Canvas envoyé au formateur</span>
-    </div>
-
     <nav class="side-nav" id="sideNav">
-        <a href="#sec-info" class="active"><span class="dot"></span>Identité</a>
-        <a href="#sec-canvas"><span class="dot"></span>Canvas 9 cases</a>
-        <a href="#sec-synthese"><span class="dot"></span>Synthèse</a>
+        <a href="#identity"><span class="dot"></span>Identité</a>
+        <a href="#methode"><span class="dot"></span>Méthode</a>
+        <a href="#canvas"><span class="dot"></span>Canvas</a>
+        <a href="#synthese"><span class="dot"></span>Synthèse</a>
     </nav>
 
-    <div id="formWrapper">
+    <div class="email-toast" id="emailToast">
+        <div class="toast-icon">✓</div>
+        <div>Votre canvas a été envoyé à b.yassmine@ecf-proconduite.com</div>
+    </div>
 
-        <!-- Hero -->
-        <section class="hero">
-            <div class="hero-bg"></div>
-            <div class="hero-pattern"></div>
-            <div class="hero-grid"></div>
-
-            <div class="hero-logo">
-                <svg width="40" height="40" viewBox="0 0 80 80">
-                    <defs><linearGradient id="lgHero" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.2)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.08)"/></linearGradient></defs>
-                    <rect width="80" height="80" rx="16" fill="url(#lgHero)"/>
-                    <path d="M 40 20 L 50 50 L 44 50 L 42 44 L 38 44 L 36 50 L 30 50 L 40 20 Z M 40 28 L 38 40 L 42 40 L 40 28 Z" fill="white"/>
-                    <circle cx="55" cy="28" r="6" fill="#10B981" opacity="0.9"/>
-                </svg>
-                <div>
-                    <span>AKADEMIA</span>
-                    <span class="formation-label">Formation</span>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-pattern"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-logo">
+            <div>
+                <span>Akademia Formation</span>
+                <span class="formation-label">IA & Transformation Digitale</span>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-left">
+                <span class="pill-atelier">ATELIER 2 · MODULE 2</span>
+                <h1>Canvas stratégique de <span class="gradient-text">transformation IA</span></h1>
+                <p class="subtitle">Formaliser sur une page la stratégie IA de Djibouti Telecom : vision, leviers, données, compétences, technologies, partenariats, risques, KPI, jalons.</p>
+                <div class="hero-tags">
+                    <span class="tag">⏱ 25 min</span>
+                    <span class="tag">📋 9 cases × 3-4 questions</span>
+                    <span class="tag">🎯 1 page synthétique</span>
                 </div>
             </div>
+            <div class="hero-right">
+                <h3>Comment procéder</h3>
+                <ul>
+                    <li><span class="step-num">1</span><span>Renseigner les 9 cases du canvas avec leurs sous-questions (15 min individuel)</span></li>
+                    <li><span class="step-num">2</span><span>Confronter les deux versions (10 min) — différences = sujets stratégiques</span></li>
+                    <li><span class="step-num">3</span><span>Formuler 3 décisions à porter au COMEX</span></li>
+                    <li><span class="step-num">4</span><span>Envoyer pour archivage et restitution finale</span></li>
+                </ul>
+                <div class="duration">Travail individuel silencieux puis confrontation</div>
+            </div>
+        </div>
+        <div class="scroll-hint">scroll<br>↓</div>
+    </section>
 
-            <div class="hero-content">
-                <div class="hero-left">
-                    <span class="pill-atelier">Atelier · Module 2</span>
-                    <h1>Canvas<br>stratégique<br><span class="gradient-text">IA Djibouti Telecom</span></h1>
-                    <p class="subtitle">Formalisez sur une page la stratégie IA de Djibouti Telecom : vision, leviers, données, compétences, technologies, partenariats, risques, KPI, premiers jalons. C'est le squelette que vous reprendrez dans les modules 3 et 4.</p>
-                    <div class="hero-tags">
-                        <div class="tag"><span>&#9201;</span> 35 minutes</div>
-                        <div class="tag"><span>&#128202;</span> 9 cases stratégiques</div>
-                        <div class="tag"><span>&#127919;</span> Livrable 2 sur 4</div>
-                    </div>
-                </div>
-                <div class="hero-right">
-                    <h3>Déroulé de l'atelier</h3>
-                    <ul>
-                        <li><div class="step-num">1</div>Présentation du canvas et logique des 9 cases (10 min · formateur)</li>
-                        <li><div class="step-num">2</div>Remplissage individuel silencieux (15 min)</li>
-                        <li><div class="step-num">3</div>Confrontation et arbitrages entre les deux participants (10 min)</li>
-                    </ul>
-                    <div class="duration">Formation IA &amp; Transformation Digitale · 11 mai 2026</div>
+    <form id="canvasForm">
+        <!-- IDENTITY -->
+        <section class="section-band form-section" id="identity">
+            <div class="section-header">
+                <div class="sec-num">1</div>
+                <div class="sec-info">
+                    <h2>Identité du stagiaire</h2>
+                    <p>Pour archivage et restitution personnalisée</p>
                 </div>
             </div>
-
-            <div class="scroll-hint">Commencer l'atelier<br>&#8595;</div>
-        </section>
-
-        <!-- Section 1: Identité -->
-        <section class="form-section section-alt" id="sec-info">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">1</div>
-                    <div class="sec-info">
-                        <h2>Votre identité</h2>
-                        <p>Pour personnaliser la restitution et garder une trace de votre canvas</p>
-                    </div>
+            <div class="identity-grid">
+                <div class="field-card">
+                    <label for="nom">Nom complet</label>
+                    <input type="text" id="nom" name="nom" placeholder="Doualeh YACIN ELMI" required>
                 </div>
-                <div class="identity-grid">
-                    <div class="field-card">
-                        <label>Stagiaire *</label>
-                        <select id="stagiaire" required>
-                            <option value="">— Choisir —</option>
-                            <option value="Doualeh YACIN ELMI">Doualeh YACIN ELMI</option>
-                            <option value="Ismaël MOURAD HASSAN">Ismaël MOURAD HASSAN</option>
-                            <option value="autre">Autre (préciser)</option>
-                        </select>
-                    </div>
-                    <div class="field-card">
-                        <label>Poste / Fonction</label>
-                        <input type="text" id="poste" placeholder="Ex : Chef Service OSS, Chef Division PFS">
-                    </div>
-                    <div class="field-card">
-                        <label>Date</label>
-                        <input type="date" id="date" value="2026-05-11">
-                    </div>
+                <div class="field-card">
+                    <label for="fonction">Fonction</label>
+                    <input type="text" id="fonction" name="fonction" placeholder="Chef Service OSS" required>
+                </div>
+                <div class="field-card">
+                    <label for="entite">Entité / Direction</label>
+                    <input type="text" id="entite" name="entite" placeholder="DSI Djibouti Telecom" required>
                 </div>
             </div>
         </section>
 
-        <!-- Section 2: Méthodologie -->
-        <section class="form-section" id="sec-method">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">2</div>
-                    <div class="sec-info">
-                        <h2>Règles de remplissage</h2>
-                        <p>Quelques principes pour que le canvas tienne la route stratégique</p>
+        <!-- METHOD -->
+        <section class="section-band section-alt form-section" id="methode">
+            <div class="section-header">
+                <div class="sec-num">2</div>
+                <div class="sec-info">
+                    <h2>Pourquoi ce canvas ?</h2>
+                    <p>Forcer la cohérence stratégique : tout doit tenir sur une page</p>
+                </div>
+            </div>
+            <div class="method-grid">
+                <div class="method-card">
+                    <span class="mc-num">PRINCIPE</span>
+                    <h4>Voir l'ensemble</h4>
+                    <p>Chaque case répond à 3-4 sous-questions. Pas de réponse vague : forcer la précision opérationnelle.</p>
+                </div>
+                <div class="method-card">
+                    <span class="mc-num">EXIGENCE</span>
+                    <h4>Cohérence</h4>
+                    <p>Chaque case doit être cohérente avec la vision et les leviers. Si KPI ne mesure pas le levier, retravaillez.</p>
+                </div>
+                <div class="method-card">
+                    <span class="mc-num">LIVRABLE</span>
+                    <h4>3 décisions COMEX</h4>
+                    <p>Le canvas n'est pas un exercice théorique : il alimente 3 décisions concrètes à porter dans 30 jours.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CANVAS -->
+        <section class="section-band form-section" id="canvas">
+            <div class="section-header">
+                <div class="sec-num">3</div>
+                <div class="sec-info">
+                    <h2>Les 9 cases du canvas IA</h2>
+                    <p>3 à 4 sous-questions par case — pas de zone libre, on cherche la précision</p>
+                </div>
+            </div>
+
+            <!-- CASE 1 — VISION -->
+            <div class="canvas-card" data-case="vision">
+                <div class="cc-head">
+                    <div class="cc-icon">1</div>
+                    <div class="cc-title-block">
+                        <div class="cc-title">Vision IA</div>
+                        <div class="cc-amorce">À quoi sert l'IA pour Djibouti Telecom à 3 ans ? Formulez en termes opérationnels, pas en slogans.</div>
                     </div>
                 </div>
-                <div class="method-grid">
-                    <div class="method-card">
-                        <span class="mc-num">Règle 1</span>
-                        <h4>3 à 5 éléments par case</h4>
-                        <p>Le canvas est un outil de synthèse. Pas de catalogue exhaustif. On hiérarchise et on arbitre.</p>
+                <div class="cc-example"><span class="ex-tag">REPÈRE</span>« Faire de Djibouti Telecom l'opérateur le plus efficient et le plus fiable de la Corne de l'Afrique grâce à une exploitation systématique de la donnée et de l'IA. »</div>
+                <div class="sub-fields">
+                    <div class="sub-row-full">
+                        <div class="sub-field">
+                            <label>Phrase de vision (1 phrase, 25 mots max)</label>
+                            <textarea name="vision_phrase" placeholder="L'IA permettra à Djibouti Telecom de..." data-track></textarea>
+                        </div>
                     </div>
-                    <div class="method-card">
-                        <span class="mc-num">Règle 2</span>
-                        <h4>Cohérence d'ensemble</h4>
-                        <p>Chaque case doit être lisible à la lumière de la vision (case 1). Si une case contredit la vision, il faut trancher.</p>
+                    <div class="sub-row">
+                        <div class="sub-field">
+                            <label>Indicateur clé qui matérialise la vision</label>
+                            <input type="text" name="vision_kpi" placeholder="ex. OPEX réseau / abonné" data-track>
+                            <div class="helper">Une mesure unique qui prouve que la vision est atteinte</div>
+                        </div>
+                        <div class="sub-field">
+                            <label>Premier bénéficiaire</label>
+                            <select name="vision_beneficiaire" data-track>
+                                <option value="">— choisir —</option>
+                                <option>Clients B2C</option>
+                                <option>Clients B2B</option>
+                                <option>Collaborateurs internes</option>
+                                <option>Actionnaires / État</option>
+                                <option>Régulateur / écosystème</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="method-card">
-                        <span class="mc-num">Règle 3</span>
-                        <h4>Concret &gt; abstrait</h4>
-                        <p>Préférez « optimisation OPEX réseau » à « efficience opérationnelle ». Si vous ne savez pas dire qui paye et qui consomme, c'est trop flou.</p>
+                </div>
+            </div>
+
+            <!-- CASE 2 — LEVIERS -->
+            <div class="canvas-card" data-case="leviers">
+                <div class="cc-head">
+                    <div class="cc-icon">2</div>
+                    <div class="cc-title-block">
+                        <div class="cc-title">Leviers de valeur prioritaires</div>
+                        <div class="cc-amorce">3 leviers maximum, ordonnés. Pour chacun : nature, ordre de grandeur, horizon.</div>
+                    </div>
+                </div>
+                <div class="cc-example"><span class="ex-tag">REPÈRE</span>1. Optimisation OPEX réseau (coût, -8 %, 18 mois) — 2. Anti-fraude SIM-box / by-pass (risque/revenu, +3 % revenu international, 12 mois) — 3. Self-care client (expérience, -25 % appels SAV, 18 mois).</div>
+                <div class="sub-fields">
+                    <div class="repeat-block">
+                        <span class="repeat-label">Levier #1 (prioritaire)</span>
+                        <div class="sub-row-4">
+                            <div class="sub-field"><label>Nom du levier</label><input type="text" name="levier1_nom" placeholder="ex. Optimisation OPEX réseau" data-track></div>
+                            <div class="sub-field"><label>Nature</label>
+                                <select name="levier1_type" data-track>
+                                    <option value="">—</option><option>Revenu</option><option>Coût</option><option>Expérience</option><option>Risque</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Ordre de grandeur</label><input type="text" name="levier1_grandeur" placeholder="ex. -8 % OPEX" data-track></div>
+                            <div class="sub-field"><label>Horizon</label>
+                                <select name="levier1_horizon" data-track>
+                                    <option value="">—</option><option>6 mois</option><option>12 mois</option><option>18 mois</option><option>24 mois</option><option>36 mois</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Levier #2</span>
+                        <div class="sub-row-4">
+                            <div class="sub-field"><label>Nom du levier</label><input type="text" name="levier2_nom" placeholder="ex. Anti-fraude SIM-box" data-track></div>
+                            <div class="sub-field"><label>Nature</label>
+                                <select name="levier2_type" data-track>
+                                    <option value="">—</option><option>Revenu</option><option>Coût</option><option>Expérience</option><option>Risque</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Ordre de grandeur</label><input type="text" name="levier2_grandeur" placeholder="ex. +3 % revenu" data-track></div>
+                            <div class="sub-field"><label>Horizon</label>
+                                <select name="levier2_horizon" data-track>
+                                    <option value="">—</option><option>6 mois</option><option>12 mois</option><option>18 mois</option><option>24 mois</option><option>36 mois</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Levier #3</span>
+                        <div class="sub-row-4">
+                            <div class="sub-field"><label>Nom du levier</label><input type="text" name="levier3_nom" placeholder="ex. Self-care client" data-track></div>
+                            <div class="sub-field"><label>Nature</label>
+                                <select name="levier3_type" data-track>
+                                    <option value="">—</option><option>Revenu</option><option>Coût</option><option>Expérience</option><option>Risque</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Ordre de grandeur</label><input type="text" name="levier3_grandeur" placeholder="ex. -25 % appels SAV" data-track></div>
+                            <div class="sub-field"><label>Horizon</label>
+                                <select name="levier3_horizon" data-track>
+                                    <option value="">—</option><option>6 mois</option><option>12 mois</option><option>18 mois</option><option>24 mois</option><option>36 mois</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CASE 3 — DONNÉES -->
+            <div class="canvas-card" data-case="donnees">
+                <div class="cc-head">
+                    <div class="cc-icon">3</div>
+                    <div class="cc-title-block">
+                        <div class="cc-title">Données critiques</div>
+                        <div class="cc-amorce">Quelles données sont indispensables aux leviers ? Internes / externes / qualité / obstacle.</div>
+                    </div>
+                </div>
+                <div class="cc-example"><span class="ex-tag">REPÈRE</span>Internes : supervision OSS, CDR, BSS facturation, parcours self-care, base CRM B2B. Externes : météo, données géoloc opérateur partenaire, benchmarks régionaux.</div>
+                <div class="sub-fields">
+                    <div class="sub-row">
+                        <div class="sub-field"><label>Données internes prioritaires (3-5)</label><textarea name="donnees_internes" placeholder="ex. CDR, supervision OSS, BSS facturation..." data-track></textarea></div>
+                        <div class="sub-field"><label>Données externes à acquérir (3-5)</label><textarea name="donnees_externes" placeholder="ex. météo, données géoloc partenaire, benchmarks UIT..." data-track></textarea></div>
+                    </div>
+                    <div class="sub-row">
+                        <div class="sub-field">
+                            <label>Qualité actuelle des données critiques</label>
+                            <select name="donnees_qualite" data-track>
+                                <option value="">— évaluer —</option>
+                                <option>1 — silos, doublons, manque de fraîcheur</option>
+                                <option>2 — exploitable au cas par cas</option>
+                                <option>3 — qualifiée pour les analyses</option>
+                                <option>4 — qualifiée et gouvernée</option>
+                                <option>5 — data product industrialisé</option>
+                            </select>
+                        </div>
+                        <div class="sub-field"><label>Principal obstacle de gouvernance</label><input type="text" name="donnees_obstacle" placeholder="ex. silos OSS/BSS, manque data steward, souveraineté" data-track></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CASE 4 — COMPÉTENCES -->
+            <div class="canvas-card" data-case="competences">
+                <div class="cc-head">
+                    <div class="cc-icon">4</div>
+                    <div class="cc-title-block">
+                        <div class="cc-title">Compétences à acquérir</div>
+                        <div class="cc-amorce">3 profils prioritaires, mode d'acquisition, délai. Précis, pas « plus de data scientists ».</div>
+                    </div>
+                </div>
+                <div class="cc-example"><span class="ex-tag">REPÈRE</span>1 AI Product Owner (recrutement, 6 mois), 2 Data Engineers seniors (recrutement + sous-traitance, 9 mois), 1 MLOps (formation interne accélérée, 12 mois).</div>
+                <div class="sub-fields">
+                    <div class="repeat-block">
+                        <span class="repeat-label">Profil #1</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Intitulé du poste</label><input type="text" name="comp1_titre" placeholder="ex. AI Product Owner" data-track></div>
+                            <div class="sub-field"><label>Mode d'acquisition</label>
+                                <select name="comp1_mode" data-track>
+                                    <option value="">—</option><option>Recrutement externe</option><option>Mobilité interne + formation</option><option>Sous-traitance</option><option>Mix recrutement + sous-traitance</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Délai cible</label>
+                                <select name="comp1_delai" data-track>
+                                    <option value="">—</option><option>3 mois</option><option>6 mois</option><option>9 mois</option><option>12 mois</option><option>18 mois</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Profil #2</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Intitulé du poste</label><input type="text" name="comp2_titre" placeholder="ex. Data Engineer senior" data-track></div>
+                            <div class="sub-field"><label>Mode d'acquisition</label>
+                                <select name="comp2_mode" data-track>
+                                    <option value="">—</option><option>Recrutement externe</option><option>Mobilité interne + formation</option><option>Sous-traitance</option><option>Mix recrutement + sous-traitance</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Délai cible</label>
+                                <select name="comp2_delai" data-track>
+                                    <option value="">—</option><option>3 mois</option><option>6 mois</option><option>9 mois</option><option>12 mois</option><option>18 mois</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Profil #3</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Intitulé du poste</label><input type="text" name="comp3_titre" placeholder="ex. MLOps engineer" data-track></div>
+                            <div class="sub-field"><label>Mode d'acquisition</label>
+                                <select name="comp3_mode" data-track>
+                                    <option value="">—</option><option>Recrutement externe</option><option>Mobilité interne + formation</option><option>Sous-traitance</option><option>Mix recrutement + sous-traitance</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Délai cible</label>
+                                <select name="comp3_delai" data-track>
+                                    <option value="">—</option><option>3 mois</option><option>6 mois</option><option>9 mois</option><option>12 mois</option><option>18 mois</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CASE 5 — TECHNOLOGIE -->
+            <div class="canvas-card" data-case="techno">
+                <div class="cc-head">
+                    <div class="cc-icon">5</div>
+                    <div class="cc-title-block">
+                        <div class="cc-title">Choix technologiques structurants</div>
+                        <div class="cc-amorce">Build / Buy / Blend, cloud, modèles. Décisions architecturales engageantes.</div>
+                    </div>
+                </div>
+                <div class="cc-example"><span class="ex-tag">REPÈRE</span>Blend. Cloud hybride : public pour usages génériques (assistance rédac, traduction), privé pour donnée régulée (CDR, BSS). Modèles open source affinés sur la donnée locale + 1 API propriétaire pour cas génériques.</div>
+                <div class="sub-fields">
+                    <div class="sub-row-3">
+                        <div class="sub-field">
+                            <label>Posture Build / Buy / Blend</label>
+                            <select name="techno_bbb" data-track>
+                                <option value="">—</option><option>Build (équipes internes)</option><option>Buy (SaaS / éditeur)</option><option>Blend (mix internes + SaaS)</option>
+                            </select>
+                        </div>
+                        <div class="sub-field">
+                            <label>Stratégie cloud</label>
+                            <select name="techno_cloud" data-track>
+                                <option value="">—</option><option>100 % public</option><option>100 % privé / on-premise</option><option>Hybride</option><option>Souverain régional</option>
+                            </select>
+                        </div>
+                        <div class="sub-field">
+                            <label>Modèles</label>
+                            <select name="techno_modeles" data-track>
+                                <option value="">—</option><option>Open source affinés</option><option>API propriétaires (OpenAI, Anthropic...)</option><option>Mix open source + propriétaires</option><option>Modèles 100 % internes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Justification clé de l'arbitrage (1 phrase)</label><textarea name="techno_just" placeholder="ex. Souveraineté donnée client impose privé pour CDR, public OK pour cas génériques sans donnée régulée." data-track></textarea></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CASE 6 — PARTENARIATS -->
+            <div class="canvas-card" data-case="partenariats">
+                <div class="cc-head">
+                    <div class="cc-icon">6</div>
+                    <div class="cc-title-block">
+                        <div class="cc-title">Partenariats clés</div>
+                        <div class="cc-amorce">3 partenaires maximum. Pour chacun : type, rôle, livrable attendu.</div>
+                    </div>
+                </div>
+                <div class="cc-example"><span class="ex-tag">REPÈRE</span>1. Intégrateur régional (déploiement plateforme data, livrable : v0 en 6 mois). 2. Hyperscaler (cloud + crédits formation, livrable : 200k$ de crédits). 3. Université de Djibouti (talents juniors, livrable : 10 alternants/an).</div>
+                <div class="sub-fields">
+                    <div class="repeat-block">
+                        <span class="repeat-label">Partenaire #1</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Type</label>
+                                <select name="part1_type" data-track>
+                                    <option value="">—</option><option>Intégrateur</option><option>Hyperscaler</option><option>Éditeur</option><option>Université</option><option>Bailleur / institution</option><option>Telco partenaire</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Rôle</label><input type="text" name="part1_role" placeholder="ex. Déploiement plateforme data" data-track></div>
+                            <div class="sub-field"><label>Livrable attendu</label><input type="text" name="part1_livrable" placeholder="ex. Plateforme v0 en 6 mois" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Partenaire #2</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Type</label>
+                                <select name="part2_type" data-track>
+                                    <option value="">—</option><option>Intégrateur</option><option>Hyperscaler</option><option>Éditeur</option><option>Université</option><option>Bailleur / institution</option><option>Telco partenaire</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Rôle</label><input type="text" name="part2_role" placeholder="ex. Plateforme cloud + crédits" data-track></div>
+                            <div class="sub-field"><label>Livrable attendu</label><input type="text" name="part2_livrable" placeholder="ex. 200k$ crédits + 10 jours archi" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Partenaire #3</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Type</label>
+                                <select name="part3_type" data-track>
+                                    <option value="">—</option><option>Intégrateur</option><option>Hyperscaler</option><option>Éditeur</option><option>Université</option><option>Bailleur / institution</option><option>Telco partenaire</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Rôle</label><input type="text" name="part3_role" placeholder="ex. Talents juniors / alternance" data-track></div>
+                            <div class="sub-field"><label>Livrable attendu</label><input type="text" name="part3_livrable" placeholder="ex. 10 alternants data/an" data-track></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CASE 7 — RISQUES -->
+            <div class="canvas-card" data-case="risques">
+                <div class="cc-head">
+                    <div class="cc-icon">7</div>
+                    <div class="cc-title-block">
+                        <div class="cc-title">Risques majeurs</div>
+                        <div class="cc-amorce">3 à 5 risques critiques avec leur nature et criticité. Pas de mitigation ici (atelier 4).</div>
+                    </div>
+                </div>
+                <div class="cc-example"><span class="ex-tag">REPÈRE</span>Souveraineté donnée client (réglementaire, 4/5), dépendance fournisseur cloud (techno, 4/5), rejet syndical (humain, 3/5), dette technique IA (techno, 3/5), qualité donnée OSS (data, 4/5).</div>
+                <div class="sub-fields">
+                    <div class="repeat-block">
+                        <span class="repeat-label">Risque #1</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Description du risque</label><input type="text" name="risque1_desc" placeholder="ex. Souveraineté de la donnée client" data-track></div>
+                            <div class="sub-field"><label>Nature</label>
+                                <select name="risque1_nature" data-track>
+                                    <option value="">—</option><option>Technologique</option><option>Données</option><option>Humain</option><option>Réglementaire</option><option>Financier</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Criticité</label>
+                                <select name="risque1_crit" data-track>
+                                    <option value="">—</option><option>1 — faible</option><option>2</option><option>3 — modéré</option><option>4</option><option>5 — critique</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Risque #2</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Description du risque</label><input type="text" name="risque2_desc" placeholder="ex. Dépendance hyperscaler" data-track></div>
+                            <div class="sub-field"><label>Nature</label>
+                                <select name="risque2_nature" data-track>
+                                    <option value="">—</option><option>Technologique</option><option>Données</option><option>Humain</option><option>Réglementaire</option><option>Financier</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Criticité</label>
+                                <select name="risque2_crit" data-track>
+                                    <option value="">—</option><option>1 — faible</option><option>2</option><option>3 — modéré</option><option>4</option><option>5 — critique</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Risque #3</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Description du risque</label><input type="text" name="risque3_desc" placeholder="ex. Rejet syndical" data-track></div>
+                            <div class="sub-field"><label>Nature</label>
+                                <select name="risque3_nature" data-track>
+                                    <option value="">—</option><option>Technologique</option><option>Données</option><option>Humain</option><option>Réglementaire</option><option>Financier</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Criticité</label>
+                                <select name="risque3_crit" data-track>
+                                    <option value="">—</option><option>1 — faible</option><option>2</option><option>3 — modéré</option><option>4</option><option>5 — critique</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CASE 8 — KPI -->
+            <div class="canvas-card" data-case="kpi">
+                <div class="cc-head">
+                    <div class="cc-icon">8</div>
+                    <div class="cc-title-block">
+                        <div class="cc-title">KPI de suivi</div>
+                        <div class="cc-amorce">4 KPI maximum. Chacun doit mesurer un levier. Nom / cible chiffrée / fréquence de revue.</div>
+                    </div>
+                </div>
+                <div class="cc-example"><span class="ex-tag">REPÈRE</span>1. Cas d'usage en production (cible 12 à 18 mois, trimestriel). 2. Valeur économique cumulée (cible 2 M€/an, semestriel). 3. OPEX réseau / abonné (cible -8 %, trimestriel). 4. NPS interne IA (cible > 40, semestriel).</div>
+                <div class="sub-fields">
+                    <div class="repeat-block">
+                        <span class="repeat-label">KPI #1</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Nom du KPI</label><input type="text" name="kpi1_nom" placeholder="ex. Cas d'usage en prod" data-track></div>
+                            <div class="sub-field"><label>Cible chiffrée</label><input type="text" name="kpi1_cible" placeholder="ex. 12 à 18 mois" data-track></div>
+                            <div class="sub-field"><label>Fréquence</label>
+                                <select name="kpi1_freq" data-track>
+                                    <option value="">—</option><option>Mensuelle</option><option>Trimestrielle</option><option>Semestrielle</option><option>Annuelle</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">KPI #2</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Nom du KPI</label><input type="text" name="kpi2_nom" placeholder="ex. Valeur économique cumulée" data-track></div>
+                            <div class="sub-field"><label>Cible chiffrée</label><input type="text" name="kpi2_cible" placeholder="ex. 2 M€/an" data-track></div>
+                            <div class="sub-field"><label>Fréquence</label>
+                                <select name="kpi2_freq" data-track>
+                                    <option value="">—</option><option>Mensuelle</option><option>Trimestrielle</option><option>Semestrielle</option><option>Annuelle</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">KPI #3</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Nom du KPI</label><input type="text" name="kpi3_nom" placeholder="ex. OPEX réseau / abonné" data-track></div>
+                            <div class="sub-field"><label>Cible chiffrée</label><input type="text" name="kpi3_cible" placeholder="ex. -8 %" data-track></div>
+                            <div class="sub-field"><label>Fréquence</label>
+                                <select name="kpi3_freq" data-track>
+                                    <option value="">—</option><option>Mensuelle</option><option>Trimestrielle</option><option>Semestrielle</option><option>Annuelle</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">KPI #4</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Nom du KPI</label><input type="text" name="kpi4_nom" placeholder="ex. NPS interne IA" data-track></div>
+                            <div class="sub-field"><label>Cible chiffrée</label><input type="text" name="kpi4_cible" placeholder="ex. > 40" data-track></div>
+                            <div class="sub-field"><label>Fréquence</label>
+                                <select name="kpi4_freq" data-track>
+                                    <option value="">—</option><option>Mensuelle</option><option>Trimestrielle</option><option>Semestrielle</option><option>Annuelle</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CASE 9 — JALONS -->
+            <div class="canvas-card" data-case="jalons">
+                <div class="cc-head">
+                    <div class="cc-icon">9</div>
+                    <div class="cc-title-block">
+                        <div class="cc-title">Premiers jalons (90 jours)</div>
+                        <div class="cc-amorce">3 jalons concrets pour démarrer en 90 jours. Livrable / responsable / date butoir.</div>
+                    </div>
+                </div>
+                <div class="cc-example"><span class="ex-tag">REPÈRE</span>1. Plateforme data v0 + 3 jeux de données critiques qualifiés (DSI, J+90). 2. 3 quick wins en production (DSI/PFS, J+60). 3. AI Product Owner recruté + 2 ambassadeurs identifiés par direction (DG/DRH, J+45).</div>
+                <div class="sub-fields">
+                    <div class="repeat-block">
+                        <span class="repeat-label">Jalon #1</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="jalon1_livrable" placeholder="ex. Plateforme data v0" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="jalon1_resp" placeholder="ex. DSI" data-track></div>
+                            <div class="sub-field"><label>Date butoir</label><input type="text" name="jalon1_date" placeholder="ex. J+90" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Jalon #2</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="jalon2_livrable" placeholder="ex. 3 quick wins en prod" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="jalon2_resp" placeholder="ex. DSI/PFS" data-track></div>
+                            <div class="sub-field"><label>Date butoir</label><input type="text" name="jalon2_date" placeholder="ex. J+60" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Jalon #3</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="jalon3_livrable" placeholder="ex. AI PO recruté" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="jalon3_resp" placeholder="ex. DG/DRH" data-track></div>
+                            <div class="sub-field"><label>Date butoir</label><input type="text" name="jalon3_date" placeholder="ex. J+45" data-track></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 3: Canvas 9 cases -->
-        <section class="form-section section-alt" id="sec-canvas">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">3</div>
-                    <div class="sec-info">
-                        <h2>Canvas stratégique IA — 9 cases</h2>
-                        <p>Remplissez chaque case avec 3 à 5 éléments synthétiques</p>
-                    </div>
+        <!-- SYNTHESE -->
+        <section class="section-band section-alt form-section" id="synthese">
+            <div class="section-header">
+                <div class="sec-num">4</div>
+                <div class="sec-info">
+                    <h2>3 décisions à porter au COMEX</h2>
+                    <p>Le canvas alimente 3 décisions concrètes dans 30 jours — pas plus, pas moins</p>
                 </div>
-                <div class="canvas-grid" id="canvasContainer"></div>
             </div>
-        </section>
-
-        <!-- Section 4: Synthèse -->
-        <section class="form-section" id="sec-synthese">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">4</div>
-                    <div class="sec-info">
-                        <h2>Synthèse stratégique</h2>
-                        <p>Une phrase de vision globale + 3 actions à porter au COMEX dans 90 jours</p>
-                    </div>
-                </div>
-                <div class="synthese-grid">
-                    <div class="synthese-card">
-                        <div class="sc-label">Phrase de vision globale</div>
-                        <div class="sc-helper">En une phrase, formalisez ce que devient Djibouti Telecom à 3 ans grâce à l'IA — c'est l'épine dorsale du canvas.</div>
-                        <textarea id="visionGlobale" rows="3" placeholder="Ex : D'ici 2029, Djibouti Telecom devient l'opérateur le plus efficient de la Corne de l'Afrique grâce à une exploitation systématique de la donnée et de l'IA, avec un OPEX réseau réduit de 15 % et un taux de fraude divisé par 2."></textarea>
-                    </div>
-                    <div class="synthese-card">
-                        <div class="sc-label">3 actions à porter au COMEX dans les 90 prochains jours</div>
-                        <div class="sc-helper">Une action = un livrable concret avec un sponsor identifié. Pas de déclaration d'intention.</div>
-                        <textarea id="actions90j" rows="5" placeholder="1. Validation comex de la vision IA + nomination sponsor exécutif (J+30)&#10;2. Lancement plateforme data v0 + qualification 3 jeux de données critiques (J+60)&#10;3. Recrutement AI product owner + identification 2 ambassadeurs (J+90)"></textarea>
-                    </div>
-                </div>
+            <div class="decision-block">
+                <span class="deci-label">Décision N°1 (la plus urgente)</span>
+                <textarea name="decision1" placeholder="Décision claire à formuler en 1-2 phrases. Ex : « Valider le budget pluriannuel IA de 6 M€ sur 18 mois et nommer un sponsor exécutif »." data-track></textarea>
+            </div>
+            <div class="decision-block">
+                <span class="deci-label">Décision N°2</span>
+                <textarea name="decision2" placeholder="ex. « Lancer le RFP plateforme data + AI PO d'ici fin du trimestre »" data-track></textarea>
+            </div>
+            <div class="decision-block">
+                <span class="deci-label">Décision N°3</span>
+                <textarea name="decision3" placeholder="ex. « Cadrer une charte éthique IA + souveraineté donnée client avant déploiement »" data-track></textarea>
             </div>
         </section>
 
         <div class="submit-band">
-            <button class="btn-submit" onclick="submitAtelier()">
-                <span>Envoyer mon canvas</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-            <div class="submit-note">Votre canvas est transmis au formateur et conservé pour la suite de la formation</div>
+            <button type="submit" class="btn-submit">📨 Envoyer le canvas → archivage</button>
+            <p class="submit-note">Auto-envoi vers b.yassmine@ecf-proconduite.com — exploitable en restitution finale</p>
         </div>
-    </div>
+    </form>
 
-    <!-- Results -->
+    <!-- RESULTS -->
     <div class="results-wrapper" id="resultsWrapper">
         <div class="results-hero">
             <div class="results-inner">
-                <h2 id="resultTitle">Votre canvas stratégique — Djibouti Telecom</h2>
-                <p class="sub" id="resultSub">Voici la synthèse de votre canvas. Le formateur reprend ces inputs en module 3 pour construire le plan d'acculturation et en module 4 pour la feuille de route 18 mois.</p>
-                <div class="vision-banner" id="visionBanner" style="display:none;">
-                    <div class="vb-label">Vision globale</div>
-                    <div class="vb-text" id="visionText"></div>
-                </div>
+                <h2>Canvas IA — vue consolidée</h2>
+                <p class="sub" id="resSub">Votre stratégie IA tient sur une page. Confrontation à deux puis arbitrage COMEX.</p>
             </div>
         </div>
         <div class="review-band">
-            <h3>Les 9 cases de votre canvas</h3>
-            <div class="canvas-result-grid" id="canvasResult"></div>
-            <div class="actions-banner" id="actionsBanner" style="display:none;">
-                <h4>3 actions à porter au COMEX (90 jours)</h4>
-                <p id="actionsText"></p>
-            </div>
+            <h3>Vos 9 cases</h3>
+            <div class="review-grid" id="reviewGrid"></div>
+            <h3 style="margin-top: 40px;">3 décisions à porter</h3>
+            <div id="decisionsReview"></div>
         </div>
         <div class="footer">
             <div class="footer-inner">
-                <button class="btn-print" onclick="window.print()">Imprimer / PDF</button>
+                <span><strong style="color:var(--ak-black)">Akademia Formation</strong></span>
                 <span class="sep"></span>
-                <span>Akademia Formation — Pro Conduite SAS</span>
+                <span>SIRET 81194469300027</span>
                 <span class="sep"></span>
-                <span>SIRET 81194469300027 · NDA 11910773991</span>
+                <span>NDA 11910773991</span>
+                <button class="btn-print" onclick="window.print()">📄 Imprimer / PDF</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Canvas 9 cases data
-        var cases = [
-            {
-                id: 'vision',
-                num: 1,
-                title: 'Vision IA',
-                prompt: 'En une phrase, à quoi sert l\'IA pour Djibouti Telecom à 3 ans ?',
-                example: 'Faire de Djibouti Telecom l\'opérateur le plus efficient et le plus fiable de la Corne de l\'Afrique grâce à une exploitation systématique de la donnée et de l\'IA.'
-            },
-            {
-                id: 'leviers',
-                num: 2,
-                title: 'Leviers de valeur prioritaires',
-                prompt: 'Trois leviers maximum, classés. Précisez : revenu, coût, expérience ou risque ?',
-                example: '1. Optimisation OPEX réseau (coût). 2. Anti-fraude SIM-box / by-pass (risque/revenu). 3. Self-care client (expérience).'
-            },
-            {
-                id: 'donnees',
-                num: 3,
-                title: 'Données critiques',
-                prompt: 'Quelles données seront le carburant des cas d\'usage prioritaires ?',
-                example: 'Supervision OSS, CDR, BSS facturation, parcours self-care digital, base CRM B2B.'
-            },
-            {
-                id: 'competences',
-                num: 4,
-                title: 'Compétences à acquérir',
-                prompt: 'Quels profils manquent pour exécuter la stratégie ?',
-                example: 'AI product owner, 2 data engineers seniors, 1 MLOps, 1 change manager.'
-            },
-            {
-                id: 'techno',
-                num: 5,
-                title: 'Choix technologiques structurants',
-                prompt: 'Build, buy, blend ? Cloud public, privé, hybride ? Modèles propriétaires ou open source ?',
-                example: 'Hybride. Cloud public pour usages génériques, privé pour donnée régulée. Modèles open source affinés sur la donnée locale.'
-            },
-            {
-                id: 'partenariats',
-                num: 6,
-                title: 'Partenariats clés',
-                prompt: 'Avec qui exécuter ? (intégrateur, hyperscaler, université, bailleur)',
-                example: '1 intégrateur régional pour le déploiement, 1 hyperscaler pour la plateforme, 1 partenariat universitaire local pour les talents.'
-            },
-            {
-                id: 'risques',
-                num: 7,
-                title: 'Risques majeurs',
-                prompt: 'Quels sont les 3-5 risques les plus critiques ? (techno, donnée, humain, réglementaire)',
-                example: 'Souveraineté donnée client, dépendance fournisseur, rejet syndical, dette technique IA, qualité donnée OSS.'
-            },
-            {
-                id: 'kpi',
-                num: 8,
-                title: 'KPI de suivi',
-                prompt: 'Comment saurez-vous que la stratégie produit ses effets ?',
-                example: 'Cas d\'usage en production, valeur économique cumulée, OPEX optimisé, taux de fraude détecté, NPS interne IA.'
-            },
-            {
-                id: 'jalons',
-                num: 9,
-                title: 'Premiers jalons (90 jours)',
-                prompt: 'Trois jalons concrets pour démarrer en 90 jours ?',
-                example: '1. Plateforme data v0 + 3 jeux qualifiés. 2. 3 quick wins en production. 3. AI product owner recruté + 2 ambassadeurs identifiés.'
-            }
+        const form = document.getElementById('canvasForm');
+        const trackedFields = Array.from(document.querySelectorAll('[data-track]'));
+        const TOTAL = trackedFields.length;
+        const progressFill = document.getElementById('progressFill');
+        const sideLinks = document.querySelectorAll('.side-nav a');
+
+        const CASES = [
+            {key:'vision', icon:'1', name:'Vision IA', fields:[
+                {n:'vision_phrase', label:'Phrase de vision'},
+                {n:'vision_kpi', label:'Indicateur clé'},
+                {n:'vision_beneficiaire', label:'Premier bénéficiaire'},
+            ]},
+            {key:'leviers', icon:'2', name:'Leviers de valeur', fields:[
+                {n:'levier1_nom', label:'Levier 1 — nom'},{n:'levier1_type', label:'Levier 1 — nature'},{n:'levier1_grandeur', label:'Levier 1 — grandeur'},{n:'levier1_horizon', label:'Levier 1 — horizon'},
+                {n:'levier2_nom', label:'Levier 2 — nom'},{n:'levier2_type', label:'Levier 2 — nature'},{n:'levier2_grandeur', label:'Levier 2 — grandeur'},{n:'levier2_horizon', label:'Levier 2 — horizon'},
+                {n:'levier3_nom', label:'Levier 3 — nom'},{n:'levier3_type', label:'Levier 3 — nature'},{n:'levier3_grandeur', label:'Levier 3 — grandeur'},{n:'levier3_horizon', label:'Levier 3 — horizon'},
+            ]},
+            {key:'donnees', icon:'3', name:'Données critiques', fields:[
+                {n:'donnees_internes', label:'Internes prioritaires'},
+                {n:'donnees_externes', label:'Externes à acquérir'},
+                {n:'donnees_qualite', label:'Qualité actuelle'},
+                {n:'donnees_obstacle', label:'Obstacle gouvernance'},
+            ]},
+            {key:'competences', icon:'4', name:'Compétences à acquérir', fields:[
+                {n:'comp1_titre', label:'Profil 1 — intitulé'},{n:'comp1_mode', label:'Profil 1 — acquisition'},{n:'comp1_delai', label:'Profil 1 — délai'},
+                {n:'comp2_titre', label:'Profil 2 — intitulé'},{n:'comp2_mode', label:'Profil 2 — acquisition'},{n:'comp2_delai', label:'Profil 2 — délai'},
+                {n:'comp3_titre', label:'Profil 3 — intitulé'},{n:'comp3_mode', label:'Profil 3 — acquisition'},{n:'comp3_delai', label:'Profil 3 — délai'},
+            ]},
+            {key:'techno', icon:'5', name:'Choix technologiques', fields:[
+                {n:'techno_bbb', label:'Posture Build/Buy/Blend'},
+                {n:'techno_cloud', label:'Stratégie cloud'},
+                {n:'techno_modeles', label:'Modèles'},
+                {n:'techno_just', label:'Justification'},
+            ]},
+            {key:'partenariats', icon:'6', name:'Partenariats clés', fields:[
+                {n:'part1_type', label:'Partenaire 1 — type'},{n:'part1_role', label:'Partenaire 1 — rôle'},{n:'part1_livrable', label:'Partenaire 1 — livrable'},
+                {n:'part2_type', label:'Partenaire 2 — type'},{n:'part2_role', label:'Partenaire 2 — rôle'},{n:'part2_livrable', label:'Partenaire 2 — livrable'},
+                {n:'part3_type', label:'Partenaire 3 — type'},{n:'part3_role', label:'Partenaire 3 — rôle'},{n:'part3_livrable', label:'Partenaire 3 — livrable'},
+            ]},
+            {key:'risques', icon:'7', name:'Risques majeurs', fields:[
+                {n:'risque1_desc', label:'Risque 1 — description'},{n:'risque1_nature', label:'Risque 1 — nature'},{n:'risque1_crit', label:'Risque 1 — criticité'},
+                {n:'risque2_desc', label:'Risque 2 — description'},{n:'risque2_nature', label:'Risque 2 — nature'},{n:'risque2_crit', label:'Risque 2 — criticité'},
+                {n:'risque3_desc', label:'Risque 3 — description'},{n:'risque3_nature', label:'Risque 3 — nature'},{n:'risque3_crit', label:'Risque 3 — criticité'},
+            ]},
+            {key:'kpi', icon:'8', name:'KPI de suivi', fields:[
+                {n:'kpi1_nom', label:'KPI 1 — nom'},{n:'kpi1_cible', label:'KPI 1 — cible'},{n:'kpi1_freq', label:'KPI 1 — fréquence'},
+                {n:'kpi2_nom', label:'KPI 2 — nom'},{n:'kpi2_cible', label:'KPI 2 — cible'},{n:'kpi2_freq', label:'KPI 2 — fréquence'},
+                {n:'kpi3_nom', label:'KPI 3 — nom'},{n:'kpi3_cible', label:'KPI 3 — cible'},{n:'kpi3_freq', label:'KPI 3 — fréquence'},
+                {n:'kpi4_nom', label:'KPI 4 — nom'},{n:'kpi4_cible', label:'KPI 4 — cible'},{n:'kpi4_freq', label:'KPI 4 — fréquence'},
+            ]},
+            {key:'jalons', icon:'9', name:'Jalons 90 jours', fields:[
+                {n:'jalon1_livrable', label:'Jalon 1 — livrable'},{n:'jalon1_resp', label:'Jalon 1 — responsable'},{n:'jalon1_date', label:'Jalon 1 — date'},
+                {n:'jalon2_livrable', label:'Jalon 2 — livrable'},{n:'jalon2_resp', label:'Jalon 2 — responsable'},{n:'jalon2_date', label:'Jalon 2 — date'},
+                {n:'jalon3_livrable', label:'Jalon 3 — livrable'},{n:'jalon3_resp', label:'Jalon 3 — responsable'},{n:'jalon3_date', label:'Jalon 3 — date'},
+            ]},
         ];
 
-        // Render canvas cards
-        var container = document.getElementById('canvasContainer');
-        cases.forEach(function(c) {
-            var html = '<div class="canvas-card" id="card-' + c.id + '">';
-            html += '<div class="cc-head"><div class="cc-num">' + c.num + '</div><div class="cc-title">' + c.title + '</div></div>';
-            html += '<div class="cc-prompt">' + c.prompt + '</div>';
-            html += '<div class="cc-example"><div class="ex-label">Exemple repère</div>' + c.example + '</div>';
-            html += '<textarea id="case-' + c.id + '" placeholder="Votre réponse pour ' + c.title.toLowerCase() + '..."></textarea>';
-            html += '</div>';
-            container.innerHTML += html;
-        });
-
-        // Track filled state
-        document.querySelectorAll('.canvas-card textarea').forEach(function(ta) {
-            ta.addEventListener('input', function() {
-                var card = ta.closest('.canvas-card');
-                if (ta.value.trim().length > 0) card.classList.add('filled');
-                else card.classList.remove('filled');
-                updateProgress();
-            });
-        });
-
-        document.getElementById('visionGlobale').addEventListener('input', updateProgress);
-        document.getElementById('actions90j').addEventListener('input', updateProgress);
-
         function updateProgress() {
-            var total = cases.length + 2; // 9 cases + vision + actions
-            var done = 0;
-            cases.forEach(function(c) {
-                if (document.getElementById('case-' + c.id).value.trim().length > 0) done++;
+            let filled = 0;
+            trackedFields.forEach(f => { if (f.value && f.value.trim().length > 0) filled++; });
+            document.querySelectorAll('input[name^="decision"]').forEach(d => { if (d.value && d.value.trim().length > 0) filled++; });
+            document.querySelectorAll('textarea[name^="decision"]').forEach(d => { if (d.value && d.value.trim().length > 0) filled++; });
+            const totalAll = TOTAL + 3;
+            const pct = Math.round((filled / totalAll) * 100);
+            progressFill.style.width = pct + '%';
+
+            CASES.forEach(c => {
+                const card = document.querySelector(`[data-case="${c.key}"]`);
+                if (!card) return;
+                const allFilled = c.fields.every(f => {
+                    const el = document.querySelector(`[name="${f.n}"]`);
+                    return el && el.value && el.value.trim().length > 0;
+                });
+                card.classList.toggle('filled', allFilled);
             });
-            if (document.getElementById('visionGlobale').value.trim().length > 0) done++;
-            if (document.getElementById('actions90j').value.trim().length > 0) done++;
-            document.getElementById('progressFill').style.width = (done / total * 100) + '%';
         }
 
-        // Side nav scroll tracking
-        var sections = ['sec-info','sec-canvas','sec-synthese'];
-        window.addEventListener('scroll', function() {
-            var scrollY = window.scrollY + 200;
-            var current = '';
-            sections.forEach(function(id) {
-                var el = document.getElementById(id);
-                if (el && el.offsetTop <= scrollY) current = id;
+        form.addEventListener('input', updateProgress);
+        form.addEventListener('change', updateProgress);
+
+        // side-nav active state
+        const sections = document.querySelectorAll('.form-section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    sideLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+                }
             });
-            document.querySelectorAll('.side-nav a').forEach(function(a) {
-                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-            });
+        }, { threshold: 0.35 });
+        sections.forEach(s => observer.observe(s));
+
+        // Submit
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(form));
+            buildResults(data);
+            sendEmail(data);
         });
 
-        function submitAtelier() {
-            var stagiaire = document.getElementById('stagiaire').value;
-            if (!stagiaire) { alert('Merci de sélectionner votre nom.'); document.getElementById('stagiaire').focus(); return; }
-
-            var empty = cases.filter(function(c) { return document.getElementById('case-' + c.id).value.trim().length === 0; });
-            if (empty.length > 0) {
-                if (!confirm(empty.length + ' case(s) vide(s). Envoyer quand même ?')) return;
-            }
-
-            var poste = document.getElementById('poste').value.trim();
-            var date = document.getElementById('date').value;
-            var visionGlobale = document.getElementById('visionGlobale').value.trim();
-            var actions90j = document.getElementById('actions90j').value.trim();
-            var canvas = {};
-            cases.forEach(function(c) {
-                canvas[c.title] = document.getElementById('case-' + c.id).value.trim();
-            });
-
-            // Build email body
-            var body = 'ATELIER 2 — CANVAS STRATÉGIQUE IA — DJIBOUTI TELECOM\n';
-            body += '======================================================\n\n';
-            body += 'STAGIAIRE : ' + stagiaire + '\n';
-            body += 'POSTE : ' + (poste || '-') + '\n';
-            body += 'DATE : ' + (date || '-') + '\n\n';
-            body += 'CANVAS — 9 CASES\n';
-            body += '----------------\n';
-            cases.forEach(function(c) {
-                body += c.num + '. ' + c.title.toUpperCase() + '\n';
-                body += (canvas[c.title] || '(non renseignée)') + '\n\n';
-            });
-            body += 'VISION GLOBALE (1 PHRASE)\n';
-            body += '-------------------------\n';
-            body += (visionGlobale || '(non renseignée)') + '\n\n';
-            body += '3 ACTIONS À PORTER AU COMEX (90 JOURS)\n';
-            body += '--------------------------------------\n';
-            body += (actions90j || '(non renseignées)') + '\n\n';
-            body += '— Canvas produit lors de l\'Atelier 2 (Module 2) — utiliser comme input pour les modules 3 et 4.\n';
-
-            var subj = 'Atelier 2 (Canvas stratégique IA) — ' + stagiaire;
-
-            // FormSubmit payload
-            var payload = {
-                _subject: subj,
-                Atelier: 'Module 2 — Canvas stratégique IA',
-                Stagiaire: stagiaire,
-                Poste: poste || '-',
-                Date: date || '-',
-                'Vision globale': visionGlobale || '-',
-                'Actions 90 jours': actions90j || '-',
-                _template: 'table'
-            };
-            cases.forEach(function(c) {
-                payload[c.num + '. ' + c.title] = canvas[c.title] || '-';
-            });
-
-            fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(function(r){return r.json();}).then(function(data){
-                showToast('✅ Canvas envoyé au formateur');
-            }).catch(function(err){
-                window.location.href = 'mailto:b.yassmine@ecf-proconduite.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
-            });
-
-            // Show results
-            document.getElementById('formWrapper').style.display = 'none';
-            document.getElementById('sideNav').style.display = 'none';
-            var rw = document.getElementById('resultsWrapper');
-            rw.classList.add('visible');
-
-            // Title
-            var firstName = stagiaire.split(' ')[0];
-            document.getElementById('resultTitle').textContent = firstName + ', votre canvas est enregistré';
-
-            // Vision banner
-            if (visionGlobale) {
-                document.getElementById('visionBanner').style.display = 'block';
-                document.getElementById('visionText').textContent = visionGlobale;
-            }
-
-            // Result grid
-            var grid = '';
-            cases.forEach(function(c) {
-                var content = canvas[c.title];
-                grid += '<div class="result-canvas-card">';
-                grid += '<div class="rcc-name"><div class="rcc-num">' + c.num + '</div>' + c.title + '</div>';
-                if (content) {
-                    grid += '<div class="rcc-text">' + content.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>';
-                } else {
-                    grid += '<div class="rcc-empty">Case non renseignée.</div>';
-                }
-                grid += '</div>';
-            });
-            document.getElementById('canvasResult').innerHTML = grid;
-
-            if (actions90j) {
-                document.getElementById('actionsBanner').style.display = 'block';
-                document.getElementById('actionsText').textContent = actions90j;
-            }
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        function val(d, name) {
+            const v = (d[name] || '').trim();
+            return v;
         }
 
-        function showToast(msg) {
-            var toast = document.getElementById('emailToast');
-            toast.querySelector('span').textContent = msg;
-            toast.classList.add('show');
-            setTimeout(function(){ toast.classList.remove('show'); }, 5000);
+        function buildResults(data) {
+            const grid = document.getElementById('reviewGrid');
+            grid.innerHTML = '';
+            CASES.forEach(c => {
+                let html = `<div class="review-card"><div class="rc-name"><span class="rc-icon">${c.icon}</span>${c.name}</div>`;
+                c.fields.forEach(f => {
+                    const v = val(data, f.n);
+                    html += `<div class="rc-pair"><div class="rc-pair-label">${f.label}</div><div class="rc-pair-value${v?'':' empty'}">${v || '— non renseigné —'}</div></div>`;
+                });
+                html += `</div>`;
+                grid.insertAdjacentHTML('beforeend', html);
+            });
+
+            const dec = document.getElementById('decisionsReview');
+            dec.innerHTML = '';
+            ['decision1','decision2','decision3'].forEach((k,i) => {
+                const v = val(data, k);
+                dec.insertAdjacentHTML('beforeend', `<div class="review-card" style="margin-bottom:12px"><div class="rc-name">Décision N°${i+1}</div><div class="rc-pair-value${v?'':' empty'}">${v || '— non renseignée —'}</div></div>`);
+            });
+
+            document.getElementById('resSub').textContent = `${data.nom || 'Stagiaire'} — ${data.fonction || 'Fonction'}, ${data.entite || 'Entité'}`;
+            document.getElementById('resultsWrapper').classList.add('visible');
+            document.getElementById('resultsWrapper').scrollIntoView({behavior:'smooth'});
         }
+
+        function buildEmailBody(d) {
+            let body = `ATELIER 2 — Canvas stratégique IA (Djibouti Telecom)\n`;
+            body += `═══════════════════════════════════════════════════\n\n`;
+            body += `Stagiaire : ${d.nom || '—'}\nFonction : ${d.fonction || '—'}\nEntité : ${d.entite || '—'}\n\n`;
+            CASES.forEach(c => {
+                body += `\n──────── ${c.icon}. ${c.name.toUpperCase()} ────────\n`;
+                c.fields.forEach(f => {
+                    const v = val(d, f.n);
+                    body += `\n${f.label}: ${v || '—'}\n`;
+                });
+            });
+            body += `\n═══════════════════════════════════════════════════\n3 DÉCISIONS À PORTER AU COMEX\n═══════════════════════════════════════════════════\n\n`;
+            ['decision1','decision2','decision3'].forEach((k,i) => {
+                body += `Décision N°${i+1}: ${val(d, k) || '—'}\n\n`;
+            });
+            body += `\n— Akademia Formation · Atelier 2 Canvas IA · 11/05/2026 —\n`;
+            return body;
+        }
+
+        async function sendEmail(d) {
+            try {
+                const payload = {
+                    _subject: `[Atelier 2 — Canvas IA] ${d.nom || 'Stagiaire'} (Djibouti Telecom)`,
+                    _template: 'box',
+                    _captcha: 'false',
+                    stagiaire: d.nom || '',
+                    fonction: d.fonction || '',
+                    entite: d.entite || '',
+                    canvas_complet: buildEmailBody(d),
+                };
+                await fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
+                    method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+                    body: JSON.stringify(payload),
+                });
+                document.getElementById('emailToast').classList.add('show');
+                setTimeout(() => document.getElementById('emailToast').classList.remove('show'), 5500);
+            } catch (err) { console.error('Email error', err); }
+        }
+
+        updateProgress();
     </script>
 </body>
 </html>
