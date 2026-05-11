@@ -29,14 +29,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: var(--font);
-            background: var(--ak-white);
-            color: var(--ak-gray-700);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        body { font-family: var(--font); background: var(--ak-white); color: var(--ak-gray-700); line-height: 1.6; overflow-x: hidden; }
 
         .progress-track { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: var(--ak-gray-100); z-index: 200; }
         .progress-fill { height: 100%; background: var(--ak-gradient); width: 0%; transition: width 0.4s cubic-bezier(.4,0,.2,1); }
@@ -89,32 +82,45 @@
         .field-card select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right center; padding-right: 20px; }
 
         /* Method intro */
-        .method-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 32px; }
-        .method-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 22px; }
+        .method-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+        .method-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 18px 20px; }
         .method-card .mc-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; color: var(--ak-purple); background: rgba(124,58,237,0.06); padding: 3px 10px; border-radius: 6px; display: inline-block; margin-bottom: 10px; }
         .method-card h4 { font-size: 1rem; font-weight: 700; color: var(--ak-black); margin-bottom: 4px; }
-        .method-card p { font-size: 0.85rem; color: var(--ak-gray-500); line-height: 1.5; }
+        .method-card p { font-size: 0.82rem; color: var(--ak-gray-500); line-height: 1.5; }
 
-        /* Dimension cards (grille de maturité) */
-        .dimension-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 26px 28px; margin-bottom: 16px; transition: all 0.25s; position: relative; overflow: hidden; }
+        /* Dimension cards */
+        .dimension-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 28px 30px; margin-bottom: 18px; transition: all 0.25s; position: relative; overflow: hidden; }
         .dimension-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--ak-gray-100); transition: background 0.3s; }
         .dimension-card.filled::before { background: var(--ak-gradient); }
         .dimension-card .dim-head { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
         .dimension-card .dim-icon { width: 38px; height: 38px; border-radius: 10px; background: var(--ak-gradient-soft); color: var(--ak-blue); display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; font-weight: 700; }
-        .dimension-card .dim-title { font-size: 1.05rem; font-weight: 700; color: var(--ak-black); }
-        .dimension-card .dim-desc { font-size: 0.86rem; color: var(--ak-gray-500); margin-bottom: 18px; line-height: 1.55; padding-left: 52px; }
-        .level-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
-        .level-option { display: block; cursor: pointer; border: 1.5px solid var(--ak-gray-200); border-radius: 12px; padding: 14px 12px; text-align: left; transition: all 0.15s; background: var(--ak-white); }
+        .dimension-card .dim-title { font-size: 1.1rem; font-weight: 700; color: var(--ak-black); }
+        .dimension-card .dim-desc { font-size: 0.86rem; color: var(--ak-gray-500); margin-bottom: 20px; line-height: 1.55; padding-left: 52px; }
+        .level-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
+        .level-option { display: block; cursor: pointer; border: 1.5px solid var(--ak-gray-200); border-radius: 12px; padding: 14px 14px 16px; text-align: left; transition: all 0.15s; background: var(--ak-white); }
         .level-option input { display: none; }
         .level-option:hover { border-color: var(--ak-blue); background: var(--ak-gray-50); }
-        .level-option .lvl-name { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ak-gray-500); margin-bottom: 4px; }
-        .level-option .lvl-desc { font-size: 0.78rem; color: var(--ak-gray-400); line-height: 1.4; }
+        .level-option .lvl-name { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ak-gray-500); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .level-option .lvl-num { background: var(--ak-gray-200); color: var(--ak-gray-600); width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; }
+        .level-option .lvl-desc { font-size: 0.78rem; color: var(--ak-gray-500); line-height: 1.5; }
         .level-option.selected { background: var(--ak-gradient-soft); border-color: var(--ak-blue); }
         .level-option.selected .lvl-name { color: var(--ak-blue); }
+        .level-option.selected .lvl-num { background: var(--ak-gradient); color: white; }
         .level-option.selected .lvl-desc { color: var(--ak-gray-700); }
-        .justif-field label { display: block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-gray-500); margin-bottom: 6px; }
-        .justif-field textarea { width: 100%; min-height: 64px; resize: vertical; border: 1.5px solid var(--ak-gray-200); border-radius: 10px; padding: 12px 14px; font-family: var(--font); font-size: 0.88rem; color: var(--ak-black); transition: border-color 0.2s; }
-        .justif-field textarea:focus { border-color: var(--ak-blue); outline: none; }
+
+        .deep-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; }
+        .deep-block label { display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-gray-500); margin-bottom: 8px; }
+        .deep-block label .req-mark { color: #DC2626; }
+        .deep-block textarea { width: 100%; min-height: 90px; resize: vertical; border: 1.5px solid var(--ak-gray-200); border-radius: 10px; padding: 12px 14px; font-family: var(--font); font-size: 0.88rem; color: var(--ak-black); transition: border-color 0.2s; line-height: 1.5; }
+        .deep-block textarea:focus { border-color: var(--ak-blue); outline: none; }
+        .deep-block .helper { font-size: 0.74rem; color: var(--ak-gray-400); margin-top: 4px; font-style: italic; }
+
+        .effort-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .effort-option { display: block; cursor: pointer; border: 1.5px solid var(--ak-gray-200); border-radius: 10px; padding: 10px 8px; text-align: center; transition: all 0.15s; background: var(--ak-white); font-size: 0.78rem; font-weight: 600; color: var(--ak-gray-600); }
+        .effort-option input { display: none; }
+        .effort-option:hover { border-color: var(--ak-blue); background: var(--ak-gray-50); }
+        .effort-option.selected { background: var(--ak-gradient-soft); border-color: var(--ak-blue); color: var(--ak-blue); }
+        .effort-option .ef-emoji { display: block; font-size: 1.05rem; margin-bottom: 3px; }
 
         /* Priority */
         .priority-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
@@ -145,14 +151,18 @@
         .maturity-result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         .result-dim-card { background: var(--ak-gray-50); border-radius: 14px; padding: 22px; position: relative; }
         .result-dim-card.is-priority { background: var(--ak-gradient-soft); border: 2px solid var(--ak-blue); }
-        .result-dim-card .rdc-name { font-size: 0.98rem; font-weight: 700; color: var(--ak-black); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+        .result-dim-card .rdc-name { font-size: 1.02rem; font-weight: 700; color: var(--ak-black); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .result-dim-card .priority-tag { background: var(--ak-gradient); color: white; font-size: 0.65rem; font-weight: 700; padding: 3px 9px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .result-dim-card .rdc-level { display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; margin-bottom: 10px; }
+        .result-dim-card .effort-tag { background: var(--ak-gray-700); color: white; font-size: 0.65rem; font-weight: 600; padding: 3px 9px; border-radius: 100px; letter-spacing: 0.3px; }
+        .result-dim-card .rdc-level { display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; margin-bottom: 12px; }
         .lvl-initial { background: #FEE2E2; color: #B91C1C; }
         .lvl-developpe { background: #FED7AA; color: #C2410C; }
         .lvl-avance { background: #D1FAE5; color: #065F46; }
         .lvl-leader { background: #DBEAFE; color: #1E40AF; }
-        .result-dim-card .rdc-justif { font-size: 0.86rem; color: var(--ak-gray-600); line-height: 1.55; font-style: italic; }
+        .result-dim-card .rdc-section { margin-top: 10px; }
+        .result-dim-card .rdc-section-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-gray-500); margin-bottom: 4px; }
+        .result-dim-card .rdc-section-text { font-size: 0.86rem; color: var(--ak-gray-700); line-height: 1.55; }
+        .result-dim-card .rdc-section-text.empty { color: var(--ak-gray-400); font-style: italic; }
         .rationale-card { background: var(--ak-gray-50); border-radius: 14px; padding: 28px; margin-top: 24px; }
         .rationale-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--ak-black); margin-bottom: 12px; }
         .rationale-card p { font-size: 0.92rem; color: var(--ak-gray-600); line-height: 1.65; }
@@ -178,6 +188,7 @@
             .side-nav { display: none; }
             .identity-grid, .method-grid, .priority-grid { grid-template-columns: 1fr 1fr; }
             .level-row { grid-template-columns: 1fr 1fr; }
+            .deep-row { grid-template-columns: 1fr; }
             .maturity-result-grid { grid-template-columns: 1fr; }
             .results-hero { padding: 48px 40px; }
             .review-band { padding: 40px; }
@@ -186,7 +197,7 @@
             .hero-left h1 { font-size: 2.2rem; }
             .hero-content { padding: 90px 24px 40px; }
             .section-band { padding: 36px 20px; }
-            .identity-grid, .method-grid, .priority-grid { grid-template-columns: 1fr; }
+            .identity-grid, .method-grid, .priority-grid, .effort-row { grid-template-columns: 1fr 1fr; }
             .dimension-card .dim-desc { padding-left: 0; }
             .review-band { padding: 24px 20px; }
         }
@@ -237,10 +248,10 @@
                 <div class="hero-left">
                     <span class="pill-atelier">Atelier · Module 1</span>
                     <h1>Diagnostic de<br>maturité<br><span class="gradient-text">IA Djibouti Telecom</span></h1>
-                    <p class="subtitle">Évaluez Djibouti Telecom sur les 6 dimensions clés de la maturité IA. À l'issue de cet atelier, votre diagnostic guidera la stratégie, le plan d'acculturation et la feuille de route 18 mois construits dans les modules 2, 3 et 4.</p>
+                    <p class="subtitle">Évaluez Djibouti Telecom sur les 6 dimensions clés de la maturité IA. Pour chacune : positionnez le niveau actuel, identifiez l'écart au niveau supérieur, estimez l'effort. Le diagnostic guide la stratégie, le plan d'acculturation et la feuille de route des modules suivants.</p>
                     <div class="hero-tags">
                         <div class="tag"><span>&#9201;</span> 30 minutes</div>
-                        <div class="tag"><span>&#128202;</span> 6 dimensions &middot; 4 niveaux</div>
+                        <div class="tag"><span>&#128202;</span> 6 dimensions &middot; 4 niveaux spécifiques</div>
                         <div class="tag"><span>&#127919;</span> Livrable 1 sur 4</div>
                     </div>
                 </div>
@@ -296,8 +307,8 @@
                 <div class="section-header">
                     <div class="sec-num">2</div>
                     <div class="sec-info">
-                        <h2>Comment lire la grille</h2>
-                        <p>Quatre niveaux de maturité, à appliquer à chaque dimension</p>
+                        <h2>Comment lire les 4 niveaux</h2>
+                        <p>Pour chaque dimension, des descripteurs concrets adaptés au métier — vous ne lirez pas du générique mais des situations précises à Djibouti Telecom</p>
                     </div>
                 </div>
                 <div class="method-grid">
@@ -332,7 +343,7 @@
                     <div class="sec-num">3</div>
                     <div class="sec-info">
                         <h2>Grille de maturité — 6 dimensions</h2>
-                        <p>Positionnez Djibouti Telecom sur chaque dimension et justifiez en 2-3 lignes</p>
+                        <p>Pour chaque dimension : 1) positionnez le niveau actuel, 2) listez les faits qui justifient ce niveau, 3) identifiez l'écart pour atteindre le niveau supérieur, 4) estimez l'effort.</p>
                     </div>
                 </div>
                 <div id="dimensionsContainer"></div>
@@ -395,21 +406,82 @@
     </div>
 
     <script>
-        // Dimensions data
+        // Dimensions data — descripteurs spécifiques par dimension et par niveau (contexte Djibouti Telecom)
         var dimensions = [
-            { id:'strategie', icon:'S', name:'Stratégie', desc:'Existence d\'une vision IA, intégration au plan stratégique, sponsorship exécutif (DG, COMEX) sur les enjeux IA.' },
-            { id:'donnees', icon:'D', name:'Données', desc:'Qualité, accessibilité, unification des données (OSS, BSS, parcours client, supervision réseau). Architecture data partagée.' },
-            { id:'talents', icon:'T', name:'Talents', desc:'Compétences IA internes : data scientists, MLOps, product owners IA, business translators. Capacité à recruter et retenir.' },
-            { id:'technologie', icon:'Te', name:'Technologie', desc:'Plateformes IA en place (cloud, MLOps, LLM as a service), capacité à déployer en production, maturité DevOps.' },
-            { id:'gouvernance', icon:'G', name:'Gouvernance', desc:'Cadre de pilotage des risques IA (NIST AI RMF, EU AI Act, ISO 42001, régulation ARMD), comité IA, processus de validation.' },
-            { id:'culture', icon:'C', name:'Culture', desc:'Acculturation IA des collaborateurs et managers, sécurité psychologique pour expérimenter, ouverture à la co-intelligence humain-IA.' }
+            {
+                id:'strategie', icon:'S', name:'Stratégie',
+                desc:'Existence d\'une vision IA, intégration au plan stratégique, sponsorship exécutif (DG, COMEX) sur les enjeux IA.',
+                levels: {
+                    initial: 'Aucune mention de l\'IA dans le plan stratégique groupe. Quelques initiatives isolées portées par des cadres motivés. Pas de sponsor exécutif identifié.',
+                    developpe: 'L\'IA apparaît dans le discours DG mais sans budget dédié ni feuille de route. 1-2 expérimentations métier hors d\'un cadre stratégique.',
+                    avance: 'L\'IA inscrite au plan stratégique avec budget pluriannuel, sponsor exécutif identifié, comité de pilotage IA opérationnel. Cas d\'usage priorisés.',
+                    leader: 'L\'IA est un pilier structurant du plan groupe. Création de valeur mesurée trimestriellement par le COMEX. Stratégie produit/marché intègre l\'IA nativement.'
+                }
+            },
+            {
+                id:'donnees', icon:'D', name:'Données',
+                desc:'Qualité, accessibilité, unification des données (OSS, BSS, parcours client, supervision réseau). Architecture data partagée.',
+                levels: {
+                    initial: 'Silos métier cloisonnés (OSS, BSS, CRM, supervision). Pas de catalogue. Pas de data owner. Extractions ad hoc et tableaux Excel partagés.',
+                    developpe: 'Premier datalake / DWH centralisé mais usage limité (reporting). Quelques data owners désignés. Qualité hétérogène, non monitorée.',
+                    avance: 'Plateforme data unifiée avec catalogue, data products par domaine, data owners formés, qualité monitorée. Self-service data en place pour les métiers.',
+                    leader: 'Data mesh ou équivalent, data products certifiés consommés cross-domaines, gouvernance fédérée, qualité en SLA contractuel, données externes intégrées.'
+                }
+            },
+            {
+                id:'talents', icon:'T', name:'Talents',
+                desc:'Compétences IA internes : data scientists, MLOps, product owners IA, business translators. Capacité à recruter et retenir.',
+                levels: {
+                    initial: 'Aucun profil data/IA dédié. Compétences IA portées par des passionnés en dehors de leurs missions. Pas de plan RH spécifique IA.',
+                    developpe: '1-3 data scientists ou analysts recrutés ou identifiés. Pas de filière dédiée, pas de plan de carrière IA. Difficultés de rétention face au marché.',
+                    avance: 'Filière data/IA structurée (data engineers, scientists, MLOps, product owners IA). Programme de montée en compétences. Partenariats université locale.',
+                    leader: 'Académie IA interne, mobilité fluide vers data/IA, attractivité forte sur le marché régional, rétention >90 %, contribution open source / publications.'
+                }
+            },
+            {
+                id:'technologie', icon:'Te', name:'Technologie',
+                desc:'Plateformes IA en place (cloud, MLOps, LLM as a service), capacité à déployer en production, maturité DevOps.',
+                levels: {
+                    initial: 'Pas de plateforme IA. Calcul sur postes individuels (Python local, Excel). Pas de modèle en production. Aucun MLOps. Cloud non maîtrisé.',
+                    developpe: 'Premiers modèles déployés via scripts manuels. Cloud public utilisé en sandbox. Pas de versioning ni monitoring des modèles. Dette technique IA dès le départ.',
+                    avance: 'Plateforme MLOps en place (versioning, CI/CD, monitoring drift). Cloud hybride opérationnel. Modèles fondations accessibles via API privée. Observabilité.',
+                    leader: 'Plateforme MLOps industrielle, fine-tuning de modèles fondations sur donnée locale, GPU on-premise pour usages souverains, observabilité de bout en bout en production.'
+                }
+            },
+            {
+                id:'gouvernance', icon:'G', name:'Gouvernance',
+                desc:'Cadre de pilotage des risques IA (NIST AI RMF, EU AI Act, ISO 42001, régulation ARMD), comité IA, processus de validation.',
+                levels: {
+                    initial: 'Pas de cadre de gouvernance IA. Pas de comité éthique. Aucun référentiel (NIST AI RMF, EU AI Act, ISO 42001). Décisions opportunistes par cas d\'usage.',
+                    developpe: 'Premières chartes / principes IA publiés en interne. Comité informel. Pas de processus d\'évaluation des risques par cas d\'usage. Conformité RGPD locale.',
+                    avance: 'Comité IA opérationnel (stratégique + éthique). Processus de validation par cas d\'usage. Référentiels NIST AI RMF / ISO 42001 en cours d\'adoption. Cartographie des risques IA.',
+                    leader: 'Gouvernance IA intégrée au COMEX. Certifications externes (ISO 42001). Audit annuel. Alignement régulateur ARMD anticipé. Engagements publics et reporting transparent.'
+                }
+            },
+            {
+                id:'culture', icon:'C', name:'Culture',
+                desc:'Acculturation IA des collaborateurs et managers, sécurité psychologique pour expérimenter, ouverture à la co-intelligence humain-IA.',
+                levels: {
+                    initial: 'L\'IA est perçue comme un buzzword ou une menace. Crainte du remplacement des emplois. Pas d\'expérimentation collective, pas de droit à l\'erreur explicite.',
+                    developpe: 'Premières sensibilisations IA pour les cadres. Quelques pionniers utilisent ChatGPT / Copilot. Acculturation inégale, sans plan structuré ni mesure d\'usage.',
+                    avance: 'Acculturation IA déployée (sensibilisation 100 % collab, praticien 50 % cadres). Ambassadeurs identifiés. Bibliothèque de cas d\'usage collaborative. Droit à l\'expérimentation explicite.',
+                    leader: 'L\'IA est dans le quotidien de tous les métiers. Co-intelligence humain-IA assumée. Communauté interne dynamique, hackathons régionaux, fierté collective sur la transformation.'
+                }
+            }
         ];
 
         var levels = [
-            { id:'initial', name:'Initial', desc:'Pratique non formalisée' },
-            { id:'developpe', name:'Développé', desc:'Pratique partielle, en silo' },
-            { id:'avance', name:'Avancé', desc:'Généralisée, gouvernée' },
-            { id:'leader', name:'Leader', desc:'Source d\'avantage compétitif' }
+            { id:'initial', name:'Initial' },
+            { id:'developpe', name:'Développé' },
+            { id:'avance', name:'Avancé' },
+            { id:'leader', name:'Leader' }
+        ];
+
+        var efforts = [
+            { id:'short', label:'< 3 mois', emoji:'⚡' },
+            { id:'mid', label:'3 — 6 mois', emoji:'🚀' },
+            { id:'long', label:'6 — 12 mois', emoji:'🛠️' },
+            { id:'xlong', label:'> 12 mois', emoji:'🏗️' }
         ];
 
         // Render dimension cards
@@ -418,19 +490,43 @@
             var html = '<div class="dimension-card" id="card-' + d.id + '">';
             html += '<div class="dim-head"><div class="dim-icon">' + d.icon + '</div><div class="dim-title">' + d.name + '</div></div>';
             html += '<div class="dim-desc">' + d.desc + '</div>';
+
+            // Level row
             html += '<div class="level-row">';
             levels.forEach(function(l, idx) {
                 html += '<label class="level-option" data-level="' + l.id + '">';
                 html += '<input type="radio" name="lvl-' + d.id + '" value="' + l.id + '">';
-                html += '<div class="lvl-name">' + (idx+1) + ' · ' + l.name + '</div>';
-                html += '<div class="lvl-desc">' + l.desc + '</div>';
+                html += '<div class="lvl-name"><span class="lvl-num">' + (idx+1) + '</span> ' + l.name + '</div>';
+                html += '<div class="lvl-desc">' + d.levels[l.id] + '</div>';
                 html += '</label>';
             });
             html += '</div>';
-            html += '<div class="justif-field">';
-            html += '<label>Justification (2-3 lignes)</label>';
-            html += '<textarea id="just-' + d.id + '" placeholder="Pour ' + d.name.toLowerCase() + ', je note ce niveau parce que..."></textarea>';
+
+            // Deep row: justif + écart
+            html += '<div class="deep-row">';
+            html += '<div class="deep-block">';
+            html += '<label>Faits observables qui justifient ce niveau</label>';
+            html += '<textarea id="just-' + d.id + '" placeholder="2-3 faits concrets : un projet, un comportement, une absence, un chiffre, une interaction observée à Djibouti Telecom..."></textarea>';
             html += '</div>';
+            html += '<div class="deep-block">';
+            html += '<label>Écart au niveau supérieur</label>';
+            html += '<textarea id="gap-' + d.id + '" placeholder="Qu\'est-ce qui manque concrètement pour passer au niveau supérieur ? (compétences, outils, décisions, partenariats, données...)"></textarea>';
+            html += '</div>';
+            html += '</div>';
+
+            // Effort row
+            html += '<div class="deep-block" style="margin-top:14px;">';
+            html += '<label>Effort estimé pour passer au niveau supérieur</label>';
+            html += '<div class="effort-row">';
+            efforts.forEach(function(ef) {
+                html += '<label class="effort-option" data-effort="' + ef.id + '">';
+                html += '<input type="radio" name="effort-' + d.id + '" value="' + ef.id + '">';
+                html += '<span class="ef-emoji">' + ef.emoji + '</span>' + ef.label;
+                html += '</label>';
+            });
+            html += '</div>';
+            html += '</div>';
+
             html += '</div>';
             container.innerHTML += html;
         });
@@ -457,10 +553,29 @@
             });
         });
 
+        // Effort selection styling
+        document.querySelectorAll('.effort-option').forEach(function(opt) {
+            opt.addEventListener('click', function() {
+                var name = opt.querySelector('input').name;
+                document.querySelectorAll('input[name="' + name + '"]').forEach(function(i) {
+                    i.closest('.effort-option').classList.remove('selected');
+                });
+                opt.classList.add('selected');
+                opt.querySelector('input').checked = true;
+                updateProgress();
+            });
+        });
+
+        // Justif + gap textareas progress
+        dimensions.forEach(function(d) {
+            document.getElementById('just-' + d.id).addEventListener('input', updateProgress);
+            document.getElementById('gap-' + d.id).addEventListener('input', updateProgress);
+        });
+
         // Priority checkbox: max 2 + styling
         document.querySelectorAll('.priority-option').forEach(function(opt) {
             opt.addEventListener('click', function(e) {
-                if (e.target.tagName === 'INPUT') return; // let the input change fire
+                if (e.target.tagName === 'INPUT') return;
                 var input = opt.querySelector('input');
                 input.checked = !input.checked;
                 handlePriorityChange();
@@ -470,9 +585,7 @@
 
         function handlePriorityChange() {
             var checked = document.querySelectorAll('.priority-option input:checked');
-            if (checked.length > 2) {
-                checked[0].checked = false;
-            }
+            if (checked.length > 2) checked[0].checked = false;
             document.querySelectorAll('.priority-option').forEach(function(opt) {
                 opt.classList.toggle('checked', opt.querySelector('input').checked);
             });
@@ -480,10 +593,14 @@
         }
 
         function updateProgress() {
-            var total = dimensions.length + 1; // 6 dims + priorities
+            // 6 dim × 4 sous-éléments (niveau, justif, écart, effort) + 1 priorités = 25
+            var total = dimensions.length * 4 + 1;
             var done = 0;
             dimensions.forEach(function(d) {
                 if (document.querySelector('input[name="lvl-' + d.id + '"]:checked')) done++;
+                if (document.getElementById('just-' + d.id).value.trim().length > 0) done++;
+                if (document.getElementById('gap-' + d.id).value.trim().length > 0) done++;
+                if (document.querySelector('input[name="effort-' + d.id + '"]:checked')) done++;
             });
             var priChecked = document.querySelectorAll('.priority-option input:checked').length;
             if (priChecked === 2) done++;
@@ -509,6 +626,15 @@
             return l ? l.name : '-';
         }
 
+        function effortLabel(efId) {
+            var e = efforts.find(function(x){return x.id===efId;});
+            return e ? e.label : '-';
+        }
+
+        function escapeHtml(s) {
+            return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
         function submitAtelier() {
             var stagiaire = document.getElementById('stagiaire').value;
             if (!stagiaire) { alert('Merci de sélectionner votre nom.'); document.getElementById('stagiaire').focus(); return; }
@@ -527,8 +653,13 @@
             var diagnostic = {};
             dimensions.forEach(function(d) {
                 var lvl = document.querySelector('input[name="lvl-' + d.id + '"]:checked');
-                var justif = document.getElementById('just-' + d.id).value.trim();
-                diagnostic[d.name] = { level: lvl ? lvl.value : null, justification: justif };
+                var effort = document.querySelector('input[name="effort-' + d.id + '"]:checked');
+                diagnostic[d.name] = {
+                    level: lvl ? lvl.value : null,
+                    justification: document.getElementById('just-' + d.id).value.trim(),
+                    gap: document.getElementById('gap-' + d.id).value.trim(),
+                    effort: effort ? effort.value : null
+                };
             });
 
             // Build email body
@@ -541,8 +672,11 @@
             body += '------------------------\n';
             dimensions.forEach(function(d, i) {
                 var dx = diagnostic[d.name];
-                body += (i+1) + '. ' + d.name + ' : ' + (dx.level ? levelLabel(dx.level).toUpperCase() : 'NON ÉVALUÉE') + '\n';
-                body += '   Justification : ' + (dx.justification || '(non renseignée)') + '\n\n';
+                body += (i+1) + '. ' + d.name.toUpperCase() + '\n';
+                body += '   Niveau actuel : ' + (dx.level ? levelLabel(dx.level).toUpperCase() : 'NON ÉVALUÉE') + '\n';
+                body += '   Faits observables : ' + (dx.justification || '(non renseigné)') + '\n';
+                body += '   Écart au niveau supérieur : ' + (dx.gap || '(non renseigné)') + '\n';
+                body += '   Effort pour progresser : ' + (dx.effort ? effortLabel(dx.effort) : '(non renseigné)') + '\n\n';
             });
             body += '2 DIMENSIONS PRIORITAIRES\n';
             body += '-------------------------\n';
@@ -551,7 +685,7 @@
             body += '\nRATIONALE PRIORITÉS\n';
             body += '-------------------\n';
             body += (rationale || '(non renseignée)') + '\n\n';
-            body += '— Diagnostic produit lors de l\'Atelier 1 (Module 1) — utiliser comme input pour les modules 2, 3 et 4.\n';
+            body += '— Diagnostic produit lors de l\'Atelier 1 (Module 1) — input pour les modules 2, 3 et 4.\n';
 
             var subj = 'Atelier 1 (Maturité IA) — ' + stagiaire + (priorities.length ? ' — Priorités : ' + priorities.join(' + ') : '');
 
@@ -568,8 +702,10 @@
             };
             dimensions.forEach(function(d) {
                 var dx = diagnostic[d.name];
-                payload['Niveau ' + d.name] = dx.level ? levelLabel(dx.level) : 'Non évaluée';
-                payload['Justif ' + d.name] = dx.justification || '-';
+                payload[d.name + ' — Niveau'] = dx.level ? levelLabel(dx.level) : 'Non évaluée';
+                payload[d.name + ' — Faits observables'] = dx.justification || '-';
+                payload[d.name + ' — Écart au niveau sup.'] = dx.gap || '-';
+                payload[d.name + ' — Effort'] = dx.effort ? effortLabel(dx.effort) : '-';
             });
 
             fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
@@ -608,9 +744,15 @@
                 var isPri = prioritySet.has(d.name);
                 var lvlClass = dx.level ? 'lvl-' + dx.level : '';
                 grid += '<div class="result-dim-card' + (isPri ? ' is-priority' : '') + '">';
-                grid += '<div class="rdc-name">' + d.name + (isPri ? ' <span class="priority-tag">Prioritaire</span>' : '') + '</div>';
+                grid += '<div class="rdc-name">' + d.name;
+                if (isPri) grid += ' <span class="priority-tag">Prioritaire</span>';
+                if (dx.effort) grid += ' <span class="effort-tag">' + effortLabel(dx.effort) + '</span>';
+                grid += '</div>';
                 grid += '<div class="rdc-level ' + lvlClass + '">' + (dx.level ? levelLabel(dx.level) : 'Non évaluée') + '</div>';
-                grid += '<div class="rdc-justif">' + (dx.justification ? '« ' + dx.justification + ' »' : 'Aucune justification renseignée.') + '</div>';
+                grid += '<div class="rdc-section"><div class="rdc-section-label">Faits observables</div>';
+                grid += '<div class="rdc-section-text' + (dx.justification ? '' : ' empty') + '">' + (dx.justification ? '« ' + escapeHtml(dx.justification) + ' »' : 'Non renseigné') + '</div></div>';
+                grid += '<div class="rdc-section"><div class="rdc-section-label">Écart au niveau supérieur</div>';
+                grid += '<div class="rdc-section-text' + (dx.gap ? '' : ' empty') + '">' + (dx.gap ? escapeHtml(dx.gap) : 'Non renseigné') + '</div></div>';
                 grid += '</div>';
             });
             document.getElementById('dimensionsResult').innerHTML = grid;
