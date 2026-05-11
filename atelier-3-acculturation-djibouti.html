@@ -27,7 +27,6 @@
             --ak-white: #FFFFFF;
             --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: var(--font); background: var(--ak-white); color: var(--ak-gray-700); line-height: 1.6; overflow-x: hidden; }
 
@@ -40,7 +39,6 @@
         .side-nav a:hover, .side-nav a.active { color: var(--ak-blue); background: rgba(37,99,235,0.06); }
         .side-nav a:hover .dot, .side-nav a.active .dot { background: var(--ak-gradient); box-shadow: 0 0 8px rgba(37,99,235,0.4); }
 
-        /* Hero */
         .hero { position: relative; min-height: 100vh; display: flex; align-items: center; background: var(--ak-black); overflow: hidden; }
         .hero-bg { position: absolute; inset: 0; background: var(--ak-gradient); opacity: 0.9; }
         .hero-pattern { position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 80%, rgba(16,185,129,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(124,58,237,0.2) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(6,182,212,0.1) 0%, transparent 60%); }
@@ -64,7 +62,6 @@
         .scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 3; color: rgba(255,255,255,0.4); font-size: 0.75rem; font-weight: 500; display: flex; flex-direction: column; align-items: center; gap: 6px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
 
-        /* Sections */
         .form-section { scroll-margin-top: 20px; }
         .section-band { padding: 64px 80px 64px 120px; max-width: 1400px; margin: 0 auto; }
         .section-alt { background: var(--ak-gray-50); }
@@ -73,103 +70,74 @@
         .section-header .sec-info h2 { font-size: 1.5rem; font-weight: 700; color: var(--ak-black); letter-spacing: -0.02em; }
         .section-header .sec-info p { font-size: 0.88rem; color: var(--ak-gray-500); margin-top: 2px; }
 
-        /* Identity */
         .identity-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
         .field-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 20px; transition: border-color 0.2s, box-shadow 0.2s; }
         .field-card:focus-within { border-color: var(--ak-blue); box-shadow: 0 0 0 4px rgba(37,99,235,0.08); }
         .field-card label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ak-gray-500); margin-bottom: 8px; }
         .field-card input, .field-card select, .field-card textarea { width: 100%; border: none; font-family: var(--font); font-size: 0.95rem; color: var(--ak-black); background: transparent; outline: none; resize: vertical; }
-        .field-card select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right center; padding-right: 20px; }
 
-        /* Recit (5 messages) */
-        .recit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        .recit-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 22px 24px; transition: all 0.25s; position: relative; overflow: hidden; }
-        .recit-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--ak-gray-100); transition: background 0.3s; }
-        .recit-card.filled::before { background: var(--ak-gradient); }
-        .recit-card .rc-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-        .recit-card .rc-num { width: 30px; height: 30px; border-radius: 8px; background: var(--ak-gradient-soft); color: var(--ak-blue); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; }
-        .recit-card .rc-title { font-size: 1rem; font-weight: 700; color: var(--ak-black); line-height: 1.3; }
-        .recit-card .rc-prompt { font-size: 0.82rem; color: var(--ak-gray-500); margin-bottom: 12px; line-height: 1.5; font-style: italic; }
-        .recit-card textarea { width: 100%; min-height: 80px; resize: vertical; border: 1.5px solid var(--ak-gray-200); border-radius: 10px; padding: 12px 14px; font-family: var(--font); font-size: 0.88rem; color: var(--ak-black); transition: border-color 0.2s; line-height: 1.5; }
-        .recit-card textarea:focus { border-color: var(--ak-blue); outline: none; }
-        .recit-card .rc-counter { font-size: 0.72rem; color: var(--ak-gray-400); text-align: right; margin-top: 4px; }
-        .recit-card .rc-counter.over { color: #DC2626; font-weight: 600; }
+        .method-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+        .method-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 18px 20px; }
+        .method-card .mc-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; color: var(--ak-purple); background: rgba(124,58,237,0.06); padding: 3px 10px; border-radius: 6px; display: inline-block; margin-bottom: 10px; }
+        .method-card h4 { font-size: 1rem; font-weight: 700; color: var(--ak-black); margin-bottom: 4px; }
+        .method-card p { font-size: 0.82rem; color: var(--ak-gray-500); line-height: 1.5; }
 
-        /* Cibles (4 niveaux) */
-        .cibles-table { display: flex; flex-direction: column; gap: 12px; }
-        .cible-row { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 20px 24px; }
-        .cible-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
-        .cible-head .ch-left { display: flex; align-items: center; gap: 12px; }
-        .cible-head .ch-num { width: 32px; height: 32px; border-radius: 8px; background: var(--ak-gradient); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; }
-        .cible-head .ch-title { font-size: 1.05rem; font-weight: 700; color: var(--ak-black); }
-        .cible-head .ch-suggest { font-size: 0.78rem; color: var(--ak-gray-500); background: var(--ak-gray-50); padding: 6px 12px; border-radius: 100px; }
-        .cible-head .ch-obj { font-size: 0.84rem; color: var(--ak-gray-600); font-style: italic; flex: 1 0 100%; line-height: 1.5; }
-        .cible-fields { display: grid; grid-template-columns: 2fr 1fr 2fr; gap: 12px; }
-        .cible-fields .field-card { padding: 14px 16px; }
-        .cible-fields .field-card label { font-size: 0.7rem; }
+        .block-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 28px 30px; margin-bottom: 16px; transition: all 0.25s; position: relative; overflow: hidden; }
+        .block-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--ak-gray-100); transition: background 0.3s; }
+        .block-card.filled::before { background: var(--ak-gradient); }
+        .block-card .bc-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 10px; }
+        .block-card .bc-icon { width: 38px; height: 38px; border-radius: 10px; background: var(--ak-gradient-soft); color: var(--ak-blue); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0; font-weight: 700; }
+        .block-card .bc-title-block { flex: 1; }
+        .block-card .bc-title { font-size: 1.08rem; font-weight: 700; color: var(--ak-black); margin-bottom: 4px; }
+        .block-card .bc-amorce { font-size: 0.86rem; color: var(--ak-gray-500); line-height: 1.55; }
+        .block-card .bc-example { background: var(--ak-gray-50); border-left: 3px solid var(--ak-purple); padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 0.82rem; color: var(--ak-gray-600); margin: 14px 0 18px 52px; line-height: 1.55; font-style: italic; }
+        .block-card .bc-example .ex-tag { display: inline-block; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.8px; color: var(--ak-purple); text-transform: uppercase; margin-right: 8px; font-style: normal; }
 
-        /* Calendrier (4 trimestres) */
-        .calendar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-        .quarter-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 22px 22px; }
-        .quarter-card .qc-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.2px; color: var(--ak-purple); background: rgba(124,58,237,0.06); padding: 4px 12px; border-radius: 6px; display: inline-block; margin-bottom: 12px; }
-        .quarter-card .qc-title { font-size: 1rem; font-weight: 700; color: var(--ak-black); margin-bottom: 16px; }
-        .quarter-field { margin-bottom: 12px; }
-        .quarter-field label { display: block; font-size: 0.72rem; font-weight: 600; color: var(--ak-gray-500); margin-bottom: 4px; line-height: 1.4; }
-        .quarter-field input { width: 100%; border: 1.5px solid var(--ak-gray-200); border-radius: 8px; padding: 8px 10px; font-family: var(--font); font-size: 0.84rem; color: var(--ak-black); transition: border-color 0.2s; }
-        .quarter-field input:focus { border-color: var(--ak-blue); outline: none; }
+        .sub-fields { display: grid; gap: 12px; }
+        .sub-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .sub-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        .sub-row-full { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .sub-field { display: flex; flex-direction: column; }
+        .sub-field label { display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-gray-500); margin-bottom: 6px; }
+        .sub-field input, .sub-field textarea, .sub-field select { width: 100%; border: 1.5px solid var(--ak-gray-200); border-radius: 10px; padding: 10px 12px; font-family: var(--font); font-size: 0.88rem; color: var(--ak-black); transition: border-color 0.2s; line-height: 1.5; background: var(--ak-white); }
+        .sub-field textarea { min-height: 80px; resize: vertical; }
+        .sub-field input:focus, .sub-field textarea:focus, .sub-field select:focus { border-color: var(--ak-blue); outline: none; }
+        .sub-field .helper { font-size: 0.72rem; color: var(--ak-gray-400); margin-top: 3px; font-style: italic; }
+        .sub-field select { cursor: pointer; -webkit-appearance: none; appearance: none; background: var(--ak-white) url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 12px center; padding-right: 28px; }
+        .word-count { font-size: 0.7rem; color: var(--ak-gray-400); margin-top: 4px; text-align: right; }
+        .word-count.over { color: #DC2626; font-weight: 600; }
 
-        /* KPI */
-        .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .kpi-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 18px 20px; }
-        .kpi-card .kpi-label { font-size: 0.85rem; font-weight: 600; color: var(--ak-black); margin-bottom: 8px; line-height: 1.4; }
-        .kpi-card input { width: 100%; border: 1.5px solid var(--ak-gray-200); border-radius: 8px; padding: 9px 12px; font-family: var(--font); font-size: 0.86rem; color: var(--ak-black); transition: border-color 0.2s; }
-        .kpi-card input:focus { border-color: var(--ak-blue); outline: none; }
+        .repeat-block { background: var(--ak-gray-50); border-radius: 12px; padding: 16px 18px; margin-bottom: 10px; }
+        .repeat-block .repeat-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-purple); margin-bottom: 10px; display: inline-block; padding: 2px 10px; background: rgba(124,58,237,0.08); border-radius: 6px; }
 
-        /* Submit */
         .submit-band { text-align: center; padding: 48px 40px; background: var(--ak-gradient-soft); border-top: 1px solid var(--ak-gray-100); }
         .btn-submit { display: inline-flex; align-items: center; gap: 10px; background: var(--ak-gradient); color: white; border: none; padding: 16px 52px; font-size: 1rem; font-weight: 600; border-radius: 14px; cursor: pointer; font-family: var(--font); transition: transform 0.2s, box-shadow 0.2s; letter-spacing: -0.01em; }
         .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(37,99,235,0.3); }
         .submit-note { font-size: 0.78rem; color: var(--ak-gray-400); margin-top: 12px; }
 
-        /* Results */
         .results-wrapper { display: none; }
         .results-wrapper.visible { display: block; }
         .results-hero { background: var(--ak-gradient); padding: 64px 80px; position: relative; overflow: hidden; }
         .results-hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(16,185,129,0.1) 0%, transparent 50%); }
         .results-inner { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; }
         .results-inner h2 { font-size: 2rem; font-weight: 800; color: white; margin-bottom: 6px; }
-        .results-inner .sub { color: rgba(255,255,255,0.7); font-size: 0.95rem; max-width: 700px; line-height: 1.6; margin-bottom: 24px; }
+        .results-inner .sub { color: rgba(255,255,255,0.7); font-size: 0.95rem; max-width: 700px; line-height: 1.6; }
         .review-band { max-width: 1400px; margin: 0 auto; padding: 48px 80px; }
-        .review-band h3 { font-size: 1.2rem; font-weight: 700; color: var(--ak-black); margin: 28px 0 16px 0; }
+        .review-band h3 { font-size: 1.2rem; font-weight: 700; color: var(--ak-black); margin-bottom: 20px; margin-top: 32px; }
         .review-band h3:first-child { margin-top: 0; }
-        .result-block { background: var(--ak-gray-50); border-radius: 14px; padding: 20px 22px; margin-bottom: 12px; }
-        .result-block .rb-name { font-size: 0.92rem; font-weight: 700; color: var(--ak-black); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-        .result-block .rb-num { width: 24px; height: 24px; border-radius: 6px; background: var(--ak-gradient); color: white; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-        .result-block .rb-text { font-size: 0.88rem; color: var(--ak-gray-700); line-height: 1.55; white-space: pre-wrap; }
-        .result-block .rb-empty { font-size: 0.82rem; color: var(--ak-gray-400); font-style: italic; }
-        .result-table { background: var(--ak-white); border: 1px solid var(--ak-gray-200); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
-        .result-table-row { display: grid; grid-template-columns: 1fr 2fr 1fr 2fr; gap: 0; border-bottom: 1px solid var(--ak-gray-100); }
-        .result-table-row:last-child { border-bottom: none; }
-        .result-table-row.header { background: var(--ak-gradient-soft); font-weight: 700; color: var(--ak-black); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .result-table-row > div { padding: 12px 14px; font-size: 0.85rem; color: var(--ak-gray-700); }
-        .result-quarter-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-        .result-quarter { background: var(--ak-gray-50); border-radius: 12px; padding: 16px; }
-        .result-quarter .rq-label { font-size: 0.7rem; font-weight: 700; color: var(--ak-purple); margin-bottom: 8px; letter-spacing: 1.2px; }
-        .result-quarter ul { list-style: none; }
-        .result-quarter li { font-size: 0.82rem; color: var(--ak-gray-700); padding: 4px 0; border-bottom: 1px dashed var(--ak-gray-200); }
-        .result-quarter li:last-child { border-bottom: none; }
-        .result-kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .result-kpi { background: var(--ak-gray-50); border-left: 3px solid var(--ak-blue); border-radius: 8px; padding: 12px 14px; }
-        .result-kpi .rk-label { font-size: 0.78rem; font-weight: 600; color: var(--ak-black); margin-bottom: 4px; line-height: 1.4; }
-        .result-kpi .rk-val { font-size: 0.84rem; color: var(--ak-gray-700); }
+        .review-card { background: var(--ak-gray-50); border-radius: 14px; padding: 22px; margin-bottom: 14px; }
+        .review-card .rc-name { font-size: 1rem; font-weight: 700; color: var(--ak-black); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .review-card .rc-name .rc-icon { width: 28px; height: 28px; border-radius: 8px; background: var(--ak-gradient-soft); color: var(--ak-blue); display: inline-flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 700; }
+        .review-card .rc-pair { margin-top: 10px; }
+        .review-card .rc-pair-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-gray-500); margin-bottom: 4px; }
+        .review-card .rc-pair-value { font-size: 0.86rem; color: var(--ak-gray-700); line-height: 1.55; white-space: pre-wrap; }
+        .review-card .rc-pair-value.empty { color: var(--ak-gray-400); font-style: italic; }
 
-        /* Toast */
         .email-toast { position: fixed; top: 20px; right: 20px; background: var(--ak-black); color: white; padding: 16px 24px; border-radius: 14px; font-size: 0.88rem; font-weight: 500; display: none; align-items: center; gap: 10px; z-index: 300; box-shadow: 0 20px 50px rgba(0,0,0,0.2); animation: slideIn 0.4s ease; }
         .email-toast.show { display: flex; }
         .email-toast .toast-icon { width: 28px; height: 28px; border-radius: 8px; background: rgba(16,185,129,0.2); color: #6ee7b7; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
         @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
 
-        /* Footer */
         .footer { text-align: center; padding: 32px 40px; background: var(--ak-gray-50); border-top: 1px solid var(--ak-gray-100); }
         .footer-inner { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; }
         .footer span { font-size: 0.78rem; color: var(--ak-gray-400); }
@@ -182,10 +150,8 @@
             .hero-right { max-width: 460px; }
             .section-band { padding: 48px 40px; }
             .side-nav { display: none; }
-            .identity-grid, .recit-grid, .calendar-grid { grid-template-columns: 1fr 1fr; }
-            .cible-fields { grid-template-columns: 1fr; }
-            .result-quarter-grid { grid-template-columns: 1fr 1fr; }
-            .result-table-row { grid-template-columns: 1fr 1fr; }
+            .identity-grid, .method-grid { grid-template-columns: 1fr 1fr; }
+            .sub-row, .sub-row-3 { grid-template-columns: 1fr; }
             .results-hero { padding: 48px 40px; }
             .review-band { padding: 40px; }
         }
@@ -193,555 +159,822 @@
             .hero-left h1 { font-size: 2.2rem; }
             .hero-content { padding: 90px 24px 40px; }
             .section-band { padding: 36px 20px; }
-            .identity-grid, .recit-grid, .calendar-grid, .result-quarter-grid, .kpi-grid, .result-kpi-grid { grid-template-columns: 1fr; }
-            .review-band { padding: 24px 20px; }
+            .identity-grid, .method-grid { grid-template-columns: 1fr; }
+            .block-card .bc-example { margin-left: 0; }
         }
         @media print {
-            .hero { min-height: auto; }
-            .side-nav, .progress-track, .btn-submit, .btn-print, .scroll-hint, .email-toast { display: none !important; }
-            .recit-card, .cible-row, .quarter-card, .result-block { break-inside: avoid; }
             body { background: white; }
+            .progress-track, .side-nav, .submit-band, .footer, .hero, .email-toast { display: none !important; }
+            .results-wrapper { display: block !important; }
+            .results-hero { background: white !important; color: var(--ak-black); padding: 24px; }
+            .results-inner h2, .results-inner .sub { color: var(--ak-black) !important; }
+            .review-band { padding: 24px; }
+            .review-card, .field-card, .block-card { break-inside: avoid; page-break-inside: avoid; }
         }
     </style>
 </head>
 <body>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
 
-    <div class="email-toast" id="emailToast">
-        <div class="toast-icon">&#10003;</div>
-        <span>Plan envoyé au formateur</span>
-    </div>
-
     <nav class="side-nav" id="sideNav">
-        <a href="#sec-info" class="active"><span class="dot"></span>Identité</a>
-        <a href="#sec-recit"><span class="dot"></span>Récit</a>
-        <a href="#sec-cibles"><span class="dot"></span>Cibles</a>
-        <a href="#sec-calendar"><span class="dot"></span>Calendrier</a>
-        <a href="#sec-kpi"><span class="dot"></span>KPI</a>
+        <a href="#identity"><span class="dot"></span>Identité</a>
+        <a href="#methode"><span class="dot"></span>Méthode</a>
+        <a href="#recit"><span class="dot"></span>Récit</a>
+        <a href="#cibles"><span class="dot"></span>Cibles</a>
+        <a href="#calendrier"><span class="dot"></span>Calendrier</a>
+        <a href="#kpi"><span class="dot"></span>KPI</a>
     </nav>
 
-    <div id="formWrapper">
+    <div class="email-toast" id="emailToast">
+        <div class="toast-icon">✓</div>
+        <div>Votre plan d'acculturation a été envoyé à b.yassmine@ecf-proconduite.com</div>
+    </div>
 
-        <!-- Hero -->
-        <section class="hero">
-            <div class="hero-bg"></div>
-            <div class="hero-pattern"></div>
-            <div class="hero-grid"></div>
-
-            <div class="hero-logo">
-                <svg width="40" height="40" viewBox="0 0 80 80">
-                    <defs><linearGradient id="lgHero" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.2)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.08)"/></linearGradient></defs>
-                    <rect width="80" height="80" rx="16" fill="url(#lgHero)"/>
-                    <path d="M 40 20 L 50 50 L 44 50 L 42 44 L 38 44 L 36 50 L 30 50 L 40 20 Z M 40 28 L 38 40 L 42 40 L 40 28 Z" fill="white"/>
-                    <circle cx="55" cy="28" r="6" fill="#10B981" opacity="0.9"/>
-                </svg>
-                <div>
-                    <span>AKADEMIA</span>
-                    <span class="formation-label">Formation</span>
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-pattern"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-logo">
+            <div>
+                <span>Akademia Formation</span>
+                <span class="formation-label">IA & Transformation Digitale</span>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-left">
+                <span class="pill-atelier">ATELIER 3 · MODULE 3</span>
+                <h1>Plan d'acculturation <span class="gradient-text">IA — 12 mois</span></h1>
+                <p class="subtitle">Construire le récit, les cibles, le calendrier et les KPI d'un plan d'acculturation IA couvrant les quatre niveaux de population de Djibouti Telecom.</p>
+                <div class="hero-tags">
+                    <span class="tag">⏱ 30 min</span>
+                    <span class="tag">📋 4 étapes structurées</span>
+                    <span class="tag">🎯 Plan opérationnel 12 mois</span>
                 </div>
             </div>
+            <div class="hero-right">
+                <h3>Comment procéder</h3>
+                <ul>
+                    <li><span class="step-num">1</span><span>Formuler le récit en 5 messages-clés (chacun testé contre objection)</span></li>
+                    <li><span class="step-num">2</span><span>Cadrer les 4 cibles d'acculturation (sensibilisation, praticien, expert métier/tech)</span></li>
+                    <li><span class="step-num">3</span><span>Poser le calendrier 12 mois — 3 actions par trimestre</span></li>
+                    <li><span class="step-num">4</span><span>Définir les KPI avec cible chiffrée et responsable</span></li>
+                </ul>
+                <div class="duration">Travail individuel puis confrontation</div>
+            </div>
+        </div>
+        <div class="scroll-hint">scroll<br>↓</div>
+    </section>
 
-            <div class="hero-content">
-                <div class="hero-left">
-                    <span class="pill-atelier">Atelier · Module 3</span>
-                    <h1>Plan<br>d'acculturation<br><span class="gradient-text">IA Djibouti Telecom</span></h1>
-                    <p class="subtitle">Construisez un plan d'acculturation IA sur 12 mois : récit de transformation, 4 cibles de population, calendrier trimestriel et KPI de suivi. C'est ce qui transforme la stratégie en mouvement collectif.</p>
-                    <div class="hero-tags">
-                        <div class="tag"><span>&#9201;</span> 40 minutes</div>
-                        <div class="tag"><span>&#128202;</span> Récit · Cibles · Calendrier · KPI</div>
-                        <div class="tag"><span>&#127919;</span> Livrable 3 sur 4</div>
-                    </div>
-                </div>
-                <div class="hero-right">
-                    <h3>Déroulé de l'atelier</h3>
-                    <ul>
-                        <li><div class="step-num">1</div>Présentation des 4 niveaux d'acculturation et exemples (10 min · formateur)</li>
-                        <li><div class="step-num">2</div>Remplissage individuel silencieux (20 min)</li>
-                        <li><div class="step-num">3</div>Confrontation et alignement entre les deux participants (10 min)</li>
-                    </ul>
-                    <div class="duration">Formation IA &amp; Transformation Digitale · 12 mai 2026</div>
+    <form id="planForm">
+        <section class="section-band form-section" id="identity">
+            <div class="section-header">
+                <div class="sec-num">1</div>
+                <div class="sec-info">
+                    <h2>Identité du stagiaire</h2>
+                    <p>Pour archivage et restitution personnalisée</p>
                 </div>
             </div>
-
-            <div class="scroll-hint">Commencer l'atelier<br>&#8595;</div>
-        </section>
-
-        <!-- Section 1: Identité -->
-        <section class="form-section section-alt" id="sec-info">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">1</div>
-                    <div class="sec-info">
-                        <h2>Votre identité</h2>
-                        <p>Pour personnaliser la restitution et garder une trace de votre plan</p>
-                    </div>
+            <div class="identity-grid">
+                <div class="field-card">
+                    <label for="nom">Nom complet</label>
+                    <input type="text" id="nom" name="nom" placeholder="Doualeh YACIN ELMI" required>
                 </div>
-                <div class="identity-grid">
-                    <div class="field-card">
-                        <label>Stagiaire *</label>
-                        <select id="stagiaire" required>
-                            <option value="">— Choisir —</option>
-                            <option value="Doualeh YACIN ELMI">Doualeh YACIN ELMI</option>
-                            <option value="Ismaël MOURAD HASSAN">Ismaël MOURAD HASSAN</option>
-                            <option value="autre">Autre (préciser)</option>
-                        </select>
-                    </div>
-                    <div class="field-card">
-                        <label>Poste / Fonction</label>
-                        <input type="text" id="poste" placeholder="Ex : Chef Service OSS, Chef Division PFS">
-                    </div>
-                    <div class="field-card">
-                        <label>Date</label>
-                        <input type="date" id="date" value="2026-05-12">
-                    </div>
+                <div class="field-card">
+                    <label for="fonction">Fonction</label>
+                    <input type="text" id="fonction" name="fonction" placeholder="Chef Service OSS" required>
+                </div>
+                <div class="field-card">
+                    <label for="entite">Entité / Direction</label>
+                    <input type="text" id="entite" name="entite" placeholder="DSI Djibouti Telecom" required>
                 </div>
             </div>
         </section>
 
-        <!-- Section 2: Récit (5 messages-clés) -->
-        <section class="form-section" id="sec-recit">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">2</div>
-                    <div class="sec-info">
-                        <h2>Récit de transformation — 5 messages-clés</h2>
-                        <p>50 mots maximum chacun. Ce sont les phrases que diront la DG et les managers en cascade.</p>
-                    </div>
+        <section class="section-band section-alt form-section" id="methode">
+            <div class="section-header">
+                <div class="sec-num">2</div>
+                <div class="sec-info">
+                    <h2>Pourquoi un plan d'acculturation ?</h2>
+                    <p>Sans acculturation, la stratégie IA reste un projet IT. Avec, elle devient une transformation d'entreprise.</p>
                 </div>
-                <div class="recit-grid" id="recitContainer"></div>
+            </div>
+            <div class="method-grid">
+                <div class="method-card">
+                    <span class="mc-num">RÉCIT</span>
+                    <h4>5 messages-clés</h4>
+                    <p>Chaque message doit résister à une objection. On teste sa solidité avant de le déployer.</p>
+                </div>
+                <div class="method-card">
+                    <span class="mc-num">CIBLES</span>
+                    <h4>4 niveaux d'acculturation</h4>
+                    <p>Sensibilisation, Praticien, Expert métier, Expert technique. Sponsor + budget + validation par niveau.</p>
+                </div>
+                <div class="method-card">
+                    <span class="mc-num">RYTHME</span>
+                    <h4>Calendrier 12 mois</h4>
+                    <p>3 actions par trimestre, chacune avec livrable et responsable nommés.</p>
+                </div>
+                <div class="method-card">
+                    <span class="mc-num">PREUVE</span>
+                    <h4>KPI mesurables</h4>
+                    <p>Pas de KPI mou : nom + cible chiffrée + fréquence + responsable du suivi.</p>
+                </div>
             </div>
         </section>
 
-        <!-- Section 3: Cibles -->
-        <section class="form-section section-alt" id="sec-cibles">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">3</div>
-                    <div class="sec-info">
-                        <h2>4 cibles d'acculturation</h2>
-                        <p>Pour chaque niveau, dimensionner précisément : périmètre, durée, format.</p>
+        <section class="section-band form-section" id="recit">
+            <div class="section-header">
+                <div class="sec-num">3</div>
+                <div class="sec-info">
+                    <h2>Étape 1 — Récit de transformation</h2>
+                    <p>5 messages-clés. Chacun limité à 50 mots et testé contre une objection probable.</p>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="msg1">
+                <div class="bc-head">
+                    <div class="bc-icon">M1</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">Pourquoi maintenant ? (urgence stratégique)</div>
+                        <div class="bc-amorce">L'élément déclencheur qui justifie l'investissement IA maintenant et pas dans 3 ans.</div>
                     </div>
                 </div>
-                <div class="cibles-table" id="ciblesContainer"></div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>« La compétition régionale des opérateurs s'accélère (Safaricom, Sonatel) — sans IA opérationnalisée d'ici 18 mois, notre OPEX deviendra structurellement non compétitif. »</div>
+                <div class="sub-fields">
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Message-clé (50 mots max)</label><textarea name="msg1_texte" placeholder="L'urgence stratégique en quelques mots..." data-track data-wc="50"></textarea><div class="word-count" data-wc-target="msg1_texte">0 / 50 mots</div></div>
+                    </div>
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Épreuve de réalité — comment ce message peut-il être contesté ?</label><textarea name="msg1_objection" placeholder="ex. « On a déjà essayé en 2020 et ça n'a rien donné. » → Comment je réponds ?" data-track></textarea></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="msg2">
+                <div class="bc-head">
+                    <div class="bc-icon">M2</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">Où allons-nous ? (vision)</div>
+                        <div class="bc-amorce">La vision IA à 3 ans, formulée pour qu'un opérateur de centre d'appels la comprenne.</div>
+                    </div>
+                </div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>« D'ici 3 ans, chaque collaborateur de Djibouti Telecom disposera d'un assistant IA dans son travail quotidien et les services client réagiront en quelques minutes au lieu de plusieurs heures. »</div>
+                <div class="sub-fields">
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Message-clé (50 mots max)</label><textarea name="msg2_texte" placeholder="La vision en termes opérationnels..." data-track data-wc="50"></textarea><div class="word-count" data-wc-target="msg2_texte">0 / 50 mots</div></div>
+                    </div>
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Épreuve de réalité — comment ce message peut-il être contesté ?</label><textarea name="msg2_objection" placeholder="ex. « Et notre métier dans 3 ans, il existera encore ? »" data-track></textarea></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="msg3">
+                <div class="bc-head">
+                    <div class="bc-icon">M3</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">Comment y allons-nous ? (méthode)</div>
+                        <div class="bc-amorce">Trajectoire concrète, jalons visibles, ordre de marche.</div>
+                    </div>
+                </div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>« Trois étapes : 1) acculturation tous (6 mois), 2) montée en compétence ciblée (12 mois), 3) cas d'usage métier en production (18 mois). Chaque étape avec quick wins visibles. »</div>
+                <div class="sub-fields">
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Message-clé (50 mots max)</label><textarea name="msg3_texte" placeholder="La méthode et la cadence..." data-track data-wc="50"></textarea><div class="word-count" data-wc-target="msg3_texte">0 / 50 mots</div></div>
+                    </div>
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Épreuve de réalité — comment ce message peut-il être contesté ?</label><textarea name="msg3_objection" placeholder="ex. « 18 mois c'est trop long, le métier n'attendra pas. »" data-track></textarea></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="msg4">
+                <div class="bc-head">
+                    <div class="bc-icon">M4</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">Qu'est-ce qui change pour les collaborateurs ?</div>
+                        <div class="bc-amorce">L'impact métier concret. Ce que les gens vont faire différemment dès demain.</div>
+                    </div>
+                </div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>« Vos tâches répétitives diminueront, vos tâches à valeur (analyse, relation client, décision) augmenteront. Vous serez équipés d'outils IA, formés et accompagnés. »</div>
+                <div class="sub-fields">
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Message-clé (50 mots max)</label><textarea name="msg4_texte" placeholder="L'impact opérationnel concret..." data-track data-wc="50"></textarea><div class="word-count" data-wc-target="msg4_texte">0 / 50 mots</div></div>
+                    </div>
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Épreuve de réalité — comment ce message peut-il être contesté ?</label><textarea name="msg4_objection" placeholder="ex. « Si l'IA fait mon job, à quoi je sers ? »" data-track></textarea></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="msg5">
+                <div class="bc-head">
+                    <div class="bc-icon">M5</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">Quels sont nos engagements ?</div>
+                        <div class="bc-amorce">Les engagements explicites de la DG : formation, non-licenciement, gouvernance, éthique.</div>
+                    </div>
+                </div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>« Pas de licenciement lié à l'IA. Chaque collaborateur sera formé. Toute donnée client reste souveraine. Toute décision automatisée pourra être contestée. »</div>
+                <div class="sub-fields">
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Message-clé (50 mots max)</label><textarea name="msg5_texte" placeholder="Les engagements de la DG..." data-track data-wc="50"></textarea><div class="word-count" data-wc-target="msg5_texte">0 / 50 mots</div></div>
+                    </div>
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Épreuve de réalité — comment ce message peut-il être contesté ?</label><textarea name="msg5_objection" placeholder="ex. « Comment vous tenez votre promesse en cas de plan de réduction d'effectifs ? »" data-track></textarea></div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Section 4: Calendrier -->
-        <section class="form-section" id="sec-calendar">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">4</div>
-                    <div class="sec-info">
-                        <h2>Calendrier 12 mois</h2>
-                        <p>Trois temps forts par trimestre. Un temps fort = un livrable concret avec un sponsor identifié.</p>
+        <section class="section-band section-alt form-section" id="cibles">
+            <div class="section-header">
+                <div class="sec-num">4</div>
+                <div class="sec-info">
+                    <h2>Étape 2 — Les 4 cibles d'acculturation</h2>
+                    <p>Périmètre × Format × Sponsor × Budget × Mode de validation pour chaque niveau</p>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="cible1">
+                <div class="bc-head">
+                    <div class="bc-icon">N1</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">Niveau 1 — Sensibilisation</div>
+                        <div class="bc-amorce">Comprendre ce qu'est l'IA, ce qu'elle change, ce qui ne change pas. Tous les collaborateurs.</div>
                     </div>
                 </div>
-                <div class="calendar-grid" id="calendarContainer"></div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>100 % des collaborateurs (~800 pers.), e-learning 4h + atelier d'équipe 2h, sponsor DRH, budget 50 k€, validation par quiz 80 % + signature charte.</div>
+                <div class="sub-fields">
+                    <div class="sub-row-3">
+                        <div class="sub-field"><label>Périmètre</label><input type="text" name="cible1_perimetre" placeholder="ex. 100 % des collaborateurs (~800 pers.)" data-track></div>
+                        <div class="sub-field"><label>Durée totale</label><input type="text" name="cible1_duree" placeholder="ex. 6h (4h e-learning + 2h atelier)" data-track></div>
+                        <div class="sub-field"><label>Format pédagogique</label>
+                            <select name="cible1_format" data-track>
+                                <option value="">—</option><option>E-learning autonome</option><option>E-learning + ateliers d'équipe</option><option>Présentiel</option><option>Présentiel + accompagnement</option><option>Programme certifiant</option><option>Mix présentiel + distanciel</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="sub-row-3">
+                        <div class="sub-field"><label>Sponsor désigné</label><input type="text" name="cible1_sponsor" placeholder="ex. DRH" data-track></div>
+                        <div class="sub-field"><label>Budget estimé</label><input type="text" name="cible1_budget" placeholder="ex. 50 k€" data-track></div>
+                        <div class="sub-field"><label>Mode de validation</label><input type="text" name="cible1_validation" placeholder="ex. Quiz 80 % + charte" data-track></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="cible2">
+                <div class="bc-head">
+                    <div class="bc-icon">N2</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">Niveau 2 — Praticien</div>
+                        <div class="bc-amorce">Utiliser l'IA dans son travail quotidien (rédaction, recherche, analyse). Cadres et collaborateurs ciblés.</div>
+                    </div>
+                </div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>50-70 % des cadres (~200 pers.), 3 à 5 jours présentiel + accompagnement individuel, sponsor DSI + DRH, budget 200 k€, validation par cas pratique métier + revue manager.</div>
+                <div class="sub-fields">
+                    <div class="sub-row-3">
+                        <div class="sub-field"><label>Périmètre</label><input type="text" name="cible2_perimetre" placeholder="ex. 50-70 % des cadres (~200)" data-track></div>
+                        <div class="sub-field"><label>Durée totale</label><input type="text" name="cible2_duree" placeholder="ex. 3 à 5 jours" data-track></div>
+                        <div class="sub-field"><label>Format pédagogique</label>
+                            <select name="cible2_format" data-track>
+                                <option value="">—</option><option>E-learning autonome</option><option>E-learning + ateliers d'équipe</option><option>Présentiel</option><option>Présentiel + accompagnement</option><option>Programme certifiant</option><option>Mix présentiel + distanciel</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="sub-row-3">
+                        <div class="sub-field"><label>Sponsor désigné</label><input type="text" name="cible2_sponsor" placeholder="ex. DSI + DRH" data-track></div>
+                        <div class="sub-field"><label>Budget estimé</label><input type="text" name="cible2_budget" placeholder="ex. 200 k€" data-track></div>
+                        <div class="sub-field"><label>Mode de validation</label><input type="text" name="cible2_validation" placeholder="ex. Cas pratique + revue manager" data-track></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="cible3">
+                <div class="bc-head">
+                    <div class="bc-icon">N3</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">Niveau 3 — Expert métier</div>
+                        <div class="bc-amorce">Concevoir et piloter des cas d'usage IA dans son domaine. Référents métier identifiés.</div>
+                    </div>
+                </div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>10-15 % (≈ 100 pers.), 5 à 10 jours dont 2 en immersion atelier projet, sponsor directeur métier concerné + DSI, budget 300 k€, validation par cas d'usage présenté au comité IA.</div>
+                <div class="sub-fields">
+                    <div class="sub-row-3">
+                        <div class="sub-field"><label>Périmètre</label><input type="text" name="cible3_perimetre" placeholder="ex. 10-15 % (~100 pers.)" data-track></div>
+                        <div class="sub-field"><label>Durée totale</label><input type="text" name="cible3_duree" placeholder="ex. 5 à 10 jours" data-track></div>
+                        <div class="sub-field"><label>Format pédagogique</label>
+                            <select name="cible3_format" data-track>
+                                <option value="">—</option><option>E-learning autonome</option><option>E-learning + ateliers d'équipe</option><option>Présentiel</option><option>Présentiel + accompagnement</option><option>Programme certifiant</option><option>Mix présentiel + distanciel</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="sub-row-3">
+                        <div class="sub-field"><label>Sponsor désigné</label><input type="text" name="cible3_sponsor" placeholder="ex. Directeur métier + DSI" data-track></div>
+                        <div class="sub-field"><label>Budget estimé</label><input type="text" name="cible3_budget" placeholder="ex. 300 k€" data-track></div>
+                        <div class="sub-field"><label>Mode de validation</label><input type="text" name="cible3_validation" placeholder="ex. Cas d'usage présenté comité IA" data-track></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="cible4">
+                <div class="bc-head">
+                    <div class="bc-icon">N4</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">Niveau 4 — Expert technique</div>
+                        <div class="bc-amorce">Construire, déployer, maintenir des systèmes IA en production. Data scientists, MLOps, data engineers.</div>
+                    </div>
+                </div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>2-5 % (~20 pers.), 30+ jours certifiant + partenariats universitaires, sponsor DSI, budget 400 k€, validation par certification externe + projet en prod.</div>
+                <div class="sub-fields">
+                    <div class="sub-row-3">
+                        <div class="sub-field"><label>Périmètre</label><input type="text" name="cible4_perimetre" placeholder="ex. 2-5 % (~20 pers.)" data-track></div>
+                        <div class="sub-field"><label>Durée totale</label><input type="text" name="cible4_duree" placeholder="ex. 30+ jours" data-track></div>
+                        <div class="sub-field"><label>Format pédagogique</label>
+                            <select name="cible4_format" data-track>
+                                <option value="">—</option><option>E-learning autonome</option><option>E-learning + ateliers d'équipe</option><option>Présentiel</option><option>Présentiel + accompagnement</option><option>Programme certifiant</option><option>Mix présentiel + distanciel</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="sub-row-3">
+                        <div class="sub-field"><label>Sponsor désigné</label><input type="text" name="cible4_sponsor" placeholder="ex. DSI" data-track></div>
+                        <div class="sub-field"><label>Budget estimé</label><input type="text" name="cible4_budget" placeholder="ex. 400 k€" data-track></div>
+                        <div class="sub-field"><label>Mode de validation</label><input type="text" name="cible4_validation" placeholder="ex. Certif externe + projet en prod" data-track></div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Section 5: KPI -->
-        <section class="form-section section-alt" id="sec-kpi">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">5</div>
-                    <div class="sec-info">
-                        <h2>KPI de suivi</h2>
-                        <p>Définissez les cibles chiffrées et la fréquence de mesure pour chaque indicateur</p>
+        <section class="section-band form-section" id="calendrier">
+            <div class="section-header">
+                <div class="sec-num">5</div>
+                <div class="sec-info">
+                    <h2>Étape 3 — Calendrier 12 mois</h2>
+                    <p>3 actions par trimestre. Chaque action : libellé + livrable concret + responsable nommé.</p>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="tr1">
+                <div class="bc-head">
+                    <div class="bc-icon">Q1</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">Trimestre 1 — Lancement</div>
+                        <div class="bc-amorce">Mobiliser le COMEX, identifier les ambassadeurs, poser le cadre.</div>
                     </div>
                 </div>
-                <div class="kpi-grid" id="kpiContainer"></div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>1. Assemblée DG (livrable : note d'orientation IA signée DG, responsable : DG). 2. Sensibilisation COMEX + N-1 (livrable : 20 leaders formés, DRH). 3. Identification ambassadeurs (livrable : 25 ambassadeurs nommés, DRH).</div>
+                <div class="sub-fields">
+                    <div class="repeat-block">
+                        <span class="repeat-label">Action #1</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Libellé</label><input type="text" name="tr1_a1_lib" placeholder="ex. Assemblée DG" data-track></div>
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="tr1_a1_liv" placeholder="ex. Note d'orientation IA signée" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="tr1_a1_resp" placeholder="ex. DG" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Action #2</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Libellé</label><input type="text" name="tr1_a2_lib" placeholder="ex. Sensibilisation COMEX + N-1" data-track></div>
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="tr1_a2_liv" placeholder="ex. 20 leaders formés" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="tr1_a2_resp" placeholder="ex. DRH" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Action #3</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Libellé</label><input type="text" name="tr1_a3_lib" placeholder="ex. Identification ambassadeurs" data-track></div>
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="tr1_a3_liv" placeholder="ex. 25 ambassadeurs nommés" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="tr1_a3_resp" placeholder="ex. DRH" data-track></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="tr2">
+                <div class="bc-head">
+                    <div class="bc-icon">Q2</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">Trimestre 2 — Déploiement de masse</div>
+                        <div class="bc-amorce">Sensibilisation de tous, première cohorte praticiens, premier challenge interne.</div>
+                    </div>
+                </div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>1. Déploiement e-learning tous (90 % de complétion à 3 mois, DRH). 2. 1ère cohorte praticiens (40 pers. formées, DSI). 3. Premier challenge interne IA (30 idées soumises, DG).</div>
+                <div class="sub-fields">
+                    <div class="repeat-block">
+                        <span class="repeat-label">Action #1</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Libellé</label><input type="text" name="tr2_a1_lib" placeholder="ex. Déploiement e-learning tous" data-track></div>
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="tr2_a1_liv" placeholder="ex. 90 % de complétion à 3 mois" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="tr2_a1_resp" placeholder="ex. DRH" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Action #2</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Libellé</label><input type="text" name="tr2_a2_lib" placeholder="ex. 1ère cohorte praticiens" data-track></div>
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="tr2_a2_liv" placeholder="ex. 40 pers. formées" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="tr2_a2_resp" placeholder="ex. DSI" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Action #3</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Libellé</label><input type="text" name="tr2_a3_lib" placeholder="ex. Premier challenge interne" data-track></div>
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="tr2_a3_liv" placeholder="ex. 30 idées soumises" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="tr2_a3_resp" placeholder="ex. DG" data-track></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="tr3">
+                <div class="bc-head">
+                    <div class="bc-icon">Q3</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">Trimestre 3 — Accélération</div>
+                        <div class="bc-amorce">Démos quick wins, deuxième cohorte, lancement experts métier.</div>
+                    </div>
+                </div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>1. Démos quick wins (3 cas d'usage présentés, DSI). 2. 2ème cohorte praticiens (40 pers., DSI). 3. Lancement programme expert métier (10 référents identifiés, DRH+DSI).</div>
+                <div class="sub-fields">
+                    <div class="repeat-block">
+                        <span class="repeat-label">Action #1</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Libellé</label><input type="text" name="tr3_a1_lib" placeholder="ex. Démos quick wins" data-track></div>
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="tr3_a1_liv" placeholder="ex. 3 cas d'usage présentés" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="tr3_a1_resp" placeholder="ex. DSI" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Action #2</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Libellé</label><input type="text" name="tr3_a2_lib" placeholder="ex. 2ème cohorte praticiens" data-track></div>
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="tr3_a2_liv" placeholder="ex. 40 pers. supplémentaires" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="tr3_a2_resp" placeholder="ex. DSI" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Action #3</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Libellé</label><input type="text" name="tr3_a3_lib" placeholder="ex. Lancement programme expert métier" data-track></div>
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="tr3_a3_liv" placeholder="ex. 10 référents identifiés" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="tr3_a3_resp" placeholder="ex. DRH+DSI" data-track></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="tr4">
+                <div class="bc-head">
+                    <div class="bc-icon">Q4</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">Trimestre 4 — Bilan & renouvellement</div>
+                        <div class="bc-amorce">Bilan annuel, troisième cohorte, renouvellement des engagements.</div>
+                    </div>
+                </div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>1. Bilan annuel + plan année 2 (présentation COMEX, DG). 2. 3ème cohorte praticiens (50 pers., DSI). 3. Renouvellement engagements (charte v2 signée, DRH).</div>
+                <div class="sub-fields">
+                    <div class="repeat-block">
+                        <span class="repeat-label">Action #1</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Libellé</label><input type="text" name="tr4_a1_lib" placeholder="ex. Bilan annuel + plan an 2" data-track></div>
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="tr4_a1_liv" placeholder="ex. Présentation COMEX" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="tr4_a1_resp" placeholder="ex. DG" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Action #2</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Libellé</label><input type="text" name="tr4_a2_lib" placeholder="ex. 3ème cohorte praticiens" data-track></div>
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="tr4_a2_liv" placeholder="ex. 50 pers. supplémentaires" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="tr4_a2_resp" placeholder="ex. DSI" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">Action #3</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Libellé</label><input type="text" name="tr4_a3_lib" placeholder="ex. Renouvellement engagements" data-track></div>
+                            <div class="sub-field"><label>Livrable concret</label><input type="text" name="tr4_a3_liv" placeholder="ex. Charte v2 signée" data-track></div>
+                            <div class="sub-field"><label>Responsable nommé</label><input type="text" name="tr4_a3_resp" placeholder="ex. DRH" data-track></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-band section-alt form-section" id="kpi">
+            <div class="section-header">
+                <div class="sec-num">6</div>
+                <div class="sec-info">
+                    <h2>Étape 4 — KPI de suivi</h2>
+                    <p>6 KPI maximum. Chacun : nom + cible chiffrée + fréquence + responsable du suivi.</p>
+                </div>
+            </div>
+
+            <div class="block-card" data-block="kpi-block">
+                <div class="bc-head">
+                    <div class="bc-icon">K</div>
+                    <div class="bc-title-block">
+                        <div class="bc-title">6 indicateurs pour piloter l'acculturation</div>
+                        <div class="bc-amorce">Pas de KPI mou : cible chiffrée obligatoire. Un seul responsable nommé par KPI.</div>
+                    </div>
+                </div>
+                <div class="bc-example"><span class="ex-tag">REPÈRE</span>1. Taux complétion sensibilisation (95 % à 6 mois, trimestriel, DRH). 2. Praticiens formés (130 pers. à 12 mois, trimestriel, DSI). 3. Ambassadeurs actifs (25 à 12 mois, semestriel, DRH). 4. NPS interne IA (> 40, semestriel, DG). 5. Cas d'usage soumis (50 idées/an, trimestriel, comité IA). 6. Fréquence d'usage outils IA (40 % cadres / semaine, mensuel, DSI).</div>
+                <div class="sub-fields">
+                    <div class="repeat-block">
+                        <span class="repeat-label">KPI #1</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Nom</label><input type="text" name="kpi1_nom" placeholder="ex. Taux de complétion sensibilisation" data-track></div>
+                            <div class="sub-field"><label>Cible chiffrée + délai</label><input type="text" name="kpi1_cible" placeholder="ex. 95 % à 6 mois" data-track></div>
+                            <div class="sub-field"><label>Fréquence × Responsable</label><input type="text" name="kpi1_freq" placeholder="ex. Trimestriel · DRH" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">KPI #2</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Nom</label><input type="text" name="kpi2_nom" placeholder="ex. Praticiens formés" data-track></div>
+                            <div class="sub-field"><label>Cible chiffrée + délai</label><input type="text" name="kpi2_cible" placeholder="ex. 130 pers. à 12 mois" data-track></div>
+                            <div class="sub-field"><label>Fréquence × Responsable</label><input type="text" name="kpi2_freq" placeholder="ex. Trimestriel · DSI" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">KPI #3</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Nom</label><input type="text" name="kpi3_nom" placeholder="ex. Ambassadeurs actifs" data-track></div>
+                            <div class="sub-field"><label>Cible chiffrée + délai</label><input type="text" name="kpi3_cible" placeholder="ex. 25 actifs à 12 mois" data-track></div>
+                            <div class="sub-field"><label>Fréquence × Responsable</label><input type="text" name="kpi3_freq" placeholder="ex. Semestriel · DRH" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">KPI #4</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Nom</label><input type="text" name="kpi4_nom" placeholder="ex. NPS interne IA" data-track></div>
+                            <div class="sub-field"><label>Cible chiffrée + délai</label><input type="text" name="kpi4_cible" placeholder="ex. > 40 à 12 mois" data-track></div>
+                            <div class="sub-field"><label>Fréquence × Responsable</label><input type="text" name="kpi4_freq" placeholder="ex. Semestriel · DG" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">KPI #5</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Nom</label><input type="text" name="kpi5_nom" placeholder="ex. Cas d'usage soumis" data-track></div>
+                            <div class="sub-field"><label>Cible chiffrée + délai</label><input type="text" name="kpi5_cible" placeholder="ex. 50 idées/an" data-track></div>
+                            <div class="sub-field"><label>Fréquence × Responsable</label><input type="text" name="kpi5_freq" placeholder="ex. Trimestriel · Comité IA" data-track></div>
+                        </div>
+                    </div>
+                    <div class="repeat-block">
+                        <span class="repeat-label">KPI #6</span>
+                        <div class="sub-row-3">
+                            <div class="sub-field"><label>Nom</label><input type="text" name="kpi6_nom" placeholder="ex. Fréquence d'usage outils IA" data-track></div>
+                            <div class="sub-field"><label>Cible chiffrée + délai</label><input type="text" name="kpi6_cible" placeholder="ex. 40 % cadres / semaine" data-track></div>
+                            <div class="sub-field"><label>Fréquence × Responsable</label><input type="text" name="kpi6_freq" placeholder="ex. Mensuel · DSI" data-track></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <div class="submit-band">
-            <button class="btn-submit" onclick="submitAtelier()">
-                <span>Envoyer mon plan</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-            <div class="submit-note">Votre plan est transmis au formateur et conservé pour la suite de la formation</div>
+            <button type="submit" class="btn-submit">📨 Envoyer le plan d'acculturation</button>
+            <p class="submit-note">Auto-envoi vers b.yassmine@ecf-proconduite.com — exploitable en restitution finale</p>
         </div>
-    </div>
+    </form>
 
-    <!-- Results -->
     <div class="results-wrapper" id="resultsWrapper">
         <div class="results-hero">
             <div class="results-inner">
-                <h2 id="resultTitle">Votre plan d'acculturation — Djibouti Telecom</h2>
-                <p class="sub">Voici la synthèse de votre plan d'acculturation. Il alimente la feuille de route 18 mois (module 4).</p>
+                <h2>Plan d'acculturation IA — 12 mois</h2>
+                <p class="sub" id="resSub">Récit + cibles + calendrier + KPI.</p>
             </div>
         </div>
         <div class="review-band">
-            <h3>1. Récit de transformation</h3>
-            <div id="recitResult"></div>
-            <h3>2. Cibles d'acculturation</h3>
-            <div class="result-table" id="ciblesResult"></div>
-            <h3>3. Calendrier 12 mois</h3>
-            <div class="result-quarter-grid" id="calendarResult"></div>
-            <h3>4. KPI de suivi</h3>
-            <div class="result-kpi-grid" id="kpiResult"></div>
+            <h3>Récit — 5 messages-clés</h3>
+            <div id="recitReview"></div>
+            <h3>4 cibles d'acculturation</h3>
+            <div id="ciblesReview"></div>
+            <h3>Calendrier 12 mois</h3>
+            <div id="calReview"></div>
+            <h3>KPI de suivi</h3>
+            <div id="kpiReview"></div>
         </div>
         <div class="footer">
             <div class="footer-inner">
-                <button class="btn-print" onclick="window.print()">Imprimer / PDF</button>
+                <span><strong style="color:var(--ak-black)">Akademia Formation</strong></span>
                 <span class="sep"></span>
-                <span>Akademia Formation — Pro Conduite SAS</span>
+                <span>SIRET 81194469300027</span>
                 <span class="sep"></span>
-                <span>SIRET 81194469300027 · NDA 11910773991</span>
+                <span>NDA 11910773991</span>
+                <button class="btn-print" onclick="window.print()">📄 Imprimer / PDF</button>
             </div>
         </div>
     </div>
 
     <script>
-        // 5 messages-cles
-        var messages = [
-            { id:'urgence', num:1, title:'Pourquoi maintenant ?', prompt:'Urgence stratégique : pourquoi Djibouti Telecom doit y aller maintenant ?' },
-            { id:'vision', num:2, title:'Où allons-nous ?', prompt:'Vision : à quoi ressemble Djibouti Telecom dans 3 ans grâce à l\'IA ?' },
-            { id:'methode', num:3, title:'Comment y allons-nous ?', prompt:'Méthode : 3-4 partis pris (par où on commence, qui pilote, comment on apprend).' },
-            { id:'change', num:4, title:'Qu\'est-ce qui change pour les collaborateurs ?', prompt:'Ce qui change concrètement dans leur quotidien : tâches, outils, autonomie.' },
-            { id:'engagements', num:5, title:'Quels sont nos engagements ?', prompt:'Engagements clairs : pas de licenciement IA, droit à la formation, transparence sur les usages.' }
+        const form = document.getElementById('planForm');
+        const trackedFields = Array.from(document.querySelectorAll('[data-track]'));
+        const TOTAL = trackedFields.length;
+        const progressFill = document.getElementById('progressFill');
+        const sideLinks = document.querySelectorAll('.side-nav a');
+
+        const MESSAGES = [
+            {key:'msg1', icon:'M1', name:'Pourquoi maintenant ?', fields:[{n:'msg1_texte', label:'Message'},{n:'msg1_objection', label:'Épreuve de réalité'}]},
+            {key:'msg2', icon:'M2', name:'Où allons-nous ?', fields:[{n:'msg2_texte', label:'Message'},{n:'msg2_objection', label:'Épreuve de réalité'}]},
+            {key:'msg3', icon:'M3', name:'Comment y allons-nous ?', fields:[{n:'msg3_texte', label:'Message'},{n:'msg3_objection', label:'Épreuve de réalité'}]},
+            {key:'msg4', icon:'M4', name:"Qu'est-ce qui change ?", fields:[{n:'msg4_texte', label:'Message'},{n:'msg4_objection', label:'Épreuve de réalité'}]},
+            {key:'msg5', icon:'M5', name:'Nos engagements', fields:[{n:'msg5_texte', label:'Message'},{n:'msg5_objection', label:'Épreuve de réalité'}]},
         ];
-
-        // 4 cibles
-        var cibles = [
-            { id:'sensi', num:1, title:'Sensibilisation', suggestSuite:'~ 100% des collab. (≈ 800 pers.)', objectif:'Comprendre ce qu\'est l\'IA, ce qu\'elle change, ce qui ne change pas.' },
-            { id:'pratic', num:2, title:'Praticien', suggestSuite:'~ 50-70% des cadres', objectif:'Utiliser l\'IA dans son travail quotidien (rédaction, recherche, analyse).' },
-            { id:'expmet', num:3, title:'Expert métier', suggestSuite:'~ 10-15%', objectif:'Concevoir et piloter des cas d\'usage IA dans son domaine.' },
-            { id:'exptech', num:4, title:'Expert technique', suggestSuite:'~ 2-5%', objectif:'Construire, déployer, maintenir des systèmes IA en production.' }
+        const CIBLES = [
+            {key:'cible1', icon:'N1', name:'Sensibilisation', fields:[{n:'cible1_perimetre',label:'Périmètre'},{n:'cible1_duree',label:'Durée'},{n:'cible1_format',label:'Format'},{n:'cible1_sponsor',label:'Sponsor'},{n:'cible1_budget',label:'Budget'},{n:'cible1_validation',label:'Validation'}]},
+            {key:'cible2', icon:'N2', name:'Praticien', fields:[{n:'cible2_perimetre',label:'Périmètre'},{n:'cible2_duree',label:'Durée'},{n:'cible2_format',label:'Format'},{n:'cible2_sponsor',label:'Sponsor'},{n:'cible2_budget',label:'Budget'},{n:'cible2_validation',label:'Validation'}]},
+            {key:'cible3', icon:'N3', name:'Expert métier', fields:[{n:'cible3_perimetre',label:'Périmètre'},{n:'cible3_duree',label:'Durée'},{n:'cible3_format',label:'Format'},{n:'cible3_sponsor',label:'Sponsor'},{n:'cible3_budget',label:'Budget'},{n:'cible3_validation',label:'Validation'}]},
+            {key:'cible4', icon:'N4', name:'Expert technique', fields:[{n:'cible4_perimetre',label:'Périmètre'},{n:'cible4_duree',label:'Durée'},{n:'cible4_format',label:'Format'},{n:'cible4_sponsor',label:'Sponsor'},{n:'cible4_budget',label:'Budget'},{n:'cible4_validation',label:'Validation'}]},
         ];
-
-        // 4 trimestres
-        var trimestres = [
-            { id:'q1', label:'Trimestre 1', title:'Démarrage', fields:[
-                { id:'q1a', label:'Lancement (assemblée DG)' },
-                { id:'q1b', label:'Sensibilisation comex + N-1' },
-                { id:'q1c', label:'Identification ambassadeurs' }
-            ]},
-            { id:'q2', label:'Trimestre 2', title:'Déploiement', fields:[
-                { id:'q2a', label:'Sensibilisation tous (e-learning)' },
-                { id:'q2b', label:'Démarrage praticien (1ère cohorte)' },
-                { id:'q2c', label:'Premier challenge interne IA' }
-            ]},
-            { id:'q3', label:'Trimestre 3', title:'Approfondissement', fields:[
-                { id:'q3a', label:'Démos quick wins' },
-                { id:'q3b', label:'Praticien (2ème cohorte)' },
-                { id:'q3c', label:'Lancement programme expert métier' }
-            ]},
-            { id:'q4', label:'Trimestre 4', title:'Bilan & renouvellement', fields:[
-                { id:'q4a', label:'Bilan annuel' },
-                { id:'q4b', label:'Praticien (3ème cohorte)' },
-                { id:'q4c', label:'Renouvellement engagements' }
-            ]}
+        const TRIMESTRES = [
+            {key:'tr1', icon:'Q1', name:'Lancement'},
+            {key:'tr2', icon:'Q2', name:'Déploiement'},
+            {key:'tr3', icon:'Q3', name:'Accélération'},
+            {key:'tr4', icon:'Q4', name:'Bilan & renouvellement'},
         ];
-
-        // KPI
-        var kpis = [
-            { id:'kpi1', label:'Taux de complétion sensibilisation (cible : 95% à 6 mois)' },
-            { id:'kpi2', label:'Nombre de praticiens formés (cible à définir)' },
-            { id:'kpi3', label:'Nombre d\'ambassadeurs actifs (cible : 1 / 30-50 collab.)' },
-            { id:'kpi4', label:'NPS interne transformation IA (cible : > 40 à 12 mois)' },
-            { id:'kpi5', label:'Contributions à la bibliothèque interne de cas d\'usage' },
-            { id:'kpi6', label:'Fréquence d\'usage des outils IA déployés' }
+        const KPIS = [
+            {n:'kpi1', label:'KPI 1'},{n:'kpi2', label:'KPI 2'},{n:'kpi3', label:'KPI 3'},
+            {n:'kpi4', label:'KPI 4'},{n:'kpi5', label:'KPI 5'},{n:'kpi6', label:'KPI 6'},
         ];
-
-        // Render messages (recit)
-        var recitContainer = document.getElementById('recitContainer');
-        messages.forEach(function(m) {
-            var html = '<div class="recit-card" id="rcard-' + m.id + '">';
-            html += '<div class="rc-head"><div class="rc-num">' + m.num + '</div><div class="rc-title">' + m.title + '</div></div>';
-            html += '<div class="rc-prompt">' + m.prompt + '</div>';
-            html += '<textarea id="msg-' + m.id + '" placeholder="Votre message-clé en ≤ 50 mots..."></textarea>';
-            html += '<div class="rc-counter" id="cnt-' + m.id + '">0 / 50 mots</div>';
-            html += '</div>';
-            recitContainer.innerHTML += html;
-        });
-
-        // Render cibles
-        var ciblesContainer = document.getElementById('ciblesContainer');
-        cibles.forEach(function(c) {
-            var html = '<div class="cible-row" id="crow-' + c.id + '">';
-            html += '<div class="cible-head">';
-            html += '<div class="ch-left"><div class="ch-num">' + c.num + '</div><div class="ch-title">' + c.title + '</div></div>';
-            html += '<div class="ch-suggest">Suggéré : ' + c.suggestSuite + '</div>';
-            html += '<div class="ch-obj">' + c.objectif + '</div>';
-            html += '</div>';
-            html += '<div class="cible-fields">';
-            html += '<div class="field-card"><label>Périmètre cible (nb pers.)</label><input type="text" id="' + c.id + '-perimetre" placeholder="Ex : 100% (≈ 800 pers.)"></div>';
-            html += '<div class="field-card"><label>Durée</label><input type="text" id="' + c.id + '-duree" placeholder="Ex : 1 jour ou e-learning 4h"></div>';
-            html += '<div class="field-card"><label>Format</label><input type="text" id="' + c.id + '-format" placeholder="Ex : E-learning + ateliers d\'équipe"></div>';
-            html += '</div>';
-            html += '</div>';
-            ciblesContainer.innerHTML += html;
-        });
-
-        // Render calendar
-        var calContainer = document.getElementById('calendarContainer');
-        trimestres.forEach(function(t) {
-            var html = '<div class="quarter-card">';
-            html += '<div class="qc-label">' + t.label + '</div>';
-            html += '<div class="qc-title">' + t.title + '</div>';
-            t.fields.forEach(function(f) {
-                html += '<div class="quarter-field"><label>' + f.label + '</label><input type="text" id="' + f.id + '" placeholder="Sponsor / mois / livrable"></div>';
-            });
-            html += '</div>';
-            calContainer.innerHTML += html;
-        });
-
-        // Render KPI
-        var kpiContainer = document.getElementById('kpiContainer');
-        kpis.forEach(function(k) {
-            var html = '<div class="kpi-card">';
-            html += '<div class="kpi-label">' + k.label + '</div>';
-            html += '<input type="text" id="' + k.id + '" placeholder="Cible chiffrée + fréquence de mesure">';
-            html += '</div>';
-            kpiContainer.innerHTML += html;
-        });
-
-        // Word count + progress for messages
-        messages.forEach(function(m) {
-            var ta = document.getElementById('msg-' + m.id);
-            var cnt = document.getElementById('cnt-' + m.id);
-            ta.addEventListener('input', function() {
-                var words = ta.value.trim().split(/\s+/).filter(function(w){return w.length>0;}).length;
-                cnt.textContent = words + ' / 50 mots';
-                cnt.classList.toggle('over', words > 50);
-                var card = ta.closest('.recit-card');
-                if (ta.value.trim().length > 0) card.classList.add('filled');
-                else card.classList.remove('filled');
-                updateProgress();
-            });
-        });
-
-        // Progress hooks
-        cibles.forEach(function(c) {
-            ['perimetre', 'duree', 'format'].forEach(function(f) {
-                document.getElementById(c.id + '-' + f).addEventListener('input', updateProgress);
-            });
-        });
-        trimestres.forEach(function(t) {
-            t.fields.forEach(function(f) {
-                document.getElementById(f.id).addEventListener('input', updateProgress);
-            });
-        });
-        kpis.forEach(function(k) {
-            document.getElementById(k.id).addEventListener('input', updateProgress);
-        });
 
         function updateProgress() {
-            var total = messages.length + cibles.length + 12 + kpis.length; // 5 msgs + 4 cibles + 12 cal slots + 6 kpis
-            var done = 0;
-            messages.forEach(function(m) {
-                if (document.getElementById('msg-' + m.id).value.trim().length > 0) done++;
-            });
-            cibles.forEach(function(c) {
-                // Une cible compte comme "remplie" si au moins un champ rempli
-                var any = ['perimetre', 'duree', 'format'].some(function(f) {
-                    return document.getElementById(c.id + '-' + f).value.trim().length > 0;
+            let filled = 0;
+            trackedFields.forEach(f => { if (f.value && f.value.trim().length > 0) filled++; });
+            const pct = Math.round((filled / TOTAL) * 100);
+            progressFill.style.width = pct + '%';
+
+            [...MESSAGES, ...CIBLES].forEach(b => {
+                const card = document.querySelector(`[data-block="${b.key}"]`);
+                if (!card) return;
+                const allFilled = b.fields.every(f => {
+                    const el = document.querySelector(`[name="${f.n}"]`);
+                    return el && el.value && el.value.trim().length > 0;
                 });
-                if (any) done++;
+                card.classList.toggle('filled', allFilled);
             });
-            trimestres.forEach(function(t) {
-                t.fields.forEach(function(f) {
-                    if (document.getElementById(f.id).value.trim().length > 0) done++;
-                });
+            TRIMESTRES.forEach(t => {
+                const card = document.querySelector(`[data-block="${t.key}"]`);
+                if (!card) return;
+                let allFilled = true;
+                for (let i = 1; i <= 3 && allFilled; i++) {
+                    ['lib','liv','resp'].forEach(s => {
+                        const el = document.querySelector(`[name="${t.key}_a${i}_${s}"]`);
+                        if (!el || !el.value || el.value.trim().length === 0) allFilled = false;
+                    });
+                }
+                card.classList.toggle('filled', allFilled);
             });
-            kpis.forEach(function(k) {
-                if (document.getElementById(k.id).value.trim().length > 0) done++;
-            });
-            document.getElementById('progressFill').style.width = (done / total * 100) + '%';
+            const kpiCard = document.querySelector('[data-block="kpi-block"]');
+            if (kpiCard) {
+                const allKpi = KPIS.every(k => ['nom','cible','freq'].every(s => {
+                    const el = document.querySelector(`[name="${k.n}_${s}"]`);
+                    return el && el.value && el.value.trim().length > 0;
+                }));
+                kpiCard.classList.toggle('filled', allKpi);
+            }
         }
 
-        // Side nav scroll tracking
-        var sections = ['sec-info','sec-recit','sec-cibles','sec-calendar','sec-kpi'];
-        window.addEventListener('scroll', function() {
-            var scrollY = window.scrollY + 200;
-            var current = '';
-            sections.forEach(function(id) {
-                var el = document.getElementById(id);
-                if (el && el.offsetTop <= scrollY) current = id;
-            });
-            document.querySelectorAll('.side-nav a').forEach(function(a) {
-                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+        document.querySelectorAll('[data-wc]').forEach(el => {
+            const target = document.querySelector(`[data-wc-target="${el.name}"]`);
+            const limit = parseInt(el.dataset.wc);
+            el.addEventListener('input', () => {
+                const words = el.value.trim().split(/\s+/).filter(w => w.length > 0).length;
+                target.textContent = `${words} / ${limit} mots`;
+                target.classList.toggle('over', words > limit);
             });
         });
 
-        function escapeHtml(s) {
-            return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        form.addEventListener('input', updateProgress);
+        form.addEventListener('change', updateProgress);
+
+        const sections = document.querySelectorAll('.form-section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    sideLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+                }
+            });
+        }, { threshold: 0.35 });
+        sections.forEach(s => observer.observe(s));
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(form));
+            buildResults(data);
+            sendEmail(data);
+        });
+
+        function val(d, name) { return (d[name] || '').trim(); }
+
+        function buildResults(data) {
+            const recitDiv = document.getElementById('recitReview');
+            recitDiv.innerHTML = '';
+            MESSAGES.forEach(m => {
+                let html = `<div class="review-card"><div class="rc-name"><span class="rc-icon">${m.icon}</span>${m.name}</div>`;
+                m.fields.forEach(f => {
+                    const v = val(data, f.n);
+                    html += `<div class="rc-pair"><div class="rc-pair-label">${f.label}</div><div class="rc-pair-value${v?'':' empty'}">${v || '— non renseigné —'}</div></div>`;
+                });
+                html += `</div>`;
+                recitDiv.insertAdjacentHTML('beforeend', html);
+            });
+
+            const ciblesDiv = document.getElementById('ciblesReview');
+            ciblesDiv.innerHTML = '';
+            CIBLES.forEach(c => {
+                let html = `<div class="review-card"><div class="rc-name"><span class="rc-icon">${c.icon}</span>${c.name}</div>`;
+                c.fields.forEach(f => {
+                    const v = val(data, f.n);
+                    html += `<div class="rc-pair"><div class="rc-pair-label">${f.label}</div><div class="rc-pair-value${v?'':' empty'}">${v || '— non renseigné —'}</div></div>`;
+                });
+                html += `</div>`;
+                ciblesDiv.insertAdjacentHTML('beforeend', html);
+            });
+
+            const calDiv = document.getElementById('calReview');
+            calDiv.innerHTML = '';
+            TRIMESTRES.forEach(t => {
+                let html = `<div class="review-card"><div class="rc-name"><span class="rc-icon">${t.icon}</span>${t.name}</div>`;
+                for (let i = 1; i <= 3; i++) {
+                    const lib = val(data, `${t.key}_a${i}_lib`);
+                    const liv = val(data, `${t.key}_a${i}_liv`);
+                    const resp = val(data, `${t.key}_a${i}_resp`);
+                    html += `<div class="rc-pair"><div class="rc-pair-label">Action ${i}</div><div class="rc-pair-value${(lib||liv||resp)?'':' empty'}">${lib || '—'}<br><em>Livrable :</em> ${liv || '—'} · <em>Responsable :</em> ${resp || '—'}</div></div>`;
+                }
+                html += `</div>`;
+                calDiv.insertAdjacentHTML('beforeend', html);
+            });
+
+            const kpiDiv = document.getElementById('kpiReview');
+            kpiDiv.innerHTML = '';
+            KPIS.forEach(k => {
+                const nom = val(data, k.n+'_nom'), cible = val(data, k.n+'_cible'), freq = val(data, k.n+'_freq');
+                kpiDiv.insertAdjacentHTML('beforeend', `<div class="review-card"><div class="rc-name">${k.label} — ${nom || 'non nommé'}</div>
+                <div class="rc-pair"><div class="rc-pair-label">Cible</div><div class="rc-pair-value${cible?'':' empty'}">${cible || '— non renseignée —'}</div></div>
+                <div class="rc-pair"><div class="rc-pair-label">Fréquence · Responsable</div><div class="rc-pair-value${freq?'':' empty'}">${freq || '— non renseignée —'}</div></div></div>`);
+            });
+
+            document.getElementById('resSub').textContent = `${data.nom || 'Stagiaire'} — ${data.fonction || 'Fonction'}, ${data.entite || 'Entité'}`;
+            document.getElementById('resultsWrapper').classList.add('visible');
+            document.getElementById('resultsWrapper').scrollIntoView({behavior:'smooth'});
         }
 
-        function submitAtelier() {
-            var stagiaire = document.getElementById('stagiaire').value;
-            if (!stagiaire) { alert('Merci de sélectionner votre nom.'); document.getElementById('stagiaire').focus(); return; }
+        function buildEmailBody(d) {
+            let body = `ATELIER 3 — Plan d'acculturation IA (Djibouti Telecom)\n`;
+            body += `═══════════════════════════════════════════════════\n\n`;
+            body += `Stagiaire : ${d.nom || '—'}\nFonction : ${d.fonction || '—'}\nEntité : ${d.entite || '—'}\n\n`;
+            body += `\n══════ ÉTAPE 1 — RÉCIT (5 messages-clés) ══════\n`;
+            MESSAGES.forEach(m => {
+                body += `\n[${m.icon}] ${m.name}\n  Message: ${val(d, m.fields[0].n) || '—'}\n  Épreuve: ${val(d, m.fields[1].n) || '—'}\n`;
+            });
+            body += `\n\n══════ ÉTAPE 2 — 4 CIBLES D'ACCULTURATION ══════\n`;
+            CIBLES.forEach(c => {
+                body += `\n[${c.icon}] ${c.name}\n`;
+                c.fields.forEach(f => body += `  ${f.label}: ${val(d, f.n) || '—'}\n`);
+            });
+            body += `\n\n══════ ÉTAPE 3 — CALENDRIER 12 MOIS ══════\n`;
+            TRIMESTRES.forEach(t => {
+                body += `\n[${t.icon}] ${t.name}\n`;
+                for (let i = 1; i <= 3; i++) {
+                    const lib = val(d, `${t.key}_a${i}_lib`);
+                    const liv = val(d, `${t.key}_a${i}_liv`);
+                    const resp = val(d, `${t.key}_a${i}_resp`);
+                    body += `  Action ${i}: ${lib || '—'} | Livrable: ${liv || '—'} | Resp: ${resp || '—'}\n`;
+                }
+            });
+            body += `\n\n══════ ÉTAPE 4 — KPI DE SUIVI ══════\n`;
+            KPIS.forEach(k => {
+                body += `\n${k.label}: ${val(d, k.n+'_nom') || '—'}\n  Cible: ${val(d, k.n+'_cible') || '—'}\n  Fréquence · Resp: ${val(d, k.n+'_freq') || '—'}\n`;
+            });
+            body += `\n\n— Akademia Formation · Atelier 3 Plan d'acculturation · 11/05/2026 —\n`;
+            return body;
+        }
 
-            var poste = document.getElementById('poste').value.trim();
-            var date = document.getElementById('date').value;
-
-            // Collect data
-            var recitData = {};
-            messages.forEach(function(m) { recitData[m.title] = document.getElementById('msg-' + m.id).value.trim(); });
-
-            var ciblesData = {};
-            cibles.forEach(function(c) {
-                ciblesData[c.title] = {
-                    perimetre: document.getElementById(c.id + '-perimetre').value.trim(),
-                    duree: document.getElementById(c.id + '-duree').value.trim(),
-                    format: document.getElementById(c.id + '-format').value.trim(),
-                    objectif: c.objectif
+        async function sendEmail(d) {
+            try {
+                const payload = {
+                    _subject: `[Atelier 3 — Plan acculturation] ${d.nom || 'Stagiaire'} (Djibouti Telecom)`,
+                    _template: 'box',
+                    _captcha: 'false',
+                    stagiaire: d.nom || '',
+                    fonction: d.fonction || '',
+                    entite: d.entite || '',
+                    plan_complet: buildEmailBody(d),
                 };
-            });
-
-            var calData = {};
-            trimestres.forEach(function(t) {
-                calData[t.label] = t.fields.map(function(f) {
-                    return { label: f.label, value: document.getElementById(f.id).value.trim() };
+                await fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
+                    method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+                    body: JSON.stringify(payload),
                 });
-            });
-
-            var kpiData = {};
-            kpis.forEach(function(k) { kpiData[k.label] = document.getElementById(k.id).value.trim(); });
-
-            // Build email body
-            var body = 'ATELIER 3 — PLAN D\'ACCULTURATION IA — DJIBOUTI TELECOM\n';
-            body += '========================================================\n\n';
-            body += 'STAGIAIRE : ' + stagiaire + '\n';
-            body += 'POSTE : ' + (poste || '-') + '\n';
-            body += 'DATE : ' + (date || '-') + '\n\n';
-            body += '1. RÉCIT DE TRANSFORMATION (5 MESSAGES-CLÉS)\n';
-            body += '--------------------------------------------\n';
-            messages.forEach(function(m) {
-                body += m.num + '. ' + m.title + '\n';
-                body += (recitData[m.title] || '(non renseigné)') + '\n\n';
-            });
-            body += '2. CIBLES D\'ACCULTURATION\n';
-            body += '-------------------------\n';
-            cibles.forEach(function(c) {
-                var d = ciblesData[c.title];
-                body += '• ' + c.title + '\n';
-                body += '  Périmètre : ' + (d.perimetre || '-') + '\n';
-                body += '  Durée : ' + (d.duree || '-') + '\n';
-                body += '  Format : ' + (d.format || '-') + '\n';
-                body += '  Objectif : ' + c.objectif + '\n\n';
-            });
-            body += '3. CALENDRIER 12 MOIS\n';
-            body += '---------------------\n';
-            trimestres.forEach(function(t) {
-                body += t.label + ' (' + t.title + ')\n';
-                calData[t.label].forEach(function(f) {
-                    body += '  • ' + f.label + ' : ' + (f.value || '-') + '\n';
-                });
-                body += '\n';
-            });
-            body += '4. KPI DE SUIVI\n';
-            body += '---------------\n';
-            kpis.forEach(function(k) {
-                body += '• ' + k.label + '\n';
-                body += '  Cible : ' + (kpiData[k.label] || '-') + '\n\n';
-            });
-            body += '— Plan produit lors de l\'Atelier 3 (Module 3) — alimente la feuille de route 18 mois.\n';
-
-            var subj = 'Atelier 3 (Plan d\'acculturation IA) — ' + stagiaire;
-
-            // FormSubmit payload
-            var payload = {
-                _subject: subj,
-                Atelier: 'Module 3 — Plan d\'acculturation IA',
-                Stagiaire: stagiaire,
-                Poste: poste || '-',
-                Date: date || '-',
-                _template: 'table'
-            };
-            messages.forEach(function(m) {
-                payload['Msg ' + m.num + '. ' + m.title] = recitData[m.title] || '-';
-            });
-            cibles.forEach(function(c) {
-                var d = ciblesData[c.title];
-                payload['Cible ' + c.num + ' - ' + c.title] = 'Périmètre: ' + (d.perimetre || '-') + ' | Durée: ' + (d.duree || '-') + ' | Format: ' + (d.format || '-');
-            });
-            trimestres.forEach(function(t) {
-                calData[t.label].forEach(function(f) {
-                    payload[t.label + ' - ' + f.label] = f.value || '-';
-                });
-            });
-            kpis.forEach(function(k) {
-                payload['KPI ' + k.label.substring(0,40)] = kpiData[k.label] || '-';
-            });
-
-            fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(function(r){return r.json();}).then(function(data){
-                showToast('✅ Plan envoyé au formateur');
-            }).catch(function(err){
-                window.location.href = 'mailto:b.yassmine@ecf-proconduite.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
-            });
-
-            // Show results
-            document.getElementById('formWrapper').style.display = 'none';
-            document.getElementById('sideNav').style.display = 'none';
-            var rw = document.getElementById('resultsWrapper');
-            rw.classList.add('visible');
-
-            var firstName = stagiaire.split(' ')[0];
-            document.getElementById('resultTitle').textContent = firstName + ', votre plan est enregistré';
-
-            // Render recit
-            var recitHtml = '';
-            messages.forEach(function(m) {
-                var v = recitData[m.title];
-                recitHtml += '<div class="result-block">';
-                recitHtml += '<div class="rb-name"><div class="rb-num">' + m.num + '</div>' + escapeHtml(m.title) + '</div>';
-                if (v) recitHtml += '<div class="rb-text">' + escapeHtml(v) + '</div>';
-                else recitHtml += '<div class="rb-empty">Non renseigné.</div>';
-                recitHtml += '</div>';
-            });
-            document.getElementById('recitResult').innerHTML = recitHtml;
-
-            // Render cibles table
-            var ciblesHtml = '<div class="result-table-row header"><div>Niveau</div><div>Périmètre</div><div>Durée</div><div>Format</div></div>';
-            cibles.forEach(function(c) {
-                var d = ciblesData[c.title];
-                ciblesHtml += '<div class="result-table-row">';
-                ciblesHtml += '<div><strong>' + c.title + '</strong></div>';
-                ciblesHtml += '<div>' + escapeHtml(d.perimetre || '—') + '</div>';
-                ciblesHtml += '<div>' + escapeHtml(d.duree || '—') + '</div>';
-                ciblesHtml += '<div>' + escapeHtml(d.format || '—') + '</div>';
-                ciblesHtml += '</div>';
-            });
-            document.getElementById('ciblesResult').innerHTML = ciblesHtml;
-
-            // Render calendar
-            var calHtml = '';
-            trimestres.forEach(function(t) {
-                calHtml += '<div class="result-quarter">';
-                calHtml += '<div class="rq-label">' + t.label + ' — ' + t.title + '</div>';
-                calHtml += '<ul>';
-                calData[t.label].forEach(function(f) {
-                    calHtml += '<li><strong>' + escapeHtml(f.label) + '</strong> : ' + escapeHtml(f.value || '—') + '</li>';
-                });
-                calHtml += '</ul></div>';
-            });
-            document.getElementById('calendarResult').innerHTML = calHtml;
-
-            // Render KPI
-            var kpiHtml = '';
-            kpis.forEach(function(k) {
-                kpiHtml += '<div class="result-kpi">';
-                kpiHtml += '<div class="rk-label">' + escapeHtml(k.label) + '</div>';
-                kpiHtml += '<div class="rk-val">' + escapeHtml(kpiData[k.label] || '—') + '</div>';
-                kpiHtml += '</div>';
-            });
-            document.getElementById('kpiResult').innerHTML = kpiHtml;
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+                document.getElementById('emailToast').classList.add('show');
+                setTimeout(() => document.getElementById('emailToast').classList.remove('show'), 5500);
+            } catch (err) { console.error('Email error', err); }
         }
 
-        function showToast(msg) {
-            var toast = document.getElementById('emailToast');
-            toast.querySelector('span').textContent = msg;
-            toast.classList.add('show');
-            setTimeout(function(){ toast.classList.remove('show'); }, 5000);
-        }
+        updateProgress();
     </script>
 </body>
 </html>
