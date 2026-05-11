@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier 2 — Canvas stratégique IA (Djibouti Telecom) | Akademia Formation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ak-blue: #2563EB;
+            --ak-purple: #7C3AED;
+            --ak-gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+            --ak-gradient-soft: linear-gradient(135deg, rgba(37,99,235,0.06) 0%, rgba(124,58,237,0.06) 100%);
+            --ak-green: #10B981;
+            --ak-turquoise: #06B6D4;
+            --ak-orange: #F97316;
+            --ak-black: #0F172A;
+            --ak-gray-800: #1E293B;
+            --ak-gray-700: #334155;
+            --ak-gray-600: #475569;
+            --ak-gray-500: #64748B;
+            --ak-gray-400: #94A3B8;
+            --ak-gray-300: #CBD5E1;
+            --ak-gray-200: #E5E7EB;
+            --ak-gray-100: #F1F5F9;
+            --ak-gray-50: #F8FAFC;
+            --ak-white: #FFFFFF;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background: var(--ak-white);
+            color: var(--ak-gray-700);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .progress-track { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: var(--ak-gray-100); z-index: 200; }
+        .progress-fill { height: 100%; background: var(--ak-gradient); width: 0%; transition: width 0.4s cubic-bezier(.4,0,.2,1); }
+
+        .side-nav { position: fixed; left: 0; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 2px; padding: 12px 0 12px 16px; }
+        .side-nav a { display: flex; align-items: center; gap: 10px; text-decoration: none; padding: 8px 16px 8px 12px; border-radius: 0 20px 20px 0; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.3px; color: var(--ak-gray-400); transition: all 0.2s; white-space: nowrap; }
+        .side-nav a .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ak-gray-300); flex-shrink: 0; transition: all 0.2s; }
+        .side-nav a:hover, .side-nav a.active { color: var(--ak-blue); background: rgba(37,99,235,0.06); }
+        .side-nav a:hover .dot, .side-nav a.active .dot { background: var(--ak-gradient); box-shadow: 0 0 8px rgba(37,99,235,0.4); }
+
+        /* Hero */
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; background: var(--ak-black); overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; background: var(--ak-gradient); opacity: 0.9; }
+        .hero-pattern { position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 80%, rgba(16,185,129,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(124,58,237,0.2) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(6,182,212,0.1) 0%, transparent 60%); }
+        .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+        .hero-content { position: relative; z-index: 2; width: 100%; padding: 80px 80px 80px 120px; display: grid; grid-template-columns: 1fr 380px; gap: 60px; align-items: center; max-width: 1400px; margin: 0 auto; }
+        .hero-left .pill-atelier { display: inline-block; padding: 6px 16px; border-radius: 100px; background: rgba(16,185,129,0.18); color: #6ee7b7; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 18px; }
+        .hero-left h1 { font-size: 3.2rem; font-weight: 800; color: white; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 16px; }
+        .hero-left h1 .gradient-text { background: linear-gradient(135deg, #a5f3fc, #c4b5fd, #86efac); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-left .subtitle { font-size: 1.1rem; color: rgba(255,255,255,0.75); margin-bottom: 28px; max-width: 540px; line-height: 1.65; }
+        .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+        .hero-tags .tag { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; color: white; font-size: 0.82rem; font-weight: 500; }
+        .hero-right { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; padding: 36px; color: white; }
+        .hero-right h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+        .hero-right ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+        .hero-right ul li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; line-height: 1.5; color: rgba(255,255,255,0.85); }
+        .hero-right ul li .step-num { width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.15); color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.75rem; font-weight: 700; margin-top: 1px; }
+        .hero-right .duration { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.95rem; font-weight: 600; text-align: center; background: linear-gradient(135deg, #a5f3fc, #c4b5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-logo { position: absolute; top: 32px; left: 48px; z-index: 3; display: flex; align-items: center; gap: 12px; }
+        .hero-logo span { font-size: 1.3rem; font-weight: 700; color: white; letter-spacing: -0.5px; }
+        .hero-logo .formation-label { font-size: 0.65rem; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); display: block; margin-top: -2px; }
+        .scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 3; color: rgba(255,255,255,0.4); font-size: 0.75rem; font-weight: 500; display: flex; flex-direction: column; align-items: center; gap: 6px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+
+        /* Sections */
+        .form-section { scroll-margin-top: 20px; }
+        .section-band { padding: 64px 80px 64px 120px; max-width: 1400px; margin: 0 auto; }
+        .section-alt { background: var(--ak-gray-50); }
+        .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
+        .section-header .sec-num { width: 44px; height: 44px; border-radius: 14px; background: var(--ak-gradient); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 700; flex-shrink: 0; }
+        .section-header .sec-info h2 { font-size: 1.5rem; font-weight: 700; color: var(--ak-black); letter-spacing: -0.02em; }
+        .section-header .sec-info p { font-size: 0.88rem; color: var(--ak-gray-500); margin-top: 2px; }
+
+        /* Identity */
+        .identity-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+        .field-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 20px; transition: border-color 0.2s, box-shadow 0.2s; }
+        .field-card:focus-within { border-color: var(--ak-blue); box-shadow: 0 0 0 4px rgba(37,99,235,0.08); }
+        .field-card label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ak-gray-500); margin-bottom: 8px; }
+        .field-card input, .field-card select, .field-card textarea { width: 100%; border: none; font-family: var(--font); font-size: 0.95rem; color: var(--ak-black); background: transparent; outline: none; resize: vertical; }
+        .field-card select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right center; padding-right: 20px; }
+
+        /* Method intro */
+        .method-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+        .method-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 22px; }
+        .method-card .mc-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; color: var(--ak-purple); background: rgba(124,58,237,0.06); padding: 3px 10px; border-radius: 6px; display: inline-block; margin-bottom: 10px; }
+        .method-card h4 { font-size: 1rem; font-weight: 700; color: var(--ak-black); margin-bottom: 4px; }
+        .method-card p { font-size: 0.85rem; color: var(--ak-gray-500); line-height: 1.5; }
+
+        /* Canvas grid: 9 cases en layout 3x3 */
+        .canvas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .canvas-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 22px 24px; transition: all 0.25s; position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 320px; }
+        .canvas-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--ak-gray-100); transition: background 0.3s; }
+        .canvas-card.filled::before { background: var(--ak-gradient); }
+        .canvas-card .cc-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+        .canvas-card .cc-num { width: 30px; height: 30px; border-radius: 8px; background: var(--ak-gradient-soft); color: var(--ak-blue); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; }
+        .canvas-card .cc-title { font-size: 1rem; font-weight: 700; color: var(--ak-black); line-height: 1.3; }
+        .canvas-card .cc-prompt { font-size: 0.82rem; color: var(--ak-gray-500); margin-bottom: 12px; line-height: 1.5; font-style: italic; }
+        .canvas-card .cc-example { background: var(--ak-gray-50); border-left: 3px solid var(--ak-gray-300); padding: 10px 14px; margin-bottom: 14px; border-radius: 6px; font-size: 0.78rem; color: var(--ak-gray-600); line-height: 1.55; }
+        .canvas-card .cc-example .ex-label { font-size: 0.65rem; font-weight: 700; color: var(--ak-purple); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+        .canvas-card textarea { width: 100%; flex: 1; min-height: 90px; resize: vertical; border: 1.5px solid var(--ak-gray-200); border-radius: 10px; padding: 12px 14px; font-family: var(--font); font-size: 0.88rem; color: var(--ak-black); transition: border-color 0.2s; line-height: 1.5; }
+        .canvas-card textarea:focus { border-color: var(--ak-blue); outline: none; }
+
+        /* Synthese */
+        .synthese-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+        .synthese-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 24px 28px; }
+        .synthese-card .sc-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ak-gray-500); margin-bottom: 4px; }
+        .synthese-card .sc-helper { font-size: 0.82rem; color: var(--ak-gray-500); margin-bottom: 12px; line-height: 1.5; }
+        .synthese-card textarea, .synthese-card input { width: 100%; border: 1.5px solid var(--ak-gray-200); border-radius: 10px; padding: 12px 14px; font-family: var(--font); font-size: 0.95rem; color: var(--ak-black); transition: border-color 0.2s; resize: vertical; }
+        .synthese-card textarea:focus, .synthese-card input:focus { border-color: var(--ak-blue); outline: none; }
+
+        /* Submit */
+        .submit-band { text-align: center; padding: 48px 40px; background: var(--ak-gradient-soft); border-top: 1px solid var(--ak-gray-100); }
+        .btn-submit { display: inline-flex; align-items: center; gap: 10px; background: var(--ak-gradient); color: white; border: none; padding: 16px 52px; font-size: 1rem; font-weight: 600; border-radius: 14px; cursor: pointer; font-family: var(--font); transition: transform 0.2s, box-shadow 0.2s; letter-spacing: -0.01em; }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(37,99,235,0.3); }
+        .submit-note { font-size: 0.78rem; color: var(--ak-gray-400); margin-top: 12px; }
+
+        /* Results */
+        .results-wrapper { display: none; }
+        .results-wrapper.visible { display: block; }
+        .results-hero { background: var(--ak-gradient); padding: 64px 80px; position: relative; overflow: hidden; }
+        .results-hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(16,185,129,0.1) 0%, transparent 50%); }
+        .results-inner { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; }
+        .results-inner h2 { font-size: 2rem; font-weight: 800; color: white; margin-bottom: 6px; }
+        .results-inner .sub { color: rgba(255,255,255,0.7); font-size: 0.95rem; max-width: 700px; line-height: 1.6; margin-bottom: 24px; }
+        .vision-banner { background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); padding: 22px 26px; border-radius: 16px; margin-top: 12px; }
+        .vision-banner .vb-label { color: rgba(255,255,255,0.5); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; }
+        .vision-banner .vb-text { color: white; font-size: 1.15rem; font-weight: 600; line-height: 1.55; }
+        .review-band { max-width: 1400px; margin: 0 auto; padding: 48px 80px; }
+        .review-band h3 { font-size: 1.2rem; font-weight: 700; color: var(--ak-black); margin-bottom: 20px; }
+        .canvas-result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .result-canvas-card { background: var(--ak-gray-50); border-radius: 14px; padding: 20px; }
+        .result-canvas-card .rcc-name { font-size: 0.92rem; font-weight: 700; color: var(--ak-black); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .result-canvas-card .rcc-num { width: 24px; height: 24px; border-radius: 6px; background: var(--ak-gradient); color: white; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+        .result-canvas-card .rcc-text { font-size: 0.86rem; color: var(--ak-gray-700); line-height: 1.55; white-space: pre-wrap; }
+        .result-canvas-card .rcc-empty { font-size: 0.82rem; color: var(--ak-gray-400); font-style: italic; }
+        .actions-banner { margin-top: 28px; background: var(--ak-gradient-soft); border-radius: 16px; padding: 26px; border: 1.5px solid rgba(37,99,235,0.15); }
+        .actions-banner h4 { font-size: 1rem; font-weight: 700; color: var(--ak-black); margin-bottom: 12px; }
+        .actions-banner p { font-size: 0.92rem; color: var(--ak-gray-700); line-height: 1.65; white-space: pre-wrap; }
+
+        /* Toast */
+        .email-toast { position: fixed; top: 20px; right: 20px; background: var(--ak-black); color: white; padding: 16px 24px; border-radius: 14px; font-size: 0.88rem; font-weight: 500; display: none; align-items: center; gap: 10px; z-index: 300; box-shadow: 0 20px 50px rgba(0,0,0,0.2); animation: slideIn 0.4s ease; }
+        .email-toast.show { display: flex; }
+        .email-toast .toast-icon { width: 28px; height: 28px; border-radius: 8px; background: rgba(16,185,129,0.2); color: #6ee7b7; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+        /* Footer */
+        .footer { text-align: center; padding: 32px 40px; background: var(--ak-gray-50); border-top: 1px solid var(--ak-gray-100); }
+        .footer-inner { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; }
+        .footer span { font-size: 0.78rem; color: var(--ak-gray-400); }
+        .footer .sep { width: 4px; height: 4px; border-radius: 50%; background: var(--ak-gray-300); }
+        .btn-print { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); color: var(--ak-gray-600); padding: 10px 24px; font-size: 0.82rem; font-weight: 600; border-radius: 10px; cursor: pointer; font-family: var(--font); transition: all 0.15s; }
+        .btn-print:hover { border-color: var(--ak-blue); color: var(--ak-blue); }
+
+        @media (max-width: 1100px) {
+            .hero-content { grid-template-columns: 1fr; padding: 100px 40px 60px; }
+            .hero-right { max-width: 460px; }
+            .section-band { padding: 48px 40px; }
+            .side-nav { display: none; }
+            .identity-grid, .method-grid { grid-template-columns: 1fr 1fr; }
+            .canvas-grid, .canvas-result-grid { grid-template-columns: 1fr 1fr; }
+            .results-hero { padding: 48px 40px; }
+            .review-band { padding: 40px; }
+        }
+        @media (max-width: 640px) {
+            .hero-left h1 { font-size: 2.2rem; }
+            .hero-content { padding: 90px 24px 40px; }
+            .section-band { padding: 36px 20px; }
+            .identity-grid, .method-grid, .canvas-grid, .canvas-result-grid { grid-template-columns: 1fr; }
+            .review-band { padding: 24px 20px; }
+        }
+        @media print {
+            .hero { min-height: auto; }
+            .side-nav, .progress-track, .btn-submit, .btn-print, .scroll-hint, .email-toast { display: none !important; }
+            .canvas-card, .result-canvas-card { break-inside: avoid; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="email-toast" id="emailToast">
+        <div class="toast-icon">&#10003;</div>
+        <span>Canvas envoyé au formateur</span>
+    </div>
+
+    <nav class="side-nav" id="sideNav">
+        <a href="#sec-info" class="active"><span class="dot"></span>Identité</a>
+        <a href="#sec-canvas"><span class="dot"></span>Canvas 9 cases</a>
+        <a href="#sec-synthese"><span class="dot"></span>Synthèse</a>
+    </nav>
+
+    <div id="formWrapper">
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-pattern"></div>
+            <div class="hero-grid"></div>
+
+            <div class="hero-logo">
+                <svg width="40" height="40" viewBox="0 0 80 80">
+                    <defs><linearGradient id="lgHero" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.2)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.08)"/></linearGradient></defs>
+                    <rect width="80" height="80" rx="16" fill="url(#lgHero)"/>
+                    <path d="M 40 20 L 50 50 L 44 50 L 42 44 L 38 44 L 36 50 L 30 50 L 40 20 Z M 40 28 L 38 40 L 42 40 L 40 28 Z" fill="white"/>
+                    <circle cx="55" cy="28" r="6" fill="#10B981" opacity="0.9"/>
+                </svg>
+                <div>
+                    <span>AKADEMIA</span>
+                    <span class="formation-label">Formation</span>
+                </div>
+            </div>
+
+            <div class="hero-content">
+                <div class="hero-left">
+                    <span class="pill-atelier">Atelier · Module 2</span>
+                    <h1>Canvas<br>stratégique<br><span class="gradient-text">IA Djibouti Telecom</span></h1>
+                    <p class="subtitle">Formalisez sur une page la stratégie IA de Djibouti Telecom : vision, leviers, données, compétences, technologies, partenariats, risques, KPI, premiers jalons. C'est le squelette que vous reprendrez dans les modules 3 et 4.</p>
+                    <div class="hero-tags">
+                        <div class="tag"><span>&#9201;</span> 35 minutes</div>
+                        <div class="tag"><span>&#128202;</span> 9 cases stratégiques</div>
+                        <div class="tag"><span>&#127919;</span> Livrable 2 sur 4</div>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <h3>Déroulé de l'atelier</h3>
+                    <ul>
+                        <li><div class="step-num">1</div>Présentation du canvas et logique des 9 cases (10 min · formateur)</li>
+                        <li><div class="step-num">2</div>Remplissage individuel silencieux (15 min)</li>
+                        <li><div class="step-num">3</div>Confrontation et arbitrages entre les deux participants (10 min)</li>
+                    </ul>
+                    <div class="duration">Formation IA &amp; Transformation Digitale · 11 mai 2026</div>
+                </div>
+            </div>
+
+            <div class="scroll-hint">Commencer l'atelier<br>&#8595;</div>
+        </section>
+
+        <!-- Section 1: Identité -->
+        <section class="form-section section-alt" id="sec-info">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">1</div>
+                    <div class="sec-info">
+                        <h2>Votre identité</h2>
+                        <p>Pour personnaliser la restitution et garder une trace de votre canvas</p>
+                    </div>
+                </div>
+                <div class="identity-grid">
+                    <div class="field-card">
+                        <label>Stagiaire *</label>
+                        <select id="stagiaire" required>
+                            <option value="">— Choisir —</option>
+                            <option value="Doualeh YACIN ELMI">Doualeh YACIN ELMI</option>
+                            <option value="Ismaël MOURAD HASSAN">Ismaël MOURAD HASSAN</option>
+                            <option value="autre">Autre (préciser)</option>
+                        </select>
+                    </div>
+                    <div class="field-card">
+                        <label>Poste / Fonction</label>
+                        <input type="text" id="poste" placeholder="Ex : Chef Service OSS, Chef Division PFS">
+                    </div>
+                    <div class="field-card">
+                        <label>Date</label>
+                        <input type="date" id="date" value="2026-05-11">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Méthodologie -->
+        <section class="form-section" id="sec-method">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">2</div>
+                    <div class="sec-info">
+                        <h2>Règles de remplissage</h2>
+                        <p>Quelques principes pour que le canvas tienne la route stratégique</p>
+                    </div>
+                </div>
+                <div class="method-grid">
+                    <div class="method-card">
+                        <span class="mc-num">Règle 1</span>
+                        <h4>3 à 5 éléments par case</h4>
+                        <p>Le canvas est un outil de synthèse. Pas de catalogue exhaustif. On hiérarchise et on arbitre.</p>
+                    </div>
+                    <div class="method-card">
+                        <span class="mc-num">Règle 2</span>
+                        <h4>Cohérence d'ensemble</h4>
+                        <p>Chaque case doit être lisible à la lumière de la vision (case 1). Si une case contredit la vision, il faut trancher.</p>
+                    </div>
+                    <div class="method-card">
+                        <span class="mc-num">Règle 3</span>
+                        <h4>Concret &gt; abstrait</h4>
+                        <p>Préférez « optimisation OPEX réseau » à « efficience opérationnelle ». Si vous ne savez pas dire qui paye et qui consomme, c'est trop flou.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Canvas 9 cases -->
+        <section class="form-section section-alt" id="sec-canvas">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">3</div>
+                    <div class="sec-info">
+                        <h2>Canvas stratégique IA — 9 cases</h2>
+                        <p>Remplissez chaque case avec 3 à 5 éléments synthétiques</p>
+                    </div>
+                </div>
+                <div class="canvas-grid" id="canvasContainer"></div>
+            </div>
+        </section>
+
+        <!-- Section 4: Synthèse -->
+        <section class="form-section" id="sec-synthese">
+            <div class="section-band">
+                <div class="section-header">
+                    <div class="sec-num">4</div>
+                    <div class="sec-info">
+                        <h2>Synthèse stratégique</h2>
+                        <p>Une phrase de vision globale + 3 actions à porter au COMEX dans 90 jours</p>
+                    </div>
+                </div>
+                <div class="synthese-grid">
+                    <div class="synthese-card">
+                        <div class="sc-label">Phrase de vision globale</div>
+                        <div class="sc-helper">En une phrase, formalisez ce que devient Djibouti Telecom à 3 ans grâce à l'IA — c'est l'épine dorsale du canvas.</div>
+                        <textarea id="visionGlobale" rows="3" placeholder="Ex : D'ici 2029, Djibouti Telecom devient l'opérateur le plus efficient de la Corne de l'Afrique grâce à une exploitation systématique de la donnée et de l'IA, avec un OPEX réseau réduit de 15 % et un taux de fraude divisé par 2."></textarea>
+                    </div>
+                    <div class="synthese-card">
+                        <div class="sc-label">3 actions à porter au COMEX dans les 90 prochains jours</div>
+                        <div class="sc-helper">Une action = un livrable concret avec un sponsor identifié. Pas de déclaration d'intention.</div>
+                        <textarea id="actions90j" rows="5" placeholder="1. Validation comex de la vision IA + nomination sponsor exécutif (J+30)&#10;2. Lancement plateforme data v0 + qualification 3 jeux de données critiques (J+60)&#10;3. Recrutement AI product owner + identification 2 ambassadeurs (J+90)"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="submit-band">
+            <button class="btn-submit" onclick="submitAtelier()">
+                <span>Envoyer mon canvas</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <div class="submit-note">Votre canvas est transmis au formateur et conservé pour la suite de la formation</div>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div class="results-wrapper" id="resultsWrapper">
+        <div class="results-hero">
+            <div class="results-inner">
+                <h2 id="resultTitle">Votre canvas stratégique — Djibouti Telecom</h2>
+                <p class="sub" id="resultSub">Voici la synthèse de votre canvas. Le formateur reprend ces inputs en module 3 pour construire le plan d'acculturation et en module 4 pour la feuille de route 18 mois.</p>
+                <div class="vision-banner" id="visionBanner" style="display:none;">
+                    <div class="vb-label">Vision globale</div>
+                    <div class="vb-text" id="visionText"></div>
+                </div>
+            </div>
+        </div>
+        <div class="review-band">
+            <h3>Les 9 cases de votre canvas</h3>
+            <div class="canvas-result-grid" id="canvasResult"></div>
+            <div class="actions-banner" id="actionsBanner" style="display:none;">
+                <h4>3 actions à porter au COMEX (90 jours)</h4>
+                <p id="actionsText"></p>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-inner">
+                <button class="btn-print" onclick="window.print()">Imprimer / PDF</button>
+                <span class="sep"></span>
+                <span>Akademia Formation — Pro Conduite SAS</span>
+                <span class="sep"></span>
+                <span>SIRET 81194469300027 · NDA 11910773991</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Canvas 9 cases data
+        var cases = [
+            {
+                id: 'vision',
+                num: 1,
+                title: 'Vision IA',
+                prompt: 'En une phrase, à quoi sert l\'IA pour Djibouti Telecom à 3 ans ?',
+                example: 'Faire de Djibouti Telecom l\'opérateur le plus efficient et le plus fiable de la Corne de l\'Afrique grâce à une exploitation systématique de la donnée et de l\'IA.'
+            },
+            {
+                id: 'leviers',
+                num: 2,
+                title: 'Leviers de valeur prioritaires',
+                prompt: 'Trois leviers maximum, classés. Précisez : revenu, coût, expérience ou risque ?',
+                example: '1. Optimisation OPEX réseau (coût). 2. Anti-fraude SIM-box / by-pass (risque/revenu). 3. Self-care client (expérience).'
+            },
+            {
+                id: 'donnees',
+                num: 3,
+                title: 'Données critiques',
+                prompt: 'Quelles données seront le carburant des cas d\'usage prioritaires ?',
+                example: 'Supervision OSS, CDR, BSS facturation, parcours self-care digital, base CRM B2B.'
+            },
+            {
+                id: 'competences',
+                num: 4,
+                title: 'Compétences à acquérir',
+                prompt: 'Quels profils manquent pour exécuter la stratégie ?',
+                example: 'AI product owner, 2 data engineers seniors, 1 MLOps, 1 change manager.'
+            },
+            {
+                id: 'techno',
+                num: 5,
+                title: 'Choix technologiques structurants',
+                prompt: 'Build, buy, blend ? Cloud public, privé, hybride ? Modèles propriétaires ou open source ?',
+                example: 'Hybride. Cloud public pour usages génériques, privé pour donnée régulée. Modèles open source affinés sur la donnée locale.'
+            },
+            {
+                id: 'partenariats',
+                num: 6,
+                title: 'Partenariats clés',
+                prompt: 'Avec qui exécuter ? (intégrateur, hyperscaler, université, bailleur)',
+                example: '1 intégrateur régional pour le déploiement, 1 hyperscaler pour la plateforme, 1 partenariat universitaire local pour les talents.'
+            },
+            {
+                id: 'risques',
+                num: 7,
+                title: 'Risques majeurs',
+                prompt: 'Quels sont les 3-5 risques les plus critiques ? (techno, donnée, humain, réglementaire)',
+                example: 'Souveraineté donnée client, dépendance fournisseur, rejet syndical, dette technique IA, qualité donnée OSS.'
+            },
+            {
+                id: 'kpi',
+                num: 8,
+                title: 'KPI de suivi',
+                prompt: 'Comment saurez-vous que la stratégie produit ses effets ?',
+                example: 'Cas d\'usage en production, valeur économique cumulée, OPEX optimisé, taux de fraude détecté, NPS interne IA.'
+            },
+            {
+                id: 'jalons',
+                num: 9,
+                title: 'Premiers jalons (90 jours)',
+                prompt: 'Trois jalons concrets pour démarrer en 90 jours ?',
+                example: '1. Plateforme data v0 + 3 jeux qualifiés. 2. 3 quick wins en production. 3. AI product owner recruté + 2 ambassadeurs identifiés.'
+            }
+        ];
+
+        // Render canvas cards
+        var container = document.getElementById('canvasContainer');
+        cases.forEach(function(c) {
+            var html = '<div class="canvas-card" id="card-' + c.id + '">';
+            html += '<div class="cc-head"><div class="cc-num">' + c.num + '</div><div class="cc-title">' + c.title + '</div></div>';
+            html += '<div class="cc-prompt">' + c.prompt + '</div>';
+            html += '<div class="cc-example"><div class="ex-label">Exemple repère</div>' + c.example + '</div>';
+            html += '<textarea id="case-' + c.id + '" placeholder="Votre réponse pour ' + c.title.toLowerCase() + '..."></textarea>';
+            html += '</div>';
+            container.innerHTML += html;
+        });
+
+        // Track filled state
+        document.querySelectorAll('.canvas-card textarea').forEach(function(ta) {
+            ta.addEventListener('input', function() {
+                var card = ta.closest('.canvas-card');
+                if (ta.value.trim().length > 0) card.classList.add('filled');
+                else card.classList.remove('filled');
+                updateProgress();
+            });
+        });
+
+        document.getElementById('visionGlobale').addEventListener('input', updateProgress);
+        document.getElementById('actions90j').addEventListener('input', updateProgress);
+
+        function updateProgress() {
+            var total = cases.length + 2; // 9 cases + vision + actions
+            var done = 0;
+            cases.forEach(function(c) {
+                if (document.getElementById('case-' + c.id).value.trim().length > 0) done++;
+            });
+            if (document.getElementById('visionGlobale').value.trim().length > 0) done++;
+            if (document.getElementById('actions90j').value.trim().length > 0) done++;
+            document.getElementById('progressFill').style.width = (done / total * 100) + '%';
+        }
+
+        // Side nav scroll tracking
+        var sections = ['sec-info','sec-canvas','sec-synthese'];
+        window.addEventListener('scroll', function() {
+            var scrollY = window.scrollY + 200;
+            var current = '';
+            sections.forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el && el.offsetTop <= scrollY) current = id;
+            });
+            document.querySelectorAll('.side-nav a').forEach(function(a) {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        });
+
+        function submitAtelier() {
+            var stagiaire = document.getElementById('stagiaire').value;
+            if (!stagiaire) { alert('Merci de sélectionner votre nom.'); document.getElementById('stagiaire').focus(); return; }
+
+            var empty = cases.filter(function(c) { return document.getElementById('case-' + c.id).value.trim().length === 0; });
+            if (empty.length > 0) {
+                if (!confirm(empty.length + ' case(s) vide(s). Envoyer quand même ?')) return;
+            }
+
+            var poste = document.getElementById('poste').value.trim();
+            var date = document.getElementById('date').value;
+            var visionGlobale = document.getElementById('visionGlobale').value.trim();
+            var actions90j = document.getElementById('actions90j').value.trim();
+            var canvas = {};
+            cases.forEach(function(c) {
+                canvas[c.title] = document.getElementById('case-' + c.id).value.trim();
+            });
+
+            // Build email body
+            var body = 'ATELIER 2 — CANVAS STRATÉGIQUE IA — DJIBOUTI TELECOM\n';
+            body += '======================================================\n\n';
+            body += 'STAGIAIRE : ' + stagiaire + '\n';
+            body += 'POSTE : ' + (poste || '-') + '\n';
+            body += 'DATE : ' + (date || '-') + '\n\n';
+            body += 'CANVAS — 9 CASES\n';
+            body += '----------------\n';
+            cases.forEach(function(c) {
+                body += c.num + '. ' + c.title.toUpperCase() + '\n';
+                body += (canvas[c.title] || '(non renseignée)') + '\n\n';
+            });
+            body += 'VISION GLOBALE (1 PHRASE)\n';
+            body += '-------------------------\n';
+            body += (visionGlobale || '(non renseignée)') + '\n\n';
+            body += '3 ACTIONS À PORTER AU COMEX (90 JOURS)\n';
+            body += '--------------------------------------\n';
+            body += (actions90j || '(non renseignées)') + '\n\n';
+            body += '— Canvas produit lors de l\'Atelier 2 (Module 2) — utiliser comme input pour les modules 3 et 4.\n';
+
+            var subj = 'Atelier 2 (Canvas stratégique IA) — ' + stagiaire;
+
+            // FormSubmit payload
+            var payload = {
+                _subject: subj,
+                Atelier: 'Module 2 — Canvas stratégique IA',
+                Stagiaire: stagiaire,
+                Poste: poste || '-',
+                Date: date || '-',
+                'Vision globale': visionGlobale || '-',
+                'Actions 90 jours': actions90j || '-',
+                _template: 'table'
+            };
+            cases.forEach(function(c) {
+                payload[c.num + '. ' + c.title] = canvas[c.title] || '-';
+            });
+
+            fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(function(r){return r.json();}).then(function(data){
+                showToast('✅ Canvas envoyé au formateur');
+            }).catch(function(err){
+                window.location.href = 'mailto:b.yassmine@ecf-proconduite.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+            });
+
+            // Show results
+            document.getElementById('formWrapper').style.display = 'none';
+            document.getElementById('sideNav').style.display = 'none';
+            var rw = document.getElementById('resultsWrapper');
+            rw.classList.add('visible');
+
+            // Title
+            var firstName = stagiaire.split(' ')[0];
+            document.getElementById('resultTitle').textContent = firstName + ', votre canvas est enregistré';
+
+            // Vision banner
+            if (visionGlobale) {
+                document.getElementById('visionBanner').style.display = 'block';
+                document.getElementById('visionText').textContent = visionGlobale;
+            }
+
+            // Result grid
+            var grid = '';
+            cases.forEach(function(c) {
+                var content = canvas[c.title];
+                grid += '<div class="result-canvas-card">';
+                grid += '<div class="rcc-name"><div class="rcc-num">' + c.num + '</div>' + c.title + '</div>';
+                if (content) {
+                    grid += '<div class="rcc-text">' + content.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>';
+                } else {
+                    grid += '<div class="rcc-empty">Case non renseignée.</div>';
+                }
+                grid += '</div>';
+            });
+            document.getElementById('canvasResult').innerHTML = grid;
+
+            if (actions90j) {
+                document.getElementById('actionsBanner').style.display = 'block';
+                document.getElementById('actionsText').textContent = actions90j;
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showToast(msg) {
+            var toast = document.getElementById('emailToast');
+            toast.querySelector('span').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(function(){ toast.classList.remove('show'); }, 5000);
+        }
+    </script>
+</body>
+</html>
