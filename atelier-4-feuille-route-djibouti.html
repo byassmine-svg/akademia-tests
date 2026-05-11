@@ -14,7 +14,6 @@
             --ak-green: #10B981;
             --ak-turquoise: #06B6D4;
             --ak-orange: #F97316;
-            --ak-red: #DC2626;
             --ak-black: #0F172A;
             --ak-gray-800: #1E293B;
             --ak-gray-700: #334155;
@@ -28,7 +27,6 @@
             --ak-white: #FFFFFF;
             --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: var(--font); background: var(--ak-white); color: var(--ak-gray-700); line-height: 1.6; overflow-x: hidden; }
 
@@ -41,7 +39,6 @@
         .side-nav a:hover, .side-nav a.active { color: var(--ak-blue); background: rgba(37,99,235,0.06); }
         .side-nav a:hover .dot, .side-nav a.active .dot { background: var(--ak-gradient); box-shadow: 0 0 8px rgba(37,99,235,0.4); }
 
-        /* Hero */
         .hero { position: relative; min-height: 100vh; display: flex; align-items: center; background: var(--ak-black); overflow: hidden; }
         .hero-bg { position: absolute; inset: 0; background: var(--ak-gradient); opacity: 0.9; }
         .hero-pattern { position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 80%, rgba(16,185,129,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(124,58,237,0.2) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(6,182,212,0.1) 0%, transparent 60%); }
@@ -65,7 +62,6 @@
         .scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 3; color: rgba(255,255,255,0.4); font-size: 0.75rem; font-weight: 500; display: flex; flex-direction: column; align-items: center; gap: 6px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
 
-        /* Sections */
         .form-section { scroll-margin-top: 20px; }
         .section-band { padding: 64px 80px 64px 120px; max-width: 1400px; margin: 0 auto; }
         .section-alt { background: var(--ak-gray-50); }
@@ -74,94 +70,90 @@
         .section-header .sec-info h2 { font-size: 1.5rem; font-weight: 700; color: var(--ak-black); letter-spacing: -0.02em; }
         .section-header .sec-info p { font-size: 0.88rem; color: var(--ak-gray-500); margin-top: 2px; }
 
-        /* Identity */
         .identity-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
         .field-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 20px; transition: border-color 0.2s, box-shadow 0.2s; }
         .field-card:focus-within { border-color: var(--ak-blue); box-shadow: 0 0 0 4px rgba(37,99,235,0.08); }
         .field-card label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ak-gray-500); margin-bottom: 8px; }
         .field-card input, .field-card select, .field-card textarea { width: 100%; border: none; font-family: var(--font); font-size: 0.95rem; color: var(--ak-black); background: transparent; outline: none; resize: vertical; }
-        .field-card select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right center; padding-right: 20px; }
 
-        /* Matrice 6 trim x 4 chantiers */
-        .matrix-wrapper { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 18px; overflow-x: auto; }
-        .matrix-table { display: grid; grid-template-columns: 200px repeat(6, 1fr); gap: 8px; min-width: 1100px; }
-        .matrix-cell { background: var(--ak-gray-50); border-radius: 8px; padding: 10px; font-size: 0.78rem; }
-        .matrix-cell.header { background: var(--ak-gradient); color: white; font-weight: 700; text-align: center; padding: 12px 8px; letter-spacing: 0.5px; }
-        .matrix-cell.row-label { background: var(--ak-gradient-soft); font-weight: 700; color: var(--ak-black); padding: 12px 14px; display: flex; flex-direction: column; justify-content: center; }
-        .matrix-cell.row-label .ml-name { font-size: 0.92rem; line-height: 1.3; margin-bottom: 4px; }
-        .matrix-cell.row-label .ml-amorce { font-size: 0.72rem; color: var(--ak-gray-600); font-weight: 400; line-height: 1.4; font-style: italic; }
-        .matrix-cell input { width: 100%; border: 1.5px solid var(--ak-gray-200); border-radius: 6px; padding: 8px 10px; font-family: var(--font); font-size: 0.78rem; color: var(--ak-black); transition: border-color 0.2s; background: var(--ak-white); }
-        .matrix-cell input:focus { border-color: var(--ak-blue); outline: none; }
+        .method-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+        .method-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 18px 20px; }
+        .method-card .mc-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; color: var(--ak-purple); background: rgba(124,58,237,0.06); padding: 3px 10px; border-radius: 6px; display: inline-block; margin-bottom: 10px; }
+        .method-card h4 { font-size: 1rem; font-weight: 700; color: var(--ak-black); margin-bottom: 4px; }
+        .method-card p { font-size: 0.82rem; color: var(--ak-gray-500); line-height: 1.5; }
 
-        /* Budget */
-        .budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .chantier-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 16px; padding: 26px 28px; margin-bottom: 16px; transition: all 0.25s; position: relative; overflow: hidden; }
+        .chantier-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--ak-gray-100); transition: background 0.3s; }
+        .chantier-card.filled::before { background: var(--ak-gradient); }
+        .chantier-card .ch-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 8px; }
+        .chantier-card .ch-icon { width: 38px; height: 38px; border-radius: 10px; background: var(--ak-gradient-soft); color: var(--ak-blue); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0; font-weight: 700; }
+        .chantier-card .ch-title-block { flex: 1; }
+        .chantier-card .ch-title { font-size: 1.1rem; font-weight: 700; color: var(--ak-black); margin-bottom: 4px; }
+        .chantier-card .ch-amorce { font-size: 0.85rem; color: var(--ak-gray-500); line-height: 1.55; }
+        .chantier-card .ch-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0 18px 52px; }
+        .chantier-card .ch-meta .sub-field { background: var(--ak-gradient-soft); padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(37,99,235,0.15); }
+        .chantier-card .ch-meta .sub-field label { color: var(--ak-purple); }
 
-        /* Risks */
-        .risks-table { display: flex; flex-direction: column; gap: 10px; }
-        .risk-row { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 16px 18px; display: grid; grid-template-columns: 30px 2fr 80px 80px 80px 2fr; gap: 10px; align-items: center; }
-        .risk-row.header { background: var(--ak-gradient-soft); font-weight: 700; color: var(--ak-black); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 12px 18px; }
-        .risk-row .r-num { background: var(--ak-gradient); color: white; width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; }
-        .risk-row input { width: 100%; border: 1.5px solid var(--ak-gray-200); border-radius: 8px; padding: 9px 11px; font-family: var(--font); font-size: 0.84rem; color: var(--ak-black); transition: border-color 0.2s; }
-        .risk-row input:focus { border-color: var(--ak-blue); outline: none; }
-        .risk-row input.score { text-align: center; }
-        .crit-cell { text-align: center; font-weight: 700; font-size: 0.95rem; color: var(--ak-gray-500); padding: 9px 11px; border-radius: 8px; background: var(--ak-gray-50); }
-        .crit-cell.low { background: #D1FAE5; color: #065F46; }
-        .crit-cell.med { background: #FEF3C7; color: #92400E; }
-        .crit-cell.high { background: #FEE2E2; color: #B91C1C; }
+        .timeline-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .quarter-cell { background: var(--ak-gray-50); border-radius: 12px; padding: 14px; border: 1px solid var(--ak-gray-200); }
+        .quarter-cell .q-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.8px; color: var(--ak-purple); margin-bottom: 8px; background: rgba(124,58,237,0.08); padding: 3px 10px; border-radius: 6px; display: inline-block; }
+        .quarter-cell .sub-field label { font-size: 0.66rem; }
+        .quarter-cell .sub-field input, .quarter-cell .sub-field textarea { padding: 8px 10px; font-size: 0.82rem; min-height: 50px; }
+        .quarter-cell .sub-field { margin-bottom: 8px; }
 
-        /* Decisions */
-        .decisions-list { display: flex; flex-direction: column; gap: 12px; }
-        .decision-card { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 18px 22px; display: flex; gap: 14px; align-items: flex-start; }
-        .decision-card .dc-num { width: 32px; height: 32px; border-radius: 8px; background: var(--ak-gradient); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
-        .decision-card .dc-content { flex: 1; }
-        .decision-card textarea { width: 100%; min-height: 60px; resize: vertical; border: 1.5px solid var(--ak-gray-200); border-radius: 8px; padding: 10px 12px; font-family: var(--font); font-size: 0.88rem; color: var(--ak-black); transition: border-color 0.2s; }
-        .decision-card textarea:focus { border-color: var(--ak-blue); outline: none; }
-        .decision-card label { display: block; font-size: 0.72rem; font-weight: 600; color: var(--ak-gray-500); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sub-fields { display: grid; gap: 12px; }
+        .sub-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .sub-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        .sub-row-4 { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 12px; }
+        .sub-row-full { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .sub-field { display: flex; flex-direction: column; }
+        .sub-field label { display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-gray-500); margin-bottom: 6px; }
+        .sub-field input, .sub-field textarea, .sub-field select { width: 100%; border: 1.5px solid var(--ak-gray-200); border-radius: 10px; padding: 10px 12px; font-family: var(--font); font-size: 0.88rem; color: var(--ak-black); transition: border-color 0.2s; line-height: 1.5; background: var(--ak-white); }
+        .sub-field textarea { min-height: 70px; resize: vertical; }
+        .sub-field input:focus, .sub-field textarea:focus, .sub-field select:focus { border-color: var(--ak-blue); outline: none; }
+        .sub-field select { cursor: pointer; -webkit-appearance: none; appearance: none; background: var(--ak-white) url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 12px center; padding-right: 28px; }
 
-        /* Submit */
+        .budget-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+        .repeat-block { background: var(--ak-gray-50); border-radius: 12px; padding: 16px 18px; margin-bottom: 10px; border: 1px solid var(--ak-gray-200); }
+        .repeat-block .repeat-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-purple); margin-bottom: 10px; display: inline-block; padding: 2px 10px; background: rgba(124,58,237,0.08); border-radius: 6px; }
+        .crit-display { background: var(--ak-white); border: 1.5px dashed var(--ak-gray-300); border-radius: 10px; padding: 10px 12px; font-size: 0.92rem; font-weight: 700; color: var(--ak-gray-600); text-align: center; }
+        .crit-display.crit-low { color: #065F46; background: #D1FAE5; border-color: #6EE7B7; }
+        .crit-display.crit-med { color: #C2410C; background: #FED7AA; border-color: #FB923C; }
+        .crit-display.crit-high { color: #B91C1C; background: #FEE2E2; border-color: #F87171; }
+
+        .decision-block { background: var(--ak-white); border: 1.5px solid var(--ak-gray-200); border-radius: 14px; padding: 22px 24px; margin-bottom: 12px; }
+        .decision-block .deci-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-purple); margin-bottom: 14px; display: inline-block; padding: 3px 10px; background: rgba(124,58,237,0.08); border-radius: 6px; }
+
         .submit-band { text-align: center; padding: 48px 40px; background: var(--ak-gradient-soft); border-top: 1px solid var(--ak-gray-100); }
         .btn-submit { display: inline-flex; align-items: center; gap: 10px; background: var(--ak-gradient); color: white; border: none; padding: 16px 52px; font-size: 1rem; font-weight: 600; border-radius: 14px; cursor: pointer; font-family: var(--font); transition: transform 0.2s, box-shadow 0.2s; letter-spacing: -0.01em; }
         .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(37,99,235,0.3); }
         .submit-note { font-size: 0.78rem; color: var(--ak-gray-400); margin-top: 12px; }
 
-        /* Results */
         .results-wrapper { display: none; }
         .results-wrapper.visible { display: block; }
         .results-hero { background: var(--ak-gradient); padding: 64px 80px; position: relative; overflow: hidden; }
         .results-hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(16,185,129,0.1) 0%, transparent 50%); }
         .results-inner { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; }
         .results-inner h2 { font-size: 2rem; font-weight: 800; color: white; margin-bottom: 6px; }
-        .results-inner .sub { color: rgba(255,255,255,0.7); font-size: 0.95rem; max-width: 700px; line-height: 1.6; margin-bottom: 24px; }
+        .results-inner .sub { color: rgba(255,255,255,0.7); font-size: 0.95rem; max-width: 700px; line-height: 1.6; }
         .review-band { max-width: 1400px; margin: 0 auto; padding: 48px 80px; }
-        .review-band h3 { font-size: 1.2rem; font-weight: 700; color: var(--ak-black); margin: 28px 0 16px 0; }
+        .review-band h3 { font-size: 1.2rem; font-weight: 700; color: var(--ak-black); margin-bottom: 20px; margin-top: 36px; }
         .review-band h3:first-child { margin-top: 0; }
-        .result-matrix { background: var(--ak-white); border: 1px solid var(--ak-gray-200); border-radius: 12px; padding: 14px; overflow-x: auto; margin-bottom: 18px; }
-        .result-matrix-grid { display: grid; grid-template-columns: 180px repeat(6, 1fr); gap: 6px; min-width: 1000px; font-size: 0.78rem; }
-        .result-matrix-grid .rmg-header { background: var(--ak-gradient); color: white; font-weight: 700; padding: 8px; border-radius: 6px; text-align: center; }
-        .result-matrix-grid .rmg-row-label { background: var(--ak-gradient-soft); font-weight: 700; color: var(--ak-black); padding: 8px 10px; border-radius: 6px; }
-        .result-matrix-grid .rmg-cell { background: var(--ak-gray-50); padding: 8px; border-radius: 6px; color: var(--ak-gray-700); line-height: 1.4; min-height: 48px; }
-        .result-budget { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .result-budget-card { background: var(--ak-gray-50); border-left: 3px solid var(--ak-blue); border-radius: 8px; padding: 12px 14px; }
-        .result-budget-card .rb-l { font-size: 0.78rem; font-weight: 600; color: var(--ak-black); margin-bottom: 3px; }
-        .result-budget-card .rb-v { font-size: 0.86rem; color: var(--ak-gray-700); }
-        .result-risks { background: var(--ak-white); border: 1px solid var(--ak-gray-200); border-radius: 12px; overflow: hidden; }
-        .result-risks-row { display: grid; grid-template-columns: 30px 2fr 60px 60px 70px 2fr; gap: 0; border-bottom: 1px solid var(--ak-gray-100); align-items: center; }
-        .result-risks-row:last-child { border-bottom: none; }
-        .result-risks-row.header { background: var(--ak-gradient-soft); font-weight: 700; color: var(--ak-black); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .result-risks-row > div { padding: 10px 12px; font-size: 0.84rem; color: var(--ak-gray-700); }
-        .result-risks-row > div.center { text-align: center; }
-        .result-decisions { display: flex; flex-direction: column; gap: 10px; }
-        .result-decision { background: var(--ak-gradient-soft); border-radius: 12px; padding: 16px 20px; display: flex; gap: 12px; align-items: flex-start; }
-        .result-decision .rd-num { background: var(--ak-gradient); color: white; width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
-        .result-decision .rd-text { font-size: 0.92rem; color: var(--ak-gray-700); line-height: 1.55; white-space: pre-wrap; }
+        .review-card { background: var(--ak-gray-50); border-radius: 14px; padding: 22px; margin-bottom: 14px; }
+        .review-card .rc-name { font-size: 1rem; font-weight: 700; color: var(--ak-black); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .review-card .rc-name .rc-icon { width: 28px; height: 28px; border-radius: 8px; background: var(--ak-gradient-soft); color: var(--ak-blue); display: inline-flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 700; }
+        .review-card .rc-pair { margin-top: 10px; }
+        .review-card .rc-pair-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ak-gray-500); margin-bottom: 4px; }
+        .review-card .rc-pair-value { font-size: 0.86rem; color: var(--ak-gray-700); line-height: 1.55; white-space: pre-wrap; }
+        .review-card .rc-pair-value.empty { color: var(--ak-gray-400); font-style: italic; }
+        .crit-badge { display: inline-block; padding: 2px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 700; margin-left: 8px; }
 
-        /* Toast */
         .email-toast { position: fixed; top: 20px; right: 20px; background: var(--ak-black); color: white; padding: 16px 24px; border-radius: 14px; font-size: 0.88rem; font-weight: 500; display: none; align-items: center; gap: 10px; z-index: 300; box-shadow: 0 20px 50px rgba(0,0,0,0.2); animation: slideIn 0.4s ease; }
         .email-toast.show { display: flex; }
         .email-toast .toast-icon { width: 28px; height: 28px; border-radius: 8px; background: rgba(16,185,129,0.2); color: #6ee7b7; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
         @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
 
-        /* Footer */
         .footer { text-align: center; padding: 32px 40px; background: var(--ak-gray-50); border-top: 1px solid var(--ak-gray-100); }
         .footer-inner { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; }
         .footer span { font-size: 0.78rem; color: var(--ak-gray-400); }
@@ -174,7 +166,9 @@
             .hero-right { max-width: 460px; }
             .section-band { padding: 48px 40px; }
             .side-nav { display: none; }
-            .identity-grid, .budget-grid, .result-budget { grid-template-columns: 1fr 1fr; }
+            .identity-grid, .method-grid { grid-template-columns: 1fr 1fr; }
+            .sub-row, .sub-row-3, .sub-row-4, .budget-grid, .timeline-grid { grid-template-columns: 1fr; }
+            .chantier-card .ch-meta { grid-template-columns: 1fr; margin-left: 0; }
             .results-hero { padding: 48px 40px; }
             .review-band { padding: 40px; }
         }
@@ -182,539 +176,821 @@
             .hero-left h1 { font-size: 2.2rem; }
             .hero-content { padding: 90px 24px 40px; }
             .section-band { padding: 36px 20px; }
-            .identity-grid, .budget-grid, .result-budget { grid-template-columns: 1fr; }
-            .risk-row, .result-risks-row { grid-template-columns: 1fr; gap: 8px; }
-            .review-band { padding: 24px 20px; }
+            .identity-grid, .method-grid { grid-template-columns: 1fr; }
         }
         @media print {
-            .hero { min-height: auto; }
-            .side-nav, .progress-track, .btn-submit, .btn-print, .scroll-hint, .email-toast { display: none !important; }
-            .matrix-wrapper, .risk-row, .decision-card, .result-matrix { break-inside: avoid; }
             body { background: white; }
+            .progress-track, .side-nav, .submit-band, .footer, .hero, .email-toast { display: none !important; }
+            .results-wrapper { display: block !important; }
+            .results-hero { background: white !important; color: var(--ak-black); padding: 24px; }
+            .results-inner h2, .results-inner .sub { color: var(--ak-black) !important; }
+            .review-band { padding: 24px; }
+            .review-card, .field-card, .chantier-card, .decision-block { break-inside: avoid; page-break-inside: avoid; }
         }
     </style>
 </head>
 <body>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
 
-    <div class="email-toast" id="emailToast">
-        <div class="toast-icon">&#10003;</div>
-        <span>Feuille de route envoyée au formateur</span>
-    </div>
-
     <nav class="side-nav" id="sideNav">
-        <a href="#sec-info" class="active"><span class="dot"></span>Identité</a>
-        <a href="#sec-matrix"><span class="dot"></span>Matrice 18 mois</a>
-        <a href="#sec-budget"><span class="dot"></span>Budget</a>
-        <a href="#sec-risks"><span class="dot"></span>Risques</a>
-        <a href="#sec-decisions"><span class="dot"></span>Décisions</a>
+        <a href="#identity"><span class="dot"></span>Identité</a>
+        <a href="#methode"><span class="dot"></span>Méthode</a>
+        <a href="#matrice"><span class="dot"></span>Matrice 6×4</a>
+        <a href="#budget"><span class="dot"></span>Budget</a>
+        <a href="#risques"><span class="dot"></span>Risques</a>
+        <a href="#decisions"><span class="dot"></span>Décisions</a>
     </nav>
 
-    <div id="formWrapper">
+    <div class="email-toast" id="emailToast">
+        <div class="toast-icon">✓</div>
+        <div>Votre feuille de route a été envoyée à b.yassmine@ecf-proconduite.com</div>
+    </div>
 
-        <!-- Hero -->
-        <section class="hero">
-            <div class="hero-bg"></div>
-            <div class="hero-pattern"></div>
-            <div class="hero-grid"></div>
-
-            <div class="hero-logo">
-                <svg width="40" height="40" viewBox="0 0 80 80">
-                    <defs><linearGradient id="lgHero" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.2)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.08)"/></linearGradient></defs>
-                    <rect width="80" height="80" rx="16" fill="url(#lgHero)"/>
-                    <path d="M 40 20 L 50 50 L 44 50 L 42 44 L 38 44 L 36 50 L 30 50 L 40 20 Z M 40 28 L 38 40 L 42 40 L 40 28 Z" fill="white"/>
-                    <circle cx="55" cy="28" r="6" fill="#10B981" opacity="0.9"/>
-                </svg>
-                <div>
-                    <span>AKADEMIA</span>
-                    <span class="formation-label">Formation</span>
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-pattern"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-logo">
+            <div>
+                <span>Akademia Formation</span>
+                <span class="formation-label">IA & Transformation Digitale</span>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-left">
+                <span class="pill-atelier">ATELIER 4 · MODULE 4</span>
+                <h1>Feuille de route IA <span class="gradient-text">18 mois</span></h1>
+                <p class="subtitle">Synthétiser sur une vue la trajectoire IA de Djibouti Telecom : 6 trimestres × 4 chantiers, budget, risques, et 3 décisions à porter au COMEX.</p>
+                <div class="hero-tags">
+                    <span class="tag">⏱ 35 min</span>
+                    <span class="tag">📋 24 jalons + budget + risques</span>
+                    <span class="tag">🎯 Plan exécutable</span>
                 </div>
             </div>
+            <div class="hero-right">
+                <h3>Comment procéder</h3>
+                <ul>
+                    <li><span class="step-num">1</span><span>Remplir la matrice 6 trim × 4 chantiers (livrable + sponsor par case)</span></li>
+                    <li><span class="step-num">2</span><span>Cadrer le budget total et sa ventilation RH/Techno/Données/Change</span></li>
+                    <li><span class="step-num">3</span><span>Identifier 5 risques majeurs avec P×I et plan de mitigation</span></li>
+                    <li><span class="step-num">4</span><span>Formuler 3 décisions à porter au COMEX dans 30 jours</span></li>
+                </ul>
+                <div class="duration">Travail individuel puis confrontation</div>
+            </div>
+        </div>
+        <div class="scroll-hint">scroll<br>↓</div>
+    </section>
 
-            <div class="hero-content">
-                <div class="hero-left">
-                    <span class="pill-atelier">Atelier · Module 4</span>
-                    <h1>Feuille de<br>route IA<br><span class="gradient-text">18 mois — Djibouti Telecom</span></h1>
-                    <p class="subtitle">Synthétisez sur une vue la trajectoire 18 mois de Djibouti Telecom : 6 trimestres × 4 chantiers, budget indicatif, 5 risques majeurs et 3 décisions à porter au comité exécutif dans 30 jours.</p>
-                    <div class="hero-tags">
-                        <div class="tag"><span>&#9201;</span> 45 minutes</div>
-                        <div class="tag"><span>&#128202;</span> Matrice 6×4 · Budget · Risques · Décisions</div>
-                        <div class="tag"><span>&#127919;</span> Livrable 4 sur 4</div>
-                    </div>
-                </div>
-                <div class="hero-right">
-                    <h3>Déroulé de l'atelier</h3>
-                    <ul>
-                        <li><div class="step-num">1</div>Présentation de la matrice et exemples de jalons (10 min · formateur)</li>
-                        <li><div class="step-num">2</div>Remplissage individuel matrice + risques + décisions (25 min)</li>
-                        <li><div class="step-num">3</div>Confrontation et arbitrages (10 min)</li>
-                    </ul>
-                    <div class="duration">Formation IA &amp; Transformation Digitale · 13 mai 2026</div>
+    <form id="roadmapForm">
+        <section class="section-band form-section" id="identity">
+            <div class="section-header">
+                <div class="sec-num">1</div>
+                <div class="sec-info">
+                    <h2>Identité du stagiaire</h2>
+                    <p>Pour archivage et restitution personnalisée</p>
                 </div>
             </div>
-
-            <div class="scroll-hint">Commencer l'atelier<br>&#8595;</div>
-        </section>
-
-        <!-- Section 1: Identité -->
-        <section class="form-section section-alt" id="sec-info">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">1</div>
-                    <div class="sec-info">
-                        <h2>Votre identité</h2>
-                        <p>Pour personnaliser la restitution et garder une trace de votre feuille de route</p>
-                    </div>
+            <div class="identity-grid">
+                <div class="field-card">
+                    <label for="nom">Nom complet</label>
+                    <input type="text" id="nom" name="nom" placeholder="Doualeh YACIN ELMI" required>
                 </div>
-                <div class="identity-grid">
-                    <div class="field-card">
-                        <label>Stagiaire *</label>
-                        <select id="stagiaire" required>
-                            <option value="">— Choisir —</option>
-                            <option value="Doualeh YACIN ELMI">Doualeh YACIN ELMI</option>
-                            <option value="Ismaël MOURAD HASSAN">Ismaël MOURAD HASSAN</option>
-                            <option value="autre">Autre (préciser)</option>
-                        </select>
-                    </div>
-                    <div class="field-card">
-                        <label>Poste / Fonction</label>
-                        <input type="text" id="poste" placeholder="Ex : Chef Service OSS, Chef Division PFS">
-                    </div>
-                    <div class="field-card">
-                        <label>Date</label>
-                        <input type="date" id="date" value="2026-05-13">
-                    </div>
+                <div class="field-card">
+                    <label for="fonction">Fonction</label>
+                    <input type="text" id="fonction" name="fonction" placeholder="Chef Service OSS" required>
+                </div>
+                <div class="field-card">
+                    <label for="entite">Entité / Direction</label>
+                    <input type="text" id="entite" name="entite" placeholder="DSI Djibouti Telecom" required>
                 </div>
             </div>
         </section>
 
-        <!-- Section 2: Matrice 6 trim x 4 chantiers -->
-        <section class="form-section" id="sec-matrix">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">2</div>
-                    <div class="sec-info">
-                        <h2>Matrice 18 mois — 6 trimestres × 4 chantiers</h2>
-                        <p>Pour chaque case : un livrable concret, pas une intention. Faites court (≤ 8 mots).</p>
-                    </div>
+        <section class="section-band section-alt form-section" id="methode">
+            <div class="section-header">
+                <div class="sec-num">2</div>
+                <div class="sec-info">
+                    <h2>Pourquoi cette feuille de route ?</h2>
+                    <p>Une stratégie sans calendrier est un vœu pieux. Une feuille de route sans sponsor n'a aucune chance d'exister.</p>
                 </div>
-                <div class="matrix-wrapper">
-                    <div class="matrix-table" id="matrixContainer"></div>
+            </div>
+            <div class="method-grid">
+                <div class="method-card">
+                    <span class="mc-num">MATRICE</span>
+                    <h4>24 jalons trimestriels</h4>
+                    <p>6 trimestres × 4 chantiers. Chaque case : un livrable concret + un sponsor nommé.</p>
+                </div>
+                <div class="method-card">
+                    <span class="mc-num">BUDGET</span>
+                    <h4>Cible 50/25/15/10</h4>
+                    <p>RH 50 %, Techno 25 %, Donnée 15 %, Change 10 %. Vous justifierez tout écart.</p>
+                </div>
+                <div class="method-card">
+                    <span class="mc-num">RISQUES</span>
+                    <h4>5 risques scorés P×I</h4>
+                    <p>Probabilité × Impact sur 5. Criticité calculée auto. Mitigation + porteur obligatoires.</p>
+                </div>
+                <div class="method-card">
+                    <span class="mc-num">DÉCISIONS</span>
+                    <h4>3 décisions COMEX 30 jours</h4>
+                    <p>Question + reco + sponsor à porter + délai. Pas de « il faudrait ».</p>
                 </div>
             </div>
         </section>
 
-        <!-- Section 3: Budget -->
-        <section class="form-section section-alt" id="sec-budget">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">3</div>
-                    <div class="sec-info">
-                        <h2>Budget indicatif (18 mois)</h2>
-                        <p>Estimation totale et répartition par chantier — chiffres ordre de grandeur</p>
+        <section class="section-band form-section" id="matrice">
+            <div class="section-header">
+                <div class="sec-num">3</div>
+                <div class="sec-info">
+                    <h2>Matrice 6 trimestres × 4 chantiers</h2>
+                    <p>Pour chaque chantier : KPI synthétique + sponsor global. Pour chaque case trimestrielle : livrable + sponsor.</p>
+                </div>
+            </div>
+
+            <div class="chantier-card" data-chantier="vision">
+                <div class="ch-head">
+                    <div class="ch-icon">C1</div>
+                    <div class="ch-title-block">
+                        <div class="ch-title">Chantier 1 — Vision & gouvernance</div>
+                        <div class="ch-amorce">Stratégie validée, instances opérationnelles, pilotage de la valeur.</div>
                     </div>
                 </div>
-                <div class="budget-grid" id="budgetContainer"></div>
+                <div class="ch-meta">
+                    <div class="sub-field"><label>KPI synthétique du chantier</label><input type="text" name="vision_kpi" placeholder="ex. Cas d'usage approuvés par le comité IA" data-track></div>
+                    <div class="sub-field"><label>Sponsor global du chantier</label><input type="text" name="vision_sponsor" placeholder="ex. DG" data-track></div>
+                </div>
+                <div class="timeline-grid">
+                    <div class="quarter-cell">
+                        <span class="q-label">Q1</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="vision_q1_liv" placeholder="ex. Validation stratégie comex + désignation sponsor" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="vision_q1_resp" placeholder="ex. DG" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q2</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="vision_q2_liv" placeholder="ex. Comité IA (stratégique + portfolio) opérationnel" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="vision_q2_resp" placeholder="ex. DG+DSI" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q3</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="vision_q3_liv" placeholder="ex. Comité éthique IA opérationnel" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="vision_q3_resp" placeholder="ex. DG+Juridique" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q4</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="vision_q4_liv" placeholder="ex. Première revue annuelle + arbitrage" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="vision_q4_resp" placeholder="ex. DG" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q5</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="vision_q5_liv" placeholder="ex. Roadmap V2 année 2 validée" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="vision_q5_resp" placeholder="ex. DG" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q6</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="vision_q6_liv" placeholder="ex. Bilan 18 mois + IA pillarisée plan groupe" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="vision_q6_resp" placeholder="ex. DG" data-track></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chantier-card" data-chantier="data">
+                <div class="ch-head">
+                    <div class="ch-icon">C2</div>
+                    <div class="ch-title-block">
+                        <div class="ch-title">Chantier 2 — Données & technologie</div>
+                        <div class="ch-amorce">Plateforme data, gouvernance, MLOps.</div>
+                    </div>
+                </div>
+                <div class="ch-meta">
+                    <div class="sub-field"><label>KPI synthétique du chantier</label><input type="text" name="data_kpi" placeholder="ex. Jeux de données qualifiés en catalogue" data-track></div>
+                    <div class="sub-field"><label>Sponsor global du chantier</label><input type="text" name="data_sponsor" placeholder="ex. DSI" data-track></div>
+                </div>
+                <div class="timeline-grid">
+                    <div class="quarter-cell">
+                        <span class="q-label">Q1</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="data_q1_liv" placeholder="ex. Plateforme data v0 + 3 jeux qualifiés" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="data_q1_resp" placeholder="ex. DSI" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q2</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="data_q2_liv" placeholder="ex. Catalogue données + data stewards désignés" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="data_q2_resp" placeholder="ex. DSI+métiers" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q3</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="data_q3_liv" placeholder="ex. MLOps v1 + 2 modèles industrialisés" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="data_q3_resp" placeholder="ex. DSI" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q4</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="data_q4_liv" placeholder="ex. Plateforme v1 (10 jeux qualifiés)" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="data_q4_resp" placeholder="ex. DSI" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q5</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="data_q5_liv" placeholder="ex. Self-service data métier (3 directions)" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="data_q5_resp" placeholder="ex. DSI+métiers" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q6</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="data_q6_liv" placeholder="ex. Plateforme v2 (data products industrialisés)" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="data_q6_resp" placeholder="ex. DSI" data-track></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chantier-card" data-chantier="prod">
+                <div class="ch-head">
+                    <div class="ch-icon">C3</div>
+                    <div class="ch-title-block">
+                        <div class="ch-title">Chantier 3 — Produits & cas d'usage</div>
+                        <div class="ch-amorce">Quick wins, gros chantiers, déploiements en production.</div>
+                    </div>
+                </div>
+                <div class="ch-meta">
+                    <div class="sub-field"><label>KPI synthétique du chantier</label><input type="text" name="prod_kpi" placeholder="ex. Cas d'usage en production + valeur captée" data-track></div>
+                    <div class="sub-field"><label>Sponsor global du chantier</label><input type="text" name="prod_sponsor" placeholder="ex. DSI+métiers" data-track></div>
+                </div>
+                <div class="timeline-grid">
+                    <div class="quarter-cell">
+                        <span class="q-label">Q1</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="prod_q1_liv" placeholder="ex. 3 quick wins en prod (assist rédac, classification tickets, traduction)" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="prod_q1_resp" placeholder="ex. DSI" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q2</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="prod_q2_liv" placeholder="ex. Lancement chantier OPEX réseau" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="prod_q2_resp" placeholder="ex. OSS+DSI" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q3</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="prod_q3_liv" placeholder="ex. Lancement chantier anti-fraude (POC)" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="prod_q3_resp" placeholder="ex. PFS+DSI" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q4</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="prod_q4_liv" placeholder="ex. Anti-fraude en production" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="prod_q4_resp" placeholder="ex. PFS+DSI" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q5</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="prod_q5_liv" placeholder="ex. OPEX réseau optimisé en prod (-5 %)" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="prod_q5_resp" placeholder="ex. OSS+DSI" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q6</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="prod_q6_liv" placeholder="ex. Self-care client v2 (-25 % appels SAV)" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="prod_q6_resp" placeholder="ex. Relation client+DSI" data-track></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chantier-card" data-chantier="people">
+                <div class="ch-head">
+                    <div class="ch-icon">C4</div>
+                    <div class="ch-title-block">
+                        <div class="ch-title">Chantier 4 — Compétences & change</div>
+                        <div class="ch-amorce">Acculturation, ambassadeurs, programme de montée en compétences.</div>
+                    </div>
+                </div>
+                <div class="ch-meta">
+                    <div class="sub-field"><label>KPI synthétique du chantier</label><input type="text" name="people_kpi" placeholder="ex. Praticiens formés + NPS interne IA" data-track></div>
+                    <div class="sub-field"><label>Sponsor global du chantier</label><input type="text" name="people_sponsor" placeholder="ex. DRH+DSI" data-track></div>
+                </div>
+                <div class="timeline-grid">
+                    <div class="quarter-cell">
+                        <span class="q-label">Q1</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="people_q1_liv" placeholder="ex. Assemblée DG + identification ambassadeurs" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="people_q1_resp" placeholder="ex. DG+DRH" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q2</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="people_q2_liv" placeholder="ex. Sensibilisation tous + 1ère cohorte praticiens" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="people_q2_resp" placeholder="ex. DRH+DSI" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q3</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="people_q3_liv" placeholder="ex. 2ème cohorte praticiens + lancement experts métier" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="people_q3_resp" placeholder="ex. DRH+DSI" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q4</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="people_q4_liv" placeholder="ex. 3ème cohorte praticiens + bilan annuel" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="people_q4_resp" placeholder="ex. DRH+DSI" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q5</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="people_q5_liv" placeholder="ex. Programme expert technique + partenariat université" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="people_q5_resp" placeholder="ex. DRH+DSI" data-track></div>
+                    </div>
+                    <div class="quarter-cell">
+                        <span class="q-label">Q6</span>
+                        <div class="sub-field"><label>Livrable</label><textarea name="people_q6_liv" placeholder="ex. Centre d'excellence IA opérationnel" data-track></textarea></div>
+                        <div class="sub-field"><label>Sponsor</label><input type="text" name="people_q6_resp" placeholder="ex. DSI" data-track></div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Section 4: Risques -->
-        <section class="form-section" id="sec-risks">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">4</div>
-                    <div class="sec-info">
-                        <h2>5 risques majeurs</h2>
-                        <p>Probabilité (1-5) × Impact (1-5) = Criticité. Mitigation concrète pour chaque ligne.</p>
-                    </div>
+        <section class="section-band section-alt form-section" id="budget">
+            <div class="section-header">
+                <div class="sec-num">4</div>
+                <div class="sec-info">
+                    <h2>Budget indicatif 18 mois</h2>
+                    <p>Cible structurelle : RH 50 % · Techno 25 % · Donnée 15 % · Change 10 %. Tout écart doit être justifié.</p>
                 </div>
-                <div class="risks-table" id="risksContainer">
-                    <div class="risk-row header">
-                        <div></div>
-                        <div>Risque</div>
-                        <div style="text-align:center;">Prob.</div>
-                        <div style="text-align:center;">Impact</div>
-                        <div style="text-align:center;">Criticité</div>
-                        <div>Mitigation</div>
+            </div>
+            <div class="chantier-card" data-chantier="budget">
+                <div class="sub-fields">
+                    <div class="sub-row">
+                        <div class="sub-field"><label>Budget total 18 mois (estimation)</label><input type="text" name="budget_total" placeholder="ex. 6 M€" data-track></div>
+                        <div class="sub-field"><label>Sources de financement envisagées</label><input type="text" name="budget_sources" placeholder="ex. Autofinancement + bailleur BAD + crédit hyperscaler" data-track></div>
+                    </div>
+                    <div class="budget-grid">
+                        <div class="sub-field"><label>RH (cible 50 %)</label><input type="text" name="budget_rh" placeholder="ex. 3 M€" data-track></div>
+                        <div class="sub-field"><label>Technologie (cible 25 %)</label><input type="text" name="budget_techno" placeholder="ex. 1,5 M€" data-track></div>
+                        <div class="sub-field"><label>Donnée (cible 15 %)</label><input type="text" name="budget_donnee" placeholder="ex. 900 k€" data-track></div>
+                    </div>
+                    <div class="budget-grid">
+                        <div class="sub-field"><label>Change management (cible 10 %)</label><input type="text" name="budget_change" placeholder="ex. 600 k€" data-track></div>
+                        <div class="sub-field" style="grid-column: span 2"><label>Justification d'un éventuel écart</label><input type="text" name="budget_just" placeholder="ex. Surpondérer Change à 15 % vu la résistance attendue côté terrain" data-track></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 5: Décisions -->
-        <section class="form-section section-alt" id="sec-decisions">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">5</div>
-                    <div class="sec-info">
-                        <h2>3 décisions à porter au COMEX (30 jours)</h2>
-                        <p>Une décision = une question à arbitrer + une recommandation argumentée + un sponsor</p>
+        <section class="section-band form-section" id="risques">
+            <div class="section-header">
+                <div class="sec-num">5</div>
+                <div class="sec-info">
+                    <h2>5 risques majeurs</h2>
+                    <p>Probabilité × Impact (1-5 chacun) — criticité = P × I, code couleur automatique. Mitigation + porteur obligatoires.</p>
+                </div>
+            </div>
+
+            <div class="chantier-card" data-chantier="risques">
+                <div class="sub-fields">
+                    <div class="repeat-block" data-risk="1">
+                        <span class="repeat-label">Risque #1</span>
+                        <div class="sub-row-4">
+                            <div class="sub-field"><label>Description</label><input type="text" name="risque1_desc" placeholder="ex. Souveraineté donnée client" data-track></div>
+                            <div class="sub-field"><label>Nature</label>
+                                <select name="risque1_nature" data-track>
+                                    <option value="">—</option><option>Technologique</option><option>Données</option><option>Humain</option><option>Réglementaire</option><option>Financier</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Probabilité (1-5)</label>
+                                <select name="risque1_p" data-track data-crit="1">
+                                    <option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Impact (1-5)</label>
+                                <select name="risque1_i" data-track data-crit="1">
+                                    <option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="sub-row" style="margin-top: 10px">
+                            <div class="sub-field"><label>Mitigation</label><textarea name="risque1_mit" placeholder="ex. Données client hébergées en privé + chiffrement + audit régulateur" data-track></textarea></div>
+                            <div class="sub-field"><label>Porteur de la mitigation</label><input type="text" name="risque1_porteur" placeholder="ex. DSI + Juridique" data-track></div>
+                        </div>
+                        <div class="crit-display" id="crit1">Criticité : — (P × I)</div>
+                    </div>
+
+                    <div class="repeat-block" data-risk="2">
+                        <span class="repeat-label">Risque #2</span>
+                        <div class="sub-row-4">
+                            <div class="sub-field"><label>Description</label><input type="text" name="risque2_desc" placeholder="ex. Dépendance hyperscaler" data-track></div>
+                            <div class="sub-field"><label>Nature</label>
+                                <select name="risque2_nature" data-track>
+                                    <option value="">—</option><option>Technologique</option><option>Données</option><option>Humain</option><option>Réglementaire</option><option>Financier</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Probabilité (1-5)</label>
+                                <select name="risque2_p" data-track data-crit="2">
+                                    <option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Impact (1-5)</label>
+                                <select name="risque2_i" data-track data-crit="2">
+                                    <option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="sub-row" style="margin-top: 10px">
+                            <div class="sub-field"><label>Mitigation</label><textarea name="risque2_mit" placeholder="ex. Stratégie multi-cloud + clauses de réversibilité contrat" data-track></textarea></div>
+                            <div class="sub-field"><label>Porteur de la mitigation</label><input type="text" name="risque2_porteur" placeholder="ex. DSI" data-track></div>
+                        </div>
+                        <div class="crit-display" id="crit2">Criticité : — (P × I)</div>
+                    </div>
+
+                    <div class="repeat-block" data-risk="3">
+                        <span class="repeat-label">Risque #3</span>
+                        <div class="sub-row-4">
+                            <div class="sub-field"><label>Description</label><input type="text" name="risque3_desc" placeholder="ex. Rejet syndical" data-track></div>
+                            <div class="sub-field"><label>Nature</label>
+                                <select name="risque3_nature" data-track>
+                                    <option value="">—</option><option>Technologique</option><option>Données</option><option>Humain</option><option>Réglementaire</option><option>Financier</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Probabilité (1-5)</label>
+                                <select name="risque3_p" data-track data-crit="3">
+                                    <option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Impact (1-5)</label>
+                                <select name="risque3_i" data-track data-crit="3">
+                                    <option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="sub-row" style="margin-top: 10px">
+                            <div class="sub-field"><label>Mitigation</label><textarea name="risque3_mit" placeholder="ex. Engagement non-licenciement + dialogue social mensuel" data-track></textarea></div>
+                            <div class="sub-field"><label>Porteur de la mitigation</label><input type="text" name="risque3_porteur" placeholder="ex. DRH + DG" data-track></div>
+                        </div>
+                        <div class="crit-display" id="crit3">Criticité : — (P × I)</div>
+                    </div>
+
+                    <div class="repeat-block" data-risk="4">
+                        <span class="repeat-label">Risque #4</span>
+                        <div class="sub-row-4">
+                            <div class="sub-field"><label>Description</label><input type="text" name="risque4_desc" placeholder="ex. Qualité donnée OSS insuffisante" data-track></div>
+                            <div class="sub-field"><label>Nature</label>
+                                <select name="risque4_nature" data-track>
+                                    <option value="">—</option><option>Technologique</option><option>Données</option><option>Humain</option><option>Réglementaire</option><option>Financier</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Probabilité (1-5)</label>
+                                <select name="risque4_p" data-track data-crit="4">
+                                    <option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Impact (1-5)</label>
+                                <select name="risque4_i" data-track data-crit="4">
+                                    <option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="sub-row" style="margin-top: 10px">
+                            <div class="sub-field"><label>Mitigation</label><textarea name="risque4_mit" placeholder="ex. Chantier qualification 3 jeux critiques en Q1 + data stewards Q2" data-track></textarea></div>
+                            <div class="sub-field"><label>Porteur de la mitigation</label><input type="text" name="risque4_porteur" placeholder="ex. OSS + DSI" data-track></div>
+                        </div>
+                        <div class="crit-display" id="crit4">Criticité : — (P × I)</div>
+                    </div>
+
+                    <div class="repeat-block" data-risk="5">
+                        <span class="repeat-label">Risque #5</span>
+                        <div class="sub-row-4">
+                            <div class="sub-field"><label>Description</label><input type="text" name="risque5_desc" placeholder="ex. Pénurie talents data en local" data-track></div>
+                            <div class="sub-field"><label>Nature</label>
+                                <select name="risque5_nature" data-track>
+                                    <option value="">—</option><option>Technologique</option><option>Données</option><option>Humain</option><option>Réglementaire</option><option>Financier</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Probabilité (1-5)</label>
+                                <select name="risque5_p" data-track data-crit="5">
+                                    <option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                                </select>
+                            </div>
+                            <div class="sub-field"><label>Impact (1-5)</label>
+                                <select name="risque5_i" data-track data-crit="5">
+                                    <option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="sub-row" style="margin-top: 10px">
+                            <div class="sub-field"><label>Mitigation</label><textarea name="risque5_mit" placeholder="ex. Partenariat université + 10 alternants/an + 1 recrutement diaspora" data-track></textarea></div>
+                            <div class="sub-field"><label>Porteur de la mitigation</label><input type="text" name="risque5_porteur" placeholder="ex. DRH" data-track></div>
+                        </div>
+                        <div class="crit-display" id="crit5">Criticité : — (P × I)</div>
                     </div>
                 </div>
-                <div class="decisions-list" id="decisionsContainer"></div>
+            </div>
+        </section>
+
+        <section class="section-band section-alt form-section" id="decisions">
+            <div class="section-header">
+                <div class="sec-num">6</div>
+                <div class="sec-info">
+                    <h2>3 décisions à porter au COMEX</h2>
+                    <p>Question posée + recommandation + sponsor à porter + délai. Pas de « il faudrait ».</p>
+                </div>
+            </div>
+
+            <div class="decision-block" data-deci="1">
+                <span class="deci-label">Décision N°1 (la plus urgente)</span>
+                <div class="sub-fields">
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Question posée au COMEX</label><textarea name="deci1_question" placeholder="ex. Validons-nous le budget pluriannuel IA de 6 M€ sur 18 mois et la désignation d'un sponsor exécutif ?" data-track></textarea></div>
+                    </div>
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Recommandation portée par l'équipe</label><textarea name="deci1_reco" placeholder="ex. Oui — validation budget complet, sponsor = Directeur Général" data-track></textarea></div>
+                    </div>
+                    <div class="sub-row">
+                        <div class="sub-field"><label>Qui porte la décision ?</label><input type="text" name="deci1_qui" placeholder="ex. DSI + DAF" data-track></div>
+                        <div class="sub-field"><label>Délai max pour décider</label>
+                            <select name="deci1_delai" data-track>
+                                <option value="">—</option><option>15 jours</option><option>30 jours</option><option>60 jours</option><option>90 jours</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="decision-block" data-deci="2">
+                <span class="deci-label">Décision N°2</span>
+                <div class="sub-fields">
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Question posée au COMEX</label><textarea name="deci2_question" placeholder="ex. Lançons-nous le RFP plateforme data + AI Product Owner d'ici fin du trimestre ?" data-track></textarea></div>
+                    </div>
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Recommandation portée par l'équipe</label><textarea name="deci2_reco" placeholder="ex. Oui — lancement immédiat, sélection au plus tard Q+1" data-track></textarea></div>
+                    </div>
+                    <div class="sub-row">
+                        <div class="sub-field"><label>Qui porte la décision ?</label><input type="text" name="deci2_qui" placeholder="ex. DSI" data-track></div>
+                        <div class="sub-field"><label>Délai max pour décider</label>
+                            <select name="deci2_delai" data-track>
+                                <option value="">—</option><option>15 jours</option><option>30 jours</option><option>60 jours</option><option>90 jours</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="decision-block" data-deci="3">
+                <span class="deci-label">Décision N°3</span>
+                <div class="sub-fields">
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Question posée au COMEX</label><textarea name="deci3_question" placeholder="ex. Adoptons-nous une charte éthique IA + souveraineté donnée client avant déploiement ?" data-track></textarea></div>
+                    </div>
+                    <div class="sub-row-full">
+                        <div class="sub-field"><label>Recommandation portée par l'équipe</label><textarea name="deci3_reco" placeholder="ex. Oui — charte rédigée + validée comité éthique avant tout déploiement client" data-track></textarea></div>
+                    </div>
+                    <div class="sub-row">
+                        <div class="sub-field"><label>Qui porte la décision ?</label><input type="text" name="deci3_qui" placeholder="ex. DSI + Juridique" data-track></div>
+                        <div class="sub-field"><label>Délai max pour décider</label>
+                            <select name="deci3_delai" data-track>
+                                <option value="">—</option><option>15 jours</option><option>30 jours</option><option>60 jours</option><option>90 jours</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <div class="submit-band">
-            <button class="btn-submit" onclick="submitAtelier()">
-                <span>Envoyer ma feuille de route</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-            <div class="submit-note">Votre feuille de route est transmise au formateur — synthèse finale de la formation</div>
+            <button type="submit" class="btn-submit">📨 Envoyer la feuille de route</button>
+            <p class="submit-note">Auto-envoi vers b.yassmine@ecf-proconduite.com — exploitable en restitution finale</p>
         </div>
-    </div>
+    </form>
 
-    <!-- Results -->
     <div class="results-wrapper" id="resultsWrapper">
         <div class="results-hero">
             <div class="results-inner">
-                <h2 id="resultTitle">Votre feuille de route 18 mois — Djibouti Telecom</h2>
-                <p class="sub">Synthèse finale des 4 ateliers. Cette feuille de route consolide diagnostic, canvas stratégique et plan d'acculturation en une trajectoire opérationnelle 18 mois.</p>
+                <h2>Feuille de route IA — 18 mois</h2>
+                <p class="sub" id="resSub">Matrice + budget + risques + décisions COMEX. Plan exécutable.</p>
             </div>
         </div>
         <div class="review-band">
-            <h3>Matrice 18 mois — 6 trimestres × 4 chantiers</h3>
-            <div class="result-matrix">
-                <div class="result-matrix-grid" id="matrixResult"></div>
-            </div>
-            <h3>Budget indicatif</h3>
-            <div class="result-budget" id="budgetResult"></div>
+            <h3>Matrice 6 trimestres × 4 chantiers</h3>
+            <div id="matriceReview"></div>
+            <h3>Budget 18 mois</h3>
+            <div id="budgetReview"></div>
             <h3>5 risques majeurs</h3>
-            <div class="result-risks" id="risksResult"></div>
-            <h3>3 décisions à porter au COMEX (30 jours)</h3>
-            <div class="result-decisions" id="decisionsResult"></div>
+            <div id="risquesReview"></div>
+            <h3>3 décisions à porter au COMEX</h3>
+            <div id="decisionsReview"></div>
         </div>
         <div class="footer">
             <div class="footer-inner">
-                <button class="btn-print" onclick="window.print()">Imprimer / PDF</button>
+                <span><strong style="color:var(--ak-black)">Akademia Formation</strong></span>
                 <span class="sep"></span>
-                <span>Akademia Formation — Pro Conduite SAS</span>
+                <span>SIRET 81194469300027</span>
                 <span class="sep"></span>
-                <span>SIRET 81194469300027 · NDA 11910773991</span>
+                <span>NDA 11910773991</span>
+                <button class="btn-print" onclick="window.print()">📄 Imprimer / PDF</button>
             </div>
         </div>
     </div>
 
     <script>
-        // 4 chantiers
-        var chantiers = [
-            { id:'vision', name:'Vision & gouvernance', amorce:'Stratégie, instances, pilotage de la valeur.' },
-            { id:'data', name:'Données & technologie', amorce:'Plateforme data, gouvernance, MLOps.' },
-            { id:'produits', name:'Produits & cas d\'usage', amorce:'Quick wins, gros chantiers, déploiements.' },
-            { id:'people', name:'Compétences & change', amorce:'Acculturation, ambassadeurs, montée en compétences.' }
+        const form = document.getElementById('roadmapForm');
+        const trackedFields = Array.from(document.querySelectorAll('[data-track]'));
+        const TOTAL = trackedFields.length;
+        const progressFill = document.getElementById('progressFill');
+        const sideLinks = document.querySelectorAll('.side-nav a');
+
+        const CHANTIERS = [
+            {key:'vision', icon:'C1', name:'Vision & gouvernance'},
+            {key:'data', icon:'C2', name:'Données & technologie'},
+            {key:'prod', icon:'C3', name:'Produits & cas d\'usage'},
+            {key:'people', icon:'C4', name:'Compétences & change'},
         ];
-
-        // 6 trimestres
-        var trimestres = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6'];
-
-        // Budget lines
-        var budgetLines = [
-            { id:'budget-total', label:'Budget total 18 mois (estimation)', placeholder:'Ex : 8 M USD' },
-            { id:'budget-rh', label:'RH (cible 50 %)', placeholder:'Ex : 4 M USD — 50 %' },
-            { id:'budget-techno', label:'Technologie (cible 25 %)', placeholder:'Ex : 2 M USD — 25 %' },
-            { id:'budget-data', label:'Donnée (cible 15 %)', placeholder:'Ex : 1,2 M USD — 15 %' },
-            { id:'budget-change', label:'Change management (cible 10 %)', placeholder:'Ex : 0,8 M USD — 10 %' },
-            { id:'budget-sources', label:'Sources de financement envisagées', placeholder:'Budget interne, BAD, AFD, partenaires industriels' }
-        ];
-
-        // Render matrice
-        var matrixContainer = document.getElementById('matrixContainer');
-        // Header row
-        var html = '<div class="matrix-cell header">Chantier ↓ / Trimestre →</div>';
-        trimestres.forEach(function(t) { html += '<div class="matrix-cell header">' + t + '</div>'; });
-        // 4 rows
-        chantiers.forEach(function(c) {
-            html += '<div class="matrix-cell row-label"><div class="ml-name">' + c.name + '</div><div class="ml-amorce">' + c.amorce + '</div></div>';
-            trimestres.forEach(function(t) {
-                html += '<div class="matrix-cell"><input type="text" id="m-' + c.id + '-' + t + '" placeholder="Livrable ' + t + '..."></div>';
-            });
-        });
-        matrixContainer.innerHTML = html;
-
-        // Render budget
-        var budgetContainer = document.getElementById('budgetContainer');
-        budgetLines.forEach(function(b) {
-            var h = '<div class="field-card">';
-            h += '<label>' + b.label + '</label>';
-            h += '<input type="text" id="' + b.id + '" placeholder="' + b.placeholder + '">';
-            h += '</div>';
-            budgetContainer.innerHTML += h;
-        });
-
-        // Render risks (5 rows)
-        var risksContainer = document.getElementById('risksContainer');
-        for (var i = 1; i <= 5; i++) {
-            var h = '<div class="risk-row">';
-            h += '<div class="r-num">' + i + '</div>';
-            h += '<input type="text" id="risk-' + i + '-desc" placeholder="Description du risque...">';
-            h += '<input type="number" min="1" max="5" id="risk-' + i + '-prob" class="score" placeholder="1-5">';
-            h += '<input type="number" min="1" max="5" id="risk-' + i + '-impact" class="score" placeholder="1-5">';
-            h += '<div class="crit-cell" id="risk-' + i + '-crit">—</div>';
-            h += '<input type="text" id="risk-' + i + '-mitig" placeholder="Mitigation concrète...">';
-            h += '</div>';
-            risksContainer.innerHTML += h;
-        }
-
-        // Auto-compute criticité
-        for (var i = 1; i <= 5; i++) {
-            (function(idx) {
-                var probEl = document.getElementById('risk-' + idx + '-prob');
-                var impactEl = document.getElementById('risk-' + idx + '-impact');
-                var critEl = document.getElementById('risk-' + idx + '-crit');
-                function recompute() {
-                    var p = parseInt(probEl.value, 10);
-                    var im = parseInt(impactEl.value, 10);
-                    if (!isNaN(p) && !isNaN(im) && p >= 1 && p <= 5 && im >= 1 && im <= 5) {
-                        var c = p * im;
-                        critEl.textContent = c;
-                        critEl.classList.remove('low', 'med', 'high');
-                        if (c <= 6) critEl.classList.add('low');
-                        else if (c <= 14) critEl.classList.add('med');
-                        else critEl.classList.add('high');
-                    } else {
-                        critEl.textContent = '—';
-                        critEl.classList.remove('low', 'med', 'high');
-                    }
-                    updateProgress();
-                }
-                probEl.addEventListener('input', recompute);
-                impactEl.addEventListener('input', recompute);
-            })(i);
-        }
-
-        // Render decisions (3)
-        var decisionsContainer = document.getElementById('decisionsContainer');
-        for (var i = 1; i <= 3; i++) {
-            var h = '<div class="decision-card">';
-            h += '<div class="dc-num">' + i + '</div>';
-            h += '<div class="dc-content">';
-            h += '<label>Décision ' + i + ' : question à arbitrer + recommandation + sponsor</label>';
-            h += '<textarea id="dec-' + i + '" placeholder="Ex : Valider l\'allocation de 8 M USD sur 18 mois pour le programme IA — recommandation : OUI sur trajectoire 5 quick wins en Q1-Q2 puis montée en charge. Sponsor : DGA Stratégie + DSI."></textarea>';
-            h += '</div></div>';
-            decisionsContainer.innerHTML += h;
-        }
-
-        // Progress hooks
-        chantiers.forEach(function(c) {
-            trimestres.forEach(function(t) {
-                document.getElementById('m-' + c.id + '-' + t).addEventListener('input', updateProgress);
-            });
-        });
-        budgetLines.forEach(function(b) {
-            document.getElementById(b.id).addEventListener('input', updateProgress);
-        });
-        for (var i = 1; i <= 5; i++) {
-            document.getElementById('risk-' + i + '-desc').addEventListener('input', updateProgress);
-            document.getElementById('risk-' + i + '-mitig').addEventListener('input', updateProgress);
-        }
-        for (var i = 1; i <= 3; i++) {
-            document.getElementById('dec-' + i).addEventListener('input', updateProgress);
-        }
+        const QUARTERS = ['q1','q2','q3','q4','q5','q6'];
 
         function updateProgress() {
-            var total = 24 + 6 + 5 + 3; // 24 cases matrice + 6 budget + 5 risques + 3 décisions
-            var done = 0;
-            chantiers.forEach(function(c) {
-                trimestres.forEach(function(t) {
-                    if (document.getElementById('m-' + c.id + '-' + t).value.trim().length > 0) done++;
-                });
+            let filled = 0;
+            trackedFields.forEach(f => { if (f.value && f.value.trim().length > 0) filled++; });
+            const pct = Math.round((filled / TOTAL) * 100);
+            progressFill.style.width = pct + '%';
+
+            CHANTIERS.forEach(c => {
+                const card = document.querySelector(`[data-chantier="${c.key}"]`);
+                if (!card) return;
+                const inputs = card.querySelectorAll('[data-track]');
+                const allFilled = Array.from(inputs).every(el => el.value && el.value.trim().length > 0);
+                card.classList.toggle('filled', allFilled);
             });
-            budgetLines.forEach(function(b) {
-                if (document.getElementById(b.id).value.trim().length > 0) done++;
+
+            ['budget','risques'].forEach(key => {
+                const card = document.querySelector(`[data-chantier="${key}"]`);
+                if (!card) return;
+                const inputs = card.querySelectorAll('[data-track]');
+                const allFilled = Array.from(inputs).every(el => el.value && el.value.trim().length > 0);
+                card.classList.toggle('filled', allFilled);
             });
-            for (var i = 1; i <= 5; i++) {
-                if (document.getElementById('risk-' + i + '-desc').value.trim().length > 0) done++;
-            }
-            for (var i = 1; i <= 3; i++) {
-                if (document.getElementById('dec-' + i).value.trim().length > 0) done++;
-            }
-            document.getElementById('progressFill').style.width = (done / total * 100) + '%';
         }
 
-        // Side nav scroll tracking
-        var sections = ['sec-info','sec-matrix','sec-budget','sec-risks','sec-decisions'];
-        window.addEventListener('scroll', function() {
-            var scrollY = window.scrollY + 200;
-            var current = '';
-            sections.forEach(function(id) {
-                var el = document.getElementById(id);
-                if (el && el.offsetTop <= scrollY) current = id;
-            });
-            document.querySelectorAll('.side-nav a').forEach(function(a) {
-                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+        // Criticality calc
+        document.querySelectorAll('[data-crit]').forEach(el => {
+            el.addEventListener('change', () => {
+                const idx = el.dataset.crit;
+                const p = parseInt(document.querySelector(`[name="risque${idx}_p"]`).value) || 0;
+                const i = parseInt(document.querySelector(`[name="risque${idx}_i"]`).value) || 0;
+                const c = p * i;
+                const display = document.getElementById(`crit${idx}`);
+                if (p && i) {
+                    display.textContent = `Criticité : ${c} (P=${p} × I=${i})`;
+                    display.classList.remove('crit-low','crit-med','crit-high');
+                    if (c <= 6) display.classList.add('crit-low');
+                    else if (c <= 14) display.classList.add('crit-med');
+                    else display.classList.add('crit-high');
+                } else {
+                    display.textContent = 'Criticité : — (P × I)';
+                    display.classList.remove('crit-low','crit-med','crit-high');
+                }
             });
         });
 
-        function escapeHtml(s) {
-            return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        form.addEventListener('input', updateProgress);
+        form.addEventListener('change', updateProgress);
+
+        const sections = document.querySelectorAll('.form-section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    sideLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+                }
+            });
+        }, { threshold: 0.35 });
+        sections.forEach(s => observer.observe(s));
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(form));
+            buildResults(data);
+            sendEmail(data);
+        });
+
+        function val(d, name) { return (d[name] || '').trim(); }
+
+        function critBadge(p, i) {
+            const c = (parseInt(p)||0) * (parseInt(i)||0);
+            if (!c) return '';
+            let cls = 'crit-low', bg = '#D1FAE5', color = '#065F46';
+            if (c > 14) { cls = 'crit-high'; bg = '#FEE2E2'; color = '#B91C1C'; }
+            else if (c > 6) { cls = 'crit-med'; bg = '#FED7AA'; color = '#C2410C'; }
+            return `<span class="crit-badge" style="background:${bg};color:${color}">P${p}×I${i} = ${c}</span>`;
         }
 
-        function submitAtelier() {
-            var stagiaire = document.getElementById('stagiaire').value;
-            if (!stagiaire) { alert('Merci de sélectionner votre nom.'); document.getElementById('stagiaire').focus(); return; }
-
-            var poste = document.getElementById('poste').value.trim();
-            var date = document.getElementById('date').value;
-
-            // Collect data
-            var matrixData = {};
-            chantiers.forEach(function(c) {
-                matrixData[c.name] = {};
-                trimestres.forEach(function(t) {
-                    matrixData[c.name][t] = document.getElementById('m-' + c.id + '-' + t).value.trim();
+        function buildResults(data) {
+            const matriceDiv = document.getElementById('matriceReview');
+            matriceDiv.innerHTML = '';
+            CHANTIERS.forEach(c => {
+                let html = `<div class="review-card"><div class="rc-name"><span class="rc-icon">${c.icon}</span>${c.name}</div>`;
+                html += `<div class="rc-pair"><div class="rc-pair-label">KPI synthétique</div><div class="rc-pair-value${val(data, c.key+'_kpi')?'':' empty'}">${val(data, c.key+'_kpi') || '— non renseigné —'}</div></div>`;
+                html += `<div class="rc-pair"><div class="rc-pair-label">Sponsor global</div><div class="rc-pair-value${val(data, c.key+'_sponsor')?'':' empty'}">${val(data, c.key+'_sponsor') || '— non renseigné —'}</div></div>`;
+                QUARTERS.forEach((q,qi) => {
+                    const liv = val(data, `${c.key}_${q}_liv`);
+                    const resp = val(data, `${c.key}_${q}_resp`);
+                    html += `<div class="rc-pair"><div class="rc-pair-label">Q${qi+1}</div><div class="rc-pair-value${(liv||resp)?'':' empty'}">${liv || '—'} <em>(${resp || 'sans sponsor'})</em></div></div>`;
                 });
+                html += `</div>`;
+                matriceDiv.insertAdjacentHTML('beforeend', html);
             });
 
-            var budgetData = {};
-            budgetLines.forEach(function(b) { budgetData[b.label] = document.getElementById(b.id).value.trim(); });
+            const budgetDiv = document.getElementById('budgetReview');
+            budgetDiv.innerHTML = `<div class="review-card">
+                <div class="rc-pair"><div class="rc-pair-label">Budget total</div><div class="rc-pair-value${val(data, 'budget_total')?'':' empty'}">${val(data, 'budget_total') || '—'}</div></div>
+                <div class="rc-pair"><div class="rc-pair-label">RH (cible 50 %)</div><div class="rc-pair-value${val(data, 'budget_rh')?'':' empty'}">${val(data, 'budget_rh') || '—'}</div></div>
+                <div class="rc-pair"><div class="rc-pair-label">Technologie (cible 25 %)</div><div class="rc-pair-value${val(data, 'budget_techno')?'':' empty'}">${val(data, 'budget_techno') || '—'}</div></div>
+                <div class="rc-pair"><div class="rc-pair-label">Donnée (cible 15 %)</div><div class="rc-pair-value${val(data, 'budget_donnee')?'':' empty'}">${val(data, 'budget_donnee') || '—'}</div></div>
+                <div class="rc-pair"><div class="rc-pair-label">Change (cible 10 %)</div><div class="rc-pair-value${val(data, 'budget_change')?'':' empty'}">${val(data, 'budget_change') || '—'}</div></div>
+                <div class="rc-pair"><div class="rc-pair-label">Sources de financement</div><div class="rc-pair-value${val(data, 'budget_sources')?'':' empty'}">${val(data, 'budget_sources') || '—'}</div></div>
+                <div class="rc-pair"><div class="rc-pair-label">Justification d'un écart</div><div class="rc-pair-value${val(data, 'budget_just')?'':' empty'}">${val(data, 'budget_just') || '—'}</div></div>
+            </div>`;
 
-            var risksData = [];
-            for (var i = 1; i <= 5; i++) {
-                risksData.push({
-                    num: i,
-                    desc: document.getElementById('risk-' + i + '-desc').value.trim(),
-                    prob: document.getElementById('risk-' + i + '-prob').value,
-                    impact: document.getElementById('risk-' + i + '-impact').value,
-                    crit: document.getElementById('risk-' + i + '-crit').textContent,
-                    mitig: document.getElementById('risk-' + i + '-mitig').value.trim()
-                });
+            const risquesDiv = document.getElementById('risquesReview');
+            risquesDiv.innerHTML = '';
+            for (let r = 1; r <= 5; r++) {
+                const desc = val(data, `risque${r}_desc`);
+                const nat = val(data, `risque${r}_nature`);
+                const p = val(data, `risque${r}_p`);
+                const i = val(data, `risque${r}_i`);
+                const mit = val(data, `risque${r}_mit`);
+                const por = val(data, `risque${r}_porteur`);
+                risquesDiv.insertAdjacentHTML('beforeend', `<div class="review-card">
+                    <div class="rc-name">Risque #${r} — ${desc || 'non décrit'} ${critBadge(p,i)}</div>
+                    <div class="rc-pair"><div class="rc-pair-label">Nature</div><div class="rc-pair-value${nat?'':' empty'}">${nat || '—'}</div></div>
+                    <div class="rc-pair"><div class="rc-pair-label">Mitigation</div><div class="rc-pair-value${mit?'':' empty'}">${mit || '—'}</div></div>
+                    <div class="rc-pair"><div class="rc-pair-label">Porteur</div><div class="rc-pair-value${por?'':' empty'}">${por || '—'}</div></div>
+                </div>`);
             }
 
-            var decisionsData = [];
-            for (var i = 1; i <= 3; i++) {
-                decisionsData.push({ num: i, text: document.getElementById('dec-' + i).value.trim() });
+            const deciDiv = document.getElementById('decisionsReview');
+            deciDiv.innerHTML = '';
+            for (let d = 1; d <= 3; d++) {
+                const q = val(data, `deci${d}_question`);
+                const r = val(data, `deci${d}_reco`);
+                const qui = val(data, `deci${d}_qui`);
+                const del = val(data, `deci${d}_delai`);
+                deciDiv.insertAdjacentHTML('beforeend', `<div class="review-card">
+                    <div class="rc-name">Décision N°${d}</div>
+                    <div class="rc-pair"><div class="rc-pair-label">Question</div><div class="rc-pair-value${q?'':' empty'}">${q || '—'}</div></div>
+                    <div class="rc-pair"><div class="rc-pair-label">Recommandation</div><div class="rc-pair-value${r?'':' empty'}">${r || '—'}</div></div>
+                    <div class="rc-pair"><div class="rc-pair-label">Sponsor à porter</div><div class="rc-pair-value${qui?'':' empty'}">${qui || '—'}</div></div>
+                    <div class="rc-pair"><div class="rc-pair-label">Délai max</div><div class="rc-pair-value${del?'':' empty'}">${del || '—'}</div></div>
+                </div>`);
             }
 
-            // Build email body
-            var body = 'ATELIER 4 — FEUILLE DE ROUTE IA 18 MOIS — DJIBOUTI TELECOM\n';
-            body += '=============================================================\n\n';
-            body += 'STAGIAIRE : ' + stagiaire + '\n';
-            body += 'POSTE : ' + (poste || '-') + '\n';
-            body += 'DATE : ' + (date || '-') + '\n\n';
-            body += '1. MATRICE 18 MOIS (6 TRIMESTRES × 4 CHANTIERS)\n';
-            body += '-----------------------------------------------\n';
-            chantiers.forEach(function(c) {
-                body += c.name.toUpperCase() + '\n';
-                trimestres.forEach(function(t) {
-                    body += '  ' + t + ' : ' + (matrixData[c.name][t] || '—') + '\n';
-                });
-                body += '\n';
-            });
-            body += '2. BUDGET INDICATIF\n';
-            body += '-------------------\n';
-            budgetLines.forEach(function(b) {
-                body += '• ' + b.label + ' : ' + (budgetData[b.label] || '—') + '\n';
-            });
-            body += '\n3. 5 RISQUES MAJEURS\n';
-            body += '--------------------\n';
-            risksData.forEach(function(r) {
-                body += 'Risque ' + r.num + ' — ' + (r.desc || '(non renseigné)') + '\n';
-                body += '  Prob. : ' + (r.prob || '-') + ' | Impact : ' + (r.impact || '-') + ' | Criticité : ' + (r.crit || '-') + '\n';
-                body += '  Mitigation : ' + (r.mitig || '-') + '\n\n';
-            });
-            body += '4. 3 DÉCISIONS À PORTER AU COMEX (30 JOURS)\n';
-            body += '-------------------------------------------\n';
-            decisionsData.forEach(function(d) {
-                body += 'Décision ' + d.num + '\n';
-                body += (d.text || '(non renseignée)') + '\n\n';
-            });
-            body += '— Feuille de route finale produite lors de l\'Atelier 4 (Module 4) — synthèse des 4 ateliers.\n';
-
-            var subj = 'Atelier 4 (Feuille de route IA 18 mois) — ' + stagiaire;
-
-            // FormSubmit payload
-            var payload = {
-                _subject: subj,
-                Atelier: 'Module 4 — Feuille de route IA 18 mois',
-                Stagiaire: stagiaire,
-                Poste: poste || '-',
-                Date: date || '-',
-                _template: 'table'
-            };
-            chantiers.forEach(function(c) {
-                trimestres.forEach(function(t) {
-                    payload[c.name + ' / ' + t] = matrixData[c.name][t] || '—';
-                });
-            });
-            budgetLines.forEach(function(b) { payload['Budget — ' + b.label] = budgetData[b.label] || '—'; });
-            risksData.forEach(function(r) {
-                payload['Risque ' + r.num] = (r.desc || '—') + ' (P=' + (r.prob || '-') + ', I=' + (r.impact || '-') + ', Crit=' + (r.crit || '-') + ') — Mitig : ' + (r.mitig || '—');
-            });
-            decisionsData.forEach(function(d) { payload['Décision ' + d.num] = d.text || '—'; });
-
-            fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(function(r){return r.json();}).then(function(data){
-                showToast('✅ Feuille de route envoyée au formateur');
-            }).catch(function(err){
-                window.location.href = 'mailto:b.yassmine@ecf-proconduite.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
-            });
-
-            // Show results
-            document.getElementById('formWrapper').style.display = 'none';
-            document.getElementById('sideNav').style.display = 'none';
-            var rw = document.getElementById('resultsWrapper');
-            rw.classList.add('visible');
-
-            var firstName = stagiaire.split(' ')[0];
-            document.getElementById('resultTitle').textContent = firstName + ', votre feuille de route est enregistrée';
-
-            // Render matrix
-            var mh = '<div class="rmg-header">Chantier ↓ / Trim →</div>';
-            trimestres.forEach(function(t) { mh += '<div class="rmg-header">' + t + '</div>'; });
-            chantiers.forEach(function(c) {
-                mh += '<div class="rmg-row-label">' + c.name + '</div>';
-                trimestres.forEach(function(t) {
-                    mh += '<div class="rmg-cell">' + escapeHtml(matrixData[c.name][t] || '—') + '</div>';
-                });
-            });
-            document.getElementById('matrixResult').innerHTML = mh;
-
-            // Render budget
-            var bh = '';
-            budgetLines.forEach(function(b) {
-                bh += '<div class="result-budget-card">';
-                bh += '<div class="rb-l">' + escapeHtml(b.label) + '</div>';
-                bh += '<div class="rb-v">' + escapeHtml(budgetData[b.label] || '—') + '</div>';
-                bh += '</div>';
-            });
-            document.getElementById('budgetResult').innerHTML = bh;
-
-            // Render risks
-            var rh = '<div class="result-risks-row header"><div></div><div>Risque</div><div class="center">P</div><div class="center">I</div><div class="center">Critic.</div><div>Mitigation</div></div>';
-            risksData.forEach(function(r) {
-                rh += '<div class="result-risks-row">';
-                rh += '<div class="center"><strong>' + r.num + '</strong></div>';
-                rh += '<div>' + escapeHtml(r.desc || '—') + '</div>';
-                rh += '<div class="center">' + escapeHtml(r.prob || '—') + '</div>';
-                rh += '<div class="center">' + escapeHtml(r.impact || '—') + '</div>';
-                rh += '<div class="center"><strong>' + escapeHtml(r.crit || '—') + '</strong></div>';
-                rh += '<div>' + escapeHtml(r.mitig || '—') + '</div>';
-                rh += '</div>';
-            });
-            document.getElementById('risksResult').innerHTML = rh;
-
-            // Render decisions
-            var dh = '';
-            decisionsData.forEach(function(d) {
-                dh += '<div class="result-decision">';
-                dh += '<div class="rd-num">' + d.num + '</div>';
-                dh += '<div class="rd-text">' + (d.text ? escapeHtml(d.text) : '<em>Non renseignée</em>') + '</div>';
-                dh += '</div>';
-            });
-            document.getElementById('decisionsResult').innerHTML = dh;
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('resSub').textContent = `${data.nom || 'Stagiaire'} — ${data.fonction || 'Fonction'}, ${data.entite || 'Entité'}`;
+            document.getElementById('resultsWrapper').classList.add('visible');
+            document.getElementById('resultsWrapper').scrollIntoView({behavior:'smooth'});
         }
 
-        function showToast(msg) {
-            var toast = document.getElementById('emailToast');
-            toast.querySelector('span').textContent = msg;
-            toast.classList.add('show');
-            setTimeout(function(){ toast.classList.remove('show'); }, 5000);
+        function buildEmailBody(d) {
+            let body = `ATELIER 4 — Feuille de route IA 18 mois (Djibouti Telecom)\n`;
+            body += `═══════════════════════════════════════════════════════\n\n`;
+            body += `Stagiaire : ${d.nom || '—'}\nFonction : ${d.fonction || '—'}\nEntité : ${d.entite || '—'}\n\n`;
+            body += `\n══════ MATRICE 6 TRIMESTRES × 4 CHANTIERS ══════\n`;
+            CHANTIERS.forEach(c => {
+                body += `\n[${c.icon}] ${c.name}\n  KPI synthétique: ${val(d, c.key+'_kpi') || '—'}\n  Sponsor global: ${val(d, c.key+'_sponsor') || '—'}\n`;
+                QUARTERS.forEach((q,qi) => {
+                    body += `  Q${qi+1}: ${val(d, `${c.key}_${q}_liv`) || '—'} | Sponsor: ${val(d, `${c.key}_${q}_resp`) || '—'}\n`;
+                });
+            });
+            body += `\n\n══════ BUDGET 18 MOIS ══════\n`;
+            body += `Total: ${val(d, 'budget_total') || '—'}\n`;
+            body += `RH (cible 50 %): ${val(d, 'budget_rh') || '—'}\n`;
+            body += `Technologie (cible 25 %): ${val(d, 'budget_techno') || '—'}\n`;
+            body += `Donnée (cible 15 %): ${val(d, 'budget_donnee') || '—'}\n`;
+            body += `Change (cible 10 %): ${val(d, 'budget_change') || '—'}\n`;
+            body += `Sources financement: ${val(d, 'budget_sources') || '—'}\n`;
+            body += `Justification écart: ${val(d, 'budget_just') || '—'}\n`;
+            body += `\n══════ 5 RISQUES MAJEURS ══════\n`;
+            for (let r = 1; r <= 5; r++) {
+                const p = val(d, `risque${r}_p`), i = val(d, `risque${r}_i`);
+                const c = (parseInt(p)||0) * (parseInt(i)||0);
+                body += `\nRisque #${r}: ${val(d, `risque${r}_desc`) || '—'}\n`;
+                body += `  Nature: ${val(d, `risque${r}_nature`) || '—'}\n`;
+                body += `  P × I = ${p || '—'} × ${i || '—'} = ${c || '—'}\n`;
+                body += `  Mitigation: ${val(d, `risque${r}_mit`) || '—'}\n`;
+                body += `  Porteur: ${val(d, `risque${r}_porteur`) || '—'}\n`;
+            }
+            body += `\n══════ 3 DÉCISIONS À PORTER AU COMEX ══════\n`;
+            for (let dn = 1; dn <= 3; dn++) {
+                body += `\nDécision N°${dn}\n`;
+                body += `  Question: ${val(d, `deci${dn}_question`) || '—'}\n`;
+                body += `  Reco: ${val(d, `deci${dn}_reco`) || '—'}\n`;
+                body += `  Sponsor à porter: ${val(d, `deci${dn}_qui`) || '—'}\n`;
+                body += `  Délai max: ${val(d, `deci${dn}_delai`) || '—'}\n`;
+            }
+            body += `\n\n— Akademia Formation · Atelier 4 Feuille de route IA · 12/05/2026 —\n`;
+            return body;
         }
+
+        async function sendEmail(d) {
+            try {
+                const payload = {
+                    _subject: `[Atelier 4 — Feuille de route IA] ${d.nom || 'Stagiaire'} (Djibouti Telecom)`,
+                    _template: 'box',
+                    _captcha: 'false',
+                    stagiaire: d.nom || '',
+                    fonction: d.fonction || '',
+                    entite: d.entite || '',
+                    feuille_route_complete: buildEmailBody(d),
+                };
+                await fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
+                    method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+                    body: JSON.stringify(payload),
+                });
+                document.getElementById('emailToast').classList.add('show');
+                setTimeout(() => document.getElementById('emailToast').classList.remove('show'), 5500);
+            } catch (err) { console.error('Email error', err); }
+        }
+
+        updateProgress();
     </script>
 </body>
 </html>
