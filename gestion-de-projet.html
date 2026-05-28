@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Positionnement — Gestion de Projet | Akademia Formation</title>
+  <meta name="description" content="Test de positionnement pour la formation Gestion de Projet — Fondamentaux et Méthodologies. 12 auto-evaluations + 20 questions de mise en situation.">
+
+  <!-- Dark mode anti-flicker -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('gestion_projet_theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'akademia-blue': '#3b82f6',
+            'akademia-purple': '#7C3AED',
+            'akademia-turquoise': '#06B6D4',
+            'akademia-green': '#10B981',
+            'akademia-orange': '#F97316',
+            'akademia-red': '#EF4444',
+            'akademia-dark': '#0f172a',
+            'akademia-muted': '#64748b',
+          },
+          fontFamily: { 'inter': ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #3b82f6, #7C3AED, #06B6D4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Quiz styles */
+    .quiz-question { display: none; }
+    .quiz-question.active { display: block; animation: fadeSlideIn 0.4s ease; }
+    .quiz-option { transition: all 0.2s; cursor: pointer; }
+    .quiz-option:hover:not(.locked) { border-color: #3b82f6; background: rgba(59,130,246,0.05); }
+    html.dark .quiz-option:hover:not(.locked) { background: rgba(59,130,246,0.15); }
+    .quiz-option.selected { border-color: #3b82f6; background: rgba(59,130,246,0.08); }
+    html.dark .quiz-option.selected { background: rgba(59,130,246,0.2); }
+    .quiz-option.correct-show { border-color: #10b981 !important; background: rgba(16,185,129,0.1) !important; }
+    html.dark .quiz-option.correct-show { background: rgba(16,185,129,0.2) !important; }
+    .quiz-option.wrong-show { border-color: #ef4444 !important; background: rgba(239,68,68,0.1) !important; }
+    html.dark .quiz-option.wrong-show { background: rgba(239,68,68,0.2) !important; }
+    .quiz-option.locked { cursor: default; }
+
+    /* Mode toggle */
+    .mode-tab { transition: all 0.3s; }
+    .mode-tab.active-mode {
+      background: linear-gradient(135deg, #3b82f6, #7C3AED);
+      color: white;
+      box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+    }
+
+    /* Progress bar */
+    .progress-fill { transition: width 0.4s ease; }
+
+    /* Confetti */
+    @keyframes confettiFall {
+      0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+    .confetti-piece {
+      position: fixed;
+      top: -10px;
+      width: 10px;
+      height: 10px;
+      z-index: 9999;
+      animation: confettiFall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Score ring */
+    .score-ring { transition: stroke-dashoffset 1.2s ease; }
+
+    /* Bucket badge colors */
+    .badge-cadrage { background: rgba(59,130,246,0.15); color: #3b82f6; }
+    .badge-planif { background: rgba(124,58,237,0.15); color: #7C3AED; }
+    .badge-pilotage { background: rgba(6,182,212,0.15); color: #06B6D4; }
+    .badge-cloture { background: rgba(249,115,22,0.15); color: #F97316; }
+
+    /* Star rating */
+    .star-btn { transition: all 0.15s; cursor: pointer; }
+    .star-btn:hover { transform: scale(1.15); }
+    .star-btn.star-active { color: #F59E0B; }
+    .star-btn.star-inactive { color: #CBD5E1; }
+    html.dark .star-btn.star-inactive { color: #475569; }
+
+    /* Auto-eval card */
+    .autoeval-card { transition: all 0.2s; }
+    .autoeval-card.rated { border-color: #3b82f6; }
+
+    /* Bar fill for bucket breakdown */
+    .bar-fill { transition: width 1s ease; }
+
+    /* Print styles */
+    @media print {
+      nav, .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+      .dark body { background: white !important; color: black !important; }
+      * { color: black !important; background: white !important; border-color: #ccc !important; }
+      .print-only { display: block !important; }
+    }
+    .print-only { display: none; }
+  </style>
+  <link rel="stylesheet" href="/assets/css/dark-mode.css">
+  <script src="/assets/js/formai-bridge.js"></script>
+</head>
+<body class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 min-h-screen">
+
+<!-- Top nav -->
+<nav class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700 no-print">
+  <div class="max-w-4xl mx-auto px-6 py-3 flex items-center justify-between">
+    <a href="/" class="text-sm font-medium text-akademia-blue hover:underline">&larr; Retour &agrave; l'accueil</a>
+    <div class="flex items-center gap-3">
+      <span class="text-xs font-semibold text-akademia-purple uppercase tracking-wide">GESTION-PROJET</span>
+      <button id="darkToggle" class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+        <svg class="w-4 h-4 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Main container -->
+<div class="max-w-4xl mx-auto px-6 py-10">
+
+  <!-- ============================================ -->
+  <!-- WELCOME SCREEN                               -->
+  <!-- ============================================ -->
+  <div id="welcome-screen">
+    <div class="text-center mb-10" id="header-section">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-akademia-purple/10 text-akademia-purple dark:bg-akademia-purple/20 dark:text-purple-300 mb-4">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        &Eacute;valuation de positionnement
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">
+        <span class="gradient-text">Gestion de Projet</span>
+      </h1>
+      <p class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-2">Fondamentaux et M&eacute;thodologies</p>
+      <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-8">
+        20 questions pour &eacute;valuer votre ma&icirc;trise des fondamentaux de la gestion de projet (cadrage, planification, pilotage, cl&ocirc;ture) + 12 auto-&eacute;valuations de comp&eacute;tences.
+      </p>
+
+      <!-- Test structure preview -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-lg mx-auto mb-8 text-left">
+        <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-akademia-purple/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-akademia-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-slate-700 dark:text-slate-200">Partie 1</div>
+              <div class="text-xs text-slate-500">12 auto-&eacute;valuations</div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-akademia-blue/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-akademia-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-slate-700 dark:text-slate-200">Partie 2</div>
+              <div class="text-xs text-slate-500">20 questions QCM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="startTest()" class="px-8 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-blue to-akademia-purple text-white hover:opacity-90 transition shadow-lg shadow-akademia-blue/25">
+        Commencer
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- PART 1: AUTO-EVALUATION                      -->
+  <!-- ============================================ -->
+  <div id="autoeval-screen" class="hidden">
+
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-akademia-purple/10 text-akademia-purple dark:bg-akademia-purple/20 dark:text-purple-300">
+          Partie 1 / 2
+        </span>
+        <span class="text-xs text-slate-500 dark:text-slate-400">Auto-&eacute;valuation</span>
+      </div>
+      <h2 class="text-2xl font-bold text-slate-800 dark:text-white mb-2">&Eacute;valuez vos comp&eacute;tences</h2>
+      <p class="text-slate-500 dark:text-slate-400 text-sm">Pour chaque comp&eacute;tence, s&eacute;lectionnez votre niveau actuel. Toutes les comp&eacute;tences doivent &ecirc;tre &eacute;valu&eacute;es pour passer &agrave; la suite.</p>
+    </div>
+
+    <!-- Progress for auto-eval -->
+    <div class="mb-6">
+      <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
+        <span id="autoeval-progress-label">0 / 12 comp&eacute;tences &eacute;valu&eacute;es</span>
+      </div>
+      <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+        <div id="autoeval-progress-bar" class="progress-fill h-full rounded-full bg-gradient-to-r from-akademia-purple to-akademia-turquoise" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Auto-eval grid -->
+    <div id="autoeval-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <!-- Filled by JS -->
+    </div>
+
+    <!-- Legend -->
+    <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700 mb-6">
+      <div class="text-xs font-semibold text-slate-600 dark:text-slate-300 mb-2">&Eacute;chelle de notation</div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs text-slate-500 dark:text-slate-400">
+        <div class="flex items-center gap-1.5"><span class="text-amber-400">&#9733;</span> D&eacute;butant</div>
+        <div class="flex items-center gap-1.5"><span class="text-amber-400">&#9733;&#9733;</span> Interm&eacute;diaire</div>
+        <div class="flex items-center gap-1.5"><span class="text-amber-400">&#9733;&#9733;&#9733;</span> Avanc&eacute;</div>
+        <div class="flex items-center gap-1.5"><span class="text-amber-400">&#9733;&#9733;&#9733;&#9733;</span> Expert</div>
+      </div>
+    </div>
+
+    <div class="flex justify-end no-print">
+      <button id="btn-autoeval-next" onclick="finishAutoEval()" class="px-6 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-blue to-akademia-purple text-white hover:opacity-90 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        Passer au QCM &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- PART 2: QCM                                  -->
+  <!-- ============================================ -->
+  <div id="quiz-container" class="hidden">
+
+    <div class="mb-6">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-akademia-blue/10 text-akademia-blue dark:bg-akademia-blue/20 dark:text-blue-300">
+          Partie 2 / 2
+        </span>
+        <span class="text-xs text-slate-500 dark:text-slate-400">QCM — Mises en situation</span>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="mb-8">
+      <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
+        <span id="progress-label">Question 1 / 20</span>
+        <span id="bucket-badge" class="px-2 py-0.5 rounded-full text-xs font-medium badge-cadrage">Cadrage</span>
+      </div>
+      <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+        <div id="progress-bar" class="progress-fill h-full rounded-full bg-gradient-to-r from-akademia-blue to-akademia-purple" style="width: 5%"></div>
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div id="questions-wrapper">
+      <!-- Questions injected by JS -->
+    </div>
+
+    <!-- Navigation buttons -->
+    <div class="flex justify-between mt-8 no-print">
+      <button id="btn-prev" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        &larr; Pr&eacute;c&eacute;dente
+      </button>
+      <button id="btn-next" onclick="nextQuestion()" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-blue to-akademia-purple text-white hover:opacity-90 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        Suivante &rarr;
+      </button>
+      <button id="btn-submit" onclick="submitQuiz()" class="hidden px-6 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-green to-akademia-turquoise text-white hover:opacity-90 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        Valider mes r&eacute;ponses
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- RESULTS SCREEN                               -->
+  <!-- ============================================ -->
+  <div id="results-container" class="hidden">
+    <!-- Injected by JS -->
+  </div>
+
+</div>
+
+<!-- Print header (only visible when printing) -->
+<div class="print-only" style="text-align:center; margin-bottom:20px;">
+  <h2>Akademia Formation — Gestion de Projet</h2>
+  <p>&Eacute;valuation de positionnement</p>
+</div>
+
+<!-- xAPI tracker -->
+<script src="/assets/js/xapi-tracker.js"></script>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const AUTOEVAL_ITEMS = [
+  {key: "cadrage_perimetre", bucket: "cadrage", label: "Définir le périmètre d'un projet et rédiger une note de cadrage"},
+  {key: "cadrage_parties_prenantes", bucket: "cadrage", label: "Identifier et analyser les parties prenantes d'un projet (matrice pouvoir/intérêt)"},
+  {key: "cadrage_methodologies", bucket: "cadrage", label: "Distinguer les principales méthodologies projet (prédictif, agile, hybride)"},
+  {key: "planif_wbs", bucket: "planif", label: "Construire une Structure de Découpage du Projet (WBS/SDP)"},
+  {key: "planif_estimation", bucket: "planif", label: "Estimer les charges et élaborer un budget prévisionnel"},
+  {key: "planif_gantt", bucket: "planif", label: "Construire un diagramme de Gantt avec chemin critique et jalons"},
+  {key: "pilotage_kpis", bucket: "pilotage", label: "Suivre l'avancement d'un projet avec des indicateurs (KPIs, courbe en S)"},
+  {key: "pilotage_risques", bucket: "pilotage", label: "Gérer les risques projet : identification, évaluation et plans d'action"},
+  {key: "pilotage_changement", bucket: "pilotage", label: "Traiter une demande de changement et mesurer son impact (périmètre, coût, délai)"},
+  {key: "cloture_copil", bucket: "cloture", label: "Préparer et animer un comité de pilotage (COPIL)"},
+  {key: "cloture_communication", bucket: "cloture", label: "Rédiger un plan de communication projet adapté aux parties prenantes"},
+  {key: "cloture_rex", bucket: "cloture", label: "Conduire un bilan de projet et formaliser les leçons apprises (REX)"}
+];
+
+const BUCKET_NAMES = {
+  cadrage: 'Cadrage',
+  planif: 'Planification',
+  pilotage: 'Pilotage',
+  cloture: 'Clôture & Communication'
+};
+
+const BUCKET_BADGE_CLASSES = {
+  cadrage: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
+  planif: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300',
+  pilotage: 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300',
+  cloture: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300'
+};
+
+const BUCKET_COLORS = {
+  cadrage: '#3b82f6',
+  planif: '#7C3AED',
+  pilotage: '#06B6D4',
+  cloture: '#F97316'
+};
+
+const BUCKET_BORDER_CLASSES = {
+  cadrage: 'border-blue-300 dark:border-blue-700',
+  planif: 'border-purple-300 dark:border-purple-700',
+  pilotage: 'border-cyan-300 dark:border-cyan-700',
+  cloture: 'border-orange-300 dark:border-orange-700'
+};
+
+const QUESTIONS = [
+  {
+    id: 1, bucket: "cadrage",
+    scenario: "Votre directeur vous confie la refonte du processus de facturation. Il mentionne un budget serré, un délai de 4 mois et des attentes de qualité élevées.",
+    question: "Quel concept résume les 3 contraintes fondamentales d'un projet ?",
+    options: [
+      "La matrice RACI",
+      "Le triangle QCD (Qualité, Coût, Délai)",
+      "Le diagramme de Gantt",
+      "L'analyse SWOT"
+    ],
+    correct: 1
+  },
+  {
+    id: 2, bucket: "cadrage",
+    scenario: "Vous démarrez un projet de déploiement d'un nouvel outil CRM. Votre sponsor vous demande de formaliser les objectifs, le périmètre et les grandes lignes du projet dans un document de référence.",
+    question: "Quel document devez-vous produire ?",
+    options: [
+      "Le cahier des charges technique",
+      "Le planning détaillé",
+      "La note de cadrage (ou charte projet)",
+      "Le registre des risques"
+    ],
+    correct: 2
+  },
+  {
+    id: 3, bucket: "cadrage",
+    scenario: "Sur un projet de migration informatique, vous identifiez 15 parties prenantes ayant des niveaux d'influence et d'intérêt très différents. Certaines peuvent bloquer le projet, d'autres sont peu concernées.",
+    question: "Quel outil permet de prioriser votre stratégie d'engagement envers chaque partie prenante ?",
+    options: [
+      "Le diagramme de Gantt",
+      "La matrice pouvoir/intérêt",
+      "Le WBS",
+      "La courbe en S"
+    ],
+    correct: 1
+  },
+  {
+    id: 4, bucket: "cadrage",
+    scenario: "Votre entreprise hésite entre une approche classique (cycle en V) et une approche agile pour un projet de développement d'application mobile dont les besoins évoluent rapidement.",
+    question: "Quel critère principal guide le choix entre une approche prédictive et une approche agile ?",
+    options: [
+      "La taille du budget",
+      "Le nombre de parties prenantes",
+      "Le degré de stabilité des exigences",
+      "L'ancienneté du chef de projet"
+    ],
+    correct: 2
+  },
+  {
+    id: 5, bucket: "cadrage",
+    scenario: "Vous animez un atelier d'identification des risques avec votre équipe projet. Un membre identifie le risque « départ d'un développeur clé ». Vous devez évaluer ce risque.",
+    question: "Comment évalue-t-on classiquement la criticité d'un risque en gestion de projet ?",
+    options: [
+      "Par le coût du risque uniquement",
+      "Par la probabilité d'occurrence multipliée par l'impact",
+      "Par l'avis du sponsor",
+      "Par le nombre de parties prenantes impactées"
+    ],
+    correct: 1
+  },
+  {
+    id: 6, bucket: "planif",
+    scenario: "Vous devez organiser un projet de refonte de site web. Le sponsor veut comprendre comment le travail sera découpé en sous-ensembles livrables.",
+    question: "Quel outil permet de décomposer le projet en lots de travaux hiérarchisés ?",
+    options: [
+      "Le diagramme de Gantt",
+      "La matrice RACI",
+      "La Structure de Découpage du Projet (WBS/SDP)",
+      "Le registre des parties prenantes"
+    ],
+    correct: 2
+  },
+  {
+    id: 7, bucket: "planif",
+    scenario: "Votre équipe doit estimer la durée d'un projet similaire à un projet réalisé l'an dernier. Vous disposez des données historiques de ce projet.",
+    question: "Quelle méthode d'estimation utilisez-vous ?",
+    options: [
+      "L'estimation paramétrique",
+      "L'estimation analogique (par analogie)",
+      "L'estimation bottom-up",
+      "La méthode Delphi"
+    ],
+    correct: 1
+  },
+  {
+    id: 8, bucket: "planif",
+    scenario: "Vous construisez le planning de votre projet. La tâche B ne peut commencer que lorsque la tâche A est terminée. La tâche C peut commencer en même temps que B.",
+    question: "Comment appelle-t-on la relation entre A et B ?",
+    options: [
+      "Début-Début (Start-to-Start)",
+      "Fin-Fin (Finish-to-Finish)",
+      "Fin-Début (Finish-to-Start)",
+      "Début-Fin (Start-to-Finish)"
+    ],
+    correct: 2
+  },
+  {
+    id: 9, bucket: "planif",
+    scenario: "Votre planning comporte 4 chemins parallèles. Le chemin le plus long totalise 45 jours, les autres 30, 35 et 40 jours.",
+    question: "Quelle est la durée minimale du projet et comment s'appelle ce chemin ?",
+    options: [
+      "30 jours — le chemin le plus court",
+      "40 jours — le chemin moyen",
+      "45 jours — le chemin critique",
+      "37,5 jours — la moyenne des chemins"
+    ],
+    correct: 2
+  },
+  {
+    id: 10, bucket: "planif",
+    scenario: "Deux de vos ressources clés sont affectées à plein temps sur 3 projets simultanément. Leur plan de charge dépasse 150 %.",
+    question: "Quelle technique permet de résoudre cette surcharge ?",
+    options: [
+      "Augmenter le budget",
+      "Le nivellement (resource leveling)",
+      "Supprimer des tâches du WBS",
+      "Raccourcir le chemin critique"
+    ],
+    correct: 1
+  },
+  {
+    id: 11, bucket: "planif",
+    scenario: "Votre sponsor vous demande une estimation du budget total du projet. Vous avez le WBS détaillé avec les charges estimées pour chaque lot de travaux.",
+    question: "Quelle méthode d'estimation construisez-vous à partir du WBS ?",
+    options: [
+      "L'estimation analogique",
+      "L'estimation paramétrique",
+      "L'estimation bottom-up",
+      "L'estimation à trois points (PERT)"
+    ],
+    correct: 2
+  },
+  {
+    id: 12, bucket: "pilotage",
+    scenario: "Votre projet est en cours depuis 2 mois. Le sponsor vous demande un tableau de bord synthétique pour le prochain COPIL.",
+    question: "Parmi ces indicateurs, lequel mesure l'écart entre le travail réellement accompli et le travail prévu à date ?",
+    options: [
+      "Le ROI (retour sur investissement)",
+      "L'indice de performance des délais (SPI)",
+      "Le taux de satisfaction client",
+      "Le nombre de ressources affectées"
+    ],
+    correct: 1
+  },
+  {
+    id: 13, bucket: "pilotage",
+    scenario: "À mi-projet, vous constatez que votre projet a consommé 60 % du budget alors que seulement 40 % du travail est réalisé.",
+    question: "Que vous indique cette situation ?",
+    options: [
+      "Le projet est en avance sur le planning",
+      "Le projet est en dépassement de coûts (CPI < 1)",
+      "Le projet est parfaitement sur les rails",
+      "Il faut augmenter le nombre de ressources"
+    ],
+    correct: 1
+  },
+  {
+    id: 14, bucket: "pilotage",
+    scenario: "Un utilisateur clé demande l'ajout d'une fonctionnalité qui n'était pas dans le périmètre initial. Cette demande aurait un impact sur le budget et le planning.",
+    question: "Quel processus formel devez-vous appliquer ?",
+    options: [
+      "Accepter la demande pour satisfaire l'utilisateur",
+      "Refuser systématiquement toute modification",
+      "Soumettre une demande de changement (change request) au COPIL",
+      "Intégrer la fonctionnalité discrètement dans le sprint suivant"
+    ],
+    correct: 2
+  },
+  {
+    id: 15, bucket: "pilotage",
+    scenario: "Votre projet rencontre un retard de 2 semaines sur une tâche du chemin critique. Le sponsor exige de rattraper le retard sans modifier la date de livraison.",
+    question: "Quelle technique de compression du planning pouvez-vous appliquer ?",
+    options: [
+      "Supprimer des livrables du périmètre",
+      "Le crashing (ajout de ressources sur les tâches critiques)",
+      "Ignorer le retard et espérer le rattraper naturellement",
+      "Reporter le jalon final de 2 semaines"
+    ],
+    correct: 1
+  },
+  {
+    id: 16, bucket: "pilotage",
+    scenario: "Vous avez identifié un risque de retard fournisseur comme critique (probabilité élevée, impact fort). Vous décidez de prévoir un fournisseur alternatif en cas de défaillance.",
+    question: "Quelle stratégie de réponse aux risques appliquez-vous ?",
+    options: [
+      "L'évitement (supprimer la cause du risque)",
+      "L'atténuation (réduire la probabilité ou l'impact)",
+      "Le transfert (assurance, sous-traitance)",
+      "L'acceptation (ne rien faire, absorber si le risque survient)"
+    ],
+    correct: 1
+  },
+  {
+    id: 17, bucket: "pilotage",
+    scenario: "Le chef de projet utilise une représentation graphique en forme de S pour suivre l'avancement de son projet. La courbe réelle est en-dessous de la courbe prévisionnelle.",
+    question: "Que signifie cet écart sur une courbe en S ?",
+    options: [
+      "Le projet consomme plus de ressources que prévu",
+      "Le projet est en avance",
+      "Le projet est en retard par rapport au planning prévu",
+      "Le budget est insuffisant"
+    ],
+    correct: 2
+  },
+  {
+    id: 18, bucket: "cloture",
+    scenario: "Votre projet touche à sa fin. Le client a validé tous les livrables. Votre directeur vous demande de formaliser la fin du projet.",
+    question: "Quel document officialise l'acceptation des livrables et la fin du projet ?",
+    options: [
+      "Le compte rendu du dernier COPIL",
+      "Le procès-verbal de réception (PV)",
+      "La note de cadrage mise à jour",
+      "Le rapport d'audit qualité"
+    ],
+    correct: 1
+  },
+  {
+    id: 19, bucket: "cloture",
+    scenario: "Vous préparez le reporting pour le prochain comité de pilotage. Les participants incluent le directeur général (peu de temps), le directeur financier (focalisé sur le budget) et les chefs de service (intéressés par l'impact opérationnel).",
+    question: "Quel principe de communication projet appliquez-vous ?",
+    options: [
+      "Envoyer le même rapport détaillé à tout le monde",
+      "Adapter le message et le niveau de détail à chaque audience",
+      "Ne communiquer que les bonnes nouvelles",
+      "Laisser chaque partie prenante chercher l'information"
+    ],
+    correct: 1
+  },
+  {
+    id: 20, bucket: "cloture",
+    scenario: "Votre projet est terminé. Malgré le succès, plusieurs problèmes ont été rencontrés (sous-estimation des charges, résistance au changement, bug critique en production).",
+    question: "Quel processus permet de capitaliser sur ces expériences pour les projets futurs ?",
+    options: [
+      "L'audit de conformité",
+      "La revue de code",
+      "Le retour d'expérience (REX) et les leçons apprises",
+      "La mise à jour du CV de l'équipe"
+    ],
+    correct: 2
+  }
+];
+
+const EXPLAINS = {
+  1: "Le triangle QCD (aussi appelé triple contrainte) est le fondement du management de projet : toute modification d'une contrainte impacte les deux autres. Le chef de projet doit arbitrer en permanence entre ces 3 dimensions.",
+  2: "La note de cadrage (ou charte projet / project charter) est le document fondateur qui officialise le projet : objectifs, périmètre, parties prenantes, contraintes, budget estimé et jalons clés. Elle sert de référence tout au long du projet.",
+  3: "La matrice pouvoir/intérêt classe les parties prenantes en 4 quadrants selon leur pouvoir (capacité d'influence) et leur intérêt (niveau d'implication). Elle guide la stratégie de communication : gérer de près, garder satisfait, garder informé ou surveiller.",
+  4: "Le choix méthodologique repose principalement sur la stabilité des exigences. Quand les besoins sont bien définis et stables, l'approche prédictive (cycle en V) est efficace. Quand ils évoluent, l'approche agile (itérative et incrémentale) permet de s'adapter au fil des sprints.",
+  5: "La criticité d'un risque = Probabilité × Impact. Cette formule permet de hiérarchiser les risques dans une matrice et de concentrer les plans de mitigation sur les risques les plus critiques (forte probabilité ET fort impact).",
+  6: "Le WBS (Work Breakdown Structure) ou SDP (Structure de Découpage du Projet) décompose le projet en livrables, puis en lots de travaux (work packages) de plus en plus fins. C'est la base de toute planification : on ne peut estimer ni planifier ce qu'on n'a pas décomposé.",
+  7: "L'estimation analogique s'appuie sur les données réelles de projets similaires passés. C'est la méthode la plus rapide mais elle nécessite un historique fiable. L'estimation paramétrique utilise des ratios unitaires, et le bottom-up additionne les estimations détaillées de chaque tâche.",
+  8: "La liaison Fin-Début (Finish-to-Start ou FS) est la dépendance la plus courante : la tâche successeur ne peut commencer qu'après la fin de la tâche prédécesseur. Les 3 autres types (SS, FF, SF) existent mais sont moins fréquents.",
+  9: "Le chemin critique est la séquence de tâches la plus longue du projet. Il détermine la durée minimale du projet : tout retard sur une tâche du chemin critique retarde le projet entier. Les tâches hors chemin critique disposent de marges (float).",
+  10: "Le nivellement des ressources (resource leveling) réorganise le planning pour éliminer les surcharges, en décalant les tâches non critiques dans leurs marges. Si ça ne suffit pas, on peut aussi lisser la charge (resource smoothing) ou négocier des ressources supplémentaires.",
+  11: "L'estimation bottom-up part du niveau le plus fin du WBS (work packages) et agrège les estimations vers le haut. C'est la méthode la plus précise mais aussi la plus longue. Elle nécessite un WBS suffisamment détaillé.",
+  12: "Le SPI (Schedule Performance Index) = Valeur acquise / Valeur planifiée. Un SPI < 1 signifie un retard, un SPI > 1 une avance. Avec le CPI (Cost Performance Index), ce sont les deux indicateurs clés de la méthode de la Valeur Acquise (EVM).",
+  13: "Si 60 % du budget est consommé pour 40 % du travail, le CPI (Cost Performance Index) = 0,40/0,60 = 0,67, soit un dépassement de 33 %. Le projet dépense plus que prévu pour chaque unité de travail réalisée. Il faut analyser les causes et prendre des actions correctives.",
+  14: "Toute modification du périmètre doit passer par le processus de gestion des changements : formaliser la demande (change request), analyser l'impact (coût, délai, qualité), puis soumettre au COPIL ou au change control board pour arbitrage. Cela évite le scope creep (dérive du périmètre).",
+  15: "Le crashing consiste à ajouter des ressources (heures supplémentaires, personnel additionnel) sur les tâches du chemin critique pour réduire leur durée. C'est coûteux mais efficace. L'autre technique est le fast tracking (exécuter en parallèle des tâches normalement séquentielles), plus risquée.",
+  16: "Prévoir un fournisseur alternatif est une stratégie d'atténuation : on réduit l'impact du risque en ayant un plan B prêt. L'évitement supprimerait la cause (changer d'approche), le transfert déplacerait le risque vers un tiers (assurance), et l'acceptation ne prévoirait aucune action.",
+  17: "La courbe en S représente l'avancement cumulé (travail ou coûts) dans le temps. Si la courbe réelle est en-dessous de la courbe prévisionnelle, le projet a réalisé moins de travail que prévu à cette date : il est en retard. C'est un outil visuel puissant pour le reporting au COPIL.",
+  18: "Le procès-verbal de réception (PV) est le document formel par lequel le client/commanditaire atteste que les livrables sont conformes aux exigences et accepte officiellement le résultat. Il déclenche la clôture administrative et financière du projet.",
+  19: "Un plan de communication projet efficace adapte le message à l'audience : synthèse exécutive pour la DG, focus budget/KPIs pour le DAF, impacts opérationnels pour les métiers. Communiquer les mêmes informations à tous sans adaptation génère soit de la surcharge soit de la frustration.",
+  20: "Le REX (retour d'expérience) et la documentation des leçons apprises (lessons learned) permettent de capitaliser : qu'est-ce qui a bien/mal fonctionné, pourquoi, et quelles recommandations pour les projets futurs ? C'est la dernière étape de la clôture, souvent négligée mais essentielle pour l'amélioration continue."
+};
+
+const BUCKET_TOTALS = { cadrage: 5, planif: 6, pilotage: 6, cloture: 3 };
+const LETTER_MAP = ['A', 'B', 'C', 'D'];
+
+// ============================================================
+// STATE
+// ============================================================
+let currentQ = 0;
+let answers = new Array(20).fill(null);
+let quizSubmitted = false;
+let autoEvalRatings = {};
+
+// ============================================================
+// FUNCTIONS — FLOW
+// ============================================================
+
+function startTest() {
+  document.getElementById('welcome-screen').classList.add('hidden');
+  document.getElementById('autoeval-screen').classList.remove('hidden');
+  buildAutoEval();
+  document.getElementById('autoeval-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================================
+// FUNCTIONS — AUTO-EVAL
+// ============================================================
+
+function buildAutoEval() {
+  var grid = document.getElementById('autoeval-grid');
+  grid.innerHTML = '';
+
+  AUTOEVAL_ITEMS.forEach(function(item, idx) {
+    var badgeClass = BUCKET_BADGE_CLASSES[item.bucket];
+    var borderClass = BUCKET_BORDER_CLASSES[item.bucket];
+    var card = document.createElement('div');
+    card.className = 'autoeval-card bg-white dark:bg-slate-800/50 rounded-xl p-4 border-2 border-slate-200 dark:border-slate-700';
+    card.id = 'autoeval-card-' + idx;
+
+    var starsHtml = '';
+    for (var s = 1; s <= 4; s++) {
+      starsHtml += '<button onclick="rateCompetency(' + idx + ',' + s + ')" id="star-' + idx + '-' + s + '" class="star-btn star-inactive w-8 h-8 flex items-center justify-center text-xl" title="' + s + '/4" aria-label="' + s + ' sur 4">';
+      starsHtml += '&#9733;';
+      starsHtml += '</button>';
+    }
+
+    card.innerHTML =
+      '<div class="flex items-start gap-3">' +
+        '<div class="flex-1 min-w-0">' +
+          '<span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-medium mb-2 ' + badgeClass + '">' + BUCKET_NAMES[item.bucket] + '</span>' +
+          '<p class="text-sm text-slate-700 dark:text-slate-200 leading-snug">' + item.label + '</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="flex items-center gap-1 mt-3" id="stars-' + idx + '">' + starsHtml + '</div>';
+
+    grid.appendChild(card);
+  });
+}
+
+function rateCompetency(idx, rating) {
+  var item = AUTOEVAL_ITEMS[idx];
+  autoEvalRatings[item.key] = rating;
+
+  // Update stars visual
+  for (var s = 1; s <= 4; s++) {
+    var star = document.getElementById('star-' + idx + '-' + s);
+    if (s <= rating) {
+      star.classList.remove('star-inactive');
+      star.classList.add('star-active');
+    } else {
+      star.classList.remove('star-active');
+      star.classList.add('star-inactive');
+    }
+  }
+
+  // Mark card as rated
+  var card = document.getElementById('autoeval-card-' + idx);
+  card.classList.add('rated');
+
+  // Update progress
+  var count = Object.keys(autoEvalRatings).length;
+  document.getElementById('autoeval-progress-label').textContent = count + ' / 12 compétences évaluées';
+  document.getElementById('autoeval-progress-bar').style.width = Math.round((count / 12) * 100) + '%';
+
+  // Enable next button when all rated
+  document.getElementById('btn-autoeval-next').disabled = (count < 12);
+}
+
+function finishAutoEval() {
+  if (Object.keys(autoEvalRatings).length < 12) return;
+
+  // Save auto-eval to localStorage
+  localStorage.setItem('gestion_projet_autoeval', JSON.stringify(autoEvalRatings));
+
+  // Switch to QCM
+  document.getElementById('autoeval-screen').classList.add('hidden');
+  document.getElementById('quiz-container').classList.remove('hidden');
+  buildQuiz();
+  showQuestion(0);
+  document.getElementById('quiz-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================================
+// FUNCTIONS — QCM
+// ============================================================
+
+function buildQuiz() {
+  var wrapper = document.getElementById('questions-wrapper');
+  wrapper.innerHTML = '';
+
+  QUESTIONS.forEach(function(q, i) {
+    var div = document.createElement('div');
+    div.className = 'quiz-question' + (i === 0 ? ' active' : '');
+    div.id = 'q-' + i;
+
+    var badgeClass = BUCKET_BADGE_CLASSES[q.bucket];
+    var bucketName = BUCKET_NAMES[q.bucket];
+
+    var optionsHtml = '';
+    q.options.forEach(function(opt, oi) {
+      optionsHtml += '<button onclick="selectAnswer(' + i + ',' + oi + ')" id="opt-' + i + '-' + oi + '" class="quiz-option w-full text-left px-5 py-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 text-slate-700 dark:text-slate-200 text-sm md:text-base">';
+      optionsHtml += '<span class="font-semibold text-akademia-muted mr-2">' + LETTER_MAP[oi] + ')</span> ' + opt;
+      optionsHtml += '</button>';
+    });
+
+    div.innerHTML =
+      '<div class="mb-4">' +
+        '<span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium mb-3 ' + badgeClass + '">' + bucketName + '</span>' +
+        '<p class="text-sm italic text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">' + q.scenario + '</p>' +
+        '<h2 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white">' +
+          '<span class="text-akademia-muted font-normal">Q' + q.id + '.</span> ' + q.question +
+        '</h2>' +
+      '</div>' +
+      '<div class="space-y-3" id="options-' + i + '">' + optionsHtml + '</div>';
+
+    wrapper.appendChild(div);
+  });
+}
+
+function selectAnswer(qIndex, optIndex) {
+  if (quizSubmitted) return;
+
+  answers[qIndex] = optIndex;
+
+  // Update visual
+  var options = document.querySelectorAll('#options-' + qIndex + ' .quiz-option');
+  options.forEach(function(opt, i) {
+    if (i === optIndex) {
+      opt.classList.add('selected');
+    } else {
+      opt.classList.remove('selected');
+    }
+  });
+
+  // Enable next/submit
+  updateNavButtons();
+}
+
+function showQuestion(index) {
+  currentQ = index;
+
+  // Hide all, show current
+  document.querySelectorAll('.quiz-question').forEach(function(q) { q.classList.remove('active'); });
+  var el = document.getElementById('q-' + index);
+  if (el) el.classList.add('active');
+
+  // Update progress
+  var pct = ((index + 1) / 20 * 100).toFixed(0);
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = 'Question ' + (index + 1) + ' / 20';
+
+  // Update bucket badge
+  var q = QUESTIONS[index];
+  var badge = document.getElementById('bucket-badge');
+  badge.textContent = BUCKET_NAMES[q.bucket];
+  badge.className = 'px-2 py-0.5 rounded-full text-xs font-medium badge-' + q.bucket;
+
+  updateNavButtons();
+}
+
+function updateNavButtons() {
+  var prevBtn = document.getElementById('btn-prev');
+  var nextBtn = document.getElementById('btn-next');
+  var submitBtn = document.getElementById('btn-submit');
+
+  prevBtn.disabled = currentQ === 0;
+
+  if (currentQ === 19) {
+    nextBtn.classList.add('hidden');
+    submitBtn.classList.remove('hidden');
+    submitBtn.disabled = answers[currentQ] === null;
+  } else {
+    nextBtn.classList.remove('hidden');
+    submitBtn.classList.add('hidden');
+    nextBtn.disabled = answers[currentQ] === null;
+  }
+}
+
+function nextQuestion() {
+  if (currentQ < 19 && answers[currentQ] !== null) {
+    showQuestion(currentQ + 1);
+  }
+}
+
+function prevQuestion() {
+  if (currentQ > 0) {
+    showQuestion(currentQ - 1);
+  }
+}
+
+// ============================================================
+// FUNCTIONS — SUBMIT & RESULTS
+// ============================================================
+
+function submitQuiz() {
+  if (answers.includes(null)) return;
+  quizSubmitted = true;
+
+  // Calculate score
+  var score = 0;
+  var bucketScores = { cadrage: 0, planif: 0, pilotage: 0, cloture: 0 };
+  var details = [];
+
+  QUESTIONS.forEach(function(q, i) {
+    var isCorrect = answers[i] === q.correct;
+    if (isCorrect) {
+      score++;
+      bucketScores[q.bucket]++;
+    }
+    details.push({ question: q, userAnswer: answers[i], correct: isCorrect });
+  });
+
+  // Save to localStorage
+  localStorage.setItem('gestion_projet_positionnement', score);
+  localStorage.setItem('gestion_projet_positionnement_date', new Date().toISOString());
+  localStorage.setItem('gestion_projet_positionnement_details', JSON.stringify(answers));
+
+  // xAPI tracking
+  if (typeof xapiTracker !== 'undefined') {
+    xapiTracker.trackQuizScore('positionnement-gestion-de-projet', 'Positionnement Gestion de Projet', score, 20);
+  }
+
+  // FormAI bridge
+  if (typeof window.formaiModuleComplete === 'function') {
+    window.formaiModuleComplete(score, 20);
+  }
+
+  // Show corrections on questions
+  showCorrections(details);
+
+  // Show results
+  showResults(score, bucketScores, details);
+
+  // Confetti if good score
+  if (score >= 14) launchConfetti();
+}
+
+function showCorrections(details) {
+  details.forEach(function(d, i) {
+    var options = document.querySelectorAll('#options-' + i + ' .quiz-option');
+    options.forEach(function(opt, oi) {
+      opt.classList.add('locked');
+      if (oi === d.question.correct) {
+        opt.classList.add('correct-show');
+      }
+      if (oi === d.userAnswer && !d.correct) {
+        opt.classList.add('wrong-show');
+      }
+    });
+  });
+}
+
+function showResults(score, bucketScores, details) {
+  var pct = Math.round((score / 20) * 100);
+
+  // Level badge
+  var levelLabel, levelColor, levelBg;
+  if (score >= 16) {
+    levelLabel = 'Expert'; levelColor = '#10B981'; levelBg = 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300';
+  } else if (score >= 12) {
+    levelLabel = 'Avancé'; levelColor = '#3b82f6'; levelBg = 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300';
+  } else if (score >= 8) {
+    levelLabel = 'Intermédiaire'; levelColor = '#F97316'; levelBg = 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300';
+  } else {
+    levelLabel = 'Débutant'; levelColor = '#EF4444'; levelBg = 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
+  }
+
+  var circumference = 2 * Math.PI * 54;
+  var dashOffset = circumference - (pct / 100) * circumference;
+
+  var html = '';
+
+  // ---- Score ring ----
+  html += '<div class="text-center mb-10">';
+  html += '<h2 class="text-2xl font-bold mb-2 text-slate-800 dark:text-white">Résultats</h2>';
+  html += '<p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Gestion de Projet — Fondamentaux et Méthodologies</p>';
+
+  html += '<div class="relative inline-block mb-4">';
+  html += '<svg width="140" height="140" viewBox="0 0 120 120">';
+  html += '<circle cx="60" cy="60" r="54" fill="none" stroke-width="8" class="stroke-slate-200 dark:stroke-slate-700"/>';
+  html += '<circle cx="60" cy="60" r="54" fill="none" stroke-width="8" stroke-linecap="round" class="score-ring" stroke="' + levelColor + '" stroke-dasharray="' + circumference + '" stroke-dashoffset="' + circumference + '" transform="rotate(-90 60 60)" id="score-ring-circle"/>';
+  html += '</svg>';
+  html += '<div class="absolute inset-0 flex flex-col items-center justify-center">';
+  html += '<span class="text-3xl font-extrabold text-slate-800 dark:text-white">' + score + '</span>';
+  html += '<span class="text-xs text-slate-500">/ 20</span>';
+  html += '</div>';
+  html += '</div>';
+
+  html += '<div class="flex justify-center mb-2">';
+  html += '<span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold ' + levelBg + '">';
+  html += levelLabel + ' — ' + pct + '%';
+  html += '</span>';
+  html += '</div>';
+  html += '</div>';
+
+  // ---- Bucket breakdown ----
+  html += '<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">';
+  var bucketKeys = ['cadrage', 'planif', 'pilotage', 'cloture'];
+  bucketKeys.forEach(function(bk) {
+    var bScore = bucketScores[bk];
+    var bTotal = BUCKET_TOTALS[bk];
+    var bPct = Math.round((bScore / bTotal) * 100);
+    var bColor = BUCKET_COLORS[bk];
+    var bName = BUCKET_NAMES[bk];
+
+    html += '<div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 text-center border border-slate-200 dark:border-slate-700">';
+    html += '<div class="text-xs font-medium text-slate-500 mb-1">' + bName + '</div>';
+    html += '<div class="text-2xl font-bold" style="color:' + bColor + '">' + bScore + '/' + bTotal + '</div>';
+    html += '<div class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mt-2">';
+    html += '<div class="bar-fill h-full rounded-full" style="width:0%;background:' + bColor + '" id="bar-bucket-' + bk + '"></div>';
+    html += '</div>';
+    html += '<div class="text-xs text-slate-400 mt-1">' + bPct + '%</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // ---- Auto-eval summary ----
+  html += '<div class="bg-gradient-to-br from-akademia-purple/5 to-akademia-turquoise/5 dark:from-akademia-purple/10 dark:to-akademia-turquoise/10 rounded-2xl p-6 mb-8 border border-akademia-purple/20">';
+  html += '<h3 class="text-lg font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">';
+  html += '<svg class="w-5 h-5 text-akademia-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>';
+  html += 'Auto-évaluation de vos compétences';
+  html += '</h3>';
+  html += '<div class="space-y-3">';
+
+  var savedAutoEval = autoEvalRatings;
+  if (Object.keys(savedAutoEval).length === 0) {
+    try {
+      var stored = localStorage.getItem('gestion_projet_autoeval');
+      if (stored) savedAutoEval = JSON.parse(stored);
+    } catch(e) {}
+  }
+
+  var starLevels = ['' , 'Débutant', 'Intermédiaire', 'Avancé', 'Expert'];
+  AUTOEVAL_ITEMS.forEach(function(item) {
+    var rating = savedAutoEval[item.key] || 0;
+    var stars = '';
+    for (var s = 1; s <= 4; s++) {
+      if (s <= rating) {
+        stars += '<span class="text-amber-400">&#9733;</span>';
+      } else {
+        stars += '<span class="text-slate-300 dark:text-slate-600">&#9733;</span>';
+      }
+    }
+    var badgeClass = BUCKET_BADGE_CLASSES[item.bucket];
+
+    html += '<div class="flex items-center gap-3 text-sm">';
+    html += '<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-medium ' + badgeClass + ' flex-shrink-0">' + BUCKET_NAMES[item.bucket].substring(0, 5) + '.</span>';
+    html += '<span class="flex-1 text-slate-600 dark:text-slate-300 truncate" title="' + item.label + '">' + item.label + '</span>';
+    html += '<span class="flex items-center gap-0.5 flex-shrink-0 text-sm">' + stars + '</span>';
+    html += '<span class="text-xs text-slate-400 flex-shrink-0 w-24 text-right">' + (rating > 0 ? starLevels[rating] : '—') + '</span>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  html += '</div>';
+
+  // ---- Detailed corrections ----
+  html += '<div class="mb-8">';
+  html += '<h3 class="text-lg font-bold text-slate-800 dark:text-white mb-4">Correction détaillée</h3>';
+  html += '<div class="space-y-3">';
+
+  details.forEach(function(d, i) {
+    var q = d.question;
+    var explain = EXPLAINS[q.id] || '';
+    var borderColor = d.correct ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800' : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800';
+    var iconBg = d.correct ? 'bg-akademia-green text-white' : 'bg-akademia-red text-white';
+    var icon = d.correct ? '&#10003;' : '&#10007;';
+
+    html += '<div class="flex items-start gap-3 p-4 rounded-xl ' + borderColor + '">';
+    html += '<div class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ' + iconBg + '">' + icon + '</div>';
+    html += '<div class="text-sm flex-1">';
+    html += '<div class="flex items-start gap-2 mb-1">';
+    html += '<span class="font-semibold text-slate-700 dark:text-slate-200">Q' + q.id + '.</span>';
+    html += '<span class="text-slate-600 dark:text-slate-300">' + q.question + '</span>';
+    html += '</div>';
+
+    if (!d.correct) {
+      html += '<div class="mt-1 text-xs">';
+      html += '<span class="text-red-500">Votre réponse : ' + LETTER_MAP[d.userAnswer] + '</span> — ';
+      html += '<span class="text-green-600 dark:text-green-400">Bonne réponse : ' + LETTER_MAP[q.correct] + '</span>';
+      html += '</div>';
+    }
+
+    if (explain) {
+      html += '<div class="mt-2 p-2 rounded-lg bg-slate-100/50 dark:bg-slate-700/30 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">';
+      html += '<span class="font-semibold text-slate-700 dark:text-slate-300">Explication :</span> ' + explain;
+      html += '</div>';
+    }
+
+    html += '</div>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  html += '</div>';
+
+  // ---- Action buttons ----
+  html += '<div class="flex flex-wrap gap-3 justify-center no-print">';
+  html += '<button onclick="resetAll()" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Recommencer</button>';
+  html += '<button onclick="window.print()" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-blue to-akademia-purple text-white hover:opacity-90 transition flex items-center gap-2">';
+  html += '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>';
+  html += 'Imprimer mes résultats</button>';
+  html += '</div>';
+
+  // ---- Render ----
+  document.getElementById('quiz-container').classList.add('hidden');
+  var resultsEl = document.getElementById('results-container');
+  resultsEl.innerHTML = html;
+  resultsEl.classList.remove('hidden');
+
+  // Animate score ring
+  setTimeout(function() {
+    var ring = document.getElementById('score-ring-circle');
+    if (ring) ring.style.strokeDashoffset = dashOffset;
+  }, 100);
+
+  // Animate bucket bars
+  setTimeout(function() {
+    bucketKeys.forEach(function(bk) {
+      var bar = document.getElementById('bar-bucket-' + bk);
+      if (bar) {
+        var bPct = Math.round((bucketScores[bk] / BUCKET_TOTALS[bk]) * 100);
+        bar.style.width = bPct + '%';
+      }
+    });
+  }, 300);
+
+  // Scroll to results
+  resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetAll() {
+  quizSubmitted = false;
+  answers = new Array(20).fill(null);
+  autoEvalRatings = {};
+  currentQ = 0;
+
+  document.getElementById('results-container').classList.add('hidden');
+  document.getElementById('results-container').innerHTML = '';
+  document.getElementById('quiz-container').classList.add('hidden');
+  document.getElementById('autoeval-screen').classList.add('hidden');
+  document.getElementById('welcome-screen').classList.remove('hidden');
+
+  document.getElementById('header-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function launchConfetti() {
+  var colors = ['#3b82f6', '#7C3AED', '#06B6D4', '#10B981', '#F97316', '#EF4444'];
+  for (var i = 0; i < 60; i++) {
+    var piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.width = (Math.random() * 8 + 5) + 'px';
+    piece.style.height = (Math.random() * 8 + 5) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    piece.style.animationDelay = (Math.random() * 1.5) + 's';
+    document.body.appendChild(piece);
+    setTimeout(function(p) { return function() { p.remove(); }; }(piece), 5000);
+  }
+}
+
+// ============================================================
+// DARK MODE TOGGLE
+// ============================================================
+document.getElementById('darkToggle').addEventListener('click', function() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('gestion_projet_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+});
+
+// ============================================================
+// KEYBOARD NAVIGATION
+// ============================================================
+document.addEventListener('keydown', function(e) {
+  // Auto-eval screen: no keyboard shortcuts
+  if (!document.getElementById('quiz-container').classList.contains('hidden')) {
+    if (quizSubmitted) return;
+    if (e.key === 'ArrowRight' || e.key === 'Enter') {
+      if (currentQ === 19) submitQuiz();
+      else nextQuestion();
+    }
+    if (e.key === 'ArrowLeft') prevQuestion();
+    if (e.key >= '1' && e.key <= '4') {
+      selectAnswer(currentQ, parseInt(e.key) - 1);
+    }
+  }
+});
+</script>
+
+</body>
+</html>
