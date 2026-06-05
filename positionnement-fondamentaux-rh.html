@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Positionnement — Fondamentaux des Ressources Humaines | Akademia Formation</title>
+  <meta name="description" content="Test de positionnement pour la formation Fondamentaux des Ressources Humaines. 12 auto-évaluations + 20 questions de mise en situation.">
+
+  <!-- Dark mode anti-flicker -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('rh_fondamentaux_theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'akademia-blue': '#3b82f6',
+            'akademia-purple': '#7C3AED',
+            'akademia-turquoise': '#06B6D4',
+            'akademia-green': '#10B981',
+            'akademia-orange': '#F97316',
+            'akademia-red': '#EF4444',
+            'akademia-dark': '#0f172a',
+            'akademia-muted': '#64748b',
+          },
+          fontFamily: { 'inter': ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #3b82f6, #7C3AED, #06B6D4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Quiz styles */
+    .quiz-question { display: none; }
+    .quiz-question.active { display: block; animation: fadeSlideIn 0.4s ease; }
+    .quiz-option { transition: all 0.2s; cursor: pointer; }
+    .quiz-option:hover:not(.locked) { border-color: #3b82f6; background: rgba(59,130,246,0.05); }
+    html.dark .quiz-option:hover:not(.locked) { background: rgba(59,130,246,0.15); }
+    .quiz-option.selected { border-color: #3b82f6; background: rgba(59,130,246,0.08); }
+    html.dark .quiz-option.selected { background: rgba(59,130,246,0.2); }
+    .quiz-option.correct-show { border-color: #10b981 !important; background: rgba(16,185,129,0.1) !important; }
+    html.dark .quiz-option.correct-show { background: rgba(16,185,129,0.2) !important; }
+    .quiz-option.wrong-show { border-color: #ef4444 !important; background: rgba(239,68,68,0.1) !important; }
+    html.dark .quiz-option.wrong-show { background: rgba(239,68,68,0.2) !important; }
+    .quiz-option.locked { cursor: default; }
+
+    /* Mode toggle */
+    .mode-tab { transition: all 0.3s; }
+    .mode-tab.active-mode {
+      background: linear-gradient(135deg, #3b82f6, #7C3AED);
+      color: white;
+      box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+    }
+
+    /* Progress bar */
+    .progress-fill { transition: width 0.4s ease; }
+
+    /* Confetti */
+    @keyframes confettiFall {
+      0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+    .confetti-piece {
+      position: fixed;
+      top: -10px;
+      width: 10px;
+      height: 10px;
+      z-index: 9999;
+      animation: confettiFall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Score ring */
+    .score-ring { transition: stroke-dashoffset 1.2s ease; }
+
+    /* Bucket badge colors */
+    .badge-admin { background: rgba(59,130,246,0.15); color: #3b82f6; }
+    .badge-paie { background: rgba(124,58,237,0.15); color: #7C3AED; }
+    .badge-dev { background: rgba(6,182,212,0.15); color: #06B6D4; }
+    .badge-social { background: rgba(249,115,22,0.15); color: #F97316; }
+
+    /* Star rating */
+    .star-btn { transition: all 0.15s; cursor: pointer; }
+    .star-btn:hover { transform: scale(1.15); }
+    .star-btn.star-active { color: #F59E0B; }
+    .star-btn.star-inactive { color: #CBD5E1; }
+    html.dark .star-btn.star-inactive { color: #475569; }
+
+    /* Auto-eval card */
+    .autoeval-card { transition: all 0.2s; }
+    .autoeval-card.rated { border-color: #3b82f6; }
+
+    /* Bar fill for bucket breakdown */
+    .bar-fill { transition: width 1s ease; }
+
+    /* Print styles */
+    @media print {
+      nav, .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+      .dark body { background: white !important; color: black !important; }
+      * { color: black !important; background: white !important; border-color: #ccc !important; }
+      .print-only { display: block !important; }
+    }
+    .print-only { display: none; }
+  </style>
+  <link rel="stylesheet" href="/assets/css/dark-mode.css">
+  <script src="/assets/js/formai-bridge.js"></script>
+</head>
+<body class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 min-h-screen">
+
+<!-- Top nav -->
+<nav class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700 no-print">
+  <div class="max-w-4xl mx-auto px-6 py-3 flex items-center justify-between">
+    <a href="/" class="text-sm font-medium text-akademia-blue hover:underline">&larr; Retour &agrave; l'accueil</a>
+    <div class="flex items-center gap-3">
+      <span class="text-xs font-semibold text-akademia-purple uppercase tracking-wide">FONDAMENTAUX RH</span>
+      <button id="darkToggle" class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+        <svg class="w-4 h-4 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Main container -->
+<div class="max-w-4xl mx-auto px-6 py-10">
+
+  <!-- ============================================ -->
+  <!-- WELCOME SCREEN                               -->
+  <!-- ============================================ -->
+  <div id="welcome-screen">
+    <div class="text-center mb-10" id="header-section">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-akademia-purple/10 text-akademia-purple dark:bg-akademia-purple/20 dark:text-purple-300 mb-4">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        &Eacute;valuation de positionnement
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">
+        <span class="gradient-text">Fondamentaux des Ressources Humaines</span>
+      </h1>
+      <p class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-2">Ma&icirc;triser la fonction RH au quotidien</p>
+      <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-8">
+        20 questions de mise en situation pour &eacute;valuer votre ma&icirc;trise des fondamentaux RH (administration du personnel, paie &amp; temps de travail, recrutement &amp; formation, relations sociales &amp; pilotage) + 12 auto-&eacute;valuations de comp&eacute;tences.
+      </p>
+
+      <!-- Test structure preview -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-lg mx-auto mb-8 text-left">
+        <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-akademia-purple/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-akademia-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-slate-700 dark:text-slate-200">Partie 1</div>
+              <div class="text-xs text-slate-500">12 auto-&eacute;valuations</div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-akademia-blue/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-akademia-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-slate-700 dark:text-slate-200">Partie 2</div>
+              <div class="text-xs text-slate-500">20 questions QCM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="startTest()" class="px-8 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-blue to-akademia-purple text-white hover:opacity-90 transition shadow-lg shadow-akademia-blue/25">
+        Commencer
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- PART 1: AUTO-EVALUATION                      -->
+  <!-- ============================================ -->
+  <div id="autoeval-screen" class="hidden">
+
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-akademia-purple/10 text-akademia-purple dark:bg-akademia-purple/20 dark:text-purple-300">
+          Partie 1 / 2
+        </span>
+        <span class="text-xs text-slate-500 dark:text-slate-400">Auto-&eacute;valuation</span>
+      </div>
+      <h2 class="text-2xl font-bold text-slate-800 dark:text-white mb-2">&Eacute;valuez vos comp&eacute;tences</h2>
+      <p class="text-slate-500 dark:text-slate-400 text-sm">Pour chaque comp&eacute;tence, s&eacute;lectionnez votre niveau actuel. Toutes les comp&eacute;tences doivent &ecirc;tre &eacute;valu&eacute;es pour passer &agrave; la suite.</p>
+    </div>
+
+    <!-- Progress for auto-eval -->
+    <div class="mb-6">
+      <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
+        <span id="autoeval-progress-label">0 / 12 comp&eacute;tences &eacute;valu&eacute;es</span>
+      </div>
+      <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+        <div id="autoeval-progress-bar" class="progress-fill h-full rounded-full bg-gradient-to-r from-akademia-purple to-akademia-turquoise" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Auto-eval grid -->
+    <div id="autoeval-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <!-- Filled by JS -->
+    </div>
+
+    <!-- Legend -->
+    <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700 mb-6">
+      <div class="text-xs font-semibold text-slate-600 dark:text-slate-300 mb-2">&Eacute;chelle de notation</div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs text-slate-500 dark:text-slate-400">
+        <div class="flex items-center gap-1.5"><span class="text-amber-400">&#9733;</span> D&eacute;butant</div>
+        <div class="flex items-center gap-1.5"><span class="text-amber-400">&#9733;&#9733;</span> Interm&eacute;diaire</div>
+        <div class="flex items-center gap-1.5"><span class="text-amber-400">&#9733;&#9733;&#9733;</span> Avanc&eacute;</div>
+        <div class="flex items-center gap-1.5"><span class="text-amber-400">&#9733;&#9733;&#9733;&#9733;</span> Expert</div>
+      </div>
+    </div>
+
+    <div class="flex justify-end no-print">
+      <button id="btn-autoeval-next" onclick="finishAutoEval()" class="px-6 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-blue to-akademia-purple text-white hover:opacity-90 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        Passer au QCM &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- PART 2: QCM                                  -->
+  <!-- ============================================ -->
+  <div id="quiz-container" class="hidden">
+
+    <div class="mb-6">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-akademia-blue/10 text-akademia-blue dark:bg-akademia-blue/20 dark:text-blue-300">
+          Partie 2 / 2
+        </span>
+        <span class="text-xs text-slate-500 dark:text-slate-400">QCM — Mises en situation</span>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="mb-8">
+      <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
+        <span id="progress-label">Question 1 / 20</span>
+        <span id="bucket-badge" class="px-2 py-0.5 rounded-full text-xs font-medium badge-admin">Admin. du personnel</span>
+      </div>
+      <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+        <div id="progress-bar" class="progress-fill h-full rounded-full bg-gradient-to-r from-akademia-blue to-akademia-purple" style="width: 5%"></div>
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div id="questions-wrapper">
+      <!-- Questions injected by JS -->
+    </div>
+
+    <!-- Navigation buttons -->
+    <div class="flex justify-between mt-8 no-print">
+      <button id="btn-prev" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        &larr; Pr&eacute;c&eacute;dente
+      </button>
+      <button id="btn-next" onclick="nextQuestion()" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-blue to-akademia-purple text-white hover:opacity-90 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        Suivante &rarr;
+      </button>
+      <button id="btn-submit" onclick="submitQuiz()" class="hidden px-6 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-green to-akademia-turquoise text-white hover:opacity-90 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        Valider mes r&eacute;ponses
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- RESULTS SCREEN                               -->
+  <!-- ============================================ -->
+  <div id="results-container" class="hidden">
+    <!-- Injected by JS -->
+  </div>
+
+</div>
+
+<!-- Print header (only visible when printing) -->
+<div class="print-only" style="text-align:center; margin-bottom:20px;">
+  <h2>Akademia Formation — Fondamentaux des Ressources Humaines</h2>
+  <p>&Eacute;valuation de positionnement</p>
+</div>
+
+<!-- xAPI tracker -->
+<script src="/assets/js/xapi-tracker.js"></script>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const AUTOEVAL_ITEMS = [
+  {key: "admin_contrats", bucket: "admin", label: "Choisir et rédiger le bon type de contrat de travail (CDI, CDD, intérim) selon le besoin"},
+  {key: "admin_embauche", bucket: "admin", label: "Réaliser les formalités d'embauche (DPAE, registre unique du personnel, suivi médical)"},
+  {key: "admin_rupture", bucket: "admin", label: "Sécuriser une fin de contrat (rupture conventionnelle, démission, licenciement) et le solde de tout compte"},
+  {key: "paie_bulletin", bucket: "paie", label: "Lire et contrôler un bulletin de paie (mentions obligatoires, brut, net, net social)"},
+  {key: "paie_temps", bucket: "paie", label: "Décompter le temps de travail et les heures supplémentaires (durée légale, repos)"},
+  {key: "paie_conges", bucket: "paie", label: "Gérer les congés payés et les principales absences"},
+  {key: "dev_recrutement", bucket: "dev", label: "Mener un recrutement structuré et non-discriminatoire (de la fiche de poste à l'intégration)"},
+  {key: "dev_plan", bucket: "dev", label: "Construire et suivre le plan de développement des compétences"},
+  {key: "dev_dispositifs", bucket: "dev", label: "Mobiliser les bons dispositifs de formation (CPF, OPCO, entretien professionnel)"},
+  {key: "social_normes", bucket: "social", label: "Situer la hiérarchie des normes (Code du travail, convention collective, accord, contrat)"},
+  {key: "social_cse", bucket: "social", label: "Comprendre le rôle du CSE et les bases du dialogue social"},
+  {key: "social_pilotage", bucket: "social", label: "Piloter la fonction RH avec des indicateurs (turnover, absentéisme, masse salariale) et la GEPP"}
+];
+
+const BUCKET_NAMES = {
+  admin: 'Admin. du personnel',
+  paie: 'Paie & temps de travail',
+  dev: 'Recrutement & formation',
+  social: 'Relations sociales & pilotage'
+};
+
+const BUCKET_BADGE_CLASSES = {
+  admin: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
+  paie: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300',
+  dev: 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300',
+  social: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300'
+};
+
+const BUCKET_COLORS = {
+  admin: '#3b82f6',
+  paie: '#7C3AED',
+  dev: '#06B6D4',
+  social: '#F97316'
+};
+
+const BUCKET_BORDER_CLASSES = {
+  admin: 'border-blue-300 dark:border-blue-700',
+  paie: 'border-purple-300 dark:border-purple-700',
+  dev: 'border-cyan-300 dark:border-cyan-700',
+  social: 'border-orange-300 dark:border-orange-700'
+};
+
+const QUESTIONS = [
+  {
+    id: 1, bucket: "admin",
+    scenario: "Vous recrutez une nouvelle assistante. Sa prise de poste est prévue dans une semaine et vous préparez le dossier d'embauche.",
+    question: "Quelle formalité obligatoire devez-vous accomplir avant son arrivée ?",
+    options: [
+      "Établir tout de suite son premier bulletin de paie",
+      "Lui faire signer le contrat seulement le premier jour travaillé",
+      "Effectuer la Déclaration Préalable À l'Embauche (DPAE) auprès de l'URSSAF",
+      "La déclarer au CSE de l'entreprise"
+    ],
+    correct: 2
+  },
+  {
+    id: 2, bucket: "admin",
+    scenario: "Une salariée part en congé maternité pour environ 4 mois. La direction veut la remplacer le temps de son absence.",
+    question: "Quel contrat est adapté et que doit-il obligatoirement comporter ?",
+    options: [
+      "Un CDD mentionnant le motif de recours (remplacement) et un terme",
+      "Un CDI classique, sans aucune mention de durée",
+      "Un CDD sans motif, librement renouvelable",
+      "Un contrat de chantier ou d'opération"
+    ],
+    correct: 0
+  },
+  {
+    id: 3, bucket: "admin",
+    scenario: "Vous embauchez un cadre en CDI et rédigez la clause de période d'essai dans son contrat.",
+    question: "Quelle est la durée maximale de la période d'essai initiale d'un cadre ?",
+    options: [
+      "1 mois",
+      "2 mois",
+      "3 mois",
+      "4 mois"
+    ],
+    correct: 3
+  },
+  {
+    id: 4, bucket: "admin",
+    scenario: "L'inspection du travail se présente dans l'entreprise et demande à consulter la liste de tous les salariés, dans l'ordre de leurs embauches.",
+    question: "Quel document devez-vous être en mesure de présenter ?",
+    options: [
+      "Le bilan social",
+      "Le registre unique du personnel",
+      "La BDESE",
+      "Le règlement intérieur"
+    ],
+    correct: 1
+  },
+  {
+    id: 5, bucket: "admin",
+    scenario: "Un salarié et l'employeur s'accordent pour mettre fin au CDI d'un commun accord, à l'amiable.",
+    question: "Quelle affirmation décrit correctement la rupture conventionnelle individuelle ?",
+    options: [
+      "Elle est définitive dès la signature, sans aucun délai de rétractation",
+      "Elle prive le salarié de l'allocation chômage",
+      "Chaque partie a 15 jours calendaires pour se rétracter, puis la DREETS homologue la convention",
+      "Elle ne donne lieu à aucune indemnité de rupture"
+    ],
+    correct: 2
+  },
+  {
+    id: 6, bucket: "paie",
+    scenario: "Vous organisez le temps de travail d'un salarié à temps plein et fixez son horaire de référence.",
+    question: "Quelle est la durée légale du travail effectif pour un temps plein en France ?",
+    options: [
+      "35 heures par semaine",
+      "39 heures par semaine",
+      "37,5 heures par semaine",
+      "40 heures par semaine"
+    ],
+    correct: 0
+  },
+  {
+    id: 7, bucket: "paie",
+    scenario: "Un salarié à 35 h réalise 4 heures de travail en plus sur une semaine. Aucun accord d'entreprise ne fixe de taux particulier.",
+    question: "Comment ces heures supplémentaires sont-elles majorées par défaut ?",
+    options: [
+      "Elles ne sont pas majorées",
+      "De 10 %",
+      "De 100 %",
+      "De 25 % (pour les 8 premières heures supplémentaires)"
+    ],
+    correct: 3
+  },
+  {
+    id: 8, bucket: "paie",
+    scenario: "Une salariée présente toute l'année vous interroge sur le nombre de jours de congés qu'elle cumule.",
+    question: "Combien de jours de congés payés acquiert-elle par mois de travail effectif ?",
+    options: [
+      "1,5 jour ouvrable",
+      "2 jours ouvrables",
+      "2,5 jours ouvrables",
+      "3 jours ouvrables"
+    ],
+    correct: 2
+  },
+  {
+    id: 9, bucket: "paie",
+    scenario: "Un salarié vous demande quel montant de sa fiche de paie il doit reporter dans sa déclaration pour la prime d'activité.",
+    question: "Quelle mention, obligatoire depuis juillet 2023, sert de référence pour ces prestations (RSA, prime d'activité) ?",
+    options: [
+      "Le salaire brut",
+      "Le montant net social",
+      "Le net imposable",
+      "Le net à payer avant impôt"
+    ],
+    correct: 1
+  },
+  {
+    id: 10, bucket: "paie",
+    scenario: "Vous fixez le salaire d'embauche d'un poste. La convention collective de la branche prévoit un salaire minimum pour ce coefficient.",
+    question: "Quel plancher de rémunération devez-vous respecter ?",
+    options: [
+      "Le SMIC uniquement",
+      "La moyenne des salaires du secteur",
+      "Le salaire médian national",
+      "Le plus favorable entre le SMIC et le minimum conventionnel de branche"
+    ],
+    correct: 3
+  },
+  {
+    id: 11, bucket: "dev",
+    scenario: "Vous rédigez une offre d'emploi puis recevez les candidats en entretien pour choisir la personne à recruter.",
+    question: "Quel principe juridique encadre votre sélection ?",
+    options: [
+      "Seuls comptent les critères liés aux compétences et aptitudes professionnelles (non-discrimination)",
+      "L'employeur choisit librement, sans aucune contrainte",
+      "Il faut systématiquement privilégier les candidats les plus jeunes",
+      "Il faut recruter en priorité par cooptation"
+    ],
+    correct: 0
+  },
+  {
+    id: 12, bucket: "dev",
+    scenario: "Un manager prépare ses entretiens de fin d'année et confond deux dispositifs distincts.",
+    question: "Qu'est-ce qui caractérise l'entretien professionnel (par opposition à l'entretien annuel d'évaluation) ?",
+    options: [
+      "Il sert à évaluer la performance et à fixer la prime",
+      "Il est facultatif et purement informel",
+      "Il porte sur les perspectives d'évolution et de formation, et est obligatoire tous les 2 ans",
+      "Il ne concerne que les cadres dirigeants"
+    ],
+    correct: 2
+  },
+  {
+    id: 13, bucket: "dev",
+    scenario: "Un salarié souhaite financer, de sa propre initiative, une formation certifiante de son choix.",
+    question: "Quel dispositif lui appartient et qu'il peut mobiliser lui-même ?",
+    options: [
+      "Le plan de développement des compétences",
+      "Le Compte Personnel de Formation (CPF)",
+      "Le bilan social",
+      "La cotisation versée à l'OPCO"
+    ],
+    correct: 1
+  },
+  {
+    id: 14, bucket: "dev",
+    scenario: "Votre PME veut financer un contrat d'apprentissage et faire prendre en charge une partie de son plan de formation.",
+    question: "À quel organisme s'adresse-t-elle ?",
+    options: [
+      "À l'URSSAF",
+      "À la DREETS",
+      "À France Travail",
+      "À son OPCO (opérateur de compétences)"
+    ],
+    correct: 3
+  },
+  {
+    id: 15, bucket: "dev",
+    scenario: "La direction estime que la formation est un coût optionnel et envisage de ne plus rien proposer aux équipes.",
+    question: "Quelle obligation pèse pourtant sur l'employeur en matière de formation ?",
+    options: [
+      "Assurer l'adaptation des salariés à leur poste et veiller au maintien de leur employabilité",
+      "Aucune, la formation est entièrement facultative",
+      "Financer toute formation demandée par un salarié, sans condition",
+      "Ne former que les salariés nouvellement embauchés"
+    ],
+    correct: 0
+  },
+  {
+    id: 16, bucket: "social",
+    scenario: "Sur un même avantage, un accord d'entreprise et la convention de branche prévoient des règles différentes.",
+    question: "Quel principe protège traditionnellement le salarié en cas de conflit de normes ?",
+    options: [
+      "La norme la plus ancienne s'applique toujours",
+      "Le contrat de travail prime sur tout",
+      "Le principe de faveur : on retient la disposition la plus favorable au salarié",
+      "L'usage l'emporte systématiquement"
+    ],
+    correct: 2
+  },
+  {
+    id: 17, bucket: "social",
+    scenario: "Une entreprise en croissance vient d'atteindre puis de dépasser durablement un certain effectif.",
+    question: "À partir de quel effectif la mise en place d'un CSE devient-elle obligatoire ?",
+    options: [
+      "Dès le 1er salarié",
+      "À partir de 11 salariés (pendant 12 mois consécutifs)",
+      "À partir de 25 salariés",
+      "À partir de 50 salariés"
+    ],
+    correct: 1
+  },
+  {
+    id: 18, bucket: "social",
+    scenario: "Vous structurez la démarche de prévention des risques et la santé-sécurité au travail.",
+    question: "Quel document, obligatoire dès le premier salarié, formalise l'évaluation des risques professionnels ?",
+    options: [
+      "Le bilan social",
+      "La BDESE",
+      "Le registre unique du personnel",
+      "Le DUERP (document unique d'évaluation des risques professionnels)"
+    ],
+    correct: 3
+  },
+  {
+    id: 19, bucket: "social",
+    scenario: "Votre entreprise compte 250 salariés et la direction veut être en règle sur l'égalité professionnelle.",
+    question: "Quelle obligation annuelle s'impose à elle ?",
+    options: [
+      "Calculer et publier chaque année l'Index de l'égalité professionnelle femmes-hommes",
+      "N'avoir aucune obligation chiffrée",
+      "Recruter strictement 50 % de femmes",
+      "Publier la liste nominative des salaires"
+    ],
+    correct: 0
+  },
+  {
+    id: 20, bucket: "social",
+    scenario: "La direction souhaite mesurer la fidélisation des équipes et le renouvellement des effectifs.",
+    question: "Quel indicateur RH suit les départs et arrivées de personnel ?",
+    options: [
+      "Le taux d'absentéisme",
+      "La masse salariale",
+      "Le taux de turnover (rotation du personnel)",
+      "Le taux de marge"
+    ],
+    correct: 2
+  }
+];
+
+const EXPLAINS = {
+  1: "La DPAE (Déclaration Préalable À l'Embauche) se fait auprès de l'URSSAF dans les 8 jours précédant l'embauche. Elle regroupe plusieurs formalités (immatriculation, affiliation, demande de visite d'information et de prévention).",
+  2: "Le CDD doit obligatoirement comporter un motif de recours légal — ici le remplacement d'une salariée absente — et un terme (date précise ou durée minimale). À défaut d'écrit mentionnant le motif, le contrat est requalifié en CDI.",
+  3: "Les durées maximales légales de la période d'essai initiale en CDI sont : 2 mois (ouvriers/employés), 3 mois (agents de maîtrise/techniciens) et 4 mois (cadres). Le renouvellement (une seule fois) suppose un accord de branche le prévoyant et une mention au contrat.",
+  4: "Le registre unique du personnel est obligatoire dès le premier salarié. Il mentionne, dans l'ordre des embauches, l'identité et les informations de chaque salarié (entrées et sorties).",
+  5: "Après signature, chaque partie dispose de 15 jours calendaires pour se rétracter, puis la convention est homologuée par la DREETS (via TéléRC). Le salarié perçoit une indemnité au moins égale à l'indemnité légale de licenciement et a droit à l'allocation chômage.",
+  6: "La durée légale du travail effectif est de 35 heures par semaine (soit 1 607 heures par an, journée de solidarité incluse). Au-delà, ce sont des heures supplémentaires, majorées.",
+  7: "À défaut d'accord fixant un autre taux (au moins 10 %), les heures supplémentaires sont majorées de 25 % pour les 8 premières (de la 36e à la 43e heure), puis de 50 % au-delà.",
+  8: "Le salarié acquiert 2,5 jours ouvrables de congés par mois de travail effectif, soit 30 jours ouvrables (5 semaines) pour une année complète.",
+  9: "Le « montant net social » est obligatoire sur le bulletin depuis le 1er juillet 2023. Il correspond au revenu net après déduction des cotisations sociales et sert de référence pour les demandes de prestations (RSA, prime d'activité).",
+  10: "On applique le plus favorable entre le SMIC (minimum légal) et le minimum conventionnel de la branche. Le salarié ne peut jamais être rémunéré en dessous de ce plancher.",
+  11: "La sélection doit reposer sur les seules compétences et aptitudes professionnelles. Le Code du travail interdit toute discrimination (âge, sexe, origine, état de santé, situation de famille, etc.) à l'embauche.",
+  12: "L'entretien professionnel est obligatoire tous les 2 ans (avec un état des lieux récapitulatif tous les 6 ans). Il porte sur les perspectives d'évolution et de formation et ne doit pas être confondu avec l'entretien annuel d'évaluation de la performance.",
+  13: "Le CPF (Compte Personnel de Formation) est attaché à la personne, alimenté en euros, et mobilisable à l'initiative du salarié. Le plan de développement des compétences relève, lui, de l'employeur.",
+  14: "Les OPCO (opérateurs de compétences, depuis 2019) financent notamment l'alternance et accompagnent les entreprises — en particulier celles de moins de 50 salariés — dans leur plan de développement des compétences.",
+  15: "L'employeur a l'obligation d'assurer l'adaptation des salariés à leur poste de travail et de veiller au maintien de leur capacité à occuper un emploi (article L6321-1). Le plan de développement des compétences en est l'outil.",
+  16: "Le principe de faveur fait primer la disposition la plus favorable au salarié. À noter : depuis les ordonnances de 2017, l'accord d'entreprise prime toutefois sur la branche pour de nombreux thèmes (hors domaines réservés à la branche).",
+  17: "Le CSE (comité social et économique) est obligatoire à partir de 11 salariés pendant 12 mois consécutifs. Ses attributions sont élargies (et un budget de fonctionnement apparaît) à partir de 50 salariés.",
+  18: "Le DUERP (document unique d'évaluation des risques professionnels) est obligatoire dès le premier salarié. Il recense et hiérarchise les risques et fonde le plan d'actions de prévention ; il doit être mis à jour régulièrement.",
+  19: "Les entreprises d'au moins 50 salariés doivent calculer et publier chaque année l'Index de l'égalité professionnelle femmes-hommes (sur 100 points) et engager des mesures correctives si le résultat est insuffisant.",
+  20: "Le taux de turnover mesure la rotation des effectifs (départs/arrivées). Couplé au taux d'absentéisme et au suivi de la masse salariale, il constitue un indicateur clé du tableau de bord RH."
+};
+
+const BUCKET_TOTALS = { admin: 5, paie: 5, dev: 5, social: 5 };
+const LETTER_MAP = ['A', 'B', 'C', 'D'];
+
+// ============================================================
+// STATE
+// ============================================================
+let currentQ = 0;
+let answers = new Array(20).fill(null);
+let quizSubmitted = false;
+let autoEvalRatings = {};
+
+// ============================================================
+// FUNCTIONS — FLOW
+// ============================================================
+
+function startTest() {
+  document.getElementById('welcome-screen').classList.add('hidden');
+  document.getElementById('autoeval-screen').classList.remove('hidden');
+  buildAutoEval();
+  document.getElementById('autoeval-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================================
+// FUNCTIONS — AUTO-EVAL
+// ============================================================
+
+function buildAutoEval() {
+  var grid = document.getElementById('autoeval-grid');
+  grid.innerHTML = '';
+
+  AUTOEVAL_ITEMS.forEach(function(item, idx) {
+    var badgeClass = BUCKET_BADGE_CLASSES[item.bucket];
+    var borderClass = BUCKET_BORDER_CLASSES[item.bucket];
+    var card = document.createElement('div');
+    card.className = 'autoeval-card bg-white dark:bg-slate-800/50 rounded-xl p-4 border-2 border-slate-200 dark:border-slate-700';
+    card.id = 'autoeval-card-' + idx;
+
+    var starsHtml = '';
+    for (var s = 1; s <= 4; s++) {
+      starsHtml += '<button onclick="rateCompetency(' + idx + ',' + s + ')" id="star-' + idx + '-' + s + '" class="star-btn star-inactive w-8 h-8 flex items-center justify-center text-xl" title="' + s + '/4" aria-label="' + s + ' sur 4">';
+      starsHtml += '&#9733;';
+      starsHtml += '</button>';
+    }
+
+    card.innerHTML =
+      '<div class="flex items-start gap-3">' +
+        '<div class="flex-1 min-w-0">' +
+          '<span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-medium mb-2 ' + badgeClass + '">' + BUCKET_NAMES[item.bucket] + '</span>' +
+          '<p class="text-sm text-slate-700 dark:text-slate-200 leading-snug">' + item.label + '</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="flex items-center gap-1 mt-3" id="stars-' + idx + '">' + starsHtml + '</div>';
+
+    grid.appendChild(card);
+  });
+}
+
+function rateCompetency(idx, rating) {
+  var item = AUTOEVAL_ITEMS[idx];
+  autoEvalRatings[item.key] = rating;
+
+  // Update stars visual
+  for (var s = 1; s <= 4; s++) {
+    var star = document.getElementById('star-' + idx + '-' + s);
+    if (s <= rating) {
+      star.classList.remove('star-inactive');
+      star.classList.add('star-active');
+    } else {
+      star.classList.remove('star-active');
+      star.classList.add('star-inactive');
+    }
+  }
+
+  // Mark card as rated
+  var card = document.getElementById('autoeval-card-' + idx);
+  card.classList.add('rated');
+
+  // Update progress
+  var count = Object.keys(autoEvalRatings).length;
+  document.getElementById('autoeval-progress-label').textContent = count + ' / 12 compétences évaluées';
+  document.getElementById('autoeval-progress-bar').style.width = Math.round((count / 12) * 100) + '%';
+
+  // Enable next button when all rated
+  document.getElementById('btn-autoeval-next').disabled = (count < 12);
+}
+
+function finishAutoEval() {
+  if (Object.keys(autoEvalRatings).length < 12) return;
+
+  // Save auto-eval to localStorage
+  localStorage.setItem('rh_fondamentaux_autoeval', JSON.stringify(autoEvalRatings));
+
+  // Switch to QCM
+  document.getElementById('autoeval-screen').classList.add('hidden');
+  document.getElementById('quiz-container').classList.remove('hidden');
+  buildQuiz();
+  showQuestion(0);
+  document.getElementById('quiz-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================================
+// FUNCTIONS — QCM
+// ============================================================
+
+function buildQuiz() {
+  var wrapper = document.getElementById('questions-wrapper');
+  wrapper.innerHTML = '';
+
+  QUESTIONS.forEach(function(q, i) {
+    var div = document.createElement('div');
+    div.className = 'quiz-question' + (i === 0 ? ' active' : '');
+    div.id = 'q-' + i;
+
+    var badgeClass = BUCKET_BADGE_CLASSES[q.bucket];
+    var bucketName = BUCKET_NAMES[q.bucket];
+
+    var optionsHtml = '';
+    q.options.forEach(function(opt, oi) {
+      optionsHtml += '<button onclick="selectAnswer(' + i + ',' + oi + ')" id="opt-' + i + '-' + oi + '" class="quiz-option w-full text-left px-5 py-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 text-slate-700 dark:text-slate-200 text-sm md:text-base">';
+      optionsHtml += '<span class="font-semibold text-akademia-muted mr-2">' + LETTER_MAP[oi] + ')</span> ' + opt;
+      optionsHtml += '</button>';
+    });
+
+    div.innerHTML =
+      '<div class="mb-4">' +
+        '<span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium mb-3 ' + badgeClass + '">' + bucketName + '</span>' +
+        '<p class="text-sm italic text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">' + q.scenario + '</p>' +
+        '<h2 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white">' +
+          '<span class="text-akademia-muted font-normal">Q' + q.id + '.</span> ' + q.question +
+        '</h2>' +
+      '</div>' +
+      '<div class="space-y-3" id="options-' + i + '">' + optionsHtml + '</div>';
+
+    wrapper.appendChild(div);
+  });
+}
+
+function selectAnswer(qIndex, optIndex) {
+  if (quizSubmitted) return;
+
+  answers[qIndex] = optIndex;
+
+  // Update visual
+  var options = document.querySelectorAll('#options-' + qIndex + ' .quiz-option');
+  options.forEach(function(opt, i) {
+    if (i === optIndex) {
+      opt.classList.add('selected');
+    } else {
+      opt.classList.remove('selected');
+    }
+  });
+
+  // Enable next/submit
+  updateNavButtons();
+}
+
+function showQuestion(index) {
+  currentQ = index;
+
+  // Hide all, show current
+  document.querySelectorAll('.quiz-question').forEach(function(q) { q.classList.remove('active'); });
+  var el = document.getElementById('q-' + index);
+  if (el) el.classList.add('active');
+
+  // Update progress
+  var pct = ((index + 1) / 20 * 100).toFixed(0);
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = 'Question ' + (index + 1) + ' / 20';
+
+  // Update bucket badge
+  var q = QUESTIONS[index];
+  var badge = document.getElementById('bucket-badge');
+  badge.textContent = BUCKET_NAMES[q.bucket];
+  badge.className = 'px-2 py-0.5 rounded-full text-xs font-medium badge-' + q.bucket;
+
+  updateNavButtons();
+}
+
+function updateNavButtons() {
+  var prevBtn = document.getElementById('btn-prev');
+  var nextBtn = document.getElementById('btn-next');
+  var submitBtn = document.getElementById('btn-submit');
+
+  prevBtn.disabled = currentQ === 0;
+
+  if (currentQ === 19) {
+    nextBtn.classList.add('hidden');
+    submitBtn.classList.remove('hidden');
+    submitBtn.disabled = answers[currentQ] === null;
+  } else {
+    nextBtn.classList.remove('hidden');
+    submitBtn.classList.add('hidden');
+    nextBtn.disabled = answers[currentQ] === null;
+  }
+}
+
+function nextQuestion() {
+  if (currentQ < 19 && answers[currentQ] !== null) {
+    showQuestion(currentQ + 1);
+  }
+}
+
+function prevQuestion() {
+  if (currentQ > 0) {
+    showQuestion(currentQ - 1);
+  }
+}
+
+// ============================================================
+// FUNCTIONS — SUBMIT & RESULTS
+// ============================================================
+
+function submitQuiz() {
+  if (answers.includes(null)) return;
+  quizSubmitted = true;
+
+  // Calculate score
+  var score = 0;
+  var bucketScores = { admin: 0, paie: 0, dev: 0, social: 0 };
+  var details = [];
+
+  QUESTIONS.forEach(function(q, i) {
+    var isCorrect = answers[i] === q.correct;
+    if (isCorrect) {
+      score++;
+      bucketScores[q.bucket]++;
+    }
+    details.push({ question: q, userAnswer: answers[i], correct: isCorrect });
+  });
+
+  // Save to localStorage
+  localStorage.setItem('rh_fondamentaux_positionnement', score);
+  localStorage.setItem('rh_fondamentaux_positionnement_date', new Date().toISOString());
+  localStorage.setItem('rh_fondamentaux_positionnement_details', JSON.stringify(answers));
+
+  // xAPI tracking
+  if (typeof xapiTracker !== 'undefined') {
+    xapiTracker.trackQuizScore('positionnement-fondamentaux-rh', 'Positionnement Fondamentaux RH', score, 20);
+  }
+
+  // FormAI bridge
+  if (typeof window.formaiModuleComplete === 'function') {
+    window.formaiModuleComplete(score, 20);
+  }
+
+  // Show corrections on questions
+  showCorrections(details);
+
+  // Show results
+  showResults(score, bucketScores, details);
+
+  // Confetti if good score
+  if (score >= 14) launchConfetti();
+}
+
+function showCorrections(details) {
+  details.forEach(function(d, i) {
+    var options = document.querySelectorAll('#options-' + i + ' .quiz-option');
+    options.forEach(function(opt, oi) {
+      opt.classList.add('locked');
+      if (oi === d.question.correct) {
+        opt.classList.add('correct-show');
+      }
+      if (oi === d.userAnswer && !d.correct) {
+        opt.classList.add('wrong-show');
+      }
+    });
+  });
+}
+
+function showResults(score, bucketScores, details) {
+  var pct = Math.round((score / 20) * 100);
+
+  // Level badge
+  var levelLabel, levelColor, levelBg;
+  if (score >= 16) {
+    levelLabel = 'Expert'; levelColor = '#10B981'; levelBg = 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300';
+  } else if (score >= 12) {
+    levelLabel = 'Avancé'; levelColor = '#3b82f6'; levelBg = 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300';
+  } else if (score >= 8) {
+    levelLabel = 'Intermédiaire'; levelColor = '#F97316'; levelBg = 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300';
+  } else {
+    levelLabel = 'Débutant'; levelColor = '#EF4444'; levelBg = 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
+  }
+
+  var circumference = 2 * Math.PI * 54;
+  var dashOffset = circumference - (pct / 100) * circumference;
+
+  var html = '';
+
+  // ---- Score ring ----
+  html += '<div class="text-center mb-10">';
+  html += '<h2 class="text-2xl font-bold mb-2 text-slate-800 dark:text-white">Résultats</h2>';
+  html += '<p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Fondamentaux des Ressources Humaines</p>';
+
+  html += '<div class="relative inline-block mb-4">';
+  html += '<svg width="140" height="140" viewBox="0 0 120 120">';
+  html += '<circle cx="60" cy="60" r="54" fill="none" stroke-width="8" class="stroke-slate-200 dark:stroke-slate-700"/>';
+  html += '<circle cx="60" cy="60" r="54" fill="none" stroke-width="8" stroke-linecap="round" class="score-ring" stroke="' + levelColor + '" stroke-dasharray="' + circumference + '" stroke-dashoffset="' + circumference + '" transform="rotate(-90 60 60)" id="score-ring-circle"/>';
+  html += '</svg>';
+  html += '<div class="absolute inset-0 flex flex-col items-center justify-center">';
+  html += '<span class="text-3xl font-extrabold text-slate-800 dark:text-white">' + score + '</span>';
+  html += '<span class="text-xs text-slate-500">/ 20</span>';
+  html += '</div>';
+  html += '</div>';
+
+  html += '<div class="flex justify-center mb-2">';
+  html += '<span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold ' + levelBg + '">';
+  html += levelLabel + ' — ' + pct + '%';
+  html += '</span>';
+  html += '</div>';
+  html += '</div>';
+
+  // ---- Bucket breakdown ----
+  html += '<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">';
+  var bucketKeys = ['admin', 'paie', 'dev', 'social'];
+  bucketKeys.forEach(function(bk) {
+    var bScore = bucketScores[bk];
+    var bTotal = BUCKET_TOTALS[bk];
+    var bPct = Math.round((bScore / bTotal) * 100);
+    var bColor = BUCKET_COLORS[bk];
+    var bName = BUCKET_NAMES[bk];
+
+    html += '<div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 text-center border border-slate-200 dark:border-slate-700">';
+    html += '<div class="text-xs font-medium text-slate-500 mb-1">' + bName + '</div>';
+    html += '<div class="text-2xl font-bold" style="color:' + bColor + '">' + bScore + '/' + bTotal + '</div>';
+    html += '<div class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mt-2">';
+    html += '<div class="bar-fill h-full rounded-full" style="width:0%;background:' + bColor + '" id="bar-bucket-' + bk + '"></div>';
+    html += '</div>';
+    html += '<div class="text-xs text-slate-400 mt-1">' + bPct + '%</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // ---- Auto-eval summary ----
+  html += '<div class="bg-gradient-to-br from-akademia-purple/5 to-akademia-turquoise/5 dark:from-akademia-purple/10 dark:to-akademia-turquoise/10 rounded-2xl p-6 mb-8 border border-akademia-purple/20">';
+  html += '<h3 class="text-lg font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">';
+  html += '<svg class="w-5 h-5 text-akademia-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>';
+  html += 'Auto-évaluation de vos compétences';
+  html += '</h3>';
+  html += '<div class="space-y-3">';
+
+  var savedAutoEval = autoEvalRatings;
+  if (Object.keys(savedAutoEval).length === 0) {
+    try {
+      var stored = localStorage.getItem('rh_fondamentaux_autoeval');
+      if (stored) savedAutoEval = JSON.parse(stored);
+    } catch(e) {}
+  }
+
+  var starLevels = ['' , 'Débutant', 'Intermédiaire', 'Avancé', 'Expert'];
+  AUTOEVAL_ITEMS.forEach(function(item) {
+    var rating = savedAutoEval[item.key] || 0;
+    var stars = '';
+    for (var s = 1; s <= 4; s++) {
+      if (s <= rating) {
+        stars += '<span class="text-amber-400">&#9733;</span>';
+      } else {
+        stars += '<span class="text-slate-300 dark:text-slate-600">&#9733;</span>';
+      }
+    }
+    var badgeClass = BUCKET_BADGE_CLASSES[item.bucket];
+
+    html += '<div class="flex items-center gap-3 text-sm">';
+    html += '<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-medium ' + badgeClass + ' flex-shrink-0">' + BUCKET_NAMES[item.bucket].substring(0, 5) + '.</span>';
+    html += '<span class="flex-1 text-slate-600 dark:text-slate-300 truncate" title="' + item.label + '">' + item.label + '</span>';
+    html += '<span class="flex items-center gap-0.5 flex-shrink-0 text-sm">' + stars + '</span>';
+    html += '<span class="text-xs text-slate-400 flex-shrink-0 w-24 text-right">' + (rating > 0 ? starLevels[rating] : '—') + '</span>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  html += '</div>';
+
+  // ---- Detailed corrections ----
+  html += '<div class="mb-8">';
+  html += '<h3 class="text-lg font-bold text-slate-800 dark:text-white mb-4">Correction détaillée</h3>';
+  html += '<div class="space-y-3">';
+
+  details.forEach(function(d, i) {
+    var q = d.question;
+    var explain = EXPLAINS[q.id] || '';
+    var borderColor = d.correct ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800' : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800';
+    var iconBg = d.correct ? 'bg-akademia-green text-white' : 'bg-akademia-red text-white';
+    var icon = d.correct ? '&#10003;' : '&#10007;';
+
+    html += '<div class="flex items-start gap-3 p-4 rounded-xl ' + borderColor + '">';
+    html += '<div class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ' + iconBg + '">' + icon + '</div>';
+    html += '<div class="text-sm flex-1">';
+    html += '<div class="flex items-start gap-2 mb-1">';
+    html += '<span class="font-semibold text-slate-700 dark:text-slate-200">Q' + q.id + '.</span>';
+    html += '<span class="text-slate-600 dark:text-slate-300">' + q.question + '</span>';
+    html += '</div>';
+
+    if (!d.correct) {
+      html += '<div class="mt-1 text-xs">';
+      html += '<span class="text-red-500">Votre réponse : ' + LETTER_MAP[d.userAnswer] + '</span> — ';
+      html += '<span class="text-green-600 dark:text-green-400">Bonne réponse : ' + LETTER_MAP[q.correct] + '</span>';
+      html += '</div>';
+    }
+
+    if (explain) {
+      html += '<div class="mt-2 p-2 rounded-lg bg-slate-100/50 dark:bg-slate-700/30 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">';
+      html += '<span class="font-semibold text-slate-700 dark:text-slate-300">Explication :</span> ' + explain;
+      html += '</div>';
+    }
+
+    html += '</div>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  html += '</div>';
+
+  // ---- Action buttons ----
+  html += '<div class="flex flex-wrap gap-3 justify-center no-print">';
+  html += '<button onclick="resetAll()" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Recommencer</button>';
+  html += '<button onclick="window.print()" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-blue to-akademia-purple text-white hover:opacity-90 transition flex items-center gap-2">';
+  html += '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>';
+  html += 'Imprimer mes résultats</button>';
+  html += '</div>';
+
+  // ---- Render ----
+  document.getElementById('quiz-container').classList.add('hidden');
+  var resultsEl = document.getElementById('results-container');
+  resultsEl.innerHTML = html;
+  resultsEl.classList.remove('hidden');
+
+  // Animate score ring
+  setTimeout(function() {
+    var ring = document.getElementById('score-ring-circle');
+    if (ring) ring.style.strokeDashoffset = dashOffset;
+  }, 100);
+
+  // Animate bucket bars
+  setTimeout(function() {
+    bucketKeys.forEach(function(bk) {
+      var bar = document.getElementById('bar-bucket-' + bk);
+      if (bar) {
+        var bPct = Math.round((bucketScores[bk] / BUCKET_TOTALS[bk]) * 100);
+        bar.style.width = bPct + '%';
+      }
+    });
+  }, 300);
+
+  // Scroll to results
+  resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetAll() {
+  quizSubmitted = false;
+  answers = new Array(20).fill(null);
+  autoEvalRatings = {};
+  currentQ = 0;
+
+  document.getElementById('results-container').classList.add('hidden');
+  document.getElementById('results-container').innerHTML = '';
+  document.getElementById('quiz-container').classList.add('hidden');
+  document.getElementById('autoeval-screen').classList.add('hidden');
+  document.getElementById('welcome-screen').classList.remove('hidden');
+
+  document.getElementById('header-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function launchConfetti() {
+  var colors = ['#3b82f6', '#7C3AED', '#06B6D4', '#10B981', '#F97316', '#EF4444'];
+  for (var i = 0; i < 60; i++) {
+    var piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.width = (Math.random() * 8 + 5) + 'px';
+    piece.style.height = (Math.random() * 8 + 5) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    piece.style.animationDelay = (Math.random() * 1.5) + 's';
+    document.body.appendChild(piece);
+    setTimeout(function(p) { return function() { p.remove(); }; }(piece), 5000);
+  }
+}
+
+// ============================================================
+// DARK MODE TOGGLE
+// ============================================================
+document.getElementById('darkToggle').addEventListener('click', function() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('rh_fondamentaux_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+});
+
+// ============================================================
+// KEYBOARD NAVIGATION
+// ============================================================
+document.addEventListener('keydown', function(e) {
+  // Auto-eval screen: no keyboard shortcuts
+  if (!document.getElementById('quiz-container').classList.contains('hidden')) {
+    if (quizSubmitted) return;
+    if (e.key === 'ArrowRight' || e.key === 'Enter') {
+      if (currentQ === 19) submitQuiz();
+      else nextQuestion();
+    }
+    if (e.key === 'ArrowLeft') prevQuestion();
+    if (e.key >= '1' && e.key <= '4') {
+      selectAnswer(currentQ, parseInt(e.key) - 1);
+    }
+  }
+});
+</script>
+
+</body>
+</html>
