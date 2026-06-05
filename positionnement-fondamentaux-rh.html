@@ -326,7 +326,7 @@ const AUTOEVAL_ITEMS = [
   {key: "paie_conges", bucket: "paie", label: "Gérer les congés payés et les principales absences"},
   {key: "dev_recrutement", bucket: "dev", label: "Mener un recrutement structuré et non-discriminatoire (de la fiche de poste à l'intégration)"},
   {key: "dev_plan", bucket: "dev", label: "Construire et suivre le plan de développement des compétences"},
-  {key: "dev_dispositifs", bucket: "dev", label: "Mobiliser les bons dispositifs de formation (CPF, OPCO, entretien professionnel)"},
+  {key: "dev_dispositifs", bucket: "dev", label: "Mobiliser les bons dispositifs de formation (CPF, OPCO, entretien de parcours professionnel)"},
   {key: "social_normes", bucket: "social", label: "Situer la hiérarchie des normes (Code du travail, convention collective, accord, contrat)"},
   {key: "social_cse", bucket: "social", label: "Comprendre le rôle du CSE et les bases du dialogue social"},
   {key: "social_pilotage", bucket: "social", label: "Piloter la fonction RH avec des indicateurs (turnover, absentéisme, masse salariale) et la GEPP"}
@@ -496,11 +496,11 @@ const QUESTIONS = [
   {
     id: 12, bucket: "dev",
     scenario: "Un manager prépare ses entretiens de fin d'année et confond deux dispositifs distincts.",
-    question: "Qu'est-ce qui caractérise l'entretien professionnel (par opposition à l'entretien annuel d'évaluation) ?",
+    question: "Qu'est-ce qui caractérise l'entretien de parcours professionnel (ex-« entretien professionnel »), par opposition à l'entretien annuel d'évaluation ?",
     options: [
       "Il sert à évaluer la performance et à fixer la prime",
       "Il est facultatif et purement informel",
-      "Il porte sur les perspectives d'évolution et de formation, et est obligatoire tous les 2 ans",
+      "Il porte sur les perspectives d'évolution et de formation, et a lieu en principe tous les 4 ans",
       "Il ne concerne que les cadres dirigeants"
     ],
     correct: 2
@@ -615,7 +615,7 @@ const EXPLAINS = {
   9: "Le « montant net social » est obligatoire sur le bulletin depuis le 1er juillet 2023. Il correspond au revenu net après déduction des cotisations sociales et sert de référence pour les demandes de prestations (RSA, prime d'activité).",
   10: "On applique le plus favorable entre le SMIC (minimum légal) et le minimum conventionnel de la branche. Le salarié ne peut jamais être rémunéré en dessous de ce plancher.",
   11: "La sélection doit reposer sur les seules compétences et aptitudes professionnelles. Le Code du travail interdit toute discrimination (âge, sexe, origine, état de santé, situation de famille, etc.) à l'embauche.",
-  12: "L'entretien professionnel est obligatoire tous les 2 ans (avec un état des lieux récapitulatif tous les 6 ans). Il porte sur les perspectives d'évolution et de formation et ne doit pas être confondu avec l'entretien annuel d'évaluation de la performance.",
+  12: "Depuis la réforme du 24 octobre 2025, l'« entretien professionnel » devient l'« entretien de parcours professionnel » : il a lieu en principe tous les 4 ans (état des lieux récapitulatif tous les 8 ans), avec un premier entretien dès l'embauche. Il porte sur les perspectives d'évolution et de formation et ne doit pas être confondu avec l'entretien annuel d'évaluation de la performance. Un accord collectif peut fixer une autre périodicité, sans dépasser 4 ans.",
   13: "Le CPF (Compte Personnel de Formation) est attaché à la personne, alimenté en euros, et mobilisable à l'initiative du salarié. Le plan de développement des compétences relève, lui, de l'employeur.",
   14: "Les OPCO (opérateurs de compétences, depuis 2019) financent notamment l'alternance et accompagnent les entreprises — en particulier celles de moins de 50 salariés — dans leur plan de développement des compétences.",
   15: "L'employeur a l'obligation d'assurer l'adaptation des salariés à leur poste de travail et de veiller au maintien de leur capacité à occuper un emploi (article L6321-1). Le plan de développement des compétences en est l'outil.",
@@ -878,7 +878,7 @@ function submitQuiz() {
   showResults(score, bucketScores, details);
 
   // Confetti if good score
-  if (score >= 14) launchConfetti();
+  if (score >= 12) launchConfetti();
 }
 
 function showCorrections(details) {
