@@ -1,1571 +1,1138 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test de positionnement — Prévision des Ventes & S&OP | Akademia Formation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --ak-blue: #2563EB;
-            --ak-purple: #7C3AED;
-            --ak-gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
-            --ak-gradient-soft: linear-gradient(135deg, rgba(37,99,235,0.06) 0%, rgba(124,58,237,0.06) 100%);
-            --ak-green: #10B981;
-            --ak-turquoise: #06B6D4;
-            --ak-orange: #F97316;
-            --ak-black: #0F172A;
-            --ak-gray-800: #1E293B;
-            --ak-gray-700: #334155;
-            --ak-gray-600: #475569;
-            --ak-gray-500: #64748B;
-            --ak-gray-400: #94A3B8;
-            --ak-gray-300: #CBD5E1;
-            --ak-gray-200: #E5E7EB;
-            --ak-gray-100: #F1F5F9;
-            --ak-gray-50: #F8FAFC;
-            --ak-white: #FFFFFF;
-            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: var(--font);
-            background: var(--ak-white);
-            color: var(--ak-gray-700);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ─── Fixed progress ─── */
-        .progress-track {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--ak-gray-100);
-            z-index: 200;
-        }
-        .progress-fill {
-            height: 100%;
-            background: var(--ak-gradient);
-            width: 0%;
-            transition: width 0.4s cubic-bezier(.4,0,.2,1);
-        }
-
-        /* ─── Fixed sidebar nav ─── */
-        .side-nav {
-            position: fixed;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            padding: 12px 0 12px 16px;
-        }
-
-        .side-nav a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            padding: 8px 16px 8px 12px;
-            border-radius: 0 20px 20px 0;
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            color: var(--ak-gray-400);
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .side-nav a .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--ak-gray-300);
-            flex-shrink: 0;
-            transition: all 0.2s;
-        }
-
-        .side-nav a:hover, .side-nav a.active {
-            color: var(--ak-blue);
-            background: rgba(37,99,235,0.06);
-        }
-
-        .side-nav a:hover .dot, .side-nav a.active .dot {
-            background: var(--ak-gradient);
-            box-shadow: 0 0 8px rgba(37,99,235,0.4);
-        }
-
-        /* ─── Hero ─── */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: var(--ak-black);
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background: var(--ak-gradient);
-            opacity: 0.9;
-        }
-
-        .hero-pattern {
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(circle at 20% 80%, rgba(16,185,129,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(124,58,237,0.2) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(6,182,212,0.1) 0%, transparent 60%);
-        }
-
-        .hero-grid {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            padding: 80px 80px 80px 120px;
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            gap: 60px;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .hero-left h1 {
-            font-size: 3.4rem;
-            font-weight: 800;
-            color: white;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin-bottom: 16px;
-        }
-
-        .hero-left h1 .gradient-text {
-            background: linear-gradient(135deg, #a5f3fc, #c4b5fd, #86efac);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-left .subtitle {
-            font-size: 1.15rem;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 32px;
-            max-width: 500px;
-            line-height: 1.7;
-        }
-
-        .hero-tags {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .hero-tags .tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 18px;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 100px;
-            color: white;
-            font-size: 0.82rem;
-            font-weight: 500;
-        }
-
-        .hero-tags .tag .tag-icon {
-            font-size: 0.9rem;
-        }
-
-        .hero-right {
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 24px;
-            padding: 36px;
-            color: white;
-        }
-
-        .hero-right h3 {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: rgba(255,255,255,0.5);
-            margin-bottom: 16px;
-        }
-
-        .hero-right ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .hero-right ul li {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: rgba(255,255,255,0.85);
-        }
-
-        .hero-right ul li .check {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: rgba(16,185,129,0.2);
-            color: #6ee7b7;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 0.7rem;
-            margin-top: 1px;
-        }
-
-        .hero-right .duration {
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-align: center;
-            background: linear-gradient(135deg, #a5f3fc, #c4b5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-logo {
-            position: absolute;
-            top: 32px;
-            left: 48px;
-            z-index: 3;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .hero-logo span {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: white;
-            letter-spacing: -0.5px;
-        }
-
-        .hero-logo .formation-label {
-            font-size: 0.65rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
-            display: block;
-            margin-top: -2px;
-        }
-
-        .scroll-hint {
-            position: absolute;
-            bottom: 32px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 3;
-            color: rgba(255,255,255,0.4);
-            font-size: 0.75rem;
-            font-weight: 500;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(6px); }
-        }
-
-        /* ─── Sections ─── */
-        .form-section {
-            scroll-margin-top: 20px;
-        }
-
-        .section-band {
-            padding: 64px 80px 64px 120px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-alt {
-            background: var(--ak-gray-50);
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 36px;
-        }
-
-        .section-header .sec-num {
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
-            background: var(--ak-gradient);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .section-header .sec-info h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--ak-black);
-            letter-spacing: -0.02em;
-        }
-
-        .section-header .sec-info p {
-            font-size: 0.88rem;
-            color: var(--ak-gray-500);
-            margin-top: 2px;
-        }
-
-        /* ─── Identity grid ─── */
-        .identity-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 16px;
-        }
-
-        .identity-grid .span-full { grid-column: 1 / -1; }
-
-        .field-card {
-            background: var(--ak-white);
-            border: 1.5px solid var(--ak-gray-200);
-            border-radius: 14px;
-            padding: 20px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .section-alt .field-card {
-            background: var(--ak-white);
-        }
-
-        .field-card:focus-within {
-            border-color: var(--ak-blue);
-            box-shadow: 0 0 0 4px rgba(37,99,235,0.08);
-        }
-
-        .field-card label {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--ak-gray-500);
-            margin-bottom: 8px;
-        }
-
-        .field-card input,
-        .field-card select,
-        .field-card textarea {
-            width: 100%;
-            border: none;
-            font-family: var(--font);
-            font-size: 0.95rem;
-            color: var(--ak-black);
-            background: transparent;
-            outline: none;
-        }
-
-        .field-card input::placeholder,
-        .field-card textarea::placeholder {
-            color: var(--ak-gray-400);
-        }
-
-        .field-card select {
-            cursor: pointer;
-            -webkit-appearance: none;
-            appearance: none;
-            background: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right center;
-            padding-right: 20px;
-        }
-
-        .field-card textarea {
-            resize: vertical;
-            min-height: 70px;
-            line-height: 1.6;
-        }
-
-        /* ─── Self-assessment ─── */
-        .assess-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .assess-card {
-            background: var(--ak-white);
-            border: 1.5px solid var(--ak-gray-200);
-            border-radius: 14px;
-            padding: 20px 22px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            transition: border-color 0.2s;
-        }
-
-        .assess-card .assess-label {
-            font-size: 0.88rem;
-            font-weight: 500;
-            color: var(--ak-gray-700);
-        }
-
-        .assess-card .stars {
-            display: flex;
-            gap: 2px;
-            flex-shrink: 0;
-        }
-
-        .assess-card .stars button {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--ak-gray-200);
-            transition: color 0.15s, transform 0.15s;
-            padding: 0 1px;
-            line-height: 1;
-        }
-
-        .assess-card .stars button:hover,
-        .assess-card .stars button.active {
-            color: var(--ak-orange);
-            transform: scale(1.1);
-        }
-
-        .assess-card.has-value {
-            border-color: rgba(249,115,22,0.25);
-            background: rgba(249,115,22,0.02);
-        }
-
-        /* ─── Question cards ─── */
-        .questions-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .q-card {
-            background: var(--ak-white);
-            border: 1.5px solid var(--ak-gray-200);
-            border-radius: 16px;
-            padding: 28px;
-            transition: all 0.25s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .q-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--ak-gray-100);
-            transition: background 0.3s;
-        }
-
-        .q-card.answered::before {
-            background: var(--ak-gradient);
-        }
-
-        .q-card:hover {
-            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-        }
-
-        .q-card .q-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .q-card .q-module {
-            font-size: 0.68rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--ak-purple);
-            background: rgba(124,58,237,0.06);
-            padding: 3px 10px;
-            border-radius: 6px;
-        }
-
-        .q-card .q-num {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--ak-gray-400);
-        }
-
-        .q-card .q-text {
-            font-size: 0.92rem;
-            font-weight: 600;
-            color: var(--ak-black);
-            margin-bottom: 18px;
-            line-height: 1.5;
-        }
-
-        .q-card .options label {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 9px 12px;
-            margin-bottom: 4px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.15s;
-            font-size: 0.85rem;
-            color: var(--ak-gray-700);
-            line-height: 1.45;
-        }
-
-        .q-card .options label:hover {
-            background: var(--ak-gray-50);
-        }
-
-        .q-card .options input[type="radio"] {
-            margin-top: 3px;
-            accent-color: var(--ak-blue);
-            flex-shrink: 0;
-        }
-
-        /* ─── Attentes ─── */
-        .attentes-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 16px;
-        }
-
-        /* ─── Submit ─── */
-        .submit-band {
-            text-align: center;
-            padding: 48px 40px;
-            background: var(--ak-gradient-soft);
-            border-top: 1px solid var(--ak-gray-100);
-        }
-
-        .btn-submit {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--ak-gradient);
-            color: white;
-            border: none;
-            padding: 16px 52px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 14px;
-            cursor: pointer;
-            font-family: var(--font);
-            transition: transform 0.2s, box-shadow 0.2s;
-            letter-spacing: -0.01em;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(37,99,235,0.3);
-        }
-
-        .btn-submit svg { flex-shrink: 0; }
-
-        .submit-note {
-            font-size: 0.78rem;
-            color: var(--ak-gray-400);
-            margin-top: 12px;
-        }
-
-        /* ─── Results ─── */
-        .results-wrapper { display: none; }
-        .results-wrapper.visible { display: block; }
-
-        .results-hero {
-            background: var(--ak-gradient);
-            padding: 64px 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .results-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 70% 50%, rgba(16,185,129,0.1) 0%, transparent 50%);
-        }
-
-        .results-inner {
-            position: relative;
-            z-index: 1;
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 240px 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .results-ring {
-            width: 200px;
-            height: 200px;
-            position: relative;
-        }
-
-        .results-ring svg { transform: rotate(-90deg); }
-
-        .results-ring .ring-text {
-            position: absolute;
-            top: 44%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
-            font-weight: 800;
-            color: white;
-        }
-
-        .results-ring .ring-label {
-            position: absolute;
-            top: 64%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.6);
-            font-weight: 500;
-            white-space: nowrap;
-        }
-
-        .results-meta h2 {
-            font-size: 2rem;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 6px;
-        }
-
-        .results-meta .level-pill {
-            display: inline-block;
-            padding: 6px 20px;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            margin-bottom: 12px;
-        }
-
-        .pill-debutant { background: rgba(220,38,38,0.2); color: #fca5a5; }
-        .pill-elementaire { background: rgba(249,115,22,0.2); color: #fdba74; }
-        .pill-intermediaire { background: rgba(16,185,129,0.2); color: #6ee7b7; }
-        .pill-avance { background: rgba(6,182,212,0.2); color: #67e8f9; }
-
-        .results-meta p {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.92rem;
-            max-width: 520px;
-            line-height: 1.6;
-        }
-
-        .module-bars {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 12px;
-            margin-top: 28px;
-        }
-
-        .mod-bar-card {
-            background: rgba(255,255,255,0.08);
-            border-radius: 14px;
-            padding: 18px;
-        }
-
-        .mod-bar-card .mbc-title {
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: rgba(255,255,255,0.5);
-            margin-bottom: 10px;
-        }
-
-        .mod-bar-card .mbc-track {
-            height: 6px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .mod-bar-card .mbc-fill {
-            height: 100%;
-            background: white;
-            border-radius: 3px;
-            transition: width 0.8s ease;
-        }
-
-        .mod-bar-card .mbc-score {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: white;
-            margin-top: 8px;
-        }
-
-        /* Review detail */
-        .review-band {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 48px 80px;
-        }
-
-        .review-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-
-        .review-card {
-            background: var(--ak-gray-50);
-            border-radius: 14px;
-            padding: 22px;
-        }
-
-        .review-card .rc-q {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--ak-black);
-            margin-bottom: 8px;
-            line-height: 1.45;
-        }
-
-        .review-card .rc-badge {
-            display: inline-block;
-            font-size: 0.78rem;
-            font-weight: 600;
-            padding: 3px 12px;
-            border-radius: 6px;
-        }
-
-        .rc-correct { background: #D1FAE5; color: #065F46; }
-        .rc-incorrect { background: #FEE2E2; color: #B91C1C; }
-
-        .review-card .rc-expl {
-            font-size: 0.8rem;
-            color: var(--ak-gray-500);
-            margin-top: 8px;
-            line-height: 1.5;
-            font-style: italic;
-        }
-
-        .attentes-review {
-            background: var(--ak-gray-50);
-            border-radius: 14px;
-            padding: 28px;
-            margin-top: 24px;
-        }
-
-        .attentes-review h3 {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--ak-black);
-            margin-bottom: 14px;
-        }
-
-        .attentes-review p {
-            font-size: 0.88rem;
-            color: var(--ak-gray-600);
-            margin-bottom: 8px;
-        }
-
-        /* Email confirm toast */
-        .email-toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--ak-black);
-            color: white;
-            padding: 16px 24px;
-            border-radius: 14px;
-            font-size: 0.88rem;
-            font-weight: 500;
-            display: none;
-            align-items: center;
-            gap: 10px;
-            z-index: 300;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            animation: slideIn 0.4s ease;
-        }
-
-        .email-toast.show { display: flex; }
-
-        .email-toast .toast-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            background: rgba(16,185,129,0.2);
-            color: #6ee7b7;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 32px 40px;
-            background: var(--ak-gray-50);
-            border-top: 1px solid var(--ak-gray-100);
-        }
-
-        .footer-inner {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-
-        .footer span {
-            font-size: 0.78rem;
-            color: var(--ak-gray-400);
-        }
-
-        .footer .sep {
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: var(--ak-gray-300);
-        }
-
-        .btn-print {
-            background: var(--ak-white);
-            border: 1.5px solid var(--ak-gray-200);
-            color: var(--ak-gray-600);
-            padding: 10px 24px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            border-radius: 10px;
-            cursor: pointer;
-            font-family: var(--font);
-            transition: all 0.15s;
-        }
-
-        .btn-print:hover {
-            border-color: var(--ak-blue);
-            color: var(--ak-blue);
-        }
-
-        /* ─── Responsive ─── */
-        @media (max-width: 1100px) {
-            .hero-content { grid-template-columns: 1fr; padding: 100px 40px 60px; }
-            .hero-right { max-width: 420px; }
-            .section-band { padding: 48px 40px; }
-            .side-nav { display: none; }
-            .questions-layout { grid-template-columns: 1fr; }
-            .attentes-grid { grid-template-columns: 1fr; }
-            .identity-grid { grid-template-columns: 1fr 1fr; }
-            .assess-grid { grid-template-columns: 1fr; }
-            .results-inner { grid-template-columns: 1fr; text-align: center; }
-            .results-ring { margin: 0 auto; }
-            .results-meta p { margin: 0 auto; }
-            .module-bars { grid-template-columns: 1fr 1fr; }
-            .results-hero { padding: 48px 40px; }
-            .review-band { padding: 40px; }
-            .review-grid { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 640px) {
-            .hero-left h1 { font-size: 2.2rem; }
-            .hero-content { padding: 90px 24px 40px; }
-            .section-band { padding: 36px 20px; }
-            .identity-grid { grid-template-columns: 1fr; }
-            .module-bars { grid-template-columns: 1fr; }
-            .results-hero { padding: 36px 20px; }
-            .review-band { padding: 24px 20px; }
-        }
-
-        @media print {
-            .hero { min-height: auto; }
-            .side-nav, .progress-track, .btn-submit, .btn-print, .scroll-hint, .email-toast { display: none !important; }
-            .q-card, .review-card { break-inside: avoid; }
-            body { background: white; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Positionnement — Prévision des Ventes &amp; S&amp;OP | Akademia Formation</title>
+  <meta name="description" content="Test de positionnement pour la formation Prévision des Ventes & S&OP — Fiabiliser ses prévisions. 12 auto-évaluations + 20 questions de mise en situation.">
+
+  <!-- Dark mode anti-flicker -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('sop_theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'akademia-blue': '#3b82f6',
+            'akademia-purple': '#7C3AED',
+            'akademia-turquoise': '#06B6D4',
+            'akademia-green': '#10B981',
+            'akademia-orange': '#F97316',
+            'akademia-red': '#EF4444',
+            'akademia-dark': '#0f172a',
+            'akademia-muted': '#64748b',
+          },
+          fontFamily: { 'inter': ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #3b82f6, #7C3AED, #06B6D4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Quiz styles */
+    .quiz-question { display: none; }
+    .quiz-question.active { display: block; animation: fadeSlideIn 0.4s ease; }
+    .quiz-option { transition: all 0.2s; cursor: pointer; }
+    .quiz-option:hover:not(.locked) { border-color: #3b82f6; background: rgba(59,130,246,0.05); }
+    html.dark .quiz-option:hover:not(.locked) { background: rgba(59,130,246,0.15); }
+    .quiz-option.selected { border-color: #3b82f6; background: rgba(59,130,246,0.08); }
+    html.dark .quiz-option.selected { background: rgba(59,130,246,0.2); }
+    .quiz-option.correct-show { border-color: #10b981 !important; background: rgba(16,185,129,0.1) !important; }
+    html.dark .quiz-option.correct-show { background: rgba(16,185,129,0.2) !important; }
+    .quiz-option.wrong-show { border-color: #ef4444 !important; background: rgba(239,68,68,0.1) !important; }
+    html.dark .quiz-option.wrong-show { background: rgba(239,68,68,0.2) !important; }
+    .quiz-option.locked { cursor: default; }
+
+    /* Mode toggle */
+    .mode-tab { transition: all 0.3s; }
+    .mode-tab.active-mode {
+      background: linear-gradient(135deg, #3b82f6, #7C3AED);
+      color: white;
+      box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+    }
+
+    /* Progress bar */
+    .progress-fill { transition: width 0.4s ease; }
+
+    /* Confetti */
+    @keyframes confettiFall {
+      0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+    .confetti-piece {
+      position: fixed;
+      top: -10px;
+      width: 10px;
+      height: 10px;
+      z-index: 9999;
+      animation: confettiFall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Score ring */
+    .score-ring { transition: stroke-dashoffset 1.2s ease; }
+
+    /* Bucket badge colors */
+    .badge-fondamentaux { background: rgba(59,130,246,0.15); color: #3b82f6; }
+    .badge-methodes { background: rgba(124,58,237,0.15); color: #7C3AED; }
+    .badge-sop { background: rgba(6,182,212,0.15); color: #06B6D4; }
+    .badge-pilotage { background: rgba(249,115,22,0.15); color: #F97316; }
+
+    /* Star rating */
+    .star-btn { transition: all 0.15s; cursor: pointer; }
+    .star-btn:hover { transform: scale(1.15); }
+    .star-btn.star-active { color: #F59E0B; }
+    .star-btn.star-inactive { color: #CBD5E1; }
+    html.dark .star-btn.star-inactive { color: #475569; }
+
+    /* Auto-eval card */
+    .autoeval-card { transition: all 0.2s; }
+    .autoeval-card.rated { border-color: #3b82f6; }
+
+    /* Bar fill for bucket breakdown */
+    .bar-fill { transition: width 1s ease; }
+
+    /* Print styles */
+    @media print {
+      nav, .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+      .dark body { background: white !important; color: black !important; }
+      * { color: black !important; background: white !important; border-color: #ccc !important; }
+      .print-only { display: block !important; }
+    }
+    .print-only { display: none; }
+  </style>
+  <link rel="stylesheet" href="/assets/css/dark-mode.css">
+  <script src="/assets/js/formai-bridge.js"></script>
 </head>
-<body>
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+<body class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 min-h-screen">
 
-    <div class="email-toast" id="emailToast">
-        <div class="toast-icon">&#10003;</div>
-        <span>Réponses prêtes à envoyer — vérifiez votre messagerie</span>
+<!-- Top nav -->
+<nav class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700 no-print">
+  <div class="max-w-4xl mx-auto px-6 py-3 flex items-center justify-between">
+    <a href="/" class="text-sm font-medium text-akademia-blue hover:underline">&larr; Retour &agrave; l'accueil</a>
+    <div class="flex items-center gap-3">
+      <span class="text-xs font-semibold text-akademia-purple uppercase tracking-wide">PR&Eacute;VISION &middot; S&amp;OP</span>
+      <button id="darkToggle" class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+        <svg class="w-4 h-4 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Main container -->
+<div class="max-w-4xl mx-auto px-6 py-10">
+
+  <!-- ============================================ -->
+  <!-- WELCOME SCREEN                               -->
+  <!-- ============================================ -->
+  <div id="welcome-screen">
+    <div class="text-center mb-10" id="header-section">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-akademia-purple/10 text-akademia-purple dark:bg-akademia-purple/20 dark:text-purple-300 mb-4">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        &Eacute;valuation de positionnement
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">
+        <span class="gradient-text">Pr&eacute;vision des Ventes &amp; S&amp;OP</span>
+      </h1>
+      <p class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-2">Fiabiliser ses pr&eacute;visions</p>
+      <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-8">
+        20 questions pour &eacute;valuer votre ma&icirc;trise de la pr&eacute;vision des ventes et du S&amp;OP (fondamentaux, m&eacute;thodes, processus S&amp;OP, pilotage) + 12 auto-&eacute;valuations de comp&eacute;tences.
+      </p>
+
+      <!-- Test structure preview -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-lg mx-auto mb-8 text-left">
+        <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-akademia-purple/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-akademia-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-slate-700 dark:text-slate-200">Partie 1</div>
+              <div class="text-xs text-slate-500">12 auto-&eacute;valuations</div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-akademia-blue/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-akademia-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-slate-700 dark:text-slate-200">Partie 2</div>
+              <div class="text-xs text-slate-500">20 questions QCM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="startTest()" class="px-8 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-blue to-akademia-purple text-white hover:opacity-90 transition shadow-lg shadow-akademia-blue/25">
+        Commencer
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- PART 1: AUTO-EVALUATION                      -->
+  <!-- ============================================ -->
+  <div id="autoeval-screen" class="hidden">
+
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-akademia-purple/10 text-akademia-purple dark:bg-akademia-purple/20 dark:text-purple-300">
+          Partie 1 / 2
+        </span>
+        <span class="text-xs text-slate-500 dark:text-slate-400">Auto-&eacute;valuation</span>
+      </div>
+      <h2 class="text-2xl font-bold text-slate-800 dark:text-white mb-2">&Eacute;valuez vos comp&eacute;tences</h2>
+      <p class="text-slate-500 dark:text-slate-400 text-sm">Pour chaque comp&eacute;tence, s&eacute;lectionnez votre niveau actuel. Toutes les comp&eacute;tences doivent &ecirc;tre &eacute;valu&eacute;es pour passer &agrave; la suite.</p>
     </div>
 
-    <!-- Side nav -->
-    <nav class="side-nav" id="sideNav">
-        <a href="#sec-info" class="active"><span class="dot"></span>Informations</a>
-        <a href="#sec-eval"><span class="dot"></span>Auto-évaluation</a>
-        <a href="#sec-qcm"><span class="dot"></span>Connaissances</a>
-        <a href="#sec-attentes"><span class="dot"></span>Attentes</a>
-    </nav>
-
-    <!-- ═══ FORM ═══ -->
-    <div id="formWrapper">
-
-        <!-- Hero -->
-        <section class="hero">
-            <div class="hero-bg"></div>
-            <div class="hero-pattern"></div>
-            <div class="hero-grid"></div>
-
-            <div class="hero-logo">
-                <svg width="40" height="40" viewBox="0 0 80 80">
-                    <defs><linearGradient id="lgHero" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.2)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.08)"/></linearGradient></defs>
-                    <rect width="80" height="80" rx="16" fill="url(#lgHero)"/>
-                    <path d="M 40 20 L 50 50 L 44 50 L 42 44 L 38 44 L 36 50 L 30 50 L 40 20 Z M 40 28 L 38 40 L 42 40 L 40 28 Z" fill="white"/>
-                    <circle cx="55" cy="28" r="6" fill="#10B981" opacity="0.9"/>
-                </svg>
-                <div>
-                    <span>AKADEMIA</span>
-                    <span class="formation-label">Formation</span>
-                </div>
-            </div>
-
-            <div class="hero-content">
-                <div class="hero-left">
-                    <h1>Test de<br>positionnement<br><span class="gradient-text">Prévision des Ventes &amp; S&amp;OP</span></h1>
-                    <p class="subtitle">Évaluez votre niveau en quelques minutes. Vos réponses permettront au formateur d'adapter le contenu à vos besoins réels.</p>
-                    <div class="hero-tags">
-                        <div class="tag"><span class="tag-icon">&#9201;</span> 5 à 8 minutes</div>
-                        <div class="tag"><span class="tag-icon">&#128203;</span> 12 questions</div>
-                        <div class="tag"><span class="tag-icon">&#128197;</span> 14 &amp; 15 sept. 2026 · Paris</div>
-                    </div>
-                </div>
-                <div class="hero-right">
-                    <h3>Ce test permet de</h3>
-                    <ul>
-                        <li><div class="check">&#10003;</div> Évaluer votre niveau en prévision des ventes et S&amp;OP</li>
-                        <li><div class="check">&#10003;</div> Adapter le contenu de la formation à votre profil</li>
-                        <li><div class="check">&#10003;</div> Recueillir vos attentes spécifiques</li>
-                        <li><div class="check">&#10003;</div> Permettre au formateur de personnaliser les cas pratiques</li>
-                    </ul>
-                    <div class="duration">14 heures de formation (2 jours) en présentiel</div>
-                </div>
-            </div>
-
-            <div class="scroll-hint">
-                Commencer le test<br>&#8595;
-            </div>
-        </section>
-
-        <!-- Section 1: Identité -->
-        <section class="form-section" id="sec-info">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">1</div>
-                    <div class="sec-info">
-                        <h2>Vos informations</h2>
-                        <p>Quelques informations pour mieux vous connaître</p>
-                    </div>
-                </div>
-                <div class="identity-grid">
-                    <div class="field-card">
-                        <label>Nom *</label>
-                        <input type="text" id="nom" required placeholder="Votre nom de famille">
-                    </div>
-                    <div class="field-card">
-                        <label>Prénom *</label>
-                        <input type="text" id="prenom" required placeholder="Votre prénom">
-                    </div>
-                    <div class="field-card">
-                        <label>Entreprise</label>
-                        <input type="text" id="entreprise" placeholder="Nom de votre entreprise">
-                    </div>
-                    <div class="field-card">
-                        <label>Poste / Fonction</label>
-                        <input type="text" id="poste" placeholder="Ex : Assistante comptable">
-                    </div>
-                    <div class="field-card">
-                        <label>Votre expérience en prévision des ventes / S&amp;OP</label>
-                        <select id="experience">
-                            <option value="">— Choisir —</option>
-                            <option value="C'est au cœur de mon métier">C'est au cœur de mon métier</option>
-                            <option value="J'en fais régulièrement">J'en fais régulièrement</option>
-                            <option value="J'en fais ponctuellement">J'en fais ponctuellement</option>
-                            <option value="J'ai quelques notions">J'ai quelques notions</option>
-                            <option value="Je débute sur le sujet">Je débute sur le sujet</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 2: Auto-évaluation -->
-        <section class="form-section section-alt" id="sec-eval">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">2</div>
-                    <div class="sec-info">
-                        <h2>Auto-évaluation rapide</h2>
-                        <p>Évaluez votre aisance de 1 à 4 étoiles sur chaque thème</p>
-                    </div>
-                </div>
-                <div class="assess-grid">
-                    <div class="assess-card" id="ac-role">
-                        <span class="assess-label">Comprendre l'impact des prévisions sur les stocks, le service client et les coûts</span>
-                        <div class="stars" data-assess="role">
-                            <button onclick="setStars(this,1)">&#9733;</button>
-                            <button onclick="setStars(this,2)">&#9733;</button>
-                            <button onclick="setStars(this,3)">&#9733;</button>
-                            <button onclick="setStars(this,4)">&#9733;</button>
-                        </div>
-                    </div>
-                    <div class="assess-card" id="ac-horizon">
-                        <span class="assess-label">Choisir l'horizon et la maille de prévision adaptés à chaque décision</span>
-                        <div class="stars" data-assess="horizon">
-                            <button onclick="setStars(this,1)">&#9733;</button>
-                            <button onclick="setStars(this,2)">&#9733;</button>
-                            <button onclick="setStars(this,3)">&#9733;</button>
-                            <button onclick="setStars(this,4)">&#9733;</button>
-                        </div>
-                    </div>
-                    <div class="assess-card" id="ac-methodes">
-                        <span class="assess-label">Appliquer des méthodes de prévision (moyennes mobiles, lissage, saisonnalité)</span>
-                        <div class="stars" data-assess="methodes">
-                            <button onclick="setStars(this,1)">&#9733;</button>
-                            <button onclick="setStars(this,2)">&#9733;</button>
-                            <button onclick="setStars(this,3)">&#9733;</button>
-                            <button onclick="setStars(this,4)">&#9733;</button>
-                        </div>
-                    </div>
-                    <div class="assess-card" id="ac-sop">
-                        <span class="assess-label">Comprendre et faire vivre un cycle S&amp;OP (demand review, supply review)</span>
-                        <div class="stars" data-assess="sop">
-                            <button onclick="setStars(this,1)">&#9733;</button>
-                            <button onclick="setStars(this,2)">&#9733;</button>
-                            <button onclick="setStars(this,3)">&#9733;</button>
-                            <button onclick="setStars(this,4)">&#9733;</button>
-                        </div>
-                    </div>
-                    <div class="assess-card" id="ac-kpi">
-                        <span class="assess-label">Mesurer la fiabilité d'une prévision (MAPE, biais, forecast value added)</span>
-                        <div class="stars" data-assess="kpi">
-                            <button onclick="setStars(this,1)">&#9733;</button>
-                            <button onclick="setStars(this,2)">&#9733;</button>
-                            <button onclick="setStars(this,3)">&#9733;</button>
-                            <button onclick="setStars(this,4)">&#9733;</button>
-                        </div>
-                    </div>
-                    <div class="assess-card" id="ac-amelioration">
-                        <span class="assess-label">Analyser les erreurs et piloter l'amélioration (ABC/XYZ, demand sensing)</span>
-                        <div class="stars" data-assess="amelioration">
-                            <button onclick="setStars(this,1)">&#9733;</button>
-                            <button onclick="setStars(this,2)">&#9733;</button>
-                            <button onclick="setStars(this,3)">&#9733;</button>
-                            <button onclick="setStars(this,4)">&#9733;</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 3: QCM -->
-        <section class="form-section" id="sec-qcm">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">3</div>
-                    <div class="sec-info">
-                        <h2>Questions de connaissances</h2>
-                        <p>12 questions pour évaluer votre niveau — répondez spontanément, il n'y a pas de piège !</p>
-                    </div>
-                </div>
-                <div class="questions-layout">
-
-                    <div class="q-card" data-module="1">
-                        <div class="q-header"><span class="q-module">Fondamentaux</span><span class="q-num">01</span></div>
-                        <div class="q-text">Une prévision de ventes régulièrement trop optimiste entraîne le plus souvent :</div>
-                        <div class="options">
-                            <label><input type="radio" name="q1" value="a"> Des ruptures de stock fréquentes</label>
-                            <label><input type="radio" name="q1" value="b"> Un sur-stockage et des coûts de possession élevés</label>
-                            <label><input type="radio" name="q1" value="c"> Aucune conséquence tant que les ventes progressent</label>
-                            <label><input type="radio" name="q1" value="d"> Je ne sais pas</label>
-                        </div>
-                    </div>
-
-                    <div class="q-card" data-module="1">
-                        <div class="q-header"><span class="q-module">Fondamentaux</span><span class="q-num">02</span></div>
-                        <div class="q-text">À quoi sert de distinguer plusieurs horizons de prévision (court, moyen, long terme) ?</div>
-                        <div class="options">
-                            <label><input type="radio" name="q2" value="a"> Chaque horizon éclaire une décision différente (réappro, capacité, budget)</label>
-                            <label><input type="radio" name="q2" value="b"> À utiliser le même chiffre pour toutes les décisions</label>
-                            <label><input type="radio" name="q2" value="c"> Uniquement à satisfaire une obligation réglementaire</label>
-                            <label><input type="radio" name="q2" value="d"> Je ne sais pas</label>
-                        </div>
-                    </div>
-
-                    <div class="q-card" data-module="1">
-                        <div class="q-header"><span class="q-module">Fondamentaux</span><span class="q-num">03</span></div>
-                        <div class="q-text">La « maille » de prévision désigne :</div>
-                        <div class="options">
-                            <label><input type="radio" name="q3" value="a"> Le logiciel utilisé pour prévoir</label>
-                            <label><input type="radio" name="q3" value="b"> Le délai de livraison des fournisseurs</label>
-                            <label><input type="radio" name="q3" value="c"> Le niveau de détail auquel on prévoit (référence, famille, client, région)</label>
-                            <label><input type="radio" name="q3" value="d"> Je ne sais pas</label>
-                        </div>
-                    </div>
-
-                    <div class="q-card" data-module="2">
-                        <div class="q-header"><span class="q-module">Méthodes</span><span class="q-num">04</span></div>
-                        <div class="q-text">Une « moyenne mobile » sur 3 mois consiste à :</div>
-                        <div class="options">
-                            <label><input type="radio" name="q4" value="a"> Prévoir la période suivante avec la moyenne des 3 derniers mois</label>
-                            <label><input type="radio" name="q4" value="b"> Multiplier les ventes des 3 derniers mois</label>
-                            <label><input type="radio" name="q4" value="c"> Ne retenir que le meilleur des 3 mois</label>
-                            <label><input type="radio" name="q4" value="d"> Je ne sais pas</label>
-                        </div>
-                    </div>
-
-                    <div class="q-card" data-module="2">
-                        <div class="q-header"><span class="q-module">Méthodes</span><span class="q-num">05</span></div>
-                        <div class="q-text">Pour prévoir les ventes d'un produit totalement nouveau (sans historique), on privilégie :</div>
-                        <div class="options">
-                            <label><input type="radio" name="q5" value="a"> Une moyenne mobile sur l'historique</label>
-                            <label><input type="radio" name="q5" value="b"> Une méthode qualitative : avis d'experts, analogie avec un produit comparable</label>
-                            <label><input type="radio" name="q5" value="c"> Un lissage exponentiel des ventes passées</label>
-                            <label><input type="radio" name="q5" value="d"> Je ne sais pas</label>
-                        </div>
-                    </div>
-
-                    <div class="q-card" data-module="2">
-                        <div class="q-header"><span class="q-module">Méthodes</span><span class="q-num">06</span></div>
-                        <div class="q-text">Des ventes fortes chaque décembre et faibles chaque août traduisent avant tout :</div>
-                        <div class="options">
-                            <label><input type="radio" name="q6" value="a"> Une tendance de fond</label>
-                            <label><input type="radio" name="q6" value="b"> Une simple erreur de prévision</label>
-                            <label><input type="radio" name="q6" value="c"> Une saisonnalité</label>
-                            <label><input type="radio" name="q6" value="d"> Je ne sais pas</label>
-                        </div>
-                    </div>
-
-                    <div class="q-card" data-module="3">
-                        <div class="q-header"><span class="q-module">S&amp;OP</span><span class="q-num">07</span></div>
-                        <div class="q-text">L'objectif central d'un processus S&amp;OP (Sales &amp; Operations Planning) est :</div>
-                        <div class="options">
-                            <label><input type="radio" name="q7" value="a"> De remplacer l'ERP de l'entreprise</label>
-                            <label><input type="radio" name="q7" value="b"> D'aligner la demande (ventes/marketing) et l'offre (production/appro) dans un plan unique</label>
-                            <label><input type="radio" name="q7" value="c"> De fixer la rémunération des commerciaux</label>
-                            <label><input type="radio" name="q7" value="d"> Je ne sais pas</label>
-                        </div>
-                    </div>
-
-                    <div class="q-card" data-module="3">
-                        <div class="q-header"><span class="q-module">S&amp;OP</span><span class="q-num">08</span></div>
-                        <div class="q-text">La « demand review » (revue de la demande) du cycle S&amp;OP consiste surtout à :</div>
-                        <div class="options">
-                            <label><input type="radio" name="q8" value="a"> Construire et challenger une prévision de demande consensuelle</label>
-                            <label><input type="radio" name="q8" value="b"> Négocier les tarifs avec les fournisseurs</label>
-                            <label><input type="radio" name="q8" value="c"> Clôturer la comptabilité du mois</label>
-                            <label><input type="radio" name="q8" value="d"> Je ne sais pas</label>
-                        </div>
-                    </div>
-
-                    <div class="q-card" data-module="3">
-                        <div class="q-header"><span class="q-module">S&amp;OP</span><span class="q-num">09</span></div>
-                        <div class="q-text">Lorsque la demande prévue dépasse la capacité disponible, qui arbitre en réunion S&amp;OP exécutive ?</div>
-                        <div class="options">
-                            <label><input type="radio" name="q9" value="a"> Le demand planner, seul</label>
-                            <label><input type="radio" name="q9" value="b"> Le principal fournisseur</label>
-                            <label><input type="radio" name="q9" value="c"> La direction, à partir de scénarios chiffrés préparés en amont</label>
-                            <label><input type="radio" name="q9" value="d"> Je ne sais pas</label>
-                        </div>
-                    </div>
-
-                    <div class="q-card" data-module="4">
-                        <div class="q-header"><span class="q-module">Pilotage</span><span class="q-num">10</span></div>
-                        <div class="q-text">Le MAPE (Mean Absolute Percentage Error) mesure :</div>
-                        <div class="options">
-                            <label><input type="radio" name="q10" value="a"> Le chiffre d'affaires réalisé sur la période</label>
-                            <label><input type="radio" name="q10" value="b"> L'erreur moyenne de prévision, exprimée en pourcentage</label>
-                            <label><input type="radio" name="q10" value="c"> Le niveau du stock de sécurité</label>
-                            <label><input type="radio" name="q10" value="d"> Je ne sais pas</label>
-                        </div>
-                    </div>
-
-                    <div class="q-card" data-module="4">
-                        <div class="q-header"><span class="q-module">Pilotage</span><span class="q-num">11</span></div>
-                        <div class="q-text">Une prévision « juste en moyenne » mais « biaisée », cela signifie qu'on se trompe :</div>
-                        <div class="options">
-                            <label><input type="radio" name="q11" value="a"> De façon parfaitement aléatoire, sans direction</label>
-                            <label><input type="radio" name="q11" value="b"> Jamais : une prévision biaisée est en réalité parfaite</label>
-                            <label><input type="radio" name="q11" value="c"> Toujours dans le même sens (systématiquement trop haut, ou trop bas)</label>
-                            <label><input type="radio" name="q11" value="d"> Je ne sais pas</label>
-                        </div>
-                    </div>
-
-                    <div class="q-card" data-module="4">
-                        <div class="q-header"><span class="q-module">Pilotage</span><span class="q-num">12</span></div>
-                        <div class="q-text">Segmenter les produits (ABC selon le poids, XYZ selon la régularité de la demande) permet surtout :</div>
-                        <div class="options">
-                            <label><input type="radio" name="q12" value="a"> De prioriser les efforts et d'adapter la méthode de prévision à chaque type de produit</label>
-                            <label><input type="radio" name="q12" value="b"> D'appliquer exactement le même traitement à toutes les références</label>
-                            <label><input type="radio" name="q12" value="c"> De supprimer automatiquement les produits les moins vendus</label>
-                            <label><input type="radio" name="q12" value="d"> Je ne sais pas</label>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 4: Attentes -->
-        <section class="form-section section-alt" id="sec-attentes">
-            <div class="section-band">
-                <div class="section-header">
-                    <div class="sec-num">4</div>
-                    <div class="sec-info">
-                        <h2>Vos attentes</h2>
-                        <p>Aidez-nous à personnaliser la formation pour vous</p>
-                    </div>
-                </div>
-                <div class="attentes-grid">
-                    <div class="field-card">
-                        <label>Vos missions liées à la prévision / au S&amp;OP</label>
-                        <textarea id="taches" placeholder="Ex : je construis les prévisions mensuelles, j'anime la demand review, je gère les réapprovisionnements..."></textarea>
-                    </div>
-                    <div class="field-card">
-                        <label>Points à approfondir en priorité</label>
-                        <textarea id="attentes" placeholder="Ex : le lissage exponentiel, l'animation d'un cycle S&amp;OP, le calcul du MAPE..."></textarea>
-                    </div>
-                    <div class="field-card">
-                        <label>Difficultés rencontrées aujourd'hui</label>
-                        <textarea id="difficultes" placeholder="Ex : prévisions peu fiables, écarts importants, outils Excel limités, manque de consensus entre services..."></textarea>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Submit -->
-        <div class="submit-band">
-            <button class="btn-submit" onclick="submitTest()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
-                Valider et envoyer mes réponses
-            </button>
-            <p class="submit-note">Vos réponses seront transmises au formateur pour adapter la session à votre niveau.</p>
-        </div>
-
+    <!-- Progress for auto-eval -->
+    <div class="mb-6">
+      <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
+        <span id="autoeval-progress-label">0 / 12 comp&eacute;tences &eacute;valu&eacute;es</span>
+      </div>
+      <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+        <div id="autoeval-progress-bar" class="progress-fill h-full rounded-full bg-gradient-to-r from-akademia-purple to-akademia-turquoise" style="width: 0%"></div>
+      </div>
     </div>
 
-    <!-- ═══ RESULTS ═══ -->
-    <div class="results-wrapper" id="resultsWrapper">
-
-        <div class="results-hero">
-            <div class="results-inner">
-                <div class="results-ring">
-                    <svg width="200" height="200">
-                        <defs>
-                            <linearGradient id="ringG" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:rgba(255,255,255,0.3)"/>
-                                <stop offset="100%" style="stop-color:rgba(255,255,255,0.1)"/>
-                            </linearGradient>
-                        </defs>
-                        <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12"/>
-                        <circle id="scoreCircle" cx="100" cy="100" r="82" fill="none" stroke="white" stroke-width="12"
-                                stroke-dasharray="515.2" stroke-dashoffset="515.2" stroke-linecap="round"/>
-                    </svg>
-                    <div class="ring-text" id="scoreText">0/12</div>
-                    <div class="ring-label">bonnes réponses</div>
-                </div>
-                <div class="results-meta">
-                    <h2 id="resultTitle">Vos résultats</h2>
-                    <div id="levelBadge" class="level-pill"></div>
-                    <p id="levelDesc"></p>
-                    <div class="module-bars" id="moduleBars"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="review-band">
-            <h3 style="font-size:1.2rem; font-weight:700; color:var(--ak-black); margin-bottom:20px;">Détail des réponses</h3>
-            <div class="review-grid" id="reviewGrid"></div>
-
-            <div class="attentes-review" id="attentesReview">
-                <h3>Vos attentes (transmises au formateur)</h3>
-                <div id="attentesContent"></div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <div class="footer-inner">
-                <button class="btn-print" onclick="window.print()">Imprimer / PDF</button>
-                <span class="sep"></span>
-                <span>Akademia Formation — Pro Conduite SAS</span>
-                <span class="sep"></span>
-                <span>Démarche qualité Qualiopi</span>
-            </div>
-        </div>
+    <!-- Auto-eval grid -->
+    <div id="autoeval-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <!-- Filled by JS -->
     </div>
 
-    <script>
-        // ── Stars ──
-        function setStars(btn, value) {
-            var container = btn.parentElement;
-            var buttons = container.querySelectorAll('button');
-            buttons.forEach(function(b, i) { b.classList.toggle('active', i < value); });
-            container.dataset.value = value;
-            container.closest('.assess-card').classList.add('has-value');
-            updateProgress();
-        }
+    <!-- Legend -->
+    <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700 mb-6">
+      <div class="text-xs font-semibold text-slate-600 dark:text-slate-300 mb-2">&Eacute;chelle de notation</div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs text-slate-500 dark:text-slate-400">
+        <div class="flex items-center gap-1.5"><span class="text-amber-400">&#9733;</span> D&eacute;butant</div>
+        <div class="flex items-center gap-1.5"><span class="text-amber-400">&#9733;&#9733;</span> Interm&eacute;diaire</div>
+        <div class="flex items-center gap-1.5"><span class="text-amber-400">&#9733;&#9733;&#9733;</span> Avanc&eacute;</div>
+        <div class="flex items-center gap-1.5"><span class="text-amber-400">&#9733;&#9733;&#9733;&#9733;</span> Expert</div>
+      </div>
+    </div>
 
-        // ── Progress ──
-        function updateProgress() {
-            var answered = 0;
-            for (var i = 1; i <= 12; i++) {
-                if (document.querySelector('input[name="q'+i+'"]:checked')) answered++;
-            }
-            document.getElementById('progressFill').style.width = (answered / 12 * 100) + '%';
-            document.querySelectorAll('.q-card').forEach(function(card, idx) {
-                if (document.querySelector('input[name="q'+(idx+1)+'"]:checked')) {
-                    card.classList.add('answered');
-                } else {
-                    card.classList.remove('answered');
-                }
-            });
-        }
-        document.querySelectorAll('input[type="radio"]').forEach(function(r) { r.addEventListener('change', updateProgress); });
+    <div class="flex justify-end no-print">
+      <button id="btn-autoeval-next" onclick="finishAutoEval()" class="px-6 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-blue to-akademia-purple text-white hover:opacity-90 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        Passer au QCM &rarr;
+      </button>
+    </div>
+  </div>
 
-        // ── Side nav scroll tracking ──
-        var sections = ['sec-info','sec-eval','sec-qcm','sec-attentes'];
-        window.addEventListener('scroll', function() {
-            var scrollY = window.scrollY + 200;
-            var current = '';
-            sections.forEach(function(id) {
-                var el = document.getElementById(id);
-                if (el && el.offsetTop <= scrollY) current = id;
-            });
-            document.querySelectorAll('.side-nav a').forEach(function(a) {
-                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-            });
-        });
+  <!-- ============================================ -->
+  <!-- PART 2: QCM                                  -->
+  <!-- ============================================ -->
+  <div id="quiz-container" class="hidden">
 
-        // ── Answers ──
-        var correct = {q1:'b',q2:'a',q3:'c',q4:'a',q5:'b',q6:'c',q7:'b',q8:'a',q9:'c',q10:'b',q11:'c',q12:'a'};
-        var explanations = {
-            q1:"Surévaluer la demande pousse à produire ou acheter trop : surstock, trésorerie immobilisée et risques de péremption. Sous-évaluer, à l'inverse, crée des ruptures.",
-            q2:"Chaque horizon nourrit une décision : court terme → réapprovisionnement, moyen terme → capacité et S&OP, long terme → budget et investissements.",
-            q3:"La maille, c'est la granularité de la prévision (référence, famille, client, région). On l'ajuste selon la décision visée et la fiabilité recherchée.",
-            q4:"La moyenne mobile lisse les derniers mois : simple et utile sur une demande stable, mais elle réagit avec retard aux tendances et ignore la saisonnalité.",
-            q5:"Sans historique, les modèles statistiques sont inopérants. On s'appuie sur le jugement d'experts, l'analogie avec un produit proche ou la méthode Delphi.",
-            q6:"La saisonnalité est une variation récurrente liée à la période, à distinguer de la tendance (évolution de fond). On la modélise par des coefficients saisonniers.",
-            q7:"Le S&OP réconcilie demande et capacités dans un plan unique et partagé, à un horizon tactique (souvent 18 mois glissants), pour décider ensemble.",
-            q8:"La demand review consolide une prévision de demande partagée (ventes, marketing, historique) avant de la confronter à l'offre, puis à la direction.",
-            q9:"Le S&OP exécutif est l'instance de décision de la direction : les équipes préparent des scénarios chiffrés, la direction arbitre priorités et niveaux de service.",
-            q10:"Le MAPE exprime l'écart moyen entre prévision et réalisé, en %. Plus il est faible, plus la prévision est fiable ; on le complète par la mesure du biais.",
-            q11:"Le biais est une erreur systématique orientée (toujours trop haut ou trop bas). Plus pernicieux qu'une erreur aléatoire, il fausse durablement les décisions.",
-            q12:"La segmentation ABC/XYZ priorise : suivi fin et collaboratif sur les produits stratégiques ou irréguliers, gestion plus automatisée sur les produits stables."
-        };
-        var moduleMap = {q1:1,q2:1,q3:1,q4:2,q5:2,q6:2,q7:3,q8:3,q9:3,q10:4,q11:4,q12:4};
-        var moduleNames = {1:"Fondamentaux de la prévision",2:"Méthodes de prévision",3:"Processus S&OP",4:"Pilotage & amélioration"};
-        var moduleTotal = {1:3,2:3,3:3,4:3};
+    <div class="mb-6">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-akademia-blue/10 text-akademia-blue dark:bg-akademia-blue/20 dark:text-blue-300">
+          Partie 2 / 2
+        </span>
+        <span class="text-xs text-slate-500 dark:text-slate-400">QCM — Mises en situation</span>
+      </div>
+    </div>
 
-        function submitTest() {
-            var nom = document.getElementById('nom').value.trim();
-            var prenom = document.getElementById('prenom').value.trim();
-            if (!nom || !prenom) { alert('Merci de renseigner votre nom et prénom.'); document.getElementById('nom').focus(); return; }
+    <!-- Progress bar -->
+    <div class="mb-8">
+      <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
+        <span id="progress-label">Question 1 / 20</span>
+        <span id="bucket-badge" class="px-2 py-0.5 rounded-full text-xs font-medium badge-fondamentaux">Fondamentaux</span>
+      </div>
+      <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+        <div id="progress-bar" class="progress-fill h-full rounded-full bg-gradient-to-r from-akademia-blue to-akademia-purple" style="width: 5%"></div>
+      </div>
+    </div>
 
-            var cnt = 0;
-            for (var i=1;i<=12;i++) { if (document.querySelector('input[name="q'+i+'"]:checked')) cnt++; }
-            if (cnt < 6) { alert('Merci de répondre à au moins 6 questions sur 12.'); return; }
+    <!-- Questions -->
+    <div id="questions-wrapper">
+      <!-- Questions injected by JS -->
+    </div>
 
-            var totalCorrect = 0;
-            var modCorrect = {1:0,2:0,3:0,4:0};
-            var results = {};
-            for (var i=1;i<=12;i++) {
-                var k='q'+i, s=document.querySelector('input[name="'+k+'"]:checked');
-                var ua=s?s.value:null, ok=ua===correct[k];
-                if(ok){totalCorrect++;modCorrect[moduleMap[k]]++;}
-                results[k]={ua:ua,ok:ok};
-            }
+    <!-- Navigation buttons -->
+    <div class="flex justify-between mt-8 no-print">
+      <button id="btn-prev" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        &larr; Pr&eacute;c&eacute;dente
+      </button>
+      <button id="btn-next" onclick="nextQuestion()" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-blue to-akademia-purple text-white hover:opacity-90 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        Suivante &rarr;
+      </button>
+      <button id="btn-submit" onclick="submitQuiz()" class="hidden px-6 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-green to-akademia-turquoise text-white hover:opacity-90 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        Valider mes r&eacute;ponses
+      </button>
+    </div>
+  </div>
 
-            var pct=totalCorrect/12;
-            var level,lc,ld;
-            if(pct>=0.85){level="Niveau avancé";lc="pill-avance";ld="Vous maîtrisez déjà solidement la prévision et le S&OP. La formation consolidera vos pratiques et vous apportera des techniques avancées (forecast value added, demand sensing, pilotage par la donnée).";}
-            else if(pct>=0.6){level="Niveau intermédiaire";lc="pill-intermediaire";ld="Bonnes bases ! Cette formation est parfaitement adaptée pour structurer votre démarche de prévision et gagner en fiabilité.";}
-            else if(pct>=0.35){level="Niveau élémentaire";lc="pill-elementaire";ld="Vous avez des notions utiles. La formation vous donnera une méthode claire et des outils concrets pour fiabiliser vos prévisions.";}
-            else{level="Niveau débutant";lc="pill-debutant";ld="Pas d'inquiétude, aucun prérequis n'est nécessaire ! Le formateur adaptera le rythme : vous repartirez avec les fondamentaux de la prévision et du S&OP.";}
+  <!-- ============================================ -->
+  <!-- RESULTS SCREEN                               -->
+  <!-- ============================================ -->
+  <div id="results-container" class="hidden">
+    <!-- Injected by JS -->
+  </div>
 
-            // Build email
-            var entreprise=document.getElementById('entreprise').value.trim();
-            var poste=document.getElementById('poste').value.trim();
-            var experience=document.getElementById('experience').value;
-            var taches=document.getElementById('taches').value.trim();
-            var attentes=document.getElementById('attentes').value.trim();
-            var difficultes=document.getElementById('difficultes').value.trim();
+</div>
 
-            var assessLabels={role:'Impact des prévisions',horizon:'Horizon & maille',methodes:'Méthodes de prévision',sop:'Cycle S&OP',kpi:'Fiabilité (MAPE/biais)',amelioration:'Amélioration continue'};
-            var sa='';
-            document.querySelectorAll('.stars').forEach(function(s){
-                sa+='  - '+(assessLabels[s.dataset.assess]||s.dataset.assess)+' : '+(s.dataset.value||'-')+'/4\n';
-            });
+<!-- Print header (only visible when printing) -->
+<div class="print-only" style="text-align:center; margin-bottom:20px;">
+  <h2>Akademia Formation — Pr&eacute;vision des Ventes &amp; S&amp;OP</h2>
+  <p>&Eacute;valuation de positionnement</p>
+</div>
 
-            var dq='';
-            for(var i=1;i<=12;i++){
-                var k='q'+i,r=results[k];
-                var st=r.ua===null?'Non répondu':(r.ok?'Correct':'Incorrect');
-                var ut='Non répondu';
-                if(r.ua){ut=document.querySelector('input[name="'+k+'"][value="'+r.ua+'"]').parentElement.textContent.trim();}
-                dq+='Q'+i+' ['+st+'] : '+ut+'\n';
-            }
+<!-- xAPI tracker -->
+<script src="/assets/js/xapi-tracker.js"></script>
 
-            var body='TEST DE POSITIONNEMENT - PREVISION DES VENTES & S&OP\n'
-                +'====================================================\n\n'
-                +'STAGIAIRE\n'
-                +'Nom : '+nom+' '+prenom+'\n'
-                +'Entreprise : '+(entreprise||'-')+'\n'
-                +'Poste : '+(poste||'-')+'\n'
-                +'Expérience prévision/S&OP : '+(experience||'-')+'\n\n'
-                +'AUTO-EVALUATION\n'+sa+'\n'
-                +'SCORE QCM : '+totalCorrect+'/12 ('+Math.round(pct*100)+'%) — '+level+'\n'
-                +'  Module 1 (Fondamentaux) : '+modCorrect[1]+'/'+moduleTotal[1]+'\n'
-                +'  Module 2 (Méthodes) : '+modCorrect[2]+'/'+moduleTotal[2]+'\n'
-                +'  Module 3 (Processus S&OP) : '+modCorrect[3]+'/'+moduleTotal[3]+'\n'
-                +'  Module 4 (Pilotage) : '+modCorrect[4]+'/'+moduleTotal[4]+'\n\n'
-                +'DETAIL DES REPONSES\n'+dq+'\n'
-                +'ATTENTES\n'
-                +'Tâches courantes : '+(taches||'-')+'\n'
-                +'Points à approfondir : '+(attentes||'-')+'\n'
-                +'Difficultés : '+(difficultes||'-')+'\n';
+<script>
+// ============================================================
+// DATA
+// ============================================================
 
-            var subj='Test Prévision Ventes & S&OP — '+prenom+' '+nom+' — '+totalCorrect+'/12 ('+Math.round(pct*100)+'%)';
+const AUTOEVAL_ITEMS = [
+  {key: "fond_impact", bucket: "fondamentaux", label: "Comprendre l'impact des prévisions sur les stocks, le taux de service et la trésorerie"},
+  {key: "fond_horizon", bucket: "fondamentaux", label: "Choisir l'horizon de prévision adapté à chaque décision (réappro, capacité, budget)"},
+  {key: "fond_maille", bucket: "fondamentaux", label: "Définir la bonne maille de prévision (référence, famille, client, région)"},
+  {key: "meth_lissage", bucket: "methodes", label: "Appliquer les moyennes mobiles et le lissage exponentiel"},
+  {key: "meth_saison", bucket: "methodes", label: "Modéliser la saisonnalité et la tendance d'une série de ventes"},
+  {key: "meth_nouveau", bucket: "methodes", label: "Prévoir un nouveau produit sans historique (méthodes qualitatives, analogie)"},
+  {key: "sop_cycle", bucket: "sop", label: "Comprendre les objectifs et les étapes du cycle S&OP"},
+  {key: "sop_demand_review", bucket: "sop", label: "Animer une revue de la demande (demand review) et bâtir un consensus"},
+  {key: "sop_arbitrage", bucket: "sop", label: "Préparer les scénarios d'arbitrage demande / capacité pour le S&OP exécutif"},
+  {key: "pil_mape", bucket: "pilotage", label: "Mesurer la fiabilité d'une prévision (MAPE, biais, MAD)"},
+  {key: "pil_fva", bucket: "pilotage", label: "Évaluer la valeur ajoutée du processus de prévision (Forecast Value Added)"},
+  {key: "pil_segmentation", bucket: "pilotage", label: "Segmenter le portefeuille (ABC/XYZ) et adapter la méthode de prévision"}
+];
 
-            // Auto-send via FormSubmit (no manual action needed)
-            fetch('https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({
-                    _subject: subj,
-                    Nom: nom + ' ' + prenom,
-                    Entreprise: entreprise || '-',
-                    Poste: poste || '-',
-                    'Expérience prévision/S&OP': experience || '-',
-                    Score: totalCorrect + '/12 (' + Math.round(pct*100) + '%) — ' + level,
-                    'Module 1': modCorrect[1]+'/'+moduleTotal[1],
-                    'Module 2': modCorrect[2]+'/'+moduleTotal[2],
-                    'Module 3': modCorrect[3]+'/'+moduleTotal[3],
-                    'Module 4': modCorrect[4]+'/'+moduleTotal[4],
-                    'Détail réponses': dq,
-                    'Attentes': (attentes||'-'),
-                    'Difficultés': (difficultes||'-'),
-                    _template: 'table'
-                })
-            }).then(function(r){return r.json();}).then(function(data){
-                var toast=document.getElementById('emailToast');
-                toast.textContent='✅ Résultats envoyés automatiquement au formateur';
-                toast.classList.add('show');
-                setTimeout(function(){toast.classList.remove('show');},5000);
-            }).catch(function(err){
-                // Fallback mailto
-                window.location.href='mailto:b.yassmine@ecf-proconduite.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
-            });
+const BUCKET_NAMES = {
+  fondamentaux: 'Fondamentaux',
+  methodes: 'Méthodes',
+  sop: 'Processus S&OP',
+  pilotage: 'Pilotage & Fiabilité'
+};
 
-            // Show results
-            document.getElementById('formWrapper').style.display='none';
-            document.getElementById('sideNav').style.display='none';
-            var rw=document.getElementById('resultsWrapper');
-            rw.classList.add('visible');
+const BUCKET_BADGE_CLASSES = {
+  fondamentaux: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
+  methodes: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300',
+  sop: 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300',
+  pilotage: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300'
+};
 
-            // Toast
-            var toast=document.getElementById('emailToast');
-            toast.classList.add('show');
-            setTimeout(function(){toast.classList.remove('show');},5000);
+const BUCKET_COLORS = {
+  fondamentaux: '#3b82f6',
+  methodes: '#7C3AED',
+  sop: '#06B6D4',
+  pilotage: '#F97316'
+};
 
-            // Ring animation
-            var circ=document.getElementById('scoreCircle');
-            var circumference=2*Math.PI*82;
-            circ.style.transition='stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1)';
-            setTimeout(function(){circ.style.strokeDashoffset=circumference-(pct*circumference);},200);
+const BUCKET_BORDER_CLASSES = {
+  fondamentaux: 'border-blue-300 dark:border-blue-700',
+  methodes: 'border-purple-300 dark:border-purple-700',
+  sop: 'border-cyan-300 dark:border-cyan-700',
+  pilotage: 'border-orange-300 dark:border-orange-700'
+};
 
-            document.getElementById('scoreText').textContent=totalCorrect+'/12';
-            document.getElementById('resultTitle').textContent=prenom+', vos résultats';
-            var badge=document.getElementById('levelBadge');
-            badge.className='level-pill '+lc;
-            badge.textContent=level;
-            document.getElementById('levelDesc').textContent=ld;
+const QUESTIONS = [
+  {
+    id: 1, bucket: "fondamentaux",
+    scenario: "Vos prévisions de ventes sont, mois après mois, systématiquement supérieures aux ventes réelles.",
+    question: "Quelle conséquence ce biais optimiste entraîne-t-il le plus souvent ?",
+    options: [
+      "Des ruptures de stock fréquentes",
+      "Un sur-stockage et des coûts de possession élevés",
+      "Aucune conséquence tant que le chiffre d'affaires progresse",
+      "Une baisse automatique des délais fournisseurs"
+    ],
+    correct: 1
+  },
+  {
+    id: 2, bucket: "fondamentaux",
+    scenario: "Votre direction utilise un seul et même chiffre de prévision pour réapprovisionner, dimensionner la capacité et bâtir le budget annuel.",
+    question: "Pourquoi vaut-il mieux distinguer plusieurs horizons de prévision (court, moyen, long terme) ?",
+    options: [
+      "Pour utiliser le même chiffre partout sans le remettre en cause",
+      "Uniquement pour satisfaire une obligation réglementaire",
+      "Parce que chaque horizon éclaire une décision différente : réappro, capacité, budget",
+      "Pour multiplier le nombre de fichiers de suivi"
+    ],
+    correct: 2
+  },
+  {
+    id: 3, bucket: "fondamentaux",
+    scenario: "Un collègue insiste pour prévoir « à la bonne maille » selon la décision à prendre.",
+    question: "Que désigne la « maille » de prévision ?",
+    options: [
+      "Le logiciel utilisé pour prévoir",
+      "Le délai de livraison des fournisseurs",
+      "Le niveau de détail auquel on prévoit (référence, famille, client, région)",
+      "Le taux de marge appliqué aux produits"
+    ],
+    correct: 2
+  },
+  {
+    id: 4, bucket: "fondamentaux",
+    scenario: "Un produit est resté en rupture trois semaines le trimestre dernier ; vous récupérez son historique de ventes pour le prévoir.",
+    question: "Pourquoi est-il risqué de prévoir directement à partir des ventes réalisées ?",
+    options: [
+      "Parce que les ventes réalisées sont toujours exactes",
+      "Parce qu'il est interdit d'utiliser l'historique",
+      "Parce que la demande et les ventes sont, par définition, identiques",
+      "Parce que les ventes passées, bridées par les ruptures et dopées par les promotions, reflètent mal la demande réelle"
+    ],
+    correct: 3
+  },
+  {
+    id: 5, bucket: "fondamentaux",
+    scenario: "Un manager lance : « De toute façon, une prévision est toujours fausse, ça ne sert à rien. »",
+    question: "Quelle est la meilleure réponse du point de vue d'un prévisionniste ?",
+    options: [
+      "Il a raison : mieux vaut ne pas prévoir",
+      "Une bonne prévision doit être juste à 100 %",
+      "Seul un logiciel peut rendre une prévision exacte",
+      "Une prévision n'est jamais exacte, mais elle réduit l'incertitude, oriente les décisions et se mesure pour s'améliorer"
+    ],
+    correct: 3
+  },
+  {
+    id: 6, bucket: "methodes",
+    scenario: "Vous prévoyez un article à demande stable en faisant la moyenne des trois derniers mois de ventes.",
+    question: "Que calcule cette « moyenne mobile sur 3 mois » ?",
+    options: [
+      "La prévision de la période suivante, égale à la moyenne des 3 derniers mois",
+      "Le produit des ventes des 3 derniers mois",
+      "Le meilleur des 3 mois uniquement",
+      "La somme cumulée depuis le début de l'année"
+    ],
+    correct: 0
+  },
+  {
+    id: 7, bucket: "methodes",
+    scenario: "Votre demande a légèrement accéléré ces deux derniers mois, et votre moyenne mobile « suit » trop lentement.",
+    question: "Quel est l'apport du lissage exponentiel par rapport à une moyenne mobile simple ?",
+    options: [
+      "Il ignore complètement les données récentes",
+      "Il donne exactement le même poids à toutes les périodes",
+      "Il supprime le besoin d'un historique",
+      "Il donne plus de poids aux observations les plus récentes"
+    ],
+    correct: 3
+  },
+  {
+    id: 8, bucket: "methodes",
+    scenario: "Vous devez prévoir les ventes d'un produit totalement nouveau, sans aucun historique.",
+    question: "Quelle approche privilégier ?",
+    options: [
+      "Une moyenne mobile sur l'historique",
+      "Une méthode qualitative : avis d'experts, analogie avec un produit comparable",
+      "Un lissage exponentiel des ventes passées",
+      "Une extrapolation de la tendance des années précédentes"
+    ],
+    correct: 1
+  },
+  {
+    id: 9, bucket: "methodes",
+    scenario: "Les ventes d'un article sont fortes chaque décembre et faibles chaque août, année après année.",
+    question: "Comment qualifie-t-on ce comportement récurrent ?",
+    options: [
+      "Une tendance de fond",
+      "Une simple erreur de prévision",
+      "Une saisonnalité",
+      "Un événement exceptionnel et isolé"
+    ],
+    correct: 2
+  },
+  {
+    id: 10, bucket: "methodes",
+    scenario: "Vous voulez intégrer cette saisonnalité dans la prévision plutôt que de la subir.",
+    question: "Quelle technique est adaptée ?",
+    options: [
+      "Appliquer des coefficients saisonniers à la tendance de fond",
+      "Prévoir avec la moyenne des 12 derniers mois, sans distinction",
+      "Recopier simplement le dernier mois connu",
+      "Retirer définitivement les mois atypiques de l'historique"
+    ],
+    correct: 0
+  },
+  {
+    id: 11, bucket: "sop",
+    scenario: "Votre entreprise lance un processus S&OP (Sales & Operations Planning) transverse.",
+    question: "Quel en est l'objectif central ?",
+    options: [
+      "Remplacer l'ERP de l'entreprise",
+      "Aligner la demande (ventes / marketing) et l'offre (production / appro) dans un plan unique et partagé",
+      "Fixer la rémunération des commerciaux",
+      "Produire le reporting comptable mensuel"
+    ],
+    correct: 1
+  },
+  {
+    id: 12, bucket: "sop",
+    scenario: "On vous interroge sur l'horizon et la maille auxquels raisonne le S&OP.",
+    question: "Quelle réponse est la plus juste ?",
+    options: [
+      "Un horizon à la journée, à la référence",
+      "Un horizon à 10 ans, sans maille définie",
+      "Un horizon tactique (souvent 18 à 24 mois glissants), à une maille agrégée (famille de produits)",
+      "Uniquement le mois en cours, à la référence"
+    ],
+    correct: 2
+  },
+  {
+    id: 13, bucket: "sop",
+    scenario: "La première grande étape du cycle S&OP du mois s'appelle la « revue de la demande ».",
+    question: "En quoi consiste cette demand review ?",
+    options: [
+      "Construire et challenger une prévision de demande consensuelle",
+      "Négocier les tarifs avec les fournisseurs",
+      "Clôturer la comptabilité du mois",
+      "Établir le planning de production détaillé à la machine"
+    ],
+    correct: 0
+  },
+  {
+    id: 14, bucket: "sop",
+    scenario: "Vous formalisez le calendrier du processus S&OP.",
+    question: "À quelle cadence et selon quelle logique se déroule classiquement un cycle S&OP ?",
+    options: [
+      "Annuelle et figée une fois pour toutes",
+      "Quotidienne, au fil de l'eau",
+      "Uniquement lorsqu'un problème survient",
+      "Mensuelle, avec une séquence récurrente : revue produit, demand review, supply review, pré-S&OP, S&OP exécutif"
+    ],
+    correct: 3
+  },
+  {
+    id: 15, bucket: "sop",
+    scenario: "La demande prévue dépasse nettement la capacité de production disponible pour le semestre.",
+    question: "Qui arbitre, et sur quelle base, en réunion S&OP exécutive ?",
+    options: [
+      "Le demand planner, seul",
+      "Le principal fournisseur",
+      "La direction, à partir de scénarios chiffrés préparés en amont",
+      "Le service comptable, après la clôture mensuelle"
+    ],
+    correct: 2
+  },
+  {
+    id: 16, bucket: "pilotage",
+    scenario: "Pour piloter la qualité de vos prévisions, vous suivez chaque mois un indicateur exprimé en pourcentage.",
+    question: "Que mesure le MAPE (Mean Absolute Percentage Error) ?",
+    options: [
+      "Le chiffre d'affaires réalisé sur la période",
+      "L'erreur moyenne de prévision, exprimée en pourcentage",
+      "Le niveau du stock de sécurité",
+      "La marge brute par référence"
+    ],
+    correct: 1
+  },
+  {
+    id: 17, bucket: "pilotage",
+    scenario: "Sur un an, vos écarts « en plus » et « en moins » ne se compensent pas : vous êtes presque toujours au-dessus du réel.",
+    question: "Comment qualifie-t-on une prévision qui se trompe toujours dans le même sens ?",
+    options: [
+      "Une erreur parfaitement aléatoire, sans direction",
+      "Une prévision biaisée",
+      "Une prévision parfaite",
+      "Une saisonnalité"
+    ],
+    correct: 1
+  },
+  {
+    id: 18, bucket: "pilotage",
+    scenario: "Vous vous demandez si les retouches manuelles apportées chaque mois à la prévision statistique l'améliorent réellement.",
+    question: "Quel indicateur permet de le vérifier ?",
+    options: [
+      "Le Forecast Value Added (FVA), qui compare chaque étape à une prévision de référence (ex. naïve)",
+      "Le chiffre d'affaires net",
+      "Le coût de la licence du logiciel",
+      "Le nombre de références au catalogue"
+    ],
+    correct: 0
+  },
+  {
+    id: 19, bucket: "pilotage",
+    scenario: "Votre catalogue compte 4 000 références : certaines pèsent lourd, d'autres ont une demande très irrégulière.",
+    question: "À quoi sert de segmenter ce portefeuille en ABC (poids) et XYZ (régularité) ?",
+    options: [
+      "À prioriser les efforts et adapter la méthode de prévision à chaque type de produit",
+      "À appliquer exactement le même traitement à toutes les références",
+      "À supprimer automatiquement les produits les moins vendus",
+      "À fixer le prix de vente de chaque article"
+    ],
+    correct: 0
+  },
+  {
+    id: 20, bucket: "pilotage",
+    scenario: "Deux articles ont le même volume de ventes ; l'un a une erreur de prévision faible et stable, l'autre une erreur forte et volatile.",
+    question: "Quelle conséquence pour le stock de sécurité, à taux de service égal ?",
+    options: [
+      "Les deux exigent exactement le même stock de sécurité",
+      "L'article à l'erreur forte permet de réduire le stock de sécurité",
+      "La fiabilité de la prévision n'a aucun impact sur les stocks",
+      "L'article à l'erreur forte et volatile exige un stock de sécurité plus important"
+    ],
+    correct: 3
+  }
+];
 
-            // Module bars
-            var mbHtml='';
-            for(var m=1;m<=4;m++){
-                var p=Math.round((modCorrect[m]/moduleTotal[m])*100);
-                mbHtml+='<div class="mod-bar-card">'
-                    +'<div class="mbc-title">'+moduleNames[m]+'</div>'
-                    +'<div class="mbc-track"><div class="mbc-fill" style="width:'+p+'%"></div></div>'
-                    +'<div class="mbc-score">'+modCorrect[m]+'/'+moduleTotal[m]+'</div>'
-                    +'</div>';
-            }
-            document.getElementById('moduleBars').innerHTML=mbHtml;
+const EXPLAINS = {
+  1: "Surévaluer la demande pousse à produire ou acheter trop : surstock, trésorerie immobilisée, risque de péremption ou d'obsolescence. À l'inverse, sous-évaluer crée des ruptures et des ventes perdues.",
+  2: "Chaque horizon nourrit une décision : court terme → réapprovisionnement, moyen terme → capacité et S&OP, long terme → budget et investissements. La maille et la méthode s'adaptent à l'horizon retenu.",
+  3: "La maille est la granularité de la prévision (référence, famille, client, région, canal). Plus elle est fine, plus la prévision est difficile à fiabiliser : on la choisit selon la décision à éclairer.",
+  4: "Les ventes ne sont pas la demande : une rupture masque des ventes perdues, une promotion gonfle ponctuellement les volumes. On « nettoie » l'historique (cleansing) pour estimer la demande réelle avant de prévoir.",
+  5: "L'enjeu n'est pas la perfection mais la réduction de l'incertitude. Une prévision utile est documentée, partagée et surtout mesurée (erreur, biais) pour s'améliorer en continu.",
+  6: "La moyenne mobile lisse les derniers mois : simple et efficace sur une demande stable, mais elle réagit avec retard à une tendance et ignore la saisonnalité.",
+  7: "Le lissage exponentiel pondère les périodes de façon décroissante (paramètre alpha) : les mois récents pèsent davantage. Il réagit donc plus vite qu'une moyenne mobile aux inflexions de la demande.",
+  8: "Sans historique, les modèles statistiques sont inopérants. On s'appuie sur le jugement d'experts, l'analogie avec un produit proche (« like modeling ») ou la méthode Delphi, puis on bascule vers le statistique dès que des données arrivent.",
+  9: "La saisonnalité est une variation récurrente liée à la période (mois, trimestre), à distinguer de la tendance (évolution de fond) et des aléas. On la capte avec des coefficients saisonniers.",
+  10: "On décompose la série en tendance et saisonnalité : un coefficient par période (ex. décembre = 1,4 ; août = 0,6) est appliqué à la tendance. C'est le principe des modèles de type Holt-Winters.",
+  11: "Le S&OP réconcilie demande et capacités dans un plan unique et partagé, à un horizon tactique, pour décider ensemble (ventes, opérations, finance, direction) des priorités et des niveaux de service.",
+  12: "Le S&OP travaille à un horizon tactique moyen terme (souvent 18-24 mois glissants), sur des mailles agrégées (familles). Le pilotage court terme à la référence relève plutôt du S&OE (Sales & Operations Execution).",
+  13: "La demand review consolide une prévision de demande partagée (historique, statistique, apports des ventes et du marketing) et la challenge, avant de la confronter à l'offre puis à la direction.",
+  14: "Le S&OP suit une cadence mensuelle structurée : gestion du portefeuille produits, revue de la demande, revue de l'offre / capacité, pré-S&OP (réconciliation et scénarios), puis S&OP exécutif (décision).",
+  15: "Le S&OP exécutif est l'instance de décision de la direction : les équipes préparent des scénarios chiffrés (investir, sous-traiter, arbitrer les clients ou produits prioritaires) et la direction tranche sur les priorités et les niveaux de service.",
+  16: "Le MAPE exprime l'écart moyen, en %, entre prévision et réalisé. Plus il est faible, plus la prévision est fiable. On le complète toujours par la mesure du biais, car un MAPE seul ne dit pas le sens de l'erreur.",
+  17: "Le biais est une erreur systématique orientée (toujours trop haut ou trop bas). Plus pernicieux qu'une erreur aléatoire, il fausse durablement les décisions de stock et de capacité ; on le suit en parallèle du MAPE.",
+  18: "Le FVA (valeur ajoutée de la prévision) mesure si une étape ou une intervention améliore réellement la prévision par rapport à une référence naïve. Si une retouche dégrade le résultat, on l'abandonne : c'est un puissant outil d'amélioration du processus.",
+  19: "La segmentation ABC/XYZ priorise : suivi fin et collaboratif sur les produits stratégiques (A) ou irréguliers (Z), gestion plus automatisée sur les produits stables et secondaires. On concentre l'effort là où il crée de la valeur.",
+  20: "Le stock de sécurité est dimensionné sur la variabilité de l'erreur de prévision (et le délai d'approvisionnement). Améliorer la fiabilité réduit le stock nécessaire à taux de service égal : la prévision a un impact direct sur le BFR."
+};
 
-            // Review grid
-            var qTexts=document.querySelectorAll('.q-card .q-text');
-            var rHtml='';
-            for(var i=1;i<=12;i++){
-                var k='q'+i,r=results[k];
-                var cls=r.ok?'rc-correct':'rc-incorrect';
-                var txt=r.ok?'Bonne réponse':(r.ua?'Réponse incorrecte':'Non répondu');
-                var qText=qTexts[i-1].textContent;
-                rHtml+='<div class="review-card">'
-                    +'<div class="rc-q">'+i+'. '+qText+'</div>'
-                    +'<span class="rc-badge '+cls+'">'+txt+'</span>'
-                    +(!r.ok?'<div class="rc-expl">'+explanations[k]+'</div>':'')
-                    +'</div>';
-            }
-            document.getElementById('reviewGrid').innerHTML=rHtml;
+const BUCKET_TOTALS = { fondamentaux: 5, methodes: 5, sop: 5, pilotage: 5 };
+const LETTER_MAP = ['A', 'B', 'C', 'D'];
 
-            // Attentes
-            var aHtml='';
-            if(taches) aHtml+='<p><strong>Tâches courantes :</strong> '+taches+'</p>';
-            if(attentes) aHtml+='<p><strong>Points à approfondir :</strong> '+attentes+'</p>';
-            if(difficultes) aHtml+='<p><strong>Difficultés :</strong> '+difficultes+'</p>';
-            if(!aHtml) aHtml='<p style="color:var(--ak-gray-400)">Aucune attente renseignée.</p>';
-            document.getElementById('attentesContent').innerHTML=aHtml;
+// ============================================================
+// STATE
+// ============================================================
+let currentQ = 0;
+let answers = new Array(20).fill(null);
+let quizSubmitted = false;
+let autoEvalRatings = {};
 
-            window.scrollTo({top:0,behavior:'smooth'});
-        }
-    </script>
+// ============================================================
+// FUNCTIONS — FLOW
+// ============================================================
+
+function startTest() {
+  document.getElementById('welcome-screen').classList.add('hidden');
+  document.getElementById('autoeval-screen').classList.remove('hidden');
+  buildAutoEval();
+  document.getElementById('autoeval-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================================
+// FUNCTIONS — AUTO-EVAL
+// ============================================================
+
+function buildAutoEval() {
+  var grid = document.getElementById('autoeval-grid');
+  grid.innerHTML = '';
+
+  AUTOEVAL_ITEMS.forEach(function(item, idx) {
+    var badgeClass = BUCKET_BADGE_CLASSES[item.bucket];
+    var borderClass = BUCKET_BORDER_CLASSES[item.bucket];
+    var card = document.createElement('div');
+    card.className = 'autoeval-card bg-white dark:bg-slate-800/50 rounded-xl p-4 border-2 border-slate-200 dark:border-slate-700';
+    card.id = 'autoeval-card-' + idx;
+
+    var starsHtml = '';
+    for (var s = 1; s <= 4; s++) {
+      starsHtml += '<button onclick="rateCompetency(' + idx + ',' + s + ')" id="star-' + idx + '-' + s + '" class="star-btn star-inactive w-8 h-8 flex items-center justify-center text-xl" title="' + s + '/4" aria-label="' + s + ' sur 4">';
+      starsHtml += '&#9733;';
+      starsHtml += '</button>';
+    }
+
+    card.innerHTML =
+      '<div class="flex items-start gap-3">' +
+        '<div class="flex-1 min-w-0">' +
+          '<span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-medium mb-2 ' + badgeClass + '">' + BUCKET_NAMES[item.bucket] + '</span>' +
+          '<p class="text-sm text-slate-700 dark:text-slate-200 leading-snug">' + item.label + '</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="flex items-center gap-1 mt-3" id="stars-' + idx + '">' + starsHtml + '</div>';
+
+    grid.appendChild(card);
+  });
+}
+
+function rateCompetency(idx, rating) {
+  var item = AUTOEVAL_ITEMS[idx];
+  autoEvalRatings[item.key] = rating;
+
+  // Update stars visual
+  for (var s = 1; s <= 4; s++) {
+    var star = document.getElementById('star-' + idx + '-' + s);
+    if (s <= rating) {
+      star.classList.remove('star-inactive');
+      star.classList.add('star-active');
+    } else {
+      star.classList.remove('star-active');
+      star.classList.add('star-inactive');
+    }
+  }
+
+  // Mark card as rated
+  var card = document.getElementById('autoeval-card-' + idx);
+  card.classList.add('rated');
+
+  // Update progress
+  var count = Object.keys(autoEvalRatings).length;
+  document.getElementById('autoeval-progress-label').textContent = count + ' / 12 compétences évaluées';
+  document.getElementById('autoeval-progress-bar').style.width = Math.round((count / 12) * 100) + '%';
+
+  // Enable next button when all rated
+  document.getElementById('btn-autoeval-next').disabled = (count < 12);
+}
+
+function finishAutoEval() {
+  if (Object.keys(autoEvalRatings).length < 12) return;
+
+  // Save auto-eval to localStorage
+  localStorage.setItem('sop_autoeval', JSON.stringify(autoEvalRatings));
+
+  // Switch to QCM
+  document.getElementById('autoeval-screen').classList.add('hidden');
+  document.getElementById('quiz-container').classList.remove('hidden');
+  buildQuiz();
+  showQuestion(0);
+  document.getElementById('quiz-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================================
+// FUNCTIONS — QCM
+// ============================================================
+
+function buildQuiz() {
+  var wrapper = document.getElementById('questions-wrapper');
+  wrapper.innerHTML = '';
+
+  QUESTIONS.forEach(function(q, i) {
+    var div = document.createElement('div');
+    div.className = 'quiz-question' + (i === 0 ? ' active' : '');
+    div.id = 'q-' + i;
+
+    var badgeClass = BUCKET_BADGE_CLASSES[q.bucket];
+    var bucketName = BUCKET_NAMES[q.bucket];
+
+    var optionsHtml = '';
+    q.options.forEach(function(opt, oi) {
+      optionsHtml += '<button onclick="selectAnswer(' + i + ',' + oi + ')" id="opt-' + i + '-' + oi + '" class="quiz-option w-full text-left px-5 py-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 text-slate-700 dark:text-slate-200 text-sm md:text-base">';
+      optionsHtml += '<span class="font-semibold text-akademia-muted mr-2">' + LETTER_MAP[oi] + ')</span> ' + opt;
+      optionsHtml += '</button>';
+    });
+
+    div.innerHTML =
+      '<div class="mb-4">' +
+        '<span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium mb-3 ' + badgeClass + '">' + bucketName + '</span>' +
+        '<p class="text-sm italic text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">' + q.scenario + '</p>' +
+        '<h2 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white">' +
+          '<span class="text-akademia-muted font-normal">Q' + q.id + '.</span> ' + q.question +
+        '</h2>' +
+      '</div>' +
+      '<div class="space-y-3" id="options-' + i + '">' + optionsHtml + '</div>';
+
+    wrapper.appendChild(div);
+  });
+}
+
+function selectAnswer(qIndex, optIndex) {
+  if (quizSubmitted) return;
+
+  answers[qIndex] = optIndex;
+
+  // Update visual
+  var options = document.querySelectorAll('#options-' + qIndex + ' .quiz-option');
+  options.forEach(function(opt, i) {
+    if (i === optIndex) {
+      opt.classList.add('selected');
+    } else {
+      opt.classList.remove('selected');
+    }
+  });
+
+  // Enable next/submit
+  updateNavButtons();
+}
+
+function showQuestion(index) {
+  currentQ = index;
+
+  // Hide all, show current
+  document.querySelectorAll('.quiz-question').forEach(function(q) { q.classList.remove('active'); });
+  var el = document.getElementById('q-' + index);
+  if (el) el.classList.add('active');
+
+  // Update progress
+  var pct = ((index + 1) / 20 * 100).toFixed(0);
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = 'Question ' + (index + 1) + ' / 20';
+
+  // Update bucket badge
+  var q = QUESTIONS[index];
+  var badge = document.getElementById('bucket-badge');
+  badge.textContent = BUCKET_NAMES[q.bucket];
+  badge.className = 'px-2 py-0.5 rounded-full text-xs font-medium badge-' + q.bucket;
+
+  updateNavButtons();
+}
+
+function updateNavButtons() {
+  var prevBtn = document.getElementById('btn-prev');
+  var nextBtn = document.getElementById('btn-next');
+  var submitBtn = document.getElementById('btn-submit');
+
+  prevBtn.disabled = currentQ === 0;
+
+  if (currentQ === 19) {
+    nextBtn.classList.add('hidden');
+    submitBtn.classList.remove('hidden');
+    submitBtn.disabled = answers[currentQ] === null;
+  } else {
+    nextBtn.classList.remove('hidden');
+    submitBtn.classList.add('hidden');
+    nextBtn.disabled = answers[currentQ] === null;
+  }
+}
+
+function nextQuestion() {
+  if (currentQ < 19 && answers[currentQ] !== null) {
+    showQuestion(currentQ + 1);
+  }
+}
+
+function prevQuestion() {
+  if (currentQ > 0) {
+    showQuestion(currentQ - 1);
+  }
+}
+
+// ============================================================
+// FUNCTIONS — SUBMIT & RESULTS
+// ============================================================
+
+function submitQuiz() {
+  if (answers.includes(null)) return;
+  quizSubmitted = true;
+
+  // Calculate score
+  var score = 0;
+  var bucketScores = { fondamentaux: 0, methodes: 0, sop: 0, pilotage: 0 };
+  var details = [];
+
+  QUESTIONS.forEach(function(q, i) {
+    var isCorrect = answers[i] === q.correct;
+    if (isCorrect) {
+      score++;
+      bucketScores[q.bucket]++;
+    }
+    details.push({ question: q, userAnswer: answers[i], correct: isCorrect });
+  });
+
+  // Save to localStorage
+  localStorage.setItem('sop_positionnement', score);
+  localStorage.setItem('sop_positionnement_date', new Date().toISOString());
+  localStorage.setItem('sop_positionnement_details', JSON.stringify(answers));
+
+  // xAPI tracking
+  if (typeof xapiTracker !== 'undefined') {
+    xapiTracker.trackQuizScore('positionnement-prevision-ventes-sop', 'Positionnement Prévision des Ventes & S&OP', score, 20);
+  }
+
+  // FormAI bridge
+  if (typeof window.formaiModuleComplete === 'function') {
+    window.formaiModuleComplete(score, 20);
+  }
+
+  // Show corrections on questions
+  showCorrections(details);
+
+  // Show results
+  showResults(score, bucketScores, details);
+
+  // Confetti if good score
+  if (score >= 14) launchConfetti();
+}
+
+function showCorrections(details) {
+  details.forEach(function(d, i) {
+    var options = document.querySelectorAll('#options-' + i + ' .quiz-option');
+    options.forEach(function(opt, oi) {
+      opt.classList.add('locked');
+      if (oi === d.question.correct) {
+        opt.classList.add('correct-show');
+      }
+      if (oi === d.userAnswer && !d.correct) {
+        opt.classList.add('wrong-show');
+      }
+    });
+  });
+}
+
+function showResults(score, bucketScores, details) {
+  var pct = Math.round((score / 20) * 100);
+
+  // Level badge
+  var levelLabel, levelColor, levelBg;
+  if (score >= 16) {
+    levelLabel = 'Expert'; levelColor = '#10B981'; levelBg = 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300';
+  } else if (score >= 12) {
+    levelLabel = 'Avancé'; levelColor = '#3b82f6'; levelBg = 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300';
+  } else if (score >= 8) {
+    levelLabel = 'Intermédiaire'; levelColor = '#F97316'; levelBg = 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300';
+  } else {
+    levelLabel = 'Débutant'; levelColor = '#EF4444'; levelBg = 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
+  }
+
+  var circumference = 2 * Math.PI * 54;
+  var dashOffset = circumference - (pct / 100) * circumference;
+
+  var html = '';
+
+  // ---- Score ring ----
+  html += '<div class="text-center mb-10">';
+  html += '<h2 class="text-2xl font-bold mb-2 text-slate-800 dark:text-white">Résultats</h2>';
+  html += '<p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Prévision des Ventes & S&OP — Fiabiliser ses prévisions</p>';
+
+  html += '<div class="relative inline-block mb-4">';
+  html += '<svg width="140" height="140" viewBox="0 0 120 120">';
+  html += '<circle cx="60" cy="60" r="54" fill="none" stroke-width="8" class="stroke-slate-200 dark:stroke-slate-700"/>';
+  html += '<circle cx="60" cy="60" r="54" fill="none" stroke-width="8" stroke-linecap="round" class="score-ring" stroke="' + levelColor + '" stroke-dasharray="' + circumference + '" stroke-dashoffset="' + circumference + '" transform="rotate(-90 60 60)" id="score-ring-circle"/>';
+  html += '</svg>';
+  html += '<div class="absolute inset-0 flex flex-col items-center justify-center">';
+  html += '<span class="text-3xl font-extrabold text-slate-800 dark:text-white">' + score + '</span>';
+  html += '<span class="text-xs text-slate-500">/ 20</span>';
+  html += '</div>';
+  html += '</div>';
+
+  html += '<div class="flex justify-center mb-2">';
+  html += '<span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold ' + levelBg + '">';
+  html += levelLabel + ' — ' + pct + '%';
+  html += '</span>';
+  html += '</div>';
+  html += '</div>';
+
+  // ---- Bucket breakdown ----
+  html += '<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">';
+  var bucketKeys = ['fondamentaux', 'methodes', 'sop', 'pilotage'];
+  bucketKeys.forEach(function(bk) {
+    var bScore = bucketScores[bk];
+    var bTotal = BUCKET_TOTALS[bk];
+    var bPct = Math.round((bScore / bTotal) * 100);
+    var bColor = BUCKET_COLORS[bk];
+    var bName = BUCKET_NAMES[bk];
+
+    html += '<div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 text-center border border-slate-200 dark:border-slate-700">';
+    html += '<div class="text-xs font-medium text-slate-500 mb-1">' + bName + '</div>';
+    html += '<div class="text-2xl font-bold" style="color:' + bColor + '">' + bScore + '/' + bTotal + '</div>';
+    html += '<div class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mt-2">';
+    html += '<div class="bar-fill h-full rounded-full" style="width:0%;background:' + bColor + '" id="bar-bucket-' + bk + '"></div>';
+    html += '</div>';
+    html += '<div class="text-xs text-slate-400 mt-1">' + bPct + '%</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // ---- Auto-eval summary ----
+  html += '<div class="bg-gradient-to-br from-akademia-purple/5 to-akademia-turquoise/5 dark:from-akademia-purple/10 dark:to-akademia-turquoise/10 rounded-2xl p-6 mb-8 border border-akademia-purple/20">';
+  html += '<h3 class="text-lg font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">';
+  html += '<svg class="w-5 h-5 text-akademia-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>';
+  html += 'Auto-évaluation de vos compétences';
+  html += '</h3>';
+  html += '<div class="space-y-3">';
+
+  var savedAutoEval = autoEvalRatings;
+  if (Object.keys(savedAutoEval).length === 0) {
+    try {
+      var stored = localStorage.getItem('sop_autoeval');
+      if (stored) savedAutoEval = JSON.parse(stored);
+    } catch(e) {}
+  }
+
+  var starLevels = ['' , 'Débutant', 'Intermédiaire', 'Avancé', 'Expert'];
+  AUTOEVAL_ITEMS.forEach(function(item) {
+    var rating = savedAutoEval[item.key] || 0;
+    var stars = '';
+    for (var s = 1; s <= 4; s++) {
+      if (s <= rating) {
+        stars += '<span class="text-amber-400">&#9733;</span>';
+      } else {
+        stars += '<span class="text-slate-300 dark:text-slate-600">&#9733;</span>';
+      }
+    }
+    var badgeClass = BUCKET_BADGE_CLASSES[item.bucket];
+
+    html += '<div class="flex items-center gap-3 text-sm">';
+    html += '<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-medium ' + badgeClass + ' flex-shrink-0">' + BUCKET_NAMES[item.bucket].substring(0, 5) + '.</span>';
+    html += '<span class="flex-1 text-slate-600 dark:text-slate-300 truncate" title="' + item.label + '">' + item.label + '</span>';
+    html += '<span class="flex items-center gap-0.5 flex-shrink-0 text-sm">' + stars + '</span>';
+    html += '<span class="text-xs text-slate-400 flex-shrink-0 w-24 text-right">' + (rating > 0 ? starLevels[rating] : '—') + '</span>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  html += '</div>';
+
+  // ---- Detailed corrections ----
+  html += '<div class="mb-8">';
+  html += '<h3 class="text-lg font-bold text-slate-800 dark:text-white mb-4">Correction détaillée</h3>';
+  html += '<div class="space-y-3">';
+
+  details.forEach(function(d, i) {
+    var q = d.question;
+    var explain = EXPLAINS[q.id] || '';
+    var borderColor = d.correct ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800' : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800';
+    var iconBg = d.correct ? 'bg-akademia-green text-white' : 'bg-akademia-red text-white';
+    var icon = d.correct ? '&#10003;' : '&#10007;';
+
+    html += '<div class="flex items-start gap-3 p-4 rounded-xl ' + borderColor + '">';
+    html += '<div class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ' + iconBg + '">' + icon + '</div>';
+    html += '<div class="text-sm flex-1">';
+    html += '<div class="flex items-start gap-2 mb-1">';
+    html += '<span class="font-semibold text-slate-700 dark:text-slate-200">Q' + q.id + '.</span>';
+    html += '<span class="text-slate-600 dark:text-slate-300">' + q.question + '</span>';
+    html += '</div>';
+
+    if (!d.correct) {
+      html += '<div class="mt-1 text-xs">';
+      html += '<span class="text-red-500">Votre réponse : ' + LETTER_MAP[d.userAnswer] + '</span> — ';
+      html += '<span class="text-green-600 dark:text-green-400">Bonne réponse : ' + LETTER_MAP[q.correct] + '</span>';
+      html += '</div>';
+    }
+
+    if (explain) {
+      html += '<div class="mt-2 p-2 rounded-lg bg-slate-100/50 dark:bg-slate-700/30 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">';
+      html += '<span class="font-semibold text-slate-700 dark:text-slate-300">Explication :</span> ' + explain;
+      html += '</div>';
+    }
+
+    html += '</div>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  html += '</div>';
+
+  // ---- Action buttons ----
+  html += '<div class="flex flex-wrap gap-3 justify-center no-print">';
+  html += '<button onclick="resetAll()" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Recommencer</button>';
+  html += '<button onclick="window.print()" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-akademia-blue to-akademia-purple text-white hover:opacity-90 transition flex items-center gap-2">';
+  html += '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>';
+  html += 'Imprimer mes résultats</button>';
+  html += '</div>';
+
+  // ---- Render ----
+  document.getElementById('quiz-container').classList.add('hidden');
+  var resultsEl = document.getElementById('results-container');
+  resultsEl.innerHTML = html;
+  resultsEl.classList.remove('hidden');
+
+  // Animate score ring
+  setTimeout(function() {
+    var ring = document.getElementById('score-ring-circle');
+    if (ring) ring.style.strokeDashoffset = dashOffset;
+  }, 100);
+
+  // Animate bucket bars
+  setTimeout(function() {
+    bucketKeys.forEach(function(bk) {
+      var bar = document.getElementById('bar-bucket-' + bk);
+      if (bar) {
+        var bPct = Math.round((bucketScores[bk] / BUCKET_TOTALS[bk]) * 100);
+        bar.style.width = bPct + '%';
+      }
+    });
+  }, 300);
+
+  // Scroll to results
+  resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetAll() {
+  quizSubmitted = false;
+  answers = new Array(20).fill(null);
+  autoEvalRatings = {};
+  currentQ = 0;
+
+  document.getElementById('results-container').classList.add('hidden');
+  document.getElementById('results-container').innerHTML = '';
+  document.getElementById('quiz-container').classList.add('hidden');
+  document.getElementById('autoeval-screen').classList.add('hidden');
+  document.getElementById('welcome-screen').classList.remove('hidden');
+
+  document.getElementById('header-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function launchConfetti() {
+  var colors = ['#3b82f6', '#7C3AED', '#06B6D4', '#10B981', '#F97316', '#EF4444'];
+  for (var i = 0; i < 60; i++) {
+    var piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.width = (Math.random() * 8 + 5) + 'px';
+    piece.style.height = (Math.random() * 8 + 5) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    piece.style.animationDelay = (Math.random() * 1.5) + 's';
+    document.body.appendChild(piece);
+    setTimeout(function(p) { return function() { p.remove(); }; }(piece), 5000);
+  }
+}
+
+// ============================================================
+// DARK MODE TOGGLE
+// ============================================================
+document.getElementById('darkToggle').addEventListener('click', function() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('sop_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+});
+
+// ============================================================
+// KEYBOARD NAVIGATION
+// ============================================================
+document.addEventListener('keydown', function(e) {
+  // Auto-eval screen: no keyboard shortcuts
+  if (!document.getElementById('quiz-container').classList.contains('hidden')) {
+    if (quizSubmitted) return;
+    if (e.key === 'ArrowRight' || e.key === 'Enter') {
+      if (currentQ === 19) submitQuiz();
+      else nextQuestion();
+    }
+    if (e.key === 'ArrowLeft') prevQuestion();
+    if (e.key >= '1' && e.key <= '4') {
+      selectAnswer(currentQ, parseInt(e.key) - 1);
+    }
+  }
+});
+</script>
+
 </body>
 </html>
