@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Quiz Onboarding — Bilan Semaine 1 | Callstore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cyan:#22D3EE;
+  --indigo:#4338CA;
+  --amber:#F59E0B;
+  --ink:#0F172A;
+  --body:#475569;
+  --muted:#64748B;
+  --line:#E5E7EB;
+  --bg:#F8FAFC;
+  --grad:linear-gradient(135deg,#22D3EE 0%,#4338CA 100%);
+  --ok:#10B981;
+  --mid:#F97316;
+  --low:#EF4444;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--body);background:#fff;line-height:1.65;font-size:16px}
+::selection{background:rgba(67,56,202,.14)}
+
+/* ---------- barre sticky ---------- */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:900px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:14px}
+.topbar svg{height:30px;width:auto;display:block}
+.counter{margin-left:auto;font-size:12.5px;font-weight:600;color:var(--indigo);background:rgba(67,56,202,.07);border:1px solid rgba(67,56,202,.18);padding:4px 12px;border-radius:999px;white-space:nowrap}
+.progress-track{height:3px;background:#EEF2F7}
+.progress-fill{height:100%;width:0%;background:var(--grad);transition:width .35s cubic-bezier(.16,1,.3,1)}
+
+/* ---------- héro ---------- */
+.hero{padding:118px 24px 46px;background:
+  linear-gradient(180deg,rgba(34,211,238,.10) 0%,rgba(67,56,202,.05) 46%,rgba(255,255,255,0) 100%)}
+.hero-in{max-width:860px;margin:0 auto}
+.kicker{font-size:11.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--indigo);margin-bottom:14px}
+.kicker .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--amber);margin-right:9px;vertical-align:1px}
+h1{font-size:clamp(28px,4.6vw,42px);font-weight:800;letter-spacing:-.02em;color:var(--ink);line-height:1.14;margin-bottom:16px}
+.lede{font-size:17px;color:var(--body);max-width:640px;margin-bottom:22px}
+.meta{display:flex;flex-wrap:wrap;gap:10px}
+.pill{font-size:12.5px;font-weight:600;color:var(--ink);border:1px solid var(--line);background:#fff;padding:6px 14px;border-radius:999px}
+.pill b{color:var(--indigo);font-weight:700}
+
+/* ---------- consigne ---------- */
+.notice{max-width:860px;margin:0 auto;padding:0 24px}
+.notice-card{border:1px solid var(--line);border-left:none;border-radius:14px;background:var(--bg);padding:18px 22px;position:relative;overflow:hidden}
+.notice-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--grad)}
+.notice-card p{font-size:14.5px;color:var(--body)}
+.notice-card p+p{margin-top:6px}
+.notice-card strong{color:var(--ink)}
+
+/* ---------- sections ---------- */
+main{max-width:860px;margin:0 auto;padding:10px 24px 60px}
+section.module{padding-top:44px}
+.mod-head{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.mod-num{width:38px;height:38px;border-radius:11px;background:var(--grad);color:#fff;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mod-kick{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+h2{font-size:23px;font-weight:800;letter-spacing:-.015em;color:var(--ink)}
+.mod-sub{font-size:14px;color:var(--muted);margin:8px 0 22px}
+
+/* ---------- identité ---------- */
+.id-card{border:1px solid var(--line);border-radius:14px;padding:24px;margin-top:28px;background:#fff}
+.id-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:560px){.id-grid{grid-template-columns:1fr}}
+.field label{display:block;font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.field label span{color:var(--low)}
+.field input,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 14px;font-family:inherit;font-size:15px;color:var(--ink);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
+.field input:focus,.field textarea:focus{border-color:var(--indigo);box-shadow:0 0 0 3px rgba(67,56,202,.10)}
+.field textarea{resize:vertical;min-height:74px}
+
+/* ---------- questions ---------- */
+.qcard{border:1px solid var(--line);border-radius:14px;background:#fff;padding:22px 24px;margin-bottom:16px;position:relative;overflow:hidden;transition:border-color .25s,box-shadow .25s}
+.qcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--line);transition:background .25s}
+.qcard.answered::before{background:var(--grad)}
+.qcard.missing{border-color:var(--low);box-shadow:0 0 0 3px rgba(239,68,68,.10)}
+.qnum{font-size:11.5px;font-weight:700;letter-spacing:.14em;color:var(--indigo);margin-bottom:6px}
+.qtext{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:14px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--line);border-radius:11px;padding:12px 15px;cursor:pointer;transition:background .18s,border-color .18s;font-size:14.5px;color:var(--body)}
+.opt:hover{background:var(--bg)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.radio{width:19px;height:19px;border-radius:50%;border:2px solid #CBD5E1;flex-shrink:0;margin-top:2px;position:relative;transition:border-color .18s}
+.opt.sel{border-color:var(--indigo);background:rgba(67,56,202,.045)}
+.opt.sel .radio{border-color:var(--indigo)}
+.opt.sel .radio::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--grad)}
+.opt.sel{color:var(--ink)}
+
+/* ---------- envoi ---------- */
+.submit-zone{margin-top:48px;text-align:center;padding:34px 24px;border:1px solid var(--line);border-radius:16px;background:
+  linear-gradient(180deg,rgba(34,211,238,.06),rgba(67,56,202,.04))}
+.submit-zone p{font-size:14px;color:var(--muted);margin-bottom:18px}
+.btn{display:inline-block;border:none;cursor:pointer;font-family:inherit;font-size:16px;font-weight:700;color:#fff;background:var(--grad);padding:15px 42px;border-radius:999px;box-shadow:0 12px 28px rgba(67,56,202,.24);transition:transform .18s,box-shadow .18s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 16px 34px rgba(67,56,202,.3)}
+.btn:disabled{opacity:.55;cursor:wait;transform:none}
+
+/* ---------- résultats ---------- */
+#results{display:none;padding:120px 24px 60px;max-width:860px;margin:0 auto}
+.res-hero{text-align:center;margin-bottom:40px}
+.ring-wrap{position:relative;width:200px;height:200px;margin:0 auto 22px}
+.ring-wrap svg{transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:#EEF2F7;stroke-width:13}
+.ring-val{fill:none;stroke:url(#ringGrad);stroke-width:13;stroke-linecap:round;stroke-dasharray:515.2;stroke-dashoffset:515.2;transition:stroke-dashoffset 1.1s cubic-bezier(.16,1,.3,1)}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-score{font-size:44px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
+.ring-total{font-size:13.5px;color:var(--muted);margin-top:4px}
+.level{display:inline-block;font-size:13px;font-weight:700;padding:7px 20px;border-radius:999px;color:#fff;margin-top:6px}
+.res-note{max-width:560px;margin:18px auto 0;font-size:14.5px;color:var(--muted)}
+.breakdown{border:1px solid var(--line);border-radius:16px;padding:26px}
+.breakdown h3{font-size:16px;font-weight:800;color:var(--ink);margin-bottom:18px;letter-spacing:-.01em}
+.brow{margin-bottom:15px}
+.brow:last-child{margin-bottom:0}
+.brow-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.brow-label{font-size:14px;font-weight:600;color:var(--ink)}
+.brow-score{font-size:13px;font-weight:700;color:var(--indigo)}
+.bbar{height:8px;background:#EEF2F7;border-radius:999px;overflow:hidden}
+.bbar-fill{height:100%;width:0;background:var(--grad);border-radius:999px;transition:width 1s cubic-bezier(.16,1,.3,1)}
+
+/* ---------- toast ---------- */
+#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;font-size:14px;font-weight:600;padding:13px 24px;border-radius:999px;box-shadow:0 14px 34px rgba(15,23,42,.3);opacity:0;transition:all .4s cubic-bezier(.16,1,.3,1);z-index:100;max-width:92vw;text-align:center}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- pied ---------- */
+footer{border-top:1px solid var(--line);margin-top:30px}
+.ruban{display:flex;height:4px}
+.ruban .c{flex:0 0 63%;background:var(--cyan)}
+.ruban .i{flex:1;background:var(--indigo)}
+.foot-in{max-width:860px;margin:0 auto;padding:24px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:12px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <svg viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg" aria-label="Callstore">
+      <defs>
+        <linearGradient id="pg" gradientUnits="userSpaceOnUse" x1="40" y1="26" x2="86" y2="94">
+          <stop offset="0%" stop-color="#22D3EE"/>
+          <stop offset="100%" stop-color="#4338CA"/>
+        </linearGradient>
+      </defs>
+      <path d="M 84.51 39.43 A 32.0 32.0 0 1 0 84.51 80.57" fill="none" stroke="url(#pg)" stroke-width="14.0" stroke-linecap="round"/>
+      <circle cx="92.0" cy="60.0" r="8.5" fill="#F59E0B"/>
+      <g transform="translate(120, 60)">
+        <text x="0" y="5" font-family="Inter, sans-serif" font-size="36" font-weight="800" fill="#0F172A" letter-spacing="-0.02em">CALLSTORE</text>
+        <text x="0" y="28" font-family="Inter, sans-serif" font-size="15.5" font-weight="400" fill="#64748B" letter-spacing="0.3em">MARRAKECH</text>
+      </g>
+    </svg>
+    <span class="counter" id="counter">0 / 29 réponses</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="pfill"></div></div>
+</div>
+
+<div id="quizview">
+  <header class="hero">
+    <div class="hero-in">
+      <div class="kicker"><span class="dot"></span>Onboarding — Bilan de la semaine 1</div>
+      <h1>Quiz de fin de première semaine</h1>
+      <p class="lede">Ce questionnaire reprend tout ce que nous avons vu cette semaine : la demande ANTS, les financements de la formation, Dendreo et les deux supports d'accueil. Il sert à mesurer ce qui est acquis — et ce que nous reverrons ensemble.</p>
+      <div class="meta">
+        <span class="pill"><b>29</b> questions</span>
+        <span class="pill"><b>5</b> thèmes</span>
+        <span class="pill">≈ <b>25</b> min</span>
+        <span class="pill">Une seule réponse par question</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="notice">
+    <div class="notice-card">
+      <p><strong>Répondez sans vos notes ni les supports.</strong> Ce n'est pas un examen : une réponse fausse indique simplement un point à revoir ensemble.</p>
+      <p>À la validation, vos résultats sont transmis automatiquement à votre responsable. Prévoyez de répondre en une seule fois.</p>
+    </div>
+  </div>
+
+  <main>
+    <div class="id-card">
+      <div class="id-grid">
+        <div class="field">
+          <label for="prenom">Prénom <span>*</span></label>
+          <input type="text" id="prenom" autocomplete="given-name" placeholder="Votre prénom">
+        </div>
+        <div class="field">
+          <label for="nom">Nom <span>*</span></label>
+          <input type="text" id="nom" autocomplete="family-name" placeholder="Votre nom">
+        </div>
+      </div>
+    </div>
+
+    <div id="quiz"></div>
+
+    <section class="module" id="mod-open">
+      <div class="mod-head">
+        <div class="mod-num">✎</div>
+        <div>
+          <div class="mod-kick">Pour finir</div>
+          <h2>Votre retour</h2>
+        </div>
+      </div>
+      <p class="mod-sub">Facultatif — mais utile pour préparer le débrief.</p>
+      <div class="id-card" style="margin-top:0">
+        <div class="field" style="margin-bottom:16px">
+          <label for="revoir">Y a-t-il un point de la semaine que vous aimeriez revoir en priorité ?</label>
+          <textarea id="revoir" placeholder="Votre réponse…"></textarea>
+        </div>
+        <div class="field">
+          <label for="commentaire">Un commentaire sur cette première semaine ?</label>
+          <textarea id="commentaire" placeholder="Votre réponse…"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <div class="submit-zone">
+      <p>Vérifiez d'avoir répondu à toutes les questions : les questions restées sans réponse seront signalées.</p>
+      <button class="btn" id="submitBtn" onclick="submitTest()">Valider mes réponses</button>
+    </div>
+  </main>
+</div>
+
+<div id="results">
+  <div class="res-hero">
+    <div class="kicker" style="text-align:center"><span class="dot"></span>Résultats — Bilan de la semaine 1</div>
+    <h1 id="res-name" style="font-size:30px;margin-bottom:26px"></h1>
+    <div class="ring-wrap">
+      <svg width="200" height="200" viewBox="0 0 200 200">
+        <defs>
+          <linearGradient id="ringGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#22D3EE"/>
+            <stop offset="100%" stop-color="#4338CA"/>
+          </linearGradient>
+        </defs>
+        <circle class="ring-bg" cx="100" cy="100" r="82"/>
+        <circle class="ring-val" id="ringVal" cx="100" cy="100" r="82"/>
+      </svg>
+      <div class="ring-center">
+        <div class="ring-score" id="scoreTxt">0</div>
+        <div class="ring-total">sur 29 questions</div>
+      </div>
+    </div>
+    <span class="level" id="levelPill"></span>
+    <p class="res-note">Vos réponses ont été transmises à votre responsable. Vous les reverrez ensemble lors du débrief — inutile de refaire le quiz.</p>
+  </div>
+  <div class="breakdown">
+    <h3>Détail par thème</h3>
+    <div id="bwrap"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="ruban"><div class="c"></div><div class="i"></div></div>
+  <div class="foot-in">
+    <span>Callstore — Quiz d'onboarding · Semaine 1</span>
+    <span>Usage interne</span>
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+var MODULES = [
+  {
+    id: "ants",
+    title: "La demande ANTS",
+    kick: "Module 1",
+    sub: "L'inscription au permis de conduire en ligne.",
+    questions: [
+      { q: "Que signifie le sigle « ANTS » ?",
+        opts: ["Agence Nationale des Titres Sécurisés",
+               "Association Nationale des Transports et de la Sécurité",
+               "Agence Nationale du Travail et des Services",
+               "Autorité Nationale des Titres et Signatures"] },
+      { q: "Où se fait une demande liée au permis de conduire (inscription, fabrication du titre) ?",
+        opts: ["À la préfecture, uniquement au guichet",
+               "Sur ants.gouv.fr, le site officiel — la démarche en ligne y est gratuite",
+               "Sur un site partenaire, moyennant des frais de dossier",
+               "Par courrier au ministère de l'Intérieur"] },
+      { q: "Comment se connecte-t-on à son espace personnel ANTS ?",
+        opts: ["Avec son numéro de permis de conduire",
+               "Aucune connexion n'est nécessaire",
+               "Via FranceConnect (identifiants impôts, Ameli…) ou avec un compte ANTS",
+               "Uniquement depuis l'ordinateur de l'auto-école"] },
+      { q: "Qu'est-ce que le NEPH ?",
+        opts: ["Le numéro du dossier de carte grise",
+               "Le code confidentiel reçu après la réussite de l'examen",
+               "Le numéro de la photo d'identité numérique",
+               "Le Numéro d'Enregistrement Préfectoral Harmonisé : il identifie le candidat et est indispensable pour se présenter aux examens du permis"] },
+      { q: "Pour la photo et la signature d'une demande en ligne, on utilise…",
+        opts: ["Un code photo-signature numérique délivré par un photographe ou une cabine agréés ANTS",
+               "Une photo prise avec le téléphone, téléchargée directement sur le site",
+               "Le scan d'une ancienne photo d'identité",
+               "Rien : aucune photo n'est demandée pour une démarche en ligne"] },
+      { q: "Qui peut effectuer la demande d'inscription au permis (obtention du NEPH) sur ANTS ?",
+        opts: ["Uniquement le candidat lui-même",
+               "Le candidat lui-même, ou l'école de conduite qu'il mandate pour faire la démarche à sa place",
+               "Uniquement l'école de conduite",
+               "La mairie du lieu de résidence"] }
+    ]
+  },
+  {
+    id: "financements",
+    title: "Les financements de la formation",
+    kick: "Module 2",
+    sub: "Qui paie la formation professionnelle, et à quelles conditions.",
+    questions: [
+      { q: "Qui régule la formation professionnelle en France et répartit les fonds collectés (environ 14 milliards d'euros par an) ?",
+        opts: ["L'URSSAF",
+               "Les Régions",
+               "France compétences",
+               "Le ministère de l'Éducation nationale"] },
+      { q: "Qu'est-ce qu'un OPCO ?",
+        opts: ["Un opérateur de compétences : il finance notamment la formation des salariés des petites entreprises et l'alternance — chaque entreprise en a un selon sa branche professionnelle",
+               "Un organisme public qui forme les demandeurs d'emploi",
+               "Le service formation interne d'une grande entreprise",
+               "Une certification qualité des organismes de formation"] },
+      { q: "Le CPF (Compte Personnel de Formation), c'est…",
+        opts: ["Un budget que l'employeur verse à ses salariés en fin d'année",
+               "Un droit attaché à la personne : environ 500 € crédités par an, mobilisables sur « Mon Compte Formation »",
+               "Une aide réservée aux demandeurs d'emploi",
+               "Un prêt bancaire à taux zéro pour se former"] },
+      { q: "Quelles formations peuvent être financées par le CPF ?",
+        opts: ["Toutes les formations du catalogue d'un organisme",
+               "Uniquement les formations en présentiel",
+               "Uniquement les formations diplômantes de l'État",
+               "Les formations certifiantes (enregistrées au RNCP ou au RS) et quelques cas prévus par la loi : permis de conduire, bilan de compétences, VAE"] },
+      { q: "Une entreprise souhaite une prise en charge par son OPCO. Quand la demande doit-elle être déposée ?",
+        opts: ["Avant le début de la formation — un dossier déposé après coup est refusé",
+               "Pendant la formation",
+               "Après la formation, avec la facture",
+               "Peu importe, dans les douze mois"] },
+      { q: "Le client demande « c'est bien pris en charge ? » alors que l'accord du financeur n'est pas encore arrivé. Que répond-on ?",
+        opts: ["« Oui, c'est pris en charge » : cela rassure le client",
+               "Que la formation est confirmée « sous réserve de l'accord de prise en charge » — on n'annonce jamais un financement non confirmé",
+               "On ne parle jamais de financement avec un client",
+               "« Probablement, à 90 % »"] }
+    ]
+  },
+  {
+    id: "dendreo",
+    title: "Dendreo — la gestion des dossiers",
+    kick: "Module 3",
+    sub: "Créer une entreprise, un particulier, un contact, un devis, une convention, une convocation.",
+    questions: [
+      { q: "Avant de créer une fiche (entreprise, participant, contact) dans Dendreo, le premier réflexe est de…",
+        opts: ["Créer la fiche tout de suite pour gagner du temps",
+               "Demander l'autorisation par e-mail",
+               "Rechercher si la fiche existe déjà — créer un doublon fausse l'historique et pollue la base",
+               "Créer la fiche en brouillon"] },
+      { q: "Dans Dendreo, un « contact » désigne…",
+        opts: ["L'interlocuteur chez le client : il suit le dossier et reçoit les documents — ce n'est pas forcément un stagiaire",
+               "Un synonyme de « participant »",
+               "Le formateur qui anime la session",
+               "N'importe quelle adresse e-mail enregistrée dans la base"] },
+      { q: "Un client entreprise et un client particulier ne signent pas le même document. Lequel signe quoi ?",
+        opts: ["L'entreprise signe un contrat, le particulier une convention",
+               "Les deux signent une convention de formation",
+               "L'entreprise signe une convention de formation ; le particulier signe un contrat de formation, avec un délai de rétractation de 10 jours",
+               "Les deux signent un simple devis, cela suffit"] },
+      { q: "Quel est l'ordre logique de création d'un dossier entreprise dans Dendreo ?",
+        opts: ["Devis → entreprise → convention → contact → participants",
+               "Entreprise → contact → participants → devis → puis, après accord : convention → convocations",
+               "Convocations → devis → convention → entreprise",
+               "Participants → devis → entreprise → contact"] },
+      { q: "Le client renvoie le devis signé. Le dossier est-il « ferme » ?",
+        opts: ["Oui : devis signé = inscription définitive",
+               "Non : un devis signé vaut réservation ; le dossier devient ferme avec un bon de commande, un accord de financement ou un paiement",
+               "Oui, à condition qu'il soit signé électroniquement",
+               "Non : il faut attendre la fin de la formation"] },
+      { q: "À la création d'une fiche participant ou entreprise, il faut aussi vérifier…",
+        opts: ["Son rattachement au bon centre (la bonne entité) : une fiche mal rattachée est invisible pour l'équipe qui gère le dossier",
+               "La couleur de l'étiquette de la fiche",
+               "Rien de particulier : les valeurs par défaut conviennent toujours",
+               "Le fuseau horaire du navigateur"] },
+      { q: "Que contient une convocation, et quand l'envoie-t-on ?",
+        opts: ["Le prix de la formation ; on l'envoie après la session",
+               "Les dates, les horaires et le lieu (ou le lien de connexion) ; on l'envoie aux participants en amont de la session",
+               "Uniquement le programme détaillé de la formation",
+               "La facture et le certificat de réalisation"] }
+    ]
+  },
+  {
+    id: "secteur",
+    title: "Le secteur de la formation professionnelle",
+    kick: "Module 4",
+    sub: "Support « La formation professionnelle en France ».",
+    questions: [
+      { q: "Qu'est-ce qui fait officiellement d'une structure un organisme de formation ?",
+        opts: ["L'obtention de la certification Qualiopi",
+               "Sa déclaration d'activité auprès de la DREETS, qui lui délivre un numéro (NDA) — ce numéro « ne vaut pas agrément de l'État »",
+               "Un agrément délivré par le ministère du Travail",
+               "Son inscription au registre du commerce"] },
+      { q: "Que certifie Qualiopi ?",
+        opts: ["La qualité du processus de l'organisme — son organisation, pas le contenu de ses formations ; c'est obligatoire pour encaisser des fonds publics ou mutualisés",
+               "Le niveau des formateurs",
+               "Le contenu pédagogique de chaque formation du catalogue",
+               "La satisfaction des stagiaires"] },
+      { q: "« Cet organisme est certifié Qualiopi, donc ses formations sont certifiantes. » Cette affirmation est…",
+        opts: ["Vraie",
+               "Vraie uniquement pour les formations CPF",
+               "Fausse : Qualiopi certifie l'organisme ; une formation « certifiante » est une certification enregistrée au RNCP ou au RS — ce sont deux choses différentes",
+               "Vraie si l'organisme existe depuis plus de trois ans"] },
+      { q: "Pourquoi les émargements, le certificat de réalisation et la facture conforme sont-ils si importants ?",
+        opts: ["Pour les archives internes uniquement",
+               "C'est une habitude administrative sans réel enjeu",
+               "Par politesse envers le client",
+               "Parce que le financeur ne paie que sur pièces : un justificatif manquant ou non conforme, c'est un paiement bloqué"] }
+    ]
+  },
+  {
+    id: "ecrits",
+    title: "Messagerie & écrits professionnels",
+    kick: "Module 5",
+    sub: "Support « Messagerie & écrits professionnels ».",
+    questions: [
+      { q: "Un client vous écrit au sujet d'un dossier sur lequel des échanges existent déjà. Où répondez-vous ?",
+        opts: ["Dans un nouveau message, pour repartir proprement",
+               "Dans le fil existant : un sujet = un fil, tout l'historique reste au même endroit",
+               "Par téléphone uniquement",
+               "Peu importe, du moment qu'on répond vite"] },
+      { q: "Quelle ouverture est conforme pour transmettre un document demandé ?",
+        opts: ["« Bien sûr ! Voici le document 😊 »",
+               "« Comme demandé, ci-joint le doc »",
+               "« Je vous remercie pour votre retour. Conformément à votre demande, vous trouverez ci-joint… »",
+               "« Urgent : document à ouvrir immédiatement »"] },
+      { q: "Avant d'envoyer un e-mail avec pièces jointes, la check-list impose notamment de…",
+        opts: ["Vérifier que l'adresse du destinataire vient bien du dossier, ouvrir chaque pièce jointe une à une, et joindre le programme dès qu'on propose une formation",
+               "Mettre le maximum de personnes en copie",
+               "Compresser toutes les pièces dans un seul fichier ZIP",
+               "Envoyer d'abord, corriger ensuite si besoin"] },
+      { q: "Un e-mail annonce que le RIB d'un fournisseur a changé. Que fait-on ?",
+        opts: ["On met à jour le RIB : le message vient de l'adresse habituelle",
+               "On répond au message pour demander confirmation",
+               "On vérifie par téléphone, en appelant le numéro déjà connu du dossier — jamais celui indiqué dans le message",
+               "On effectue un petit virement d'essai"] },
+      { q: "L'accusé de réception d'une demande…",
+        opts: ["Confirme que la demande sera acceptée",
+               "Donne déjà le prix, pour gagner du temps",
+               "S'engage sur une échéance de réponse (« je reviens vers vous d'ici… »), jamais sur le fond — ni prix, ni faisabilité",
+               "Est inutile si l'on répond dans la semaine"] },
+      { q: "Parmi ces formulations, lesquelles sont interdites dans nos écrits ?",
+        opts: ["« Plus que 2 places, dépêchez-vous » — une urgence inventée",
+               "« Votre session individuelle » — on écrit « classe virtuelle avec formateur dédié »",
+               "« C'est financé », avant l'accord du financeur",
+               "Les trois"] }
+    ]
+  }
+];
+
+var CORRECT = JSON.parse(atob("WzAsMSwyLDMsMCwxLDIsMCwxLDMsMCwxLDIsMCwyLDEsMSwwLDEsMSwwLDIsMywxLDIsMCwyLDIsM10="));
+var TOTAL = CORRECT.length;
+var sent = false;
+
+function buildQuiz() {
+  var host = document.getElementById("quiz");
+  var qIndex = 0;
+  MODULES.forEach(function (mod, mi) {
+    var sec = document.createElement("section");
+    sec.className = "module";
+    sec.id = "mod-" + mod.id;
+    sec.innerHTML =
+      '<div class="mod-head"><div class="mod-num">' + (mi + 1) + '</div>' +
+      '<div><div class="mod-kick">' + mod.kick + "</div><h2>" + mod.title + "</h2></div></div>" +
+      '<p class="mod-sub">' + mod.sub + "</p>";
+    mod.questions.forEach(function (item) {
+      var gi = qIndex++;
+      var card = document.createElement("div");
+      card.className = "qcard";
+      card.id = "q" + gi;
+      var h = '<div class="qnum">Question ' + (gi + 1) + " / " + TOTAL + '</div>' +
+              '<div class="qtext">' + item.q + '</div><div class="opts">';
+      item.opts.forEach(function (opt, oi) {
+        h += '<label class="opt"><input type="radio" name="q' + gi + '" value="' + oi + '">' +
+             '<span class="radio"></span><span>' + opt + "</span></label>";
+      });
+      h += "</div>";
+      card.innerHTML = h;
+      sec.appendChild(card);
+    });
+    host.appendChild(sec);
+  });
+  host.addEventListener("change", function (e) {
+    if (e.target && e.target.type === "radio") {
+      var card = e.target.closest(".qcard");
+      card.classList.add("answered");
+      card.classList.remove("missing");
+      card.querySelectorAll(".opt").forEach(function (o) { o.classList.remove("sel"); });
+      e.target.closest(".opt").classList.add("sel");
+      updateProgress();
+    }
+  });
+}
+
+function answered() {
+  var n = 0;
+  for (var i = 0; i < TOTAL; i++) {
+    if (document.querySelector('input[name="q' + i + '"]:checked')) n++;
+  }
+  return n;
+}
+
+function updateProgress() {
+  var n = answered();
+  document.getElementById("counter").textContent = n + " / " + TOTAL + " réponses";
+  document.getElementById("pfill").style.width = (n / TOTAL) * 100 + "%";
+}
+
+function showToast(msg) {
+  var t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(function () { t.classList.remove("show"); }, 5200);
+}
+
+function submitTest() {
+  if (sent) return;
+  var prenom = document.getElementById("prenom").value.trim();
+  var nom = document.getElementById("nom").value.trim();
+  if (!prenom || !nom) {
+    showToast("Merci d'indiquer votre prénom et votre nom.");
+    document.getElementById(!prenom ? "prenom" : "nom").focus();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+  var missing = [];
+  for (var i = 0; i < TOTAL; i++) {
+    if (!document.querySelector('input[name="q' + i + '"]:checked')) missing.push(i);
+  }
+  if (missing.length) {
+    missing.forEach(function (i) { document.getElementById("q" + i).classList.add("missing"); });
+    showToast(missing.length + " question(s) sans réponse — elles sont encadrées en rouge.");
+    document.getElementById("q" + missing[0]).scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+
+  var btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.textContent = "Envoi en cours…";
+
+  var score = 0, qIndex = 0;
+  var perModule = [], detailLines = [];
+  MODULES.forEach(function (mod, mi) {
+    var ok = 0;
+    mod.questions.forEach(function (item, qi) {
+      var gi = qIndex++;
+      var chosen = parseInt(document.querySelector('input[name="q' + gi + '"]:checked').value, 10);
+      var good = chosen === CORRECT[gi];
+      if (good) { score++; ok++; }
+      var line = "Q" + (gi + 1) + " [" + mod.title + "] " + (good ? "✓" : "✗") +
+                 " — réponse : « " + item.opts[chosen] + " »";
+      if (!good) line += " | attendu : « " + item.opts[CORRECT[gi]] + " »";
+      detailLines.push(line);
+    });
+    perModule.push({ title: mod.title, ok: ok, total: mod.questions.length });
+  });
+
+  var pct = Math.round((score / TOTAL) * 100);
+  var level, color;
+  if (pct >= 80) { level = "Très bonne maîtrise"; color = "#10B981"; }
+  else if (pct >= 60) { level = "Bonne base — quelques points à revoir"; color = "#F97316"; }
+  else { level = "À reprendre ensemble"; color = "#EF4444"; }
+
+  // --- affichage des résultats ---
+  document.getElementById("quizview").style.display = "none";
+  var res = document.getElementById("results");
+  res.style.display = "block";
+  document.getElementById("res-name").textContent = prenom + " " + nom;
+  document.getElementById("scoreTxt").textContent = score;
+  var pill = document.getElementById("levelPill");
+  pill.textContent = level;
+  pill.style.background = color;
+  var bwrap = document.getElementById("bwrap");
+  perModule.forEach(function (m) {
+    var row = document.createElement("div");
+    row.className = "brow";
+    row.innerHTML = '<div class="brow-top"><span class="brow-label">' + m.title +
+      '</span><span class="brow-score">' + m.ok + " / " + m.total +
+      '</span></div><div class="bbar"><div class="bbar-fill" data-w="' +
+      (m.ok / m.total) * 100 + '"></div></div>';
+    bwrap.appendChild(row);
+  });
+  document.getElementById("counter").textContent = score + " / " + TOTAL;
+  document.getElementById("pfill").style.width = "100%";
+  window.scrollTo({ top: 0, behavior: "auto" });
+  setTimeout(function () {
+    document.getElementById("ringVal").style.strokeDashoffset = 515.2 * (1 - score / TOTAL);
+    document.querySelectorAll(".bbar-fill").forEach(function (b) {
+      b.style.width = b.getAttribute("data-w") + "%";
+    });
+  }, 120);
+  sent = true;
+
+  // --- envoi automatique des résultats ---
+  var moduleSummary = perModule.map(function (m) { return m.title + " : " + m.ok + "/" + m.total; }).join("\n");
+  var payload = {
+    _subject: "Quiz Onboarding S1 — " + prenom + " " + nom + " — " + score + "/" + TOTAL + " (" + pct + "%)",
+    "Prénom": prenom,
+    "Nom": nom,
+    "Score": score + " / " + TOTAL + " (" + pct + "%)",
+    "Niveau": level,
+    "Détail par thème": moduleSummary,
+    "Détail des réponses": detailLines.join("\n"),
+    "Point à revoir (déclaré)": document.getElementById("revoir").value.trim() || "—",
+    "Commentaire semaine 1": document.getElementById("commentaire").value.trim() || "—",
+    _template: "table"
+  };
+  fetch("https://formsubmit.co/ajax/b.yassmine@ecf-proconduite.com", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    body: JSON.stringify(payload)
+  }).then(function (r) {
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return r.json();
+  }).then(function () {
+    showToast("Résultats envoyés automatiquement à votre responsable.");
+  }).catch(function () {
+    var body = "Quiz Onboarding S1 — " + prenom + " " + nom + "\n" +
+               "Score : " + score + "/" + TOTAL + " (" + pct + "%) — " + level + "\n\n" +
+               moduleSummary + "\n\n(Envoi automatique indisponible : merci de cliquer sur Envoyer.)";
+    window.location.href = "mailto:b.yassmine@ecf-proconduite.com" +
+      "?subject=" + encodeURIComponent("Quiz Onboarding S1 — " + prenom + " " + nom + " — " + score + "/" + TOTAL) +
+      "&body=" + encodeURIComponent(body);
+    showToast("Envoi automatique indisponible — votre messagerie s'ouvre pour transmettre les résultats.");
+  });
+}
+
+buildQuiz();
+updateProgress();
+</script>
+</body>
+</html>
