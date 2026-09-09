@@ -1082,17 +1082,18 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .agc p{font-size:13.8px;line-height:1.55;color:var(--body)}
 .ag-when{margin-top:auto;padding-top:12px;font-family:'Fragment Mono',monospace;
   font-size:8.8px;letter-spacing:.09em;text-transform:uppercase;color:var(--cap);line-height:1.6}
-.pil3.tall3{flex:1;min-height:0}
-.nrc2{border-radius:18px;background:linear-gradient(92deg,#3B82F6,#8B5CF6);
+.pil3.tall3{flex:none}
+.pil3.tall3 .nrc2{min-height:238px}
+.nrc2{position:relative;overflow:hidden;border-radius:20px;background:#1E293B;
   padding:24px 24px 20px;display:flex;flex-direction:column;color:#fff;
-  box-shadow:0 18px 40px -18px rgba(59,91,246,.45)}
+  box-shadow:0 18px 40px -18px rgba(15,23,42,.4)}
 .nrc2 .tag{align-self:flex-start;padding:6px 12px;border-radius:999px;
   font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.14em;
-  text-transform:uppercase;border:1px solid rgba(255,255,255,.55);color:#fff;margin-bottom:14px}
-.nrc2 .mq{font-family:'Instrument Sans',sans-serif;font-weight:560;font-size:17px;
-  line-height:1.48;letter-spacing:-0.005em;color:#fff;margin:0 0 14px}
+  text-transform:uppercase;border:1px solid rgba(255,255,255,.28);color:rgba(255,255,255,.5);margin-bottom:14px}
+.nrc2 .mq{font-family:'Instrument Serif',serif;font-weight:400;font-size:19px;
+  line-height:1.42;letter-spacing:0;color:#fff;margin:0 0 14px}
 .nrc2 .when{margin-top:auto;padding-top:12px;font-family:'Fragment Mono',monospace;
-  font-size:8.8px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.82);line-height:1.6}
+  font-size:8.8px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.5);line-height:1.6}
 .sim-brief{border:1px solid rgba(37,99,235,.35);background:rgba(37,99,235,.06);
   border-radius:14px;padding:13px 20px;margin-top:14px;font-size:15px;line-height:1.55;color:var(--body)}
 .sim-brief b{color:var(--ink)}
@@ -1140,6 +1141,13 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 #m1-s-erreurs .trk p{font-size:11.6px;line-height:1.4}
 #m1-s-erreurs .trk .sr2{padding-top:6px}
 #m1-s-erreurs .src{margin-top:10px}
+.nrc2::before,.tr-band::before,.sw-msg::before,.cnv-msg:not(.empty)::before,
+.rea-scene::before,.somc.liv::before,.close-band::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(230px 170px at 84% -10%,hsl(var(--cc-h,221) 70% 55% / .55),transparent 72%)}
+.nrc2>*,.tr-band>*,.sw-msg>*,.cnv-msg:not(.empty)>*,
+.rea-scene>*,.somc.liv>*,.close-band>*{position:relative;z-index:1}
+#m1-s-recits .cp-band{margin-top:22px}
 /* ==================== MODULE 2 ==================== */
 .src{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.05em;
   color:var(--ter);margin-top:14px;line-height:1.65}
@@ -1506,17 +1514,18 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .agc p{font-size:13.8px;line-height:1.55;color:var(--body)}
 .ag-when{margin-top:auto;padding-top:12px;font-family:'Fragment Mono',monospace;
   font-size:8.8px;letter-spacing:.09em;text-transform:uppercase;color:var(--cap);line-height:1.6}
-.pil3.tall3{flex:1;min-height:0}
-.nrc2{border-radius:18px;background:linear-gradient(92deg,#3B82F6,#8B5CF6);
+.pil3.tall3{flex:none}
+.pil3.tall3 .nrc2{min-height:238px}
+.nrc2{position:relative;overflow:hidden;border-radius:20px;background:#1E293B;
   padding:24px 24px 20px;display:flex;flex-direction:column;color:#fff;
-  box-shadow:0 18px 40px -18px rgba(59,91,246,.45)}
+  box-shadow:0 18px 40px -18px rgba(15,23,42,.4)}
 .nrc2 .tag{align-self:flex-start;padding:6px 12px;border-radius:999px;
   font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.14em;
-  text-transform:uppercase;border:1px solid rgba(255,255,255,.55);color:#fff;margin-bottom:14px}
-.nrc2 .mq{font-family:'Instrument Sans',sans-serif;font-weight:560;font-size:17px;
-  line-height:1.48;letter-spacing:-0.005em;color:#fff;margin:0 0 14px}
+  text-transform:uppercase;border:1px solid rgba(255,255,255,.28);color:rgba(255,255,255,.5);margin-bottom:14px}
+.nrc2 .mq{font-family:'Instrument Serif',serif;font-weight:400;font-size:19px;
+  line-height:1.42;letter-spacing:0;color:#fff;margin:0 0 14px}
 .nrc2 .when{margin-top:auto;padding-top:12px;font-family:'Fragment Mono',monospace;
-  font-size:8.8px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.82);line-height:1.6}
+  font-size:8.8px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.5);line-height:1.6}
 .sim-brief{border:1px solid rgba(37,99,235,.35);background:rgba(37,99,235,.06);
   border-radius:14px;padding:13px 20px;margin-top:14px;font-size:15px;line-height:1.55;color:var(--body)}
 .sim-brief b{color:var(--ink)}
@@ -1556,11 +1565,11 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 #m1-s-simul .fbx{padding:4px 0;font-size:13px}
 #m1-s-simul .tt-hint{margin-top:2px;font-size:7.5px;line-height:1.5;max-width:340px}
 #m1-s-simul .timer{width:200px;height:200px}
-.tr-band{margin-top:auto;border-radius:16px;background:linear-gradient(92deg,#3B82F6,#8B5CF6);
+.tr-band{margin-top:auto;position:relative;overflow:hidden;border-radius:20px;background:#1E293B;
   color:#fff;padding:15px 22px;display:flex;align-items:center;gap:18px;
-  box-shadow:0 18px 40px -18px rgba(59,91,246,.45)}
+  box-shadow:0 18px 40px -18px rgba(15,23,42,.4)}
 .tr-band .tr-k{flex:none;font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.18em;
-  text-transform:uppercase;border:1px solid rgba(255,255,255,.55);border-radius:999px;padding:6px 12px}
+  text-transform:uppercase;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:6px 12px}
 .tr-band p{font-size:15.5px;line-height:1.45}
 .mail-grid{display:grid;grid-template-columns:1.08fr 1fr;gap:36px;margin-top:12px;flex:1;min-height:0}
 .mailmock{border:1px solid var(--line);border-radius:18px;background:#FBFCFE;
@@ -1587,11 +1596,11 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .sw-q{flex:none;align-self:center;display:flex;flex-direction:column;align-items:center;gap:3px;width:86px}
 .sw-q span{font-family:'Instrument Serif',serif;font-style:italic;font-size:14.5px;color:var(--blue);white-space:nowrap}
 .sw-q svg{width:24px;height:24px}
-.sw-msg{margin-top:14px;border-radius:16px;background:linear-gradient(92deg,#3B82F6,#8B5CF6);color:#fff;
+.sw-msg{margin-top:14px;position:relative;overflow:hidden;border-radius:20px;background:#1E293B;color:#fff;
   padding:16px 22px;display:flex;align-items:center;gap:18px;
-  box-shadow:0 18px 40px -18px rgba(59,91,246,.45)}
+  box-shadow:0 18px 40px -18px rgba(15,23,42,.4)}
 .sw-msg .k{flex:none;font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.18em;
-  text-transform:uppercase;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.5);
+  text-transform:uppercase;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.28);
   border-radius:999px;padding:7px 13px;white-space:nowrap}
 .sw-msg b{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:18.5px;
   letter-spacing:-0.008em;line-height:1.3}
@@ -1665,11 +1674,11 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 #m2-s-chambre .timer{width:200px;height:200px}
 #m2-s-chambre .tt-hint{margin-top:2px;font-size:7.5px;line-height:1.5;max-width:340px}
 .cnv{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;flex:1;min-height:0}
-.cnv-msg{grid-column:1/-1;border-radius:16px;background:linear-gradient(92deg,#3B82F6,#8B5CF6);color:#fff;
+.cnv-msg{grid-column:1/-1;position:relative;overflow:hidden;border-radius:20px;background:#1E293B;color:#fff;
   padding:14px 20px;display:flex;align-items:center;gap:16px;
-  box-shadow:0 18px 40px -18px rgba(59,91,246,.45)}
+  box-shadow:0 18px 40px -18px rgba(15,23,42,.4)}
 .cnv-msg .k{flex:none;font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.16em;
-  text-transform:uppercase;color:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.5);
+  text-transform:uppercase;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.28);
   border-radius:999px;padding:6px 12px;white-space:nowrap}
 .cnv-msg b{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:17px;
   letter-spacing:-0.008em;line-height:1.3;flex:1}
@@ -1694,6 +1703,12 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .cnv.mini .cnv-c p{font-size:10.8px}
 #m2-s-cta .analog{max-width:none}
 #m2-s-cta .analog .aq{font-size:20px;line-height:1.4}
+.nrc2::before,.tr-band::before,.sw-msg::before,.cnv-msg:not(.empty)::before,
+.rea-scene::before,.somc.liv::before,.close-band::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(230px 170px at 84% -10%,hsl(var(--cc-h,221) 70% 55% / .55),transparent 72%)}
+.nrc2>*,.tr-band>*,.sw-msg>*,.cnv-msg:not(.empty)>*,
+.rea-scene>*,.somc.liv>*,.close-band>*{position:relative;z-index:1}
 /* ==================== MODULE 3 ==================== */
 .src{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.05em;
   color:var(--ter);margin-top:14px;line-height:1.65}
@@ -2060,17 +2075,18 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .agc p{font-size:13.8px;line-height:1.55;color:var(--body)}
 .ag-when{margin-top:auto;padding-top:12px;font-family:'Fragment Mono',monospace;
   font-size:8.8px;letter-spacing:.09em;text-transform:uppercase;color:var(--cap);line-height:1.6}
-.pil3.tall3{flex:1;min-height:0}
-.nrc2{border-radius:18px;background:linear-gradient(92deg,#3B82F6,#8B5CF6);
+.pil3.tall3{flex:none}
+.pil3.tall3 .nrc2{min-height:238px}
+.nrc2{position:relative;overflow:hidden;border-radius:20px;background:#1E293B;
   padding:24px 24px 20px;display:flex;flex-direction:column;color:#fff;
-  box-shadow:0 18px 40px -18px rgba(59,91,246,.45)}
+  box-shadow:0 18px 40px -18px rgba(15,23,42,.4)}
 .nrc2 .tag{align-self:flex-start;padding:6px 12px;border-radius:999px;
   font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.14em;
-  text-transform:uppercase;border:1px solid rgba(255,255,255,.55);color:#fff;margin-bottom:14px}
-.nrc2 .mq{font-family:'Instrument Sans',sans-serif;font-weight:560;font-size:17px;
-  line-height:1.48;letter-spacing:-0.005em;color:#fff;margin:0 0 14px}
+  text-transform:uppercase;border:1px solid rgba(255,255,255,.28);color:rgba(255,255,255,.5);margin-bottom:14px}
+.nrc2 .mq{font-family:'Instrument Serif',serif;font-weight:400;font-size:19px;
+  line-height:1.42;letter-spacing:0;color:#fff;margin:0 0 14px}
 .nrc2 .when{margin-top:auto;padding-top:12px;font-family:'Fragment Mono',monospace;
-  font-size:8.8px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.82);line-height:1.6}
+  font-size:8.8px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.5);line-height:1.6}
 .sim-brief{border:1px solid rgba(37,99,235,.35);background:rgba(37,99,235,.06);
   border-radius:14px;padding:13px 20px;margin-top:14px;font-size:15px;line-height:1.55;color:var(--body)}
 .sim-brief b{color:var(--ink)}
@@ -2259,6 +2275,12 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .fmt2 .analog{max-width:none}
 .fmt2 .keycard{display:flex;align-items:center}
 .fmt-trad{font-size:12.5px;line-height:1.55;color:var(--body);margin-top:10px}
+.nrc2::before,.tr-band::before,.sw-msg::before,.cnv-msg:not(.empty)::before,
+.rea-scene::before,.somc.liv::before,.close-band::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(230px 170px at 84% -10%,hsl(var(--cc-h,221) 70% 55% / .55),transparent 72%)}
+.nrc2>*,.tr-band>*,.sw-msg>*,.cnv-msg:not(.empty)>*,
+.rea-scene>*,.somc.liv>*,.close-band>*{position:relative;z-index:1}
 /* ==================== MODULE 4 ==================== */
 .src{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.05em;
   color:var(--ter);margin-top:14px;line-height:1.65}
@@ -2286,7 +2308,8 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   text-transform:uppercase;color:var(--blue);border:1px solid rgba(37,99,235,.3);
   border-radius:999px;padding:5px 11px;white-space:nowrap}
 .pil3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
-.pil3.tall3{flex:1;min-height:0}
+.pil3.tall3{flex:none}
+.pil3.tall3 .nrc2{min-height:238px}
 .pilc{border:1px solid var(--line);border-radius:18px;background:var(--white);
   padding:20px 22px;display:flex;flex-direction:column}
 .pilc .rn{font-family:'Instrument Serif',serif;font-size:30px;color:var(--ter);display:block;margin-bottom:10px}
@@ -2338,16 +2361,16 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   border-left:3px solid;border-image:linear-gradient(180deg,#2563EB,#7C3AED) 1;
   padding:4px 0 4px 16px}
 .credit b{color:var(--ink);font-weight:600}
-.nrc2{border-radius:18px;background:linear-gradient(92deg,#3B82F6,#8B5CF6);
+.nrc2{position:relative;overflow:hidden;border-radius:20px;background:#1E293B;
   padding:24px 24px 20px;display:flex;flex-direction:column;color:#fff;
-  box-shadow:0 18px 40px -18px rgba(59,91,246,.45)}
+  box-shadow:0 18px 40px -18px rgba(15,23,42,.4)}
 .nrc2 .tag{align-self:flex-start;padding:6px 12px;border-radius:999px;
   font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.14em;
-  text-transform:uppercase;border:1px solid rgba(255,255,255,.55);color:#fff;margin-bottom:14px}
-.nrc2 .mq{font-family:'Instrument Sans',sans-serif;font-weight:560;font-size:17px;
-  line-height:1.48;letter-spacing:-0.005em;color:#fff;margin:0 0 14px}
+  text-transform:uppercase;border:1px solid rgba(255,255,255,.28);color:rgba(255,255,255,.5);margin-bottom:14px}
+.nrc2 .mq{font-family:'Instrument Serif',serif;font-weight:400;font-size:19px;
+  line-height:1.42;letter-spacing:0;color:#fff;margin:0 0 14px}
 .nrc2 .when{margin-top:auto;padding-top:12px;font-family:'Fragment Mono',monospace;
-  font-size:8.8px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.82);line-height:1.6}
+  font-size:8.8px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.5);line-height:1.6}
 .fb-grid{margin-top:12px;border:1px solid var(--line);border-radius:14px;
   background:var(--white);padding:12px 16px}
 .fb-t{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.16em;
@@ -2385,7 +2408,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .rea-flash{border:1px solid var(--line);border-radius:18px;background:var(--white);
   padding:20px 24px;display:flex;flex-direction:column}
 .rea-flash .qz{flex:1;display:flex;flex-direction:column;justify-content:center;margin-top:0}
-.rea-scene{margin-top:14px;border-radius:14px;background:linear-gradient(92deg,#3B82F6,#8B5CF6);
+.rea-scene{margin-top:14px;position:relative;overflow:hidden;border-radius:20px;background:#1E293B;
   padding:14px 20px;color:#fff;font-family:'Instrument Serif',serif;font-style:italic;
   font-size:19px;line-height:1.4;text-align:center}
 .rea-parc{display:flex;flex-direction:column;min-height:0}
@@ -2401,11 +2424,11 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .somc b{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:18px;
   letter-spacing:-0.01em;color:var(--ink);margin-bottom:6px}
 .somc p{font-size:13.5px;line-height:1.55;color:var(--body)}
-.somc.liv{border:0;background:linear-gradient(92deg,#3B82F6,#8B5CF6);color:#fff;
-  box-shadow:0 18px 40px -18px rgba(59,91,246,.45)}
-.somc.liv .rn{color:rgba(255,255,255,.75)}
+.somc.liv{border:0;position:relative;overflow:hidden;background:#1E293B;color:#fff;
+  box-shadow:0 18px 40px -18px rgba(15,23,42,.4)}
+.somc.liv .rn{color:rgba(255,255,255,.55)}
 .somc.liv b{color:#fff}
-.somc.liv p{color:rgba(255,255,255,.88)}
+.somc.liv p{color:rgba(255,255,255,.85)}
 .livr{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;flex:1;min-height:0}
 .livc{border:1px solid var(--line);border-radius:18px;background:var(--white);
   padding:22px 26px;display:flex;flex-direction:column;justify-content:center}
@@ -2630,15 +2653,21 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .plc .wline{margin-top:12px;border-top:1px dashed var(--cap);padding-top:8px;
   font-family:'Fragment Mono',monospace;font-size:8px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--ter);line-height:1.6}
-.close-band{margin-top:auto;border-radius:18px;background:linear-gradient(92deg,#3B82F6,#8B5CF6);
+.close-band{margin-top:auto;position:relative;overflow:hidden;border-radius:20px;background:#1E293B;
   padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:22px;
-  box-shadow:0 18px 40px -18px rgba(59,91,246,.45)}
+  box-shadow:0 18px 40px -18px rgba(15,23,42,.4)}
 .close-band .cb-l b{display:block;font-family:'Instrument Sans',sans-serif;font-weight:640;
   font-size:20px;color:#fff;letter-spacing:-0.01em}
 .close-band .cb-l p{font-size:12.5px;color:rgba(255,255,255,.88);margin-top:4px;line-height:1.5}
 .close-band .cb-r{text-align:right;flex:none}
 .close-band .cb-r span{display:block;font-family:'Fragment Mono',monospace;font-size:9px;
   letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.85);line-height:2}
+.nrc2::before,.tr-band::before,.sw-msg::before,.cnv-msg:not(.empty)::before,
+.rea-scene::before,.somc.liv::before,.close-band::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(230px 170px at 84% -10%,hsl(var(--cc-h,221) 70% 55% / .55),transparent 72%)}
+.nrc2>*,.tr-band>*,.sw-msg>*,.cnv-msg:not(.empty)>*,
+.rea-scene>*,.somc.liv>*,.close-band>*{position:relative;z-index:1}
 /* ==================== SLIDE FORMATEUR ==================== */
 /* ---- s5 · Votre formateur (slide nuit typographique, médaillon gradient) ---- */
 #s-formateur .fo-glow{position:absolute;right:-220px;top:-260px;width:720px;height:720px;
@@ -3067,7 +3096,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <p class="lede">Knaflic distingue l’analyse <b>exploratoire</b> — on cherche — de l’analyse <b>explicative</b> — on a un message à faire passer. La différence, en direct, avec les chiffres d’Ondel Assistance&nbsp;:</p>
     <div class="rvs">
       <div class="rvs-l reveal" style="--i:1">
-        <span class="rvs-t">Extrait du reporting · semaine 30</span>
+        <span class="rvs-t">Extrait du reporting · pic de juillet</span>
         <div class="rvs-tbl">
           <span>Appels entrants</span><b>2&nbsp;400 / sem</b>
           <span>Délai de prise en charge</span><b>11,2&nbsp;min</b>
@@ -3259,7 +3288,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     </div>
     <div class="pts reveal" style="--i:2;margin-top:16px">
       <div class="pt"><span class="pn">01</span><p><b>La charge cognitive</b> — la manière de présenter ajoute une charge «&nbsp;extrinsèque&nbsp;», celle qu’on peut et doit réduire&nbsp;: chaque élément superflu fait perdre le message. <span class="sr2">Sweller, Cognitive Science, 1988.</span></p></div>
-      <div class="pt"><span class="pn">02</span><p><b>La mémoire de travail plafonne autour de 4 éléments</b> chez l’adulte. Le fameux «&nbsp;7 ± 2&nbsp;» de Miller (1956) parlait d’empan mnéique, pas de design de slides. <span class="sr2">Cowan, Behavioral and Brain Sciences, 2001 · Miller, Psychological Review, 1956.</span></p></div>
+      <div class="pt"><span class="pn">02</span><p><b>La mémoire de travail plafonne autour de 4 éléments</b> chez l’adulte. Le fameux «&nbsp;7 ± 2&nbsp;» de Miller (1956) parlait d’empan mnésique, pas de design de slides. <span class="sr2">Cowan, Behavioral and Brain Sciences, 2001 · Miller, Psychological Review, 1956.</span></p></div>
     </div>
     <div class="keycard reveal" style="--i:3;margin-top:16px">
       <p>Règle pratique du module&nbsp;: <b>4 idées clés maximum par message</b> — le récit est le véhicule qui fait entrer la donnée par la porte du Système 1.</p>
@@ -3409,29 +3438,29 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 </section>
 
 <!-- 21 · LE MÊME CHIFFRE, TROIS RÉCITS -->
-<section class="slide">
+<section class="slide" id="m1-s-recits">
   <div class="rail">
     <div class="toprow"><span class="kick">Séquence 3 · Ondel Assistance, trois versions</span><span class="pgr">21 · 100</span></div>
     <h2>Un même chiffre, <span class="gw">trois récits possibles</span></h2>
     <p class="lede">Le fait&nbsp;: la résolution au premier contact d’Ondel Assistance passe de <b>68&nbsp;% en juillet à 76&nbsp;% en septembre</b>, après la réorganisation des plages. Trois façons de le raconter — trois usages différents.</p>
     <div class="pil3 tall3">
-      <div class="nrc2 reveal" style="--i:1">
+      <div class="nrc2 reveal" style="--i:1;--cc-h:221">
         <span class="tag">Problème, puis solution</span>
         <p class="mq">«&nbsp;Près d’un appelant sur trois devait rappeler pour avancer son dossier. La réorganisation des plages a répondu&nbsp;: la résolution au premier contact passe de 68&nbsp;% à 76&nbsp;%.&nbsp;»</p>
         <span class="when">Quand il faut mobiliser sur un problème</span>
       </div>
-      <div class="nrc2 reveal" style="--i:2">
+      <div class="nrc2 reveal" style="--i:2;--cc-h:262">
         <span class="tag">Avant, puis après</span>
         <p class="mq">«&nbsp;Avant la réorganisation&nbsp;: 68&nbsp;%. Deux mois après&nbsp;: 76&nbsp;%. L’écart parle de lui-même.&nbsp;»</p>
         <span class="when">Quand on rend compte d’un résultat mesuré</span>
       </div>
-      <div class="nrc2 reveal" style="--i:3">
+      <div class="nrc2 reveal" style="--i:3;--cc-h:199">
         <span class="tag">Voyage du héros</span>
         <p class="mq">«&nbsp;En août, les planificateurs ont redécoupé les plages heure par heure sur la courbe des appels&nbsp;; six semaines plus tard, la résolution au premier contact atteint 76&nbsp;%.&nbsp;»</p>
         <span class="when">Quand le parcours est le sujet, pas seulement le résultat</span>
       </div>
     </div>
-    <div class="cp-band reveal" style="--i:4;margin-top:auto">
+    <div class="cp-band reveal" style="--i:4">
       <span class="cb-t">À éviter</span>
       <p>Le voyage du héros pour un arbitrage budgétaire de dix minutes — <b>toute épopée a besoin d’épreuves</b>. Et le héros, c’est l’audience, pas le présentateur&nbsp;: «&nbsp;vous n’êtes pas Luke Skywalker, vous êtes Yoda&nbsp;». <span class="sr2">N. Duarte, TEDxEast, 2011.</span></p>
     </div>
@@ -3740,7 +3769,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
         <button type="button" class="qz-o"><span class="qz-l">C</span><span>Une dizaine, si l’audience est attentive.</span></button>
         <button type="button" class="qz-o"><span class="qz-l">D</span><span>Quasi illimitée quand le sujet l’intéresse.</span></button>
       </div>
-      <p class="qz-fb">Exact&nbsp;: <b>environ 4 éléments (Cowan, 2001)</b>. Le «&nbsp;7 ± 2&nbsp;» de Miller (1956) parlait d’empan mnéique, pas de design de slides.</p>
+      <p class="qz-fb">Exact&nbsp;: <b>environ 4 éléments (Cowan, 2001)</b>. Le «&nbsp;7 ± 2&nbsp;» de Miller (1956) parlait d’empan mnésique, pas de design de slides.</p>
     </div>
     <div class="qz reveal" style="--i:1" data-ok="2">
       <p class="qz-q"><span class="qz-n">Q2</span>Vous présentez un plan déjà réalisé, avec des résultats mesurés. Quel archétype choisir&nbsp;?</p>
@@ -3946,7 +3975,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
       <div class="pilc reveal" style="--i:3"><span class="rn">02</span><b>Une narration structurée</b><p>Module 2 — le chantier de cet après-midi.</p></div>
       <div class="pilc reveal" style="--i:4"><span class="rn">03</span><b>Une visualisation efficace</b><p>Module 3 — demain matin.</p></div>
     </div>
-    <div class="tr-band reveal" style="--i:5">
+    <div class="tr-band reveal" style="--i:5;--cc-h:221">
       <span class="tr-k">Transition</span>
       <p>Vous savez <b>pourquoi</b> raconter. Maintenant&nbsp;: <b>comment construire</b> — le squelette d’un récit qui tient en réunion comme par écrit.</p>
     </div>
@@ -4005,7 +4034,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
         <div class="mm-h">
           <span class="k">De</span><span class="v">Service analyse et planification</span>
           <span class="k">À</span><span class="v">Comité de direction</span>
-          <span class="k">Objet</span><span class="v">Compte rendu hebdomadaire — semaine 30</span>
+          <span class="k">Objet</span><span class="v">Compte rendu hebdomadaire — pic de juillet</span>
         </div>
         <div class="mm-body">
           <div class="mm-line"><span>Appels entrants</span><b>2&nbsp;400 cette semaine</b></div>
@@ -4061,7 +4090,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
         <p>les appelants abandonnent&nbsp;; la satisfaction après intervention tombe à 31.</p>
       </div>
     </div>
-    <div class="sw-msg reveal" style="--i:2">
+    <div class="sw-msg reveal" style="--i:2;--cc-h:221">
       <span class="k">Et alors&nbsp;? — le message</span>
       <b>Il faut réorganiser les plages sur la courbe d’appels, avant que la vague ne revienne.</b>
     </div>
@@ -4135,17 +4164,17 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <h2>Trois accroches qui <span class="gw">marchent en entreprise</span></h2>
     <p class="lede">Cadrer son récit — où commencer, où finir — est la première clé d’une grande présentation pour Anderson (HBR, 2013). Trois façons de commencer, chacune illustrée chez Ondel&nbsp;:</p>
     <div class="pil3 tall3">
-      <div class="nrc2 reveal" style="--i:1">
+      <div class="nrc2 reveal" style="--i:1;--cc-h:221">
         <span class="tag">La question</span>
         <p class="mq">«&nbsp;Que devient un appelant qui attend 11,2 minutes, un soir de juillet, avec un vol à prendre&nbsp;?&nbsp;»</p>
         <span class="when">Elle installe le sujet en une phrase — et donne envie d’entendre la réponse</span>
       </div>
-      <div class="nrc2 reveal" style="--i:2">
+      <div class="nrc2 reveal" style="--i:2;--cc-h:262">
         <span class="tag">Le chiffre qui dérange</span>
         <p class="mq">«&nbsp;11,2 minutes d’attente en juillet, contre 4,1 minutes en mai&nbsp;: le délai a presque triplé pendant la vague.&nbsp;»</p>
         <span class="when">L’écart chiffré crée immédiatement la tension</span>
       </div>
-      <div class="nrc2 reveal" style="--i:3">
+      <div class="nrc2 reveal" style="--i:3;--cc-h:199">
         <span class="tag">La scène concrète</span>
         <p class="mq">«&nbsp;21 h 47, un soir de juillet&nbsp;: une famille attend au téléphone, ses bagages perdus entre deux aéroports. Onze minutes avant qu’un conseiller décroche.&nbsp;»</p>
         <span class="when">L’audience voit la scène — elle est déjà dans votre récit</span>
@@ -4393,17 +4422,17 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <h2>Un même résultat, <span class="gw">trois présentations</span></h2>
     <p class="lede">Le fait&nbsp;: la résolution au premier contact passe de <b>68&nbsp;% en juillet à 76&nbsp;% en septembre</b>. Le message ne change pas — <b>la granularité, si</b>&nbsp;: on change le point d’entrée, pas la vérité.</p>
     <div class="pil3 tall3">
-      <div class="nrc2 reveal" style="--i:1">
+      <div class="nrc2 reveal" style="--i:1;--cc-h:221">
         <span class="tag">Au CODIR</span>
         <p class="mq">«&nbsp;La décision de juillet est validée&nbsp;: 76&nbsp;% de résolution au premier contact. Je vous demande de la reconduire pour l’hiver — le risque, c’est la vague de décembre.&nbsp;»</p>
         <span class="when">Décision · impact · risque — la conclusion d’abord</span>
       </div>
-      <div class="nrc2 reveal" style="--i:2">
+      <div class="nrc2 reveal" style="--i:2;--cc-h:262">
         <span class="tag">À l’équipe data</span>
         <p class="mq">«&nbsp;Sur douze semaines d’appels, doublons exclus, la résolution gagne 8 points. La hausse tient aux plages recalées — regardons le détail par fuseau horaire.&nbsp;»</p>
         <span class="when">Méthode · périmètre · qualité des données</span>
       </div>
-      <div class="nrc2 reveal" style="--i:3">
+      <div class="nrc2 reveal" style="--i:3;--cc-h:199">
         <span class="tag">Aux partenaires</span>
         <p class="mq">«&nbsp;Vos clients sont débloqués plus vite&nbsp;: trois appelants sur quatre ont leur réponse dès le premier appel, contre deux sur trois cet été.&nbsp;»</p>
         <span class="when">Ce que ça change pour eux — concrètement</span>
@@ -4548,7 +4577,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <h2>Le canvas du <span class="gw">squelette narratif</span></h2>
     <p class="lede">Cinq cases, remplies dans l’ordre — <b>le message d’abord</b>, la demande à la fin — chacune avec sa preuve attachée. Le voici complété sur le fil du module&nbsp;:</p>
     <div class="cnv reveal" style="--i:1">
-      <div class="cnv-msg">
+      <div class="cnv-msg" style="--cc-h:262">
         <span class="k">1 · Message clé</span>
         <b>La réorganisation des plages a divisé le délai par trois — reconduisons-la pour l’hiver.</b>
         <span class="pv">Preuve&nbsp;: délai 11,2&nbsp;min en juillet, 3,5&nbsp;min en septembre</span>
@@ -4764,7 +4793,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
         <p><b>Le formateur clôt la session ici.</b> Reprise demain matin avec le module 3&nbsp;: Visualiser pour convaincre.</p>
       </div>
     </div>
-    <div class="tr-band reveal" style="--i:4">
+    <div class="tr-band reveal" style="--i:4;--cc-h:262">
       <span class="tr-k">À retenir</span>
       <p>«&nbsp;Un message, une demande — et une structure qui les porte.&nbsp;» <b>Le résumé du module 2 en une phrase.</b></p>
     </div>
@@ -5801,7 +5830,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
       <div class="krow reveal" style="--i:1"><span class="rn">02</span><b>L’axe part-il de zéro&nbsp;?</b><p>Pour des barres, non négociable. Pour une courbe resserrée, dites-le — ou montrez la référence.</p></div>
       <div class="krow reveal" style="--i:2"><span class="rn">03</span><b>Le point clé est-il visible en trois secondes&nbsp;?</b><p>Le test&nbsp;: montrez la slide trois secondes à un collègue, demandez ce qu’il a vu. Son regard est votre juge.</p></div>
       <div class="krow reveal" style="--i:3"><span class="rn">04</span><b>L’annotation nomme-t-elle la cause&nbsp;?</b><p>Le pourquoi du point saillant, en une phrase, accolée au point — pas en note de bas de page.</p></div>
-      <div class="krow reveal" style="--i:4"><span class="rn">05</span><b>La couleur seule porte-t-elle l’info&nbsp;?</b><p>Si oui, doublez d’une étiquette ou de l’intensité — 8&nbsp;% des hommes en populations caucasiennes y perdent (Birch, 2012).</p></div>
+      <div class="krow reveal" style="--i:4"><span class="rn">05</span><b>La couleur seule porte-t-elle l’info&nbsp;?</b><p>Si oui, doublez d’une étiquette ou de l’intensité — 8&nbsp;% des hommes y sont touchés, dans les populations d’ascendance européenne (Birch, 2012).</p></div>
     </div>
     <div class="keycard reveal" style="--i:5">
       <p>Trente secondes de contrôle avant chaque graphique — <b>la checklist vaut pour tous les outils</b>, d’Excel au dashboard.</p>
@@ -6001,7 +6030,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
           <p class="tt-hint">Vous répondez à voix haute · le formateur clique</p>
           <button type="button" class="tbtn" id="m4-flash-reset">Réinitialiser</button>
         </div>
-        <div class="rea-scene">«&nbsp;Le récit, la structure, les visuels. Il reste la scène.&nbsp;»</div>
+        <div class="rea-scene" style="--cc-h:262"><span>«&nbsp;Le récit, la structure, les visuels. Il reste la scène.&nbsp;»</span></div>
       </div>
       <div class="rea-parc reveal" style="--i:1">
         <div class="gamme">
@@ -6041,7 +6070,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
       <div class="somc reveal" style="--i:2"><span class="rn">03</span><b>Les questions</b><p>La méthode en 4 temps — et chaque objection traitée comme une porte, pas comme une attaque.</p></div>
       <div class="somc reveal" style="--i:3"><span class="rn">04</span><b>Le distanciel</b><p>Pourquoi la visio fatigue, et les règles qui marchent&nbsp;: regard caméra, formats resserrés, interactions.</p></div>
       <div class="somc reveal" style="--i:4"><span class="rn">05</span><b>Capitaliser</b><p>Mesurer l’impact réel de votre récit — et le faire entrer à la bibliothèque, en actif réutilisable.</p></div>
-      <div class="somc liv reveal" style="--i:5"><span class="rn">Final</span><b>Votre présentation de 10 minutes</b><p>Le livrable officiel&nbsp;: devant le formateur, avec questions et feedback structuré sur 8 critères.</p></div>
+      <div class="somc liv reveal" style="--i:5;--cc-h:221"><span class="rn">Final</span><b>Votre présentation de 10 minutes</b><p>Le livrable officiel&nbsp;: devant le formateur, avec questions et feedback structuré sur 8 critères.</p></div>
     </div>
     <div class="foot"><span>Data Storytelling · Module 4</span><span>Akademia Formation</span></div>
   </div>
@@ -6252,7 +6281,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
         <b>Le chiffreur</b>
         <div class="skr"><span>Ce qu’il dit</span><p><i>«&nbsp;Votre 11,2 minutes, il sort d’où&nbsp;?&nbsp;»</i></p></div>
         <div class="skr"><span>Ce qu’il veut entendre</span><p>La méthode et le périmètre — que la donnée est solide.</p></div>
-        <div class="skr ans"><span>La réponse qui transforme</span><p>Nommez la source et la date, puis revenez au message&nbsp;: «&nbsp;moyenne des appels, semaine 30, outil téléphonie — et c’est exactement ce que la réorganisation a fait chuter.&nbsp;»</p></div>
+        <div class="skr ans"><span>La réponse qui transforme</span><p>Nommez la source et la date, puis revenez au message&nbsp;: «&nbsp;moyenne des appels, pic de juillet, outil téléphonie — et c’est exactement ce que la réorganisation a fait chuter.&nbsp;»</p></div>
       </div>
       <div class="skepc reveal" style="--i:1">
         <span class="tag">Profil 2</span>
@@ -6390,7 +6419,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <div class="bib-grid">
       <div>
         <div class="pts" style="margin-top:6px">
-          <div class="pt reveal" style="--i:0"><span class="pn">01</span><p><b>Chaque présentation qui a fait décider est un stock.</b> Elle resservira — adaptée, re-mesurée, à la prochaine audience.</p></div>
+          <div class="pt reveal" style="--i:0"><span class="pn">01</span><p><b>Chaque présentation qui a fait décider est un actif.</b> Elle resservira — adaptée, re-mesurée, à la prochaine audience.</p></div>
           <div class="pt reveal" style="--i:1"><span class="pn">02</span><p><b>Pourquoi ça marche&nbsp;:</b> les récits centrés sur des personnages déclenchent empathie et coopération — mesuré dans le sang des spectateurs.</p></div>
           <div class="pt reveal" style="--i:2"><span class="pn">03</span><p><b>La fiche-type&nbsp;:</b> contexte · données · visuel · demande · retours de l’audience — cinq champs, une page, réutilisable.</p></div>
         </div>
@@ -6776,7 +6805,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
         <p class="wline">À écrire&nbsp;: laquelle — et quand&nbsp;?</p>
       </div>
     </div>
-    <div class="close-band reveal" style="--i:3">
+    <div class="close-band reveal" style="--i:3;--cc-h:199">
       <div class="cb-l">
         <b>Merci — et bonne scène.</b>
         <p>L’évaluation de fin de formation vous attend&nbsp;: quelques minutes, à chaud, pour mesurer votre parcours. Niveau 1 de Kirkpatrick — vous savez désormais le lire.</p>
