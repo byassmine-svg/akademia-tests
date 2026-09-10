@@ -17,7 +17,7 @@
   </script>
 
   <!-- Polices charte Akademia (Instrument Sans / Inter variable / Instrument Serif / Fragment Mono) -->
-  <link rel="stylesheet" href="assets/css/fonts-akademia.css">
+  <link rel="stylesheet" href="/assets/css/fonts-akademia.css">
 
   <style>
     /* ============================================================
@@ -347,7 +347,7 @@
     .pgn.next{text-align:right}
     @media (max-width:760px){.pgnav{flex-direction:column}.pgn.next{text-align:left}}
   </style>
-  <script src="assets/js/formai-bridge.js?v=1783300000"></script>
+  <script src="/assets/js/formai-bridge.js?v=1783300000"></script>
 </head>
 <body>
 
@@ -475,7 +475,7 @@
 </div>
 
 <!-- xAPI tracker -->
-<script src="assets/js/xapi-tracker.js?v=1783300000"></script>
+<script src="/assets/js/xapi-tracker.js?v=1783300000"></script>
 
 <script>
 
@@ -570,7 +570,7 @@ const QUESTIONS = [
     options: [
       "Une consigne rédigée en anglais : les modèles d’IA générative produisent de bien meilleurs textes professionnels dans cette langue",
       "Une formule de politesse complète : commencer par « s’il te plaît » améliore de façon mesurable la précision des réponses générées",
-      "Un cadrage structuré — contexte, rôle, instruction précise, style, paramètres : la méthode CRISP vue ce matin",
+      "Un cadrage structuré — contexte, rôle, instruction précise, style, paramètres : la méthode CRISP vue cet après-midi",
       "Une consigne plus courte : moins le modèle reçoit d’informations, plus sa réponse est ciblée et directement exploitable"
     ],
     correct: 2
@@ -627,7 +627,7 @@ const QUESTIONS = [
 
 const EXPLAINS = {
   1: "L’IA générative produit du texte plausible, pas du texte vérifié : elle ne consulte pas une base de normes, elle prédit une suite de mots qui ressemble à une liste de normes. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Une référence normative complète (numéro, année, intitulé) peut être entièrement inventée : vérifier chaque norme sur le site de l’organisme officiel avant tout document client. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « La version payante garantit l’exactitude » — aucun abonnement ne supprime le phénomène d’hallucination, qui est structurel et non tarifaire. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Si la consigne portait sur de la reformulation sans fait nouveau (ton, clarté), le collage direct serait moins risqué — le danger naît quand l’IA émet un fait vérifiable.",
-  2: "Plans de skid et prix d’achat relèvent du secret commercial. Dans Microsoft 365, l’assistant intégré travaille dans le tenant de l’entreprise, sans réutilisation des données pour l’entraînement, et respecte les permissions existantes. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Pour une donnée interne sensible, le premier critère de choix d’outil n’est ni la puissance ni le prix : c’est le périmètre dans lequel la donnée circule. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Payant donc confidentiel » — un abonnement personnel ne lie en rien votre employeur : les conditions acceptées sont les vôtres, et la donnée sort du périmètre NORDFLOW. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Pour un contenu public (réecriture d’un texte sans donnée interne), un outil conversationnel externe validé reste tout à fait envisageable.",
+  2: "Plans de skid et prix d’achat relèvent du secret commercial. Dans Microsoft 365, l’assistant intégré travaille dans le tenant de l’entreprise, sans réutilisation des données pour l’entraînement, et respecte les permissions existantes. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Pour une donnée interne sensible, le premier critère de choix d’outil n’est ni la puissance ni le prix : c’est le périmètre dans lequel la donnée circule. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Payant donc confidentiel » — un abonnement personnel ne lie en rien votre employeur : les conditions acceptées sont les vôtres, et la donnée sort du périmètre NORDFLOW. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Pour un contenu public (réécriture d’un texte sans donnée interne), un outil conversationnel externe validé reste tout à fait envisageable.",
   3: "Un CCTP croise deux sensibilités : des données client (RGPD) et des données stratégiques NORDFLOW (secret commercial). Ni l’une ni l’autre ne se saisit dans un outil grand public non validé. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Le couple gagnant : outil validé par l’entreprise + document préparé (anonymisation des données personnelles, retrait des éléments couverts par le secret commercial). \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Retirer la page de garde suffit » — l’anonymisation ne se limite pas au nom en couverture : montants, sites, dates et interlocuteurs cités dans le corps permettent de réidentifier le client. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Sur un CCTP réellement public et sans aucun élément interne (pas de tarifs, pas de marges), une extraction d’exigences dans l’outil validé se fait sans préparation lourde.",
   4: "Depuis février 2025, les organisations qui déploient de l’IA doivent développer la maîtrise de l’IA de leurs équipes (article 4). Cette formation en est une réponse directe. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Le règlement (UE) 2024/1689 vise les deux côtés : fournisseurs de modèles et déployeurs — l’employeur qui utilise l’IA est un déployeur. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « L’IA Act, ça ne concerne que les géants de la tech » — faux confort : l’article 4 sur la maîtrise de l’IA s’applique à toute organisation qui déploie des systèmes d’IA, quelle que soit sa taille. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Attention à l’excès inverse : le texte n’interdit pas l’IA en entreprise, il l’encadre par niveaux de risque — interdictions ciblées, transparence, obligations sur les usages à haut risque.",
   5: "Un outil conversationnel n’est pas un moteur de recherche temps réel : sans accès documentaire explicite, il ne peut pas connaître un résultat d’appel d’offres publié la semaine dernière. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Plus la demande est récente, locale et précise, plus le risque d’invention est élevé : le modèle complète ce qu’il ne sait pas au lieu de répondre « je ne sais pas ». \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « C’est détaillé donc c’est fiable » — l’abondance de détails (montants, noms, dates) n’est pas un indice d’exactitude, c’est souvent l’inverse : l’hallucination se pare de précision. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Sur une question de connaissance générale stable (définition d’un procédé, principe de fonctionnement d’une pompe), l’IA est bien plus fiable — la vérification reste la règle, l’urgence varie.",

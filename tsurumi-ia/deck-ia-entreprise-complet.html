@@ -2915,6 +2915,12 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
 .sc-verdict p{font-size:14px;margin-top:12px;line-height:1.55}
 #m3-s-scoring .tbl.sm{font-size:12.6px}
 #m3-s-scoring .tbl.sm td{padding:8px 9px 8px 2px}
+/* liste des 15 prompts (titres exacts du livrable) */
+.plist{column-count:2;column-gap:26px;margin-top:10px;list-style:none}
+.plist li{break-inside:avoid;font-size:12.2px;line-height:1.38;color:var(--body);
+  padding:5px 0 5px 27px;position:relative;border-bottom:1px solid var(--line)}
+.plist li b{position:absolute;left:0;top:6px;font-family:'Fragment Mono',monospace;
+  font-size:9px;color:var(--blue);font-weight:400}
 @media (prefers-reduced-motion:reduce){.qres-bar i{transition:none}}
 </style>
 </head>
@@ -3356,10 +3362,10 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
         <tr><td><img class="toologo" src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+R2l0SHViIENvcGlsb3Q8L3RpdGxlPjxwYXRoIGQ9Ik0yMy45MjIgMTYuOTk3QzIzLjA2MSAxOC40OTIgMTguMDYzIDIyLjAyIDEyIDIyLjAyIDUuOTM3IDIyLjAyLjkzOSAxOC40OTIuMDc4IDE2Ljk5N0EuNjQxLjY0MSAwIDAgMSAwIDE2Ljc0MXYtMi44NjlhLjg4My44ODMgMCAwIDEgLjA1My0uMjJjLjM3Mi0uOTM1IDEuMzQ3LTIuMjkyIDIuNjA1LTIuNjU2LjE2Ny0uNDI5LjQxNC0xLjA1NS42NDQtMS41MTdhMTAuMDk4IDEwLjA5OCAwIDAgMS0uMDUyLTEuMDg2YzAtMS4zMzEuMjgyLTIuNDk5IDEuMTMyLTMuMzY4LjM5Ny0uNDA2Ljg5LS43MTcgMS40NzQtLjk1MkM3LjI1NSAyLjkzNyA5LjI0OCAxLjk4IDExLjk3OCAxLjk4YzIuNzMxIDAgNC43NjcuOTU3IDYuMTY2IDIuMDkzLjU4NC4yMzUgMS4wNzcuNTQ2IDEuNDc0Ljk1Mi44NS44NjkgMS4xMzIgMi4wMzcgMS4xMzIgMy4zNjggMCAuMzY4LS4wMTQuNzMzLS4wNTIgMS4wODYuMjMuNDYyLjQ3NyAxLjA4OC42NDQgMS41MTcgMS4yNTguMzY0IDIuMjMzIDEuNzIxIDIuNjA1IDIuNjU2YS44NDEuODQxIDAgMCAxIC4wNTMuMjJ2Mi44NjlhLjY0MS42NDEgMCAwIDEtLjA3OC4yNTZabS0xMS43NS01Ljk5MmgtLjM0NGE0LjM1OSA0LjM1OSAwIDAgMS0uMzU1LjUwOGMtLjc3Ljk0Ny0xLjkxOCAxLjQ5Mi0zLjUwOCAxLjQ5Mi0xLjcyNSAwLTIuOTg5LS4zNTktMy43ODItMS4yNTlhMi4xMzcgMi4xMzcgMCAwIDEtLjA4NS0uMTA0TDQgMTEuNzQ2djYuNTg1YzEuNDM1Ljc3OSA0LjUxNCAyLjE3OSA4IDIuMTc5IDMuNDg2IDAgNi41NjUtMS40IDgtMi4xNzl2LTYuNTg1bC0uMDk4LS4xMDRzLS4wMzMuMDQ1LS4wODUuMTA0Yy0uNzkzLjktMi4wNTcgMS4yNTktMy43ODIgMS4yNTktMS41OSAwLTIuNzM4LS41NDUtMy41MDgtMS40OTJhNC4zNTkgNC4zNTkgMCAwIDEtLjM1NS0uNTA4Wm0yLjMyOCAzLjI1Yy41NDkgMCAxIC40NTEgMSAxdjJjMCAuNTQ5LS40NTEgMS0xIDEtLjU0OSAwLTEtLjQ1MS0xLTF2LTJjMC0uNTQ5LjQ1MS0xIDEtMVptLTUgMGMuNTQ5IDAgMSAuNDUxIDEgMXYyYzAgLjU0OS0uNDUxIDEtMSAxLS41NDkgMC0xLS40NTEtMS0xdi0yYzAtLjU0OS40NTEtMSAxLTFabTMuMzEzLTYuMTg1Yy4xMzYgMS4wNTcuNDAzIDEuOTEzLjg3OCAyLjQ5Ny40NDIuNTQ0IDEuMTM0LjkzOCAyLjM0NC45MzggMS41NzMgMCAyLjI5Mi0uMzM3IDIuNjU3LS43NTEuMzg0LS40MzUuNTU4LTEuMTUuNTU4LTIuMzYxIDAtMS4xNC0uMjQzLTEuODQ3LS43MDUtMi4zMTktLjQ3Ny0uNDg4LTEuMzE5LS44NjItMi44MjQtMS4wMjUtMS40ODctLjE2MS0yLjE5Mi4xMzgtMi41MzMuNTI5LS4yNjkuMzA3LS40MzcuODA4LS40MzggMS41Nzh2LjAyMWMwIC4yNjUuMDIxLjU2Mi4wNjMuODkzWm0tMS42MjYgMGMuMDQyLS4zMzEuMDYzLS42MjguMDYzLS44OTR2LS4wMmMtLjAwMS0uNzctLjE2OS0xLjI3MS0uNDM4LTEuNTc4LS4zNDEtLjM5MS0xLjA0Ni0uNjktMi41MzMtLjUyOS0xLjUwNS4xNjMtMi4zNDcuNTM3LTIuODI0IDEuMDI1LS40NjIuNDcyLS43MDUgMS4xNzktLjcwNSAyLjMxOSAwIDEuMjExLjE3NSAxLjkyNi41NTggMi4zNjEuMzY1LjQxNCAxLjA4NC43NTEgMi42NTcuNzUxIDEuMjEgMCAxLjkwMi0uMzk0IDIuMzQ0LS45MzguNDc1LS41ODQuNzQyLTEuNDQuODc4LTIuNDk3WiIvPjwvc3ZnPg==" alt="Copilot"><b>Microsoft Copilot</b><br>Microsoft 365</td><td>Modèles OpenAI (GPT-5) + modèles Anthropic dans certaines fonctions (fin 2025)</td><td>L'IA là où vous travaillez déjà&nbsp;: résumer un fil Outlook, brouillon de réponse, compte rendu Teams, reformulation Word. Données internes via Microsoft Graph, dans le respect des permissions.</td><td>Natif Outlook, Teams, Word, Excel, PowerPoint</td><td>Des permissions SharePoint trop larges font remonter des documents que l'utilisateur ne devrait pas croiser — un sujet de gouvernance à traiter.</td></tr>
         <tr><td><img class="toologo" src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjOEU3NUIyIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+R29vZ2xlIEdlbWluaTwvdGl0bGU+PHBhdGggZD0iTTExLjA0IDE5LjMyUTEyIDIxLjUxIDEyIDI0cTAtMi40OS45My00LjY4Ljk2LTIuMTkgMi41OC0zLjgxdDMuODEtMi41NVEyMS41MSAxMiAyNCAxMnEtMi40OSAwLTQuNjgtLjkzYTEyLjMgMTIuMyAwIDAgMS0zLjgxLTIuNTggMTIuMyAxMi4zIDAgMCAxLTIuNTgtMy44MVExMiAyLjQ5IDEyIDBxMCAyLjQ5LS45NiA0LjY4LS45MyAyLjE5LTIuNTUgMy44MWExMi4zIDEyLjMgMCAwIDEtMy44MSAyLjU4UTIuNDkgMTIgMCAxMnEyLjQ5IDAgNC42OC45NiAyLjE5LjkzIDMuODEgMi41NXQyLjU1IDMuODEiLz48L3N2Zz4=" alt="Gemini"><b>Gemini</b><br>Google</td><td>Gemini 2.5 Pro/Flash, Gemini 3 Pro (nov. 2025)</td><td>Intégration native Google Workspace (Gmail, Docs, Meet), NotebookLM pour la synthèse documentaire.</td><td>Google Workspace, API</td><td>Pertinent surtout pour les organisations équipées Google Workspace — repère comparatif ici, pas une piste de déploiement.</td></tr>
         <tr><td><img class="toologo" src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjRkE1MjBGIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+TWlzdHJhbCBBSTwvdGl0bGU+PHBhdGggZD0iTTE3LjE0MyAzLjQyOXYzLjQyOGgtMy40Mjl2My40MjloLTMuNDI4VjYuODU3SDYuODU3VjMuNDNIMy40M3YxMy43MTRIMHYzLjQyOGgxMC4yODZ2LTMuNDI4SDYuODU3di0zLjQyOWgzLjQyOXYzLjQyOWgzLjQyOXYtMy40MjloMy40Mjh2My40MjloLTMuNDI4djMuNDI4SDI0di0zLjQyOGgtMy40M1YzLjQyOXoiLz48L3N2Zz4=" alt="Mistral"><b>Mistral — Le Chat</b><br>Éditeur français</td><td>Mistral Medium 3, Magistral (mi-2025)</td><td>Souveraineté européenne&nbsp;: éditeur français, hébergement UE, alignement RGPD, option de déploiement dédié — un argument dans les appels d'offres européens.</td><td>API, web, mobile&nbsp;; déploiement dédié possible</td><td>Écosystème d'intégrations bureautiques plus restreint que Microsoft ou Google.</td></tr>
-        <tr><td><img class="toologo" src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMUZCOENEIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+UGVycGxleGl0eTwvdGl0bGU+PHBhdGggZD0iTTIyLjM5NzcgNy4wODk2aC0yLjMxMDZWLjA2NzZsLTcuNTA5NCA2LjM1NDJWLjE1NzdoLTEuMTU1NHY2LjE5NjZMNC40OTA0IDB2Ny4wODk2SDEuNjAyM3YxMC4zOTc2aDIuODg4MlYyNGw2LjkzMi02LjM1OTF2Ni4yMDA1aDEuMTU1NHYtNi4wNDY5bDYuOTMxOCA2LjE4MDd2LTYuNDg3OWgyLjg4ODJWNy4wODk2em0tMy40NjU3LTQuNTMxdjQuNTMxaC01LjM1NWw1LjM1NS00LjUzMXptLTEzLjI4NjIuMDY3NiA0Ljg2OTEgNC40NjM0SDUuNjQ1OFYyLjYyNjJ6TTIuNzU3NiAxNi4zMzJWOC4yNDVoNy44NDc2bC02LjExNDkgNi4xMTQ3djEuOTcyM0gyLjc1NzZ6bTIuODg4MiA1LjA0MDR2LTMuODg1MmguMDAwMXYtMi42NDg4bDUuNzc2My01Ljc3NjR2Ny4wMTExbC01Ljc3NjQgNS4yOTkzem0xMi43MDg2LjAyNDgtNS43NzY2LTUuMTUwOVY5LjA2MThsNS43NzY2IDUuNzc2NnY2LjU1ODh6bTIuODg4Mi01LjA2NTJoLTEuNzMzdi0xLjk3MjNMMTMuMzk0OCA4LjI0NWg3Ljg0Nzh2OC4wODd6Ii8+PC9zdmc+" alt="Perplexity"><b>Perplexity</b><br>Moteur de réponse</td><td>Modèles au choix intégrés au moteur (2025-2026)</td><td>Recherche &amp; veille avec sources citées&nbsp;: réponses construites à partir du web, références affichées&nbsp;; recherche approfondie pour les veilles structurées.</td><td>Web, mobile, API</td><td>Les réponses sourcées se vérifient aussi&nbsp;: la citation affichée n'est pas une garantie — on ouvre la source avant toute réutilisation.</td></tr>
+        <tr><td><img class="toologo" src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMUZCOENEIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+UGVycGxleGl0eTwvdGl0bGU+PHBhdGggZD0iTTIyLjM5NzcgNy4wODk2aC0yLjMxMDZWLjA2NzZsLTcuNTA5NCA2LjM1NDJWLjE1NzdoLTEuMTU1NHY2LjE5NjZMNC40OTA0IDB2Ny4wODk2SDEuNjAyM3YxMC4zOTc2aDIuODg4MlYyNGw2LjkzMi02LjM1OTF2Ni4yMDA1aDEuMTU1NHYtNi4wNDY5bDYuOTMxOCA2LjE4MDd2LTYuNDg3OWgyLjg4ODJWNy4wODk2em0tMy40NjU3LTQuNTMxdjQuNTMxaC01LjM1NWw1LjM1NS00LjUzMXptLTEzLjI4NjIuMDY3NiA0Ljg2OTEgNC40NjM0SDUuNjQ1OFYyLjYyNjJ6TTIuNzU3NiAxNi4zMzJWOC4yNDVoNy44NDc2bC02LjExNDkgNi4xMTQ3djEuOTcyM0gyLjc1NzZ6bTIuODg4MiA1LjA0MDR2LTMuODg1MmguMDAwMXYtMi42NDg4bDUuNzc2My01Ljc3NjR2Ny4wMTExbC01Ljc3NjQgNS4yOTkzem0xMi43MDg2LjAyNDgtNS43NzY2LTUuMTUwOVY5LjA2MThsNS43NzY2IDUuNzc2NnY2LjU1ODh6bTIuODg4Mi01LjA2NTJoLTEuNzMzdi0xLjk3MjNMMTMuMzk0OCA4LjI0NWg3Ljg0Nzh2OC4wODd6Ii8+PC9zdmc+" alt="Perplexity"><b>Perplexity</b><br>moteur de réponses</td><td>Version Pro&nbsp;: choix du modèle — GPT, Claude, Gemini ou Sonar, leur modèle maison (2026)</td><td>Recherche &amp; veille avec sources citées&nbsp;: réponses construites à partir du web, références affichées&nbsp;; recherche approfondie pour les veilles structurées.</td><td>Web, mobile, API</td><td>Les réponses sourcées se vérifient aussi&nbsp;: la citation affichée n'est pas une garantie — on ouvre la source avant toute réutilisation.</td></tr>
       </tbody>
     </table>
-    <p class="src reveal" style="--i:1">Sources&nbsp;: pages éditeurs — OpenAI (openai.com, 2025) · Anthropic (anthropic.com/news, 2025) · Microsoft Learn et pages Copilot (learn.microsoft.com, 2025) · Google Workspace / blog Google (2025) · Mistral AI (mistral.ai, 2025) · Perplexity (perplexity.ai, 2025-2026). Tarifs et gammes évoluant vite&nbsp;: désignations communiquées par les éditeurs à fin 2025.</p>
+    <p class="src reveal" style="--i:1">Sources&nbsp;: pages éditeurs — OpenAI (openai.com, 2025) · Anthropic (anthropic.com/news, 2025) · Microsoft Learn et pages Copilot (learn.microsoft.com, 2025) · Google Workspace / blog Google (2025) · Mistral AI (mistral.ai, 2025) · Perplexity (page officielle perplexity.ai &amp; Wikipedia EN, consultés sept. 2026). Tarifs et gammes évoluant vite&nbsp;: désignations communiquées par les éditeurs à fin 2025.</p>
     <div class="foot"><span>IA en Entreprise · Module 1</span><span>Akademia Formation</span></div>
   </div>
 </section>
@@ -3683,8 +3689,8 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
         <div class="rvxwrap" style="margin-top:10px">
           <button type="button" class="tbtn prim rvxbtn">Révéler le verdict &amp; les signaux</button>
           <div class="rvxpanel">
-            <div class="fbi"><span>Verdict · vrai — à relire, pas à réécrire</span><p>Tous les faits viennent de la consigne (échange de juin, devis il y a trois semaines, deux créneaux)&nbsp;: <b>niveau A de confiance</b>, contrôle rapide contre le CRM et c'est parti. Le ton est adapté au destinataire.</p></div>
-            <div class="fbi warn"><span>Signaux lus</span><p>Aucun fait extérieur fourni par l'IA, aucune référence à vérifier&nbsp;; une seule action proposée&nbsp;; longueur tenue. <b>C'est le niveau D de la grille — relecture humaine, pas vérification externe.</b></p></div>
+            <div class="fbi"><span>Verdict · vrai — à relire, pas à réécrire</span><p><b>Les faits cités viennent de votre consigne</b> (échange de juin, devis il y a trois semaines, deux créneaux)&nbsp;: <b>niveau A</b> — contrôle rapide contre le CRM. <b>Le texte produit, lui, relève du niveau D</b>&nbsp;: relecture humaine sur le ton, pas de vérification externe. Le ton est adapté au destinataire.</p></div>
+            <div class="fbi warn"><span>Signaux lus</span><p>Aucun fait extérieur fourni par l'IA, aucune référence à vérifier&nbsp;; une seule action proposée&nbsp;; longueur tenue. <b>La règle en deux temps&nbsp;: les faits de la consigne passent en A (contrôle interne), le texte généré reste en D (relecture humaine).</b></p></div>
           </div>
         </div>
       </div>
@@ -3903,23 +3909,23 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
       </div>
       <div>
         <p class="lede" style="font-size:14px;margin-top:2px"><b>Les 15 prompts livrés avec la formation</b> — rédigés, testés, prêts à copier&nbsp;:</p>
-        <div class="pills reveal" style="--i:1;margin-top:12px">
-          <span class="pill">Qualification d'un compte entrant</span>
-          <span class="pill">Signaux d'affaire à repérer</span>
-          <span class="pill">Prise de contact personnalisée</span>
-          <span class="pill">Fiche de préparation de RDV</span>
-          <span class="pill">Matrice objections / réponses</span>
-          <span class="pill">Relance de devis J+15</span>
-          <span class="pill">Réponse de litige ferme et apaisée</span>
-          <span class="pill">Compte rendu structuré + actions</span>
-          <span class="pill">Synthèse d'un fil d'e-mails</span>
-          <span class="pill">Extraction d'exigences d'un CCTP</span>
-          <span class="pill">CR de chantier (few-shot)</span>
-          <span class="pill">Trame de mémoire technique</span>
-          <span class="pill">Post LinkedIn angle + preuve</span>
-          <span class="pill">Version EN avec glossaire métier</span>
-          <span class="pill">20 angles de campagne par cible</span>
-        </div>
+        <ul class="plist reveal" style="--i:1">
+          <li><b>01</b>Prospection B2B industrielle — cibler et repérer les signaux</li>
+          <li><b>02</b>Post LinkedIn de social selling — la preuve terrain</li>
+          <li><b>03</b>E-mail de prospection personnalisé — premier contact</li>
+          <li><b>04</b>Fiche de préparation de rendez-vous industriel</li>
+          <li><b>05</b>Matrice d'objections — anticiper avant le rendez-vous</li>
+          <li><b>06</b>Compte rendu de chantier — des notes au CR structuré</li>
+          <li><b>07</b>Synthèse de CCTP — extraction des exigences</li>
+          <li><b>08</b>Trame de proposition commerciale sur-mesure</li>
+          <li><b>09</b>Relance sur cycle long — réveiller un deal dormant</li>
+          <li><b>10</b>Traduction FR → EN métier — terminologie verrouillée</li>
+          <li><b>11</b>Résumé de réunion — décisions et plan d'action</li>
+          <li><b>12</b>Reformulation d'e-mail ADV — annonces délicates</li>
+          <li><b>13</b>Analyse de documentation technique — audit fournisseur</li>
+          <li><b>14</b>Veille concurrentielle — la synthèse mensuelle</li>
+          <li><b>15</b>Feuille de route 30/60/90 — déployer sans big bang</li>
+        </ul>
         <div class="keycard reveal" style="--i:2;margin-top:14px">
           <p>Règles de mutualisation&nbsp;: <b>un seul emplacement partagé</b>, testé avant publication (deux utilisations réussies), exemples anonymisés, changelog minimal. <b>La seizième fiche sera la vôtre</b> — le prompt perfectionné cet après-midi.</p>
         </div>
@@ -4062,7 +4068,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
         <div class="rvxwrap" style="margin-top:10px">
           <button type="button" class="tbtn prim rvxbtn">Révéler la version soignée</button>
           <div class="rvxpanel">
-            <div class="fbi"><span>Version soignée (CRISP complet)</span><p>«&nbsp;Contexte&nbsp;: fabricant d'équipements de fluide, un compte agroalimentaire vient d'annoncer l'extension d'un site (presse régionale, juillet). Rôle&nbsp;: tu es un commercial B2B senior. Instruction&nbsp;: rédige un email de 120 mots max qui rebondit sur ce signal, apporte une preuve transposable, avec un seul CTA — un échange de 15 minutes. Style&nbsp;: direct, concret, zéro jargon marketing. Paramètres&nbsp;: trois variantes d'objet de moins de sept mots, pas de pièce jointe.&nbsp;»</p></div>
+            <div class="fbi"><span>Version soignée (CRISP complet)</span><p>«&nbsp;Contexte&nbsp;: fabricant d'équipements de fluide, un compte agroalimentaire vient d'annoncer l'extension d'un site (presse régionale, juillet). Rôle&nbsp;: tu es un commercial B2B senior. Instruction&nbsp;: rédige un e-mail de 120 mots max qui rebondit sur ce signal, apporte une preuve transposable, avec un seul CTA — un échange de 15 minutes. Style&nbsp;: direct, concret, zéro jargon marketing. Paramètres&nbsp;: trois variantes d'objet de moins de sept mots, pas de pièce jointe.&nbsp;»</p></div>
             <div class="fbi warn"><span>Lettres qui manquaient</span><p><b>C et P surtout</b> — quel compte, quel signal vérifiable, quelle action unique, quelle longueur. Sans eux&nbsp;: un message générique, envoyé en volume — et des comptes grillés.</p></div>
           </div>
         </div>
@@ -4691,7 +4697,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
       </div>
       <div class="pac reveal" style="--i:1">
         <span class="pt2" style="border:1px solid var(--line);color:var(--cap);background:var(--bg)">Messages InMail personnalisés — 4 blocs</span>
-        <div class="cr"><span>1</span><p><b>Le signal</b>&nbsp;: un fait précis et vérifiable — «&nbsp;votre extension annoncée en mars&nbsp;», pas «&nbsp;je suis votre entreprise de près&nbsp;».</p></div>
+        <div class="cr"><span>1</span><p><b>Le signal</b>&nbsp;: un fait précis et vérifiable — «&nbsp;votre extension annoncée en juillet&nbsp;», pas «&nbsp;je suis votre entreprise de près&nbsp;».</p></div>
         <div class="cr"><span>2</span><p><b>Le lien</b>&nbsp;: pourquoi vous, pourquoi maintenant — la connexion exacte entre ce signal et votre métier.</p></div>
         <div class="cr"><span>3</span><p><b>La question ouverte</b>&nbsp;: une vraie question métier, impossible à esquiver d'un «&nbsp;non merci&nbsp;» sans réfléchir.</p></div>
         <div class="cr"><span>4</span><p><b>Le CTA léger</b>&nbsp;: quinze minutes d'échange, pas un devis. La porte d'entrée doit coûter moins cher que le filtre anti-spam.</p></div>
@@ -4750,7 +4756,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
         <div class="rvxpanel">
           <div class="fbi"><span>Message A · pourquoi il perd</span><p>Aucun signal («&nbsp;leader&nbsp;», «&nbsp;solutions innovantes&nbsp;»)&nbsp;; personnalisation interchangeable entre cinquante comptes&nbsp;; CTA trop coûteux («&nbsp;un rendez-vous pour présenter la gamme&nbsp;»)&nbsp;; superlatifs vides, zéro contenu métier. <b>Le volume ne fait pas la pertinence.</b></p></div>
           <div class="fbi"><span>Message B · l'anatomie qui gagne</span><p>① le signal — l'extension de Lannion, datée et publique&nbsp;; ② le lien — la connexion exacte entre ce signal et le métier&nbsp;; ③ la preuve transposable — un cas comparable, chiffré, vrai, sans nommer de client&nbsp;; ④ la question ouverte + le CTA léger — une vraie question métier, puis quinze minutes.</p></div>
-          <div class="fbi warn"><span>La règle d'or</span><p><b>Personnalisation vérifiable</b>&nbsp;: un email personnalisé avec un fait faux est pire qu'un email générique — il prouve que vous n'avez pas relu.</p></div>
+          <div class="fbi warn"><span>La règle d'or</span><p><b>Personnalisation vérifiable</b>&nbsp;: un e-mail personnalisé avec un fait faux est pire qu'un e-mail générique — il prouve que vous n'avez pas relu.</p></div>
         </div>
       </div>
     </div>
@@ -4772,7 +4778,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
       <p><b>Le deal à neuf mois — la relance comme apport de valeur.</b> Un compte industriel signé en neuf mois, c'est douze points de contact minimum. Le risque classique&nbsp;: douze versions de «&nbsp;je me permets de revenir vers vous&nbsp;». La méthode du commercial régional&nbsp;: <b>chaque relance apporte quelque chose de neuf</b> — une preuve, une actualité du compte, un retour d'expérience — et l'IA prépare la matière pendant qu'il garde le moment, le ton et la signature.</p>
     </div>
     <div class="keycard warn reveal" style="--i:2;margin-top:10px">
-      <p><b>La règle d'or de l'email IA&nbsp;: personnalisation vérifiable.</b> Chaque fait cité — chiffre, date, projet, nom de site — doit être vrai, actuel et sourçable. L'IA rédige vite, mais elle ne sait pas si le chantier est terminé. <b>C'est vous qui savez.</b> Un email personnalisé avec un fait faux est pire qu'un email générique&nbsp;: il prouve que vous n'avez pas relu.</p>
+      <p><b>La règle d'or de l'e-mail IA&nbsp;: personnalisation vérifiable.</b> Chaque fait cité — chiffre, date, projet, nom de site — doit être vrai, actuel et sourçable. L'IA rédige vite, mais elle ne sait pas si le chantier est terminé. <b>C'est vous qui savez.</b> Un e-mail personnalisé avec un fait faux est pire qu'un e-mail générique&nbsp;: il prouve que vous n'avez pas relu.</p>
     </div>
     <p class="src reveal" style="--i:3">Sources&nbsp;: Noy &amp; Zhang (MIT), Science (2023) — étude contrôlée sur tâches d'écriture, gains non généralisables tels quels&nbsp;; Salesforce, State of Sales — temps réellement consacré à la vente (données éditeur, éditions 2022-2024).</p>
     <div class="foot"><span>IA en Entreprise · Module 3</span><span>Akademia Formation</span></div>
@@ -4787,7 +4793,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
     <table class="tbl sm reveal" style="--i:0">
       <thead><tr><th style="width:10%">Temps</th><th style="width:20%">Type de contact</th><th style="width:36%">Ce que l'IA prépare</th><th style="width:34%">Ce que vous gardez</th></tr></thead>
       <tbody>
-        <tr><td><b>J 0</b></td><td>Email d'ouverture</td><td>Structure signal + lien + CTA unique</td><td>Le signal&nbsp;: vous le vérifiez avant d'écrire</td></tr>
+        <tr><td><b>J 0</b></td><td>E-mail d'ouverture</td><td>Structure signal + lien + CTA unique</td><td>Le signal&nbsp;: vous le vérifiez avant d'écrire</td></tr>
         <tr><td><b>J +10</b></td><td>Relance valeur</td><td>Un contenu utile résumé en trois lignes</td><td>Le choix du contenu envoyé</td></tr>
         <tr><td><b>J +30</b></td><td>Relance preuve</td><td>Mise en forme d'un retour d'expérience</td><td>L'exactitude des chiffres cités</td></tr>
         <tr><td><b>J +60</b></td><td>Relance actualité</td><td>Veille structurée sur le compte</td><td>La pertinence&nbsp;: faut-il vraiment relancer&nbsp;?</td></tr>
@@ -4796,7 +4802,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
     </table>
     <div class="pa2" style="margin-top:12px">
       <div class="pac ko reveal" style="--i:1">
-        <span class="pt2">Prompt nu&nbsp;: «&nbsp;écris un email de relance&nbsp;»</span>
+        <span class="pt2">Prompt nu&nbsp;: «&nbsp;écris un e-mail de relance&nbsp;»</span>
         <div class="pbox">«&nbsp;Bonjour, je me permets de revenir vers vous concernant notre précédent échange. Avez-vous pu étudier notre proposition&nbsp;? Je reste à votre disposition. Cordialement.&nbsp;»</div>
         <p><b>Pourquoi ça échoue</b>&nbsp;: aucune valeur nouvelle, aucune personnalisation, un CTA inexistant — et un fil qui ressemble à tous les autres dans la boîte du client.</p>
       </div>
@@ -4842,7 +4848,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
       <tbody>
         <tr><td><b>«&nbsp;Votre prix est 15&nbsp;% au-dessus.&nbsp;»</b></td><td>Comparaison à périmètre inégal, ou test de fermeté</td><td>Revenir au coût complet&nbsp;: énergie, maintenance, arrêts évités, durée de vie</td><td>Aligner le prix sans rien demander en échange</td></tr>
         <tr><td><b>«&nbsp;Nous travaillons avec le même fournisseur depuis dix ans.&nbsp;»</b></td><td>Peur du risque de changement, pas satisfaction réelle</td><td>Proposer un périmètre borné&nbsp;: un équipement, un site, une évaluation mesurée</td><td>Dénigrer le fournisseur en place</td></tr>
-        <tr><td><b>«&nbsp;Douze semaines de délai, ça ne passe pas.&nbsp;»</b></td><td>Une contrainte planning réelle — ou un prétexte pour clos</td><td>Questionner l'échéance réelle du chantier, proposer une livraison séquencée</td><td>Promettre un délai que la production ne tiendra pas</td></tr>
+        <tr><td><b>«&nbsp;Douze semaines de délai, ça ne passe pas.&nbsp;»</b></td><td>Une contrainte planning réelle — ou un prétexte pour clore</td><td>Questionner l'échéance réelle du chantier, proposer une livraison séquencée</td><td>Promettre un délai que la production ne tiendra pas</td></tr>
         <tr><td><b>«&nbsp;Vos pompes tiendront-elles sur notre fluide abrasif&nbsp;?&nbsp;»</b></td><td>Une exigence technique légitime, assortie d'un doute</td><td>Répondre avec des cas comparables documentés et l'appui de l'expert technique</td><td>Improviser une compatibilité non vérifiée</td></tr>
       </tbody>
     </table>
@@ -4892,10 +4898,10 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
     <table class="tbl sm reveal" style="--i:0">
       <thead><tr><th style="width:17%">Offre</th><th style="width:20%">Où ça vit</th><th style="width:33%">Ce que le commercial y gagne</th><th style="width:30%">Modèle (état sourcé)</th></tr></thead>
       <tbody>
-        <tr><td><b>Microsoft 365</b><br>Copilot for Sales</td><td>Outlook, Teams, Word — connecté à Dynamics 365 et Salesforce</td><td>Résumés d'opportunités avant un RDV, résumés d'emails enrichis des données CRM, préparation de réunions</td><td>Lancé en fév. 2024 à 50&nbsp;$/util./mois incluant Copilot M365&nbsp;; tarif 2026 à revérifier. Un «&nbsp;Sales agent&nbsp;» conversationnel est documenté en 2026 — périmètre en évolution</td></tr>
-        <tr><td><b>HubSpot</b><br>Breeze</td><td>Dans le CRM HubSpot</td><td>Breeze Assistant&nbsp;: résumés de fiches, rédaction, recherche dans le CRM. Prospecting Agent&nbsp;: repère les comptes proches de votre cible et rédige des emails personnalisés</td><td>Lancé à INBOUND 2024&nbsp;; depuis avril 2026, certains agents facturés «&nbsp;à la tâche accomplie&nbsp;» — coût variable selon le volume</td></tr>
+        <tr><td><b>Microsoft 365</b><br>Copilot for Sales</td><td>Outlook, Teams, Word — connecté à Dynamics 365 et Salesforce</td><td>Résumés d'opportunités avant un RDV, résumés d'e-mails enrichis des données CRM, préparation de réunions</td><td>Lancé en fév. 2024 à 50&nbsp;$/util./mois incluant Copilot M365&nbsp;; tarif 2026 à revérifier. Un «&nbsp;Sales agent&nbsp;» conversationnel est documenté en 2026 — périmètre en évolution</td></tr>
+        <tr><td><b>HubSpot</b><br>Breeze</td><td>Dans le CRM HubSpot</td><td>Breeze Assistant&nbsp;: résumés de fiches, rédaction, recherche dans le CRM. Prospecting Agent&nbsp;: repère les comptes proches de votre cible et rédige des e-mails personnalisés</td><td>Lancé à INBOUND 2024&nbsp;; depuis avril 2026, certains agents facturés «&nbsp;à la tâche accomplie&nbsp;» — coût variable selon le volume</td></tr>
         <tr><td><b>Salesforce</b><br>Einstein + Agentforce</td><td>Dans Sales Cloud</td><td>Einstein&nbsp;: notation des leads par apprentissage sur votre historique&nbsp;; score d'opportunité de 1 à 99. Agentforce&nbsp;: réponse aux leads à partir de vos contenus validés</td><td>Agentforce facturé à l'action&nbsp;: 20 Flex Credits par action d'agent (données éditeur, 2026)</td></tr>
-        <tr><td><b>Dynamics 365</b><br>Sales — Copilot</td><td>Dans le CRM Dynamics</td><td>Synthèses d'opportunités et de leads sans quitter le CRM, préparation de rendez-vous, aide à la rédaction d'emails, actualités des comptes</td><td>«&nbsp;Copilot Credits&nbsp;» inclus dans Sales Premium (requis pour les agents prêts à l'emploi) — données éditeur, 2026</td></tr>
+        <tr><td><b>Dynamics 365</b><br>Sales — Copilot</td><td>Dans le CRM Dynamics</td><td>Synthèses d'opportunités et de leads sans quitter le CRM, préparation de rendez-vous, aide à la rédaction d'e-mails, actualités des comptes</td><td>«&nbsp;Copilot Credits&nbsp;» inclus dans Sales Premium (requis pour les agents prêts à l'emploi) — données éditeur, 2026</td></tr>
       </tbody>
     </table>
     <div class="keycard reveal" style="--i:1;margin-top:10px">
@@ -4920,7 +4926,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
       <div class="stp"><span class="sn">03</span><b>L'hygiène des données d'abord</b><p>Un scoring entraîné sur un historique pauvre produit des scores trompeurs&nbsp;: la première action d'équipe est la tenue du CRM, pas l'activation de l'IA.</p></div>
     </div>
     <div class="keycard warn reveal" style="--i:2;margin-top:12px">
-      <p><b>Trois vigilances transverses.</b> Données&nbsp;: l'IA du CRM ne compense pas un CRM vide. Relecture&nbsp;: tout email généré se relit avant envoi, comme tout contenu sortant. Coûts&nbsp;: la facturation à l'action rend le coût variable — <b>on modélise un cas d'usage et son volume avant de déployer.</b></p>
+      <p><b>Trois vigilances transverses.</b> Données&nbsp;: l'IA du CRM ne compense pas un CRM vide. Relecture&nbsp;: tout e-mail généré se relit avant envoi, comme tout contenu sortant. Coûts&nbsp;: la facturation à l'action rend le coût variable — <b>on modélise un cas d'usage et son volume avant de déployer.</b></p>
     </div>
     <div class="foot"><span>IA en Entreprise · Module 3</span><span>Mise en situation — exemple fictif · Akademia Formation</span></div>
   </div>
@@ -4935,7 +4941,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
     <div class="pts" style="margin-top:10px">
       <div class="pt reveal" style="--i:0"><span class="pn">01</span><p><b>Ciblage &amp; qualification — la commerciale sédentaire.</b> Fiche compte structurée à partir d'informations publiques&nbsp;: activité, enjeux probables, signaux d'affaire datés. <b>Contrôle humain&nbsp;: chaque fait public revérifié à la source.</b></p></div>
       <div class="pt reveal" style="--i:1"><span class="pn">02</span><p><b>Post LinkedIn — le marketing &amp; communication.</b> Un post utile au secteur du compte cible&nbsp;: angle, accroche, preuve. <b>Contrôle humain&nbsp;: la preuve chiffrée validée par son auteur terrain.</b></p></div>
-      <div class="pt reveal" style="--i:2"><span class="pn">03</span><p><b>Email de prospection — la commerciale sédentaire.</b> CRISP appliqué&nbsp;: signal, lien, question ouverte, CTA unique — 120 mots maximum. <b>Contrôle humain&nbsp;: personnalisation vérifiable, chaque fait vrai et actuel.</b></p></div>
+      <div class="pt reveal" style="--i:2"><span class="pn">03</span><p><b>E-mail de prospection — la commerciale sédentaire.</b> CRISP appliqué&nbsp;: signal, lien, question ouverte, CTA unique — 120 mots maximum. <b>Contrôle humain&nbsp;: personnalisation vérifiable, chaque fait vrai et actuel.</b></p></div>
       <div class="pt reveal" style="--i:3"><span class="pn">04</span><p><b>Préparation du rendez-vous — la chargée d'affaires technique et le commercial régional.</b> La fiche une page&nbsp;: enjeux, plan de découverte, quatre objections. <b>Contrôle humain&nbsp;: toute affirmation technique validée avec le directeur technique.</b></p></div>
       <div class="pt reveal" style="--i:4"><span class="pn">05</span><p><b>Trame de proposition — le chef des ventes.</b> Sections personnalisées au compte, blocs engageants réservés à la validation experte. <b>Contrôle humain&nbsp;: prix, délais, normes saisis à la main, relus, revérifiés.</b></p></div>
       <div class="pt reveal" style="--i:5"><span class="pn">06</span><p><b>Plan de suivi CRM — le commercial régional et le chef des ventes.</b> Six semaines de séquence, jalons dans le CRM, indicateurs de progression. <b>Contrôle humain&nbsp;: chaque jalon saisi le jour même — c'est ce qui rendra le résumé IA utile dans trois mois.</b></p></div>
@@ -4953,11 +4959,11 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
       <div>
         <div class="scons reveal" style="--i:0">
           <span class="sl2">Vos trois productions, avec l'IA et les prompts du playbook</span>
-          <p>Choisissez <b>un compte réel</b> de votre portefeuille (données anonymisées dans vos consignes). Produisez&nbsp;: <b>① un post LinkedIn</b> utile au secteur du compte&nbsp;; <b>② un email de prospection CRISP</b> — signal, lien, question ouverte, CTA unique, 120 mots max&nbsp;; <b>③ la fiche de préparation RDV en 5 blocs</b> — contexte &amp; signaux, enjeux probables, plan de découverte, objections &amp; réponses, objectif unique.</p>
+          <p>Choisissez <b>un compte réel</b> de votre portefeuille (données anonymisées dans vos consignes). Produisez&nbsp;: <b>① un post LinkedIn</b> utile au secteur du compte&nbsp;; <b>② un e-mail de prospection CRISP</b> — signal, lien, question ouverte, CTA unique, 120 à 160 mots&nbsp;; <b>③ la fiche de préparation RDV en 5 blocs</b> — contexte &amp; signaux, enjeux probables, plan de découverte, objections &amp; réponses, objectif unique.</p>
         </div>
         <div class="pts reveal" style="--i:1;margin-top:12px">
           <div class="pt"><span class="pn">a</span><p><b>Post</b>&nbsp;: «&nbsp;Tu es rédacteur B2B industriel. À partir de ce retour d'expérience [faits validés]&nbsp;: trois structures de post de six à huit lignes — accroche problème, preuve chiffrée, angle utile, question d'ouverture.&nbsp;»</p></div>
-          <div class="pt"><span class="pn">b</span><p><b>Email</b>&nbsp;: «&nbsp;Contexte&nbsp;: [fiche qualification validée]. Rôle&nbsp;: commercial B2B senior. Instruction&nbsp;: email de 120 mots max, un seul CTA daté. Style&nbsp;: direct, concret. Paramètres&nbsp;: trois variantes d'objet.&nbsp;»</p></div>
+          <div class="pt"><span class="pn">b</span><p><b>E-mail</b>&nbsp;: «&nbsp;Contexte&nbsp;: [fiche qualification validée]. Rôle&nbsp;: commercial B2B senior. Instruction&nbsp;: e-mail de 120 à 160 mots, un seul CTA daté. Style&nbsp;: direct, concret. Paramètres&nbsp;: trois variantes d'objet.&nbsp;»</p></div>
           <div class="pt"><span class="pn">c</span><p><b>Fiche RDV</b>&nbsp;: «&nbsp;À partir de ces informations [anonymisées], produis&nbsp;: trois hypothèses d'enjeux, cinq questions de découverte ouvertes, quatre objections probables avec ce qu'elles cachent et un axe de réponse honnête. Marque ce qui exige une validation technique.&nbsp;»</p></div>
         </div>
       </div>
@@ -4996,7 +5002,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
       </div>
       <div class="krow reveal" style="--i:1">
         <span class="rn">02</span>
-        <b>L'email de prospection</b>
+        <b>L'e-mail de prospection</b>
         <p>Un signal réel et vérifiable en première ligne, une valeur exprimée en bénéfice client, <b>un seul CTA daté et léger</b>, 120 mots tenus — chaque fait cité est vrai, actuel, sourçable.</p>
       </div>
       <div class="krow reveal" style="--i:2">
@@ -5028,7 +5034,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
       <div class="cv5 reveal" style="--i:3">
         <span>1 · Ciblage</span>
         <span>2 · Post LinkedIn</span>
-        <span>3 · Email</span>
+        <span>3 · E-mail</span>
         <span>4 · Fiche RDV</span>
         <span>5 · Trame</span>
         <span>6 · Suivi CRM</span>
@@ -5122,13 +5128,13 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
 <!-- 60 · SIMULATION ÉTAPE 3 — EMAIL DE PROSPECTION -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Simulation · étape 3 / 6 — l'email à la responsable investissements</span><span class="pgr">75 · 117</span></div>
+    <div class="toprow"><span class="kick">Simulation · étape 3 / 6 — l'e-mail à la responsable investissements</span><span class="pgr">75 · 117</span></div>
     <h2 style="font-size:30px">CRISP appliqué, <span class="gw">un seul appel à l'action</span></h2>
     <div class="simstep">
       <div>
         <div class="scons reveal" style="--i:0">
           <span class="sl2">Votre production</span>
-          <p>Rédigez le premier email de la commerciale sédentaire, en réponse à l'appel d'intérêt&nbsp;: objet, accroche personnalisée qui rebondit sur un signal réel, proposition de valeur liée au programme 2027, une preuve, et <b>un seul appel à l'action (un échange de 15 minutes)</b>. Entre 120 et 160 mots, ton direct, sans pièce jointe.</p>
+          <p>Rédigez le premier e-mail de la commerciale sédentaire, en réponse à l'appel d'intérêt&nbsp;: objet, accroche personnalisée qui rebondit sur un signal réel, proposition de valeur liée au programme 2027, une preuve, et <b>un seul appel à l'action (un échange de 15 minutes)</b>. Entre 120 à 160 mots, ton direct, sans pièce jointe.</p>
         </div>
         <div class="pts reveal" style="--i:1;margin-top:12px">
           <div class="pt"><span class="pn">a</span><p>Appliquez CRISP à votre consigne&nbsp;: Contexte (appel d'intérêt reçu, programme utilités 2027, deux sites), Rôle (commercial B2B industriel qui répond à une demande entrante), Instruction (120-160 mots, un seul CTA), Style (direct, zéro flatterie), Paramètres (objet inclus, pas de pièce jointe).</p></div>
@@ -5256,7 +5262,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
       </div>
       <div class="evrow" data-w="20">
         <span class="en">3</span>
-        <div><b>Email de prospection</b><small>Personnalisation vérifiable, valeur client, CTA unique, concision</small></div>
+        <div><b>E-mail de prospection</b><small>Personnalisation vérifiable, valeur client, CTA unique, concision</small></div>
         <span class="ew">20 pts</span>
         <div class="ev-btns"><button type="button">0</button><button type="button">1</button><button type="button">2</button><button type="button">3</button></div>
       </div>
@@ -5340,7 +5346,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
     <h2 style="font-size:32px">L'assistante ADV et la comptable — <span class="gw">des écrits qui engagent</span></h2>
     <div class="fl2">
       <div class="flc fok reveal" style="--i:0">
-        <h3>ADV — emails &amp; reporting sous charge</h3>
+        <h3>ADV — e-mails &amp; reporting sous charge</h3>
         <div class="fli"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 L10 17.5 L19 6.5"/></svg><p><b>Accusés de commande, relances de devis, réponses aux demandes de délai</b>&nbsp;: l'IA prépare les brouillons dans le ton maison, l'assistante ADV personnalise la ligne qui compte.</p></div>
         <div class="fli"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 L10 17.5 L19 6.5"/></svg><p><b>Le reporting hebdomadaire</b>&nbsp;: l'IA consolide les tableaux en texte lisible — <b>chaque chiffre est vérifié contre le CRM</b> avant diffusion.</p></div>
         <div class="fli"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 L10 17.5 L19 6.5"/></svg><p><b>Les litiges</b>&nbsp;: une réponse ferme et apaisée se structure avec l'IA — la décision de compromis, elle, reste humaine.</p></div>
@@ -5364,7 +5370,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
   <div class="rail">
     <div class="toprow"><span class="kick">Module 4 · Séquence 01 — traduction FR/EN</span><span class="pgr">83 · 117</span></div>
     <h2 style="font-size:32px">Un anglais grammatical peut être <span class="gw">un contresens technique</span></h2>
-    <p class="lede" style="font-size:14.5px">Sur un email courant, l'IA traduit très bien. Sur le vocabulaire d'exploitation, elle peut produire une phrase correcte et un sens faux. <b>Le réflexe NORDFLOW&nbsp;: chaque terme métier est vérifié contre le glossaire interne avant envoi.</b></p>
+    <p class="lede" style="font-size:14.5px">Sur un e-mail courant, l'IA traduit très bien. Sur le vocabulaire d'exploitation, elle peut produire une phrase correcte et un sens faux. <b>Le réflexe NORDFLOW&nbsp;: chaque terme métier est vérifié contre le glossaire interne avant envoi.</b></p>
     <table class="tbl reveal" style="--i:1">
       <thead><tr><th style="width:22%">Terme de chantier</th><th style="width:33%">Traduction attendue</th><th style="width:45%">Piège fréquent de l'IA</th></tr></thead>
       <tbody>
@@ -5427,7 +5433,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
             </tbody>
           </table>
           <div class="keycard" style="margin-top:12px">
-            <p><b>Le réflexe glossaire.</b> Sur un email courant, l'IA traduit très bien&nbsp;; sur le vocabulaire d'exploitation, elle peut produire un anglais grammatical et un contresens technique. <b>Chaque terme métier se vérifie contre le glossaire interne avant envoi — non négociable.</b></p>
+            <p><b>Le réflexe glossaire.</b> Sur un e-mail courant, l'IA traduit très bien&nbsp;; sur le vocabulaire d'exploitation, elle peut produire un anglais grammatical et un contresens technique. <b>Chaque terme métier se vérifie contre le glossaire interne avant envoi — non négociable.</b></p>
           </div>
         </div>
       </div>
@@ -5603,7 +5609,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
         <span class="ct2">Encadré</span>
         <ul>
           <li>Synthèse de documents clients pseudonymisés</li>
-          <li>Rédaction d'emails clients relus ligne à ligne</li>
+          <li>Rédaction d'e-mails clients relus ligne à ligne</li>
           <li>Préparation de rendez-vous à partir d'extraits CRM nettoyés</li>
           <li>Veille documentée avec vérification de chaque source</li>
         </ul>
@@ -5614,7 +5620,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
         <ul>
           <li>Secrets de l'entreprise dans un outil grand public — prix, plans, CCTP, code</li>
           <li>Données personnelles non anonymisées</li>
-          <li>Reconnaissance des émotions — art. 5, illégal depuis le 02/02/2025 (jusqu'à 35&nbsp;M€ ou 7&nbsp;% du CA mondial)</li>
+          <li>Reconnaissance des émotions au travail ou en formation — art. 5, illégal depuis le 02/02/2025 (jusqu'à 35&nbsp;M€ ou 7&nbsp;% du CA mondial)</li>
           <li>Décision RH automatisée sans humain — haut risque, annexe III</li>
           <li>Texte généré présenté comme entièrement humain là où la transparence est due — art. 50</li>
         </ul>
@@ -5744,9 +5750,9 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
     <h2 style="font-size:30px">Votre feuille de route personnelle, <span class="gw">en quatre temps</span></h2>
     <p class="lede" style="font-size:14px;margin-top:8px">Étape 1 — votre terrain de jeu&nbsp;: la carte poste la plus proche de votre quotidien chez NORDFLOW.</p>
     <div class="role5 reveal" style="--i:0">
-      <div class="rolec"><span class="rm">CS</span><b>Commerciale sédentaire</b><p>Comptes rendus d'appels, emails de suivi, mise à jour CRM, devis répétitifs, relances de routine.</p></div>
+      <div class="rolec"><span class="rm">CS</span><b>Commerciale sédentaire</b><p>Comptes rendus d'appels, e-mails de suivi, mise à jour CRM, devis répétitifs, relances de routine.</p></div>
       <div class="rolec"><span class="rm">CR</span><b>Commercial régional</b><p>Préparation des rendez-vous, comptes rendus de visite, propositions, veille sur les comptes.</p></div>
-      <div class="rolec"><span class="rm">AD</span><b>Assistante ADV</b><p>CCTP volumineux, emails types, reporting hebdomadaire, extraction d'exigences, traductions.</p></div>
+      <div class="rolec"><span class="rm">AD</span><b>Assistante ADV</b><p>CCTP volumineux, e-mails types, reporting hebdomadaire, extraction d'exigences, traductions.</p></div>
       <div class="rolec"><span class="rm">MC</span><b>Marketing &amp; communication</b><p>Posts LinkedIn, newsletters, plaquettes, comptes rendus transverses, adaptations FR/EN.</p></div>
       <div class="rolec"><span class="rm">CT</span><b>Chargée d'affaires technique</b><p>CR de chantier FR + résumé EN, synthèses de documentation, normes, rapports d'intervention.</p></div>
     </div>
@@ -5775,7 +5781,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
     <div class="cover-mid">
       <p class="kick reveal" style="--i:0">QCM final · 15 questions scénarisées sur les 4 modules</p>
       <h1 class="reveal" style="--i:1;font-size:64px">Validation <span class="gw2">des acquis</span></h1>
-      <p class="cover-sub reveal" style="--i:2">Corrigé commenté question par question — <em>les résultats individuels suivent sur FormAI</em></p>
+      <p class="cover-sub reveal" style="--i:2"><em>Validation à 70&nbsp;% (11/15)</em> · corrigé commenté question par question — les résultats individuels suivent sur FormAI</p>
       <div class="cv5 reveal" style="--i:3">
         <span>Fondamentaux &amp; cadre d'usage</span>
         <span>Prompting &amp; vérification</span>
@@ -5826,7 +5832,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
     <div class="toprow"><span class="kick">QCM final · question 2 / 15</span><span class="pgr">99 · 117</span></div>
     <div class="qscen reveal" style="--i:0">
       <span class="qs-tag">Mise en situation · NORDFLOW Industrie</span>
-      <p>Au retour d’un salon, l’assistante ADV veut confier à une IA le fichier des contacts collectés — noms, fonctions, emails, téléphones — pour préparer des messages de suivi personnalisés.</p>
+      <p>Au retour d’un salon, l’assistante ADV veut confier à une IA le fichier des contacts collectés — noms, fonctions, e-mails, téléphones — pour préparer des messages de suivi personnalisés.</p>
     </div>
     <h2 class="qtitle reveal" style="--i:1">Comment qualifier ce traitement ?</h2>
     <div class="qz qbig reveal" style="--i:2" data-ok="0" data-qz="final" data-qid="2">
@@ -5839,7 +5845,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
       <div class="qz-fb">
         <p class="qz-fb-lead">Le réflexe : outil validé par l’entreprise, données minimisées au strict nécessaire du message, base légale identifiée — et jamais le fichier brut dans un outil grand public.</p>
         <div class="qz-fb3">
-          <div class="fbi"><span>Signal à lire</span><p>Nom, fonction, email professionnel, téléphone : des données personnelles au sens du RGPD, même collectées en salon — leur traitement par IA suit les mêmes règles que tout traitement.</p></div>
+          <div class="fbi"><span>Signal à lire</span><p>Nom, fonction, e-mail professionnel, téléphone : des données personnelles au sens du RGPD, même collectées en salon — leur traitement par IA suit les mêmes règles que tout traitement.</p></div>
           <div class="fbi warn"><span>Piège nommé</span><p>« Européen donc conforme » — la localisation de l’éditeur est un critère, pas un sésame : la conformité porte sur le traitement (finalité, minimisation, information des personnes), pas sur le passeport de l’outil.</p></div>
           <div class="fbi alt"><span>Contre-cas</span><p>Préparer des messages à partir de notes de conversation anonymisées (secteur, besoin exprimé, sans identité) est possible dans un outil validé : c’est la saisie du fichier nominatif qui pose question.</p></div>
         </div>
@@ -5971,7 +5977,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
     <div class="toprow"><span class="kick">QCM final · question 7 / 15</span><span class="pgr">104 · 117</span></div>
     <div class="qscen reveal" style="--i:0">
       <span class="qs-tag">Mise en situation · NORDFLOW Industrie</span>
-      <p>Le premier jet d’un email commercial produit par l’IA est bon à 80 % : deux passages sonnent faux, la chute est molle, le reste convient au commercial régional.</p>
+      <p>Le premier jet d’un e-mail commercial produit par l’IA est bon à 80 % : deux passages sonnent faux, la chute est molle, le reste convient au commercial régional.</p>
     </div>
     <h2 class="qtitle reveal" style="--i:1">Que faire de ce premier jet ?</h2>
     <div class="qz qbig reveal" style="--i:2" data-ok="2" data-qz="final" data-qid="7">
@@ -5979,7 +5985,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
         <button type="button" class="qz-o"><span class="qz-l">A</span><span>Repartir d’une consigne entièrement nouvelle : un résultat imparfait signe une consigne de départ définitivement ratée</span></button>
         <button type="button" class="qz-o"><span class="qz-l">B</span><span>Changer d’outil d’IA : chaque modèle a sa limite de qualité et le premier jet est toujours le meilleur possible</span></button>
         <button type="button" class="qz-o"><span class="qz-l">C</span><span>Corriger en précisant ce qui cloche — points à garder, à renforcer, à supprimer — en deux ou trois passages</span></button>
-        <button type="button" class="qz-o"><span class="qz-l">D</span><span>Envoyer le jet tel quel : 80 % de qualité est un rendement honnête pour un email commercial de prospection</span></button>
+        <button type="button" class="qz-o"><span class="qz-l">D</span><span>Envoyer le jet tel quel : 80 % de qualité est un rendement honnête pour un e-mail commercial de prospection</span></button>
       </div>
       <div class="qz-fb">
         <p class="qz-fb-lead">Un jet à 80 % se finalise en deux ou trois passages ciblés : « garde les paragraphes 1 et 3, resserre le second, remplace la chute par une question ouverte ». Plus rapide et plus maîtrisé qu’une régénération.</p>
@@ -6116,7 +6122,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
     <div class="toprow"><span class="kick">QCM final · question 12 / 15</span><span class="pgr">109 · 117</span></div>
     <div class="qscen reveal" style="--i:0">
       <span class="qs-tag">Mise en situation · NORDFLOW Industrie</span>
-      <p>Le CRM de NORDFLOW annonce des fonctions IA intégrées : résumés de comptes, relances suggérées, emails pré-rédigés avec le contexte de l’affaire.</p>
+      <p>Le CRM de NORDFLOW annonce des fonctions IA intégrées : résumés de comptes, relances suggérées, e-mails pré-rédigés avec le contexte de l’affaire.</p>
     </div>
     <h2 class="qtitle reveal" style="--i:1">Quel est le principal intérêt de ces fonctions au quotidien ?</h2>
     <div class="qz qbig reveal" style="--i:2" data-ok="3" data-qz="final" data-qid="12">
@@ -6124,12 +6130,12 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
         <button type="button" class="qz-o"><span class="qz-l">A</span><span>Elles complètent automatiquement les fiches à partir des e-mails et réunions : la saisie manuelle devient accessoire, on peut alléger la discipline de tenue</span></button>
         <button type="button" class="qz-o"><span class="qz-l">B</span><span>Elles décident à la place du commercial : la priorisation des affaires par l’IA est objective et ne se discute pas</span></button>
         <button type="button" class="qz-o"><span class="qz-l">C</span><span>Elles suppriment le besoin de former les équipes au CRM : l’assistant devient l’unique interface de l’outil</span></button>
-        <button type="button" class="qz-o"><span class="qz-l">D</span><span>Elles exploitent l’historique du CRM pour gagner du temps — synthèses, relances, emails — sans exporter les données</span></button>
+        <button type="button" class="qz-o"><span class="qz-l">D</span><span>Elles exploitent l’historique du CRM pour gagner du temps — synthèses, relances, e-mails — sans exporter les données</span></button>
       </div>
       <div class="qz-fb">
         <p class="qz-fb-lead">Copilot for Sales, Breeze, Einstein : même logique partout — le gain est un gain de temps de préparation et de saisie, au service d’un portefeuille piloté par le commercial.</p>
         <div class="qz-fb3">
-          <div class="fbi"><span>Signal à lire</span><p>L’intérêt d’une IA intégrée au CRM : travailler sur vos données commerciales sans les exporter — résumé avant un appel, relances suggérées sur les affaires dormantes, emails contextualisés.</p></div>
+          <div class="fbi"><span>Signal à lire</span><p>L’intérêt d’une IA intégrée au CRM : travailler sur vos données commerciales sans les exporter — résumé avant un appel, relances suggérées sur les affaires dormantes, e-mails contextualisés.</p></div>
           <div class="fbi warn"><span>Piège nommé</span><p>« L’IA remplace la saisie et le jugement » — c’est l’inverse : la qualité des synthèses dépend de la tenue du CRM, et la priorité commerciale reste une décision humaine éclairée.</p></div>
           <div class="fbi alt"><span>Contre-cas</span><p>Si le CRM est mal tenu (affaires sans compte rendu, montants obsolètes), les synthèses seront pauvres ou trompeuses : la première action d’équipe est l’hygiène des données, pas l’activation de l’IA.</p></div>
         </div>
@@ -6280,7 +6286,7 @@ h2.qtitle{font-size:23px;margin-top:12px;max-width:26em}
       <div class="livc reveal" style="--i:2">
         <span class="lt">Livrable 3 · Module 3</span>
         <b>Playbook commercial IA + fiche social selling</b>
-        <p>Les séquences complètes d'un cycle de vente B2B long&nbsp;: ciblage de comptes, messages personnalisés vérifiables, relances, trames de propositions, posture LinkedIn et workflow de publication assisté par l'IA.</p>
+        <p>Les séquences complètes d'un cycle de vente B2B long&nbsp;: ciblage de comptes, messages personnalisés vérifiables, relances, trames de propositions, posture LinkedIn et workflow de publication assisté par l'IA — <b>10 prompts et séquences prêts à déployer</b>.</p>
       </div>
       <div class="livc reveal" style="--i:3">
         <span class="lt">Livrable 4 · Module 4</span>
