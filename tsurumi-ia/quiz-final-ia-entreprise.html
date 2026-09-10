@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QCM final de validation — IA en Entreprise | Akademia Formation</title>
+  <meta name="description" content="QCM final de la formation IA en Entreprise : 15 mises en situation couvrant les 4 modules (fondamentaux, prompting, performance commerciale, usages métiers). Validation à 70 %, corrigé commenté.">
+
+  <!-- Dark mode anti-flicker -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('ia_entreprise_theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Polices charte Akademia (Instrument Sans / Inter variable / Instrument Serif / Fragment Mono) -->
+  <link rel="stylesheet" href="assets/css/fonts-akademia.css">
+
+  <style>
+    /* ============================================================
+       CHARTE AKADEMIA — tokens (clair / nuit via html.dark)
+       ============================================================ */
+    :root{
+      --bg:#F7F9FC; --surface:#FFFFFF; --soft:#F1F5FA;
+      --ink:#0F172A; --body-c:#3F4C61; --legend:#64748B; --tert:#94A3B8;
+      --line:#E7EAF2;
+      --blue:#2563EB; --violet:#7C3AED; --g1:#2563EB; --g2:#7C3AED;
+      --blue-soft:rgba(37,99,235,.5);
+      --c-fondamentaux:#2563EB; --c-prompt:#7C3AED; --c-commercial:#0E7490; --c-metiers:#047857;
+      --chip-fond-bg:rgba(37,99,235,.09); --chip-prompt-bg:rgba(124,58,237,.09); --chip-com-bg:rgba(6,182,212,.12); --chip-met-bg:rgba(16,185,129,.12);
+      --ok:#10B981; --ok-ink:#047857; --ok-bg:rgba(16,185,129,.08); --ok-line:rgba(16,185,129,.35);
+      --err:#DC2626; --err-ink:#B91C1C; --err-bg:rgba(220,38,38,.06); --err-line:rgba(220,38,38,.3);
+      --warn:#F97316; --warn-ink:#C2410C; --warn-bg:rgba(249,115,22,.1);
+      --amber:#F59E0B; --star-off:#CBD5E1;
+      --sel-bg:rgba(37,99,235,.07);
+      --exp-bg:rgba(255,255,255,.6);
+      --focus:rgba(37,99,235,.28);
+      --cta-shadow:0 12px 30px rgba(109,40,217,.26);
+      --nav-bg:rgba(255,255,255,.82);
+      --grain-o:.045;
+      --dl:inline-block; --dd:none;
+    }
+    html.dark{
+      --bg:#05070E; --surface:#0A0F1D; --soft:#0D1322;
+      --ink:#F2F5FB; --body-c:#B4BFD1; --legend:#8B99AF; --tert:#5F6C81;
+      --line:rgba(148,163,184,.14);
+      --blue:#5B8DF8; --violet:#A78BFA; --g1:#5B8DF8; --g2:#A78BFA;
+      --blue-soft:rgba(91,141,248,.55);
+      --c-fondamentaux:#5B8DF8; --c-prompt:#A78BFA; --c-commercial:#45C8FF; --c-metiers:#34D399;
+      --chip-fond-bg:rgba(91,141,248,.13); --chip-prompt-bg:rgba(167,139,250,.13); --chip-com-bg:rgba(69,200,255,.11); --chip-met-bg:rgba(52,211,153,.13);
+      --ok:#34D399; --ok-ink:#6EE7B7; --ok-bg:rgba(52,211,153,.09); --ok-line:rgba(52,211,153,.32);
+      --err:#F87171; --err-ink:#FCA5A5; --err-bg:rgba(248,113,113,.08); --err-line:rgba(248,113,113,.32);
+      --warn:#FB923C; --warn-ink:#FDBA74; --warn-bg:rgba(251,146,60,.12);
+      --amber:#FBBF24; --star-off:#39445A;
+      --sel-bg:rgba(91,141,248,.11);
+      --exp-bg:rgba(2,4,10,.4);
+      --focus:rgba(91,141,248,.4);
+      --cta-shadow:0 12px 30px rgba(23,12,58,.55);
+      --nav-bg:rgba(5,7,14,.78);
+      --grain-o:.06;
+      --dl:none; --dd:inline-block;
+    }
+
+    /* ============================================================
+       BASE
+       ============================================================ */
+    *,*::before,*::after{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    body{
+      margin:0; position:relative; min-height:100vh;
+      background:var(--bg); color:var(--body-c);
+      font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+      font-weight:380; font-size:16px; line-height:1.66;
+      transition:background .3s ease,color .3s ease;
+    }
+    /* Grain argentique — SOUS le contenu */
+    body::before{
+      content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+      opacity:var(--grain-o); background-size:260px 260px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    ::selection{background:rgba(124,58,237,.16)}
+    html.dark ::selection{background:rgba(167,139,250,.3)}
+    h1,h2,h3{font-family:'Instrument Sans',system-ui,sans-serif;color:var(--ink);margin:0;text-wrap:balance}
+    p{margin:0}
+    button{font-family:inherit}
+    a{color:var(--blue)}
+    .hidden{display:none !important}
+    .wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:46px 24px 80px}
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .topnav{position:sticky;top:0;z-index:40;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav-in{max-width:880px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .nav-logo{display:inline-flex;align-items:center;border-radius:8px}
+    .nav-logo img{height:22px;width:auto;vertical-align:middle}
+    .logo-l{display:var(--dl)} .logo-d{display:var(--dd)}
+    .nav-right{display:flex;align-items:center;gap:14px}
+    .nav-tag{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--legend);white-space:nowrap}
+    .theme-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--legend);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,color .2s;padding:0}
+    .theme-btn:hover{border-color:var(--tert);color:var(--ink)}
+    .theme-btn svg{width:15px;height:15px}
+    .ic-sun{display:none}
+    html.dark .ic-sun{display:block}
+    html.dark .ic-moon{display:none}
+
+    /* ============================================================
+       TYPO UTILITAIRES
+       ============================================================ */
+    .kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend)}
+    .req{color:var(--err)}
+    .muted{color:var(--tert)}
+    .gradient-text{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+    /* ============================================================
+       BOUTONS
+       ============================================================ */
+    .btn-cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 30px;border-radius:999px;border:0;cursor:pointer;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:14.5px;letter-spacing:.01em;box-shadow:var(--cta-shadow);transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .2s}
+    .btn-cta:hover:not(:disabled){transform:translateY(-1px)}
+    .btn-cta:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+    .btn-cta svg{width:15px;height:15px}
+    .btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:border-color .2s}
+    .btn-ghost:hover:not(:disabled){border-color:var(--tert)}
+    .btn-ghost:disabled{opacity:.4;cursor:not-allowed}
+
+    /* ============================================================
+       ACCUEIL
+       ============================================================ */
+    .hero{text-align:center;padding-top:22px}
+    .hero-kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend);margin-bottom:22px}
+    .hero h1{font-size:clamp(34px,6vw,50px);font-weight:640;letter-spacing:-.015em;line-height:1.05;margin-bottom:12px}
+    .hero-sub{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(19px,3vw,23px);color:var(--ink);margin-bottom:20px}
+    .hero-lede{max-width:660px;margin:0 auto 42px;color:var(--legend);font-size:15.5px;line-height:1.72;text-align:center}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:730px;margin:0 auto 42px;text-align:left}
+    .step-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px;display:flex;align-items:center;gap:16px}
+    .step-num{font-family:'Instrument Serif',Georgia,serif;font-size:34px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0}
+    .step-kick{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--tert);margin-bottom:4px}
+    .step-name{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14px;color:var(--ink);line-height:1.35}
+
+    /* ============================================================
+       TÊTES D'ÉTAPE
+       ============================================================ */
+    .step-head{margin-bottom:30px}
+    .step-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .step-pill{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;white-space:nowrap}
+    .step-note{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tert)}
+    .step-head h2{font-size:29px;font-weight:640;letter-spacing:-.01em;margin-bottom:9px}
+    .step-head .lede{font-size:14.5px;color:var(--legend);max-width:660px;line-height:1.65}
+
+    /* ============================================================
+       FORMULAIRE BESOINS
+       ============================================================ */
+    .f-group{margin-bottom:36px}
+    .f-group h3{font-size:16.5px;font-weight:620;margin-bottom:6px}
+    .f-help{font-size:12.5px;color:var(--legend);margin-bottom:14px}
+    .f-group h3 + .f-grid, .f-group h3 + .f-field{margin-top:14px}
+    .f-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .f-field label{display:block;font-size:13px;font-weight:510;color:var(--body-c);margin-bottom:7px}
+    input[type=text],select,textarea{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:14px;font-weight:400;line-height:1.5;transition:border-color .2s,box-shadow .2s}
+    input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--focus)}
+    ::placeholder{color:var(--tert);opacity:1}
+    textarea{resize:none}
+    select{appearance:none;-webkit-appearance:none;background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2364748B' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+    html.dark select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%238B99AF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+    .obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+    .obj-item,.radio-item{display:flex;align-items:center;gap:11px;padding:11px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;font-size:13.5px;color:var(--body-c);line-height:1.45;transition:border-color .2s,background .2s}
+    .obj-item:hover,.radio-item:hover{border-color:var(--blue-soft)}
+    .obj-item:has(input:checked),.radio-item:has(input:checked){border-color:var(--blue);background:var(--sel-bg)}
+    input[type=checkbox],input[type=radio]{accent-color:var(--blue);width:16px;height:16px;flex-shrink:0;margin:0}
+    .radio-row{display:flex;gap:12px}
+    .f-note{font-size:12px;color:var(--legend);margin-top:7px}
+    .form-err{font-size:13.5px;font-weight:510;color:var(--err);margin-bottom:4px}
+    .f-actions{display:flex;justify-content:flex-end;margin-top:6px}
+
+    /* ============================================================
+       PROGRESSION
+       ============================================================ */
+    .progress-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+    .progress-label{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--legend)}
+    .track{width:100%;height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+    .progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--g1),var(--g2));transition:width .4s ease}
+    .progress-wrap{margin-bottom:34px}
+
+    /* ============================================================
+       AUTO-ÉVALUATION
+       ============================================================ */
+    .ae-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:26px}
+    .autoeval-card{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:16px 17px;transition:border-color .25s}
+    .autoeval-card.rated{border-color:var(--blue-soft)}
+    .ae-label{font-size:13.5px;color:var(--body-c);line-height:1.52;margin:10px 0 2px}
+    .stars{display:flex;gap:2px;margin-top:9px}
+    .star-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1;background:none;border:0;cursor:pointer;padding:0;border-radius:8px;transition:transform .15s,color .15s}
+    .star-btn:hover{transform:scale(1.18)}
+    .star-btn.star-active{color:var(--amber)}
+    .star-btn.star-inactive{color:var(--star-off)}
+    .scale-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:15px 18px;margin-bottom:28px}
+    .scale-title{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--legend);margin-bottom:10px}
+    .scale-grid{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:10px 28px;font-size:12.5px;color:var(--legend)}
+    .scale-grid span.st{color:var(--amber);letter-spacing:1px;margin-right:6px}
+
+    /* ============================================================
+       CHIPS MODULES
+       ============================================================ */
+    .bucket-chip{display:inline-block;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;padding:4px 11px;border-radius:999px;white-space:nowrap}
+    .badge-fondamentaux{background:var(--chip-fond-bg);color:var(--c-fondamentaux)}
+    .badge-prompt{background:var(--chip-prompt-bg);color:var(--c-prompt)}
+    .badge-commercial{background:var(--chip-com-bg);color:var(--c-commercial)}
+    .badge-metiers{background:var(--chip-met-bg);color:var(--c-metiers)}
+
+    /* ============================================================
+       QCM
+       ============================================================ */
+    .quiz-question{display:none}
+    .quiz-question.active{display:block;animation:fadeSlideIn .4s cubic-bezier(.16,1,.3,1)}
+    @keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .q-head{margin-bottom:22px}
+    .q-scenario{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:19px;line-height:1.52;color:var(--body-c);margin:15px 0 13px;max-width:680px}
+    .q-title{font-size:22px;font-weight:620;letter-spacing:-.008em;line-height:1.34;text-wrap:balance}
+    .qnum{font-family:'Instrument Serif',Georgia,serif;font-style:normal;font-weight:400;color:var(--tert)}
+    .q-options{display:flex;flex-direction:column;gap:11px}
+    .quiz-option{display:flex;align-items:flex-start;gap:13px;width:100%;text-align:left;padding:15px 17px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--body-c);font-size:14.5px;font-weight:400;line-height:1.52;cursor:pointer;transition:border-color .2s,background .2s,transform .2s}
+    .quiz-option:hover:not(.locked){border-color:var(--blue-soft);transform:translateY(-1px)}
+    .quiz-option.selected{border-color:var(--blue);background:var(--sel-bg)}
+    .opt-letter{font-family:'Fragment Mono',monospace;font-size:11px;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--legend);margin-top:1px;transition:background .2s,color .2s,border-color .2s}
+    .quiz-option.selected .opt-letter{background:linear-gradient(135deg,var(--g1),var(--g2));border-color:transparent;color:#fff}
+    .quiz-option.correct-show{border-color:var(--ok);background:var(--ok-bg)}
+    .quiz-option.correct-show .opt-letter{background:var(--ok);border-color:var(--ok);color:#fff}
+    .quiz-option.wrong-show{border-color:var(--err);background:var(--err-bg)}
+    .quiz-option.wrong-show .opt-letter{background:var(--err);border-color:var(--err);color:#fff}
+    .quiz-option.locked{cursor:default}
+    .quiz-option.locked:hover{transform:none}
+    .quiz-nav{display:flex;justify-content:space-between;gap:12px;margin-top:32px}
+
+    /* ============================================================
+       RÉSULTATS
+       ============================================================ */
+    .res-head{text-align:center;margin-bottom:42px}
+    .res-head h2{font-size:30px;font-weight:640;letter-spacing:-.01em;margin-bottom:7px}
+    .res-sub{font-size:13.5px;color:var(--legend);margin-bottom:30px}
+    .ring-wrap{position:relative;display:inline-block;margin-bottom:18px}
+    .ring-track{stroke:var(--line)}
+    .score-ring{transition:stroke-dashoffset 1.2s cubic-bezier(.16,1,.3,1)}
+    .lvl-expert{stroke:var(--ok)} .lvl-avance{stroke:var(--blue)} .lvl-inter{stroke:var(--warn)} .lvl-debutant{stroke:var(--err)}
+    .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .ring-num{font-family:'Instrument Serif',Georgia,serif;font-size:52px;line-height:1;color:var(--ink)}
+    .ring-den{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--tert);margin-top:5px}
+    .res-pill-row{display:flex;justify-content:center;margin-bottom:14px}
+    .lvl-pill{display:inline-flex;align-items:center;padding:8px 18px;border-radius:999px;font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+    .lvlp-expert{background:var(--ok-bg);color:var(--ok-ink)}
+    .lvlp-avance{background:var(--sel-bg);color:var(--blue)}
+    .lvlp-inter{background:var(--warn-bg);color:var(--warn-ink)}
+    .lvlp-debutant{background:var(--err-bg);color:var(--err-ink)}
+    .res-note{font-size:12.5px;color:var(--legend);max-width:440px;margin:0 auto;line-height:1.6}
+    .recap-card,.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px 26px;margin-bottom:30px}
+    .recap-card h3,.panel h3{font-size:17px;font-weight:620;margin-bottom:14px}
+    .kv-row{display:flex;gap:14px;padding:8px 0;border-bottom:1px dashed var(--line)}
+    .kv-row:last-child{border-bottom:0}
+    .kv-label{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--tert);width:172px;flex-shrink:0;padding-top:4px;line-height:1.5}
+    .kv-val{font-size:14px;color:var(--body-c);line-height:1.55}
+    .kv-block{padding:8px 0;border-bottom:1px dashed var(--line)}
+    .kv-block:last-child{border-bottom:0}
+    .kv-block .kv-label{width:auto;display:block;margin-bottom:7px;padding-top:0}
+    .chip{display:inline-block;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);font-size:12.5px;color:var(--body-c);margin:0 6px 6px 0}
+    .mods-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px}
+    .mod-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 16px 16px;text-align:center}
+    .mod-name{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--legend);line-height:1.6;margin-bottom:10px;min-height:29px}
+    .mod-score{font-family:'Instrument Serif',Georgia,serif;font-size:34px;line-height:1;margin-bottom:13px}
+    .mod-track{height:5px}
+    .bar-fill{height:100%;border-radius:999px;transition:width 1s cubic-bezier(.16,1,.3,1)}
+    .mod-pct{font-family:'Fragment Mono',monospace;font-size:10px;color:var(--tert);margin-top:9px}
+    .ae-row{display:flex;align-items:center;gap:12px;padding:7px 0;font-size:13.5px}
+    .ae-row .bucket-chip{flex-shrink:0;width:64px;text-align:center}
+    .ae-name{flex:1;min-width:0;color:var(--body-c);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ae-stars{flex-shrink:0;font-size:14px;letter-spacing:1px}
+    .ae-stars .on{color:var(--amber)} .ae-stars .off{color:var(--star-off)}
+    .ae-lvl{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tert);width:96px;text-align:right;flex-shrink:0}
+    .corr-sec{margin-bottom:32px}
+    .corr-sec h3{font-size:17px;font-weight:620;margin-bottom:14px}
+    .corr-list{display:flex;flex-direction:column;gap:12px}
+    .corr-item{display:flex;gap:13px;padding:16px 17px;border-radius:14px;border:1px solid var(--line);background:var(--surface)}
+    .corr-item.ok{border-color:var(--ok-line);background:var(--ok-bg)}
+    .corr-item.ko{border-color:var(--err-line);background:var(--err-bg)}
+    .corr-ic{width:24px;height:24px;border-radius:999px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;margin-top:1px}
+    .corr-item.ok .corr-ic{background:var(--ok)}
+    .corr-item.ko .corr-ic{background:var(--err)}
+    .corr-body{flex:1;min-width:0}
+    .corr-q{font-size:14px;font-weight:510;color:var(--ink);line-height:1.5}
+    .corr-qn{font-family:'Instrument Serif',Georgia,serif;font-weight:400;color:var(--tert)}
+    .corr-ans{font-size:12.5px;margin-top:6px}
+    .ans-wrong{color:var(--err-ink);font-weight:510}
+    .ans-right{color:var(--ok-ink);font-weight:510}
+    .corr-exp{margin-top:10px;padding:12px 14px;border-radius:10px;background:var(--exp-bg);font-size:13px;line-height:1.62;color:var(--legend)}
+    .exp-tag{font-weight:570;color:var(--body-c)}
+    .res-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* ============================================================
+       CONFETTIS
+       ============================================================ */
+    @keyframes confettiFall{
+      0%{transform:translateY(-100vh) rotate(0deg);opacity:1}
+      100%{transform:translateY(100vh) rotate(720deg);opacity:0}
+    }
+    .confetti-piece{position:fixed;top:-10px;width:10px;height:10px;z-index:9999;animation:confettiFall linear forwards;pointer-events:none}
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width:720px){
+      .steps,.f-grid,.obj-grid,.ae-grid,.mods-grid{grid-template-columns:1fr}
+      .kv-row{flex-direction:column;gap:3px}
+      .kv-label{width:auto;padding-top:0}
+      .ae-lvl{display:none}
+      .scale-grid{grid-template-columns:repeat(2,auto)}
+      .wrap{padding:34px 18px 64px}
+      .recap-card,.panel{padding:20px 18px}
+    }
+    @media (max-width:600px){.nav-tag{display:none}}
+
+    /* ============================================================
+       ACCESSIBILITÉ & PRINT
+       ============================================================ */
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+    }
+    @media print{
+      nav,.no-print{display:none !important}
+      body{background:#fff !important;color:#000 !important}
+      body::before{display:none !important}
+      *{color:#000 !important;background:#fff !important;border-color:#ccc !important;box-shadow:none !important;text-shadow:none !important}
+      .gradient-text,.step-num{-webkit-text-fill-color:initial !important;background:none !important;color:#000 !important}
+      .print-only{display:block !important}
+    }
+    .print-only{display:none}
+      /* ============================================================
+       NAVIGATION DE FIN DE PAGE
+       ============================================================ */
+    .pgnav{display:flex;gap:14px;border-top:1px solid var(--line);padding-top:36px;margin-top:88px}
+    .pgn{flex:1;display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px 22px;transition:border-color .2s,transform .2s}
+    .pgn:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+    .pgn-k{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:6px}
+    .pgn-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14.5px;color:var(--ink);line-height:1.4}
+    .pgn.next{text-align:right}
+    @media (max-width:760px){.pgnav{flex-direction:column}.pgn.next{text-align:left}}
+  </style>
+  <script src="assets/js/formai-bridge.js?v=1783300000"></script>
+</head>
+<body>
+
+<nav class="topnav no-print">
+  <div class="nav-in">
+    <a href="/" class="nav-logo" aria-label="Akademia Formation — retour à l'accueil">
+      <img class="logo-l" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDQwMCAxMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnM+CiAgICA8IS0tIEdyYWRpZW50IFByaW5jaXBhbCAtLT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icHJpbWFyeUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzI1NjNFQjtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0MzQUVEO3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIAogICAgPCEtLSBHcmFkaWVudCBBY2NlbnQgLS0+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImFjY2VudEdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxMEI5ODE7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzA2QjZENDtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAKICAgIDwhLS0gU2hhZG93IEZpbHRlciAtLT4KICAgIDxmaWx0ZXIgaWQ9InNoYWRvdyIgeD0iLTUwJSIgeT0iLTUwJSIgd2lkdGg9IjIwMCUiIGhlaWdodD0iMjAwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjgiIGZsb29kLW9wYWNpdHk9IjAuMSIvPgogICAgPC9maWx0ZXI+CiAgPC9kZWZzPgogIAogIDwhLS0gTG9nbyBJY29uIC0tPgogIDxnIGlkPSJha2FkZW1pYS1pY29uIj4KICAgIDwhLS0gQmFja2dyb3VuZCBTaGFwZSAtLT4KICAgIDxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTYiIHJ5PSIxNiIgZmlsbD0idXJsKCNwcmltYXJ5R3JhZGllbnQpIiBmaWx0ZXI9InVybCgjc2hhZG93KSIvPgogICAgCiAgICA8IS0tIExldHRlciBBIERlc2lnbiAtLT4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYwLCA2MCkiPgogICAgICA8IS0tIE1haW4gQSBTaGFwZSAtLT4KICAgICAgPHBhdGggZD0iTSAwIC0yNSBMIC0xNSAxNSBMIC04IDE1IEwgLTYgOCBMIDYgOCBMIDggMTUgTCAxNSAxNSBMIDAgLTI1IFogTSAwIC0xMCBMIC0zIDAgTCAzIDAgTCAwIC0xMCBaIiAKICAgICAgICAgICAgZmlsbD0id2hpdGUiIAogICAgICAgICAgICBvcGFjaXR5PSIxIi8+CiAgICA8L2c+CiAgICAKICAgIDwhLS0gQWNjZW50IENpcmNsZSAtLT4KICAgIDxjaXJjbGUgY3g9Ijc1IiBjeT0iNDUiIHI9IjgiIGZpbGw9InVybCgjYWNjZW50R3JhZGllbnQpIiBvcGFjaXR5PSIwLjkiLz4KICA8L2c+CiAgCiAgPCEtLSBMb2dvIFRleHQgLS0+CiAgPGcgaWQ9ImFrYWRlbWlhLXRleHQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMCwgNjApIj4KICAgIDwhLS0gQUtBREVNSUEgLS0+CiAgICA8dGV4dCB4PSIwIiB5PSI1IiAKICAgICAgICAgIGZvbnQtZmFtaWx5PSJJbnRlciwgLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCAnU2Vnb2UgVUknLCBSb2JvdG8sIHNhbnMtc2VyaWYiIAogICAgICAgICAgZm9udC1zaXplPSIzNiIgCiAgICAgICAgICBmb250LXdlaWdodD0iNzAwIiAKICAgICAgICAgIGZpbGw9IiMwRjE3MkEiCiAgICAgICAgICBsZXR0ZXItc3BhY2luZz0iLTAuMDJlbSI+QUtBREVNSUE8L3RleHQ+CiAgICAKICAgIDwhLS0gRk9STUFUSU9OIC0tPgogICAgPHRleHQgeD0iMCIgeT0iMjgiIAogICAgICAgICAgZm9udC1mYW1pbHk9IkludGVyLCAtYXBwbGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsICdTZWdvZSBVSScsIFJvYm90bywgc2Fucy1zZXJpZiIgCiAgICAgICAgICBmb250LXNpemU9IjE4IiAKICAgICAgICAgIGZvbnQtd2VpZ2h0PSI0MDAiIAogICAgICAgICAgZmlsbD0iIzY0NzQ4QiIKICAgICAgICAgIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+">
+      <img class="logo-d" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjgwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtYWluR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMjU2M0VCO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM3QzNBRUQ7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJhY2NlbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzEwQjk4MTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDZCNkQ0O3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDwhLS0gTG9nbyBJbnZlcnPDqSBwb3VyIGZvbmQgc29tYnJlIC0tPgogIDxnPgogICAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMTIiIGZpbGw9IndoaXRlIi8+CiAgICA8cGF0aCBkPSJNIDMwIDE1IEwgNDAgNDUgTCAzNSA0NSBMIDMzIDM4IEwgMjcgMzggTCAyNSA0NSBMIDIwIDQ1IEwgMzAgMTUgWiBNIDMwIDIzIEwgMjggMzIgTCAzMiAzMiBMIDMwIDIzIFoiIGZpbGw9InVybCgjbWFpbkdyYWRpZW50KSIvPgogICAgPGNpcmNsZSBjeD0iNDUiIGN5PSIyMCIgcj0iNiIgZmlsbD0idXJsKCNhY2NlbnQpIi8+CgogICAgPHRleHQgeD0iNzUiIHk9IjI4IiBmb250LWZhbWlseT0iSW50ZXIsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSJ3aGl0ZSI+QUtBREVNSUE8L3RleHQ+CiAgICA8dGV4dCB4PSI3NSIgeT0iNDYiIGZvbnQtZmFtaWx5PSJJbnRlciwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI0MDAiIGZpbGw9IiM5NEEzQjgiIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+Cg==">
+    </a>
+    <div class="nav-right">
+      <span class="nav-tag">IA en entreprise</span>
+      <button id="darkToggle" class="theme-btn" aria-label="Basculer le thème sombre">
+        <svg class="ic-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <svg class="ic-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ============================================ -->
+  <!-- WELCOME SCREEN                               -->
+  <!-- ============================================ -->
+  <div id="welcome-screen">
+    <div class="hero" id="header-section">
+      <div class="hero-kick">QCM final — Validation des acquis</div>
+      <h1><span class="gradient-text">QCM final</span></h1>
+      <p class="hero-sub">Validation des acquis — seuil de réussite : 70 %</p>
+      <p class="hero-lede">
+        Quinze mises en situation couvrant les quatre modules de la formation : fondamentaux et cadre d’usage, prompting et vérification, performance commerciale, usages métiers et déploiement. La validation s’obtient à partir de 70 % de bonnes réponses (11/15). Chaque réponse est commentée dans le corrigé : prenez le temps de le lire, il reprend les réflexes clés des deux journées.
+      </p>
+
+      <div class="steps">
+        <div class="step-card">
+          <span class="step-num">1</span>
+          <div>
+            <div class="step-kick">Format</div>
+            <div class="step-name">15 questions scénarisées</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <span class="step-num">2</span>
+          <div>
+            <div class="step-kick">Périmètre</div>
+            <div class="step-name">Les 4 modules</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <span class="step-num">3</span>
+          <div>
+            <div class="step-kick">Validation</div>
+            <div class="step-name">Seuil de 70 %</div>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="startQuiz()" class="btn-cta">Commencer</button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- QCM                                          -->
+  <!-- ============================================ -->
+  <div id="quiz-container" class="hidden">
+
+    <div class="step-head" style="margin-bottom:22px">
+      <div class="step-row" style="margin-bottom:0">
+        <span class="step-pill">QCM</span>
+        <span class="step-note">Mises en situation</span>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-wrap">
+      <div class="progress-row">
+        <span id="progress-label" class="progress-label">Question 1 / 15</span>
+        <span id="bucket-badge" class="bucket-chip badge-fondamentaux">Fondamentaux &amp; cadre d'usage</span>
+      </div>
+      <div class="track">
+        <div id="progress-bar" class="progress-fill" style="width: 7%"></div>
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div id="questions-wrapper">
+      <!-- Questions injected by JS -->
+    </div>
+
+    <!-- Navigation buttons -->
+    <div class="quiz-nav no-print">
+      <button id="btn-prev" onclick="prevQuestion()" class="btn-ghost" disabled>&#8249; Précédente</button>
+      <button id="btn-next" onclick="nextQuestion()" class="btn-cta" disabled>Suivante &#8250;</button>
+      <button id="btn-submit" onclick="submitQuiz()" class="hidden btn-cta" disabled>Valider mes réponses</button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- RESULTS SCREEN                               -->
+  <!-- ============================================ -->
+  <div id="results-container" class="hidden">
+    <!-- Injected by JS -->
+  </div>
+
+<!-- ============================================ -->
+<!-- NAVIGATION DE PAGE                             -->
+<!-- ============================================ -->
+<nav class="pgnav no-print" aria-label="Navigation entre modules">
+  <a class="pgn" href="./sim-feuille-route-ia-entreprise.html">
+    <div class="pgn-k">Précédent · Jour 2</div>
+    <div class="pgn-t">Atelier-simulation — 90 jours pour changer de rythme</div>
+  </a>
+  <a class="pgn next" href="./documents-ia-entreprise.html">
+    <div class="pgn-k">Suivant · Ressources</div>
+    <div class="pgn-t">Bibliothèque des livrables</div>
+  </a>
+</nav>
+
+</div>
+
+<!-- Print header (only visible when printing) -->
+<div class="print-only" style="text-align:center; margin-bottom:20px;">
+  <h2>Akademia Formation — IA en Entreprise — Booster sa Productivité Commerciale et Métier avec l'IA Générative</h2>
+  <p>QCM final de validation des acquis — seuil 70 %</p>
+</div>
+
+<!-- xAPI tracker -->
+<script src="assets/js/xapi-tracker.js?v=1783300000"></script>
+
+<script>
+
+// ============================================================
+// FORMAI — RATTACHEMENT AU COURS
+// ============================================================
+if (typeof xapiTracker !== 'undefined' && xapiTracker.setCourse) {
+  xapiTracker.setCourse('ia-entreprise');
+}
+
+// ============================================================
+// DATA
+// ============================================================
+
+const BUCKET_NAMES = {
+  fondamentaux: "Fondamentaux & cadre d’usage",
+  prompt: "Prompting & vérification",
+  commercial: "Performance commerciale",
+  metiers: "Usages métiers & déploiement"
+};
+const BUCKET_ORDER = ["fondamentaux", "prompt", "commercial", "metiers"];
+const BUCKET_COLORS = {
+  fondamentaux: 'var(--c-fondamentaux)',
+  prompt: 'var(--c-prompt)',
+  commercial: 'var(--c-commercial)',
+  metiers: 'var(--c-metiers)'
+};
+
+const QUESTIONS = [
+  {
+    id: 1, bucket: "fondamentaux",
+    scenario: "Élise prépare une fiche technique bride et demande à l’IA « la dernière version en vigueur de la norme applicable ». La réponse cite un numéro, une année et un intitulé parfaitement formatés.",
+    question: "Quel est le principal risque ?",
+    options: [
+      "Un risque de style : l’IA emploie un vocabulaire trop généraliste pour un document technique destiné à un client industriel",
+      "Un risque légal : citer une norme dans une fiche commerciale exige une licence payée auprès de l’organisme de normalisation",
+      "Un risque d’exactitude : l’IA peut citer une version périmée ou inventée de la norme — vérification obligatoire sur la source officielle",
+      "Un risque faible si la demande est précise : une consigne détaillée empêche le modèle de se tromper de référence"
+    ],
+    correct: 2
+  },
+  {
+    id: 2, bucket: "fondamentaux",
+    scenario: "Au retour d’un salon, Sonia veut confier à une IA le fichier des contacts collectés — noms, fonctions, emails, téléphones — pour préparer des messages de suivi personnalisés.",
+    question: "Comment qualifier ce traitement ?",
+    options: [
+      "Un traitement de données personnelles : à réaliser dans un outil validé, avec minimisation et dans le respect du RGPD",
+      "Un usage libre : les coordonnées échangées sur un salon professionnel sont par définition des données publiques",
+      "Une simple question d’outil : choisir un éditeur européen suffit à lui seul à rendre ce traitement conforme",
+      "Une interdiction totale : le RGPD interdit toute analyse d’un fichier de contacts commerciaux par une IA"
+    ],
+    correct: 0
+  },
+  {
+    id: 3, bucket: "fondamentaux",
+    scenario: "Un fournisseur d’outil IA assure à Romain : « L’IA Act européen ne regarde que les éditeurs comme nous ; vos équipes peuvent utiliser notre solution sans aucune précaution ni formation. »",
+    question: "Quelle analyse faire de cet argument commercial ?",
+    options: [
+      "Il est exact : le règlement ne vise que les fournisseurs de modèles, les entreprises utilisatrices sont hors de son champ",
+      "Il est exact pour les PME : une exemption de taille dispense les structures de moins de 250 salariés de toute obligation",
+      "Il est inexact mais rassurant : le règlement interdit l’IA générative en entreprise, donc la question ne se pose pas",
+      "Il est inexact : le texte encadre aussi les déployeurs — former les équipes à la maîtrise de l’IA est une obligation depuis 2025"
+    ],
+    correct: 3
+  },
+  {
+    id: 4, bucket: "fondamentaux",
+    scenario: "NORDFLOW est équipée de Microsoft 365. Pour traiter des documents internes (comptes clients, prix, documentation technique), plusieurs collègues proposent des approches différentes.",
+    question: "Laquelle est conforme au cadre vu en formation ?",
+    options: [
+      "Copier les documents dans la version gratuite la plus performante du marché : la qualité de réponse prime sur le canal",
+      "Utiliser les fonctions IA intégrées à Microsoft 365 : la donnée reste dans le tenant et hérite des permissions existantes",
+      "Créer un compte payant personnel sur un outil grand public : l’abonnement premium garantit la confidentialité des saisies",
+      "Attendre un outil parfaitement souverain sur tous les critères : tant qu’aucun ne coche toutes les cases, différer tout usage"
+    ],
+    correct: 1
+  },
+  {
+    id: 5, bucket: "prompt",
+    scenario: "Sonia rédige une consigne soignée : contexte client, rôle attribué à l’IA, objectif du message. Le texte produit est pertinent sur le fond, mais fait 600 mots avec un ton bancal.",
+    question: "Quels éléments CRISP ont été oubliés ?",
+    options: [
+      "Le contexte : l’IA ne sait pas à quel type de client le message est destiné ni dans quelle situation il s’inscrit",
+      "Le rôle : sans fonction attribuée à l’IA, le texte produit manque nécessairement de cohérence et de tenue",
+      "L’instruction : l’objectif précis du message n’apparaît pas, la consigne reste une intention sans livrable",
+      "Le style et les paramètres : ton, longueur et format attendus ne sont pas précisés, la sortie part dans tous les sens"
+    ],
+    correct: 3
+  },
+  {
+    id: 6, bucket: "prompt",
+    scenario: "Après trois essais décevants, Maud veut enfin obtenir un compte rendu de chantier qui ressemble aux siens : même structure, même ton, mêmes habitudes de formulation.",
+    question: "Quelle méthode doit-elle adopter ?",
+    options: [
+      "Montrer plutôt que décrire : fournir deux de ses anciens comptes rendus en exemple, préciser la structure, puis corriger la sortie",
+      "Décrire son style en une ligne : « direct et factuel » suffit à calibrer précisément la plume de n’importe quel modèle",
+      "Choisir l’outil le plus cher du marché : la qualité stylistique suit directement le niveau de l’abonnement souscrit",
+      "Écrire le compte rendu elle-même : le style personnel est définitivement hors de portée de l’IA générative"
+    ],
+    correct: 0
+  },
+  {
+    id: 7, bucket: "prompt",
+    scenario: "Le premier jet d’un email commercial produit par l’IA est bon à 80 % : deux passages sonnent faux, la chute est molle, le reste convient à Karim.",
+    question: "Que faire de ce premier jet ?",
+    options: [
+      "Repartir d’une consigne entièrement nouvelle : un résultat imparfait signe une consigne de départ définitivement ratée",
+      "Changer d’outil d’IA : chaque modèle a sa limite de qualité et le premier jet est toujours le meilleur possible",
+      "Corriger en précisant ce qui cloche — points à garder, à renforcer, à supprimer — en deux ou trois passages",
+      "Envoyer le jet tel quel : 80 % de qualité est un rendement honnête pour un email commercial de prospection"
+    ],
+    correct: 2
+  },
+  {
+    id: 8, bucket: "prompt",
+    scenario: "Pour étoffer un argumentaire, l’IA fournit à Karim un chiffre de marché précis, assorti d’une référence : « étude sectorielle 2025, 1 200 entreprises interrogées ».",
+    question: "Quel réflexe avant de l’utiliser face au client ?",
+    options: [
+      "Citer le chiffre avec la mention « source : IA générative » : la transparence décharge la responsabilité de l’auteur",
+      "Vérifier le chiffre et l’étude auprès d’une source identifiable : l’IA peut inventer la référence qui l’accompagne",
+      "Demander la même question à un second outil : deux IA qui donnent le même chiffre se valident mutuellement",
+      "Supprimer tout chiffre des propositions : une donnée non vérifiable nuit toujours plus qu’elle ne convainc"
+    ],
+    correct: 1
+  },
+  {
+    id: 9, bucket: "commercial",
+    scenario: "Romain lance une campagne auprès d’une cinquantaine d’industriels ciblés dans l’agroalimentaire. Il demande à son équipe comment exploiter l’IA au mieux.",
+    question: "Quelle approche rend l’IA vraiment utile ?",
+    options: [
+      "Qualifier chaque cible avec l’IA et personnaliser chaque message à partir d’informations vérifiables, avec validation avant envoi",
+      "Automatiser la séquence de bout en bout : les relances partent seules et le commercial ne reprend la main qu’à la signature",
+      "Envoyer le même message aux cinquante contacts : en prospection, la loi des grands nombres fait toujours la statistique",
+      "Acheter une base enrichie clé en main : la prospection B2B devient alors un simple problème de données, pas de messages"
+    ],
+    correct: 0
+  },
+  {
+    id: 10, bucket: "commercial",
+    scenario: "Théo veut développer la visibilité de NORDFLOW sur LinkedIn et crédibiliser les commerciaux auprès de leurs prospects industriels (social selling).",
+    question: "Quel workflow IA est le plus judicieux ?",
+    options: [
+      "Publier chaque jour un post généré et copié-collé tel quel : sur LinkedIn, la régularité prime sur tout le reste",
+      "Commenter massivement les publications des prospects avec des messages d’approche générés automatiquement",
+      "Brainstormer angles et structure avec l’IA, puis réécrire avec son vécu et son point de vue avant de publier",
+      "Créer des profils « experts IA » distincts des profils réels pour tester des contenus sans engager l’image des commerciaux"
+    ],
+    correct: 2
+  },
+  {
+    id: 11, bucket: "commercial",
+    scenario: "Demain, Karim se rend chez un prospect industriel qui évoque vaguement « des problèmes de rendement sur ses utilités ». Il demande à l’IA de l’aider à préparer.",
+    question: "Quelle demande est la plus utile ?",
+    options: [
+      "Rédiger le devis à présenter : arriver avec un chiffrage déjà préparé démontre la réactivité de NORDFLOW",
+      "Préparer une fiche rendez-vous : contexte du compte, enjeux probables, questions de découverte, objections et réponses",
+      "Écrire le script complet de l’entretien à suivre mot à mot : c’est la seule façon de ne rien oublier sur place",
+      "Rien de spécifique : la préparation d’une visite industrielle relève de l’expérience, l’IA n’y apporte rien"
+    ],
+    correct: 1
+  },
+  {
+    id: 12, bucket: "commercial",
+    scenario: "Le CRM de NORDFLOW annonce des fonctions IA intégrées : résumés de comptes, relances suggérées, emails pré-rédigés avec le contexte de l’affaire.",
+    question: "Quel est le principal intérêt de ces fonctions au quotidien ?",
+    options: [
+      "Elles dispensent de tenir le CRM : résumés et relances se génèrent désormais sans aucune saisie préalable",
+      "Elles décident à la place du commercial : la priorisation des affaires par l’IA est objective et ne se discute pas",
+      "Elles suppriment le besoin de former les équipes au CRM : l’assistant devient l’unique interface de l’outil",
+      "Elles exploitent l’historique du CRM pour gagner du temps — synthèses, relances, emails — sans exporter les données"
+    ],
+    correct: 3
+  },
+  {
+    id: 13, bucket: "metiers",
+    scenario: "Au sortir d’une réunion chantier de deux heures, Maud doit produire un compte rendu pour l’équipe française et un résumé en anglais pour le siège.",
+    question: "Quel workflow IA est le plus efficace et le plus sûr ?",
+    options: [
+      "Faire synthétiser la réunion (décisions, actions, responsables), relire et corriger, puis demander la version anglaise et vérifier les termes métier",
+      "Envoyer l’enregistrement audio brut aux destinataires : chacun écoutera les passages qui le concernent directement",
+      "Envoyer la synthèse générée sans relecture : une transcription automatique fiabilise suffisamment le contenu",
+      "Rédiger le compte rendu français puis le traduire mot à mot par un outil automatique, sans relecture particulière"
+    ],
+    correct: 0
+  },
+  {
+    id: 14, bucket: "metiers",
+    scenario: "Une réponse à appel d’offres doit être déposée dans dix jours ; le CCTP fait quatre-vingts pages et Sonia est déjà sous charge.",
+    question: "Comment l’IA peut-elle aider concrètement ?",
+    options: [
+      "En rédigeant la totalité de la réponse à sa place : il reste assez de temps pour une relecture rapide avant le dépôt",
+      "En extrayant exigences, critères de notation et pièces attendues, et en structurant la trame de réponse — le fond validé par les experts",
+      "En reprenant une ancienne réponse et en changeant uniquement le nom du client : l’essentiel du contenu y figure déjà",
+      "En estimant les chances de gagner à partir d’appels d’offres comparables, pour décider de répondre ou non"
+    ],
+    correct: 1
+  },
+  {
+    id: 15, bucket: "metiers",
+    scenario: "Convaincue par ses premiers essais, l’équipe de Romain veut intégrer durablement l’IA dans ses pratiques sans casser ce qui fonctionne.",
+    question: "Quelle démarche a le plus de chances d’aboutir ?",
+    options: [
+      "Transformer tous les processus dès la semaine suivante : c’est en changeant tout d’un coup que les habitudes s’installent",
+      "Attendre que la direction impose un outil et des consignes : l’initiative individuelle crée plus de risques que de valeur",
+      "Se former une fois et appliquer les mêmes recettes durablement : les usages de l’IA évoluent peu d’une année sur l’autre",
+      "Démarrer par deux ou trois cas d’usage à fort gain et faible risque, mesurer à 30 jours, étendre à 60-90 jours"
+    ],
+    correct: 3
+  }
+];
+
+const EXPLAINS = {
+  1: "L’IA générative ne consulte pas une base normative à jour : elle prédit une référence plausible. Version périmée ou purement inventée, le résultat a la même apparence. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Une référence complète (numéro, année, intitulé) peut être à la fois cohérente et fausse : la seule source qui fait foi est l’organisme de normalisation lui-même. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Une consigne précise empêche l’erreur » — la qualité de la consigne améliore la forme de la réponse, pas la véracité de son contenu factuel. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Si l’IA sert à reformuler une fiche dont les normes sont déjà vérifiées, le risque retombe : le danger naît quand elle est la source du fait.",
+  2: "Le réflexe : outil validé par l’entreprise, données minimisées au strict nécessaire du message, base légale identifiée — et jamais le fichier brut dans un outil grand public. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Nom, fonction, email professionnel, téléphone : des données personnelles au sens du RGPD, même collectées en salon — leur traitement par IA suit les mêmes règles que tout traitement. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Européen donc conforme » — la localisation de l’éditeur est un critère, pas un sésame : la conformité porte sur le traitement (finalité, minimisation, information des personnes), pas sur le passeport de l’outil. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Préparer des messages à partir de notes de conversation anonymisées (secteur, besoin exprimé, sans identité) est possible dans un outil validé : c’est la saisie du fichier nominatif qui pose question.",
+  3: "Depuis février 2025, la maîtrise de l’IA par les équipes (article 4) est une obligation légale pour toute organisation qui déploie des systèmes d’IA, quelle que soit sa taille. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Le règlement (UE) 2024/1689 distingue fournisseurs et déployeurs, et il oblige les deux : un employeur qui met l’IA entre les mains de ses équipes est un déployeur. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « L’argument du fournisseur qui vous dispense de tout » — un éditeur n’a aucune légitimité à certifier votre conformité : ses obligations ne se substituent pas aux vôtres. \u003cstrong\u003eContre-cas :\u003c/strong\u003e L’excès inverse est aussi faux : le texte n’interdit pas l’IA générative en entreprise, il l’encadre par niveaux de risque — avec des obligations concrètes dès 2025.",
+  4: "Dans Microsoft 365, les fonctions IA intégrées travaillent dans le tenant : données non réutilisées pour l’entraînement, permissions héritées, administration centralisée. Le réflexe n’est pas d’attendre l’outil parfait, mais d’utiliser le bon canal maintenant. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Pour une donnée interne, le premier critère de choix n’est ni la puissance ni le prix : c’est le périmètre de circulation de la donnée — tenant maîtrisé d’abord. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Payant donc confidentiel » — un abonnement personnel ne lie pas votre employeur : la donnée sort du périmètre NORDFLOW avec des conditions que l’entreprise n’a pas signées. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Pour du contenu public ou dépersonnalisé, un outil conversationnel externe validé reste pertinent en complément — la sensibilité de la donnée commande le canal.",
+  5: "La consigne décrivait le quoi (objectif) mais pas le comment : 150 mots, ton direct et professionnel, une seule formule de politesse — trois lignes de paramètres auraient verrouillé la forme. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Dans CRISP, les deux dernières lettres commandent la forme : Style (ton, registre) et Paramètres (longueur, format, langue). Un fond juste avec une forme bancale signe presque toujours cet oubli. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Le contexte manque toujours » — réflexe pavlovien : ici, contexte, rôle et instruction étaient fournis. Diagnostiquer le manque réel avant de réécrire la consigne entière. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Si le livrable est une note interne informelle, style et paramètres peuvent rester implicites — ils deviennent indispensables dès que le texte part chez un client.",
+  6: "Après l’exemple, itérez : dites ce qui sonne juste et ce qui ne vous ressemble pas. Deux ou trois passages suffisent en général à obtenir un texte signé de votre plume. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Le style se transmet par l’exemple, pas par l’adjectif : deux comptes rendus réels (few-shot) calibrent mieux la plume que n’importe quelle description. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « À chaque IA sa plume » — la qualité stylistique ne suit ni le prix ni l’éditeur : elle suit la qualité des exemples fournis et des itérations de correction. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Pour un document normé sans voix personnelle (procédure, note d’information), décrire le registre suffit — le few-shot sert quand votre signature compte.",
+  7: "Un jet à 80 % se finalise en deux ou trois passages ciblés : « garde les paragraphes 1 et 3, resserre le second, remplace la chute par une question ouverte ». Plus rapide et plus maîtrisé qu’une régénération. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e L’itération est le cœur du prompting professionnel : on corrige une sortie en la commentant — quoi garder, quoi renforcer, quoi supprimer — plutôt qu’en repartant de zéro. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Tout réécrire, tout régénérer » — une nouvelle génération perd les 80 % qui conviennent et rejoue les dés entièrement : c’est le réflexe débutant, pas le réflexe efficace. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Si le jet est à 30 % de qualité (mauvais angle, mauvaise structure), repartir de la consigne est justifié — l’itération sert à polir, pas à sauver une base ratée.",
+  8: "L’IA peut inventer l’étude qui habille le chiffre : année, organisme, taille d’échantillon — tout peut être cohérent, précis et faux. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Aucun chiffre, fait ou référence issu de l’IA ne part chez un client sans vérification auprès d’une source identifiable : étude, rapport officiel, base interne. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Deux IA d’accord se valident » — deux modèles peuvent reproduire la même invention : la concordance de générations ne vaut pas source, seule une origine vérifiable compte. \u003cstrong\u003eContre-cas :\u003c/strong\u003e En interne, pour cadrer une hypothèse, un chiffre marqué « à confirmer » peut suffire provisoirement — la frontière de la vérification, c’est l’envoi au client.",
+  9: "Le bon modèle : l’IA prépare (signaux, angle, jet de message), le commercial vérifie les faits cités, ajuste le ton et valide chaque envoi. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e En B2B industriel, la relation se gagne sur la pertinence : l’IA décuple la capacité de préparation (qualification, angles, personnalisation), l’humain garde la main sur l’envoi. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Le volume fait la statistique » — une salve de messages génériques automatisés se repère immédiatement : image abîmée, taux de réponse en berne, domaine expéditeur dégradé. \u003cstrong\u003eContre-cas :\u003c/strong\u003e L’automatisation a sa place sur les tâches sans jugement (rappels de calendrier, log CRM) — pas sur le contenu du premier contact avec un compte stratégique.",
+  10: "Le workflow qui tient dans la durée : brainstorm d’angles avec l’IA, structure du post, premier jet, puis réécriture avec votre vécu chantier ou client — c’est ce détail vécu qui crée la valeur. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Le social selling repose sur la crédibilité : des contenus métier utiles, un point de vue identifiable, une régularité raisonnable — l’IA accélère l’amont, pas la signature. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « La régularité prime sur tout » — un flux quotidien de posts lisses et génériques se reconnaît vite : il décrédibilise l’auteur plus sûrement que le silence. \u003cstrong\u003eContre-cas :\u003c/strong\u003e L’IA peut aussi servir à la veille (résumer l’actualité d’un secteur, préparer un commentaire pertinent) — toujours avec votre regard et vos mots au moment de publier.",
+  11: "L’IA produit cette trame en quelques minutes à partir de ce que vous savez du compte — à vous de valider les faits, d’ajouter votre connaissance terrain et de choisir vos trois priorités d’entretien. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e La préparation d’un rendez-vous industriel se systématise : contexte du compte, hypothèses sur le besoin réel, questions de découverte, objections probables et éléments de réponse. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Le script mot à mot » — un entretien figé empêche l’écoute : la fiche prépare l’improvisation, elle ne la remplace pas. Et le devis avant la découverte grille l’étape de qualification. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Pour un rendez-vous de routine sans enjeu (point de suivi logistique), une préparation allégée suffit — la fiche complète se justifie sur les rendez-vous de découverte ou de négociation.",
+  12: "Copilot for Sales, Breeze, Einstein : même logique partout — le gain est un gain de temps de préparation et de saisie, au service d’un portefeuille piloté par le commercial. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e L’intérêt d’une IA intégrée au CRM : travailler sur vos données commerciales sans les exporter — résumé avant un appel, relances suggérées sur les affaires dormantes, emails contextualisés. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « L’IA remplace la saisie et le jugement » — c’est l’inverse : la qualité des synthèses dépend de la tenue du CRM, et la priorité commerciale reste une décision humaine éclairée. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Si le CRM est mal tenu (affaires sans compte rendu, montants obsolètes), les synthèses seront pauvres ou trompeuses : la première action d’équipe est l’hygiène des données, pas l’activation de l’IA.",
+  13: "Deux heures de réunion deviennent dix minutes de travail au lieu d’une heure de rédaction — à condition que la relecture reste non négociable. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Le workflow fiable en trois temps : synthèse structurée (décisions, actions, responsables), relecture humaine, traduction avec vérification des termes métier. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « La transcription fiabilise le contenu » — une transcription automatique peut déformer un chiffre, un nom propre ou un terme technique : sans relecture, l’erreur part telle quelle aux destinataires. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Pour un point interne informel entre collègues, l’audio brut peut suffire — dès que le compte rendu engage (chantier, client, siège), la version relue et structurée s’impose.",
+  14: "Le fond — solution technique, chiffrage, engagements — reste validé par vos experts : c’est ce qui engage NORDFLOW. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Sur un CCTP volumineux, le gain de l’IA est l’extraction et la structuration : exigences, critères de notation, pièces attendues, dates clés, trame de réponse. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « L’IA rédige, je relis vite » — une réponse d’appel d’offres est un document contractuel : une hallucination dans un engagement technique ou un prix engage l’entreprise, la relecture rapide ne suffit pas. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Réutiliser d’anciennes réponses comme banque de contenus validés (descriptions de références, présentation qualité) est une bonne pratique — tant que chaque section est réécrite pour le besoin réel du CCTP.",
+  15: "C’est exactement la feuille de route 30/60/90 construite en atelier : jalons, indicateurs, alliés, risques — et des usages qui prouvent leur valeur avant de s’étendre. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e L’adoption durable procède par itérations mesurées : deux ou trois cas d’usage à fort gain et faible risque, un bilan chiffré à 30 jours, l’extension à 60-90. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Big bang ou attentisme » — le tout-d’un-coup crée du rejet et des erreurs très visibles ; l’attente de l’outil imposé laisse creuser l’écart avec ceux qui pratiquent déjà. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Si un cas d’usage touche une donnée sensible ou un processus réglementé, il sort du lot « faible risque » : il se traite avec la charte d’usage et la direction, pas en initiative isolée."
+};
+
+const LETTER_MAP = ['A', 'B', 'C', 'D'];
+const TOTAL = QUESTIONS.length;
+const PASS_SCORE = 11;
+const RESULT_MODE = "threshold"; // 'levels' | 'threshold'
+
+// ============================================================
+// STATE
+// ============================================================
+let currentQ = 0;
+let answers = new Array(TOTAL).fill(null);
+let quizSubmitted = false;
+
+// ============================================================
+// FUNCTIONS — FLOW
+// ============================================================
+
+function startQuiz() {
+  document.getElementById('welcome-screen').classList.add('hidden');
+  document.getElementById('quiz-container').classList.remove('hidden');
+  buildQuiz();
+  showQuestion(0);
+  document.getElementById('quiz-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================================
+// FUNCTIONS — QCM
+// ============================================================
+
+function buildQuiz() {
+  var wrapper = document.getElementById('questions-wrapper');
+  wrapper.innerHTML = '';
+
+  QUESTIONS.forEach(function(q, i) {
+    var div = document.createElement('div');
+    div.className = 'quiz-question' + (i === 0 ? ' active' : '');
+    div.id = 'q-' + i;
+
+    var badgeClass = 'badge-' + q.bucket;
+    var bucketName = BUCKET_NAMES[q.bucket];
+
+    var optionsHtml = '';
+    q.options.forEach(function(opt, oi) {
+      optionsHtml += '<button onclick="selectAnswer(' + i + ',' + oi + ')" id="opt-' + i + '-' + oi + '" class="quiz-option">';
+      optionsHtml += '<span class="opt-letter">' + LETTER_MAP[oi] + '</span><span>' + opt + '</span>';
+      optionsHtml += '</button>';
+    });
+
+    div.innerHTML =
+      '<div class="q-head">' +
+        '<span class="bucket-chip ' + badgeClass + '">' + bucketName + '</span>' +
+        '<p class="q-scenario">' + q.scenario + '</p>' +
+        '<h2 class="q-title">' +
+          '<span class="qnum">Q' + q.id + '.</span> ' + q.question +
+        '</h2>' +
+      '</div>' +
+      '<div class="q-options" id="options-' + i + '">' + optionsHtml + '</div>';
+
+    wrapper.appendChild(div);
+  });
+}
+
+function selectAnswer(qIndex, optIndex) {
+  if (quizSubmitted) return;
+
+  answers[qIndex] = optIndex;
+
+  var options = document.querySelectorAll('#options-' + qIndex + ' .quiz-option');
+  options.forEach(function(opt, i) {
+    if (i === optIndex) {
+      opt.classList.add('selected');
+    } else {
+      opt.classList.remove('selected');
+    }
+  });
+
+  updateNavButtons();
+}
+
+function showQuestion(index) {
+  currentQ = index;
+
+  document.querySelectorAll('.quiz-question').forEach(function(q) { q.classList.remove('active'); });
+  var el = document.getElementById('q-' + index);
+  if (el) el.classList.add('active');
+
+  var pct = ((index + 1) / TOTAL * 100).toFixed(0);
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = 'Question ' + (index + 1) + ' / ' + TOTAL;
+
+  var q = QUESTIONS[index];
+  var badge = document.getElementById('bucket-badge');
+  badge.textContent = BUCKET_NAMES[q.bucket];
+  badge.className = 'bucket-chip badge-' + q.bucket;
+
+  updateNavButtons();
+}
+
+function updateNavButtons() {
+  var prevBtn = document.getElementById('btn-prev');
+  var nextBtn = document.getElementById('btn-next');
+  var submitBtn = document.getElementById('btn-submit');
+
+  prevBtn.disabled = currentQ === 0;
+
+  if (currentQ === TOTAL - 1) {
+    nextBtn.classList.add('hidden');
+    submitBtn.classList.remove('hidden');
+    submitBtn.disabled = answers[currentQ] === null;
+  } else {
+    nextBtn.classList.remove('hidden');
+    submitBtn.classList.add('hidden');
+    nextBtn.disabled = answers[currentQ] === null;
+  }
+}
+
+function nextQuestion() {
+  if (currentQ < TOTAL - 1 && answers[currentQ] !== null) {
+    showQuestion(currentQ + 1);
+  }
+}
+
+function prevQuestion() {
+  if (currentQ > 0) {
+    showQuestion(currentQ - 1);
+  }
+}
+
+// ============================================================
+// FUNCTIONS — SUBMIT & RESULTS
+// ============================================================
+
+function submitQuiz() {
+  if (answers.includes(null)) return;
+  quizSubmitted = true;
+
+  var score = 0;
+  var bucketScores = {};
+  BUCKET_ORDER.forEach(function(b) { bucketScores[b] = 0; });
+  var details = [];
+
+  QUESTIONS.forEach(function(q, i) {
+    var isCorrect = answers[i] === q.correct;
+    if (isCorrect) {
+      score++;
+      bucketScores[q.bucket]++;
+    }
+    details.push({ question: q, userAnswer: answers[i], correct: isCorrect });
+  });
+
+  var passed = score >= PASS_SCORE;
+
+  localStorage.setItem('ia_entreprise_quiz_final', score);
+  localStorage.setItem('ia_entreprise_quiz_final_date', new Date().toISOString());
+  localStorage.setItem('ia_entreprise_quiz_final_details', JSON.stringify(answers));
+
+  // xAPI tracking
+  if (typeof xapiTracker !== 'undefined') {
+    xapiTracker.trackQuizScore('quiz-final-ia-entreprise', 'QCM final — IA en Entreprise', score, TOTAL);
+  }
+
+  // FormAI bridge
+  if (typeof window.formaiModuleComplete === 'function') {
+    window.formaiModuleComplete(score, TOTAL);
+  }
+
+  // FormAI — remontée complète : détail par question + scores par thème
+  try {
+    var qTotals = {};
+    QUESTIONS.forEach(function(q) { qTotals[q.bucket] = (qTotals[q.bucket] || 0) + 1; });
+    var themeStats = {};
+    Object.keys(bucketScores).forEach(function(b) {
+      themeStats[BUCKET_NAMES[b] || b] = { correct: bucketScores[b], total: qTotals[b] || 0 };
+    });
+    var answerDetail = details.map(function(d) {
+      return {
+        questionId: String(d.question.id),
+        theme: BUCKET_NAMES[d.question.bucket] || d.question.bucket,
+        question: d.question.question,
+        answer: d.userAnswer,
+        answerLabel: d.question.options[d.userAnswer],
+        correctAnswer: d.question.correct,
+        correctLabel: d.question.options[d.question.correct],
+        correct: d.correct
+      };
+    });
+    var quizDetail = {
+      exerciseId: 'quiz-final-ia-entreprise',
+      quizType: 'evaluation',
+      score: score,
+      max: TOTAL,
+      passed: passed,
+      answers: answerDetail,
+      themes: themeStats
+    };
+    if (typeof window.formaiQuizDetail === 'function') {
+      window.formaiQuizDetail(quizDetail);
+    } else if (typeof xapiTracker !== 'undefined' && xapiTracker.trackQuizDetail) {
+      xapiTracker.trackQuizDetail(quizDetail.exerciseId, document.title, quizDetail);
+    }
+  } catch (e) {}
+
+  showCorrections(details);
+  showResults(score, bucketScores, details, passed);
+
+  if (RESULT_MODE === 'threshold' ? passed : score >= 8) launchConfetti();
+}
+
+function showCorrections(details) {
+  details.forEach(function(d, i) {
+    var options = document.querySelectorAll('#options-' + i + ' .quiz-option');
+    options.forEach(function(opt, oi) {
+      opt.classList.add('locked');
+      if (oi === d.question.correct) {
+        opt.classList.add('correct-show');
+      }
+      if (oi === d.userAnswer && !d.correct) {
+        opt.classList.add('wrong-show');
+      }
+    });
+  });
+}
+
+function showResults(score, bucketScores, details, passed) {
+  var pct = Math.round((score / TOTAL) * 100);
+
+  var levelLabel, levelKey;
+  if (RESULT_MODE === 'threshold') {
+    if (passed) { levelLabel = 'Validé'; levelKey = 'expert'; }
+    else { levelLabel = 'Non validé'; levelKey = 'debutant'; }
+  } else {
+    if (score >= 9) { levelLabel = 'Solide'; levelKey = 'expert'; }
+    else if (score >= 7) { levelLabel = 'Acquis'; levelKey = 'avance'; }
+    else if (score >= 5) { levelLabel = 'Fragile'; levelKey = 'inter'; }
+    else { levelLabel = 'À reprendre'; levelKey = 'debutant'; }
+  }
+
+  var circumference = 2 * Math.PI * 54;
+  var dashOffset = circumference - (pct / 100) * circumference;
+
+  var html = '';
+
+  // ---- Score ring ----
+  html += '<div class="res-head">';
+  html += '<h2>Résultats</h2>';
+  html += '<p class="res-sub">QCM final — validation des acquis</p>';
+
+  html += '<div class="ring-wrap">';
+  html += '<svg width="140" height="140" viewBox="0 0 120 120">';
+  html += '<circle cx="60" cy="60" r="54" fill="none" stroke-width="7" class="ring-track"/>';
+  html += '<circle cx="60" cy="60" r="54" fill="none" stroke-width="7" stroke-linecap="round" class="score-ring lvl-' + levelKey + '" stroke-dasharray="' + circumference + '" stroke-dashoffset="' + circumference + '" transform="rotate(-90 60 60)" id="score-ring-circle"/>';
+  html += '</svg>';
+  html += '<div class="ring-center">';
+  html += '<span class="ring-num">' + score + '</span>';
+  html += '<span class="ring-den">/ ' + TOTAL + '</span>';
+  html += '</div>';
+  html += '</div>';
+
+  html += '<div class="res-pill-row">';
+  html += '<span class="lvl-pill lvlp-' + levelKey + '">';
+  html += levelLabel + ' — ' + pct + '%';
+  html += '</span>';
+  html += '</div>';
+  html += '<p class="res-note">Seuil de validation : 70 % (11/15). En dessous du seuil, relisez le corrigé commenté des modules concernés, puis recommencez — le quiz est rejouable autant de fois que nécessaire.</p>';
+  html += '</div>';
+
+  // ---- Bucket breakdown ----
+  var qTotals = {};
+  QUESTIONS.forEach(function(q) { qTotals[q.bucket] = (qTotals[q.bucket] || 0) + 1; });
+
+  html += '<div class="mods-grid mods-grid-' + BUCKET_ORDER.length + '">';
+  BUCKET_ORDER.forEach(function(bk) {
+    var bScore = bucketScores[bk];
+    var bTotal = qTotals[bk] || 0;
+    var bPct = bTotal ? Math.round((bScore / bTotal) * 100) : 0;
+    var bColor = BUCKET_COLORS[bk];
+    var bName = BUCKET_NAMES[bk];
+
+    html += '<div class="mod-card">';
+    html += '<div class="mod-name">' + bName + '</div>';
+    html += '<div class="mod-score" style="color:' + bColor + '">' + bScore + '/' + bTotal + '</div>';
+    html += '<div class="track mod-track">';
+    html += '<div class="bar-fill" style="width:0%;background:' + bColor + '" id="bar-bucket-' + bk + '"></div>';
+    html += '</div>';
+    html += '<div class="mod-pct">' + bPct + '%</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // ---- Detailed corrections ----
+  html += '<div class="corr-sec">';
+  html += '<h3>Corrigé commenté</h3>';
+  html += '<div class="corr-list">';
+
+  details.forEach(function(d, i) {
+    var q = d.question;
+    var explain = EXPLAINS[q.id] || '';
+    var itemClass = d.correct ? 'ok' : 'ko';
+    var icon = d.correct ? '&#10003;' : '&#10007;';
+
+    html += '<div class="corr-item ' + itemClass + '">';
+    html += '<div class="corr-ic">' + icon + '</div>';
+    html += '<div class="corr-body">';
+    html += '<div class="corr-q"><span class="corr-qn">Q' + q.id + '.</span> ' + q.question + '</div>';
+
+    if (!d.correct) {
+      html += '<div class="corr-ans">';
+      html += '<span class="ans-wrong">Votre réponse : ' + LETTER_MAP[d.userAnswer] + '</span> — ';
+      html += '<span class="ans-right">Bonne réponse : ' + LETTER_MAP[q.correct] + '</span>';
+      html += '</div>';
+    }
+
+    if (explain) {
+      html += '<div class="corr-exp">';
+      html += '<span class="exp-tag">Explication :</span> ' + explain;
+      html += '</div>';
+    }
+
+    html += '</div>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  html += '</div>';
+
+  // ---- Action buttons ----
+  html += '<div class="res-actions no-print">';
+  html += '<button onclick="resetAll()" class="btn-ghost">Recommencer</button>';
+  html += '<button onclick="window.print()" class="btn-cta">';
+  html += '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>';
+  html += 'Imprimer mes résultats</button>';
+  html += '<a href="./documents-ia-entreprise.html" class="btn-cta" style="text-decoration:none">Accéder à la bibliothèque des livrables</a>';
+  html += '</div>';
+
+  document.getElementById('quiz-container').classList.add('hidden');
+  var resultsEl = document.getElementById('results-container');
+  resultsEl.innerHTML = html;
+  resultsEl.classList.remove('hidden');
+
+  setTimeout(function() {
+    var ring = document.getElementById('score-ring-circle');
+    if (ring) ring.style.strokeDashoffset = dashOffset;
+  }, 100);
+
+  setTimeout(function() {
+    BUCKET_ORDER.forEach(function(bk) {
+      var bar = document.getElementById('bar-bucket-' + bk);
+      if (bar) {
+        var bTotal = qTotals[bk] || 1;
+        var bPct = Math.round((bucketScores[bk] / bTotal) * 100);
+        bar.style.width = bPct + '%';
+      }
+    });
+  }, 300);
+
+  resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetAll() {
+  quizSubmitted = false;
+  answers = new Array(TOTAL).fill(null);
+  currentQ = 0;
+
+  document.getElementById('results-container').classList.add('hidden');
+  document.getElementById('results-container').innerHTML = '';
+  document.getElementById('quiz-container').classList.add('hidden');
+  document.getElementById('welcome-screen').classList.remove('hidden');
+
+  document.getElementById('header-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function launchConfetti() {
+  var colors = ['#2563EB', '#7C3AED', '#06B6D4', '#10B981', '#F59E0B'];
+  for (var i = 0; i < 60; i++) {
+    var piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.width = (Math.random() * 8 + 5) + 'px';
+    piece.style.height = (Math.random() * 8 + 5) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    piece.style.animationDelay = (Math.random() * 1.5) + 's';
+    document.body.appendChild(piece);
+    setTimeout(function(p) { return function() { p.remove(); }; }(piece), 5000);
+  }
+}
+
+// ============================================================
+// DARK MODE TOGGLE
+// ============================================================
+document.getElementById('darkToggle').addEventListener('click', function() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('ia_entreprise_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+});
+
+// ============================================================
+// KEYBOARD NAVIGATION
+// ============================================================
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('quiz-container').classList.contains('hidden')) {
+    if (quizSubmitted) return;
+    if (e.key === 'ArrowRight' || e.key === 'Enter') {
+      if (currentQ === TOTAL - 1) submitQuiz();
+      else nextQuestion();
+    }
+    if (e.key === 'ArrowLeft') prevQuestion();
+    if (e.key >= '1' && e.key <= '4') {
+      selectAnswer(currentQ, parseInt(e.key) - 1);
+    }
+  }
+});
+
+</script>
+
+</body>
+</html>

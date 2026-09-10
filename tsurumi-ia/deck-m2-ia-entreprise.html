@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 2 — Prompting & outils du quotidien — IA en Entreprise | Akademia Formation</title>
+  <meta name="description" content="Module 2 du parcours IA en Entreprise : méthode CRISP, techniques avancées de prompting (few-shot, chain-of-thought, itération), bibliothèque de prompts d'équipe, Copilot dans Microsoft 365, vérification et recoupement des réponses.">
+
+  <!-- Dark mode anti-flicker -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('ia_entreprise_theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Polices charte Akademia (Instrument Sans / Inter variable / Instrument Serif / Fragment Mono) -->
+  <link rel="stylesheet" href="assets/css/fonts-akademia.css">
+
+  <style>
+/* ============================================================
+   CHARTE AKADEMIA — tokens (clair / nuit via html.dark)
+   Socle cloné de positionnement-ia-entreprise.html
+   ============================================================ */
+:root{
+  --bg:#F7F9FC; --surface:#FFFFFF; --soft:#F1F5FA;
+  --ink:#0F172A; --body-c:#3F4C61; --legend:#64748B; --tert:#94A3B8;
+  --line:#E7EAF2;
+  --blue:#2563EB; --violet:#7C3AED; --g1:#2563EB; --g2:#7C3AED;
+  --blue-soft:rgba(37,99,235,.5);
+  --c-fondamentaux:#2563EB; --c-prompt:#7C3AED; --c-commercial:#0E7490; --c-metiers:#047857;
+  --chip-fond-bg:rgba(37,99,235,.09); --chip-prompt-bg:rgba(124,58,237,.09); --chip-com-bg:rgba(6,182,212,.12); --chip-met-bg:rgba(16,185,129,.12);
+  --ok:#10B981; --ok-ink:#047857; --ok-bg:rgba(16,185,129,.08); --ok-line:rgba(16,185,129,.35);
+  --err:#DC2626; --err-ink:#B91C1C; --err-bg:rgba(220,38,38,.06); --err-line:rgba(220,38,38,.3);
+  --warn:#F97316; --warn-ink:#C2410C; --warn-bg:rgba(249,115,22,.1);
+  --amber:#F59E0B; --star-off:#CBD5E1;
+  --sel-bg:rgba(37,99,235,.07);
+  --exp-bg:rgba(255,255,255,.6);
+  --focus:rgba(37,99,235,.28);
+  --cta-shadow:0 12px 30px rgba(109,40,217,.26);
+  --nav-bg:rgba(255,255,255,.82);
+  --grain-o:.045;
+  --dl:inline-block; --dd:none;
+  --mono-bg:#0F172A; --mono-ink:#E2E8F0;
+}
+html.dark{
+  --bg:#05070E; --surface:#0A0F1D; --soft:#0D1322;
+  --ink:#F2F5FB; --body-c:#B4BFD1; --legend:#8B99AF; --tert:#5F6C81;
+  --line:rgba(148,163,184,.14);
+  --blue:#5B8DF8; --violet:#A78BFA; --g1:#5B8DF8; --g2:#A78BFA;
+  --blue-soft:rgba(91,141,248,.55);
+  --c-fondamentaux:#5B8DF8; --c-prompt:#A78BFA; --c-commercial:#45C8FF; --c-metiers:#34D399;
+  --chip-fond-bg:rgba(91,141,248,.13); --chip-prompt-bg:rgba(167,139,250,.13); --chip-com-bg:rgba(69,200,255,.11); --chip-met-bg:rgba(52,211,153,.13);
+  --ok:#34D399; --ok-ink:#6EE7B7; --ok-bg:rgba(52,211,153,.09); --ok-line:rgba(52,211,153,.32);
+  --err:#F87171; --err-ink:#FCA5A5; --err-bg:rgba(248,113,113,.08); --err-line:rgba(248,113,113,.32);
+  --warn:#FB923C; --warn-ink:#FDBA74; --warn-bg:rgba(251,146,60,.12);
+  --amber:#FBBF24; --star-off:#39445A;
+  --sel-bg:rgba(91,141,248,.11);
+  --exp-bg:rgba(2,4,10,.4);
+  --focus:rgba(91,141,248,.4);
+  --cta-shadow:0 12px 30px rgba(23,12,58,.55);
+  --nav-bg:rgba(5,7,14,.78);
+  --grain-o:.06;
+  --dl:none; --dd:inline-block;
+  --mono-bg:#0A0F1D; --mono-ink:#CBD5E1;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; position:relative; min-height:100vh;
+  background:var(--bg); color:var(--body-c);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-weight:380; font-size:16px; line-height:1.66;
+  transition:background .3s ease,color .3s ease;
+}
+body::before{
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  opacity:var(--grain-o); background-size:260px 260px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+::selection{background:rgba(124,58,237,.16)}
+html.dark ::selection{background:rgba(167,139,250,.3)}
+h1,h2,h3{font-family:'Instrument Sans',system-ui,sans-serif;color:var(--ink);margin:0;text-wrap:balance}
+p{margin:0}
+button{font-family:inherit}
+a{color:var(--blue)}
+.hidden{display:none !important}
+.wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:46px 24px 90px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.topnav{position:sticky;top:0;z-index:40;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:960px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav-logo{display:inline-flex;align-items:center;border-radius:8px}
+.nav-logo img{height:22px;width:auto;vertical-align:middle}
+.logo-l{display:var(--dl)} .logo-d{display:var(--dd)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-tag{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--legend);white-space:nowrap}
+.theme-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--legend);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,color .2s;padding:0}
+.theme-btn:hover{border-color:var(--tert);color:var(--ink)}
+.theme-btn svg{width:15px;height:15px}
+.ic-sun{display:none}
+html.dark .ic-sun{display:block}
+html.dark .ic-moon{display:none}
+
+/* ============================================================
+   TYPO UTILITAIRES
+   ============================================================ */
+.kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend)}
+.muted{color:var(--tert)}
+.gradient-text{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.serif-it{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400}
+
+/* ============================================================
+   BOUTONS
+   ============================================================ */
+.btn-cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 30px;border-radius:999px;border:0;cursor:pointer;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:14.5px;letter-spacing:.01em;box-shadow:var(--cta-shadow);transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .2s}
+.btn-cta:hover:not(:disabled){transform:translateY(-1px)}
+.btn-cta:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:border-color .2s}
+.btn-ghost:hover:not(:disabled){border-color:var(--tert)}
+.btn-ghost:disabled{opacity:.4;cursor:not-allowed}
+
+/* ============================================================
+   CHIPS MODULES
+   ============================================================ */
+.bucket-chip{display:inline-block;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;padding:4px 11px;border-radius:999px;white-space:nowrap}
+.badge-fondamentaux{background:var(--chip-fond-bg);color:var(--c-fondamentaux)}
+.badge-prompt{background:var(--chip-prompt-bg);color:var(--c-prompt)}
+.badge-commercial{background:var(--chip-com-bg);color:var(--c-commercial)}
+.badge-metiers{background:var(--chip-met-bg);color:var(--c-metiers)}
+
+/* ============================================================
+   HERO DECK (accueil)
+   ============================================================ */
+.hero{text-align:center;padding-top:22px}
+.hero-kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend);margin-bottom:22px}
+.hero h1{font-size:clamp(36px,6.4vw,54px);font-weight:640;letter-spacing:-.015em;line-height:1.05;margin-bottom:14px}
+.hero-sub{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(19px,3vw,23px);color:var(--ink);margin-bottom:20px}
+.hero-lede{max-width:700px;margin:0 auto;color:var(--legend);font-size:15.5px;line-height:1.75;text-align:center}
+.hero-meta{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:28px}
+.hero-pill{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--body-c);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 16px}
+
+/* ============================================================
+   TÊTE DE PAGE MODULE (M1, M2…)
+   ============================================================ */
+.iae-page-head{margin-bottom:8px}
+.iae-page-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.iae-page-pill{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;white-space:nowrap}
+.iae-page-note{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tert)}
+.iae-page-head h1{font-size:clamp(30px,4.6vw,40px);font-weight:640;letter-spacing:-.012em;line-height:1.12;margin-bottom:12px}
+.iae-page-lede{font-size:15px;color:var(--legend);max-width:720px;line-height:1.7}
+.iae-objectifs{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.iae-obj{display:inline-flex;align-items:center;gap:9px;font-size:13px;color:var(--body-c);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 14px;line-height:1.4}
+.iae-obj b{font-family:'Fragment Mono',monospace;font-size:10px;color:var(--blue);font-weight:400}
+
+/* ============================================================
+   SECTIONS ÉDITORIALES
+   ============================================================ */
+.iae-section{margin-top:64px}
+.iae-section:first-of-type{margin-top:56px}
+.iae-sec-head{margin-bottom:26px}
+.iae-sec-kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--tert);margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.iae-sec-kick::after{content:"";flex:1;height:1px;background:var(--line)}
+.iae-sec-head h2{font-size:clamp(24px,3.4vw,30px);font-weight:640;letter-spacing:-.01em;line-height:1.18;margin-bottom:10px}
+.iae-sec-lede{font-size:14.5px;color:var(--legend);max-width:720px;line-height:1.68}
+.iae-h3{font-size:17px;font-weight:620;margin:0 0 12px}
+.iae-p{font-size:14.5px;line-height:1.7;margin-bottom:14px;max-width:760px}
+.iae-p:last-child{margin-bottom:0}
+
+/* Cartes & grilles */
+.iae-grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.iae-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.iae-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.iae-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px}
+.iae-card h3{font-size:15.5px;font-weight:620;margin-bottom:8px}
+.iae-card .iae-p{font-size:13.5px}
+.iae-card-kick{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:10px}
+.iae-num{font-family:'Instrument Serif',Georgia,serif;font-size:38px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block;margin-bottom:12px}
+
+/* Listes enrichies */
+.iae-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.iae-list li{position:relative;padding-left:26px;font-size:14px;line-height:1.62}
+.iae-list li::before{content:"";position:absolute;left:2px;top:9px;width:8px;height:8px;border-radius:3px;background:linear-gradient(135deg,var(--g1),var(--g2))}
+.iae-list li b{color:var(--ink);font-weight:560}
+
+/* Callouts */
+.iae-callout{display:flex;gap:15px;border-radius:16px;padding:18px 20px;border:1px solid var(--line);background:var(--surface);margin:18px 0}
+.iae-callout:last-child{margin-bottom:0}
+.iae-co-ic{flex-shrink:0;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Fragment Mono',monospace;font-size:13px}
+.iae-co-body{flex:1;min-width:0}
+.iae-co-label{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:6px}
+.iae-co-body p{font-size:13.5px;line-height:1.65;margin-bottom:8px}
+.iae-co-body p:last-child{margin-bottom:0}
+.co-info{border-color:var(--blue-soft);background:var(--sel-bg)}
+.co-info .iae-co-ic{background:var(--sel-bg);color:var(--blue)}
+.co-info .iae-co-label{color:var(--blue)}
+.co-ok{border-color:var(--ok-line);background:var(--ok-bg)}
+.co-ok .iae-co-ic{background:var(--ok-bg);color:var(--ok-ink)}
+.co-ok .iae-co-label{color:var(--ok-ink)}
+.co-warn{border-color:rgba(249,115,22,.35);background:var(--warn-bg)}
+.co-warn .iae-co-ic{background:var(--warn-bg);color:var(--warn-ink)}
+.co-warn .iae-co-label{color:var(--warn-ink)}
+.co-err{border-color:var(--err-line);background:var(--err-bg)}
+.co-err .iae-co-ic{background:var(--err-bg);color:var(--err-ink)}
+.co-err .iae-co-label{color:var(--err-ink)}
+
+/* Tableaux premium */
+.iae-tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--surface);margin:18px 0}
+.iae-tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:640px}
+.iae-tbl th{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--legend);text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);background:var(--soft);white-space:nowrap}
+.iae-tbl td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.58;color:var(--body-c)}
+.iae-tbl tr:last-child td{border-bottom:0}
+.iae-tbl tbody tr{transition:background .15s}
+.iae-tbl tbody tr:hover{background:var(--sel-bg)}
+.iae-tbl td b{color:var(--ink);font-weight:580}
+.iae-tbl .cell-ok{color:var(--ok-ink);font-weight:560}
+.iae-tbl .cell-warn{color:var(--warn-ink);font-weight:560}
+.iae-tbl .cell-err{color:var(--err-ink);font-weight:560}
+
+/* Blocs prompt avant / après */
+.iae-prompt{border-radius:16px;padding:18px 20px;border:1.5px solid var(--line);background:var(--surface)}
+.iae-prompt .p-tag{display:inline-block;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin-bottom:12px}
+.iae-prompt .p-body{font-size:13.5px;line-height:1.66;white-space:pre-wrap;color:var(--body-c)}
+.iae-prompt .p-note{margin-top:12px;font-size:12.5px;color:var(--legend);line-height:1.6;border-top:1px dashed var(--line);padding-top:10px}
+.p-before{border-color:var(--err-line);background:var(--err-bg)}
+.p-before .p-tag{background:var(--err-bg);color:var(--err-ink);border:1px solid var(--err-line)}
+.p-after{border-color:var(--ok-line);background:var(--ok-bg)}
+.p-after .p-tag{background:var(--ok-bg);color:var(--ok-ink);border:1px solid var(--ok-line)}
+.p-neutral .p-tag{background:var(--sel-bg);color:var(--blue);border:1px solid var(--blue-soft)}
+.iae-vs{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+
+/* Statistiques */
+.iae-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:22px 0}
+.iae-stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;text-align:left}
+.iae-stat .st-num{font-family:'Instrument Serif',Georgia,serif;font-size:40px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block;margin-bottom:8px}
+.iae-stat .st-lbl{font-size:12.5px;color:var(--legend);line-height:1.55}
+.iae-stat .st-src{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--tert);margin-top:9px;text-transform:uppercase}
+
+/* Ligne de sources */
+.iae-src{font-family:'Fragment Mono',monospace;font-size:10.5px;color:var(--tert);letter-spacing:.03em;line-height:1.75;margin-top:24px;padding-top:14px;border-top:1px dashed var(--line);max-width:860px}
+.iae-src b{color:var(--legend);font-weight:400;letter-spacing:.14em;text-transform:uppercase;font-size:9.5px}
+
+/* Schéma flux en étapes */
+.iae-flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin:18px 0}
+.iae-flow .fl-step{flex:1;min-width:150px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.iae-flow .fl-kick{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--tert);margin-bottom:6px}
+.iae-flow .fl-name{font-size:13.5px;font-weight:580;color:var(--ink);line-height:1.4}
+.iae-flow .fl-sub{font-size:12px;color:var(--legend);margin-top:5px;line-height:1.5}
+.iae-flow .fl-arrow{display:flex;align-items:center;color:var(--tert);font-size:18px;flex-shrink:0}
+
+/* Comparateur croire / réalité */
+.iae-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}
+.iae-cmp{border-radius:16px;padding:20px 22px;border:1px solid var(--line);background:var(--surface)}
+.iae-cmp h3{font-size:14px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.iae-cmp .cmp-tag{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:4px 11px;border-radius:999px}
+.cmp-belief .cmp-tag{background:var(--warn-bg);color:var(--warn-ink)}
+.cmp-real{border-color:var(--ok-line)}
+.cmp-real .cmp-tag{background:var(--ok-bg);color:var(--ok-ink)}
+.iae-cmp ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.iae-cmp li{font-size:13.5px;line-height:1.6;padding-left:20px;position:relative}
+.iae-cmp li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:2px;background:var(--tert)}
+.cmp-real li::before{background:var(--ok)}
+
+/* Personas */
+.iae-personas{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.iae-persona{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;transition:border-color .2s,transform .2s}
+.iae-persona:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+.iae-perso-init{font-family:'Instrument Serif',Georgia,serif;font-size:26px;line-height:1;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;margin-bottom:12px}
+.iae-perso-name{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:14.5px;color:var(--ink)}
+.iae-perso-role{font-size:12px;color:var(--legend);margin-top:3px;line-height:1.5}
+
+/* Frise agenda */
+.iae-frise{display:flex;flex-direction:column;gap:0;margin:8px 0}
+.iae-fr-day{display:flex;gap:18px;position:relative;padding-bottom:26px}
+.iae-fr-day:last-child{padding-bottom:0}
+.iae-fr-rail{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:74px}
+.iae-fr-dot{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fragment Mono',monospace;font-size:12px;letter-spacing:.05em;flex-shrink:0}
+.iae-fr-line{width:2px;flex:1;background:var(--line);margin-top:8px}
+.iae-fr-day:last-child .iae-fr-line{display:none}
+.iae-fr-body{flex:1;min-width:0;padding-top:2px}
+.iae-fr-title{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:16px;color:var(--ink);margin-bottom:10px}
+.iae-fr-slots{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.iae-slot{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 15px;font-size:13px;line-height:1.5;color:var(--body-c)}
+.iae-slot b{color:var(--ink);font-weight:580;display:block;margin-bottom:3px}
+.iae-slot .slot-tag{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;display:inline-block}
+
+/* Pied de page deck */
+.iae-foot{margin-top:72px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.iae-foot .foot-note{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--tert)}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:820px){
+  .iae-grid4,.iae-personas{grid-template-columns:1fr 1fr}
+  .iae-grid3,.iae-stats{grid-template-columns:1fr}
+  .iae-grid2,.iae-vs,.iae-compare,.iae-fr-slots{grid-template-columns:1fr}
+  .wrap{padding:34px 18px 70px}
+}
+@media (max-width:600px){.nav-tag{display:none}.iae-personas{grid-template-columns:1fr}}
+
+/* ============================================================
+   ACCESSIBILITÉ & PRINT
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+}
+@media print{
+  nav,.no-print{display:none !important}
+  body{background:#fff !important;color:#000 !important}
+  body::before{display:none !important}
+  *{color:#000 !important;background:#fff !important;border-color:#ccc !important;box-shadow:none !important;text-shadow:none !important}
+  .gradient-text,.iae-num,.iae-stat .st-num{-webkit-text-fill-color:initial !important;background:none !important;color:#000 !important}
+  .iae-perso-init,.iae-fr-dot{background:#333 !important;color:#fff !important}
+  .print-only{display:block !important}
+}
+.print-only{display:none}
+
+/* ============================================================
+   P3 — COMPOSITEUR CRISP + PASSES ATELIER
+   ============================================================ */
+.crisp-app{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.crisp-form{display:flex;flex-direction:column;gap:13px}
+.crisp-field label{display:block;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--legend);margin-bottom:7px}
+.crisp-field textarea{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:13px;font-weight:400;line-height:1.55;resize:vertical;min-height:44px;transition:border-color .2s,box-shadow .2s}
+.crisp-field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--focus)}
+.crisp-out-wrap{position:sticky;top:78px}
+.crisp-out-card{min-height:180px}
+.crisp-out-card .p-body{font-size:12.5px}
+.crisp-copied{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ok-ink);margin-left:14px}
+
+/* Passes atelier */
+.passes-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pass-card{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;transition:border-color .25s,background .25s}
+.pass-card.done{border-color:var(--ok-line);background:var(--ok-bg)}
+.pass-head{display:flex;align-items:center;gap:13px;margin-bottom:12px}
+.pass-num{font-family:'Instrument Serif',Georgia,serif;font-size:30px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0}
+.pass-name{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:15px;color:var(--ink)}
+.pass-sub{font-size:12px;color:var(--legend);margin-top:2px}
+.pass-check{margin-left:auto;flex-shrink:0;cursor:pointer}
+.pass-check input{position:absolute;opacity:0;pointer-events:none}
+.pass-check span{display:flex;width:26px;height:26px;border-radius:999px;border:1.5px solid var(--line);align-items:center;justify-content:center;transition:all .2s;color:transparent;font-size:12px}
+.pass-check input:checked + span{background:var(--ok);border-color:var(--ok);color:#fff}
+.pass-card.done .pass-check span::after{content:"✓"}
+.passes-progress{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 22px}
+.progress-label{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--legend);margin-bottom:10px}
+.passes-track{width:100%;height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.passes-fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--g1),var(--g2));transition:width .5s cubic-bezier(.16,1,.3,1)}
+
+@media (max-width:820px){
+  .crisp-app,.passes-grid{grid-template-columns:1fr}
+  .crisp-out-wrap{position:static}
+}
+
+    /* ============================================================
+     NAVIGATION DE FIN DE PAGE
+     ============================================================ */
+  .pgnav{display:flex;gap:14px;border-top:1px solid var(--line);padding-top:36px;margin-top:88px}
+  .pgn{flex:1;display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px 22px;transition:border-color .2s,transform .2s}
+  .pgn:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+  .pgn-k{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:6px}
+  .pgn-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14.5px;color:var(--ink);line-height:1.4}
+  .pgn.next{text-align:right}
+  @media (max-width:760px){.pgnav{flex-direction:column}.pgn.next{text-align:left}}
+
+  </style>
+  <script src="assets/js/formai-bridge.js?v=1783300000"></script>
+</head>
+<body>
+
+<!-- Top nav -->
+<nav class="topnav no-print">
+  <div class="nav-in">
+    <a href="/" class="nav-logo" aria-label="Akademia Formation — retour à l'accueil">
+      <img class="logo-l" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDQwMCAxMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnM+CiAgICA8IS0tIEdyYWRpZW50IFByaW5jaXBhbCAtLT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icHJpbWFyeUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzI1NjNFQjtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0MzQUVEO3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIAogICAgPCEtLSBHcmFkaWVudCBBY2NlbnQgLS0+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImFjY2VudEdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxMEI5ODE7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzA2QjZENDtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAKICAgIDwhLS0gU2hhZG93IEZpbHRlciAtLT4KICAgIDxmaWx0ZXIgaWQ9InNoYWRvdyIgeD0iLTUwJSIgeT0iLTUwJSIgd2lkdGg9IjIwMCUiIGhlaWdodD0iMjAwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjgiIGZsb29kLW9wYWNpdHk9IjAuMSIvPgogICAgPC9maWx0ZXI+CiAgPC9kZWZzPgogIAogIDwhLS0gTG9nbyBJY29uIC0tPgogIDxnIGlkPSJha2FkZW1pYS1pY29uIj4KICAgIDwhLS0gQmFja2dyb3VuZCBTaGFwZSAtLT4KICAgIDxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTYiIHJ5PSIxNiIgZmlsbD0idXJsKCNwcmltYXJ5R3JhZGllbnQpIiBmaWx0ZXI9InVybCgjc2hhZG93KSIvPgogICAgCiAgICA8IS0tIExldHRlciBBIERlc2lnbiAtLT4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYwLCA2MCkiPgogICAgICA8IS0tIE1haW4gQSBTaGFwZSAtLT4KICAgICAgPHBhdGggZD0iTSAwIC0yNSBMIC0xNSAxNSBMIC04IDE1IEwgLTYgOCBMIDYgOCBMIDggMTUgTCAxNSAxNSBMIDAgLTI1IFogTSAwIC0xMCBMIC0zIDAgTCAzIDAgTCAwIC0xMCBaIiAKICAgICAgICAgICAgZmlsbD0id2hpdGUiIAogICAgICAgICAgICBvcGFjaXR5PSIxIi8+CiAgICA8L2c+CiAgICAKICAgIDwhLS0gQWNjZW50IENpcmNsZSAtLT4KICAgIDxjaXJjbGUgY3g9Ijc1IiBjeT0iNDUiIHI9IjgiIGZpbGw9InVybCgjYWNjZW50R3JhZGllbnQpIiBvcGFjaXR5PSIwLjkiLz4KICA8L2c+CiAgCiAgPCEtLSBMb2dvIFRleHQgLS0+CiAgPGcgaWQ9ImFrYWRlbWlhLXRleHQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMCwgNjApIj4KICAgIDwhLS0gQUtBREVNSUEgLS0+CiAgICA8dGV4dCB4PSIwIiB5PSI1IiAKICAgICAgICAgIGZvbnQtZmFtaWx5PSJJbnRlciwgLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCAnU2Vnb2UgVUknLCBSb2JvdG8sIHNhbnMtc2VyaWYiIAogICAgICAgICAgZm9udC1zaXplPSIzNiIgCiAgICAgICAgICBmb250LXdlaWdodD0iNzAwIiAKICAgICAgICAgIGZpbGw9IiMwRjE3MkEiCiAgICAgICAgICBsZXR0ZXItc3BhY2luZz0iLTAuMDJlbSI+QUtBREVNSUE8L3RleHQ+CiAgICAKICAgIDwhLS0gRk9STUFUSU9OIC0tPgogICAgPHRleHQgeD0iMCIgeT0iMjgiIAogICAgICAgICAgZm9udC1mYW1pbHk9IkludGVyLCAtYXBwbGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsICdTZWdvZSBVSScsIFJvYm90bywgc2Fucy1zZXJpZiIgCiAgICAgICAgICBmb250LXNpemU9IjE4IiAKICAgICAgICAgIGZvbnQtd2VpZ2h0PSI0MDAiIAogICAgICAgICAgZmlsbD0iIzY0NzQ4QiIKICAgICAgICAgIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+">
+      <img class="logo-d" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjgwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtYWluR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMjU2M0VCO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM3QzNBRUQ7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJhY2NlbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzEwQjk4MTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDZCNkQ0O3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDwhLS0gTG9nbyBJbnZlcnPDqSBwb3VyIGZvbmQgc29tYnJlIC0tPgogIDxnPgogICAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMTIiIGZpbGw9IndoaXRlIi8+CiAgICA8cGF0aCBkPSJNIDMwIDE1IEwgNDAgNDUgTCAzNSA0NSBMIDMzIDM4IEwgMjcgMzggTCAyNSA0NSBMIDIwIDQ1IEwgMzAgMTUgWiBNIDMwIDIzIEwgMjggMzIgTCAzMiAzMiBMIDMwIDIzIFoiIGZpbGw9InVybCgjbWFpbkdyYWRpZW50KSIvPgogICAgPGNpcmNsZSBjeD0iNDUiIGN5PSIyMCIgcj0iNiIgZmlsbD0idXJsKCNhY2NlbnQpIi8+CgogICAgPHRleHQgeD0iNzUiIHk9IjI4IiBmb250LWZhbWlseT0iSW50ZXIsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSJ3aGl0ZSI+QUtBREVNSUE8L3RleHQ+CiAgICA8dGV4dCB4PSI3NSIgeT0iNDYiIGZvbnQtZmFtaWx5PSJJbnRlciwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI0MDAiIGZpbGw9IiM5NEEzQjgiIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+Cg==">
+    </a>
+    <div class="nav-right">
+      <span class="nav-tag">IA en entreprise · Module 2</span>
+      <button id="darkToggle" class="theme-btn" aria-label="Basculer le thème sombre">
+        <svg class="ic-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <svg class="ic-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+<!-- ============================================ -->
+<!-- TÊTE DE MODULE                                 -->
+<!-- ============================================ -->
+<header class="iae-page-head">
+  <div class="iae-page-row">
+    <span class="iae-page-pill">Module 2 · Jour 1</span>
+    <span class="iae-page-note">Prompting &amp; outils du quotidien</span>
+  </div>
+  <h1>Prompting : <span class="serif-it gradient-text">la compétence qui change tout</span></h1>
+  <p class="iae-page-lede">
+    Le même outil, la même minute, deux résultats opposés : la différence tient à la consigne. Ce module vous donne une méthode structurée (CRISP), les techniques qui vont plus loin, une bibliothèque de prompts mutualisée et les bons réflexes dans Microsoft 365 — puis le réflexe qui protège tout le reste : vérifier.
+  </p>
+  <div class="iae-objectifs">
+    <span class="iae-obj"><b>01</b> Rédiger une consigne structurée qui produit un résultat exploitable du premier coup</span>
+    <span class="iae-obj"><b>02</b> Mobiliser few-shot, chaîne de pensée et itération à bon escient</span>
+    <span class="iae-obj"><b>03</b> Exploiter les fonctions IA d'Outlook, Teams, Word et Excel</span>
+    <span class="iae-obj"><b>04</b> Vérifier et recouper toute réponse avant usage</span>
+  </div>
+</header>
+
+<!-- ============================================ -->
+<!-- 1. MÉTHODE CRISP                              -->
+<!-- ============================================ -->
+<section class="iae-section" id="crisp">
+  <div class="iae-sec-head">
+    <div class="iae-sec-kick">Section 1 · La méthode</div>
+    <h2>CRISP : <span class="serif-it gradient-text">cinq lettres, zéro réponse creuse</span></h2>
+    <p class="iae-sec-lede">
+      Une consigne efficace n'est pas une question polie, c'est un cahier des charges miniature. CRISP en fixe les cinq rubriques — celles qu'on oublie quand on « demande vite fait ».
+    </p>
+  </div>
+
+  <div class="iae-grid3" style="margin-bottom:26px">
+    <div class="iae-card">
+      <div class="iae-card-kick">C · Contexte</div>
+      <p class="iae-p">Qui je suis, quelle est l'entreprise, quelle est la situation, qui est le destinataire final. Le modèle ne connaît rien de votre monde : tout ce qui n'est pas dit sera inventé de manière plausible.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">R · Rôle</div>
+      <p class="iae-p">La posture attendue : « agis comme une ADV expérimentée de l'industrie B2B ». Le rôle calibre le vocabulaire, le niveau de détail et les priorités de la réponse.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">I · Instruction</div>
+      <p class="iae-p">Le verbe d'action et le livrable précis : « rédige un e-mail de relance qui rappelle l'objet, propose deux créneaux, pose une question facile ». Une instruction = un livrable identifiable.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">S · Style</div>
+      <p class="iae-p">Ton, registre, langue, ce qui est interdit : « professionnel et direct, vouvoiement, aucune formule creuse ». Sans style imposé, vous héritez du style moyen d'Internet.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">P · Paramètres</div>
+      <p class="iae-p">Les garde-fous mesurables : longueur maximale, structure imposée, nombre de versions, éléments à inclure ou à exclure. C'est ce qui rend le résultat contrôlable.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Le test en une question</div>
+      <p class="iae-p">« Si je confiais cette consigne à un intérimaire brillant arrivant ce matin, aurait-il tout pour réussir ? » Si la réponse est non, il manque une lettre de CRISP.</p>
+    </div>
+  </div>
+
+  <h3 class="iae-h3">Avant / après — la relance du devis de Sonia</h3>
+  <p class="iae-p" style="margin-bottom:16px">Même outil, même besoin : relancer un groupe agroalimentaire silencieux depuis trois semaines sur le devis d'un skid de dosage. À gauche, le « prompt nu » tel qu'on le tape sous pression ; à droite, la version CRISP.</p>
+
+  <div class="iae-vs">
+    <div class="iae-prompt p-before">
+      <span class="p-tag">Prompt nu · ce qu'on tape sous pression</span>
+      <div class="p-body">Écris un mail de relance pour un client qui n'a pas répondu à notre devis.</div>
+      <div class="p-note">Résultat type : un e-mail générique de 200 mots, trois paragraphes de courtoisie creuse (« j'espère que ce message vous trouve en bonne santé »), aucune référence au projet, aucune action proposée, un ton qui pourrait être celui de n'importe quel fournisseur — et qui finit dans la corbeille du client.</div>
+    </div>
+    <div class="iae-prompt p-after">
+      <span class="p-tag">Version CRISP · la même demande, structurée</span>
+      <div class="p-body"><b>C —</b> Je suis assistante ADV chez NORDFLOW Industrie, fabricant d'équipements de fluide (pompes, vannes, skids). Un groupe agroalimentaire a reçu notre devis pour un skid de dosage (environ 85 k€) il y a trois semaines, sans retour. Premier projet avec nous ; mon interlocuteur est responsable maintenance, débordé.
+<b>R —</b> Agis comme une ADV expérimentée de l'industrie B2B, qui sait relancer sans brusquer.
+<b>I —</b> Rédige un e-mail de relance qui : rappelle l'objet du devis en une ligne, propose deux créneaux d'appel courts cette semaine, demande si le cahier des charges a évolué. Termine par une question à laquelle il est facile de répondre.
+<b>S —</b> Professionnel, chaleureux, direct. Vouvoiement. Aucune formule creuse ni flatterie.
+<b>P —</b> 120 mots maximum, objet de l'e-mail inclus, une seule version, aucune mention de pièce jointe, signé « Sonia — ADV NORDFLOW ».</div>
+      <div class="p-note">Résultat type : un e-mail de 115 mots, objet « Votre projet skid de dosage — un point de 10 minutes ? », qui nomme le projet, propose mardi 10 h ou jeudi 14 h, et se termine par « le cahier des charges est-il toujours d'actualité de votre côté ? ». Reste à Sonia : vérifier les faits, ajuster deux tournures à sa main, envoyer. Temps total : quatre minutes au lieu de vingt.</div>
+    </div>
+  </div>
+
+  <h3 class="iae-h3" style="margin-top:30px">À vous de composer — l'assistant CRISP</h3>
+  <p class="iae-p" style="margin-bottom:16px">Remplissez les cinq rubriques (pré-remplies avec le cas de Sonia, à modifier librement) : le prompt complet s'assemble en direct, prêt à copier dans votre outil.</p>
+
+  <div class="crisp-app">
+    <div class="crisp-form">
+      <div class="crisp-field">
+        <label for="crisp-c">C · Contexte</label>
+        <textarea id="crisp-c" rows="3">Je suis assistante ADV chez NORDFLOW Industrie (équipements de fluide industriels). Un groupe agroalimentaire a reçu notre devis pour un skid de dosage (environ 85 k€) il y a trois semaines, sans retour. Premier projet avec nous ; interlocuteur : responsable maintenance.</textarea>
+      </div>
+      <div class="crisp-field">
+        <label for="crisp-r">R · Rôle</label>
+        <textarea id="crisp-r" rows="2">Agis comme une ADV expérimentée de l'industrie B2B, qui sait relancer sans brusquer.</textarea>
+      </div>
+      <div class="crisp-field">
+        <label for="crisp-i">I · Instruction</label>
+        <textarea id="crisp-i" rows="3">Rédige un e-mail de relance qui rappelle l'objet du devis en une ligne, propose deux créneaux d'appel courts cette semaine, et demande si le cahier des charges a évolué. Termine par une question facile.</textarea>
+      </div>
+      <div class="crisp-field">
+        <label for="crisp-s">S · Style</label>
+        <textarea id="crisp-s" rows="2">Professionnel, chaleureux, direct. Vouvoiement. Aucune formule creuse.</textarea>
+      </div>
+      <div class="crisp-field">
+        <label for="crisp-p">P · Paramètres</label>
+        <textarea id="crisp-p" rows="2">120 mots maximum, objet inclus, une seule version, signé « Sonia — ADV NORDFLOW ».</textarea>
+      </div>
+    </div>
+    <div class="crisp-out-wrap">
+      <div class="iae-prompt p-neutral crisp-out-card">
+        <span class="p-tag">Votre prompt assemblé</span>
+        <div class="p-body" id="crisp-out"></div>
+      </div>
+      <button type="button" class="btn-cta" id="crisp-copy" style="margin-top:14px">Copier le prompt</button>
+      <span id="crisp-copied" class="crisp-copied hidden">Copié dans le presse-papiers</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 2. TECHNIQUES AVANCÉES                        -->
+<!-- ============================================ -->
+<section class="iae-section" id="techniques">
+  <div class="iae-sec-head">
+    <div class="iae-sec-kick">Section 2 · Aller plus loin</div>
+    <h2>Quatre techniques <span class="serif-it gradient-text">pour les cas difficiles</span></h2>
+    <p class="iae-sec-lede">
+      CRISP suffit dans huit cas sur dix. Pour les autres — reproduire un style, raisonner sur un choix, tester un argumentaire, perfectionner un texte — quatre techniques complètent la boîte à outils.
+    </p>
+  </div>
+
+  <div class="iae-grid2">
+    <div class="iae-card">
+      <div class="iae-card-kick">Technique 1 · Few-shot — montrer son style</div>
+      <h3>Le compte rendu de chantier de Maud</h3>
+      <p class="iae-p">Maud colle <b>deux anciens comptes rendus</b> (anonymisés) avant sa demande : « voici comment je rédige mes comptes rendus de mise en service — structure, niveau de détail, ton. Rédige celui d'aujourd'hui dans le même format à partir de mes notes brutes. » Le modèle imite la structure et le ton au lieu d'inventer les siens. <b>Quand l'utiliser :</b> tout document récurrent au format maison — comptes rendus, rapports de visite, notes techniques.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Technique 2 · Chaîne de pensée — faire raisonner pas à pas</div>
+      <h3>Le choix fournisseur d'Hervé</h3>
+      <p class="iae-p">Pour comparer trois offres de vannes motorisées, Hervé demande : « procède étape par étape : 1) liste les critères de comparaison pertinents pour une vanne de process, 2) évalue chaque offre critère par critère en tableau, 3) signale les informations manquantes, 4) conclus par une recommandation argumentée. » Le raisonnement explicite réduit les conclusions hâtives et rend la logique auditable. <b>Quand l'utiliser :</b> comparaisons, diagnostics, arbitrages — jamais pour un simple e-mail.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Technique 3 · Persona — se relire avec les yeux de l'autre</div>
+      <h3>Le crash-test d'argumentaire</h3>
+      <p class="iae-p">Avant son rendez-vous, Karim soumet son argumentaire : « tu es l'acheteur industriel d'une collectivité, sceptique, échaudé par un fournisseur défaillant. Lis cette proposition et liste les cinq objections que tu me poserais, de la plus courtoise à la plus dure. » Les objections arrivent avant le rendez-vous, pas pendant. <b>Quand l'utiliser :</b> tester un texte, préparer une négociation, anticiper un comité.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Technique 4 · Itération — la boucle en trois passages</div>
+      <h3>Jet &rarr; critique &rarr; version finale</h3>
+      <p class="iae-p">Passage 1 : produire un premier jet. Passage 2 : « relis ta réponse et liste ses trois principales faiblesses au regard de ma consigne ». Passage 3 : « corrige ces trois points, sans toucher au reste ». La qualité monte à chaque boucle — et vous gardez la main sur ce qui change. <b>Quand l'utiliser :</b> documents à enjeu (proposition commerciale, note de direction), jamais pour du jetable.</p>
+    </div>
+  </div>
+
+  <div class="iae-tbl-wrap">
+    <table class="iae-tbl">
+      <thead>
+        <tr>
+          <th>Situation</th>
+          <th>Technique à mobiliser</th>
+          <th>Signal qui ne trompe pas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Le résultat est correct mais « ne sonne pas comme nous »</td>
+          <td><b>Few-shot</b></td>
+          <td>Vous avez des exemples du bon résultat sous la main</td>
+        </tr>
+        <tr>
+          <td>La réponse conclut trop vite sur un sujet à plusieurs critères</td>
+          <td><b>Chaîne de pensée</b></td>
+          <td>Vous avez besoin de voir le raisonnement, pas seulement la conclusion</td>
+        </tr>
+        <tr>
+          <td>Le texte va affronter un lecteur exigeant ou hostile</td>
+          <td><b>Persona</b></td>
+          <td>Vous redoutez des questions précises — faites-les venir avant</td>
+        </tr>
+        <tr>
+          <td>Le premier jet est à 70 % du but</td>
+          <td><b>Itération</b></td>
+          <td>Vous savez dire ce qui manque mais pas comment le formuler</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 3. BIBLIOTHÈQUE DE PROMPTS                    -->
+<!-- ============================================ -->
+<section class="iae-section" id="bibliotheque">
+  <div class="iae-sec-head">
+    <div class="iae-sec-kick">Section 3 · Livrable 2</div>
+    <h2>La bibliothèque de prompts d'équipe : <span class="serif-it gradient-text">capitaliser au lieu de retaper</span></h2>
+    <p class="iae-sec-lede">
+      Un bon prompt est un actif : il a coûté des essais, il mérite d'être conservé, partagé et amélioré. La bibliothèque d'équipe évite que chacun réinvente sa consigne chaque matin — et que les bonnes pratiques partent avec les départs.
+    </p>
+  </div>
+
+  <div class="iae-grid2" style="margin-bottom:22px">
+    <div class="iae-card">
+      <div class="iae-card-kick">Anatomie d'une fiche prompt</div>
+      <ul class="iae-list">
+        <li><b>Nom parlant :</b> « Relance devis J+15 — ton ferme-diplomate », pas « prompt relance ».</li>
+        <li><b>Objectif et contexte d'usage :</b> quand l'utiliser, pour quel livrable, avec quelles données (anonymisées).</li>
+        <li><b>Le prompt complet</b>, prêt à copier, avec ses zones à personnaliser entre crochets.</li>
+        <li><b>Un exemple de sortie validée</b>, pour calibrer l'attente avant même de lancer.</li>
+        <li><b>Version et mainteneur :</b> v1.3, date, qui l'a fait évoluer — les retours terrain alimentent la v1.4.</li>
+      </ul>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Règles de mutualisation</div>
+      <ul class="iae-list">
+        <li><b>Un seul emplacement partagé</b> (espace d'équipe), pas quinze fichiers personnels.</li>
+        <li><b>Testé avant publication :</b> un prompt entre dans la bibliothèque après deux utilisations réussies, pas après une intuition.</li>
+        <li><b>Exemples anonymisés</b> : les sorties d'exemple ne contiennent jamais de donnée client réelle.</li>
+        <li><b>Changelog minimal :</b> ce qui a changé et pourquoi — « v1.2 : ajout du paramètre longueur après des relances trop longues ».</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="iae-h3">Les 15 prompts livrés avec la formation — aperçu par famille</h3>
+  <div class="iae-grid3">
+    <div class="iae-card">
+      <div class="iae-card-kick">Prospection &amp; ciblage</div>
+      <ul class="iae-list">
+        <li>Fiche de qualification d'un compte entrant</li>
+        <li>Signaux d'affaire à repérer sur un prospect industriel</li>
+        <li>Message de prise de contact personnalisé et vérifiable</li>
+      </ul>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Rendez-vous &amp; cycle de vente</div>
+      <ul class="iae-list">
+        <li>Fiche de préparation de rendez-vous industriel</li>
+        <li>Matrice objections / réponses par persona client</li>
+        <li>Relance de devis J+15 (le prompt de Sonia)</li>
+      </ul>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">ADV &amp; administratif</div>
+      <ul class="iae-list">
+        <li>Réponse de litige ferme et apaisée</li>
+        <li>Compte rendu de réunion structuré avec actions</li>
+        <li>Synthèse hebdomadaire d'un fil d'e-mails interminable</li>
+      </ul>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Technique &amp; appels d'offres</div>
+      <ul class="iae-list">
+        <li>Extraction des exigences d'un CCTP en tableau</li>
+        <li>Compte rendu de chantier au format maison (few-shot)</li>
+        <li>Trame de mémoire technique personnalisée</li>
+      </ul>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Marketing &amp; communication</div>
+      <ul class="iae-list">
+        <li>Post LinkedIn « angle + preuve + appel » à partir d'un cas client</li>
+        <li>Version EN d'un communiqué avec glossaire métier imposé</li>
+        <li>Vingt angles de campagne classés par cible</li>
+      </ul>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Et le vôtre</div>
+      <p class="iae-p">La bibliothèque complète, textes prêts à copier, est livrée en fin de parcours. Sa seizième fiche sera la vôtre : le prompt que vous perfectionnerez cet après-midi sur votre propre cas y a sa place dès la v1.0.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 4. L'IA DANS LES OUTILS DU QUOTIDIEN          -->
+<!-- ============================================ -->
+<section class="iae-section" id="copilot">
+  <div class="iae-sec-head">
+    <div class="iae-sec-kick">Section 4 · Microsoft 365</div>
+    <h2>L'IA là où vous travaillez déjà : <span class="serif-it gradient-text">Outlook, Teams, Word, Excel</span></h2>
+    <p class="iae-sec-lede">
+      Avec Microsoft 365 Copilot, les fonctions IA vivent dans les applications que vous ouvrez chaque matin. L'atout décisif pour une PME : les données traitées restent dans le tenant de l'entreprise, avec les permissions existantes — et ne servent pas à entraîner les modèles.
+    </p>
+  </div>
+
+  <div class="iae-grid2">
+    <div class="iae-card">
+      <div class="iae-card-kick">Outlook</div>
+      <h3>Résumer un fil, brouillonner une réponse</h3>
+      <p class="iae-p"><b>« Résumé par Copilot »</b> condense un fil de 40 messages en points clés et décisions prises — Sonia retrouve le contexte d'un litige en dix secondes. Le <b>brouillon de réponse</b> propose un texte à partir de trois lignes de consigne, avec aide sur le ton. <b>Réflexe :</b> on relit toujours avant envoi — le résumé peut lisser un désaccord important.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Teams</div>
+      <h3>Le compte rendu de réunion sans scribe</h3>
+      <p class="iae-p">Récapitulatif de réunion, notes IA, <b>points d'action attribués</b>, questions/réponses sur le contenu (« qu'est-ce qui a été décidé sur le planning ? »). Maud repart de sa réunion chantier avec la liste des actions déjà structurée. <b>Réflexe :</b> vérifier les attributions d'actions — c'est le point le plus fréquemment confondu.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Word &amp; PowerPoint</div>
+      <h3>Brouillon, réécriture, plan</h3>
+      <p class="iae-p">Brouillon à partir d'une consigne ou d'un fichier de référence, <b>réécriture d'un paragraphe</b> (plus direct, plus court, plus formel), résumé d'un long document ; plan et premières diapositives pour une présentation interne. Théo reformule la même annonce en trois registres sans repartir de zéro.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Excel</div>
+      <h3>Formules et analyse assistées</h3>
+      <p class="iae-p">Aide à la <b>formule</b> (« extrais le département de chaque code client »), mise en évidence de tendances, tableaux croisés suggérés. Inès se fait expliquer une formule héritée d'un ancien fichier avant de la modifier. <b>Réflexe :</b> contrôler les résultats sur un échantillon avant de généraliser.</p>
+    </div>
+  </div>
+
+  <p class="iae-p" style="margin-top:18px"><b>Et dans le navigateur :</b> Copilot dans Edge assiste la recherche sur sources publiques — résumer une page, comparer plusieurs onglets (sites d'organismes, documentation fournisseurs, presse sectorielle) sans quitter le navigateur. Même réflexe qu'ailleurs : la source citée se vérifie avant toute réutilisation.</p>
+
+  <h3 class="iae-h3" style="margin-top:30px">Outil intégré ou conversationnel ? La règle de la donnée</h3>
+  <div class="iae-tbl-wrap">
+    <table class="iae-tbl">
+      <thead>
+        <tr>
+          <th>Situation</th>
+          <th>Où travailler</th>
+          <th>Pourquoi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Résumer un fil de mails, un dossier SharePoint, une réunion interne</td>
+          <td><b>Copilot dans Microsoft 365</b></td>
+          <td>La donnée reste dans le tenant, les permissions sont héritées — rien ne sort de l'environnement maîtrisé.</td>
+        </tr>
+        <tr>
+          <td>Rédaction longue, structuration, reformulation de texte sans donnée sensible</td>
+          <td><b>Conversationnel professionnel</b> (ChatGPT Business, Claude Team…)</td>
+          <td>Interfaces dédiées, projets, longs contextes — avec la garantie contractuelle de non-entraînement des offres pro.</td>
+        </tr>
+        <tr>
+          <td>Veille, questions générales, apprentissage (données publiques uniquement)</td>
+          <td><b>Conversationnel professionnel</b></td>
+          <td>Rien d'interne ne transite ; la question elle-même ne révèle rien de stratégique.</td>
+        </tr>
+        <tr>
+          <td>N'importe quel besoin impliquant secrets, plans ou données personnelles non traitées</td>
+          <td><b>D'abord la charte</b>, pas l'outil</td>
+          <td>On anonymise ou on reste dans le tenant — jamais dans un compte personnel, quel qu'il soit (rappel : sur les versions grand public, les saisies peuvent servir à l'entraînement sauf refus explicite).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="iae-callout co-warn">
+    <div class="iae-co-ic">!</div>
+    <div class="iae-co-body">
+      <div class="iae-co-label">Le point de vigilance propre à Copilot : les permissions</div>
+      <p>Copilot respecte les permissions SharePoint et OneDrive existantes — exactement le problème : si un dossier « Direction &gt; Salaires » est techniquement lisible par trop de monde, Copilot pourra le faire remonter dans une réponse. Ce n'est pas une faille de l'outil, c'est un héritage de gouvernance documentaire à assainir. Signalement au référent IT, pas contournement.</p>
+    </div>
+  </div>
+
+  <div class="iae-src"><b>Sources :</b> Microsoft Learn, documentation Microsoft 365 Copilot et confidentialité (learn.microsoft.com, 2025) · pages d'aide Copilot dans Outlook, Teams, Word, Excel (support.microsoft.com, 2025) · politiques de données des offres grand public et professionnelles, pages éditeurs OpenAI et Anthropic (2025).</div>
+</section>
+
+<!-- ============================================ -->
+<!-- 5. VÉRIFIER, RECOUPER, SÉCURISER              -->
+<!-- ============================================ -->
+<section class="iae-section" id="verifier">
+  <div class="iae-sec-head">
+    <div class="iae-sec-kick">Section 5 · Le réflexe qui protège tout le reste</div>
+    <h2>Vérifier, recouper, <span class="serif-it gradient-text">sécuriser</span></h2>
+    <p class="iae-sec-lede">
+      L'IA ne prévient pas quand elle invente : l'assurance est la même pour un fait exact et pour une fabrication. La vérification n'est donc pas une option de prudence — c'est la moitié de la compétence.
+    </p>
+  </div>
+
+  <div class="iae-callout co-err">
+    <div class="iae-co-ic">!</div>
+    <div class="iae-co-body">
+      <div class="iae-co-label">Cas NORDFLOW — le chiffre de marché « sourcé » de Karim</div>
+      <p>En préparant un rendez-vous avec une collectivité, Karim demande à une IA « la taille du marché français de la rénovation de stations d'épuration ». Réponse imparable : « environ 1,8 Md€ en 2025, selon une étude du cabinet Aldéa Conseil ». Chiffre précis, source nommée, formulation professionnelle. En vérifiant avant envoi de sa fiche de préparation, Karim découvre que <b>ni le cabinet ni l'étude cités n'existent</b> — le montant est une fabrication statistiquement plausible. Il le remplace par les données publiques réelles des agences de l'eau, sources primaires à l'appui. À dix minutes près, il présentait en face d'un rapporteur technique un chiffre indéfendable.</p>
+      <p><b>La leçon :</b> plus une information est précise et « sourcée », plus elle doit être vérifiée — c'est exactement le format qu'une hallucination adopte.</p>
+    </div>
+  </div>
+
+  <h3 class="iae-h3">Les quatre niveaux de confiance — et le traitement de chacun</h3>
+  <div class="iae-tbl-wrap">
+    <table class="iae-tbl">
+      <thead>
+        <tr>
+          <th>Niveau</th>
+          <th>Type de contenu</th>
+          <th>Exemple NORDFLOW</th>
+          <th>Traitement avant usage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>A</b></td>
+          <td>Fait interne que vous avez fourni ou pouvez vérifier</td>
+          <td>« Notre devis est parti il y a trois semaines »</td>
+          <td>Contrôle rapide contre la source interne (CRM, dossier).</td>
+        </tr>
+        <tr>
+          <td><b>B</b></td>
+          <td>Fait public recoupable</td>
+          <td>Date d'un salon, adresse d'un site, dirigeant d'un client</td>
+          <td>Recoupement sur une source officielle (site de l'organisateur, annuaire officiel).</td>
+        </tr>
+        <tr>
+          <td><b>C</b></td>
+          <td>Chiffre, norme, texte juridique, référence technique</td>
+          <td>« 1,8 Md€ de marché », « EN 1092-3 », « l'article 50 de l'IA Act »</td>
+          <td class="cell-err"><b>Source primaire obligatoire</b> : texte officiel, étude réellement consultée, éditeur de norme. Jamais la seule parole de l'IA.</td>
+        </tr>
+        <tr>
+          <td><b>D</b></td>
+          <td>Rédaction, structure, idées — sans fait à vérifier</td>
+          <td>Plan de proposition, accroches de post, reformulations</td>
+          <td>Relecture humaine sur le ton, la cohérence, l'adéquation au destinataire.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="iae-grid2" style="margin-top:22px">
+    <div class="iae-card">
+      <div class="iae-card-kick">La traçabilité, habitude professionnelle</div>
+      <ul class="iae-list">
+        <li><b>Sous chaque chiffre qui sort, sa source</b> — nom de l'étude, date, organisme — notée dans le document ou son commentaire.</li>
+        <li><b>Dans les documents clients</b> : aucune donnée chiffrée sans source primaire consultée, qu'elle vienne d'une IA ou d'un collègue.</li>
+        <li><b>Dans la bibliothèque de prompts</b> : l'exemple de sortie validée sert d'étalon — toute dérive future se mesure à lui.</li>
+      </ul>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Le protocole en 60 secondes avant envoi</div>
+      <ul class="iae-list">
+        <li><b>Faits :</b> chaque affirmation factuelle a-t-elle son niveau A, B ou C identifié — et sa vérification faite si C ?</li>
+        <li><b>Destinataire :</b> le texte tient-il compte de ce que lui seul sait (historique, sensibilités, jargon) ?</li>
+        <li><b>Signature :</b> seriez-vous à l'aise d'assumer chaque phrase en rendez-vous ? Sinon, elle ne part pas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="iae-src"><b>Sources :</b> Dell'Acqua et al., Harvard Business School WP 24-013 (2023) — chute de discernement hors « frontière » de l'IA · limites structurelles des modèles rappelées en module 1 · règles de traçabilité issues des recommandations CNIL sur l'information et la transparence (fiches pratiques IA, 2024-2025).</div>
+</section>
+
+<!-- ============================================ -->
+<!-- 6. ATELIER — OPTIMISATION EN 4 PASSES          -->
+<!-- ============================================ -->
+<section class="iae-section" id="atelier">
+  <div class="iae-sec-head">
+    <div class="iae-sec-kick">Section 6 · Atelier collectif</div>
+    <h2>Optimisation de prompts <span class="serif-it gradient-text">en quatre passes</span></h2>
+    <p class="iae-sec-lede">
+      Repartez de la production la moins convaincante de l'atelier du matin — ou d'un cas réel apporté par un participant. Appliquez les quatre passes dans l'ordre, en cochant chaque étape franchie : l'écart entre le prompt de départ et le prompt final est votre progrès mesurable de l'après-midi.
+    </p>
+  </div>
+
+  <div class="passes-app">
+    <div class="passes-grid">
+      <div class="pass-card" data-pass="1">
+        <div class="pass-head"><span class="pass-num">1</span><div><div class="pass-name">Intention</div><div class="pass-sub">Le livrable existe</div></div><label class="pass-check"><input type="checkbox" class="pass-cb"><span></span></label></div>
+        <ul class="iae-list">
+          <li>Un <b>verbe d'action</b> unique : rédige, extrais, compare, liste.</li>
+          <li>Un <b>livrable identifiable</b> : un e-mail, un tableau, une fiche — pas « parle-moi de ».</li>
+          <li>Un <b>destinataire nommé</b> : qui lira le résultat ?</li>
+        </ul>
+      </div>
+      <div class="pass-card" data-pass="2">
+        <div class="pass-head"><span class="pass-num">2</span><div><div class="pass-name">Contexte métier</div><div class="pass-sub">Le modèle entre dans votre monde</div></div><label class="pass-check"><input type="checkbox" class="pass-cb"><span></span></label></div>
+        <ul class="iae-list">
+          <li><b>Qui vous êtes</b>, ce que fait l'entreprise, la situation précise.</li>
+          <li>Les <b>faits internes nécessaires</b> — anonymisés, fournis par vous, jamais inventés par l'IA.</li>
+          <li>L'<b>enjeu</b> : premier client, litige sensible, AO à fort enjeu…</li>
+        </ul>
+      </div>
+      <div class="pass-card" data-pass="3">
+        <div class="pass-head"><span class="pass-num">3</span><div><div class="pass-name">Contraintes de forme</div><div class="pass-sub">Le résultat devient contrôlable</div></div><label class="pass-check"><input type="checkbox" class="pass-cb"><span></span></label></div>
+        <ul class="iae-list">
+          <li><b>Longueur</b> maximale, <b>structure</b> imposée, langue.</li>
+          <li><b>Ton et interdits de style</b> : formules creuses, superlatifs, tutoiement…</li>
+          <li>Nombre de versions et éléments à <b>inclure ou exclure</b>.</li>
+        </ul>
+      </div>
+      <div class="pass-card" data-pass="4">
+        <div class="pass-head"><span class="pass-num">4</span><div><div class="pass-name">Contre-essai</div><div class="pass-sub">La sortie est mise à l'épreuve</div></div><label class="pass-check"><input type="checkbox" class="pass-cb"><span></span></label></div>
+        <ul class="iae-list">
+          <li>Demandez à l'IA de <b>critiquer sa propre sortie</b> au regard de la consigne.</li>
+          <li>Faites passer le texte au <b>persona hostile</b> : qu'objecterait le destinataire ?</li>
+          <li>Vérifiez les faits au niveau de confiance requis <b>(A/B/C/D)</b>, puis version finale.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="passes-progress">
+      <div class="progress-label" id="passes-label">0 passe sur 4 validée — votre prompt est encore brut</div>
+      <div class="passes-track"><div class="passes-fill" id="passes-fill"></div></div>
+    </div>
+  </div>
+
+  <div class="iae-callout co-ok">
+    <div class="iae-co-ic">✓</div>
+    <div class="iae-co-body">
+      <div class="iae-co-label">Critère de réussite de l'atelier</div>
+      <p>Votre prompt final, lancé tel quel dans l'outil, produit un résultat que vous pourriez envoyer après <b>deux minutes de retouches maximum</b> — et dont chaque fait de niveau C a été vérifié à la source. Si vous y êtes : ce prompt rejoint la bibliothèque d'équipe en v1.0, avec votre nom en mainteneur.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- NAVIGATION DE PAGE                             -->
+<!-- ============================================ -->
+<nav class="pgnav no-print" aria-label="Navigation entre modules">
+  <a class="pgn" href="./deck-m1-ia-entreprise.html">
+    <div class="pgn-k">Précédent · Jour 1</div>
+    <div class="pgn-t">Module 1 — Fondamentaux &amp; cadre d'usage</div>
+  </a>
+  <a class="pgn next" href="./quiz-j1-ia-entreprise.html">
+    <div class="pgn-k">Suivant · Jour 1</div>
+    <div class="pgn-t">Quiz jour 1 — Fondamentaux &amp; prompting</div>
+  </a>
+</nav>
+
+<div class="iae-foot">
+  <span class="foot-note">Akademia Formation · IA en Entreprise</span>
+  <span class="foot-note">Module 2 · Prompting &amp; outils du quotidien · Jour 1</span>
+</div>
+
+</div>
+
+<div class="print-only" style="text-align:center; margin-bottom:20px;">
+  <h2>Akademia Formation — IA en Entreprise — Booster sa Productivité Commerciale et Métier avec l'IA Générative</h2>
+  <p>Module 2 — Prompting & outils du quotidien</p>
+</div>
+
+<!-- xAPI tracker -->
+<script src="assets/js/xapi-tracker.js?v=1783300000"></script>
+
+<script>
+// ============================================================
+// FORMAI — RATTACHEMENT AU COURS
+// ============================================================
+if (typeof xapiTracker !== 'undefined' && xapiTracker.setCourse) {
+  xapiTracker.setCourse('ia-entreprise');
+}
+
+// ============================================================
+// COMPOSITEUR CRISP — assemblage en direct du prompt
+// ============================================================
+function crispCompose() {
+  var c = document.getElementById('crisp-c').value.trim();
+  var r = document.getElementById('crisp-r').value.trim();
+  var i = document.getElementById('crisp-i').value.trim();
+  var s = document.getElementById('crisp-s').value.trim();
+  var p = document.getElementById('crisp-p').value.trim();
+  var parts = [];
+  if (c) parts.push('CONTEXTE\n' + c);
+  if (r) parts.push('RÔLE\n' + r);
+  if (i) parts.push('INSTRUCTION\n' + i);
+  if (s) parts.push('STYLE\n' + s);
+  if (p) parts.push('PARAMÈTRES\n' + p);
+  document.getElementById('crisp-out').textContent = parts.join('\n\n') || 'Remplissez au moins une rubrique pour assembler votre prompt.';
+}
+
+['crisp-c', 'crisp-r', 'crisp-i', 'crisp-s', 'crisp-p'].forEach(function(id) {
+  document.getElementById(id).addEventListener('input', crispCompose);
+});
+crispCompose();
+
+document.getElementById('crisp-copy').addEventListener('click', function() {
+  var txt = document.getElementById('crisp-out').textContent;
+  var done = function() {
+    var tag = document.getElementById('crisp-copied');
+    tag.classList.remove('hidden');
+    setTimeout(function() { tag.classList.add('hidden'); }, 2200);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(done, done);
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = txt;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    ta.remove();
+    done();
+  }
+});
+
+// ============================================================
+// ATELIER — 4 PASSES (progression visuelle, non tracké)
+// ============================================================
+var PASS_LABELS = [
+  '0 passe sur 4 validée — votre prompt est encore brut',
+  '1 passe sur 4 — l\u2019intention est posée, au tour du contexte',
+  '2 passes sur 4 — le modèle a votre monde, imposez la forme',
+  '3 passes sur 4 — plus que le contre-essai',
+  '4 passes sur 4 — prompt prêt pour la bibliothèque d\u2019équipe'
+];
+
+function passesUpdate() {
+  var cbs = document.querySelectorAll('.pass-cb');
+  var n = 0;
+  cbs.forEach(function(cb) {
+    var card = cb.closest('.pass-card');
+    if (cb.checked) { n++; card.classList.add('done'); }
+    else { card.classList.remove('done'); }
+  });
+  document.getElementById('passes-fill').style.width = (n * 25) + '%';
+  document.getElementById('passes-label').textContent = PASS_LABELS[n];
+}
+
+document.querySelectorAll('.pass-cb').forEach(function(cb) {
+  cb.addEventListener('change', passesUpdate);
+});
+passesUpdate();
+
+
+// ============================================================
+// DARK MODE TOGGLE
+// ============================================================
+document.getElementById('darkToggle').addEventListener('click', function() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('ia_entreprise_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+});
+</script>
+
+</body>
+</html>

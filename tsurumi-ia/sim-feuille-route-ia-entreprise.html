@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atelier-simulation « 90 jours pour changer de rythme » — IA en Entreprise | Akademia Formation</title>
+  <meta name="description" content="Atelier-simulation individuel de la formation IA en Entreprise : choix d'une carte poste, 3 cas d'usage (tâche × valeur × risque × outil), feuille de route 30/60/90 exportable, fishbowl et mini-jeu de rôle conduite du changement.">
+
+  <!-- Dark mode anti-flicker -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('ia_entreprise_theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Polices charte Akademia (Instrument Sans / Inter variable / Instrument Serif / Fragment Mono) -->
+  <link rel="stylesheet" href="assets/css/fonts-akademia.css">
+
+  <style>
+    /* ============================================================
+       CHARTE AKADEMIA — tokens (clair / nuit via html.dark)
+       ============================================================ */
+    :root{
+      --bg:#F7F9FC; --surface:#FFFFFF; --soft:#F1F5FA;
+      --ink:#0F172A; --body-c:#3F4C61; --legend:#64748B; --tert:#94A3B8;
+      --line:#E7EAF2;
+      --blue:#2563EB; --violet:#7C3AED; --g1:#2563EB; --g2:#7C3AED;
+      --blue-soft:rgba(37,99,235,.5);
+      --c-fondamentaux:#2563EB; --c-prompt:#7C3AED; --c-commercial:#0E7490; --c-metiers:#047857;
+      --chip-fond-bg:rgba(37,99,235,.09); --chip-prompt-bg:rgba(124,58,237,.09); --chip-com-bg:rgba(6,182,212,.12); --chip-met-bg:rgba(16,185,129,.12);
+      --ok:#10B981; --ok-ink:#047857; --ok-bg:rgba(16,185,129,.08); --ok-line:rgba(16,185,129,.35);
+      --err:#DC2626; --err-ink:#B91C1C; --err-bg:rgba(220,38,38,.06); --err-line:rgba(220,38,38,.3);
+      --warn:#F97316; --warn-ink:#C2410C; --warn-bg:rgba(249,115,22,.1);
+      --amber:#F59E0B; --star-off:#CBD5E1;
+      --sel-bg:rgba(37,99,235,.07);
+      --exp-bg:rgba(255,255,255,.6);
+      --focus:rgba(37,99,235,.28);
+      --cta-shadow:0 12px 30px rgba(109,40,217,.26);
+      --nav-bg:rgba(255,255,255,.82);
+      --grain-o:.045;
+      --dl:inline-block; --dd:none;
+    }
+    html.dark{
+      --bg:#05070E; --surface:#0A0F1D; --soft:#0D1322;
+      --ink:#F2F5FB; --body-c:#B4BFD1; --legend:#8B99AF; --tert:#5F6C81;
+      --line:rgba(148,163,184,.14);
+      --blue:#5B8DF8; --violet:#A78BFA; --g1:#5B8DF8; --g2:#A78BFA;
+      --blue-soft:rgba(91,141,248,.55);
+      --c-fondamentaux:#5B8DF8; --c-prompt:#A78BFA; --c-commercial:#45C8FF; --c-metiers:#34D399;
+      --chip-fond-bg:rgba(91,141,248,.13); --chip-prompt-bg:rgba(167,139,250,.13); --chip-com-bg:rgba(69,200,255,.11); --chip-met-bg:rgba(52,211,153,.13);
+      --ok:#34D399; --ok-ink:#6EE7B7; --ok-bg:rgba(52,211,153,.09); --ok-line:rgba(52,211,153,.32);
+      --err:#F87171; --err-ink:#FCA5A5; --err-bg:rgba(248,113,113,.08); --err-line:rgba(248,113,113,.32);
+      --warn:#FB923C; --warn-ink:#FDBA74; --warn-bg:rgba(251,146,60,.12);
+      --amber:#FBBF24; --star-off:#39445A;
+      --sel-bg:rgba(91,141,248,.11);
+      --exp-bg:rgba(2,4,10,.4);
+      --focus:rgba(91,141,248,.4);
+      --cta-shadow:0 12px 30px rgba(23,12,58,.55);
+      --nav-bg:rgba(5,7,14,.78);
+      --grain-o:.06;
+      --dl:none; --dd:inline-block;
+    }
+
+    /* ============================================================
+       BASE
+       ============================================================ */
+    *,*::before,*::after{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    body{
+      margin:0; position:relative; min-height:100vh;
+      background:var(--bg); color:var(--body-c);
+      font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+      font-weight:380; font-size:16px; line-height:1.66;
+      transition:background .3s ease,color .3s ease;
+    }
+    /* Grain argentique — SOUS le contenu */
+    body::before{
+      content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+      opacity:var(--grain-o); background-size:260px 260px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    ::selection{background:rgba(124,58,237,.16)}
+    html.dark ::selection{background:rgba(167,139,250,.3)}
+    h1,h2,h3{font-family:'Instrument Sans',system-ui,sans-serif;color:var(--ink);margin:0;text-wrap:balance}
+    p{margin:0}
+    button{font-family:inherit}
+    a{color:var(--blue)}
+    .hidden{display:none !important}
+    .wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:46px 24px 80px}
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .topnav{position:sticky;top:0;z-index:40;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav-in{max-width:880px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .nav-logo{display:inline-flex;align-items:center;border-radius:8px}
+    .nav-logo img{height:22px;width:auto;vertical-align:middle}
+    .logo-l{display:var(--dl)} .logo-d{display:var(--dd)}
+    .nav-right{display:flex;align-items:center;gap:14px}
+    .nav-tag{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--legend);white-space:nowrap}
+    .theme-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--legend);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,color .2s;padding:0}
+    .theme-btn:hover{border-color:var(--tert);color:var(--ink)}
+    .theme-btn svg{width:15px;height:15px}
+    .ic-sun{display:none}
+    html.dark .ic-sun{display:block}
+    html.dark .ic-moon{display:none}
+
+    /* ============================================================
+       TYPO UTILITAIRES
+       ============================================================ */
+    .kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend)}
+    .req{color:var(--err)}
+    .muted{color:var(--tert)}
+    .gradient-text{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+    /* ============================================================
+       BOUTONS
+       ============================================================ */
+    .btn-cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 30px;border-radius:999px;border:0;cursor:pointer;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:14.5px;letter-spacing:.01em;box-shadow:var(--cta-shadow);transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .2s}
+    .btn-cta:hover:not(:disabled){transform:translateY(-1px)}
+    .btn-cta:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+    .btn-cta svg{width:15px;height:15px}
+    .btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:border-color .2s}
+    .btn-ghost:hover:not(:disabled){border-color:var(--tert)}
+    .btn-ghost:disabled{opacity:.4;cursor:not-allowed}
+
+    /* ============================================================
+       ACCUEIL
+       ============================================================ */
+    .hero{text-align:center;padding-top:22px}
+    .hero-kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend);margin-bottom:22px}
+    .hero h1{font-size:clamp(34px,6vw,50px);font-weight:640;letter-spacing:-.015em;line-height:1.05;margin-bottom:12px}
+    .hero-sub{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(19px,3vw,23px);color:var(--ink);margin-bottom:20px}
+    .hero-lede{max-width:660px;margin:0 auto 42px;color:var(--legend);font-size:15.5px;line-height:1.72;text-align:center}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:730px;margin:0 auto 42px;text-align:left}
+    .step-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px;display:flex;align-items:center;gap:16px}
+    .step-num{font-family:'Instrument Serif',Georgia,serif;font-size:34px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0}
+    .step-kick{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--tert);margin-bottom:4px}
+    .step-name{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14px;color:var(--ink);line-height:1.35}
+
+    /* ============================================================
+       TÊTES D'ÉTAPE
+       ============================================================ */
+    .step-head{margin-bottom:30px}
+    .step-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .step-pill{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;white-space:nowrap}
+    .step-note{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tert)}
+    .step-head h2{font-size:29px;font-weight:640;letter-spacing:-.01em;margin-bottom:9px}
+    .step-head .lede{font-size:14.5px;color:var(--legend);max-width:660px;line-height:1.65}
+
+    /* ============================================================
+       FORMULAIRE BESOINS
+       ============================================================ */
+    .f-group{margin-bottom:36px}
+    .f-group h3{font-size:16.5px;font-weight:620;margin-bottom:6px}
+    .f-help{font-size:12.5px;color:var(--legend);margin-bottom:14px}
+    .f-group h3 + .f-grid, .f-group h3 + .f-field{margin-top:14px}
+    .f-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .f-field label{display:block;font-size:13px;font-weight:510;color:var(--body-c);margin-bottom:7px}
+    input[type=text],select,textarea{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:14px;font-weight:400;line-height:1.5;transition:border-color .2s,box-shadow .2s}
+    input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--focus)}
+    ::placeholder{color:var(--tert);opacity:1}
+    textarea{resize:none}
+    select{appearance:none;-webkit-appearance:none;background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2364748B' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+    html.dark select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%238B99AF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+    .obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+    .obj-item,.radio-item{display:flex;align-items:center;gap:11px;padding:11px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;font-size:13.5px;color:var(--body-c);line-height:1.45;transition:border-color .2s,background .2s}
+    .obj-item:hover,.radio-item:hover{border-color:var(--blue-soft)}
+    .obj-item:has(input:checked),.radio-item:has(input:checked){border-color:var(--blue);background:var(--sel-bg)}
+    input[type=checkbox],input[type=radio]{accent-color:var(--blue);width:16px;height:16px;flex-shrink:0;margin:0}
+    .radio-row{display:flex;gap:12px}
+    .f-note{font-size:12px;color:var(--legend);margin-top:7px}
+    .form-err{font-size:13.5px;font-weight:510;color:var(--err);margin-bottom:4px}
+    .f-actions{display:flex;justify-content:flex-end;margin-top:6px}
+
+    /* ============================================================
+       PROGRESSION
+       ============================================================ */
+    .progress-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+    .progress-label{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--legend)}
+    .track{width:100%;height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+    .progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--g1),var(--g2));transition:width .4s ease}
+    .progress-wrap{margin-bottom:34px}
+
+    /* ============================================================
+       AUTO-ÉVALUATION
+       ============================================================ */
+    .ae-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:26px}
+    .autoeval-card{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:16px 17px;transition:border-color .25s}
+    .autoeval-card.rated{border-color:var(--blue-soft)}
+    .ae-label{font-size:13.5px;color:var(--body-c);line-height:1.52;margin:10px 0 2px}
+    .stars{display:flex;gap:2px;margin-top:9px}
+    .star-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1;background:none;border:0;cursor:pointer;padding:0;border-radius:8px;transition:transform .15s,color .15s}
+    .star-btn:hover{transform:scale(1.18)}
+    .star-btn.star-active{color:var(--amber)}
+    .star-btn.star-inactive{color:var(--star-off)}
+    .scale-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:15px 18px;margin-bottom:28px}
+    .scale-title{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--legend);margin-bottom:10px}
+    .scale-grid{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:10px 28px;font-size:12.5px;color:var(--legend)}
+    .scale-grid span.st{color:var(--amber);letter-spacing:1px;margin-right:6px}
+
+    /* ============================================================
+       CHIPS MODULES
+       ============================================================ */
+    .bucket-chip{display:inline-block;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;padding:4px 11px;border-radius:999px;white-space:nowrap}
+    .badge-fondamentaux{background:var(--chip-fond-bg);color:var(--c-fondamentaux)}
+    .badge-prompt{background:var(--chip-prompt-bg);color:var(--c-prompt)}
+    .badge-commercial{background:var(--chip-com-bg);color:var(--c-commercial)}
+    .badge-metiers{background:var(--chip-met-bg);color:var(--c-metiers)}
+
+    /* ============================================================
+       QCM
+       ============================================================ */
+    .quiz-question{display:none}
+    .quiz-question.active{display:block;animation:fadeSlideIn .4s cubic-bezier(.16,1,.3,1)}
+    @keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .q-head{margin-bottom:22px}
+    .q-scenario{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:19px;line-height:1.52;color:var(--body-c);margin:15px 0 13px;max-width:680px}
+    .q-title{font-size:22px;font-weight:620;letter-spacing:-.008em;line-height:1.34;text-wrap:balance}
+    .qnum{font-family:'Instrument Serif',Georgia,serif;font-style:normal;font-weight:400;color:var(--tert)}
+    .q-options{display:flex;flex-direction:column;gap:11px}
+    .quiz-option{display:flex;align-items:flex-start;gap:13px;width:100%;text-align:left;padding:15px 17px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--body-c);font-size:14.5px;font-weight:400;line-height:1.52;cursor:pointer;transition:border-color .2s,background .2s,transform .2s}
+    .quiz-option:hover:not(.locked){border-color:var(--blue-soft);transform:translateY(-1px)}
+    .quiz-option.selected{border-color:var(--blue);background:var(--sel-bg)}
+    .opt-letter{font-family:'Fragment Mono',monospace;font-size:11px;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--legend);margin-top:1px;transition:background .2s,color .2s,border-color .2s}
+    .quiz-option.selected .opt-letter{background:linear-gradient(135deg,var(--g1),var(--g2));border-color:transparent;color:#fff}
+    .quiz-option.correct-show{border-color:var(--ok);background:var(--ok-bg)}
+    .quiz-option.correct-show .opt-letter{background:var(--ok);border-color:var(--ok);color:#fff}
+    .quiz-option.wrong-show{border-color:var(--err);background:var(--err-bg)}
+    .quiz-option.wrong-show .opt-letter{background:var(--err);border-color:var(--err);color:#fff}
+    .quiz-option.locked{cursor:default}
+    .quiz-option.locked:hover{transform:none}
+    .quiz-nav{display:flex;justify-content:space-between;gap:12px;margin-top:32px}
+
+    /* ============================================================
+       RÉSULTATS
+       ============================================================ */
+    .res-head{text-align:center;margin-bottom:42px}
+    .res-head h2{font-size:30px;font-weight:640;letter-spacing:-.01em;margin-bottom:7px}
+    .res-sub{font-size:13.5px;color:var(--legend);margin-bottom:30px}
+    .ring-wrap{position:relative;display:inline-block;margin-bottom:18px}
+    .ring-track{stroke:var(--line)}
+    .score-ring{transition:stroke-dashoffset 1.2s cubic-bezier(.16,1,.3,1)}
+    .lvl-expert{stroke:var(--ok)} .lvl-avance{stroke:var(--blue)} .lvl-inter{stroke:var(--warn)} .lvl-debutant{stroke:var(--err)}
+    .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .ring-num{font-family:'Instrument Serif',Georgia,serif;font-size:52px;line-height:1;color:var(--ink)}
+    .ring-den{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--tert);margin-top:5px}
+    .res-pill-row{display:flex;justify-content:center;margin-bottom:14px}
+    .lvl-pill{display:inline-flex;align-items:center;padding:8px 18px;border-radius:999px;font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+    .lvlp-expert{background:var(--ok-bg);color:var(--ok-ink)}
+    .lvlp-avance{background:var(--sel-bg);color:var(--blue)}
+    .lvlp-inter{background:var(--warn-bg);color:var(--warn-ink)}
+    .lvlp-debutant{background:var(--err-bg);color:var(--err-ink)}
+    .res-note{font-size:12.5px;color:var(--legend);max-width:440px;margin:0 auto;line-height:1.6}
+    .recap-card,.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px 26px;margin-bottom:30px}
+    .recap-card h3,.panel h3{font-size:17px;font-weight:620;margin-bottom:14px}
+    .kv-row{display:flex;gap:14px;padding:8px 0;border-bottom:1px dashed var(--line)}
+    .kv-row:last-child{border-bottom:0}
+    .kv-label{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--tert);width:172px;flex-shrink:0;padding-top:4px;line-height:1.5}
+    .kv-val{font-size:14px;color:var(--body-c);line-height:1.55}
+    .kv-block{padding:8px 0;border-bottom:1px dashed var(--line)}
+    .kv-block:last-child{border-bottom:0}
+    .kv-block .kv-label{width:auto;display:block;margin-bottom:7px;padding-top:0}
+    .chip{display:inline-block;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);font-size:12.5px;color:var(--body-c);margin:0 6px 6px 0}
+    .mods-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px}
+    .mod-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 16px 16px;text-align:center}
+    .mod-name{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--legend);line-height:1.6;margin-bottom:10px;min-height:29px}
+    .mod-score{font-family:'Instrument Serif',Georgia,serif;font-size:34px;line-height:1;margin-bottom:13px}
+    .mod-track{height:5px}
+    .bar-fill{height:100%;border-radius:999px;transition:width 1s cubic-bezier(.16,1,.3,1)}
+    .mod-pct{font-family:'Fragment Mono',monospace;font-size:10px;color:var(--tert);margin-top:9px}
+    .ae-row{display:flex;align-items:center;gap:12px;padding:7px 0;font-size:13.5px}
+    .ae-row .bucket-chip{flex-shrink:0;width:64px;text-align:center}
+    .ae-name{flex:1;min-width:0;color:var(--body-c);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ae-stars{flex-shrink:0;font-size:14px;letter-spacing:1px}
+    .ae-stars .on{color:var(--amber)} .ae-stars .off{color:var(--star-off)}
+    .ae-lvl{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tert);width:96px;text-align:right;flex-shrink:0}
+    .corr-sec{margin-bottom:32px}
+    .corr-sec h3{font-size:17px;font-weight:620;margin-bottom:14px}
+    .corr-list{display:flex;flex-direction:column;gap:12px}
+    .corr-item{display:flex;gap:13px;padding:16px 17px;border-radius:14px;border:1px solid var(--line);background:var(--surface)}
+    .corr-item.ok{border-color:var(--ok-line);background:var(--ok-bg)}
+    .corr-item.ko{border-color:var(--err-line);background:var(--err-bg)}
+    .corr-ic{width:24px;height:24px;border-radius:999px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;margin-top:1px}
+    .corr-item.ok .corr-ic{background:var(--ok)}
+    .corr-item.ko .corr-ic{background:var(--err)}
+    .corr-body{flex:1;min-width:0}
+    .corr-q{font-size:14px;font-weight:510;color:var(--ink);line-height:1.5}
+    .corr-qn{font-family:'Instrument Serif',Georgia,serif;font-weight:400;color:var(--tert)}
+    .corr-ans{font-size:12.5px;margin-top:6px}
+    .ans-wrong{color:var(--err-ink);font-weight:510}
+    .ans-right{color:var(--ok-ink);font-weight:510}
+    .corr-exp{margin-top:10px;padding:12px 14px;border-radius:10px;background:var(--exp-bg);font-size:13px;line-height:1.62;color:var(--legend)}
+    .exp-tag{font-weight:570;color:var(--body-c)}
+    .res-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* ============================================================
+       CONFETTIS
+       ============================================================ */
+    @keyframes confettiFall{
+      0%{transform:translateY(-100vh) rotate(0deg);opacity:1}
+      100%{transform:translateY(100vh) rotate(720deg);opacity:0}
+    }
+    .confetti-piece{position:fixed;top:-10px;width:10px;height:10px;z-index:9999;animation:confettiFall linear forwards;pointer-events:none}
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width:720px){
+      .steps,.f-grid,.obj-grid,.ae-grid,.mods-grid{grid-template-columns:1fr}
+      .kv-row{flex-direction:column;gap:3px}
+      .kv-label{width:auto;padding-top:0}
+      .ae-lvl{display:none}
+      .scale-grid{grid-template-columns:repeat(2,auto)}
+      .wrap{padding:34px 18px 64px}
+      .recap-card,.panel{padding:20px 18px}
+    }
+    @media (max-width:600px){.nav-tag{display:none}}
+
+    /* ============================================================
+       ACCESSIBILITÉ & PRINT
+       ============================================================ */
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+    }
+    @media print{
+      nav,.no-print{display:none !important}
+      body{background:#fff !important;color:#000 !important}
+      body::before{display:none !important}
+      *{color:#000 !important;background:#fff !important;border-color:#ccc !important;box-shadow:none !important;text-shadow:none !important}
+      .gradient-text,.step-num{-webkit-text-fill-color:initial !important;background:none !important;color:#000 !important}
+      .print-only{display:block !important}
+    }
+    .print-only{display:none}
+  /* ============================================================
+   ATELIER FEUILLE DE ROUTE — classes préfixées fdr-
+   ============================================================ */
+.fdr-panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px 27px;margin-bottom:26px}
+.fdr-panel h2{font-size:21px;font-weight:640;letter-spacing:-.008em;margin-bottom:8px}
+.fdr-panel .lede{font-size:14px;color:var(--legend);line-height:1.7;margin-bottom:20px;max-width:700px}
+.fdr-step-pill{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 13px;display:inline-block;margin-bottom:14px}
+
+/* Cartes poste */
+.fdr-cartes{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:16px}
+.fdr-carte{position:relative;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:19px 21px;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;font-family:inherit}
+.fdr-carte:hover{border-color:var(--blue-soft);transform:translateY(-1px)}
+.fdr-carte.fdr-sel{border-color:var(--blue);background:var(--sel-bg)}
+.fdr-carte .who{display:flex;align-items:baseline;gap:10px;margin-bottom:7px;flex-wrap:wrap}
+.fdr-carte .name{font-family:'Instrument Serif',Georgia,serif;font-size:22px;color:var(--ink)}
+.fdr-carte .job{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
+.fdr-carte p{font-size:13px;color:var(--body-c);line-height:1.65;margin:0 0 10px}
+.fdr-carte .chrono{font-size:12px;color:var(--legend);line-height:1.6;border-top:1px dashed var(--line);padding-top:9px}
+.fdr-carte .chrono b{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--tert);display:block;margin-bottom:4px;font-weight:400}
+.fdr-check{position:absolute;top:16px;right:16px;width:22px;height:22px;border-radius:999px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;color:transparent;transition:all .25s}
+.fdr-carte.fdr-sel .fdr-check{background:linear-gradient(135deg,var(--g1),var(--g2));border-color:transparent;color:#fff}
+
+/* Suggestions de cas d'usage */
+.fdr-sugg-wrap{margin:6px 0 4px}
+.fdr-sugg-t{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--tert);margin-bottom:9px}
+.fdr-sugg{display:inline-block;font-size:12.5px;color:var(--body-c);border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:6px 14px;margin:0 7px 8px 0;cursor:pointer;transition:border-color .2s,background .2s}
+.fdr-sugg:hover{border-color:var(--blue-soft);background:var(--sel-bg)}
+
+/* Grille cas d'usage */
+.fdr-grid-head,.fdr-grid-row{display:grid;grid-template-columns:1.6fr .7fr .8fr .9fr 1fr;gap:10px;align-items:center}
+.fdr-grid-head{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--tert);padding:0 4px 8px}
+.fdr-grid-row{margin-bottom:10px}
+.fdr-grid-row input[type=text],.fdr-grid-row select{padding:10px 12px;border-radius:11px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:13px;width:100%}
+.fdr-grid-row input[type=text]:focus,.fdr-grid-row select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--focus)}
+.fdr-cu-num{font-family:'Instrument Serif',Georgia,serif;font-size:20px;color:var(--tert);text-align:center}
+
+/* Roadmap 30/60/90 */
+.fdr-rm{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.fdr-rm-col{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:18px 19px}
+.fdr-rm-day{font-family:'Instrument Serif',Georgia,serif;font-size:30px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:3px}
+.fdr-rm-sub{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--tert);margin-bottom:14px}
+.fdr-rm-col label{display:block;font-size:11.5px;font-weight:570;color:var(--body-c);margin:11px 0 5px}
+.fdr-rm-col input[type=text],.fdr-rm-col textarea{width:100%;padding:9px 11px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:12.5px;line-height:1.5}
+.fdr-rm-col textarea{min-height:74px;resize:vertical}
+.fdr-rm-col input[type=text]:focus,.fdr-rm-col textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--focus)}
+
+/* Récap exportable */
+.fdr-recap{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:19px 21px;margin-top:16px}
+.fdr-recap pre{white-space:pre-wrap;word-wrap:break-word;font-family:'Fragment Mono',monospace;font-size:11.5px;line-height:1.7;color:var(--body-c);max-height:420px;overflow:auto;margin:0}
+.fdr-err{display:none;font-size:13px;color:var(--err-ink);font-weight:510;margin-top:12px}
+.fdr-ok-msg{display:none;font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ok-ink);align-self:center}
+
+/* Fishbowl */
+.fdr-fish{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fdr-fish-q{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px 18px;font-size:13.5px;line-height:1.65;color:var(--body-c)}
+.fdr-fish-q .n{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:18px;color:var(--blue);margin-right:8px}
+
+/* Jeu de rôle — postures */
+.fdr-jdr-intro{font-size:14px;color:var(--body-c);line-height:1.75;margin-bottom:18px}
+.fdr-draw-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+.fdr-postures{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fdr-posture{border-radius:16px;padding:20px 22px;border:1.5px solid var(--line);background:var(--surface)}
+.fdr-posture .p-kick{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:7px}
+.fdr-posture.a .p-kick{color:var(--c-prompt)}
+.fdr-posture.b .p-kick{color:var(--c-commercial)}
+.fdr-posture h3{font-size:16.5px;font-weight:640;margin-bottom:10px}
+.fdr-posture p,.fdr-posture li{font-size:13px;line-height:1.68;color:var(--body-c)}
+.fdr-posture ul{margin:8px 0 0;padding-left:17px}
+.fdr-posture li{margin-bottom:6px}
+.fdr-posture .p-note{margin-top:10px;padding:11px 13px;border-radius:10px;background:var(--soft);font-size:12.5px;color:var(--legend);line-height:1.6}
+.fdr-posture.picked-a{border-color:var(--c-prompt);box-shadow:0 0 0 3px var(--chip-prompt-bg)}
+.fdr-posture.picked-b{border-color:var(--c-commercial);box-shadow:0 0 0 3px var(--chip-com-bg)}
+.fdr-jdr-rules{margin-top:16px;background:var(--warn-bg);border:1px solid var(--line);border-radius:14px;padding:15px 19px;font-size:13px;line-height:1.7;color:var(--body-c)}
+.fdr-jdr-rules b{color:var(--warn-ink);font-weight:620}
+
+@media (max-width:820px){
+  .fdr-cartes,.fdr-fish,.fdr-postures,.fdr-rm{grid-template-columns:1fr}
+  .fdr-grid-head{display:none}
+  .fdr-grid-row{grid-template-columns:1fr;gap:6px;border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+  .fdr-cu-num{display:none}
+  .fdr-panel{padding:20px 18px}
+}
+
+    /* ============================================================
+     NAVIGATION DE FIN DE PAGE
+     ============================================================ */
+  .pgnav{display:flex;gap:14px;border-top:1px solid var(--line);padding-top:36px;margin-top:88px}
+  .pgn{flex:1;display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px 22px;transition:border-color .2s,transform .2s}
+  .pgn:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+  .pgn-k{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:6px}
+  .pgn-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14.5px;color:var(--ink);line-height:1.4}
+  .pgn.next{text-align:right}
+  @media (max-width:760px){.pgnav{flex-direction:column}.pgn.next{text-align:left}}
+
+  </style>
+  <script src="assets/js/formai-bridge.js?v=1783300000"></script>
+</head>
+<body>
+
+<nav class="topnav no-print">
+  <div class="nav-in">
+    <a href="/" class="nav-logo" aria-label="Akademia Formation — retour à l'accueil">
+      <img class="logo-l" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDQwMCAxMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnM+CiAgICA8IS0tIEdyYWRpZW50IFByaW5jaXBhbCAtLT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icHJpbWFyeUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzI1NjNFQjtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0MzQUVEO3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIAogICAgPCEtLSBHcmFkaWVudCBBY2NlbnQgLS0+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImFjY2VudEdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxMEI5ODE7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzA2QjZENDtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAKICAgIDwhLS0gU2hhZG93IEZpbHRlciAtLT4KICAgIDxmaWx0ZXIgaWQ9InNoYWRvdyIgeD0iLTUwJSIgeT0iLTUwJSIgd2lkdGg9IjIwMCUiIGhlaWdodD0iMjAwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjgiIGZsb29kLW9wYWNpdHk9IjAuMSIvPgogICAgPC9maWx0ZXI+CiAgPC9kZWZzPgogIAogIDwhLS0gTG9nbyBJY29uIC0tPgogIDxnIGlkPSJha2FkZW1pYS1pY29uIj4KICAgIDwhLS0gQmFja2dyb3VuZCBTaGFwZSAtLT4KICAgIDxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTYiIHJ5PSIxNiIgZmlsbD0idXJsKCNwcmltYXJ5R3JhZGllbnQpIiBmaWx0ZXI9InVybCgjc2hhZG93KSIvPgogICAgCiAgICA8IS0tIExldHRlciBBIERlc2lnbiAtLT4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYwLCA2MCkiPgogICAgICA8IS0tIE1haW4gQSBTaGFwZSAtLT4KICAgICAgPHBhdGggZD0iTSAwIC0yNSBMIC0xNSAxNSBMIC04IDE1IEwgLTYgOCBMIDYgOCBMIDggMTUgTCAxNSAxNSBMIDAgLTI1IFogTSAwIC0xMCBMIC0zIDAgTCAzIDAgTCAwIC0xMCBaIiAKICAgICAgICAgICAgZmlsbD0id2hpdGUiIAogICAgICAgICAgICBvcGFjaXR5PSIxIi8+CiAgICA8L2c+CiAgICAKICAgIDwhLS0gQWNjZW50IENpcmNsZSAtLT4KICAgIDxjaXJjbGUgY3g9Ijc1IiBjeT0iNDUiIHI9IjgiIGZpbGw9InVybCgjYWNjZW50R3JhZGllbnQpIiBvcGFjaXR5PSIwLjkiLz4KICA8L2c+CiAgCiAgPCEtLSBMb2dvIFRleHQgLS0+CiAgPGcgaWQ9ImFrYWRlbWlhLXRleHQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMCwgNjApIj4KICAgIDwhLS0gQUtBREVNSUEgLS0+CiAgICA8dGV4dCB4PSIwIiB5PSI1IiAKICAgICAgICAgIGZvbnQtZmFtaWx5PSJJbnRlciwgLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCAnU2Vnb2UgVUknLCBSb2JvdG8sIHNhbnMtc2VyaWYiIAogICAgICAgICAgZm9udC1zaXplPSIzNiIgCiAgICAgICAgICBmb250LXdlaWdodD0iNzAwIiAKICAgICAgICAgIGZpbGw9IiMwRjE3MkEiCiAgICAgICAgICBsZXR0ZXItc3BhY2luZz0iLTAuMDJlbSI+QUtBREVNSUE8L3RleHQ+CiAgICAKICAgIDwhLS0gRk9STUFUSU9OIC0tPgogICAgPHRleHQgeD0iMCIgeT0iMjgiIAogICAgICAgICAgZm9udC1mYW1pbHk9IkludGVyLCAtYXBwbGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsICdTZWdvZSBVSScsIFJvYm90bywgc2Fucy1zZXJpZiIgCiAgICAgICAgICBmb250LXNpemU9IjE4IiAKICAgICAgICAgIGZvbnQtd2VpZ2h0PSI0MDAiIAogICAgICAgICAgZmlsbD0iIzY0NzQ4QiIKICAgICAgICAgIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+">
+      <img class="logo-d" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjgwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtYWluR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMjU2M0VCO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM3QzNBRUQ7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJhY2NlbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzEwQjk4MTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDZCNkQ0O3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDwhLS0gTG9nbyBJbnZlcnPDqSBwb3VyIGZvbmQgc29tYnJlIC0tPgogIDxnPgogICAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMTIiIGZpbGw9IndoaXRlIi8+CiAgICA8cGF0aCBkPSJNIDMwIDE1IEwgNDAgNDUgTCAzNSA0NSBMIDMzIDM4IEwgMjcgMzggTCAyNSA0NSBMIDIwIDQ1IEwgMzAgMTUgWiBNIDMwIDIzIEwgMjggMzIgTCAzMiAzMiBMIDMwIDIzIFoiIGZpbGw9InVybCgjbWFpbkdyYWRpZW50KSIvPgogICAgPGNpcmNsZSBjeD0iNDUiIGN5PSIyMCIgcj0iNiIgZmlsbD0idXJsKCNhY2NlbnQpIi8+CgogICAgPHRleHQgeD0iNzUiIHk9IjI4IiBmb250LWZhbWlseT0iSW50ZXIsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSJ3aGl0ZSI+QUtBREVNSUE8L3RleHQ+CiAgICA8dGV4dCB4PSI3NSIgeT0iNDYiIGZvbnQtZmFtaWx5PSJJbnRlciwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI0MDAiIGZpbGw9IiM5NEEzQjgiIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+Cg==">
+    </a>
+    <div class="nav-right">
+      <span class="nav-tag">IA en entreprise</span>
+      <button id="darkToggle" class="theme-btn" aria-label="Basculer le thème sombre">
+        <svg class="ic-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <svg class="ic-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ============================================ -->
+  <!-- HERO                                         -->
+  <!-- ============================================ -->
+  <div class="hero" id="header-section" style="margin-bottom:44px">
+    <div class="hero-kick">Atelier-simulation &mdash; Jour 2</div>
+    <h1><span class="gradient-text">90 jours pour changer de rythme</span></h1>
+    <p class="hero-sub">Construisez votre feuille de route personnelle : trois cas d&rsquo;usage, un plan 30/60/90, et l&rsquo;art d&rsquo;en parler sans braquer</p>
+    <p class="hero-lede">
+      En format individuel guid&eacute;, choisissez la carte poste la plus proche de votre quotidien chez NORDFLOW, identifiez trois cas d&rsquo;usage IA &agrave; fort gain, formalisez votre feuille de route &agrave; 30, 60 et 90 jours, puis exportez votre livrable personnel. L&rsquo;atelier se termine par un partage en fishbowl et un mini-jeu de r&ocirc;le : pr&eacute;senter son cas d&rsquo;usage &agrave; un coll&egrave;gue r&eacute;ticent.
+    </p>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- &Eacute;TAPE 1 &mdash; CARTE POSTE                   -->
+  <!-- ============================================ -->
+  <div class="fdr-panel" id="fdr-sec-cartes">
+    <span class="fdr-step-pill">&Eacute;tape 1 &mdash; Votre terrain de jeu</span>
+    <h2>Choisissez votre carte poste</h2>
+    <p class="lede">Cinq trajets de travail chez NORDFLOW Industrie. Retenez celle qui ressemble le plus &agrave; votre quotidien &mdash; les suggestions de cas d&rsquo;usage de l&rsquo;&eacute;tape suivante s&rsquo;adapteront &agrave; votre choix.</p>
+
+    <div class="fdr-cartes">
+      <button class="fdr-carte" id="fdr-carte-0" onclick="fdrSelectPoste(0)">
+        <span class="fdr-check">&#10003;</span>
+        <div class="who"><span class="name">&Eacute;lise</span><span class="job">Commerciale s&eacute;dentaire</span></div>
+        <p>Trente appels par jour, devis standards, qualification des demandes entrantes, relances de portefeuille. Le t&eacute;l&eacute;phone ne s&rsquo;arr&ecirc;te jamais vraiment, le CRM non plus.</p>
+        <div class="chrono"><b>Chronophages typiques</b>Comptes rendus d&rsquo;appels, emails de suivi, mise &agrave; jour CRM, devis r&eacute;p&eacute;titifs, relances de routine.</div>
+      </button>
+      <button class="fdr-carte" id="fdr-carte-1" onclick="fdrSelectPoste(1)">
+        <span class="fdr-check">&#10003;</span>
+        <div class="who"><span class="name">Karim</span><span class="job">Commercial r&eacute;gional itin&eacute;rant</span></div>
+        <p>Trois &agrave; quatre rendez-vous par semaine entre Aix et Lyon, cycles de vente de six &agrave; douze mois, grands comptes multi-interlocuteurs. La voiture fait office de deuxi&egrave;me bureau.</p>
+        <div class="chrono"><b>Chronophages typiques</b>Pr&eacute;paration des rendez-vous, comptes rendus de visite, propositions commerciales, veille sur les comptes, relances longues.</div>
+      </button>
+      <button class="fdr-carte" id="fdr-carte-2" onclick="fdrSelectPoste(2)">
+        <span class="fdr-check">&#10003;</span>
+        <div class="who"><span class="name">Sonia</span><span class="job">Assistante ADV</span></div>
+        <p>Devis, saisie de commandes, r&eacute;ponses aux consultations, relances clients, litiges livraisons. Chaque demande est urgente, et tout repose sur la fiabilit&eacute; du d&eacute;tail.</p>
+        <div class="chrono"><b>Chronophages typiques</b>Lecture de CCTP volumineux, emails types, reporting hebdomadaire, extraction d&rsquo;exigences, traductions ponctuelles.</div>
+      </button>
+      <button class="fdr-carte" id="fdr-carte-3" onclick="fdrSelectPoste(3)">
+        <span class="fdr-check">&#10003;</span>
+        <div class="who"><span class="name">Th&eacute;o</span><span class="job">Marketing &amp; communication &mdash; solo et transverse</span></div>
+        <p>Seul sur son p&eacute;rim&egrave;tre : contenus, LinkedIn, plaquettes, salons, newsletters, appui aux commerciaux des trois sites. Tout le monde a une id&eacute;e pour lui, rarement du temps.</p>
+        <div class="chrono"><b>Chronophages typiques</b>Posts LinkedIn, newsletters, mises &agrave; jour de plaquettes, comptes rendus de r&eacute;unions transverses, adaptations FR/EN.</div>
+      </button>
+      <button class="fdr-carte" id="fdr-carte-4" onclick="fdrSelectPoste(4)">
+        <span class="fdr-check">&#10003;</span>
+        <div class="who"><span class="name">Maud</span><span class="job">Charg&eacute;e d&rsquo;affaires technique &mdash; chantiers &amp; mise en service</span></div>
+        <p>Mise en service des skids, comptes rendus de chantier, fiches techniques, interface entre le bureau d&rsquo;&eacute;tudes, le client et le chantier. Le terrain d&rsquo;abord, le bureau apr&egrave;s.</p>
+        <div class="chrono"><b>Chronophages typiques</b>Comptes rendus de chantier FR + r&eacute;sum&eacute; EN, synth&egrave;se de documentation technique, recherche de normes et r&eacute;f&eacute;rences, rapports d&rsquo;intervention.</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- &Eacute;TAPE 2 &mdash; 3 CAS D&rsquo;USAGE                  -->
+  <!-- ============================================ -->
+  <div class="fdr-panel" id="fdr-sec-cas">
+    <span class="fdr-step-pill">&Eacute;tape 2 &mdash; Vos trois cas d&rsquo;usage</span>
+    <h2>Identifiez trois cas d&rsquo;usage concrets</h2>
+    <p class="lede">La grille t&acirc;che &times; valeur &times; risque &times; outil : une t&acirc;che r&eacute;ellement chronophage de votre semaine, le gain attendu, le niveau de risque (donn&eacute;e sensible ? relecture indispensable ?), et l&rsquo;outil que vous envisagez. Cliquez une suggestion pour remplir une ligne, ou &eacute;crivez les v&ocirc;tres.</p>
+
+    <div class="fdr-sugg-wrap" id="fdr-sugg-wrap" style="display:none">
+      <div class="fdr-sugg-t">Suggestions pour ce poste &mdash; cliquez pour remplir la ligne libre</div>
+      <div id="fdr-sugg-list"></div>
+    </div>
+
+    <div class="fdr-grid-head">
+      <span>T&acirc;che chronophage</span><span>Fr&eacute;quence</span><span>Gain de valeur</span><span>Niveau de risque</span><span>Outil envisag&eacute;</span>
+    </div>
+    <div class="fdr-grid-row">
+      <input type="text" id="fdr-cu-0-t" placeholder="Ex. r&eacute;diger mes comptes rendus de visite">
+      <select id="fdr-cu-0-f"><option>Quotidienne</option><option>Hebdomadaire</option><option>Mensuelle</option></select>
+      <select id="fdr-cu-0-v"><option>Fort</option><option>Moyen</option><option>Faible</option></select>
+      <select id="fdr-cu-0-r"><option>Faible</option><option>Ma&icirc;tris&eacute;</option><option>&Eacute;lev&eacute;</option></select>
+      <input type="text" id="fdr-cu-0-o" placeholder="Ex. Copilot dans Outlook">
+    </div>
+    <div class="fdr-grid-row">
+      <input type="text" id="fdr-cu-1-t" placeholder="Ex. pr&eacute;parer mes rendez-vous clients">
+      <select id="fdr-cu-1-f"><option>Hebdomadaire</option><option>Quotidienne</option><option>Mensuelle</option></select>
+      <select id="fdr-cu-1-v"><option>Fort</option><option>Moyen</option><option>Faible</option></select>
+      <select id="fdr-cu-1-r"><option>Ma&icirc;tris&eacute;</option><option>Faible</option><option>&Eacute;lev&eacute;</option></select>
+      <input type="text" id="fdr-cu-1-o" placeholder="Ex. assistant valid&eacute; par l&rsquo;entreprise">
+    </div>
+    <div class="fdr-grid-row">
+      <input type="text" id="fdr-cu-2-t" placeholder="Ex. extraire les exigences d&rsquo;un CCTP">
+      <select id="fdr-cu-2-f"><option>Hebdomadaire</option><option>Quotidienne</option><option>Mensuelle</option></select>
+      <select id="fdr-cu-2-v"><option>Moyen</option><option>Fort</option><option>Faible</option></select>
+      <select id="fdr-cu-2-r"><option>Ma&icirc;tris&eacute;</option><option>Faible</option><option>&Eacute;lev&eacute;</option></select>
+      <input type="text" id="fdr-cu-2-o" placeholder="Ex. outil valid&eacute;, document anonymis&eacute;">
+    </div>
+    <p style="font-size:12.5px;color:var(--legend);line-height:1.6;margin-top:4px">Rappel de la charte d&rsquo;usage : un cas d&rsquo;usage sur donn&eacute;e sensible (clients, prix, technique) se pilote dans l&rsquo;outil valid&eacute; par l&rsquo;entreprise, avec anonymisation et relecture &mdash; jamais dans un outil grand public.</p>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- &Eacute;TAPE 3 &mdash; FEUILLE DE ROUTE 30/60/90      -->
+  <!-- ============================================ -->
+  <div class="fdr-panel" id="fdr-sec-rm">
+    <span class="fdr-step-pill">&Eacute;tape 3 &mdash; Votre feuille de route</span>
+    <h2>Formalisez votre plan 30 / 60 / 90 jours</h2>
+    <p class="lede">La m&eacute;thode : d&eacute;marrer par deux ou trois cas d&rsquo;usage &agrave; fort gain et faible risque, mesurer, puis &eacute;tendre. Pour chaque horizon : un jalon concret, l&rsquo;indicateur qui prouvera le progr&egrave;s, les alli&eacute;s &agrave; mobiliser, et le risque &agrave; anticiper.</p>
+
+    <div class="fdr-rm">
+      <div class="fdr-rm-col">
+        <div class="fdr-rm-day">J30</div>
+        <div class="fdr-rm-sub">Prouver</div>
+        <label for="fdr-rm-0-j">Jalon</label>
+        <textarea id="fdr-rm-0-j" placeholder="Ex. mes 2 premiers cas d&rsquo;usage tournent chaque semaine, avec mes prompts enregistr&eacute;s"></textarea>
+        <label for="fdr-rm-0-i">Indicateur de mesure</label>
+        <input type="text" id="fdr-rm-0-i" placeholder="Ex. 45 min gagn&eacute;es par jour sur les CR">
+        <label for="fdr-rm-0-a">Alli&eacute;(s)</label>
+        <input type="text" id="fdr-rm-0-a" placeholder="Ex. un bin&ocirc;me de mon service">
+        <label for="fdr-rm-0-r">Risque &agrave; anticiper</label>
+        <input type="text" id="fdr-rm-0-r" placeholder="Ex. reprise de l&rsquo;ancienne habitude sous pression">
+      </div>
+      <div class="fdr-rm-col">
+        <div class="fdr-rm-day">J60</div>
+        <div class="fdr-rm-sub">Mesurer &amp; ajuster</div>
+        <label for="fdr-rm-1-j">Jalon</label>
+        <textarea id="fdr-rm-1-j" placeholder="Ex. bilan chiffr&eacute; des gains, biblioth&egrave;que de prompts partag&eacute;e avec l&rsquo;&eacute;quipe"></textarea>
+        <label for="fdr-rm-1-i">Indicateur de mesure</label>
+        <input type="text" id="fdr-rm-1-i" placeholder="Ex. 3 prompts mutualis&eacute;s, d&eacute;lai de devis r&eacute;duit d&rsquo;un jour">
+        <label for="fdr-rm-1-a">Alli&eacute;(s)</label>
+        <input type="text" id="fdr-rm-1-a" placeholder="Ex. mon manager, le r&eacute;f&eacute;rent outil">
+        <label for="fdr-rm-1-r">Risque &agrave; anticiper</label>
+        <input type="text" id="fdr-rm-1-r" placeholder="Ex. gains non mesur&eacute;s, difficiles &agrave; d&eacute;fendre">
+      </div>
+      <div class="fdr-rm-col">
+        <div class="fdr-rm-day">J90</div>
+        <div class="fdr-rm-sub">&Eacute;tendre</div>
+        <label for="fdr-rm-2-j">Jalon</label>
+        <textarea id="fdr-rm-2-j" placeholder="Ex. 1 cas d&rsquo;usage suppl&eacute;mentaire + un coll&egrave;gue accompagn&eacute; sur les siens"></textarea>
+        <label for="fdr-rm-2-i">Indicateur de mesure</label>
+        <input type="text" id="fdr-rm-2-i" placeholder="Ex. 1 coll&egrave;gue autonome, pr&eacute;sentation du bilan en r&eacute;union">
+        <label for="fdr-rm-2-a">Alli&eacute;(s)</label>
+        <input type="text" id="fdr-rm-2-a" placeholder="Ex. un pair volontaire, la direction">
+        <label for="fdr-rm-2-r">Risque &agrave; anticiper</label>
+        <input type="text" id="fdr-rm-2-r" placeholder="Ex. essaimer trop vite sans preuve de gain">
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- &Eacute;TAPE 4 &mdash; R&Eacute;CAP EXPORTABLE              -->
+  <!-- ============================================ -->
+  <div class="fdr-panel" id="fdr-sec-recap">
+    <span class="fdr-step-pill">&Eacute;tape 4 &mdash; Votre livrable</span>
+    <h2>R&eacute;capitulatif personnel, pr&ecirc;t &agrave; exporter</h2>
+    <p class="lede">G&eacute;n&eacute;rez votre livrable : carte poste, trois cas d&rsquo;usage, feuille de route 30/60/90. Copiez-le ou t&eacute;l&eacute;chargez-le en texte &mdash; c&rsquo;est votre plan de bataille pour les trois prochains mois.</p>
+
+    <div class="sq-actions" style="display:flex;gap:12px;flex-wrap:wrap">
+      <button class="btn-cta" onclick="fdrGenRecap()">G&eacute;n&eacute;rer mon r&eacute;capitulatif</button>
+      <button class="btn-ghost" id="fdr-btn-copy" onclick="fdrCopy()" disabled>Copier</button>
+      <button class="btn-ghost" id="fdr-btn-dl" onclick="fdrDownload()" disabled>T&eacute;l&eacute;charger (.txt)</button>
+      <span class="fdr-ok-msg" id="fdr-ok-msg"></span>
+    </div>
+    <div class="fdr-err" id="fdr-err">Avant de g&eacute;n&eacute;rer : choisissez une carte poste, remplissez au moins un cas d&rsquo;usage (t&acirc;che) et le jalon des 30 premiers jours.</div>
+
+    <div class="fdr-recap" style="margin-top:16px">
+      <pre id="fdr-recap-pre">Votre r&eacute;capitulatif appara&icirc;tra ici apr&egrave;s g&eacute;n&eacute;ration.</pre>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- &Eacute;TAPE 5 &mdash; FISHBOWL                        -->
+  <!-- ============================================ -->
+  <div class="fdr-panel" id="fdr-sec-fish">
+    <span class="fdr-step-pill">&Eacute;tape 5 &mdash; Partage en fishbowl</span>
+    <h2>Mettez votre plan en discussion</h2>
+    <p class="lede">&Agrave; tour de r&ocirc;le, pr&eacute;sentez au groupe votre carte poste, vos trois cas d&rsquo;usage et votre jalon des 30 premiers jours. Les questions ci-dessous guident la discussion : elles servent &agrave; challenger, pas &agrave; pi&eacute;ger.</p>
+
+    <div class="fdr-fish">
+      <div class="fdr-fish-q"><span class="n">1.</span>Quel est le cas d&rsquo;usage dont le gain est le plus facile &agrave; prouver &agrave; J30 &mdash; et comment le mesurez-vous concr&egrave;tement ?</div>
+      <div class="fdr-fish-q"><span class="n">2.</span>Lequel de vos trois cas d&rsquo;usage touche une donn&eacute;e sensible, et quel cadre vous &ecirc;tes-vous fix&eacute; (outil, anonymisation, relecture) ?</div>
+      <div class="fdr-fish-q"><span class="n">3.</span>Qu&rsquo;est-ce qui, dans votre semaine r&eacute;elle, menace le plus votre jalon des 30 jours &mdash; et quelle parade pr&eacute;voyez-vous ?</div>
+      <div class="fdr-fish-q"><span class="n">4.</span>Qui dans l&rsquo;entreprise a int&eacute;r&ecirc;t que votre cas d&rsquo;usage r&eacute;ussisse, et comment l&rsquo;embarquez-vous d&egrave;s cette semaine ?</div>
+      <div class="fdr-fish-q"><span class="n">5.</span>Si un de vos cas d&rsquo;usage ne prouve rien &agrave; J60, quel est votre plan B : l&rsquo;ajuster, le remplacer, le retarder ?</div>
+      <div class="fdr-fish-q"><span class="n">6.</span>Qu&rsquo;est-ce que vous refuserez de d&eacute;l&eacute;guer &agrave; l&rsquo;IA dans votre poste, m&ecirc;me si c&rsquo;&eacute;tait possible ?</div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- &Eacute;TAPE 6 &mdash; MINI-JEU DE R&Ocirc;LE             -->
+  <!-- ============================================ -->
+  <div class="fdr-panel" id="fdr-sec-jdr">
+    <span class="fdr-step-pill">&Eacute;tape 6 &mdash; Conduite du changement</span>
+    <h2>Mini-jeu de r&ocirc;le : pr&eacute;senter son cas d&rsquo;usage &agrave; un coll&egrave;gue r&eacute;ticent</h2>
+    <p class="fdr-jdr-intro">
+      En bin&ocirc;me : l&rsquo;un pr&eacute;sente son premier cas d&rsquo;usage, l&rsquo;autre incarne un coll&egrave;gue de NORDFLOW qui se braque &mdash; pas par mauvaise volont&eacute;, mais parce que douze ans de m&eacute;tier lui ont appris &agrave; se m&eacute;fier des &laquo; nouveaut&eacute;s qui vont tout changer &raquo;. Tirez les postures au sort, jouez la sc&egrave;ne, puis inversez.
+    </p>
+
+    <div class="fdr-draw-row">
+      <button class="btn-ghost" onclick="fdrDraw()">Tirer les postures au sort</button>
+      <span class="fdr-ok-msg" id="fdr-draw-msg" style="display:inline-flex"></span>
+    </div>
+
+    <div class="fdr-postures">
+      <div class="fdr-posture a" id="fdr-posture-a">
+        <div class="p-kick">Posture A</div>
+        <h3>Le porteur du cas d&rsquo;usage</h3>
+        <ul>
+          <li>Pr&eacute;sentez votre cas d&rsquo;usage en deux minutes : la t&acirc;che, le gain concret, le cadre de s&eacute;curit&eacute;.</li>
+          <li>R&eacute;pondez aux objections sans jargon et sans m&eacute;pris : chaque objection est une vraie question.</li>
+          <li>Appuyez-vous sur une preuve mesurable (temps gagn&eacute;, erreurs &eacute;vit&eacute;es) plut&ocirc;t que sur des promesses.</li>
+          <li>Proposez un essai limit&eacute; et r&eacute;versible : une semaine, une t&acirc;che, un bilan ensemble.</li>
+        </ul>
+        <div class="p-note">Objectif : repartir avec un &laquo; d&rsquo;accord, on essaie sur une t&acirc;che &raquo; &mdash; pas avec une conversion.</div>
+      </div>
+      <div class="fdr-posture b" id="fdr-posture-b">
+        <div class="p-kick">Posture B</div>
+        <h3>Le coll&egrave;gue r&eacute;ticent</h3>
+        <ul>
+          <li>&laquo; &Ccedil;a fait des erreurs, et c&rsquo;est moi qui vais devoir corriger derri&egrave;re. &raquo;</li>
+          <li>&laquo; Mes comptes rendus, les clients les reconnaissent : si &ccedil;a devient un texte de machine, on perd la relation. &raquo;</li>
+          <li>&laquo; Aujourd&rsquo;hui c&rsquo;est un gadget ; demain, on nous demandera de justifier notre temps dessus. &raquo;</li>
+          <li>&laquo; Je n&rsquo;ai pas le temps d&rsquo;apprendre un outil de plus. &raquo;</li>
+        </ul>
+        <div class="p-note">Ce qui peut vous faire bouger : une preuve concr&egrave;te mesur&eacute;e sur sa propre t&acirc;che, la garantie de garder la main (relecture, dernier mot), et z&eacute;ro le&ccedil;on donn&eacute;e sur sa fa&ccedil;on de travailler.</div>
+      </div>
+    </div>
+
+    <div class="fdr-jdr-rules">
+      <b>D&eacute;roul&eacute; :</b> 2 minutes de pr&eacute;sentation &middot; 3 minutes d&rsquo;objections et r&eacute;ponses &middot; 2 minutes de d&eacute;brief &agrave; deux : quelle objection a &eacute;t&eacute; la plus dure &agrave; recevoir ? Quel argument a fait bouger l&rsquo;autre ? Puis inversez les postures avec le cas d&rsquo;usage de l&rsquo;autre bin&ocirc;me. La r&egrave;gle d&rsquo;or : on ne convainc pas un coll&egrave;gue, on lui donne une raison d&rsquo;essayer.
+    </div>
+  </div>
+
+<!-- ============================================ -->
+<!-- NAVIGATION DE PAGE                             -->
+<!-- ============================================ -->
+<nav class="pgnav no-print" aria-label="Navigation entre modules">
+  <a class="pgn" href="./deck-m4-ia-entreprise.html">
+    <div class="pgn-k">Précédent · Jour 2</div>
+    <div class="pgn-t">Module 4 — Usages métiers &amp; déploiement</div>
+  </a>
+  <a class="pgn next" href="./quiz-final-ia-entreprise.html">
+    <div class="pgn-k">Suivant · Jour 2</div>
+    <div class="pgn-t">QCM final de validation</div>
+  </a>
+</nav>
+
+</div>
+
+<!-- Print header (only visible when printing) -->
+<div class="print-only" style="text-align:center; margin-bottom:20px;">
+  <h2>Akademia Formation &mdash; IA en Entreprise</h2>
+  <p>Atelier-simulation &laquo; 90 jours pour changer de rythme &raquo; &mdash; feuille de route personnelle</p>
+</div>
+
+<!-- xAPI tracker -->
+<script src="assets/js/xapi-tracker.js?v=1783300000"></script>
+
+<script>
+// ============================================================
+// FORMAI — RATTACHEMENT AU COURS
+// ============================================================
+if (typeof xapiTracker !== 'undefined' && xapiTracker.setCourse) {
+  xapiTracker.setCourse('ia-entreprise');
+}
+
+// ============================================================
+// ATELIER FEUILLE DE ROUTE — classes préfixées fdr-
+// ============================================================
+var FDR_POSTES = [
+  { name: 'Élise', job: 'Commerciale sédentaire',
+    sugg: [
+      'Rédiger mes comptes rendus d\u2019appels et les mettre au CRM',
+      'Préparer mes relances de routine personnalisées',
+      'Générer les trames de devis standards à relire'
+    ] },
+  { name: 'Karim', job: 'Commercial régional itinérant',
+    sugg: [
+      'Préparer mes rendez-vous : fiche compte, enjeux, objections',
+      'Rédiger mes comptes rendus de visite dictés au téléphone',
+      'Structurer mes propositions commerciales à partir de ma trame'
+    ] },
+  { name: 'Sonia', job: 'Assistante ADV',
+    sugg: [
+      'Extraire les exigences et pièces attendues d\u2019un CCTP',
+      'Rédiger les emails types (accusés, relances, litiges) à ma voix',
+      'Produire mon reporting hebdomadaire à partir de mes notes'
+    ] },
+  { name: 'Théo', job: 'Marketing & communication',
+    sugg: [
+      'Brainstormer et structurer mes posts LinkedIn puis réécrire',
+      'Adapter une plaquette ou une newsletter en FR/EN vérifié',
+      'Résumer mes réunions transverses en compte rendu actionnable'
+    ] },
+  { name: 'Maud', job: 'Chargée d\u2019affaires technique',
+    sugg: [
+      'Transformer mes notes de chantier en compte rendu structuré + résumé EN',
+      'Synthétiser une documentation technique avant lecture experte',
+      'Préparer une recherche de normes avec vérification systématique'
+    ] }
+];
+
+var fdrPoste = null;
+var FDR_LABELS = { 0: 'Quotidienne', 1: 'Hebdomadaire', 2: 'Mensuelle' };
+
+function fdrSelectPoste(i) {
+  fdrPoste = i;
+  for (var k = 0; k < FDR_POSTES.length; k++) {
+    document.getElementById('fdr-carte-' + k).classList.toggle('fdr-sel', k === i);
+  }
+  var wrap = document.getElementById('fdr-sugg-wrap');
+  var list = document.getElementById('fdr-sugg-list');
+  list.innerHTML = '';
+  FDR_POSTES[i].sugg.forEach(function(s) {
+    var chip = document.createElement('span');
+    chip.className = 'fdr-sugg';
+    chip.textContent = s;
+    chip.onclick = function() { fdrFillSugg(s); };
+    list.appendChild(chip);
+  });
+  wrap.style.display = 'block';
+  fdrSave();
+}
+
+function fdrFillSugg(text) {
+  for (var i = 0; i < 3; i++) {
+    var inp = document.getElementById('fdr-cu-' + i + '-t');
+    if (!inp.value.trim()) {
+      inp.value = text;
+      inp.focus();
+      fdrSave();
+      return;
+    }
+  }
+  // Toutes remplies : remplace la dernière
+  document.getElementById('fdr-cu-2-t').value = text;
+  fdrSave();
+}
+
+function fdrVal(id) {
+  var el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+function fdrGenRecap() {
+  var err = document.getElementById('fdr-err');
+  var hasCas = fdrVal('fdr-cu-0-t') || fdrVal('fdr-cu-1-t') || fdrVal('fdr-cu-2-t');
+  if (fdrPoste === null || !hasCas || !fdrVal('fdr-rm-0-j')) {
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+  var p = FDR_POSTES[fdrPoste];
+  var L = [];
+  L.push('FEUILLE DE ROUTE 30/60/90 — IA EN ENTREPRISE');
+  L.push('Atelier « 90 jours pour changer de rythme » — NORDFLOW Industrie (scénario)');
+  L.push('');
+  L.push('CARTE POSTE : ' + p.name + ' — ' + p.job);
+  L.push('');
+  L.push('--- MES 3 CAS D\'USAGE ---');
+  for (var i = 0; i < 3; i++) {
+    var t = fdrVal('fdr-cu-' + i + '-t');
+    if (!t) continue;
+    L.push('');
+    L.push('Cas d\'usage ' + (i + 1) + ' : ' + t);
+    L.push('  Fréquence : ' + fdrVal('fdr-cu-' + i + '-f'));
+    L.push('  Gain de valeur : ' + fdrVal('fdr-cu-' + i + '-v'));
+    L.push('  Niveau de risque : ' + fdrVal('fdr-cu-' + i + '-r'));
+    var o = fdrVal('fdr-cu-' + i + '-o');
+    L.push('  Outil envisagé : ' + (o || '(à préciser)'));
+  }
+  var periodes = [['J30 — PROUVER', 0], ['J60 — MESURER & AJUSTER', 1], ['J90 — ÉTENDRE', 2]];
+  L.push('');
+  L.push('--- MA FEUILLE DE ROUTE ---');
+  periodes.forEach(function(pp) {
+    var idx = pp[1];
+    L.push('');
+    L.push(pp[0]);
+    L.push('  Jalon : ' + (fdrVal('fdr-rm-' + idx + '-j') || '(à compléter)'));
+    L.push('  Indicateur : ' + (fdrVal('fdr-rm-' + idx + '-i') || '(à compléter)'));
+    L.push('  Allié(s) : ' + (fdrVal('fdr-rm-' + idx + '-a') || '(à compléter)'));
+    L.push('  Risque à anticiper : ' + (fdrVal('fdr-rm-' + idx + '-r') || '(à compléter)'));
+  });
+  L.push('');
+  L.push('Cadre de sécurité : données sensibles = outil validé par l\'entreprise + anonymisation + relecture humaine systématique.');
+
+  document.getElementById('fdr-recap-pre').textContent = L.join('\n');
+  document.getElementById('fdr-btn-copy').disabled = false;
+  document.getElementById('fdr-btn-dl').disabled = false;
+  fdrSave();
+  document.getElementById('fdr-recap-pre').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function fdrOkMsg(msg) {
+  var m = document.getElementById('fdr-ok-msg');
+  m.textContent = msg;
+  setTimeout(function() { m.textContent = ''; }, 2500);
+}
+
+function fdrCopy() {
+  var txt = document.getElementById('fdr-recap-pre').textContent;
+  function done() { fdrOkMsg('Copié dans le presse-papiers'); }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(done, function() { fdrFallback(txt); done(); });
+  } else {
+    fdrFallback(txt); done();
+  }
+}
+
+function fdrFallback(txt) {
+  var ta = document.createElement('textarea');
+  ta.value = txt;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+function fdrDownload() {
+  var txt = document.getElementById('fdr-recap-pre').textContent;
+  var blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'feuille-de-route-ia-90-jours.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  fdrOkMsg('Fichier téléchargé');
+}
+
+function fdrDraw() {
+  var first = Math.random() < 0.5 ? 'a' : 'b';
+  var pa = document.getElementById('fdr-posture-a');
+  var pb = document.getElementById('fdr-posture-b');
+  pa.classList.remove('picked-a');
+  pb.classList.remove('picked-b');
+  // Petit délai pour laisser le tirage se lire
+  setTimeout(function() {
+    if (first === 'a') pa.classList.add('picked-a');
+    else pb.classList.add('picked-b');
+    var msg = document.getElementById('fdr-draw-msg');
+    msg.textContent = first === 'a'
+      ? 'Le binôme 1 ouvre avec la posture A (porteur du cas d\u2019usage)'
+      : 'Le binôme 1 ouvre avec la posture B (collègue réticent)';
+  }, 150);
+}
+
+// ============================================================
+// PERSISTANCE LOCALE
+// ============================================================
+var FDR_FIELDS = [
+  'fdr-cu-0-t', 'fdr-cu-1-t', 'fdr-cu-2-t',
+  'fdr-cu-0-o', 'fdr-cu-1-o', 'fdr-cu-2-o',
+  'fdr-cu-0-f', 'fdr-cu-1-f', 'fdr-cu-2-f',
+  'fdr-cu-0-v', 'fdr-cu-1-v', 'fdr-cu-2-v',
+  'fdr-cu-0-r', 'fdr-cu-1-r', 'fdr-cu-2-r',
+  'fdr-rm-0-j', 'fdr-rm-1-j', 'fdr-rm-2-j',
+  'fdr-rm-0-i', 'fdr-rm-1-i', 'fdr-rm-2-i',
+  'fdr-rm-0-a', 'fdr-rm-1-a', 'fdr-rm-2-a',
+  'fdr-rm-0-r', 'fdr-rm-1-r', 'fdr-rm-2-r'
+];
+
+function fdrSave() {
+  try {
+    var data = { poste: fdrPoste, fields: {} };
+    FDR_FIELDS.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) data.fields[id] = el.value;
+    });
+    localStorage.setItem('ia_entreprise_sim_feuille_route', JSON.stringify(data));
+  } catch (e) {}
+}
+
+function fdrRestore() {
+  try {
+    var raw = localStorage.getItem('ia_entreprise_sim_feuille_route');
+    if (!raw) return;
+    var data = JSON.parse(raw);
+    if (data && data.fields) {
+      FDR_FIELDS.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && typeof data.fields[id] === 'string') el.value = data.fields[id];
+      });
+    }
+    if (data && data.poste !== null && data.poste !== undefined) {
+      fdrSelectPoste(data.poste);
+    }
+  } catch (e) {}
+}
+
+FDR_FIELDS.forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) {
+    el.addEventListener('input', fdrSave);
+    el.addEventListener('change', fdrSave);
+  }
+});
+
+// ============================================================
+// DARK MODE TOGGLE
+// ============================================================
+document.getElementById('darkToggle').addEventListener('click', function() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('ia_entreprise_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+});
+
+fdrRestore();
+</script>
+
+
+</body>
+</html>

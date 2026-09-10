@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 1 — Fondamentaux & cadre d'usage — IA en Entreprise | Akademia Formation</title>
+  <meta name="description" content="Module 1 du parcours IA en Entreprise : ce que fait réellement une IA générative, panorama 2026 des outils (ChatGPT, Claude, Copilot, Gemini, Mistral), 5 cas d'usage prioritaires, sécurité RGPD et IA Act, grille de choix d'outil.">
+
+  <!-- Dark mode anti-flicker -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('ia_entreprise_theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Polices charte Akademia (Instrument Sans / Inter variable / Instrument Serif / Fragment Mono) -->
+  <link rel="stylesheet" href="assets/css/fonts-akademia.css">
+
+  <style>
+/* ============================================================
+   CHARTE AKADEMIA — tokens (clair / nuit via html.dark)
+   Socle cloné de positionnement-ia-entreprise.html
+   ============================================================ */
+:root{
+  --bg:#F7F9FC; --surface:#FFFFFF; --soft:#F1F5FA;
+  --ink:#0F172A; --body-c:#3F4C61; --legend:#64748B; --tert:#94A3B8;
+  --line:#E7EAF2;
+  --blue:#2563EB; --violet:#7C3AED; --g1:#2563EB; --g2:#7C3AED;
+  --blue-soft:rgba(37,99,235,.5);
+  --c-fondamentaux:#2563EB; --c-prompt:#7C3AED; --c-commercial:#0E7490; --c-metiers:#047857;
+  --chip-fond-bg:rgba(37,99,235,.09); --chip-prompt-bg:rgba(124,58,237,.09); --chip-com-bg:rgba(6,182,212,.12); --chip-met-bg:rgba(16,185,129,.12);
+  --ok:#10B981; --ok-ink:#047857; --ok-bg:rgba(16,185,129,.08); --ok-line:rgba(16,185,129,.35);
+  --err:#DC2626; --err-ink:#B91C1C; --err-bg:rgba(220,38,38,.06); --err-line:rgba(220,38,38,.3);
+  --warn:#F97316; --warn-ink:#C2410C; --warn-bg:rgba(249,115,22,.1);
+  --amber:#F59E0B; --star-off:#CBD5E1;
+  --sel-bg:rgba(37,99,235,.07);
+  --exp-bg:rgba(255,255,255,.6);
+  --focus:rgba(37,99,235,.28);
+  --cta-shadow:0 12px 30px rgba(109,40,217,.26);
+  --nav-bg:rgba(255,255,255,.82);
+  --grain-o:.045;
+  --dl:inline-block; --dd:none;
+  --mono-bg:#0F172A; --mono-ink:#E2E8F0;
+}
+html.dark{
+  --bg:#05070E; --surface:#0A0F1D; --soft:#0D1322;
+  --ink:#F2F5FB; --body-c:#B4BFD1; --legend:#8B99AF; --tert:#5F6C81;
+  --line:rgba(148,163,184,.14);
+  --blue:#5B8DF8; --violet:#A78BFA; --g1:#5B8DF8; --g2:#A78BFA;
+  --blue-soft:rgba(91,141,248,.55);
+  --c-fondamentaux:#5B8DF8; --c-prompt:#A78BFA; --c-commercial:#45C8FF; --c-metiers:#34D399;
+  --chip-fond-bg:rgba(91,141,248,.13); --chip-prompt-bg:rgba(167,139,250,.13); --chip-com-bg:rgba(69,200,255,.11); --chip-met-bg:rgba(52,211,153,.13);
+  --ok:#34D399; --ok-ink:#6EE7B7; --ok-bg:rgba(52,211,153,.09); --ok-line:rgba(52,211,153,.32);
+  --err:#F87171; --err-ink:#FCA5A5; --err-bg:rgba(248,113,113,.08); --err-line:rgba(248,113,113,.32);
+  --warn:#FB923C; --warn-ink:#FDBA74; --warn-bg:rgba(251,146,60,.12);
+  --amber:#FBBF24; --star-off:#39445A;
+  --sel-bg:rgba(91,141,248,.11);
+  --exp-bg:rgba(2,4,10,.4);
+  --focus:rgba(91,141,248,.4);
+  --cta-shadow:0 12px 30px rgba(23,12,58,.55);
+  --nav-bg:rgba(5,7,14,.78);
+  --grain-o:.06;
+  --dl:none; --dd:inline-block;
+  --mono-bg:#0A0F1D; --mono-ink:#CBD5E1;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; position:relative; min-height:100vh;
+  background:var(--bg); color:var(--body-c);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-weight:380; font-size:16px; line-height:1.66;
+  transition:background .3s ease,color .3s ease;
+}
+body::before{
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  opacity:var(--grain-o); background-size:260px 260px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+::selection{background:rgba(124,58,237,.16)}
+html.dark ::selection{background:rgba(167,139,250,.3)}
+h1,h2,h3{font-family:'Instrument Sans',system-ui,sans-serif;color:var(--ink);margin:0;text-wrap:balance}
+p{margin:0}
+button{font-family:inherit}
+a{color:var(--blue)}
+.hidden{display:none !important}
+.wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:46px 24px 90px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.topnav{position:sticky;top:0;z-index:40;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:960px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav-logo{display:inline-flex;align-items:center;border-radius:8px}
+.nav-logo img{height:22px;width:auto;vertical-align:middle}
+.logo-l{display:var(--dl)} .logo-d{display:var(--dd)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-tag{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--legend);white-space:nowrap}
+.theme-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--legend);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,color .2s;padding:0}
+.theme-btn:hover{border-color:var(--tert);color:var(--ink)}
+.theme-btn svg{width:15px;height:15px}
+.ic-sun{display:none}
+html.dark .ic-sun{display:block}
+html.dark .ic-moon{display:none}
+
+/* ============================================================
+   TYPO UTILITAIRES
+   ============================================================ */
+.kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend)}
+.muted{color:var(--tert)}
+.gradient-text{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.serif-it{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400}
+
+/* ============================================================
+   BOUTONS
+   ============================================================ */
+.btn-cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 30px;border-radius:999px;border:0;cursor:pointer;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:14.5px;letter-spacing:.01em;box-shadow:var(--cta-shadow);transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .2s}
+.btn-cta:hover:not(:disabled){transform:translateY(-1px)}
+.btn-cta:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:border-color .2s}
+.btn-ghost:hover:not(:disabled){border-color:var(--tert)}
+.btn-ghost:disabled{opacity:.4;cursor:not-allowed}
+
+/* ============================================================
+   CHIPS MODULES
+   ============================================================ */
+.bucket-chip{display:inline-block;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;padding:4px 11px;border-radius:999px;white-space:nowrap}
+.badge-fondamentaux{background:var(--chip-fond-bg);color:var(--c-fondamentaux)}
+.badge-prompt{background:var(--chip-prompt-bg);color:var(--c-prompt)}
+.badge-commercial{background:var(--chip-com-bg);color:var(--c-commercial)}
+.badge-metiers{background:var(--chip-met-bg);color:var(--c-metiers)}
+
+/* ============================================================
+   HERO DECK (accueil)
+   ============================================================ */
+.hero{text-align:center;padding-top:22px}
+.hero-kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend);margin-bottom:22px}
+.hero h1{font-size:clamp(36px,6.4vw,54px);font-weight:640;letter-spacing:-.015em;line-height:1.05;margin-bottom:14px}
+.hero-sub{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(19px,3vw,23px);color:var(--ink);margin-bottom:20px}
+.hero-lede{max-width:700px;margin:0 auto;color:var(--legend);font-size:15.5px;line-height:1.75;text-align:center}
+.hero-meta{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:28px}
+.hero-pill{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--body-c);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 16px}
+
+/* ============================================================
+   TÊTE DE PAGE MODULE (M1, M2…)
+   ============================================================ */
+.iae-page-head{margin-bottom:8px}
+.iae-page-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.iae-page-pill{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;white-space:nowrap}
+.iae-page-note{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tert)}
+.iae-page-head h1{font-size:clamp(30px,4.6vw,40px);font-weight:640;letter-spacing:-.012em;line-height:1.12;margin-bottom:12px}
+.iae-page-lede{font-size:15px;color:var(--legend);max-width:720px;line-height:1.7}
+.iae-objectifs{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.iae-obj{display:inline-flex;align-items:center;gap:9px;font-size:13px;color:var(--body-c);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 14px;line-height:1.4}
+.iae-obj b{font-family:'Fragment Mono',monospace;font-size:10px;color:var(--blue);font-weight:400}
+
+/* ============================================================
+   SECTIONS ÉDITORIALES
+   ============================================================ */
+.iae-section{margin-top:64px}
+.iae-section:first-of-type{margin-top:56px}
+.iae-sec-head{margin-bottom:26px}
+.iae-sec-kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--tert);margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.iae-sec-kick::after{content:"";flex:1;height:1px;background:var(--line)}
+.iae-sec-head h2{font-size:clamp(24px,3.4vw,30px);font-weight:640;letter-spacing:-.01em;line-height:1.18;margin-bottom:10px}
+.iae-sec-lede{font-size:14.5px;color:var(--legend);max-width:720px;line-height:1.68}
+.iae-h3{font-size:17px;font-weight:620;margin:0 0 12px}
+.iae-p{font-size:14.5px;line-height:1.7;margin-bottom:14px;max-width:760px}
+.iae-p:last-child{margin-bottom:0}
+
+/* Cartes & grilles */
+.iae-grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.iae-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.iae-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.iae-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px}
+.iae-card h3{font-size:15.5px;font-weight:620;margin-bottom:8px}
+.iae-card .iae-p{font-size:13.5px}
+.iae-card-kick{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:10px}
+.iae-num{font-family:'Instrument Serif',Georgia,serif;font-size:38px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block;margin-bottom:12px}
+
+/* Listes enrichies */
+.iae-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.iae-list li{position:relative;padding-left:26px;font-size:14px;line-height:1.62}
+.iae-list li::before{content:"";position:absolute;left:2px;top:9px;width:8px;height:8px;border-radius:3px;background:linear-gradient(135deg,var(--g1),var(--g2))}
+.iae-list li b{color:var(--ink);font-weight:560}
+
+/* Callouts */
+.iae-callout{display:flex;gap:15px;border-radius:16px;padding:18px 20px;border:1px solid var(--line);background:var(--surface);margin:18px 0}
+.iae-callout:last-child{margin-bottom:0}
+.iae-co-ic{flex-shrink:0;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Fragment Mono',monospace;font-size:13px}
+.iae-co-body{flex:1;min-width:0}
+.iae-co-label{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:6px}
+.iae-co-body p{font-size:13.5px;line-height:1.65;margin-bottom:8px}
+.iae-co-body p:last-child{margin-bottom:0}
+.co-info{border-color:var(--blue-soft);background:var(--sel-bg)}
+.co-info .iae-co-ic{background:var(--sel-bg);color:var(--blue)}
+.co-info .iae-co-label{color:var(--blue)}
+.co-ok{border-color:var(--ok-line);background:var(--ok-bg)}
+.co-ok .iae-co-ic{background:var(--ok-bg);color:var(--ok-ink)}
+.co-ok .iae-co-label{color:var(--ok-ink)}
+.co-warn{border-color:rgba(249,115,22,.35);background:var(--warn-bg)}
+.co-warn .iae-co-ic{background:var(--warn-bg);color:var(--warn-ink)}
+.co-warn .iae-co-label{color:var(--warn-ink)}
+.co-err{border-color:var(--err-line);background:var(--err-bg)}
+.co-err .iae-co-ic{background:var(--err-bg);color:var(--err-ink)}
+.co-err .iae-co-label{color:var(--err-ink)}
+
+/* Tableaux premium */
+.iae-tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--surface);margin:18px 0}
+.iae-tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:640px}
+.iae-tbl th{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--legend);text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);background:var(--soft);white-space:nowrap}
+.iae-tbl td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.58;color:var(--body-c)}
+.iae-tbl tr:last-child td{border-bottom:0}
+.iae-tbl tbody tr{transition:background .15s}
+.iae-tbl tbody tr:hover{background:var(--sel-bg)}
+.iae-tbl td b{color:var(--ink);font-weight:580}
+.iae-tbl .cell-ok{color:var(--ok-ink);font-weight:560}
+.iae-tbl .cell-warn{color:var(--warn-ink);font-weight:560}
+.iae-tbl .cell-err{color:var(--err-ink);font-weight:560}
+
+/* Blocs prompt avant / après */
+.iae-prompt{border-radius:16px;padding:18px 20px;border:1.5px solid var(--line);background:var(--surface)}
+.iae-prompt .p-tag{display:inline-block;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin-bottom:12px}
+.iae-prompt .p-body{font-size:13.5px;line-height:1.66;white-space:pre-wrap;color:var(--body-c)}
+.iae-prompt .p-note{margin-top:12px;font-size:12.5px;color:var(--legend);line-height:1.6;border-top:1px dashed var(--line);padding-top:10px}
+.p-before{border-color:var(--err-line);background:var(--err-bg)}
+.p-before .p-tag{background:var(--err-bg);color:var(--err-ink);border:1px solid var(--err-line)}
+.p-after{border-color:var(--ok-line);background:var(--ok-bg)}
+.p-after .p-tag{background:var(--ok-bg);color:var(--ok-ink);border:1px solid var(--ok-line)}
+.p-neutral .p-tag{background:var(--sel-bg);color:var(--blue);border:1px solid var(--blue-soft)}
+.iae-vs{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+
+/* Statistiques */
+.iae-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:22px 0}
+.iae-stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;text-align:left}
+.iae-stat .st-num{font-family:'Instrument Serif',Georgia,serif;font-size:40px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block;margin-bottom:8px}
+.iae-stat .st-lbl{font-size:12.5px;color:var(--legend);line-height:1.55}
+.iae-stat .st-src{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--tert);margin-top:9px;text-transform:uppercase}
+
+/* Ligne de sources */
+.iae-src{font-family:'Fragment Mono',monospace;font-size:10.5px;color:var(--tert);letter-spacing:.03em;line-height:1.75;margin-top:24px;padding-top:14px;border-top:1px dashed var(--line);max-width:860px}
+.iae-src b{color:var(--legend);font-weight:400;letter-spacing:.14em;text-transform:uppercase;font-size:9.5px}
+
+/* Schéma flux en étapes */
+.iae-flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin:18px 0}
+.iae-flow .fl-step{flex:1;min-width:150px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.iae-flow .fl-kick{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--tert);margin-bottom:6px}
+.iae-flow .fl-name{font-size:13.5px;font-weight:580;color:var(--ink);line-height:1.4}
+.iae-flow .fl-sub{font-size:12px;color:var(--legend);margin-top:5px;line-height:1.5}
+.iae-flow .fl-arrow{display:flex;align-items:center;color:var(--tert);font-size:18px;flex-shrink:0}
+
+/* Comparateur croire / réalité */
+.iae-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}
+.iae-cmp{border-radius:16px;padding:20px 22px;border:1px solid var(--line);background:var(--surface)}
+.iae-cmp h3{font-size:14px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.iae-cmp .cmp-tag{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:4px 11px;border-radius:999px}
+.cmp-belief .cmp-tag{background:var(--warn-bg);color:var(--warn-ink)}
+.cmp-real{border-color:var(--ok-line)}
+.cmp-real .cmp-tag{background:var(--ok-bg);color:var(--ok-ink)}
+.iae-cmp ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.iae-cmp li{font-size:13.5px;line-height:1.6;padding-left:20px;position:relative}
+.iae-cmp li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:2px;background:var(--tert)}
+.cmp-real li::before{background:var(--ok)}
+
+/* Personas */
+.iae-personas{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.iae-persona{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;transition:border-color .2s,transform .2s}
+.iae-persona:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+.iae-perso-init{font-family:'Instrument Serif',Georgia,serif;font-size:26px;line-height:1;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;margin-bottom:12px}
+.iae-perso-name{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:14.5px;color:var(--ink)}
+.iae-perso-role{font-size:12px;color:var(--legend);margin-top:3px;line-height:1.5}
+
+/* Frise agenda */
+.iae-frise{display:flex;flex-direction:column;gap:0;margin:8px 0}
+.iae-fr-day{display:flex;gap:18px;position:relative;padding-bottom:26px}
+.iae-fr-day:last-child{padding-bottom:0}
+.iae-fr-rail{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:74px}
+.iae-fr-dot{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fragment Mono',monospace;font-size:12px;letter-spacing:.05em;flex-shrink:0}
+.iae-fr-line{width:2px;flex:1;background:var(--line);margin-top:8px}
+.iae-fr-day:last-child .iae-fr-line{display:none}
+.iae-fr-body{flex:1;min-width:0;padding-top:2px}
+.iae-fr-title{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:16px;color:var(--ink);margin-bottom:10px}
+.iae-fr-slots{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.iae-slot{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 15px;font-size:13px;line-height:1.5;color:var(--body-c)}
+.iae-slot b{color:var(--ink);font-weight:580;display:block;margin-bottom:3px}
+.iae-slot .slot-tag{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;display:inline-block}
+
+/* Pied de page deck */
+.iae-foot{margin-top:72px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.iae-foot .foot-note{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--tert)}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:820px){
+  .iae-grid4,.iae-personas{grid-template-columns:1fr 1fr}
+  .iae-grid3,.iae-stats{grid-template-columns:1fr}
+  .iae-grid2,.iae-vs,.iae-compare,.iae-fr-slots{grid-template-columns:1fr}
+  .wrap{padding:34px 18px 70px}
+}
+@media (max-width:600px){.nav-tag{display:none}.iae-personas{grid-template-columns:1fr}}
+
+/* ============================================================
+   ACCESSIBILITÉ & PRINT
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+}
+@media print{
+  nav,.no-print{display:none !important}
+  body{background:#fff !important;color:#000 !important}
+  body::before{display:none !important}
+  *{color:#000 !important;background:#fff !important;border-color:#ccc !important;box-shadow:none !important;text-shadow:none !important}
+  .gradient-text,.iae-num,.iae-stat .st-num{-webkit-text-fill-color:initial !important;background:none !important;color:#000 !important}
+  .iae-perso-init,.iae-fr-dot{background:#333 !important;color:#fff !important}
+  .print-only{display:block !important}
+}
+.print-only{display:none}
+
+/* ============================================================
+   P2 — MINI-JEU « TRI DES SAISIES »
+   ============================================================ */
+.tri-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tri-card{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:13px;transition:border-color .25s}
+.tri-card.solved-ok{border-color:var(--ok-line);background:var(--ok-bg)}
+.tri-card.solved-ko{border-color:var(--err-line);background:var(--err-bg)}
+.tri-sit{font-size:13.5px;line-height:1.62;color:var(--body-c)}
+.tri-sit b{color:var(--ink)}
+.tri-who{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--tert);margin-bottom:2px}
+.tri-btns{display:flex;gap:8px;flex-wrap:wrap}
+.tri-btn{flex:1;min-width:96px;padding:9px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--body-c);font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.tri-btn:hover{border-color:var(--blue-soft)}
+.tri-btn.pick-ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.tri-btn.pick-ko{background:var(--err);border-color:var(--err);color:#fff}
+.tri-btn.dim{opacity:.45}
+.tri-card.locked .tri-btn{cursor:default}
+.tri-verdict{display:none;font-size:12.5px;line-height:1.6;color:var(--body-c);border-top:1px dashed var(--line);padding-top:11px}
+.tri-card.solved-ok .tri-verdict,.tri-card.solved-ko .tri-verdict{display:block;animation:fadeSlideIn .35s cubic-bezier(.16,1,.3,1)}
+.tri-verdict b{font-weight:620}
+.tri-verdict .v-tag{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:5px}
+.tri-card.solved-ok .v-tag{color:var(--ok-ink)}
+.tri-card.solved-ko .v-tag{color:var(--err-ink)}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.tri-score{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 22px;margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.tri-score-txt{font-size:14px;color:var(--body-c);line-height:1.6}
+.tri-score-txt b{font-family:'Instrument Serif',Georgia,serif;font-size:26px;color:var(--ink);font-weight:400;margin-right:4px}
+@media (max-width:820px){.tri-grid{grid-template-columns:1fr}}
+
+    /* ============================================================
+     NAVIGATION DE FIN DE PAGE
+     ============================================================ */
+  .pgnav{display:flex;gap:14px;border-top:1px solid var(--line);padding-top:36px;margin-top:88px}
+  .pgn{flex:1;display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px 22px;transition:border-color .2s,transform .2s}
+  .pgn:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+  .pgn-k{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:6px}
+  .pgn-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14.5px;color:var(--ink);line-height:1.4}
+  .pgn.next{text-align:right}
+  @media (max-width:760px){.pgnav{flex-direction:column}.pgn.next{text-align:left}}
+
+  </style>
+  <script src="assets/js/formai-bridge.js?v=1783300000"></script>
+</head>
+<body>
+
+<!-- Top nav -->
+<nav class="topnav no-print">
+  <div class="nav-in">
+    <a href="/" class="nav-logo" aria-label="Akademia Formation — retour à l'accueil">
+      <img class="logo-l" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDQwMCAxMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnM+CiAgICA8IS0tIEdyYWRpZW50IFByaW5jaXBhbCAtLT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icHJpbWFyeUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzI1NjNFQjtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0MzQUVEO3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIAogICAgPCEtLSBHcmFkaWVudCBBY2NlbnQgLS0+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImFjY2VudEdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxMEI5ODE7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzA2QjZENDtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAKICAgIDwhLS0gU2hhZG93IEZpbHRlciAtLT4KICAgIDxmaWx0ZXIgaWQ9InNoYWRvdyIgeD0iLTUwJSIgeT0iLTUwJSIgd2lkdGg9IjIwMCUiIGhlaWdodD0iMjAwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjgiIGZsb29kLW9wYWNpdHk9IjAuMSIvPgogICAgPC9maWx0ZXI+CiAgPC9kZWZzPgogIAogIDwhLS0gTG9nbyBJY29uIC0tPgogIDxnIGlkPSJha2FkZW1pYS1pY29uIj4KICAgIDwhLS0gQmFja2dyb3VuZCBTaGFwZSAtLT4KICAgIDxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTYiIHJ5PSIxNiIgZmlsbD0idXJsKCNwcmltYXJ5R3JhZGllbnQpIiBmaWx0ZXI9InVybCgjc2hhZG93KSIvPgogICAgCiAgICA8IS0tIExldHRlciBBIERlc2lnbiAtLT4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYwLCA2MCkiPgogICAgICA8IS0tIE1haW4gQSBTaGFwZSAtLT4KICAgICAgPHBhdGggZD0iTSAwIC0yNSBMIC0xNSAxNSBMIC04IDE1IEwgLTYgOCBMIDYgOCBMIDggMTUgTCAxNSAxNSBMIDAgLTI1IFogTSAwIC0xMCBMIC0zIDAgTCAzIDAgTCAwIC0xMCBaIiAKICAgICAgICAgICAgZmlsbD0id2hpdGUiIAogICAgICAgICAgICBvcGFjaXR5PSIxIi8+CiAgICA8L2c+CiAgICAKICAgIDwhLS0gQWNjZW50IENpcmNsZSAtLT4KICAgIDxjaXJjbGUgY3g9Ijc1IiBjeT0iNDUiIHI9IjgiIGZpbGw9InVybCgjYWNjZW50R3JhZGllbnQpIiBvcGFjaXR5PSIwLjkiLz4KICA8L2c+CiAgCiAgPCEtLSBMb2dvIFRleHQgLS0+CiAgPGcgaWQ9ImFrYWRlbWlhLXRleHQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMCwgNjApIj4KICAgIDwhLS0gQUtBREVNSUEgLS0+CiAgICA8dGV4dCB4PSIwIiB5PSI1IiAKICAgICAgICAgIGZvbnQtZmFtaWx5PSJJbnRlciwgLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCAnU2Vnb2UgVUknLCBSb2JvdG8sIHNhbnMtc2VyaWYiIAogICAgICAgICAgZm9udC1zaXplPSIzNiIgCiAgICAgICAgICBmb250LXdlaWdodD0iNzAwIiAKICAgICAgICAgIGZpbGw9IiMwRjE3MkEiCiAgICAgICAgICBsZXR0ZXItc3BhY2luZz0iLTAuMDJlbSI+QUtBREVNSUE8L3RleHQ+CiAgICAKICAgIDwhLS0gRk9STUFUSU9OIC0tPgogICAgPHRleHQgeD0iMCIgeT0iMjgiIAogICAgICAgICAgZm9udC1mYW1pbHk9IkludGVyLCAtYXBwbGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsICdTZWdvZSBVSScsIFJvYm90bywgc2Fucy1zZXJpZiIgCiAgICAgICAgICBmb250LXNpemU9IjE4IiAKICAgICAgICAgIGZvbnQtd2VpZ2h0PSI0MDAiIAogICAgICAgICAgZmlsbD0iIzY0NzQ4QiIKICAgICAgICAgIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+">
+      <img class="logo-d" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjgwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtYWluR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMjU2M0VCO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM3QzNBRUQ7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJhY2NlbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzEwQjk4MTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDZCNkQ0O3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDwhLS0gTG9nbyBJbnZlcnPDqSBwb3VyIGZvbmQgc29tYnJlIC0tPgogIDxnPgogICAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMTIiIGZpbGw9IndoaXRlIi8+CiAgICA8cGF0aCBkPSJNIDMwIDE1IEwgNDAgNDUgTCAzNSA0NSBMIDMzIDM4IEwgMjcgMzggTCAyNSA0NSBMIDIwIDQ1IEwgMzAgMTUgWiBNIDMwIDIzIEwgMjggMzIgTCAzMiAzMiBMIDMwIDIzIFoiIGZpbGw9InVybCgjbWFpbkdyYWRpZW50KSIvPgogICAgPGNpcmNsZSBjeD0iNDUiIGN5PSIyMCIgcj0iNiIgZmlsbD0idXJsKCNhY2NlbnQpIi8+CgogICAgPHRleHQgeD0iNzUiIHk9IjI4IiBmb250LWZhbWlseT0iSW50ZXIsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSJ3aGl0ZSI+QUtBREVNSUE8L3RleHQ+CiAgICA8dGV4dCB4PSI3NSIgeT0iNDYiIGZvbnQtZmFtaWx5PSJJbnRlciwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI0MDAiIGZpbGw9IiM5NEEzQjgiIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+Cg==">
+    </a>
+    <div class="nav-right">
+      <span class="nav-tag">IA en entreprise · Module 1</span>
+      <button id="darkToggle" class="theme-btn" aria-label="Basculer le thème sombre">
+        <svg class="ic-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <svg class="ic-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+<!-- ============================================ -->
+<!-- TÊTE DE MODULE                                 -->
+<!-- ============================================ -->
+<header class="iae-page-head">
+  <div class="iae-page-row">
+    <span class="iae-page-pill">Module 1 · Jour 1</span>
+    <span class="iae-page-note">Fondamentaux &amp; cadre d'usage</span>
+  </div>
+  <h1>Comprendre l'IA générative <span class="serif-it gradient-text">avant de la déployer</span></h1>
+  <p class="iae-page-lede">
+    Ce module pose le socle commun des deux journées : ce qu'une IA générative fait réellement (et ce qu'elle ne fera jamais), le panorama 2026 des outils, les cinq cas d'usage qui rapportent tout de suite, et le cadre de sécurité et de conformité qui protège l'entreprise — RGPD et IA Act compris.
+  </p>
+  <div class="iae-objectifs">
+    <span class="iae-obj"><b>01</b> Décrire capacités et limites d'une IA générative</span>
+    <span class="iae-obj"><b>02</b> Situer les principaux outils en 2026</span>
+    <span class="iae-obj"><b>03</b> Appliquer les règles de sécurité et de confidentialité</span>
+    <span class="iae-obj"><b>04</b> Choisir le bon outil selon la donnée et l'usage</span>
+  </div>
+</header>
+
+<!-- ============================================ -->
+<!-- 1. CE QUE FAIT (ET NE FAIT PAS) UNE IA        -->
+<!-- ============================================ -->
+<section class="iae-section" id="fondamentaux">
+  <div class="iae-sec-head">
+    <div class="iae-sec-kick">Section 1 · Fondamentaux</div>
+    <h2>Ce que fait <span class="serif-it gradient-text">(et ne fait pas)</span> une IA générative</h2>
+    <p class="iae-sec-lede">
+      La plupart des déceptions et des accidents avec l'IA viennent d'une fausse image de départ : celle d'une base de connaissances à qui l'on poserait des questions. Ce n'est pas ce que vous avez en face.
+    </p>
+  </div>
+
+  <div class="iae-compare">
+    <div class="iae-cmp cmp-belief">
+      <h3><span class="cmp-tag">Ce qu'on croit</span></h3>
+      <ul>
+        <li>« L'IA sait » : elle interroge une base de connaissances à jour, comme un moteur de recherche.</li>
+        <li>Si elle répond avec assurance, c'est que l'information est fiable.</li>
+        <li>Elle cite une norme, un chiffre, une référence : donc ils existent.</li>
+        <li>Elle est objective, puisque c'est une machine.</li>
+      </ul>
+    </div>
+    <div class="iae-cmp cmp-real">
+      <h3><span class="cmp-tag">Ce qui se passe</span></h3>
+      <ul>
+        <li>Le modèle <b>prédit la suite de texte la plus probable</b>, statistiquement plausible dans le contexte — il ne « consulte » rien.</li>
+        <li>L'assurance du style ne dit rien de l'exactitude du fond : une réponse très bien écrite peut être entièrement fausse.</li>
+        <li>Une référence plausible peut être <b>inventée de toutes pièces</b> : c'est l'hallucination, un défaut structurel, pas un bug.</li>
+        <li>Le modèle reflète ses données d'entraînement : biais, angles morts, et une connaissance figée à une date de coupure.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="iae-callout co-err">
+    <div class="iae-co-ic">!</div>
+    <div class="iae-co-body">
+      <div class="iae-co-label">Cas NORDFLOW — la référence normative inventée</div>
+      <p>Élise prépare une fiche technique pour un skid de dosage destiné à une collectivité. Elle demande à une IA grand public la liste des normes applicables. La réponse arrive, impeccablement rédigée : « conformité EN 1092-3 classe B pour les brides, directive 2014/68/UE, référentiel NF E 29-410 rév. 2024 ». Le mélange est convaincant : une vraie directive, des numéros de normes plausibles… et une révision « 2024 » qui n'existe pas, accolée à une désignation d'article erronée. Sans la relecture d'Hervé, la fiche partait chez le client avec une norme fantôme — le genre de détail qui coûte une qualification en appel d'offres.</p>
+      <p><b>Le réflexe :</b> toute référence normative, tout chiffre, toute date fournis par une IA se vérifient à la source primaire (texte officiel, site de l'éditeur de norme) avant d'entrer dans un document qui sort de l'entreprise.</p>
+    </div>
+  </div>
+
+  <h3 class="iae-h3" style="margin-top:30px">Ce qu'elle fait très bien — et où elle décroche</h3>
+  <p class="iae-p" style="margin-bottom:16px">Les chercheurs parlent de « frontière irrégulière » : la même IA est excellente sur certaines tâches et tombe sur d'autres, sans signal visible. Les mesures de l'expérience menée avec 758 consultants du BCG le montrent crûment :</p>
+  <div class="iae-stats">
+    <div class="iae-stat">
+      <span class="st-num">−25 %</span>
+      <div class="st-lbl">de temps sur les tâches adaptées à l'IA (rédaction, synthèse, structuration), avec une qualité jugée supérieure d'environ 40 %</div>
+      <div class="st-src">Dell'Acqua et al. · Harvard / BCG 2023</div>
+    </div>
+    <div class="iae-stat">
+      <span class="st-num">−19 pts</span>
+      <div class="st-lbl">de bonnes réponses sur la tâche piège, hors de la « frontière » de l'IA — les utilisateurs les plus qualifiés ont été les plus confiants</div>
+      <div class="st-src">Dell'Acqua et al. · Harvard / BCG 2023</div>
+    </div>
+    <div class="iae-stat">
+      <span class="st-num">−40 %</span>
+      <div class="st-lbl">de temps sur des tâches d'écriture professionnelle (notes, e-mails, argumentaires), avec +18 % de qualité évaluée en aveugle</div>
+      <div class="st-src">Noy &amp; Zhang · MIT, Science 2023</div>
+    </div>
+  </div>
+
+  <div class="iae-grid2">
+    <div class="iae-card">
+      <div class="iae-card-kick">Ses points forts documentés</div>
+      <ul class="iae-list">
+        <li><b>Produire de l'écrit</b> : brouillons d'e-mails, comptes rendus structurés, argumentaires, trames de propositions.</li>
+        <li><b>Condenser</b> : résumer un long document, un fil d'e-mails, un CCTP, une réunion.</li>
+        <li><b>Traduire et reformuler</b> : changer de langue, de ton, de niveau de langage.</li>
+        <li><b>Structurer le vide</b> : plans, checklists, matrices, brainstorms cadrés.</li>
+      </ul>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Ses limites structurelles</div>
+      <ul class="iae-list">
+        <li><b>Hallucination</b> : elle fabrique des faits, chiffres et références plausibles — toujours vérifier ce qui a des conséquences.</li>
+        <li><b>Coupure temporelle</b> : ses connaissances internes s'arrêtent à la fin de son entraînement ; sans recherche web activée, l'actualité récente lui échappe.</li>
+        <li><b>Biais</b> : elle reproduit ceux de ses données d'entraînement — relire avec un œil critique sur les sujets humains.</li>
+        <li><b>Aucune connaissance de votre entreprise</b> hors de ce que vous lui donnez : votre catalogue, vos prix, vos historiques clients n'existent pas pour elle.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="iae-src"><b>Sources :</b> Dell'Acqua, Mollick, Lakhani et al., « Navigating the Jagged Technological Frontier », Harvard Business School WP 24-013 (2023) · Noy &amp; Zhang, « Experimental Evidence on the Productivity Effects of Generative Artificial Intelligence », Science (2023).</div>
+</section>
+
+<!-- ============================================ -->
+<!-- 2. PANORAMA 2026 DES OUTILS                   -->
+<!-- ============================================ -->
+<section class="iae-section" id="panorama">
+  <div class="iae-sec-head">
+    <div class="iae-sec-kick">Section 2 · Panorama</div>
+    <h2>Les outils en 2026 : <span class="serif-it gradient-text">qui fait quoi</span></h2>
+    <p class="iae-sec-lede">
+      Cinq familles dominent les usages en entreprise. Le critère de choix n'est pas le classement des modèles — c'est l'adéquation à votre environnement (ici Microsoft 365), à la sensibilité de vos données et à vos cas d'usage.
+    </p>
+  </div>
+
+  <div class="iae-tbl-wrap">
+    <table class="iae-tbl">
+      <thead>
+        <tr>
+          <th>Outil</th>
+          <th>Génération en cours</th>
+          <th>Points forts en entreprise</th>
+          <th>Intégration clé</th>
+          <th>Point de vigilance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>ChatGPT</b><br><span class="muted" style="font-size:11.5px">OpenAI</span></td>
+          <td>GPT-5 (août 2025)</td>
+          <td>Le plus généraliste : rédaction, synthèse, traduction, analyse de documents ; recherche approfondie, projets, connecteurs SaaS.</td>
+          <td>Web, desktop, mobile, API, connecteurs (SharePoint, Drive…)</td>
+          <td class="cell-warn">Sur les versions grand public, les saisies peuvent servir à améliorer les modèles sauf désactivation du réglage dédié.</td>
+        </tr>
+        <tr>
+          <td><b>Claude</b><br><span class="muted" style="font-size:11.5px">Anthropic</span></td>
+          <td>Famille Claude 4 — Sonnet 4.5, Haiku 4.5, Opus 4.5 (fin 2025)</td>
+          <td>Qualité rédactionnelle, synthèse de très longs documents (contexte de 200 000 tokens), projets partagés en équipe.</td>
+          <td>API, Slack, Google Workspace</td>
+          <td class="cell-err">Grand public : entraînement par défaut depuis fin 2025 sauf refus explicite — jamais de donnée d'entreprise dans un compte personnel.</td>
+        </tr>
+        <tr>
+          <td><b>Microsoft Copilot</b><br><span class="muted" style="font-size:11.5px">Microsoft 365</span></td>
+          <td>Modèles OpenAI (GPT-5) + modèles Anthropic dans certaines fonctions (fin 2025)</td>
+          <td>L'IA là où vous travaillez déjà : résumer un fil Outlook, brouillon de réponse, compte rendu Teams, reformulation Word. Données internes accessibles via Microsoft Graph dans le respect des permissions.</td>
+          <td>Natif Outlook, Teams, Word, Excel, PowerPoint</td>
+          <td class="cell-warn">Des permissions SharePoint trop larges font remonter des documents que l'utilisateur ne devrait pas croiser — un sujet de gouvernance à traiter.</td>
+        </tr>
+        <tr>
+          <td><b>Gemini</b><br><span class="muted" style="font-size:11.5px">Google</span></td>
+          <td>Gemini 2.5 Pro/Flash, Gemini 3 Pro (nov. 2025)</td>
+          <td>Intégration native Google Workspace (Gmail, Docs, Meet), NotebookLM pour la synthèse documentaire.</td>
+          <td>Google Workspace, API</td>
+          <td class="cell-warn">Pertinent surtout pour les organisations équipées Google Workspace — repère comparatif ici, pas une piste de déploiement.</td>
+        </tr>
+        <tr>
+          <td><b>Mistral — Le Chat</b><br><span class="muted" style="font-size:11.5px">Éditeur français</span></td>
+          <td>Mistral Medium 3, Magistral (mi-2025)</td>
+          <td>Souveraineté européenne : éditeur français, hébergement UE, alignement RGPD, option de déploiement dédié — un argument dans les appels d'offres européens.</td>
+          <td>API, web, mobile ; déploiement dédié possible</td>
+          <td class="cell-warn">Écosystème d'intégrations bureautiques plus restreint que Microsoft ou Google.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="iae-callout co-info">
+    <div class="iae-co-ic">i</div>
+    <div class="iae-co-body">
+      <div class="iae-co-label">Le point qui change tout : données personnelles vs offre professionnelle</div>
+      <p>Sur les offres professionnelles (ChatGPT Business/Enterprise, Claude Team/Enterprise, Copilot, Gemini for Workspace), les éditeurs indiquent contractuellement ne pas entraîner leurs modèles sur vos données ; Mistral affiche le même positionnement pour son API et ses offres pro. Ce n'est pas le cas des versions gratuites grand public. Règle simple : <b>une donnée de l'entreprise ne se saisit que dans une offre professionnelle validée</b> — et chez NORDFLOW, l'environnement de référence est Microsoft 365, donc Copilot est le point d'entrée naturel pour tout ce qui touche aux mails, fichiers et réunions internes.</p>
+    </div>
+  </div>
+
+  <div class="iae-src"><b>Sources :</b> pages éditeurs — OpenAI (openai.com, 2025) · Anthropic (anthropic.com/news, 2025) · Microsoft Learn et pages Copilot (learn.microsoft.com, 2025) · Google Workspace / blog Google (2025) · Mistral AI (mistral.ai, 2025). Tarifs et gammes évoluant vite : les désignations sont celles communiquées par les éditeurs à fin 2025.</div>
+</section>
+
+<!-- ============================================ -->
+<!-- 3. CINQ CAS D'USAGE PRIORITAIRES              -->
+<!-- ============================================ -->
+<section class="iae-section" id="cas-usage">
+  <div class="iae-sec-head">
+    <div class="iae-sec-kick">Section 3 · Cas d'usage</div>
+    <h2>Cinq cas d'usage <span class="serif-it gradient-text">qui rapportent tout de suite</span></h2>
+    <p class="iae-sec-lede">
+      Inutile de chercher l'« IA qui transforme tout » : les gisements immédiats sont dans cinq familles de tâches que chacun pratique déjà. Voici comment elles se déclinent chez NORDFLOW.
+    </p>
+  </div>
+
+  <div class="iae-grid2">
+    <div class="iae-card">
+      <div class="iae-card-kick">Cas d'usage 01</div>
+      <h3>Rédaction d'e-mails</h3>
+      <p class="iae-p">Brouillons, relances, réponses délicates, mises au point ton professionnel. <b>Chez NORDFLOW :</b> Sonia traite ses confirmations de commande et ses réponses de litige en s'appuyant sur un brouillon relu ; Élise industrialise ses relances de devis sans perdre la personnalisation.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Cas d'usage 02</div>
+      <h3>Synthèse de documents</h3>
+      <p class="iae-p">Résumer, extraire, mettre en tableau. <b>Chez NORDFLOW :</b> Hervé obtient en quelques minutes la liste des exigences d'un CCTP de 80 pages pour cadrer la réponse ; Maud transforme ses notes de chantier en compte rendu structuré.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Cas d'usage 03</div>
+      <h3>Recherche dans les documents internes</h3>
+      <p class="iae-p">Retrouver l'information dispersée dans les mails, fichiers et réunions. <b>Chez NORDFLOW :</b> via Copilot dans le tenant Microsoft 365, Romain fait remonter « le dernier échange sur le projet de la station d'épuration » avant sa réunion — la donnée reste dans l'environnement de l'entreprise.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Cas d'usage 04</div>
+      <h3>Traduction et adaptation FR/EN</h3>
+      <p class="iae-p">Versions anglaises de documents, adaptation du ton. <b>Chez NORDFLOW :</b> Théo produit la version EN d'un communiqué salon ; Maud joint un résumé anglais à son compte rendu pour le siège d'un client allemand. Vigilance constante sur les termes métier : « vannes à opercule » ne se traduit pas au petit bonheur.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Cas d'usage 05</div>
+      <h3>Brainstorm structuré</h3>
+      <p class="iae-p">Angles, plans, listes d'idées cadrées pour sortir de la page blanche. <b>Chez NORDFLOW :</b> Théo génère vingt angles de campagne pour le lancement d'une nouvelle pompe, en filtre cinq, et ne retient que ceux étayables par des preuves produit réelles.</p>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Ce que mesurent les études</div>
+      <h3>Des gains réels, sur des tâches choisies</h3>
+      <p class="iae-p">Sur l'écrit professionnel : <b>−40 % de temps, +18 % de qualité</b> (Noy &amp; Zhang, MIT, 2023). Au support client : <b>+14 % de productivité en moyenne, +34 % pour les profils les moins expérimentés</b> — l'IA agit comme un transfert d'expérience (Brynjolfsson et al., NBER 2023). Le facteur discriminant, c'est le choix des tâches — pas l'outil.</p>
+    </div>
+  </div>
+
+  <div class="iae-src"><b>Sources :</b> Noy &amp; Zhang, Science (2023) · Brynjolfsson, Li &amp; Raymond, « Generative AI at Work », NBER WP 31161 (2023), version publiée au Quarterly Journal of Economics (2025).</div>
+</section>
+
+<!-- ============================================ -->
+<!-- 4. SÉCURITÉ & CONFORMITÉ                      -->
+<!-- ============================================ -->
+<section class="iae-section" id="securite">
+  <div class="iae-sec-head">
+    <div class="iae-sec-kick">Section 4 · Sécurité, RGPD &amp; IA Act</div>
+    <h2>Le cadre qui protège <span class="serif-it gradient-text">l'entreprise et vous</span></h2>
+    <p class="iae-sec-lede">
+      Deux ensembles de règles se superposent : le RGPD pour les données personnelles, et le règlement européen sur l'IA pour les usages des systèmes eux-mêmes. Aucun des deux n'interdit de travailler avec l'IA — ils fixent les lignes rouges, et elles sont simples à retenir.
+    </p>
+  </div>
+
+  <h3 class="iae-h3">Ce qui ne se saisit jamais dans un outil grand public</h3>
+  <div class="iae-grid2" style="margin-bottom:8px">
+    <div class="iae-card">
+      <div class="iae-card-kick">Données personnelles (RGPD)</div>
+      <ul class="iae-list">
+        <li><b>Nominatives clients ou salariés</b> : noms, coordonnées directes, dossiers individuels, éléments RH.</li>
+        <li>Saisir une donnée personnelle dans un prompt, c'est déjà <b>un traitement</b> au sens du RGPD : il faut une base légale et la minimisation. Par défaut : on n'en saisit pas, ou on anonymise d'abord.</li>
+        <li>Les droits des personnes (information, accès, rectification, opposition, effacement) restent pleinement exercables quand l'IA entre dans la boucle.</li>
+      </ul>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Secrets de l'entreprise</div>
+      <ul class="iae-list">
+        <li><b>Prix, marges, conditions négociées</b>, grilles tarifaires, stratégie de réponse à un appel d'offres.</li>
+        <li><b>Plans, schémas techniques, CCTP annotés, code</b>, savoir-faire de fabrication.</li>
+        <li>Hors champ RGPD mais cœur du patrimoine : ces éléments ne partent jamais dans un outil que l'entreprise ne maîtrise pas contractuellement.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="iae-callout co-warn">
+    <div class="iae-co-ic">§</div>
+    <div class="iae-co-body">
+      <div class="iae-co-label">L'anonymisation, votre geste quotidien</div>
+      <p>Avant toute saisie, on remplace : « Mme Berthier, AQUALIS Distribution, site de Saint-Denis, devis 84 200 € » devient « un responsable exploitation d'un grand compte eau, devis d'environ 85 k€ ». Le résultat reste exploitable pour la rédaction ; la donnée, elle, ne sort plus de l'entreprise. La CNIL publie depuis avril 2024 des fiches pratiques déclinant le RGPD à l'IA, et l'EDPB a cadré fin 2024 l'usage des modèles au regard du RGPD : la logique est toujours la même — minimisation, finalité claire, contrôle humain.</p>
+    </div>
+  </div>
+
+  <h3 class="iae-h3" style="margin-top:34px">IA Act : ce qui change en 2026, dit tel quel</h3>
+  <p class="iae-p" style="margin-bottom:16px">
+    Le règlement (UE) 2024/1689 (« IA Act ») s'applique par étapes depuis le 1<sup>er</sup> août 2024. Fait majeur de l'été 2026 : le règlement (UE) 2026/1744 du 8 juillet 2026 (« Digital Omnibus on AI »), entré en vigueur le 27 juillet 2026, a <b>décalé le calendrier du « haut risque » sans toucher à la classification ni au contenu des obligations</b>. Voici l'état réel du calendrier à ce jour :
+  </p>
+
+  <div class="iae-tbl-wrap">
+    <table class="iae-tbl">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Statut</th>
+          <th>Ce qui s'applique</th>
+          <th>Concrètement pour une PME comme NORDFLOW</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>2 février 2025</b></td>
+          <td class="cell-ok">Exigible</td>
+          <td><b>Art. 5 — pratiques interdites</b>, dont la reconnaissance des émotions sur le lieu de travail (sauf exceptions médicales ou de sécurité strictes).</td>
+          <td>Aucun outil d'analyse des émotions sur collaborateurs ou candidats — c'est illégal, pas « déconseillé ».</td>
+        </tr>
+        <tr>
+          <td><b>2 février 2025</b></td>
+          <td class="cell-ok">Exigible</td>
+          <td><b>Art. 4 — maîtrise de l'IA (« AI literacy »)</b> : fournisseurs et déployeurs (l'employeur qui utilise l'IA) doivent développer la maîtrise de l'IA de leurs équipes, adaptée au contexte d'utilisation. Obligation en vigueur depuis le 2 février 2025 ; le règlement 2026/1744 l'a réécrite dans un sens « favoriser le développement » — la formation reste le moyen direct d'y répondre.</td>
+          <td><b>Cette formation est la réponse directe à l'art. 4.</b> Pas d'amende spécifique prévue pour ce manquement, mais une responsabilité engagée en cas d'incident causé par un usage non maîtrisé.</td>
+        </tr>
+        <tr>
+          <td><b>2 août 2025</b></td>
+          <td class="cell-ok">Exigible</td>
+          <td>Obligations des modèles d'IA à usage général (GPAI), gouvernance, régime de sanctions.</td>
+          <td>Vise surtout les fournisseurs de modèles (OpenAI, Anthropic, Google…), pas les utilisateurs.</td>
+        </tr>
+        <tr>
+          <td><b>2 août 2026</b></td>
+          <td class="cell-ok">Exigible</td>
+          <td><b>Art. 50 — transparence</b> : informer les personnes lorsqu'elles interagissent avec un système d'IA ; étiquetage des contenus générés.</td>
+          <td>Si un correspondant échange avec un assistant IA, il doit le savoir ; un contenu généré publié tel quel peut devoir être signalé.</td>
+        </tr>
+        <tr>
+          <td><b>2 décembre 2027</b></td>
+          <td class="cell-warn">Repoussé</td>
+          <td>Obligations « haut risque » — annexe III (initialement prévues au 2 août 2026, <b>repoussées par le règlement 2026/1744</b>) : tri de CV, évaluation des performances, décisions affectant la relation de travail.</td>
+          <td>Si NORDFLOW déploie un jour un outil RH de ce type : documentation, contrôle humain, information des travailleurs — échéance décalée, classification inchangée.</td>
+        </tr>
+        <tr>
+          <td><b>2 août 2028</b></td>
+          <td class="cell-warn">Repoussé</td>
+          <td>Haut risque — annexe I : IA intégrée à des produits réglementés (ex. composants de sécurité de machines).</td>
+          <td>À surveiller côté bureau d'études si l'IA entre un jour dans les équipements fabriqués.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="iae-callout co-err">
+    <div class="iae-co-ic">€</div>
+    <div class="iae-co-body">
+      <div class="iae-co-label">Sanctions prévues par l'IA Act (art. 99)</div>
+      <p>Pratiques interdites (art. 5) : jusqu'à <b>35 M€ ou 7 % du chiffre d'affaires annuel mondial</b>, le plus élevé des deux. Plupart des autres manquements : jusqu'à <b>15 M€ ou 3 %</b>. Informations trompeuses aux autorités : jusqu'à <b>7,5 M€ ou 1 %</b>. Autant dire que la reconnaissance des émotions en réunion n'est pas un « test rigolo » : c'est la catégorie la plus sanctionnée du texte.</p>
+    </div>
+  </div>
+
+  <h3 class="iae-h3" style="margin-top:34px">La charte d'usage en trois niveaux — la colonne vertébrale du livrable 1</h3>
+  <div class="iae-tbl-wrap">
+    <table class="iae-tbl">
+      <thead>
+        <tr>
+          <th style="width:120px">Niveau</th>
+          <th>Exemples d'usages</th>
+          <th>Règles associées</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cell-ok">Autorisé</td>
+          <td>Brainstorm, reformulation de textes internes sans donnée personnelle ni confidentielle, traduction de documents publics, structuration de trames (compte rendu, proposition).</td>
+          <td>Relecture humaine systématique avant tout usage.</td>
+        </tr>
+        <tr>
+          <td class="cell-warn">Encadré</td>
+          <td>Synthèse de documents clients pseudonymisés, rédaction d'e-mails clients relus, préparation de rendez-vous à partir de données CRM extraites manuellement et nettoyées, veille documentée.</td>
+          <td>Validation humaine + anonymisation + outil professionnel validé. Transparence si une personne interagit avec le système (art. 50).</td>
+        </tr>
+        <tr>
+          <td class="cell-err">Interdit</td>
+          <td>Secrets commerciaux, plans, CCTP dans un outil grand public ; données personnelles non anonymisées ; <b>reconnaissance des émotions de collaborateurs ou candidats (illégal depuis le 02/02/2025)</b> ; décision RH automatisée sans intervention humaine ; faire passer un texte généré pour une production entièrement humaine là où la transparence est due.</td>
+          <td>Aucune exception sans arbitrage de la direction et avis conformité.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="iae-src"><b>Sources :</b> Règlement (UE) 2024/1689, EUR-Lex (2024) · Règlement (UE) 2026/1744 « Digital Omnibus on AI », JOUE du 24 juillet 2026, en vigueur le 27 juillet 2026 · AI Act Service Desk de la Commission européenne, articles 4, 5, 99 et annexe III (2025-2026) · CNIL, fiches pratiques IA (depuis avril 2024) et recommandations (2025) · EDPB, avis 28/2024 (18 décembre 2024).</div>
+</section>
+
+<!-- ============================================ -->
+<!-- MINI-JEU — TRI DES SAISIES                    -->
+<!-- ============================================ -->
+<section class="iae-section" id="tri">
+  <div class="iae-sec-head">
+    <div class="iae-sec-kick">Mise en application · non tracké</div>
+    <h2>Cette saisie, <span class="serif-it gradient-text">vous la classez où ?</span></h2>
+    <p class="iae-sec-lede">
+      Six situations NORDFLOW réelles. Pour chacune, tranchez : autorisé, encadré ou interdit — puis lisez le verdict. C'est exactement le réflexe que la charte d'usage doit rendre automatique.
+    </p>
+  </div>
+
+  <div id="tri-app"></div>
+</section>
+
+<!-- ============================================ -->
+<!-- 5. GRILLE DE DÉCISION                         -->
+<!-- ============================================ -->
+<section class="iae-section" id="grille">
+  <div class="iae-sec-head">
+    <div class="iae-sec-kick">Section 5 · Livrable 1</div>
+    <h2>Choisir le bon outil <span class="serif-it gradient-text">pour le bon besoin</span></h2>
+    <p class="iae-sec-lede">
+      Trois questions, dans l'ordre — et toujours dans cet ordre : la sensibilité de la donnée d'abord, l'intégration à votre environnement ensuite, le cas d'usage enfin. Cette grille est le premier livrable que vous emportez.
+    </p>
+  </div>
+
+  <div class="iae-flow">
+    <div class="fl-step">
+      <div class="fl-kick">Question 1</div>
+      <div class="fl-name">Quelle sensibilité ?</div>
+      <div class="fl-sub">Publique, interne, client, ou secrète ? La donnée décide du contenant avant tout.</div>
+    </div>
+    <div class="fl-arrow">&rarr;</div>
+    <div class="fl-step">
+      <div class="fl-kick">Question 2</div>
+      <div class="fl-name">Quel environnement ?</div>
+      <div class="fl-sub">Microsoft 365 : Copilot est le point d'entrée naturel, les permissions sont héritées, zéro changement d'habitude.</div>
+    </div>
+    <div class="fl-arrow">&rarr;</div>
+    <div class="fl-step">
+      <div class="fl-kick">Question 3</div>
+      <div class="fl-name">Quel cas d'usage ?</div>
+      <div class="fl-sub">Bureautique quotidienne, long document, veille, contrainte souveraineté : l'usage arbitre entre outils éligibles.</div>
+    </div>
+  </div>
+
+  <div class="iae-tbl-wrap">
+    <table class="iae-tbl">
+      <thead>
+        <tr>
+          <th>Sensibilité de la donnée</th>
+          <th>Exemple NORDFLOW</th>
+          <th>Outil approprié</th>
+          <th>Pourquoi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Publique</b></td>
+          <td>Résumer un article de presse sectoriel, traduire une plaquette publique</td>
+          <td>Tout outil professionnel validé</td>
+          <td>Aucun risque de fuite : la donnée est déjà dehors.</td>
+        </tr>
+        <tr>
+          <td><b>Interne non sensible</b></td>
+          <td>Structurer une note de process, reformuler une consigne interne</td>
+          <td>Offre professionnelle validée (Copilot, ChatGPT Business, Claude Team…)</td>
+          <td>Garantie contractuelle de non-entraînement ; relecture humaine maintenue.</td>
+        </tr>
+        <tr>
+          <td><b>Client / personnelle</b></td>
+          <td>Préparer un rendez-vous à partir du CRM, résumer un dossier client</td>
+          <td>Copilot dans le tenant M365, ou offre pro après pseudonymisation</td>
+          <td>La donnée reste dans l'environnement maîtrisé ; minimisation RGPD si extraction.</td>
+        </tr>
+        <tr>
+          <td><b>Très sensible / réglementée</b></td>
+          <td>Stratégie de prix d'une réponse AO, plans de fabrication</td>
+          <td>Copilot (donnée dans le tenant) ou solution à souveraineté européenne (Mistral, déploiement dédié) — sinon : pas de traitement par IA</td>
+          <td>Maîtrise contractuelle et géographique du traitement ; arbitrage direction requis.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="iae-callout co-ok">
+    <div class="iae-co-ic">✓</div>
+    <div class="iae-co-body">
+      <div class="iae-co-label">La règle transverse, valable quel que soit l'outil</div>
+      <p>Vérification humaine des sorties (l'hallucination ne disparaît pas avec une licence professionnelle) et anonymisation des données personnelles avant toute saisie. La charte complète autorisé / encadré / interdit est finalisée au module 4 avec votre direction — la version de travail ci-dessus est déjà opérationnelle.</p>
+    </div>
+  </div>
+
+  <div class="iae-src"><b>Sources :</b> synthèse des engagements éditeurs cités en section 2 (pages officielles OpenAI, Anthropic, Microsoft, Google, Mistral, 2025) et des recommandations CNIL / EDPB citées en section 4 (2024-2025).</div>
+</section>
+
+<!-- ============================================ -->
+<!-- 6. ATELIER                                    -->
+<!-- ============================================ -->
+<section class="iae-section" id="atelier">
+  <div class="iae-sec-head">
+    <div class="iae-sec-kick">Section 6 · Atelier prise en main</div>
+    <h2>À vous : <span class="serif-it gradient-text">les 5 cas d'usage en conditions réelles</span></h2>
+    <p class="iae-sec-lede">
+      Dans l'outil d'IA professionnel mis à votre disposition, produisez chacun des cinq livrables ci-dessous avec les données NORDFLOW fournies (déjà anonymisées). Puis soumettez chaque résultat à la grille d'analyse critique : c'est elle qui transforme un essai en compétence.
+    </p>
+  </div>
+
+  <div class="iae-grid2">
+    <div class="iae-card">
+      <div class="iae-card-kick">Productions attendues</div>
+      <ul class="iae-list">
+        <li><b>E-mail :</b> la relance du devis skid de dosage d'Élise — professionnelle, ferme, sans pression artificielle.</li>
+        <li><b>Synthèse :</b> les 10 exigences principales de l'extrait de CCTP fourni, en tableau « exigence / page / notre réponse possible ».</li>
+        <li><b>Recherche interne :</b> à partir des extraits de fils d'e-mails fournis, le point de situation du projet station d'épuration en 5 lignes.</li>
+        <li><b>Traduction :</b> le paragraphe produit fourni vers l'anglais, puis relecture croisée des termes métier en binôme.</li>
+        <li><b>Brainstorm :</b> 15 angles de communication pour le lancement de la pompe NF-220, classés par persona cible.</li>
+      </ul>
+    </div>
+    <div class="iae-card">
+      <div class="iae-card-kick">Grille d'analyse critique — à appliquer à chaque sortie</div>
+      <ul class="iae-list">
+        <li><b>Exactitude :</b> chaque fait, chiffre, norme ou date est-il vérifiable à la source ? Qu'est-ce qui pourrait être inventé ?</li>
+        <li><b>Complétude :</b> le résultat couvre-t-il tout le besoin exprimé, ou a-t-il éludé une contrainte ?</li>
+        <li><b>Ton et destinataire :</b> le niveau de langue correspond-il au lecteur réel (exploitant, acheteur, direction) ?</li>
+        <li><b>Confidentialité :</b> la saisie et la sortie respectent-elles la charte ? Auriez-vous osé envoyer ce texte tel quel ?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="iae-callout co-info">
+    <div class="iae-co-ic">i</div>
+    <div class="iae-co-body">
+      <div class="iae-co-label">Pour aller plus loin avant le module 2</div>
+      <p>Gardez sous la main votre production la moins convaincante : c'est elle que vous optimiserez avec la méthode CRISP cet après-midi. Les écarts entre votre première version et la version CRISP sont le meilleur marqueur de progression de la journée.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- NAVIGATION DE PAGE                             -->
+<!-- ============================================ -->
+<nav class="pgnav no-print" aria-label="Navigation entre modules">
+  <a class="pgn" href="./deck-accueil-ia-entreprise.html">
+    <div class="pgn-k">Précédent · Jour 1</div>
+    <div class="pgn-t">Accueil &amp; cadre</div>
+  </a>
+  <a class="pgn next" href="./deck-m2-ia-entreprise.html">
+    <div class="pgn-k">Suivant · Jour 1</div>
+    <div class="pgn-t">Module 2 — Prompting &amp; outils du quotidien</div>
+  </a>
+</nav>
+
+<div class="iae-foot">
+  <span class="foot-note">Akademia Formation · IA en Entreprise</span>
+  <span class="foot-note">Module 1 · Fondamentaux &amp; cadre d'usage · Jour 1</span>
+</div>
+
+</div>
+
+<div class="print-only" style="text-align:center; margin-bottom:20px;">
+  <h2>Akademia Formation — IA en Entreprise — Booster sa Productivité Commerciale et Métier avec l'IA Générative</h2>
+  <p>Module 1 — Fondamentaux & cadre d'usage</p>
+</div>
+
+<!-- xAPI tracker -->
+<script src="assets/js/xapi-tracker.js?v=1783300000"></script>
+
+<script>
+// ============================================================
+// FORMAI — RATTACHEMENT AU COURS
+// ============================================================
+if (typeof xapiTracker !== 'undefined' && xapiTracker.setCourse) {
+  xapiTracker.setCourse('ia-entreprise');
+}
+
+// ============================================================
+// MINI-JEU — TRI DES SAISIES (autorisé / encadré / interdit)
+// Local uniquement, non tracké.
+// ============================================================
+var TRI_ITEMS = [
+  {
+    who: "Sonia · ADV",
+    sit: "Sonia colle dans un outil d'IA le <b>résumé d'un article de presse</b> sur le marché français des pompes industrielles pour le condenser en cinq lignes destinées à la réunion commerciale.",
+    answer: "autorise",
+    verdict: "<b>Autorisé.</b> La donnée est publique : aucun enjeu de confidentialité. Comme toujours, relecture humaine avant diffusion — l'IA peut mal interpréter un chiffre de l'article."
+  },
+  {
+    who: "Élise · Commerciale",
+    sit: "Pour gagner du temps, Élise colle dans son <b>compte personnel gratuit</b> un e-mail client complet — nom du contact, société, montant du devis de 84 200 € — afin d'en obtenir une reformulation plus diplomate.",
+    answer: "encadre",
+    verdict: "<b>Encadré — et ici, mal exécuté.</b> La reformulation d'e-mail client est un usage légitime, mais avec trois conditions : outil professionnel validé (pas un compte personnel), données pseudonymisées (« un responsable exploitation, devis d'environ 85 k€ »), relecture humaine. En l'état, c'est à refaire."
+  },
+  {
+    who: "Hervé · Direction technique",
+    sit: "Hervé colle le <b>CCTP complet d'un appel d'offres avec ses annotations internes</b> — axes de réponse, marges envisagées, fournisseurs pressentis — pour demander une synthèse des exigences.",
+    answer: "interdit",
+    verdict: "<b>Interdit dans un outil non maîtrisé.</b> Les annotations contiennent la stratégie de réponse et les marges : c'est du secret commercial. L'extraction d'exigences se fait sur un extrait nettoyé, ou dans le tenant Microsoft 365 (Copilot) où la donnée reste maîtrisée."
+  },
+  {
+    who: "Inès · Comptabilité",
+    sit: "Pour préparer une note de direction, Inès demande à une IA grand public de <b>résumer des fiches de paie de techniciens</b> et d'en dégager les tendances de rémunération.",
+    answer: "interdit",
+    verdict: "<b>Interdit.</b> Données personnelles de salariés, non anonymisées, versées dans un outil que l'entreprise ne maîtrise pas : traitement sans base légale au sens du RGPD. Un agrégat anonymisé construit dans Excel, lui, peut être commenté par une IA."
+  },
+  {
+    who: "Théo · Marketing",
+    sit: "Théo demande <b>vingt accroches pour un post LinkedIn</b> annonçant la présence de NORDFLOW sur un salon professionnel, puis en filtre cinq et réécrit la finale à la main.",
+    answer: "autorise",
+    verdict: "<b>Autorisé.</b> Brainstorm créatif sans donnée sensible, information du salon déjà publique, et la touche finale reste humaine — c'est le workflow type du cas d'usage 5."
+  },
+  {
+    who: "Romain · Chef des ventes",
+    sit: "Romain teste un outil qui prétend <b>analyser les émotions des commerciaux en visioconférence</b> pour « objectiver » leurs entretiens annuels d'évaluation.",
+    answer: "interdit",
+    verdict: "<b>Interdit — et illégal.</b> La reconnaissance des émotions sur le lieu de travail est une pratique interdite par l'art. 5 de l'IA Act depuis le 2 février 2025. Sanction encourue : jusqu'à 35 M€ ou 7 % du chiffre d'affaires annuel mondial."
+  }
+];
+
+var TRI_LABELS = { autorise: "Autorisé", encadre: "Encadré", interdit: "Interdit" };
+var triState = {};
+
+function triRender() {
+  var app = document.getElementById('tri-app');
+  var html = '<div class="tri-grid">';
+  TRI_ITEMS.forEach(function(item, i) {
+    var st = triState[i];
+    var cls = st ? (st.ok ? ' solved-ok' : ' solved-ko') : '';
+    html += '<div class="tri-card' + cls + (st ? ' locked' : '') + '" id="tri-card-' + i + '">';
+    html += '<div class="tri-who">' + item.who + '</div>';
+    html += '<div class="tri-sit">' + item.sit + '</div>';
+    html += '<div class="tri-btns">';
+    ['autorise', 'encadre', 'interdit'].forEach(function(k) {
+      var bcls = 'tri-btn';
+      if (st) {
+        if (k === item.answer && st.pick === k) bcls += ' pick-ok';
+        else if (st.pick === k) bcls += ' pick-ko';
+        else if (k === item.answer) bcls += ' pick-ok';
+        else bcls += ' dim';
+      }
+      html += '<button type="button" class="' + bcls + '" data-i="' + i + '" data-k="' + k + '"' + (st ? ' disabled' : '') + '>' + TRI_LABELS[k] + '</button>';
+    });
+    html += '</div>';
+    if (st) {
+      var tag = st.ok ? 'Bonne classification' : 'Classification revue';
+      html += '<div class="tri-verdict"><span class="v-tag">' + tag + '</span>' + item.verdict + '</div>';
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+
+  var solved = Object.keys(triState).length;
+  var good = 0;
+  Object.keys(triState).forEach(function(i) { if (triState[i].ok) good++; });
+  var msg;
+  if (solved === 0) msg = 'Classez les six situations pour faire apparaître votre score.';
+  else if (solved < TRI_ITEMS.length) msg = 'Encore ' + (TRI_ITEMS.length - solved) + ' situation' + (TRI_ITEMS.length - solved > 1 ? 's' : '') + ' à classer.';
+  else if (good === TRI_ITEMS.length) msg = 'Sans faute : le réflexe charte est acquis. Vous tiendrez le même raisonnement en module 4 pour la charte interne.';
+  else if (good >= 4) msg = 'Bien : relisez les verdicts des situations manquées — ce sont exactement les pièges rencontrés en entreprise.';
+  else msg = 'Les verdicts ci-dessus reprennent chaque règle : c\'est le bon moment pour refaire le tri après relecture de la section 4.';
+  html += '<div class="tri-score"><div class="tri-score-txt"><b>' + good + ' / ' + TRI_ITEMS.length + '</b>' + msg + '</div><button type="button" class="btn-ghost" id="tri-reset">Refaire le tri</button></div>';
+
+  app.innerHTML = html;
+
+  app.querySelectorAll('.tri-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var i = parseInt(btn.getAttribute('data-i'), 10);
+      var k = btn.getAttribute('data-k');
+      if (triState[i]) return;
+      triState[i] = { pick: k, ok: k === TRI_ITEMS[i].answer };
+      triRender();
+    });
+  });
+  var rst = document.getElementById('tri-reset');
+  if (rst) rst.addEventListener('click', function() { triState = {}; triRender(); });
+}
+
+triRender();
+
+
+// ============================================================
+// DARK MODE TOGGLE
+// ============================================================
+document.getElementById('darkToggle').addEventListener('click', function() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('ia_entreprise_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+});
+</script>
+
+</body>
+</html>

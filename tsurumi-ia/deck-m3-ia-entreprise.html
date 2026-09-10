@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 3 — IA &amp; performance commerciale · Deck J2 | IA en Entreprise, Akademia Formation</title>
+  <meta name="description" content="Deck de projection du module 3 « L'IA au service de la performance commerciale » (J2, 4 h) : prospection augmentée, social selling LinkedIn, rédaction commerciale, préparation de rendez-vous industriel, propositions sur-mesure, IA et CRM 2026, démo guidée de bout en bout. Formation IA en Entreprise — Akademia Formation.">
+
+  <!-- Dark mode anti-flicker -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('ia_entreprise_theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Polices charte Akademia (Instrument Sans / Inter variable / Instrument Serif / Fragment Mono) -->
+  <link rel="stylesheet" href="assets/css/fonts-akademia.css">
+
+  <style>
+    /* ============================================================
+       CHARTE AKADEMIA — tokens (clair / nuit via html.dark)
+       Socle cloné de positionnement-ia-entreprise.html
+       ============================================================ */
+    :root{
+      --bg:#F7F9FC; --surface:#FFFFFF; --soft:#F1F5FA;
+      --ink:#0F172A; --body-c:#3F4C61; --legend:#64748B; --tert:#94A3B8;
+      --line:#E7EAF2;
+      --blue:#2563EB; --violet:#7C3AED; --g1:#2563EB; --g2:#7C3AED;
+      --blue-soft:rgba(37,99,235,.5);
+      --c-fondamentaux:#2563EB; --c-prompt:#7C3AED; --c-commercial:#0E7490; --c-metiers:#047857;
+      --chip-fond-bg:rgba(37,99,235,.09); --chip-prompt-bg:rgba(124,58,237,.09); --chip-com-bg:rgba(6,182,212,.12); --chip-met-bg:rgba(16,185,129,.12);
+      --ok:#10B981; --ok-ink:#047857; --ok-bg:rgba(16,185,129,.08); --ok-line:rgba(16,185,129,.35);
+      --err:#DC2626; --err-ink:#B91C1C; --err-bg:rgba(220,38,38,.06); --err-line:rgba(220,38,38,.3);
+      --warn:#F97316; --warn-ink:#C2410C; --warn-bg:rgba(249,115,22,.1);
+      --amber:#F59E0B;
+      --sel-bg:rgba(37,99,235,.07);
+      --focus:rgba(37,99,235,.28);
+      --cta-shadow:0 12px 30px rgba(109,40,217,.26);
+      --nav-bg:rgba(255,255,255,.82);
+      --grain-o:.045;
+      --dl:inline-block; --dd:none;
+    }
+    html.dark{
+      --bg:#05070E; --surface:#0A0F1D; --soft:#0D1322;
+      --ink:#F2F5FB; --body-c:#B4BFD1; --legend:#8B99AF; --tert:#5F6C81;
+      --line:rgba(148,163,184,.14);
+      --blue:#5B8DF8; --violet:#A78BFA; --g1:#5B8DF8; --g2:#A78BFA;
+      --blue-soft:rgba(91,141,248,.55);
+      --c-fondamentaux:#5B8DF8; --c-prompt:#A78BFA; --c-commercial:#45C8FF; --c-metiers:#34D399;
+      --chip-fond-bg:rgba(91,141,248,.13); --chip-prompt-bg:rgba(167,139,250,.13); --chip-com-bg:rgba(69,200,255,.11); --chip-met-bg:rgba(52,211,153,.13);
+      --ok:#34D399; --ok-ink:#6EE7B7; --ok-bg:rgba(52,211,153,.09); --ok-line:rgba(52,211,153,.32);
+      --err:#F87171; --err-ink:#FCA5A5; --err-bg:rgba(248,113,113,.08); --err-line:rgba(248,113,113,.32);
+      --warn:#FB923C; --warn-ink:#FDBA74; --warn-bg:rgba(251,146,60,.12);
+      --amber:#FBBF24;
+      --sel-bg:rgba(91,141,248,.11);
+      --focus:rgba(91,141,248,.4);
+      --cta-shadow:0 12px 30px rgba(23,12,58,.55);
+      --nav-bg:rgba(5,7,14,.78);
+      --grain-o:.06;
+      --dl:none; --dd:inline-block;
+    }
+
+    /* ============================================================
+       BASE
+       ============================================================ */
+    *,*::before,*::after{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+    body{
+      margin:0; position:relative; min-height:100vh;
+      background:var(--bg); color:var(--body-c);
+      font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+      font-weight:380; font-size:16px; line-height:1.66;
+      transition:background .3s ease,color .3s ease;
+    }
+    body::before{
+      content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+      opacity:var(--grain-o); background-size:260px 260px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    ::selection{background:rgba(124,58,237,.16)}
+    html.dark ::selection{background:rgba(167,139,250,.3)}
+    h1,h2,h3{font-family:'Instrument Sans',system-ui,sans-serif;color:var(--ink);margin:0;text-wrap:balance}
+    p{margin:0}
+    button{font-family:inherit}
+    a{color:var(--blue)}
+    .hidden{display:none !important}
+    .wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:46px 24px 80px}
+    a:focus-visible,button:focus-visible,summary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .topnav{position:sticky;top:0;z-index:40;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav-in{max-width:920px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .nav-logo{display:inline-flex;align-items:center;border-radius:8px}
+    .nav-logo img{height:22px;width:auto;vertical-align:middle}
+    .logo-l{display:var(--dl)} .logo-d{display:var(--dd)}
+    .nav-right{display:flex;align-items:center;gap:14px}
+    .nav-tag{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--legend);white-space:nowrap}
+    .theme-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--legend);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,color .2s;padding:0}
+    .theme-btn:hover{border-color:var(--tert);color:var(--ink)}
+    .theme-btn svg{width:15px;height:15px}
+    .ic-sun{display:none}
+    html.dark .ic-sun{display:block}
+    html.dark .ic-moon{display:none}
+
+    /* Barre de progression de lecture */
+    .dm3-progress{position:fixed;top:0;left:0;height:2.5px;width:0;background:linear-gradient(90deg,var(--g1),var(--g2));z-index:60;transition:width .12s linear}
+
+    /* ============================================================
+       TYPO UTILITAIRES
+       ============================================================ */
+    .kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend)}
+    .gradient-text{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+    .dm3-serif-grad{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:0;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .dm3-hero{text-align:center;padding-top:24px;margin-bottom:64px}
+    .dm3-hero-kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend);margin-bottom:22px}
+    .dm3-hero h1{font-size:clamp(34px,5.6vw,52px);font-weight:640;letter-spacing:-.015em;line-height:1.06;margin-bottom:14px}
+    .dm3-hero-sub{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(19px,2.8vw,23px);color:var(--ink);margin-bottom:22px}
+    .dm3-hero-lede{max-width:700px;margin:0 auto 30px;color:var(--legend);font-size:15.5px;line-height:1.75}
+    .dm3-hero-lede b{color:var(--body-c);font-weight:560}
+    .dm3-meta-row{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:44px}
+    .dm3-meta-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--legend)}
+    .dm3-meta-chip i{width:6px;height:6px;border-radius:999px;background:linear-gradient(135deg,var(--g1),var(--g2));flex-shrink:0}
+
+    /* Objectifs du module */
+    .dm3-obj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:820px;margin:0 auto;text-align:left}
+    .dm3-obj{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:flex;gap:15px;align-items:flex-start;transition:border-color .25s,transform .25s}
+    .dm3-obj:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+    .dm3-obj-num{font-family:'Instrument Serif',Georgia,serif;font-size:30px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0;padding-top:2px}
+    .dm3-obj-kick{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:5px}
+    .dm3-obj-txt{font-size:13.5px;color:var(--body-c);line-height:1.55}
+
+    /* Sommaire */
+    .dm3-toc{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;max-width:860px;margin:38px auto 0}
+    .dm3-toc a{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--body-c);font-size:12.5px;text-decoration:none;transition:border-color .2s,color .2s}
+    .dm3-toc a:hover{border-color:var(--blue-soft);color:var(--ink)}
+    .dm3-toc a b{font-family:'Fragment Mono',monospace;font-weight:400;font-size:10px;color:var(--tert);letter-spacing:.1em}
+
+    /* ============================================================
+       SECTIONS ÉDITORIALES
+       ============================================================ */
+    .dm3-sec{margin:84px 0}
+    .dm3-sec-head{margin-bottom:32px}
+    .dm3-sec-top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .dm3-sec-num{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;white-space:nowrap}
+    .dm3-sec-note{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--tert)}
+    .dm3-sec-head h2{font-size:clamp(26px,4vw,33px);font-weight:640;letter-spacing:-.012em;line-height:1.14;margin-bottom:12px}
+    .dm3-sec-lede{font-size:15px;color:var(--legend);max-width:700px;line-height:1.72}
+    .dm3-sec-lede b{color:var(--body-c);font-weight:560}
+    .dm3-sec p.body-p{font-size:14.5px;line-height:1.7;max-width:760px;margin-bottom:16px}
+    .dm3-sec p.body-p b{color:var(--ink);font-weight:560}
+
+    .dm3-h3{font-size:17px;font-weight:620;color:var(--ink);margin:34px 0 14px;display:flex;align-items:center;gap:10px}
+    .dm3-h3::before{content:"";width:8px;height:8px;border-radius:2px;background:linear-gradient(135deg,var(--g1),var(--g2));flex-shrink:0}
+
+    /* ============================================================
+       CARTES & GRILLES
+       ============================================================ */
+    .dm3-grid{display:grid;gap:14px;margin:22px 0}
+    .dm3-grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    .dm3-grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .dm3-grid.cols-4{grid-template-columns:repeat(4,1fr)}
+    .dm3-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 22px;transition:border-color .25s,transform .25s}
+    .dm3-card:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+    .dm3-card-kick{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--tert);margin-bottom:9px}
+    .dm3-card-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:15px;color:var(--ink);line-height:1.35;margin-bottom:8px}
+    .dm3-card p{font-size:13.5px;line-height:1.62;color:var(--body-c)}
+    .dm3-card p + p{margin-top:8px}
+    .dm3-card ul{margin:8px 0 0;padding-left:17px;font-size:13.5px;line-height:1.65}
+    .dm3-card li{margin-bottom:5px}
+    .dm3-card li::marker{color:var(--blue)}
+
+    /* Persona chip */
+    .dm3-persona{display:inline-flex;align-items:center;gap:8px;padding:4px 13px 4px 5px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:12px;color:var(--body-c);white-space:nowrap}
+    .dm3-persona i{width:22px;height:22px;border-radius:999px;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-style:normal;font-family:'Fragment Mono',monospace;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+    /* Cas NORDFLOW (bloc à liseré dégradé) */
+    .dm3-case{position:relative;border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:22px 24px 22px 28px;overflow:hidden;margin:22px 0}
+    .dm3-case::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--g1),var(--g2))}
+    .dm3-case-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+    .dm3-case-tag{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert)}
+    .dm3-case p{font-size:13.5px;line-height:1.68}
+    .dm3-case p + p{margin-top:8px}
+    .dm3-case b{color:var(--ink);font-weight:560}
+
+    /* ============================================================
+       CALLOUTS
+       ============================================================ */
+    .dm3-callout{display:flex;gap:15px;border-radius:16px;padding:19px 21px;border:1px solid;margin:22px 0}
+    .dm3-callout.is-info{border-color:var(--blue-soft);background:var(--sel-bg)}
+    .dm3-callout.is-warn{border-color:rgba(249,115,22,.32);background:var(--warn-bg)}
+    .dm3-callout.is-danger{border-color:var(--err-line);background:var(--err-bg)}
+    .dm3-callout.is-ok{border-color:var(--ok-line);background:var(--ok-bg)}
+    .dm3-callout-ic{flex-shrink:0;width:21px;height:21px;margin-top:1px}
+    .dm3-callout.is-info .dm3-callout-ic{color:var(--blue)}
+    .dm3-callout.is-warn .dm3-callout-ic{color:var(--warn)}
+    .dm3-callout.is-danger .dm3-callout-ic{color:var(--err)}
+    .dm3-callout.is-ok .dm3-callout-ic{color:var(--ok)}
+    .dm3-callout-t{font-family:'Instrument Sans',sans-serif;font-weight:620;color:var(--ink);font-size:14.5px;margin-bottom:5px}
+    .dm3-callout p{font-size:13.5px;line-height:1.65}
+    .dm3-callout p + p{margin-top:7px}
+    .dm3-callout b{color:var(--ink);font-weight:580}
+
+    /* ============================================================
+       TABLEAUX PREMIUM
+       ============================================================ */
+    .dm3-tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--surface);margin:22px 0}
+    .dm3-tbl{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.58;min-width:640px}
+    .dm3-tbl th{font-family:'Fragment Mono',monospace;font-weight:400;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--legend);text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);background:var(--soft);white-space:nowrap}
+    .dm3-tbl td{padding:14px 16px;border-bottom:1px solid var(--line);color:var(--body-c);vertical-align:top}
+    .dm3-tbl tbody tr:last-child td{border-bottom:0}
+    .dm3-tbl tbody tr{transition:background .2s}
+    .dm3-tbl tbody tr:hover{background:var(--sel-bg)}
+    .dm3-tbl td b{color:var(--ink);font-weight:580}
+    .dm3-tbl .dm3-cell-main{font-weight:580;color:var(--ink)}
+    .dm3-pill{display:inline-block;padding:3px 11px;border-radius:999px;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+    .dm3-pill.ok{background:var(--ok-bg);color:var(--ok-ink)}
+    .dm3-pill.warn{background:var(--warn-bg);color:var(--warn-ink)}
+    .dm3-pill.err{background:var(--err-bg);color:var(--err-ink)}
+    .dm3-pill.info{background:var(--sel-bg);color:var(--blue)}
+
+    /* ============================================================
+       STATS (chiffres Instrument Serif)
+       ============================================================ */
+    .dm3-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+    .dm3-stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px 20px;text-align:center}
+    .dm3-stat-num{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(34px,4.5vw,44px);line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .dm3-stat-cap{font-size:12.5px;color:var(--legend);margin-top:10px;line-height:1.55}
+    .dm3-stat-cap b{color:var(--body-c);font-weight:560}
+
+    /* ============================================================
+       FLOW / FRIZES VERTICALES
+       ============================================================ */
+    .dm3-flow{display:flex;flex-direction:column;margin:24px 0}
+    .dm3-flow-step{display:flex;gap:18px;position:relative;padding-bottom:22px}
+    .dm3-flow-step:last-child{padding-bottom:0}
+    .dm3-flow-rail{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:34px}
+    .dm3-flow-dot{width:34px;height:34px;border-radius:999px;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-family:'Instrument Serif',Georgia,serif;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--cta-shadow)}
+    .dm3-flow-line{width:2px;flex:1;margin-top:6px;background:linear-gradient(180deg,var(--g2),transparent 130%)}
+    .dm3-flow-body{flex:1;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px 21px}
+    .dm3-flow-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:15px;color:var(--ink);margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .dm3-flow-sub{font-size:13.5px;line-height:1.62;color:var(--body-c);margin-bottom:12px}
+    .dm3-flow-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .dm3-mini{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--soft)}
+    .dm3-mini-k{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--tert);margin-bottom:6px}
+    .dm3-mini p{font-size:12.5px;line-height:1.6}
+    .dm3-mini p b{color:var(--ink);font-weight:560}
+
+    /* ============================================================
+       BLOCS PROMPT / EMAIL (avant-après)
+       ============================================================ */
+    .dm3-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+    .dm3-block{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+    .dm3-block-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 17px;border-bottom:1px solid var(--line)}
+    .dm3-block-tag{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase}
+    .dm3-block.is-before .dm3-block-head{background:var(--err-bg)}
+    .dm3-block.is-before .dm3-block-tag{color:var(--err-ink)}
+    .dm3-block.is-after .dm3-block-head{background:var(--ok-bg)}
+    .dm3-block.is-after .dm3-block-tag{color:var(--ok-ink)}
+    .dm3-block-body{padding:17px 18px;font-size:13px;line-height:1.68}
+    .dm3-block-body p + p{margin-top:9px}
+    .dm3-block-note{padding:12px 17px;border-top:1px dashed var(--line);font-size:12px;line-height:1.6;color:var(--legend)}
+    .dm3-block-note b{color:var(--body-c);font-weight:560}
+    .dm3-mono{font-family:'Fragment Mono',monospace;font-size:12px;line-height:1.7}
+
+    /* Annotated post */
+    .dm3-annot{border-left:2px solid var(--line);padding-left:14px;margin:10px 0}
+    .dm3-annot-tag{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:3px}
+
+    /* ============================================================
+       ACCORDÉONS
+       ============================================================ */
+    .dm3-acc{display:flex;flex-direction:column;gap:11px;margin:22px 0}
+    .dm3-acc details{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;transition:border-color .2s}
+    .dm3-acc details:hover{border-color:var(--blue-soft)}
+    .dm3-acc summary{cursor:pointer;padding:15px 18px;font-family:'Instrument Sans',sans-serif;font-weight:560;font-size:14px;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .dm3-acc summary::-webkit-details-marker{display:none}
+    .dm3-acc summary::after{content:"+";font-family:'Instrument Serif',Georgia,serif;font-size:20px;color:var(--tert);flex-shrink:0;transition:transform .25s}
+    .dm3-acc details[open] summary{border-bottom:1px solid var(--line)}
+    .dm3-acc details[open] summary::after{transform:rotate(45deg);color:var(--blue)}
+    .dm3-acc-body{padding:16px 18px;font-size:13.5px;line-height:1.65}
+    .dm3-acc-body p + p{margin-top:8px}
+    .dm3-acc-body b{color:var(--ink);font-weight:580}
+
+    /* ============================================================
+       SIMULATEUR DE SCORING
+       ============================================================ */
+    .dm3-sim{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px 26px;margin:24px 0;position:relative;overflow:hidden}
+    .dm3-sim::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g1),var(--g2))}
+    .dm3-sim-kick{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--legend);margin-bottom:6px}
+    .dm3-sim-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:16px;color:var(--ink);margin-bottom:6px}
+    .dm3-sim-help{font-size:13px;color:var(--legend);line-height:1.6;margin-bottom:18px;max-width:640px}
+    .dm3-sim-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px dashed var(--line)}
+    .dm3-sim-q{flex:1;min-width:0}
+    .dm3-sim-q-t{font-size:13.5px;font-weight:560;color:var(--ink);line-height:1.4}
+    .dm3-sim-q-h{font-size:12px;color:var(--tert);margin-top:2px;line-height:1.5}
+    .dm3-seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex-shrink:0}
+    .dm3-seg button{padding:8px 15px;font-family:'Fragment Mono',monospace;font-size:11px;background:var(--surface);color:var(--legend);border:0;cursor:pointer;transition:background .2s,color .2s}
+    .dm3-seg button + button{border-left:1px solid var(--line)}
+    .dm3-seg button:hover{color:var(--ink)}
+    .dm3-seg button.on{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff}
+    .dm3-sim-out{display:flex;align-items:center;gap:22px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line);flex-wrap:wrap}
+    .dm3-sim-score{font-family:'Instrument Serif',Georgia,serif;font-size:46px;line-height:1;color:var(--ink)}
+    .dm3-sim-score small{font-size:16px;color:var(--tert)}
+    .dm3-sim-verdict{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:8px 16px;border-radius:999px}
+    .dm3-sim-verdict.v-hot{background:var(--ok-bg);color:var(--ok-ink)}
+    .dm3-sim-verdict.v-mid{background:var(--warn-bg);color:var(--warn-ink)}
+    .dm3-sim-verdict.v-cold{background:var(--err-bg);color:var(--err-ink)}
+    .dm3-sim-why{font-size:12.5px;color:var(--legend);line-height:1.6;flex:1;min-width:220px}
+
+    /* ============================================================
+       SOURCES
+       ============================================================ */
+    .dm3-src{margin-top:26px;font-family:'Fragment Mono',monospace;font-size:10.5px;line-height:1.7;letter-spacing:.02em;color:var(--tert);padding-top:13px;border-top:1px dashed var(--line)}
+    .dm3-src b{color:var(--legend);font-weight:400}
+
+    /* ============================================================
+       NAVIGATION DE FIN DE PAGE
+       ============================================================ */
+    .dm3-pagenav{display:flex;gap:14px;border-top:1px solid var(--line);padding-top:36px;margin-top:88px}
+    .dm3-pn{flex:1;display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px 22px;transition:border-color .2s,transform .2s}
+    .dm3-pn:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+    .dm3-pn-k{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:6px}
+    .dm3-pn-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14.5px;color:var(--ink);line-height:1.4}
+    .dm3-pn.next{text-align:right}
+    .dm3-footline{margin-top:40px;text-align:center;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--tert);line-height:1.9}
+
+    /* ============================================================
+       REVEAL ON SCROLL
+       ============================================================ */
+    .dm3-reveal{opacity:0;transform:translateY(16px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)}
+    .dm3-reveal.visible{opacity:1;transform:none}
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width:760px){
+      .dm3-obj-grid,.dm3-grid.cols-2,.dm3-grid.cols-3,.dm3-grid.cols-4,.dm3-stats,.dm3-compare,.dm3-flow-cols{grid-template-columns:1fr}
+      .dm3-pagenav{flex-direction:column}
+      .dm3-pn.next{text-align:left}
+      .wrap{padding:34px 18px 64px}
+      .dm3-sim{padding:20px 18px}
+      .dm3-sim-row{flex-direction:column;align-items:flex-start;gap:10px}
+    }
+    @media (max-width:600px){.nav-tag{display:none}}
+
+    /* ============================================================
+       ACCESSIBILITÉ & PRINT
+       ============================================================ */
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+      html{scroll-behavior:auto}
+    }
+    @media print{
+      nav,.no-print,.dm3-progress{display:none !important}
+      body{background:#fff !important;color:#000 !important}
+      body::before{display:none !important}
+      *{color:#000 !important;background:#fff !important;border-color:#ccc !important;box-shadow:none !important;text-shadow:none !important}
+      .gradient-text,.dm3-serif-grad,.dm3-obj-num,.dm3-stat-num{-webkit-text-fill-color:initial !important;background:none !important;color:#000 !important}
+      .dm3-reveal{opacity:1 !important;transform:none !important}
+      .dm3-sec{break-inside:avoid-page}
+    }
+  </style>
+  <script src="assets/js/xapi-tracker.js?v=1783300000"></script>
+</head>
+<body>
+
+<div class="dm3-progress no-print" id="dm3-progress"></div>
+
+<!-- Top nav -->
+<nav class="topnav no-print">
+  <div class="nav-in">
+    <a href="/" class="nav-logo" aria-label="Akademia Formation — retour à l'accueil">
+      <img class="logo-l" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDQwMCAxMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnM+CiAgICA8IS0tIEdyYWRpZW50IFByaW5jaXBhbCAtLT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icHJpbWFyeUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzI1NjNFQjtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0MzQUVEO3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIAogICAgPCEtLSBHcmFkaWVudCBBY2NlbnQgLS0+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImFjY2VudEdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxMEI5ODE7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzA2QjZENDtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAKICAgIDwhLS0gU2hhZG93IEZpbHRlciAtLT4KICAgIDxmaWx0ZXIgaWQ9InNoYWRvdyIgeD0iLTUwJSIgeT0iLTUwJSIgd2lkdGg9IjIwMCUiIGhlaWdodD0iMjAwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjgiIGZsb29kLW9wYWNpdHk9IjAuMSIvPgogICAgPC9maWx0ZXI+CiAgPC9kZWZzPgogIAogIDwhLS0gTG9nbyBJY29uIC0tPgogIDxnIGlkPSJha2FkZW1pYS1pY29uIj4KICAgIDwhLS0gQmFja2dyb3VuZCBTaGFwZSAtLT4KICAgIDxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTYiIHJ5PSIxNiIgZmlsbD0idXJsKCNwcmltYXJ5R3JhZGllbnQpIiBmaWx0ZXI9InVybCgjc2hhZG93KSIvPgogICAgCiAgICA8IS0tIExldHRlciBBIERlc2lnbiAtLT4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYwLCA2MCkiPgogICAgICA8IS0tIE1haW4gQSBTaGFwZSAtLT4KICAgICAgPHBhdGggZD0iTSAwIC0yNSBMIC0xNSAxNSBMIC04IDE1IEwgLTYgOCBMIDYgOCBMIDggMTUgTCAxNSAxNSBMIDAgLTI1IFogTSAwIC0xMCBMIC0zIDAgTCAzIDAgTCAwIC0xMCBaIiAKICAgICAgICAgICAgZmlsbD0id2hpdGUiIAogICAgICAgICAgICBvcGFjaXR5PSIxIi8+CiAgICA8L2c+CiAgICAKICAgIDwhLS0gQWNjZW50IENpcmNsZSAtLT4KICAgIDxjaXJjbGUgY3g9Ijc1IiBjeT0iNDUiIHI9IjgiIGZpbGw9InVybCgjYWNjZW50R3JhZGllbnQpIiBvcGFjaXR5PSIwLjkiLz4KICA8L2c+CiAgCiAgPCEtLSBMb2dvIFRleHQgLS0+CiAgPGcgaWQ9ImFrYWRlbWlhLXRleHQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMCwgNjApIj4KICAgIDwhLS0gQUtBREVNSUEgLS0+CiAgICA8dGV4dCB4PSIwIiB5PSI1IiAKICAgICAgICAgIGZvbnQtZmFtaWx5PSJJbnRlciwgLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCAnU2Vnb2UgVUknLCBSb2JvdG8sIHNhbnMtc2VyaWYiIAogICAgICAgICAgZm9udC1zaXplPSIzNiIgCiAgICAgICAgICBmb250LXdlaWdodD0iNzAwIiAKICAgICAgICAgIGZpbGw9IiMwRjE3MkEiCiAgICAgICAgICBsZXR0ZXItc3BhY2luZz0iLTAuMDJlbSI+QUtBREVNSUE8L3RleHQ+CiAgICAKICAgIDwhLS0gRk9STUFUSU9OIC0tPgogICAgPHRleHQgeD0iMCIgeT0iMjgiIAogICAgICAgICAgZm9udC1mYW1pbHk9IkludGVyLCAtYXBwbGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsICdTZWdvZSBVSScsIFJvYm90bywgc2Fucy1zZXJpZiIgCiAgICAgICAgICBmb250LXNpemU9IjE4IiAKICAgICAgICAgIGZvbnQtd2VpZ2h0PSI0MDAiIAogICAgICAgICAgZmlsbD0iIzY0NzQ4QiIKICAgICAgICAgIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+">
+      <img class="logo-d" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjgwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtYWluR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMjU2M0VCO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM3QzNBRUQ7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJhY2NlbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzEwQjk4MTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDZCNkQ0O3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDwhLS0gTG9nbyBJbnZlcnPDqSBwb3VyIGZvbmQgc29tYnJlIC0tPgogIDxnPgogICAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMTIiIGZpbGw9IndoaXRlIi8+CiAgICA8cGF0aCBkPSJNIDMwIDE1IEwgNDAgNDUgTCAzNSA0NSBMIDMzIDM4IEwgMjcgMzggTCAyNSA0NSBMIDIwIDQ1IEwgMzAgMTUgWiBNIDMwIDIzIEwgMjggMzIgTCAzMiAzMiBMIDMwIDIzIFoiIGZpbGw9InVybCgjbWFpbkdyYWRpZW50KSIvPgogICAgPGNpcmNsZSBjeD0iNDUiIGN5PSIyMCIgcj0iNiIgZmlsbD0idXJsKCNhY2NlbnQpIi8+CgogICAgPHRleHQgeD0iNzUiIHk9IjI4IiBmb250LWZhbWlseT0iSW50ZXIsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSJ3aGl0ZSI+QUtBREVNSUE8L3RleHQ+CiAgICA8dGV4dCB4PSI3NSIgeT0iNDYiIGZvbnQtZmFtaWx5PSJJbnRlciwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI0MDAiIGZpbGw9IiM5NEEzQjgiIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+Cg==">
+    </a>
+    <div class="nav-right">
+      <span class="nav-tag">IA en entreprise · Module 3</span>
+      <button id="darkToggle" class="theme-btn" aria-label="Basculer le thème sombre">
+        <svg class="ic-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <svg class="ic-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Main container -->
+<div class="wrap">
+
+  <!-- ============================================ -->
+  <!-- HERO                                          -->
+  <!-- ============================================ -->
+  <header class="dm3-hero" id="dm3-top">
+    <div class="dm3-hero-kick">Module 03 · Jour 2 · IA en entreprise</div>
+    <h1>L'IA au service de la<br>performance <span class="dm3-serif-grad">commerciale</span></h1>
+    <p class="dm3-hero-sub">Un cycle de vente augmenté de bout en bout — le garde-fou humain en plus.</p>
+    <p class="dm3-hero-lede">
+      Chez NORDFLOW Industrie, un compte se gagne en <b>6 à 18 mois</b>, auprès de <b>plusieurs décideurs</b>, avec des enjeux techniques réels derrière chaque rendez-vous. Ce module branche l'IA générative sur chaque étape de ce cycle : cibler mieux, publier utile, écrire vite et juste, arriver préparé, proposer sur-mesure, suivre sans rien laisser filer. Fil conducteur : la construction guidée d'une <b>séquence commerciale complète</b>, que vous rejouerez ensuite en équipe dans la simulation « Opération Nouveau Compte ».
+    </p>
+    <div class="dm3-meta-row">
+      <span class="dm3-meta-chip"><i></i>7 séquences</span>
+      <span class="dm3-meta-chip"><i></i>Livrables : playbook commercial IA + fiche social selling</span>
+    </div>
+
+    <div class="dm3-obj-grid">
+      <div class="dm3-obj dm3-reveal">
+        <span class="dm3-obj-num">1</span>
+        <div>
+          <div class="dm3-obj-kick">Cibler</div>
+          <div class="dm3-obj-txt">Qualifier un compte B2B avec l'IA — signaux, scoring simple — sans jamais confondre volume et pertinence.</div>
+        </div>
+      </div>
+      <div class="dm3-obj dm3-reveal">
+        <span class="dm3-obj-num">2</span>
+        <div>
+          <div class="dm3-obj-kick">Publier &amp; écrire</div>
+          <div class="dm3-obj-txt">Construire une présence LinkedIn crédible et produire emails, relances et séquences de cycle long qui restent vérifiables.</div>
+        </div>
+      </div>
+      <div class="dm3-obj dm3-reveal">
+        <span class="dm3-obj-num">3</span>
+        <div>
+          <div class="dm3-obj-kick">Convaincre</div>
+          <div class="dm3-obj-txt">Arriver en rendez-vous avec une fiche prospect solide, des objections anticipées et une trame de proposition personnalisée.</div>
+        </div>
+      </div>
+      <div class="dm3-obj dm3-reveal">
+        <span class="dm3-obj-num">4</span>
+        <div>
+          <div class="dm3-obj-kick">Piloter</div>
+          <div class="dm3-obj-txt">Exploiter l'IA intégrée aux CRM 2026 — résumés, relances suggérées, préparation — et garder un portefeuille propre.</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="dm3-toc" aria-label="Sommaire du module">
+      <a href="#dm3-s1"><b>01</b> Prospection augmentée</a>
+      <a href="#dm3-s2"><b>02</b> Social selling</a>
+      <a href="#dm3-s3"><b>03</b> Rédaction commerciale</a>
+      <a href="#dm3-s4"><b>04</b> Préparer le RDV</a>
+      <a href="#dm3-s5"><b>05</b> Propositions</a>
+      <a href="#dm3-s6"><b>06</b> IA × CRM</a>
+      <a href="#dm3-s7"><b>07</b> Démo guidée</a>
+    </nav>
+  </header>
+
+  <!-- ============================================ -->
+  <!-- 01 — PROSPECTION AUGMENTÉE                    -->
+  <!-- ============================================ -->
+  <section class="dm3-sec" id="dm3-s1">
+    <div class="dm3-sec-head dm3-reveal">
+      <div class="dm3-sec-top">
+        <span class="dm3-sec-num">Séquence 01</span>
+        <span class="dm3-sec-note">Ciblage · qualification · scoring</span>
+      </div>
+      <h2>Prospection <span class="dm3-serif-grad">augmentée</span></h2>
+      <p class="dm3-sec-lede">
+        La prospection B2B industrielle ne manque pas de comptes : elle manque de <b>temps pour trier les bons</b>. L'IA prend en charge la collecte et la structuration — signaux publics, fiches comptes, premières notes — pendant que vous gardez la seule chose qui compte : la décision de consacrer vos heures à ce compte-là, cette semaine-ci.
+      </p>
+    </div>
+
+    <div class="dm3-grid cols-3">
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Étape 1 · Cibler</div>
+        <div class="dm3-card-t">Formaliser le compte idéal</div>
+        <p>L'IA vous aide à expliciter votre profil de compte cible (ICP) à partir de vos dix meilleurs clients : secteur, taille, process utilisant des fluides, géographie, cycle de décision. Ce qui était implicite devient une grille partageable.</p>
+      </div>
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Étape 2 · Enrichir</div>
+        <div class="dm3-card-t">Repérer les signaux d'affaire</div>
+        <p>Recrutement d'un responsable maintenance, investissement annoncé, appel d'offres publié, extension de site : autant de signaux que l'IA peut vous aider à collecter et à résumer — à partir de sources publiques que <b>vous</b> vérifiez.</p>
+      </div>
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Étape 3 · Scorer</div>
+        <div class="dm3-card-t">Noter pour décider</div>
+        <p>Un scoring simple, tenu par l'équipe et non par une boîte noire : cinq critères, une note de 0 à 2 chacun, un total sur 10. Le score ne conclut pas — il déclenche la conversation commerciale.</p>
+      </div>
+    </div>
+
+    <h3 class="dm3-h3 dm3-reveal">La grille de scoring NORDFLOW — cinq critères, zéro magie</h3>
+    <div class="dm3-tbl-wrap dm3-reveal">
+      <table class="dm3-tbl">
+        <thead>
+          <tr>
+            <th>Critère</th>
+            <th>Ce qu'on observe</th>
+            <th>Question utile à l'IA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dm3-cell-main">Potentiel équipements</td>
+            <td>Process avec fluides à pomper, parc vieillissant, multi-sites</td>
+            <td>« Résume ce que cette activité implique comme équipements de transfert de fluides. »</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">Signal d'affaire</td>
+            <td>Investissement, AO publié, recrutement maintenance, extension</td>
+            <td>« Classe ces cinq actualités par proximité avec un projet d'utilités. »</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">Accessibilité du décideur</td>
+            <td>Contact identifié, relation existante, salon commun</td>
+            <td>« Propose trois angles d'approche à partir de ce parcours public. »</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">Fit géographique</td>
+            <td>Dans la zone de tournée, site desservi en moins de deux heures</td>
+            <td>« Ordonne ces douze comptes par trajet depuis Aix-en-Provence. »</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">Position concurrentielle</td>
+            <td>Fournisseur en place, contrat cadre, historique de la relation</td>
+            <td>« Liste ce qu'on sait et ce qu'on ignore sur le fournisseur actuel. »</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="dm3-tbl-wrap dm3-reveal">
+      <table class="dm3-tbl">
+        <thead>
+          <tr>
+            <th>Compte (exemples fictifs)</th>
+            <th>Signal dominant</th>
+            <th>Score</th>
+            <th>Décision d'équipe</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>VALSOR Environnement</b><br>Exploitant eau &amp; process, 3 sites</td>
+            <td>Extension annoncée + recrute un responsable utilités</td>
+            <td>8 / 10</td>
+            <td><span class="dm3-pill ok">Prioritaire</span> RDV sous 15 jours</td>
+          </tr>
+          <tr>
+            <td><b>Communauté d'agglomération de Beauverne</b></td>
+            <td>AO assainissement publié, cycle long garanti</td>
+            <td>5 / 10</td>
+            <td><span class="dm3-pill warn">À nourrir</span> Veille + contenu utile</td>
+          </tr>
+          <tr>
+            <td><b>BATIGÈRE Travaux</b></td>
+            <td>Aucun signal, besoin chantier ponctuel</td>
+            <td>3 / 10</td>
+            <td><span class="dm3-pill err">À requalifier</span> Pas d'effort dédié</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Simulateur de scoring -->
+    <div class="dm3-sim dm3-reveal" id="dm3-scoring">
+      <div class="dm3-sim-kick">À vous — testez la grille</div>
+      <div class="dm3-sim-t">Scorez un de vos comptes en direct</div>
+      <p class="dm3-sim-help">Pensez à un compte réel de votre portefeuille et notez chaque critère de 0 à 2. Le verdict est volontairement simple : c'est un déclencheur de discussion, pas un oracle.</p>
+
+      <div class="dm3-sim-row">
+        <div class="dm3-sim-q">
+          <div class="dm3-sim-q-t">Potentiel équipements</div>
+          <div class="dm3-sim-q-h">Le process du compte utilise-t-il des fluides à pomper, avec un parc à entretenir ?</div>
+        </div>
+        <div class="dm3-seg" data-dm3-crit="1">
+          <button type="button" data-v="0">0</button><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button>
+        </div>
+      </div>
+      <div class="dm3-sim-row">
+        <div class="dm3-sim-q">
+          <div class="dm3-sim-q-t">Signal d'affaire</div>
+          <div class="dm3-sim-q-h">Investissement, AO, recrutement clé, extension : y a-t-il un fait récent et vérifiable ?</div>
+        </div>
+        <div class="dm3-seg" data-dm3-crit="2">
+          <button type="button" data-v="0">0</button><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button>
+        </div>
+      </div>
+      <div class="dm3-sim-row">
+        <div class="dm3-sim-q">
+          <div class="dm3-sim-q-t">Accessibilité du décideur</div>
+          <div class="dm3-sim-q-h">Avez-vous un contact identifié ou un chemin crédible jusqu'à lui ?</div>
+        </div>
+        <div class="dm3-seg" data-dm3-crit="3">
+          <button type="button" data-v="0">0</button><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button>
+        </div>
+      </div>
+      <div class="dm3-sim-row">
+        <div class="dm3-sim-q">
+          <div class="dm3-sim-q-t">Fit géographique</div>
+          <div class="dm3-sim-q-h">Le compte s'intègre-t-il dans une tournée existante sans détour majeur ?</div>
+        </div>
+        <div class="dm3-seg" data-dm3-crit="4">
+          <button type="button" data-v="0">0</button><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button>
+        </div>
+      </div>
+      <div class="dm3-sim-row">
+        <div class="dm3-sim-q">
+          <div class="dm3-sim-q-t">Position concurrentielle</div>
+          <div class="dm3-sim-q-h">La place est-elle prenable : pas de contrat cadre verrouillé ni d'opérateur historique intouchable ?</div>
+        </div>
+        <div class="dm3-seg" data-dm3-crit="5">
+          <button type="button" data-v="0">0</button><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button>
+        </div>
+      </div>
+
+      <div class="dm3-sim-out">
+        <div class="dm3-sim-score"><span id="dm3-score">0</span><small> / 10</small></div>
+        <div class="dm3-sim-verdict v-cold" id="dm3-verdict">En attente de notes</div>
+        <p class="dm3-sim-why" id="dm3-why">Notez les cinq critères : le verdict se met à jour instantanément. Un score se discute en équipe — il ne se subit pas.</p>
+      </div>
+    </div>
+
+    <div class="dm3-case dm3-reveal">
+      <div class="dm3-case-head">
+        <span class="dm3-persona"><i>É</i>Élise · commerciale sédentaire</span>
+        <span class="dm3-case-tag">Cas NORDFLOW</span>
+      </div>
+      <p>Un appel d'intérêt arrive par le site : une collectivité veut « moderniser deux stations de relevage ». Avant, Élise passait deux heures à fouiller le web. Désormais, elle fait structurer la recherche par l'IA — statut de la collectivité, budget voté, historique des AO comparables, interlocuteurs probables — en une vingtaine de minutes. <b>Ce qui n'a pas changé :</b> c'est Élise qui appelle le contact pour confirmer le signal, et c'est elle qui décide, avec Romain, d'engager une réponse ou de classer le dossier.</p>
+    </div>
+
+    <div class="dm3-callout is-warn dm3-reveal">
+      <svg class="dm3-callout-ic" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+      <div>
+        <div class="dm3-callout-t">Le garde-fou humain : le volume n'est pas la pertinence</div>
+        <p>L'IA permet d'envoyer deux cents messages génériques en une heure — et de griller deux cents comptes en une heure. La tendance de fond documentée par McKinsey (étude grand public américaine, 2021) : <b>71 % des personnes attendent des interactions personnalisées et 76 % sont frustrées</b> quand ce n'est pas le cas. En prospection, l'IA démultiplie la personnalisation, pas le spam.</p>
+        <p>Côté conformité : saisir des données personnelles de prospects dans un outil grand public constitue un traitement au sens du RGPD. Le réflexe : minimisation (strictement le nécessaire), pseudonymisation quand c'est possible, et jamais de fiche nominative complète dans un outil non validé.</p>
+      </div>
+    </div>
+
+    <p class="dm3-src dm3-reveal"><b>Sources :</b> McKinsey, « The value of getting personalization right » (2021) — étude B2C grand public US, présentée comme tendance de fond ; CNIL, fiches pratiques IA (2024-2025) — minimisation et données personnelles dans les outils d'IA.</p>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 02 — SOCIAL SELLING LINKEDIN                  -->
+  <!-- ============================================ -->
+  <section class="dm3-sec" id="dm3-s2">
+    <div class="dm3-sec-head dm3-reveal">
+      <div class="dm3-sec-top">
+        <span class="dm3-sec-num">Séquence 02</span>
+        <span class="dm3-sec-note">LinkedIn · posture · workflow</span>
+      </div>
+      <h2>Social selling <span class="dm3-serif-grad">LinkedIn</span></h2>
+      <p class="dm3-sec-lede">
+        Vos décideurs industriels lisent LinkedIn entre deux réunions. Ils n'y cherchent ni pub ni slogans : ils y repèrent <b>qui comprend leur métier</b>. Le social selling, c'est cette crédibilité accumulée — et l'IA en accélère la production, à condition que la voix et les faits restent les vôtres.
+      </p>
+    </div>
+
+    <div class="dm3-stats">
+      <div class="dm3-stat dm3-reveal">
+        <div class="dm3-stat-num">78 %</div>
+        <div class="dm3-stat-cap">des vendeurs pratiquant le social selling déclarent vendre <b>plus que leurs pairs</b> — données éditeur LinkedIn</div>
+      </div>
+      <div class="dm3-stat dm3-reveal">
+        <div class="dm3-stat-num">+45 %</div>
+        <div class="dm3-stat-cap">d'opportunités créées par les <b>leaders du social selling</b> — données éditeur LinkedIn</div>
+      </div>
+      <div class="dm3-stat dm3-reveal">
+        <div class="dm3-stat-num">+51 %</div>
+        <div class="dm3-stat-cap">de probabilité déclarée <b>d'atteindre son quota</b> — données éditeur LinkedIn</div>
+      </div>
+    </div>
+
+    <div class="dm3-callout is-info dm3-reveal">
+      <svg class="dm3-callout-ic" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <div>
+        <div class="dm3-callout-t">Lire ces chiffres avec méthode</div>
+        <p>Ces trois pourcentages sont des <b>données éditeur</b> (LinkedIn Sales Solutions), affichées sans méthodologie publique détaillée ni millésime précis : prenez-les comme des ordres de grandeur favorables au social selling, jamais comme une promesse de performance. En revanche, le <b>SSI — Social Selling Index</b> est un score LinkedIn sur 100, gratuit et mesurable : c'est un bon outil de mesure avant / après pour chacun.</p>
+      </div>
+    </div>
+
+    <h3 class="dm3-h3 dm3-reveal">Les quatre piliers du SSI — votre plan de présence</h3>
+    <div class="dm3-grid cols-4">
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Pilier 1</div>
+        <div class="dm3-card-t">Marque professionnelle</div>
+        <p>Un profil qui parle métier : titre clair, bannière propre, contenu utile publié régulièrement.</p>
+      </div>
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Pilier 2</div>
+        <div class="dm3-card-t">Trouver les bonnes personnes</div>
+        <p>Identifier décideurs et prescripteurs de vos comptes cibles plutôt qu'accumuler les contacts.</p>
+      </div>
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Pilier 3</div>
+        <div class="dm3-card-t">Échanger avec des insights</div>
+        <p>Commenter avec valeur, partager des retours d'expérience, nourrir la conversation sectorielle.</p>
+      </div>
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Pilier 4</div>
+        <div class="dm3-card-t">Bâtir des relations</div>
+        <p>Transformer la visibilité en échanges, puis les échanges en rendez-vous — sans forcer.</p>
+      </div>
+    </div>
+
+    <h3 class="dm3-h3 dm3-reveal">Le workflow IA d'un post — quatre temps, une voix</h3>
+    <div class="dm3-flow">
+      <div class="dm3-flow-step dm3-reveal">
+        <div class="dm3-flow-rail"><div class="dm3-flow-dot">1</div><div class="dm3-flow-line"></div></div>
+        <div class="dm3-flow-body">
+          <div class="dm3-flow-t">Brainstorm d'angles</div>
+          <div class="dm3-flow-sub">« Donne-moi dix angles de post à partir de cette mise en service : ce qu'un exploitant retiendrait, pas ce qu'un marketeur écrirait. » L'IA explore large ; vous jetez huit angles sur dix.</div>
+          <div class="dm3-flow-cols">
+            <div class="dm3-mini"><div class="dm3-mini-k">L'IA fait</div><p>Diverger vite : angles, titres, accroches candidates.</p></div>
+            <div class="dm3-mini"><div class="dm3-mini-k">Vous gardez</div><p>Le choix de l'angle — celui où vous avez une preuve de terrain.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dm3-flow-step dm3-reveal">
+        <div class="dm3-flow-rail"><div class="dm3-flow-dot">2</div><div class="dm3-flow-line"></div></div>
+        <div class="dm3-flow-body">
+          <div class="dm3-flow-t">Structure</div>
+          <div class="dm3-flow-sub">Accroche, développement, preuve, question d'ouverture : l'IA propose une architecture courte, pensée pour être lue en diagonale sur mobile.</div>
+          <div class="dm3-flow-cols">
+            <div class="dm3-mini"><div class="dm3-mini-k">L'IA fait</div><p>Cadrer en cinq à huit lignes, aérer, hiérarchiser.</p></div>
+            <div class="dm3-mini"><div class="dm3-mini-k">Vous gardez</div><p>La hiérarchie du fond : ce qui mérite d'être dit en premier.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dm3-flow-step dm3-reveal">
+        <div class="dm3-flow-rail"><div class="dm3-flow-dot">3</div><div class="dm3-flow-line"></div></div>
+        <div class="dm3-flow-body">
+          <div class="dm3-flow-t">Premier jet</div>
+          <div class="dm3-flow-sub">L'IA rédige une version complète. C'est un brouillon : il vous fait gagner la page blanche, pas la signature.</div>
+          <div class="dm3-flow-cols">
+            <div class="dm3-mini"><div class="dm3-mini-k">L'IA fait</div><p>Produire un texte fluide et découpé en quinze secondes.</p></div>
+            <div class="dm3-mini"><div class="dm3-mini-k">Vous gardez</div><p>Le jugement : tout fait chiffré cité doit être exact et le vôtre.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dm3-flow-step dm3-reveal">
+        <div class="dm3-flow-rail"><div class="dm3-flow-dot">4</div><div class="dm3-flow-line"></div></div>
+        <div class="dm3-flow-body">
+          <div class="dm3-flow-t">Réécriture personnelle</div>
+          <div class="dm3-flow-sub">Vous repassez à la main : votre phrasé, votre anecdote, votre niveau de détail technique. Si le post ne vous ressemble pas lu à voix haute, il ne part pas.</div>
+          <div class="dm3-flow-cols">
+            <div class="dm3-mini"><div class="dm3-mini-k">L'IA fait</div><p>Vous libérer du temps de mise en forme.</p></div>
+            <div class="dm3-mini"><div class="dm3-mini-k">Vous gardez</div><p>La voix. C'est elle qui crée la confiance, donc la relation.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dm3-case dm3-reveal">
+      <div class="dm3-case-head">
+        <span class="dm3-persona"><i>T</i>Théo · marketing &amp; communication</span>
+        <span class="dm3-case-tag">Exemple NORDFLOW — anatomie d'un post</span>
+      </div>
+      <div class="dm3-annot">
+        <span class="dm3-annot-tag">Accroche — le problème que vit le lecteur</span>
+        <p>« Sur un chantier, une pompe à l'arrêt coûte plus cher que la pompe elle-même. »</p>
+      </div>
+      <div class="dm3-annot">
+        <span class="dm3-annot-tag">Preuve — un fait de terrain, chiffré et vrai</span>
+        <p>« Mise en service d'un skid de transfert chez un exploitant du bassin d'Aix : six heures de montage, deux heures d'essais, zéro arrêt de production. »</p>
+      </div>
+      <div class="dm3-annot">
+        <span class="dm3-annot-tag">Angle utile — ce que le lecteur emporte</span>
+        <p>« Ce qui a fait la différence : trois questions posées en amont sur le fluide réellement pompé — pas celui de la fiche d'appel d'offres. »</p>
+      </div>
+      <div class="dm3-annot">
+        <span class="dm3-annot-tag">Ouverture — invitation à échanger</span>
+        <p>« Et vous, que vérifiez-vous avant une mise en service ? »</p>
+      </div>
+      <p style="margin-top:10px">Théo a produit la structure avec l'IA en dix minutes ; la preuve chiffrée vient du compte rendu de chantier de Maud, <b>validé par elle avant publication</b>. Aucun client n'est nommé : le terrain suffit à crédibiliser.</p>
+    </div>
+
+    <h3 class="dm3-h3 dm3-reveal">Messages InMail personnalisés — la structure qui respecte le lecteur</h3>
+    <div class="dm3-grid cols-4">
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Bloc 1</div>
+        <div class="dm3-card-t">Le signal</div>
+        <p>Un fait précis et vérifiable : « votre extension annoncée en mars », pas « je suis votre entreprise de près ».</p>
+      </div>
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Bloc 2</div>
+        <div class="dm3-card-t">Le lien</div>
+        <p>Pourquoi vous, pourquoi maintenant : la connexion exacte entre ce signal et votre métier.</p>
+      </div>
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Bloc 3</div>
+        <div class="dm3-card-t">La question ouverte</div>
+        <p>Une vraie question métier, impossible à répondre par « non merci » sans réfléchir.</p>
+      </div>
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Bloc 4</div>
+        <div class="dm3-card-t">Le CTA léger</div>
+        <p>Quinze minutes d'échange, pas un devis. La porte d'entrée doit coûter moins cher que le filtre anti-spam.</p>
+      </div>
+    </div>
+
+    <p class="dm3-src dm3-reveal"><b>Sources :</b> LinkedIn Sales Solutions, page « Social Selling » — 78 % / +45 % / +51 % (données éditeur, millésime non précisé par l'éditeur, consulté 2026) ; SSI — Social Selling Index, linkedin.com/sales/ssi (définition des quatre piliers, consulté 2026). Aucun taux de réponse InMail chiffré n'est cité : l'éditeur n'en publie pas de mesurable.</p>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 03 — RÉDACTION COMMERCIALE                    -->
+  <!-- ============================================ -->
+  <section class="dm3-sec" id="dm3-s3">
+    <div class="dm3-sec-head dm3-reveal">
+      <div class="dm3-sec-top">
+        <span class="dm3-sec-num">Séquence 03</span>
+        <span class="dm3-sec-note">Emails · relances · cycles longs</span>
+      </div>
+      <h2>Rédaction <span class="dm3-serif-grad">commerciale</span></h2>
+      <p class="dm3-sec-lede">
+        Sur l'écrit professionnel, les gains ne sont plus une opinion : une étude du MIT publiée dans <i>Science</i> mesure <b>40 % de temps en moins et 18 % de qualité en plus</b> avec l'IA générative. Encore faut-il que le temps gagné serve la vente : selon Salesforce (données éditeur), un commercial ne consacre qu'<b>environ 30 % de son temps à vendre réellement</b>. Chaque heure rendue par l'IA est une heure réinvestie dans ces 30 %.
+      </p>
+    </div>
+
+    <div class="dm3-stats">
+      <div class="dm3-stat dm3-reveal">
+        <div class="dm3-stat-num">−40 %</div>
+        <div class="dm3-stat-cap">de temps sur des <b>tâches d'écriture professionnelle</b> — mesure contrôlée, 453 professionnels</div>
+      </div>
+      <div class="dm3-stat dm3-reveal">
+        <div class="dm3-stat-num">+18 %</div>
+        <div class="dm3-stat-cap">de qualité jugée en aveugle sur les mêmes tâches — <b>écrit, pas vente pure</b></div>
+      </div>
+      <div class="dm3-stat dm3-reveal">
+        <div class="dm3-stat-num">~30 %</div>
+        <div class="dm3-stat-cap">du temps d'un commercial <b>réellement consacré à la vente</b> — données éditeur Salesforce</div>
+      </div>
+    </div>
+
+    <h3 class="dm3-h3 dm3-reveal">Le deal à neuf mois de Karim — la relance comme apport de valeur</h3>
+    <p class="body-p dm3-reveal">Un compte industriel signé en neuf mois, c'est douze points de contact minimum. Le risque classique : douze versions de « je me permets de revenir vers vous ». La méthode Karim : <b>chaque relance apporte quelque chose de neuf</b> — une preuve, une actualité du compte, un retour d'expérience — et l'IA prépare la matière pendant que Karim garde le moment, le ton et la signature.</p>
+
+    <div class="dm3-tbl-wrap dm3-reveal">
+      <table class="dm3-tbl">
+        <thead>
+          <tr>
+            <th>Temps du cycle</th>
+            <th>Type de contact</th>
+            <th>Ce que l'IA prépare</th>
+            <th>Ce que vous gardez</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dm3-cell-main">J 0</td>
+            <td>Email d'ouverture</td>
+            <td>Structure signal + lien + CTA unique</td>
+            <td>Le signal : vous le vérifiez avant d'écrire</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">J +10</td>
+            <td>Relance valeur</td>
+            <td>Un contenu utile résumé en trois lignes</td>
+            <td>Le choix du contenu envoyé</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">J +30</td>
+            <td>Relance preuve</td>
+            <td>Mise en forme d'un retour d'expérience</td>
+            <td>L'exactitude des chiffres cités</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">J +60</td>
+            <td>Relance actualité</td>
+            <td>Veille structurée sur le compte</td>
+            <td>La pertinence : faut-il vraiment relancer ?</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">J +90</td>
+            <td>Prise de congé élégante</td>
+            <td>Une formulation qui laisse la porte ouverte</td>
+            <td>La décision d'arrêter — et l'honneur du mot de la fin</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="dm3-h3 dm3-reveal">Avant / après — la même relance, deux mondes</h3>
+    <div class="dm3-compare">
+      <div class="dm3-block is-before dm3-reveal">
+        <div class="dm3-block-head">
+          <span class="dm3-block-tag">Prompt nu : « écris un email de relance »</span>
+        </div>
+        <div class="dm3-block-body">
+          <p>Bonjour,</p>
+          <p>Je me permets de revenir vers vous concernant notre précédent échange. Avez-vous pu étudier notre proposition ?</p>
+          <p>Je reste à votre disposition pour toute question.</p>
+          <p>Cordialement.</p>
+        </div>
+        <div class="dm3-block-note"><b>Pourquoi ça échoue :</b> aucune valeur nouvelle, aucune personnalisation, un CTA inexistant — et un fil de treize échanges qui ressemble à tous les autres dans la boîte du client.</div>
+      </div>
+      <div class="dm3-block is-after dm3-reveal">
+        <div class="dm3-block-head">
+          <span class="dm3-block-tag">Prompt travaillé : contexte + signal + objectif (CRISP)</span>
+        </div>
+        <div class="dm3-block-body">
+          <p>Bonjour Madame Fabre,</p>
+          <p>Lors de notre échange en juin, vous évoquiez la modernisation des utilités du site de Grans pour le premier trimestre. Nous venons de mettre en service une installation comparable chez un exploitant de votre secteur : 30 % d'énergie en moins sur le poste de transfert.</p>
+          <p>Je vous joins le retour d'expérience en deux pages. Seriez-vous disponible vingt minutes la semaine du 21 pour regarder ce qui est transposable chez vous ?</p>
+        </div>
+        <div class="dm3-block-note"><b>Pourquoi ça marche :</b> un signal daté et exact, une preuve transposable, un CTA unique et mesuré. Exemple fictif NORDFLOW — chaque fait serait vérifié avant envoi dans un vrai compte.</div>
+      </div>
+    </div>
+
+    <div class="dm3-callout is-ok dm3-reveal">
+      <svg class="dm3-callout-ic" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <div>
+        <div class="dm3-callout-t">La règle d'or de l'email IA : personnalisation vérifiable</div>
+        <p>Chaque fait cité dans un message commercial — chiffre, date, projet, nom de site — doit être <b>vrai, actuel et sourçable</b>. L'IA rédige vite, mais elle ne sait pas si le chantier de Grans est terminé. C'est vous qui savez. Un email personnalisé avec un fait faux est pire qu'un email générique : il prouve que vous n'avez pas relu.</p>
+      </div>
+    </div>
+
+    <p class="dm3-src dm3-reveal"><b>Sources :</b> Noy &amp; Zhang (MIT), « Experimental Evidence on the Productivity Effects of Generative Artificial Intelligence », <i>Science</i> (2023) — étude contrôlée sur tâches d'écriture, gains non généralisables tels quels à toute l'activité ; Salesforce, State of Sales — temps réellement consacré à la vente (données éditeur, éditions 2022-2024).</p>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 04 — PRÉPARER UN RENDEZ-VOUS INDUSTRIEL       -->
+  <!-- ============================================ -->
+  <section class="dm3-sec" id="dm3-s4">
+    <div class="dm3-sec-head dm3-reveal">
+      <div class="dm3-sec-top">
+        <span class="dm3-sec-num">Séquence 04</span>
+        <span class="dm3-sec-note">Fiche prospect · objections</span>
+      </div>
+      <h2>Préparer un rendez-vous <span class="dm3-serif-grad">industriel</span></h2>
+      <p class="dm3-sec-lede">
+        En industrie, un rendez-vous se gagne souvent <b>avant d'entrer dans la salle</b> : connaître le process du client, ses contraintes d'exploitation, ses derniers investissements — et arriver avec des questions qu'aucun concurrent paresseux ne posera. L'IA vous fait gagner l'heure de collecte ; elle ne remplace ni votre curiosité ni l'expertise technique.
+      </p>
+    </div>
+
+    <h3 class="dm3-h3 dm3-reveal">La fiche de préparation — cinq blocs, une page</h3>
+    <div class="dm3-grid cols-2">
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Bloc 1</div>
+        <div class="dm3-card-t">Contexte &amp; signaux</div>
+        <p>Activité, sites, effectifs, derniers faits publics datés. L'IA structure la collecte ; vous ne retenez que ce qui est vérifié.</p>
+      </div>
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Bloc 2</div>
+        <div class="dm3-card-t">Enjeux probables</div>
+        <p>Trois hypothèses d'enjeux liés à ses fluides et son exploitation — formulées comme hypothèses, jamais comme certitudes.</p>
+      </div>
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Bloc 3</div>
+        <div class="dm3-card-t">Plan de découverte</div>
+        <p>Cinq questions ouvertes, de l'exploitation vers le projet. C'est le cœur du rendez-vous : celui qui questionne pilote.</p>
+      </div>
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Bloc 4</div>
+        <div class="dm3-card-t">Objections &amp; réponses</div>
+        <p>Les quatre objections probables, l'axe de réponse pour chacune, et le piège à éviter. Voir la matrice ci-dessous.</p>
+      </div>
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Bloc 5</div>
+        <div class="dm3-card-t">Objectif du rendez-vous</div>
+        <p>Une seule avancée visée : visite de site, chiffrage, deuxième réunion avec la direction. Un RDV sans objectif est une visite de courtoisie.</p>
+      </div>
+      <div class="dm3-card dm3-reveal">
+        <div class="dm3-card-kick">Vigilance</div>
+        <div class="dm3-card-t">Le fond reste expert</div>
+        <p>Toute affirmation technique de la fiche — compatibilité d'une pompe avec un fluide, norme applicable — se valide avec l'expert avant le rendez-vous.</p>
+      </div>
+    </div>
+
+    <h3 class="dm3-h3 dm3-reveal">La matrice objection / réponse — les quatre classiques du B2B industriel</h3>
+    <div class="dm3-tbl-wrap dm3-reveal">
+      <table class="dm3-tbl">
+        <thead>
+          <tr>
+            <th>Objection entendue</th>
+            <th>Ce qu'elle cache souvent</th>
+            <th>Axe de réponse</th>
+            <th>Piège à éviter</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dm3-cell-main">« Votre prix est 15 % au-dessus. »</td>
+            <td>Comparaison à périmètre inégal, ou test de fermeté</td>
+            <td>Revenir au coût complet : énergie, maintenance, arrêts évités, durée de vie</td>
+            <td>Aligner le prix sans rien demander en échange</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">« Nous travaillons avec le même fournisseur depuis dix ans. »</td>
+            <td>Peur du risque de changement, pas satisfaction réelle</td>
+            <td>Proposer un périmètre borné : un équipement, un site, une évaluation mesurée</td>
+            <td>Dénigrer le fournisseur en place</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">« Douze semaines de délai, ça ne passe pas. »</td>
+            <td>Une contrainte planning réelle — ou un prétexte pour clos</td>
+            <td>Questionner l'échéance réelle du chantier, proposer une livraison séquencée</td>
+            <td>Promettre un délai que la production ne tiendra pas</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">« Vos pompes tiendront-elles sur notre fluide abrasif ? »</td>
+            <td>Une exigence technique légitime, assortie d'un doute</td>
+            <td>Répondre avec des cas comparables documentés et l'appui de l'expert technique</td>
+            <td>Improviser une compatibilité non vérifiée</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="dm3-case dm3-reveal">
+      <div class="dm3-case-head">
+        <span class="dm3-persona"><i>M</i>Maud · chargée d'affaires technique</span>
+        <span class="dm3-case-tag">Cas NORDFLOW — le RDV chantier</span>
+      </div>
+      <p>Avant une visite de mise en service, Maud colle dans l'IA le descriptif <b>anonymisé</b> de l'installation — type de pompe, fluide, contraintes d'accès, sans nom de client ni de site — et demande dix questions techniques à poser sur place. Elle en écarte six avec Hervé, qui en reformule deux. Le jour J, elle arrive avec quatre questions qui montrent qu'elle a compris l'installation avant d'y mettre les pieds. <b>Le temps gagné n'est pas dans la liste : il est dans la qualité des quatre questions restantes.</b></p>
+    </div>
+
+    <div class="dm3-callout is-warn dm3-reveal">
+      <svg class="dm3-callout-ic" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+      <div>
+        <div class="dm3-callout-t">Anticiper n'est pas scripter</div>
+        <p>La matrice prépare vos réponses, elle ne les récite pas. Un client qui sent une objection « traitée » comme dans un script entend qu'on ne l'écoute plus. L'IA vous sert à préparer dix scénarios pour n'en jouer qu'un : celui que le client ouvre réellement.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 05 — PROPOSITIONS COMMERCIALES SUR-MESURE     -->
+  <!-- ============================================ -->
+  <section class="dm3-sec" id="dm3-s5">
+    <div class="dm3-sec-head dm3-reveal">
+      <div class="dm3-sec-top">
+        <span class="dm3-sec-num">Séquence 05</span>
+        <span class="dm3-sec-note">Trame · personnalisation · relecture</span>
+      </div>
+      <h2>Propositions commerciales <span class="dm3-serif-grad">sur-mesure</span></h2>
+      <p class="dm3-sec-lede">
+        La proposition est le document qui <b>engage l'entreprise</b> : prix, délais, performances, normes. L'IA y est formidable pour la structure et la personnalisation des sections narratives — et strictement incapable d'y garantir un seul chiffre. La règle est donc simple : l'IA prépare, l'expert valide, vous signez.
+      </p>
+    </div>
+
+    <div class="dm3-tbl-wrap dm3-reveal">
+      <table class="dm3-tbl">
+        <thead>
+          <tr>
+            <th>Section de la trame</th>
+            <th>Ce que l'IA prépare</th>
+            <th>Ce que vous validez avant envoi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dm3-cell-main">Résumé exécutif</td>
+            <td>Une page claire : besoin, réponse, bénéfice mesurable</td>
+            <td>Le bénéfice annoncé est réel et défendable</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">Compréhension du besoin</td>
+            <td>Reformulation des échanges et du contexte du client</td>
+            <td>Aucune invention : tout vient d'un échange réel ou d'un document fourni</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">Solution technique</td>
+            <td>Mise en forme, schémas de principe décrits, plan de présentation</td>
+            <td>Chaque caractéristique relue par l'expert technique</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">Organisation &amp; planning</td>
+            <td>Séquencement type, jalons, logique d'installation</td>
+            <td>Les délais : engageables par la production, pas par l'IA</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">Budget</td>
+            <td>Présentation, tableau, décomposition lisible</td>
+            <td>Chaque prix : jamais généré, toujours saisi et revérifié</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">Références</td>
+            <td>Sélection et rédaction des cas comparables</td>
+            <td>Le droit de citer la référence, l'exactitude des chiffres</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">Annexes &amp; normes</td>
+            <td>Plan des annexes, liste des documents à joindre</td>
+            <td>Toute référence normative : vérifiée à la source officielle</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="dm3-callout is-danger dm3-reveal">
+      <svg class="dm3-callout-ic" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+      <div>
+        <div class="dm3-callout-t">Deux interdits absolus dans une proposition</div>
+        <p><b>1. Aucun chiffre non relu.</b> Rappel du module 1 : l'IA peut inventer une référence normative parfaitement formatée — Élise l'a vécu sur une fiche technique. Prix, délais, normes, pénalités : relecture experte obligatoire, sans exception.</p>
+        <p><b>2. Aucun CCTP en clair dans un outil grand public.</b> Un cahier des charges client est un document confidentiel (secret commercial, données de l'acheteur) : il se travaille anonymisé et extrait par exigences, ou dans un outil professionnel validé par votre charte.</p>
+      </div>
+    </div>
+
+    <div class="dm3-case dm3-reveal">
+      <div class="dm3-case-head">
+        <span class="dm3-persona"><i>R</i>Romain · chef des ventes</span>
+        <span class="dm3-case-tag">Cas NORDFLOW — la revue avant envoi</span>
+      </div>
+      <p>Chez NORDFLOW, aucune proposition ne part sans une revue à deux : le commercial relit la cohérence commerciale, Hervé ou Maud valide le fond technique, et la personne qui signe vérifie une dernière fois les trois chiffres qui engagent — prix, délai, garantie. L'IA a divisé par deux le temps de production de la trame ; <b>le temps de validation, lui, n'a pas bougé d'une minute. C'est précisément le signe que l'outil est à sa place.</b></p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 06 — IA × CRM (ÉTAT 2026)                     -->
+  <!-- ============================================ -->
+  <section class="dm3-sec" id="dm3-s6">
+    <div class="dm3-sec-head dm3-reveal">
+      <div class="dm3-sec-top">
+        <span class="dm3-sec-num">Séquence 06</span>
+        <span class="dm3-sec-note">État 2026 · copilotes · agents</span>
+      </div>
+      <h2>IA × CRM : <span class="dm3-serif-grad">l'état 2026</span></h2>
+      <p class="dm3-sec-lede">
+        En 2026, les quatre grands CRM B2B embarquent tous une couche d'IA « copilote » : <b>résumés de comptes et d'opportunités, rédaction d'emails contextuels, préparation de réunions</b> — là où vous travaillez déjà, dans Outlook, Teams ou le CRM. Le point décisif pour une PME : ces fonctions lisent <b>vos</b> données, qui restent dans votre CRM. Panorama sourcé, à jour de septembre 2026.
+      </p>
+    </div>
+
+    <div class="dm3-tbl-wrap dm3-reveal">
+      <table class="dm3-tbl">
+        <thead>
+          <tr>
+            <th>Offre</th>
+            <th>Où ça vit</th>
+            <th>Ce que le commercial y gagne</th>
+            <th>Modèle (état sourcé)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dm3-cell-main">Microsoft 365<br>Copilot for Sales</td>
+            <td>Outlook, Teams, Word — connecté à Dynamics 365 <b>et</b> Salesforce</td>
+            <td>Résumés d'opportunités avant un RDV, résumés d'emails enrichis des données CRM, préparation de réunions</td>
+            <td>Lancé en fév. 2024 à 50 $/util./mois incluant Copilot M365 ; tarif 2026 à revérifier. En 2026, Microsoft documente un « Sales agent » conversationnel — périmètre en évolution</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">HubSpot<br>Breeze</td>
+            <td>Dans le CRM HubSpot</td>
+            <td>Breeze Assistant : résumés de fiches, rédaction, recherche dans le CRM. Prospecting Agent : repère les comptes proches de votre cible et rédige des emails personnalisés</td>
+            <td>Lancé à INBOUND 2024 ; depuis avril 2026, certains agents facturés « à la tâche accomplie » — coût variable selon le volume</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">Salesforce<br>Einstein + Agentforce</td>
+            <td>Dans Sales Cloud</td>
+            <td>Einstein : notation des leads par apprentissage sur votre historique ; score d'opportunité de 1 à 99. Agentforce : agents annoncés dès août 2024, réponse aux leads à partir de vos contenus validés</td>
+            <td>Agentforce facturé à l'action : 20 Flex Credits par action d'agent (données éditeur, 2026)</td>
+          </tr>
+          <tr>
+            <td class="dm3-cell-main">Dynamics 365<br>Sales — Copilot</td>
+            <td>Dans le CRM Dynamics</td>
+            <td>Synthèses d'opportunités et de leads sans quitter le CRM, préparation de rendez-vous, aide à la rédaction d'emails, actualités des comptes</td>
+            <td>« Copilot Credits » inclus dans Sales Premium (requis pour les agents prêts à l'emploi) — données éditeur, 2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="dm3-case dm3-reveal">
+      <div class="dm3-case-head">
+        <span class="dm3-persona"><i>K</i>Karim · commercial régional itinérant</span>
+        <span class="dm3-case-tag">Cas NORDFLOW — la préparation sur la route</span>
+      </div>
+      <p>Karim roule vers un client qu'il n'a pas vu depuis cinq mois. Depuis le parking, il lit le résumé d'opportunité généré par le CRM : derniers échanges, devis en attente, ticket SAV clos en août, contact qui a changé de poste. Deux minutes de lecture au lieu de vingt minutes de fouille dans les fiches — à condition que ces fiches aient été tenues. <b>La synthèse de l'IA vaut exactement la discipline de saisie de l'équipe.</b></p>
+    </div>
+
+    <div class="dm3-callout is-info dm3-reveal">
+      <svg class="dm3-callout-ic" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <div>
+        <div class="dm3-callout-t">2026 : du copilote à l'agent — lire la tendance avec prudence</div>
+        <p>Les trois éditeurs déplacent leur discours du « copilote » (qui vous assiste) vers l'« agent » (qui exécute une tâche multi-étapes : rechercher, qualifier, rédiger voire envoyer une relance), avec une tarification à l'action ou au résultat. Les signaux officiels existent — crédits à l'action chez Salesforce, « tâche accomplie » chez HubSpot, « Sales agent » chez Microsoft — mais ces agents restent jeunes. <b>Le bon réflexe PME :</b> démarrer par les copilotes (résumés, rédaction, préparation) et n'expérimenter les agents que sur un périmètre borné, avec validation humaine systématique et contenus de référence tenus à jour.</p>
+      </div>
+    </div>
+
+    <div class="dm3-callout is-warn dm3-reveal">
+      <svg class="dm3-callout-ic" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+      <div>
+        <div class="dm3-callout-t">Trois vigilances transverses</div>
+        <p><b>Données :</b> un scoring entraîné sur un historique pauvre ou des fiches mal tenues produit des scores trompeurs — l'IA du CRM ne compense pas un CRM vide.</p>
+        <p><b>Relecture :</b> tout email généré se relit avant envoi, comme tout contenu sortant.</p>
+        <p><b>Coûts :</b> la facturation à l'action rend le coût variable — on modélise un cas d'usage et son volume avant de déployer, et on vérifie les prérequis de licence au cas par cas.</p>
+      </div>
+    </div>
+
+    <p class="dm3-src dm3-reveal"><b>Sources (données éditeur, consulté sept. 2026) :</b> microsoft.com / Microsoft Learn — Copilot for Sales (disponibilité générale fév. 2024, connexion Dynamics + Salesforce, résumés et préparation) et plan de lancement « Sales agent » 2026 ; hubspot.com / knowledge.hubspot.com — Breeze Assistant et Prospecting Agent, tarification « à la tâche accomplie » (avril 2026) ; salesforce.com / help.salesforce.com — Einstein Lead &amp; Opportunity Scoring, Agentforce à 20 Flex Credits par action (2026) ; learn.microsoft.com — Copilot dans Dynamics 365 Sales, Copilot Credits inclus dans Sales Premium. Tarifs Microsoft 2026 non confirmés : à revérifier avant tout chiffrage.</p>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 07 — DÉMO GUIDÉE (FIL CONDUCTEUR)             -->
+  <!-- ============================================ -->
+  <section class="dm3-sec" id="dm3-s7">
+    <div class="dm3-sec-head dm3-reveal">
+      <div class="dm3-sec-top">
+        <span class="dm3-sec-num">Séquence 07</span>
+        <span class="dm3-sec-note">Démo guidée · de bout en bout</span>
+      </div>
+      <h2>La séquence complète, <span class="dm3-serif-grad">construite en direct</span></h2>
+      <p class="dm3-sec-lede">
+        Rassemblons tout : du compte cible au plan de suivi, une séquence commerciale B2B complète, construite avec l'IA sous vos yeux. C'est exactement cette mécanique — mêmes étapes, mêmes garde-fous — que vous rejouerez en équipe dans la simulation <b>« Opération Nouveau Compte »</b>. Pour chaque étape : un point de départ à copier dans votre playbook, et le contrôle humain qui va avec.
+      </p>
+    </div>
+
+    <div class="dm3-flow">
+      <div class="dm3-flow-step dm3-reveal">
+        <div class="dm3-flow-rail"><div class="dm3-flow-dot">1</div><div class="dm3-flow-line"></div></div>
+        <div class="dm3-flow-body">
+          <div class="dm3-flow-t">Ciblage &amp; qualification <span class="dm3-persona"><i>É</i>Élise</span></div>
+          <div class="dm3-flow-sub">Fiche compte structurée à partir d'informations publiques : activité, sites, enjeux probables, signaux d'affaire.</div>
+          <div class="dm3-flow-cols">
+            <div class="dm3-mini">
+              <div class="dm3-mini-k">Point de départ (playbook)</div>
+              <p class="dm3-mono">« Tu es analyste commercial B2B industriel. Voici le profil de compte idéal de NORDFLOW : [ICP]. À partir de ces informations publiques sur [compte], structure une fiche de qualification : activité, enjeux probables sur les utilités fluides, signaux d'affaire datés, trois questions à poser. Signale tout ce que tu ne peux pas vérifier. »</p>
+            </div>
+            <div class="dm3-mini">
+              <div class="dm3-mini-k">Contrôle humain</div>
+              <p>Chaque fait public cité est revérifié à la source. Tout ce que l'IA signale comme non vérifiable part à la poubelle, pas dans la fiche.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dm3-flow-step dm3-reveal">
+        <div class="dm3-flow-rail"><div class="dm3-flow-dot">2</div><div class="dm3-flow-line"></div></div>
+        <div class="dm3-flow-body">
+          <div class="dm3-flow-t">Post LinkedIn <span class="dm3-persona"><i>T</i>Théo</span></div>
+          <div class="dm3-flow-sub">Un post utile au secteur du compte cible — angle, accroche, preuve — publié sous la voix de l'entreprise.</div>
+          <div class="dm3-flow-cols">
+            <div class="dm3-mini">
+              <div class="dm3-mini-k">Point de départ (playbook)</div>
+              <p class="dm3-mono">« Tu es rédacteur B2B industriel. À partir de ce retour d'expérience : [faits validés], propose trois structures de post LinkedIn de six à huit lignes : accroche problème, preuve chiffrée, angle utile, question d'ouverture. Aucun superlatif, aucun emoji forcé. »</p>
+            </div>
+            <div class="dm3-mini">
+              <div class="dm3-mini-k">Contrôle humain</div>
+              <p>La preuve chiffrée est validée par son auteur terrain (Maud) ; réécriture personnelle avant publication.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dm3-flow-step dm3-reveal">
+        <div class="dm3-flow-rail"><div class="dm3-flow-dot">3</div><div class="dm3-flow-line"></div></div>
+        <div class="dm3-flow-body">
+          <div class="dm3-flow-t">Email de prospection <span class="dm3-persona"><i>É</i>Élise</span></div>
+          <div class="dm3-flow-sub">CRISP appliqué : signal, lien, question ouverte, CTA unique — 120 mots maximum.</div>
+          <div class="dm3-flow-cols">
+            <div class="dm3-mini">
+              <div class="dm3-mini-k">Point de départ (playbook)</div>
+              <p class="dm3-mono">« Contexte : [fiche qualification validée]. Rôle : tu es une commerciale B2B senior. Instruction : rédige un email de prospection de 120 mots maximum, un seul CTA daté, aucune formule de relance. Style : direct, concret, zéro jargon marketing. Paramètres : trois variantes d'objet de moins de sept mots. »</p>
+            </div>
+            <div class="dm3-mini">
+              <div class="dm3-mini-k">Contrôle humain</div>
+              <p>Personnalisation vérifiable : chaque fait est vrai, actuel, sourçable. Si un doute existe, le fait sort de l'email.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dm3-flow-step dm3-reveal">
+        <div class="dm3-flow-rail"><div class="dm3-flow-dot">4</div><div class="dm3-flow-line"></div></div>
+        <div class="dm3-flow-body">
+          <div class="dm3-flow-t">Préparation du rendez-vous <span class="dm3-persona"><i>M</i>Maud</span> <span class="dm3-persona"><i>K</i>Karim</span></div>
+          <div class="dm3-flow-sub">La fiche une page : enjeux, plan de découverte, quatre objections probables et leurs axes de réponse.</div>
+          <div class="dm3-flow-cols">
+            <div class="dm3-mini">
+              <div class="dm3-mini-k">Point de départ (playbook)</div>
+              <p class="dm3-mono">« À partir de cette fiche qualification et de ce compte rendu d'appel [anonymisés], produis : trois hypothèses d'enjeux, cinq questions de découverte ouvertes, quatre objections probables avec pour chacune ce qu'elle cache et un axe de réponse honnête. Marque ce qui exige une validation technique. »</p>
+            </div>
+            <div class="dm3-mini">
+              <div class="dm3-mini-k">Contrôle humain</div>
+              <p>Le plan de découverte et toute affirmation technique se valident avec l'expert (Hervé) avant le rendez-vous.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dm3-flow-step dm3-reveal">
+        <div class="dm3-flow-rail"><div class="dm3-flow-dot">5</div><div class="dm3-flow-line"></div></div>
+        <div class="dm3-flow-body">
+          <div class="dm3-flow-t">Trame de proposition <span class="dm3-persona"><i>R</i>Romain</span></div>
+          <div class="dm3-flow-sub">La structure sur-mesure : sections personnalisées au compte, blocs engageants réservés à la validation experte.</div>
+          <div class="dm3-flow-cols">
+            <div class="dm3-mini">
+              <div class="dm3-mini-k">Point de départ (playbook)</div>
+              <p class="dm3-mono">« Propose une trame de proposition commerciale pour ce compte : résumé exécutif, compréhension du besoin (à partir de ces notes), solution, organisation, budget (structure vide), références, annexes. Laisse un encadré [À VALIDER EXPERT] partout où un chiffre, un délai ou une norme apparaîtra. »</p>
+            </div>
+            <div class="dm3-mini">
+              <div class="dm3-mini-k">Contrôle humain</div>
+              <p>Prix, délais, normes, garanties : saisis à la main, relus par l'expert, revérifiés par le signataire.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dm3-flow-step dm3-reveal">
+        <div class="dm3-flow-rail"><div class="dm3-flow-dot">6</div><div class="dm3-flow-line"></div></div>
+        <div class="dm3-flow-body">
+          <div class="dm3-flow-t">Plan de suivi CRM <span class="dm3-persona"><i>K</i>Karim</span> <span class="dm3-persona"><i>R</i>Romain</span></div>
+          <div class="dm3-flow-sub">Six semaines de séquence, jalons dans le CRM, indicateurs de progression — rien ne repose sur la mémoire.</div>
+          <div class="dm3-flow-cols">
+            <div class="dm3-mini">
+              <div class="dm3-mini-k">Point de départ (playbook)</div>
+              <p class="dm3-mono">« Construis un plan de suivi de six semaines pour ce compte : trois relances à valeur ajoutée (contenu, preuve, actualité), les jalons à créer dans le CRM, deux indicateurs de progression et le critère qui déclenche une revue d'opportunité avec le chef des ventes. »</p>
+            </div>
+            <div class="dm3-mini">
+              <div class="dm3-mini-k">Contrôle humain</div>
+              <p>Chaque jalon est saisi dans le CRM le jour même — c'est cette discipline qui rendra le résumé IA utile dans trois mois.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dm3-callout is-ok dm3-reveal">
+      <svg class="dm3-callout-ic" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      <div>
+        <div class="dm3-callout-t">À vous de jouer — simulation « Opération Nouveau Compte »</div>
+        <p>En équipes de deux ou trois, vous incarnez le binôme Élise / Karim face à <b>MERIDIS Agro</b>, groupe agroalimentaire de quatre sites qui modernise ses utilités et vient de faire un appel d'intérêt chez NORDFLOW. Six étapes, les mêmes que ci-dessus ; à chacune, une production IA réelle dans votre outil, les attendus, les critères de qualité et les erreurs fréquentes. Tout ce que vous venez de voir se transforme maintenant en geste.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- NAVIGATION DE PAGE                             -->
+  <!-- ============================================ -->
+  <nav class="dm3-pagenav no-print" aria-label="Navigation entre modules">
+    <a class="dm3-pn" href="./quiz-j1-ia-entreprise.html">
+      <div class="dm3-pn-k">Précédent · Jour 1</div>
+      <div class="dm3-pn-t">Quiz jour 1 — Fondamentaux &amp; prompting</div>
+    </a>
+    <a class="dm3-pn next" href="./sim-sequence-ia-entreprise.html">
+      <div class="dm3-pn-k">Suivant · Jour 2</div>
+      <div class="dm3-pn-t">Simulation — Opération Nouveau Compte</div>
+    </a>
+  </nav>
+
+  <p class="dm3-footline">Akademia Formation · IA en Entreprise<br>Booster sa Productivité Commerciale et Métier avec l'IA Générative</p>
+
+</div>
+
+<script>
+// ============================================================
+// THEME TOGGLE
+// ============================================================
+document.getElementById('darkToggle').addEventListener('click', function() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('ia_entreprise_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+});
+
+// ============================================================
+// xAPI — helpers sécurisés
+// ============================================================
+var DM3_PAGE_ID = 'deck-m3-ia-entreprise';
+var DM3_PAGE_NAME = 'Module 3 — L\u2019IA au service de la performance commerciale';
+function dm3xp(fn) {
+  try { if (typeof xapiTracker !== 'undefined') { fn(xapiTracker); } } catch (e) { /* tracking non bloquant */ }
+}
+dm3xp(function(x) { if (x.setCourse) { x.setCourse('ia-entreprise'); } });
+dm3xp(function(x) { x.trackPageView(DM3_PAGE_ID, DM3_PAGE_NAME); });
+
+var _dm3Start = Date.now();
+setInterval(function() {
+  var elapsed = Math.floor((Date.now() - _dm3Start) / 1000);
+  dm3xp(function(x) { x.trackTimeSpent(DM3_PAGE_ID, DM3_PAGE_NAME, elapsed); });
+}, 30000);
+window.addEventListener('beforeunload', function() {
+  var elapsed = Math.floor((Date.now() - _dm3Start) / 1000);
+  dm3xp(function(x) {
+    x.trackTimeSpent(DM3_PAGE_ID, DM3_PAGE_NAME, elapsed);
+    if (elapsed > 60 && x.trackCompleted) { x.trackCompleted(DM3_PAGE_ID, DM3_PAGE_NAME, elapsed); }
+  });
+});
+
+var _dm3MaxScroll = 0;
+window.addEventListener('scroll', function() {
+  var docH = document.documentElement.scrollHeight - window.innerHeight;
+  if (docH <= 0) { return; }
+  var pct = Math.round((window.scrollY / docH) * 100);
+  var bar = document.getElementById('dm3-progress');
+  if (bar) { bar.style.width = pct + '%'; }
+  if (pct > _dm3MaxScroll + 10) {
+    _dm3MaxScroll = pct;
+    dm3xp(function(x) { x.trackScrollDepth(DM3_PAGE_ID, DM3_PAGE_NAME, _dm3MaxScroll); });
+  }
+});
+
+// ============================================================
+// REVEAL ON SCROLL
+// ============================================================
+(function() {
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.dm3-reveal').forEach(function(el) { el.classList.add('visible'); });
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.dm3-reveal').forEach(function(el) { obs.observe(el); });
+})();
+
+// ============================================================
+// SIMULATEUR DE SCORING (séquence 01)
+// ============================================================
+(function() {
+  var scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+  var rated = { 1: false, 2: false, 3: false, 4: false, 5: false };
+  var trackedFirst = false;
+
+  function refresh() {
+    var total = 0, allRated = true;
+    for (var k = 1; k <= 5; k++) {
+      total += scores[k];
+      if (!rated[k]) { allRated = false; }
+    }
+    var scoreEl = document.getElementById('dm3-score');
+    var verdictEl = document.getElementById('dm3-verdict');
+    var whyEl = document.getElementById('dm3-why');
+    if (!scoreEl || !verdictEl || !whyEl) { return; }
+    scoreEl.textContent = total;
+    verdictEl.classList.remove('v-hot', 'v-mid', 'v-cold');
+    if (!allRated) {
+      verdictEl.classList.add('v-cold');
+      verdictEl.textContent = 'En attente de notes';
+      whyEl.textContent = 'Notez les cinq critères : le verdict se met à jour instantanément. Un score se discute en équipe — il ne se subit pas.';
+      return;
+    }
+    if (total >= 7) {
+      verdictEl.classList.add('v-hot');
+      verdictEl.textContent = 'Prioritaire';
+      whyEl.textContent = 'Compte chaud : déclenchez l\u2019action sous quinze jours — appel de qualification, puis rendez-vous. Le score ne remplace pas cet appel, il le justifie.';
+    } else if (total >= 4) {
+      verdictEl.classList.add('v-mid');
+      verdictEl.textContent = 'À nourrir';
+      whyEl.textContent = 'Potentiel réel mais timing incertain : veille structurée, contenu utile, zéro relance commerciale directe. Re-scorez au prochain signal.';
+    } else {
+      verdictEl.classList.add('v-cold');
+      verdictEl.textContent = 'À requalifier';
+      whyEl.textContent = 'Pas d\u2019effort dédié pour l\u2019instant : le compte reste en base, classé, et votre énergie va aux comptes mieux notés.';
+    }
+    if (!trackedFirst) {
+      trackedFirst = true;
+      dm3xp(function(x) { if (x.trackInteraction) { x.trackInteraction(DM3_PAGE_ID, DM3_PAGE_NAME, 'scoring-prospection-complete'); } });
+    }
+  }
+
+  document.querySelectorAll('.dm3-seg').forEach(function(seg) {
+    var crit = parseInt(seg.getAttribute('data-dm3-crit'), 10);
+    seg.querySelectorAll('button').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        scores[crit] = parseInt(btn.getAttribute('data-v'), 10);
+        rated[crit] = true;
+        seg.querySelectorAll('button').forEach(function(b) { b.classList.remove('on'); });
+        btn.classList.add('on');
+        refresh();
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Jour 1 — IA en Entreprise | Akademia Formation</title>
+  <meta name="description" content="Quiz du jour 1 de la formation IA en Entreprise : 10 mises en situation couvrant fondamentaux, cadre d'usage (RGPD, IA Act) et prompting (CRISP, few-shot, vérification). Corrigé commenté.">
+
+  <!-- Dark mode anti-flicker -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('ia_entreprise_theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Polices charte Akademia (Instrument Sans / Inter variable / Instrument Serif / Fragment Mono) -->
+  <link rel="stylesheet" href="assets/css/fonts-akademia.css">
+
+  <style>
+    /* ============================================================
+       CHARTE AKADEMIA — tokens (clair / nuit via html.dark)
+       ============================================================ */
+    :root{
+      --bg:#F7F9FC; --surface:#FFFFFF; --soft:#F1F5FA;
+      --ink:#0F172A; --body-c:#3F4C61; --legend:#64748B; --tert:#94A3B8;
+      --line:#E7EAF2;
+      --blue:#2563EB; --violet:#7C3AED; --g1:#2563EB; --g2:#7C3AED;
+      --blue-soft:rgba(37,99,235,.5);
+      --c-fondamentaux:#2563EB; --c-prompt:#7C3AED; --c-commercial:#0E7490; --c-metiers:#047857;
+      --chip-fond-bg:rgba(37,99,235,.09); --chip-prompt-bg:rgba(124,58,237,.09); --chip-com-bg:rgba(6,182,212,.12); --chip-met-bg:rgba(16,185,129,.12);
+      --ok:#10B981; --ok-ink:#047857; --ok-bg:rgba(16,185,129,.08); --ok-line:rgba(16,185,129,.35);
+      --err:#DC2626; --err-ink:#B91C1C; --err-bg:rgba(220,38,38,.06); --err-line:rgba(220,38,38,.3);
+      --warn:#F97316; --warn-ink:#C2410C; --warn-bg:rgba(249,115,22,.1);
+      --amber:#F59E0B; --star-off:#CBD5E1;
+      --sel-bg:rgba(37,99,235,.07);
+      --exp-bg:rgba(255,255,255,.6);
+      --focus:rgba(37,99,235,.28);
+      --cta-shadow:0 12px 30px rgba(109,40,217,.26);
+      --nav-bg:rgba(255,255,255,.82);
+      --grain-o:.045;
+      --dl:inline-block; --dd:none;
+    }
+    html.dark{
+      --bg:#05070E; --surface:#0A0F1D; --soft:#0D1322;
+      --ink:#F2F5FB; --body-c:#B4BFD1; --legend:#8B99AF; --tert:#5F6C81;
+      --line:rgba(148,163,184,.14);
+      --blue:#5B8DF8; --violet:#A78BFA; --g1:#5B8DF8; --g2:#A78BFA;
+      --blue-soft:rgba(91,141,248,.55);
+      --c-fondamentaux:#5B8DF8; --c-prompt:#A78BFA; --c-commercial:#45C8FF; --c-metiers:#34D399;
+      --chip-fond-bg:rgba(91,141,248,.13); --chip-prompt-bg:rgba(167,139,250,.13); --chip-com-bg:rgba(69,200,255,.11); --chip-met-bg:rgba(52,211,153,.13);
+      --ok:#34D399; --ok-ink:#6EE7B7; --ok-bg:rgba(52,211,153,.09); --ok-line:rgba(52,211,153,.32);
+      --err:#F87171; --err-ink:#FCA5A5; --err-bg:rgba(248,113,113,.08); --err-line:rgba(248,113,113,.32);
+      --warn:#FB923C; --warn-ink:#FDBA74; --warn-bg:rgba(251,146,60,.12);
+      --amber:#FBBF24; --star-off:#39445A;
+      --sel-bg:rgba(91,141,248,.11);
+      --exp-bg:rgba(2,4,10,.4);
+      --focus:rgba(91,141,248,.4);
+      --cta-shadow:0 12px 30px rgba(23,12,58,.55);
+      --nav-bg:rgba(5,7,14,.78);
+      --grain-o:.06;
+      --dl:none; --dd:inline-block;
+    }
+
+    /* ============================================================
+       BASE
+       ============================================================ */
+    *,*::before,*::after{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    body{
+      margin:0; position:relative; min-height:100vh;
+      background:var(--bg); color:var(--body-c);
+      font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+      font-weight:380; font-size:16px; line-height:1.66;
+      transition:background .3s ease,color .3s ease;
+    }
+    /* Grain argentique — SOUS le contenu */
+    body::before{
+      content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+      opacity:var(--grain-o); background-size:260px 260px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    ::selection{background:rgba(124,58,237,.16)}
+    html.dark ::selection{background:rgba(167,139,250,.3)}
+    h1,h2,h3{font-family:'Instrument Sans',system-ui,sans-serif;color:var(--ink);margin:0;text-wrap:balance}
+    p{margin:0}
+    button{font-family:inherit}
+    a{color:var(--blue)}
+    .hidden{display:none !important}
+    .wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:46px 24px 80px}
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .topnav{position:sticky;top:0;z-index:40;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav-in{max-width:880px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .nav-logo{display:inline-flex;align-items:center;border-radius:8px}
+    .nav-logo img{height:22px;width:auto;vertical-align:middle}
+    .logo-l{display:var(--dl)} .logo-d{display:var(--dd)}
+    .nav-right{display:flex;align-items:center;gap:14px}
+    .nav-tag{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--legend);white-space:nowrap}
+    .theme-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--legend);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,color .2s;padding:0}
+    .theme-btn:hover{border-color:var(--tert);color:var(--ink)}
+    .theme-btn svg{width:15px;height:15px}
+    .ic-sun{display:none}
+    html.dark .ic-sun{display:block}
+    html.dark .ic-moon{display:none}
+
+    /* ============================================================
+       TYPO UTILITAIRES
+       ============================================================ */
+    .kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend)}
+    .req{color:var(--err)}
+    .muted{color:var(--tert)}
+    .gradient-text{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+    /* ============================================================
+       BOUTONS
+       ============================================================ */
+    .btn-cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 30px;border-radius:999px;border:0;cursor:pointer;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:14.5px;letter-spacing:.01em;box-shadow:var(--cta-shadow);transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .2s}
+    .btn-cta:hover:not(:disabled){transform:translateY(-1px)}
+    .btn-cta:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+    .btn-cta svg{width:15px;height:15px}
+    .btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:border-color .2s}
+    .btn-ghost:hover:not(:disabled){border-color:var(--tert)}
+    .btn-ghost:disabled{opacity:.4;cursor:not-allowed}
+
+    /* ============================================================
+       ACCUEIL
+       ============================================================ */
+    .hero{text-align:center;padding-top:22px}
+    .hero-kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend);margin-bottom:22px}
+    .hero h1{font-size:clamp(34px,6vw,50px);font-weight:640;letter-spacing:-.015em;line-height:1.05;margin-bottom:12px}
+    .hero-sub{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(19px,3vw,23px);color:var(--ink);margin-bottom:20px}
+    .hero-lede{max-width:660px;margin:0 auto 42px;color:var(--legend);font-size:15.5px;line-height:1.72;text-align:center}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:730px;margin:0 auto 42px;text-align:left}
+    .step-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px;display:flex;align-items:center;gap:16px}
+    .step-num{font-family:'Instrument Serif',Georgia,serif;font-size:34px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0}
+    .step-kick{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--tert);margin-bottom:4px}
+    .step-name{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14px;color:var(--ink);line-height:1.35}
+
+    /* ============================================================
+       TÊTES D'ÉTAPE
+       ============================================================ */
+    .step-head{margin-bottom:30px}
+    .step-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .step-pill{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;white-space:nowrap}
+    .step-note{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tert)}
+    .step-head h2{font-size:29px;font-weight:640;letter-spacing:-.01em;margin-bottom:9px}
+    .step-head .lede{font-size:14.5px;color:var(--legend);max-width:660px;line-height:1.65}
+
+    /* ============================================================
+       FORMULAIRE BESOINS
+       ============================================================ */
+    .f-group{margin-bottom:36px}
+    .f-group h3{font-size:16.5px;font-weight:620;margin-bottom:6px}
+    .f-help{font-size:12.5px;color:var(--legend);margin-bottom:14px}
+    .f-group h3 + .f-grid, .f-group h3 + .f-field{margin-top:14px}
+    .f-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .f-field label{display:block;font-size:13px;font-weight:510;color:var(--body-c);margin-bottom:7px}
+    input[type=text],select,textarea{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:14px;font-weight:400;line-height:1.5;transition:border-color .2s,box-shadow .2s}
+    input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--focus)}
+    ::placeholder{color:var(--tert);opacity:1}
+    textarea{resize:none}
+    select{appearance:none;-webkit-appearance:none;background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2364748B' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+    html.dark select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%238B99AF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+    .obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+    .obj-item,.radio-item{display:flex;align-items:center;gap:11px;padding:11px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;font-size:13.5px;color:var(--body-c);line-height:1.45;transition:border-color .2s,background .2s}
+    .obj-item:hover,.radio-item:hover{border-color:var(--blue-soft)}
+    .obj-item:has(input:checked),.radio-item:has(input:checked){border-color:var(--blue);background:var(--sel-bg)}
+    input[type=checkbox],input[type=radio]{accent-color:var(--blue);width:16px;height:16px;flex-shrink:0;margin:0}
+    .radio-row{display:flex;gap:12px}
+    .f-note{font-size:12px;color:var(--legend);margin-top:7px}
+    .form-err{font-size:13.5px;font-weight:510;color:var(--err);margin-bottom:4px}
+    .f-actions{display:flex;justify-content:flex-end;margin-top:6px}
+
+    /* ============================================================
+       PROGRESSION
+       ============================================================ */
+    .progress-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+    .progress-label{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--legend)}
+    .track{width:100%;height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+    .progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--g1),var(--g2));transition:width .4s ease}
+    .progress-wrap{margin-bottom:34px}
+
+    /* ============================================================
+       AUTO-ÉVALUATION
+       ============================================================ */
+    .ae-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:26px}
+    .autoeval-card{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:16px 17px;transition:border-color .25s}
+    .autoeval-card.rated{border-color:var(--blue-soft)}
+    .ae-label{font-size:13.5px;color:var(--body-c);line-height:1.52;margin:10px 0 2px}
+    .stars{display:flex;gap:2px;margin-top:9px}
+    .star-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1;background:none;border:0;cursor:pointer;padding:0;border-radius:8px;transition:transform .15s,color .15s}
+    .star-btn:hover{transform:scale(1.18)}
+    .star-btn.star-active{color:var(--amber)}
+    .star-btn.star-inactive{color:var(--star-off)}
+    .scale-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:15px 18px;margin-bottom:28px}
+    .scale-title{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--legend);margin-bottom:10px}
+    .scale-grid{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:10px 28px;font-size:12.5px;color:var(--legend)}
+    .scale-grid span.st{color:var(--amber);letter-spacing:1px;margin-right:6px}
+
+    /* ============================================================
+       CHIPS MODULES
+       ============================================================ */
+    .bucket-chip{display:inline-block;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;padding:4px 11px;border-radius:999px;white-space:nowrap}
+    .badge-fondamentaux{background:var(--chip-fond-bg);color:var(--c-fondamentaux)}
+    .badge-prompt{background:var(--chip-prompt-bg);color:var(--c-prompt)}
+    .badge-commercial{background:var(--chip-com-bg);color:var(--c-commercial)}
+    .badge-metiers{background:var(--chip-met-bg);color:var(--c-metiers)}
+
+    /* ============================================================
+       QCM
+       ============================================================ */
+    .quiz-question{display:none}
+    .quiz-question.active{display:block;animation:fadeSlideIn .4s cubic-bezier(.16,1,.3,1)}
+    @keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .q-head{margin-bottom:22px}
+    .q-scenario{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:19px;line-height:1.52;color:var(--body-c);margin:15px 0 13px;max-width:680px}
+    .q-title{font-size:22px;font-weight:620;letter-spacing:-.008em;line-height:1.34;text-wrap:balance}
+    .qnum{font-family:'Instrument Serif',Georgia,serif;font-style:normal;font-weight:400;color:var(--tert)}
+    .q-options{display:flex;flex-direction:column;gap:11px}
+    .quiz-option{display:flex;align-items:flex-start;gap:13px;width:100%;text-align:left;padding:15px 17px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--body-c);font-size:14.5px;font-weight:400;line-height:1.52;cursor:pointer;transition:border-color .2s,background .2s,transform .2s}
+    .quiz-option:hover:not(.locked){border-color:var(--blue-soft);transform:translateY(-1px)}
+    .quiz-option.selected{border-color:var(--blue);background:var(--sel-bg)}
+    .opt-letter{font-family:'Fragment Mono',monospace;font-size:11px;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--legend);margin-top:1px;transition:background .2s,color .2s,border-color .2s}
+    .quiz-option.selected .opt-letter{background:linear-gradient(135deg,var(--g1),var(--g2));border-color:transparent;color:#fff}
+    .quiz-option.correct-show{border-color:var(--ok);background:var(--ok-bg)}
+    .quiz-option.correct-show .opt-letter{background:var(--ok);border-color:var(--ok);color:#fff}
+    .quiz-option.wrong-show{border-color:var(--err);background:var(--err-bg)}
+    .quiz-option.wrong-show .opt-letter{background:var(--err);border-color:var(--err);color:#fff}
+    .quiz-option.locked{cursor:default}
+    .quiz-option.locked:hover{transform:none}
+    .quiz-nav{display:flex;justify-content:space-between;gap:12px;margin-top:32px}
+
+    /* ============================================================
+       RÉSULTATS
+       ============================================================ */
+    .res-head{text-align:center;margin-bottom:42px}
+    .res-head h2{font-size:30px;font-weight:640;letter-spacing:-.01em;margin-bottom:7px}
+    .res-sub{font-size:13.5px;color:var(--legend);margin-bottom:30px}
+    .ring-wrap{position:relative;display:inline-block;margin-bottom:18px}
+    .ring-track{stroke:var(--line)}
+    .score-ring{transition:stroke-dashoffset 1.2s cubic-bezier(.16,1,.3,1)}
+    .lvl-expert{stroke:var(--ok)} .lvl-avance{stroke:var(--blue)} .lvl-inter{stroke:var(--warn)} .lvl-debutant{stroke:var(--err)}
+    .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .ring-num{font-family:'Instrument Serif',Georgia,serif;font-size:52px;line-height:1;color:var(--ink)}
+    .ring-den{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--tert);margin-top:5px}
+    .res-pill-row{display:flex;justify-content:center;margin-bottom:14px}
+    .lvl-pill{display:inline-flex;align-items:center;padding:8px 18px;border-radius:999px;font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+    .lvlp-expert{background:var(--ok-bg);color:var(--ok-ink)}
+    .lvlp-avance{background:var(--sel-bg);color:var(--blue)}
+    .lvlp-inter{background:var(--warn-bg);color:var(--warn-ink)}
+    .lvlp-debutant{background:var(--err-bg);color:var(--err-ink)}
+    .res-note{font-size:12.5px;color:var(--legend);max-width:440px;margin:0 auto;line-height:1.6}
+    .recap-card,.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px 26px;margin-bottom:30px}
+    .recap-card h3,.panel h3{font-size:17px;font-weight:620;margin-bottom:14px}
+    .kv-row{display:flex;gap:14px;padding:8px 0;border-bottom:1px dashed var(--line)}
+    .kv-row:last-child{border-bottom:0}
+    .kv-label{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--tert);width:172px;flex-shrink:0;padding-top:4px;line-height:1.5}
+    .kv-val{font-size:14px;color:var(--body-c);line-height:1.55}
+    .kv-block{padding:8px 0;border-bottom:1px dashed var(--line)}
+    .kv-block:last-child{border-bottom:0}
+    .kv-block .kv-label{width:auto;display:block;margin-bottom:7px;padding-top:0}
+    .chip{display:inline-block;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);font-size:12.5px;color:var(--body-c);margin:0 6px 6px 0}
+    .mods-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px}
+    .mod-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 16px 16px;text-align:center}
+    .mod-name{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--legend);line-height:1.6;margin-bottom:10px;min-height:29px}
+    .mod-score{font-family:'Instrument Serif',Georgia,serif;font-size:34px;line-height:1;margin-bottom:13px}
+    .mod-track{height:5px}
+    .bar-fill{height:100%;border-radius:999px;transition:width 1s cubic-bezier(.16,1,.3,1)}
+    .mod-pct{font-family:'Fragment Mono',monospace;font-size:10px;color:var(--tert);margin-top:9px}
+    .ae-row{display:flex;align-items:center;gap:12px;padding:7px 0;font-size:13.5px}
+    .ae-row .bucket-chip{flex-shrink:0;width:64px;text-align:center}
+    .ae-name{flex:1;min-width:0;color:var(--body-c);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ae-stars{flex-shrink:0;font-size:14px;letter-spacing:1px}
+    .ae-stars .on{color:var(--amber)} .ae-stars .off{color:var(--star-off)}
+    .ae-lvl{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tert);width:96px;text-align:right;flex-shrink:0}
+    .corr-sec{margin-bottom:32px}
+    .corr-sec h3{font-size:17px;font-weight:620;margin-bottom:14px}
+    .corr-list{display:flex;flex-direction:column;gap:12px}
+    .corr-item{display:flex;gap:13px;padding:16px 17px;border-radius:14px;border:1px solid var(--line);background:var(--surface)}
+    .corr-item.ok{border-color:var(--ok-line);background:var(--ok-bg)}
+    .corr-item.ko{border-color:var(--err-line);background:var(--err-bg)}
+    .corr-ic{width:24px;height:24px;border-radius:999px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;margin-top:1px}
+    .corr-item.ok .corr-ic{background:var(--ok)}
+    .corr-item.ko .corr-ic{background:var(--err)}
+    .corr-body{flex:1;min-width:0}
+    .corr-q{font-size:14px;font-weight:510;color:var(--ink);line-height:1.5}
+    .corr-qn{font-family:'Instrument Serif',Georgia,serif;font-weight:400;color:var(--tert)}
+    .corr-ans{font-size:12.5px;margin-top:6px}
+    .ans-wrong{color:var(--err-ink);font-weight:510}
+    .ans-right{color:var(--ok-ink);font-weight:510}
+    .corr-exp{margin-top:10px;padding:12px 14px;border-radius:10px;background:var(--exp-bg);font-size:13px;line-height:1.62;color:var(--legend)}
+    .exp-tag{font-weight:570;color:var(--body-c)}
+    .res-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* ============================================================
+       CONFETTIS
+       ============================================================ */
+    @keyframes confettiFall{
+      0%{transform:translateY(-100vh) rotate(0deg);opacity:1}
+      100%{transform:translateY(100vh) rotate(720deg);opacity:0}
+    }
+    .confetti-piece{position:fixed;top:-10px;width:10px;height:10px;z-index:9999;animation:confettiFall linear forwards;pointer-events:none}
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width:720px){
+      .steps,.f-grid,.obj-grid,.ae-grid,.mods-grid{grid-template-columns:1fr}
+      .kv-row{flex-direction:column;gap:3px}
+      .kv-label{width:auto;padding-top:0}
+      .ae-lvl{display:none}
+      .scale-grid{grid-template-columns:repeat(2,auto)}
+      .wrap{padding:34px 18px 64px}
+      .recap-card,.panel{padding:20px 18px}
+    }
+    @media (max-width:600px){.nav-tag{display:none}}
+
+    /* ============================================================
+       ACCESSIBILITÉ & PRINT
+       ============================================================ */
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+    }
+    @media print{
+      nav,.no-print{display:none !important}
+      body{background:#fff !important;color:#000 !important}
+      body::before{display:none !important}
+      *{color:#000 !important;background:#fff !important;border-color:#ccc !important;box-shadow:none !important;text-shadow:none !important}
+      .gradient-text,.step-num{-webkit-text-fill-color:initial !important;background:none !important;color:#000 !important}
+      .print-only{display:block !important}
+    }
+    .print-only{display:none}
+      /* ============================================================
+       NAVIGATION DE FIN DE PAGE
+       ============================================================ */
+    .pgnav{display:flex;gap:14px;border-top:1px solid var(--line);padding-top:36px;margin-top:88px}
+    .pgn{flex:1;display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px 22px;transition:border-color .2s,transform .2s}
+    .pgn:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+    .pgn-k{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:6px}
+    .pgn-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14.5px;color:var(--ink);line-height:1.4}
+    .pgn.next{text-align:right}
+    @media (max-width:760px){.pgnav{flex-direction:column}.pgn.next{text-align:left}}
+  </style>
+  <script src="assets/js/formai-bridge.js?v=1783300000"></script>
+</head>
+<body>
+
+<nav class="topnav no-print">
+  <div class="nav-in">
+    <a href="/" class="nav-logo" aria-label="Akademia Formation — retour à l'accueil">
+      <img class="logo-l" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDQwMCAxMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnM+CiAgICA8IS0tIEdyYWRpZW50IFByaW5jaXBhbCAtLT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icHJpbWFyeUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzI1NjNFQjtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0MzQUVEO3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIAogICAgPCEtLSBHcmFkaWVudCBBY2NlbnQgLS0+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImFjY2VudEdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxMEI5ODE7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzA2QjZENDtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAKICAgIDwhLS0gU2hhZG93IEZpbHRlciAtLT4KICAgIDxmaWx0ZXIgaWQ9InNoYWRvdyIgeD0iLTUwJSIgeT0iLTUwJSIgd2lkdGg9IjIwMCUiIGhlaWdodD0iMjAwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjgiIGZsb29kLW9wYWNpdHk9IjAuMSIvPgogICAgPC9maWx0ZXI+CiAgPC9kZWZzPgogIAogIDwhLS0gTG9nbyBJY29uIC0tPgogIDxnIGlkPSJha2FkZW1pYS1pY29uIj4KICAgIDwhLS0gQmFja2dyb3VuZCBTaGFwZSAtLT4KICAgIDxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTYiIHJ5PSIxNiIgZmlsbD0idXJsKCNwcmltYXJ5R3JhZGllbnQpIiBmaWx0ZXI9InVybCgjc2hhZG93KSIvPgogICAgCiAgICA8IS0tIExldHRlciBBIERlc2lnbiAtLT4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYwLCA2MCkiPgogICAgICA8IS0tIE1haW4gQSBTaGFwZSAtLT4KICAgICAgPHBhdGggZD0iTSAwIC0yNSBMIC0xNSAxNSBMIC04IDE1IEwgLTYgOCBMIDYgOCBMIDggMTUgTCAxNSAxNSBMIDAgLTI1IFogTSAwIC0xMCBMIC0zIDAgTCAzIDAgTCAwIC0xMCBaIiAKICAgICAgICAgICAgZmlsbD0id2hpdGUiIAogICAgICAgICAgICBvcGFjaXR5PSIxIi8+CiAgICA8L2c+CiAgICAKICAgIDwhLS0gQWNjZW50IENpcmNsZSAtLT4KICAgIDxjaXJjbGUgY3g9Ijc1IiBjeT0iNDUiIHI9IjgiIGZpbGw9InVybCgjYWNjZW50R3JhZGllbnQpIiBvcGFjaXR5PSIwLjkiLz4KICA8L2c+CiAgCiAgPCEtLSBMb2dvIFRleHQgLS0+CiAgPGcgaWQ9ImFrYWRlbWlhLXRleHQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMCwgNjApIj4KICAgIDwhLS0gQUtBREVNSUEgLS0+CiAgICA8dGV4dCB4PSIwIiB5PSI1IiAKICAgICAgICAgIGZvbnQtZmFtaWx5PSJJbnRlciwgLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCAnU2Vnb2UgVUknLCBSb2JvdG8sIHNhbnMtc2VyaWYiIAogICAgICAgICAgZm9udC1zaXplPSIzNiIgCiAgICAgICAgICBmb250LXdlaWdodD0iNzAwIiAKICAgICAgICAgIGZpbGw9IiMwRjE3MkEiCiAgICAgICAgICBsZXR0ZXItc3BhY2luZz0iLTAuMDJlbSI+QUtBREVNSUE8L3RleHQ+CiAgICAKICAgIDwhLS0gRk9STUFUSU9OIC0tPgogICAgPHRleHQgeD0iMCIgeT0iMjgiIAogICAgICAgICAgZm9udC1mYW1pbHk9IkludGVyLCAtYXBwbGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsICdTZWdvZSBVSScsIFJvYm90bywgc2Fucy1zZXJpZiIgCiAgICAgICAgICBmb250LXNpemU9IjE4IiAKICAgICAgICAgIGZvbnQtd2VpZ2h0PSI0MDAiIAogICAgICAgICAgZmlsbD0iIzY0NzQ4QiIKICAgICAgICAgIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+">
+      <img class="logo-d" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjgwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtYWluR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMjU2M0VCO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM3QzNBRUQ7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJhY2NlbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzEwQjk4MTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDZCNkQ0O3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDwhLS0gTG9nbyBJbnZlcnPDqSBwb3VyIGZvbmQgc29tYnJlIC0tPgogIDxnPgogICAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMTIiIGZpbGw9IndoaXRlIi8+CiAgICA8cGF0aCBkPSJNIDMwIDE1IEwgNDAgNDUgTCAzNSA0NSBMIDMzIDM4IEwgMjcgMzggTCAyNSA0NSBMIDIwIDQ1IEwgMzAgMTUgWiBNIDMwIDIzIEwgMjggMzIgTCAzMiAzMiBMIDMwIDIzIFoiIGZpbGw9InVybCgjbWFpbkdyYWRpZW50KSIvPgogICAgPGNpcmNsZSBjeD0iNDUiIGN5PSIyMCIgcj0iNiIgZmlsbD0idXJsKCNhY2NlbnQpIi8+CgogICAgPHRleHQgeD0iNzUiIHk9IjI4IiBmb250LWZhbWlseT0iSW50ZXIsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSJ3aGl0ZSI+QUtBREVNSUE8L3RleHQ+CiAgICA8dGV4dCB4PSI3NSIgeT0iNDYiIGZvbnQtZmFtaWx5PSJJbnRlciwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI0MDAiIGZpbGw9IiM5NEEzQjgiIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+Cg==">
+    </a>
+    <div class="nav-right">
+      <span class="nav-tag">IA en entreprise</span>
+      <button id="darkToggle" class="theme-btn" aria-label="Basculer le thème sombre">
+        <svg class="ic-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <svg class="ic-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ============================================ -->
+  <!-- WELCOME SCREEN                               -->
+  <!-- ============================================ -->
+  <div id="welcome-screen">
+    <div class="hero" id="header-section">
+      <div class="hero-kick">Quiz — Jour 1</div>
+      <h1><span class="gradient-text">Quiz jour 1</span></h1>
+      <p class="hero-sub">Fondamentaux, cadre d’usage &amp; prompting</p>
+      <p class="hero-lede">
+        Dix mises en situation tirées du quotidien de NORDFLOW Industrie, pour vérifier l’appropriation des deux modules du jour : ce qu’une IA générative sait faire (et ne sait pas faire), les règles de sécurité et de conformité, et l’art de la consigne efficace. Chaque réponse est commentée dans le corrigé. Ce quiz est un point d’étape, pas une certification.
+      </p>
+
+      <div class="steps">
+        <div class="step-card">
+          <span class="step-num">1</span>
+          <div>
+            <div class="step-kick">Format</div>
+            <div class="step-name">10 questions scénarisées</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <span class="step-num">2</span>
+          <div>
+            <div class="step-kick">Terrain</div>
+            <div class="step-name">Cas NORDFLOW &amp; personas</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <span class="step-num">3</span>
+          <div>
+            <div class="step-kick">Retour</div>
+            <div class="step-name">Corrigé commenté</div>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="startQuiz()" class="btn-cta">Commencer</button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- QCM                                          -->
+  <!-- ============================================ -->
+  <div id="quiz-container" class="hidden">
+
+    <div class="step-head" style="margin-bottom:22px">
+      <div class="step-row" style="margin-bottom:0">
+        <span class="step-pill">QCM</span>
+        <span class="step-note">Mises en situation</span>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-wrap">
+      <div class="progress-row">
+        <span id="progress-label" class="progress-label">Question 1 / 10</span>
+        <span id="bucket-badge" class="bucket-chip badge-fondamentaux">Fondamentaux &amp; cadre d'usage</span>
+      </div>
+      <div class="track">
+        <div id="progress-bar" class="progress-fill" style="width: 7%"></div>
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div id="questions-wrapper">
+      <!-- Questions injected by JS -->
+    </div>
+
+    <!-- Navigation buttons -->
+    <div class="quiz-nav no-print">
+      <button id="btn-prev" onclick="prevQuestion()" class="btn-ghost" disabled>&#8249; Précédente</button>
+      <button id="btn-next" onclick="nextQuestion()" class="btn-cta" disabled>Suivante &#8250;</button>
+      <button id="btn-submit" onclick="submitQuiz()" class="hidden btn-cta" disabled>Valider mes réponses</button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- RESULTS SCREEN                               -->
+  <!-- ============================================ -->
+  <div id="results-container" class="hidden">
+    <!-- Injected by JS -->
+  </div>
+
+<!-- ============================================ -->
+<!-- NAVIGATION DE PAGE                             -->
+<!-- ============================================ -->
+<nav class="pgnav no-print" aria-label="Navigation entre modules">
+  <a class="pgn" href="./deck-m2-ia-entreprise.html">
+    <div class="pgn-k">Précédent · Jour 1</div>
+    <div class="pgn-t">Module 2 — Prompting &amp; outils du quotidien</div>
+  </a>
+  <a class="pgn next" href="./deck-m3-ia-entreprise.html">
+    <div class="pgn-k">Suivant · Jour 2</div>
+    <div class="pgn-t">Module 3 — IA &amp; performance commerciale</div>
+  </a>
+</nav>
+
+</div>
+
+<!-- Print header (only visible when printing) -->
+<div class="print-only" style="text-align:center; margin-bottom:20px;">
+  <h2>Akademia Formation — IA en Entreprise — Booster sa Productivité Commerciale et Métier avec l'IA Générative</h2>
+  <p>Quiz jour 1 — Fondamentaux, cadre d’usage &amp; prompting</p>
+</div>
+
+<!-- xAPI tracker -->
+<script src="assets/js/xapi-tracker.js?v=1783300000"></script>
+
+<script>
+
+// ============================================================
+// FORMAI — RATTACHEMENT AU COURS
+// ============================================================
+if (typeof xapiTracker !== 'undefined' && xapiTracker.setCourse) {
+  xapiTracker.setCourse('ia-entreprise');
+}
+
+// ============================================================
+// DATA
+// ============================================================
+
+const BUCKET_NAMES = {
+  fondamentaux: "Fondamentaux & cadre d’usage",
+  prompt: "Prompting & vérification"
+};
+const BUCKET_ORDER = ["fondamentaux", "prompt"];
+const BUCKET_COLORS = {
+  fondamentaux: 'var(--c-fondamentaux)',
+  prompt: 'var(--c-prompt)',
+  commercial: 'var(--c-commercial)',
+  metiers: 'var(--c-metiers)'
+};
+
+const QUESTIONS = [
+  {
+    id: 1, bucket: "fondamentaux",
+    scenario: "Chez NORDFLOW Industrie, Élise finalise une fiche technique vanne destinée à un client. Pour gagner du temps, elle demande à une IA générative « les normes en vigueur applicables » et colle la liste telle quelle dans le document.",
+    question: "Quel est le principal risque de cette pratique ?",
+    options: [
+      "Un risque de forme : l’IA rédige dans un style trop littéraire pour une fiche technique, et c’est le seul point à retravailler avant l’envoi au client",
+      "Un risque de conformité : la réglementation européenne interdit d’utiliser une IA générative pour traiter des sujets normatifs, même en usage interne",
+      "Un risque d’exactitude : l’IA peut inventer une référence plausible mais fausse — chaque norme citée doit être vérifiée à la source",
+      "Un risque limité avec un abonnement payant : les versions professionnelles garantissent contractuellement l’exactitude des références qu’elles citent"
+    ],
+    correct: 2
+  },
+  {
+    id: 2, bucket: "fondamentaux",
+    scenario: "NORDFLOW est équipée de Microsoft 365. Hervé veut faire analyser un dossier technique confidentiel — plans de skid, prix d’achat fournisseurs — par une IA générative.",
+    question: "Quel est le bon point de départ ?",
+    options: [
+      "L’assistant IA intégré à Microsoft 365, validé par l’entreprise : la donnée reste dans l’environnement maîtrisé et hérite des permissions existantes",
+      "La version gratuite d’un outil grand public en ligne : souvent plus réactive et plus récente que l’offre intégrée à la suite bureautique",
+      "Un compte personnel payant sur un outil grand public : le paiement d’un abonnement suffit à garantir la confidentialité des saisies",
+      "N’importe quel outil, du moment que la conversation est supprimée de l’historique juste après usage : la donnée effacée n’a plus quitté l’entreprise"
+    ],
+    correct: 0
+  },
+  {
+    id: 3, bucket: "fondamentaux",
+    scenario: "Sonia doit résumer un CCTP de 80 pages et y croiser les tarifs NORDFLOW négociés, couverts par le secret commercial. Elle hésite devant son outil d’IA habituel.",
+    question: "Que doit-elle faire avant toute saisie ?",
+    options: [
+      "Tout coller dans la version gratuite la plus performante : un document d’appel d’offres circule déjà largement, il est quasi public",
+      "Renoncer à l’IA pour ce document : un CCTP est par nature hors de portée de tout traitement automatisé, quel que soit l’outil",
+      "Coller le CCTP après avoir retiré la page de garde : sans le nom du client en première page, le document est considéré comme anonymisé",
+      "Utiliser l’outil validé par l’entreprise et nettoyer le document : anonymiser les données, écarter les éléments couverts par le secret commercial"
+    ],
+    correct: 3
+  },
+  {
+    id: 4, bucket: "fondamentaux",
+    scenario: "En réunion de service, un manager affirme : « L’IA Act européen ne concerne que les éditeurs d’IA. Une PME utilisatrice comme NORDFLOW n’a rien à faire. »",
+    question: "Qu’en est-il réellement ?",
+    options: [
+      "C’est exact : le règlement ne vise que les fournisseurs de modèles ; les entreprises qui se contentent d’utiliser l’IA sont hors de son champ",
+      "C’est inexact : il encadre aussi les déployeurs — la maîtrise de l’IA par les équipes est une obligation légale depuis février 2025",
+      "C’est inexact, mais à l’inverse : le règlement interdit purement et simplement l’usage de l’IA générative en entreprise depuis août 2026",
+      "C’est exact pour les PME : une exemption de taille dispense les structures de moins de 250 salariés de toute obligation de formation"
+    ],
+    correct: 1
+  },
+  {
+    id: 5, bucket: "fondamentaux",
+    scenario: "Karim demande à son IA : « Donne-moi le résultat de l’appel d’offres utilités publié la semaine dernière par la collectivité et le nom du fournisseur retenu. » La réponse arrive, détaillée et assurée.",
+    question: "Pourquoi la prudence s’impose-t-elle ?",
+    options: [
+      "L’IA n’a pas accès à cette information en temps réel : elle peut combler les vides par des éléments plausibles mais inventés",
+      "L’IA a forcément raison sur ce type de question : un résultat d’appel d’offres est une information publique, facile à retrouver",
+      "La question est illégale : interroger une IA sur un marché public en cours est une pratique interdite par la réglementation des achats",
+      "La réponse est fiable parce qu’elle est longue et structurée : le niveau de détail est le meilleur indicateur de l’exactitude d’une IA"
+    ],
+    correct: 0
+  },
+  {
+    id: 6, bucket: "prompt",
+    scenario: "Sonia tape « Fais une relance pour le client » dans son outil d’IA. Le texte produit est vague, générique, inutilisable tel quel pour un client industriel.",
+    question: "Que manquait-il principalement à cette consigne ?",
+    options: [
+      "Une consigne rédigée en anglais : les modèles d’IA générative produisent de bien meilleurs textes professionnels dans cette langue",
+      "Une formule de politesse complète : commencer par « s’il te plaît » améliore de façon mesurable la précision des réponses générées",
+      "Un cadrage structuré — contexte, rôle, instruction précise, style, paramètres : la méthode CRISP vue ce matin",
+      "Une consigne plus courte : moins le modèle reçoit d’informations, plus sa réponse est ciblée et directement exploitable"
+    ],
+    correct: 2
+  },
+  {
+    id: 7, bucket: "prompt",
+    scenario: "Maud veut que l’IA rédige ses comptes rendus de chantier « dans son style », celui que ses lecteurs reconnaissent immédiatement.",
+    question: "Quelle méthode donnera le meilleur résultat ?",
+    options: [
+      "Décrire le style en une ligne — « professionnel et direct » : l’IA sait exactement ce que ces qualificatifs recouvrent chez elle",
+      "Changer d’outil jusqu’à trouver celui dont le style par défaut ressemble au sien : chaque IA a sa plume naturelle et immuable",
+      "Accepter une forme standardisée : un texte produit par IA restera toujours impersonnel, c’est inhérent à la technologie",
+      "Fournir deux de ses anciens comptes rendus en exemple (few-shot), préciser la structure attendue, puis itérer"
+    ],
+    correct: 3
+  },
+  {
+    id: 8, bucket: "prompt",
+    scenario: "Hervé hésite entre deux fournisseurs de moto-pompes. Il veut utiliser l’IA pour structurer sa décision à partir de ses critères : prix, délai, service après-vente, compatibilité.",
+    question: "Quelle approche est la plus pertinente ?",
+    options: [
+      "Lui demander directement « quel fournisseur choisir ? » : trancher vite est précisément la valeur ajoutée d’une IA",
+      "Lui fournir critères et données anonymisées, puis demander une analyse pas à pas, pondérée par critère, avant toute conclusion",
+      "Lui envoyer les deux devis nominatifs complets : plus l’IA dispose de pièces réelles, plus sa comparaison est fiable",
+      "Éviter l’IA sur ce sujet : une décision d’achat ne se structure qu’avec un tableur, jamais avec un outil conversationnel"
+    ],
+    correct: 1
+  },
+  {
+    id: 9, bucket: "prompt",
+    scenario: "Théo doit résumer un fil Outlook de 40 messages échangés avec un client et préparer une réponse. Le contenu du fil est sensible : conditions négociées, litige en cours.",
+    question: "Quelle est la bonne pratique ?",
+    options: [
+      "Copier le fil dans un outil d’IA gratuit en ligne : c’est le moyen le plus rapide d’obtenir une synthèse de qualité",
+      "Transférer le fil vers sa messagerie personnelle et le traiter le soir sur son outil habituel, hors du réseau de l’entreprise",
+      "Utiliser la fonction de résumé intégrée à Outlook, validée par l’entreprise : la donnée reste dans l’environnement Microsoft 365",
+      "Dicter le fil à l’outil d’IA de son téléphone personnel : la saisie vocale contourne le problème de confidentialité"
+    ],
+    correct: 2
+  },
+  {
+    id: 10, bucket: "prompt",
+    scenario: "Pour étoffer une proposition, l’IA fournit à Karim un chiffre de marché précis, présenté avec assurance et accompagné d’une « étude 2025 ».",
+    question: "Quel réflexe adopter avant de citer ce chiffre ?",
+    options: [
+      "Vérifier le chiffre et l’étude auprès d’une source identifiable : l’IA énonce le faux avec la même assurance que l’exact",
+      "Le citer avec la mention « selon une IA générative » : cette transparence suffit à couvrir le risque d’inexactitude",
+      "Poser la même question à un second outil : deux IA qui donnent le même chiffre se valident mutuellement",
+      "Arrondir fortement le chiffre avant publication : un ordre de grandeur approximatif n’engage plus la responsabilité"
+    ],
+    correct: 0
+  }
+];
+
+const EXPLAINS = {
+  1: "L’IA générative produit du texte plausible, pas du texte vérifié : elle ne consulte pas une base de normes, elle prédit une suite de mots qui ressemble à une liste de normes. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Une référence normative complète (numéro, année, intitulé) peut être entièrement inventée : vérifier chaque norme sur le site de l’organisme officiel avant tout document client. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « La version payante garantit l’exactitude » — aucun abonnement ne supprime le phénomène d’hallucination, qui est structurel et non tarifaire. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Si la consigne portait sur de la reformulation sans fait nouveau (ton, clarté), le collage direct serait moins risqué — le danger naît quand l’IA émet un fait vérifiable.",
+  2: "Plans de skid et prix d’achat relèvent du secret commercial. Dans Microsoft 365, l’assistant intégré travaille dans le tenant de l’entreprise, sans réutilisation des données pour l’entraînement, et respecte les permissions existantes. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Pour une donnée interne sensible, le premier critère de choix d’outil n’est ni la puissance ni le prix : c’est le périmètre dans lequel la donnée circule. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Payant donc confidentiel » — un abonnement personnel ne lie en rien votre employeur : les conditions acceptées sont les vôtres, et la donnée sort du périmètre NORDFLOW. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Pour un contenu public (réecriture d’un texte sans donnée interne), un outil conversationnel externe validé reste tout à fait envisageable.",
+  3: "Un CCTP croise deux sensibilités : des données client (RGPD) et des données stratégiques NORDFLOW (secret commercial). Ni l’une ni l’autre ne se saisit dans un outil grand public non validé. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Le couple gagnant : outil validé par l’entreprise + document préparé (anonymisation des données personnelles, retrait des éléments couverts par le secret commercial). \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Retirer la page de garde suffit » — l’anonymisation ne se limite pas au nom en couverture : montants, sites, dates et interlocuteurs cités dans le corps permettent de réidentifier le client. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Sur un CCTP réellement public et sans aucun élément interne (pas de tarifs, pas de marges), une extraction d’exigences dans l’outil validé se fait sans préparation lourde.",
+  4: "Depuis février 2025, les organisations qui déploient de l’IA doivent développer la maîtrise de l’IA de leurs équipes (article 4). Cette formation en est une réponse directe. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Le règlement (UE) 2024/1689 vise les deux côtés : fournisseurs de modèles et déployeurs — l’employeur qui utilise l’IA est un déployeur. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « L’IA Act, ça ne concerne que les géants de la tech » — faux confort : l’article 4 sur la maîtrise de l’IA s’applique à toute organisation qui déploie des systèmes d’IA, quelle que soit sa taille. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Attention à l’excès inverse : le texte n’interdit pas l’IA en entreprise, il l’encadre par niveaux de risque — interdictions ciblées, transparence, obligations sur les usages à haut risque.",
+  5: "Un outil conversationnel n’est pas un moteur de recherche temps réel : sans accès documentaire explicite, il ne peut pas connaître un résultat d’appel d’offres publié la semaine dernière. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Plus la demande est récente, locale et précise, plus le risque d’invention est élevé : le modèle complète ce qu’il ne sait pas au lieu de répondre « je ne sais pas ». \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « C’est détaillé donc c’est fiable » — l’abondance de détails (montants, noms, dates) n’est pas un indice d’exactitude, c’est souvent l’inverse : l’hallucination se pare de précision. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Sur une question de connaissance générale stable (définition d’un procédé, principe de fonctionnement d’une pompe), l’IA est bien plus fiable — la vérification reste la règle, l’urgence varie.",
+  6: "Le texte obtenu n’était pas mauvais, il était indéterminé : sans client, sans situation, sans objectif ni format, le modèle produit la relance « moyenne » de tout le monde. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e La qualité de sortie est proportionnelle à la qualité de consigne : CRISP — Contexte, Rôle, Instruction, Style, Paramètres — couvre les cinq informations qui lèvent l’ambiguïté. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Plus court, c’est plus ciblé » — une consigne courte n’est pas une consigne nette : « fais une relance » est déjà minimaliste, et c’est précisément ce qui produit le générique. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Pour une tâche sans enjeu (débloquer une idée, traduire trois mots), un prompt d’une ligne suffit — CRISP se justifie dès que le livrable part chez un client.",
+  7: "Complétez le few-shot par la structure attendue (rubriques, longueur, destinataire) puis itérez : corrigez la sortie en indiquant ce qui sonne juste et ce qui ne vous ressemble pas. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Montrer vaut mieux que décrire : un ou deux exemples de vos textes (few-shot) calibrent le style mieux que n’importe quelle liste d’adjectifs. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Chaque IA a sa plume naturelle » — chercher l’outil qui écrit comme vous est un faux procédé : le style se transmet par l’exemple et s’affine par l’itération, pas par le choix de l’éditeur. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Pour un document normé sans voix personnelle (procédure, note d’information), décrire le registre attendu suffit — le few-shot sert quand votre signature stylistique compte.",
+  8: "Le raisonnement pas à pas à partir de vos critères explicites produit une analyse discutable et améliorable ; un « choisis pour moi » produit une réponse d’autorité sans base. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Pour une décision à critères, l’IA est un excellent structurant : pondération, comparaison pas à pas, points aveugles — la conclusion reste humaine. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Donne les vrais documents pour un résultat fiable » — envoyer des devis nominatifs dans un outil conversationnel, c’est faire sortir des données fournisseurs du périmètre maîtrisé sans nécessité. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Si le critère décisif est technique et normatif (compatibilité certifiée), la vérification se fait sur les certificats officiels, pas dans la conversation — l’IA structure, elle ne certifie pas.",
+  9: "La fonction de résumé intégrée à Outlook travaille dans le tenant Microsoft 365 de NORDFLOW : mêmes permissions, mêmes engagements de confidentialité, zéro copier-coller vers l’extérieur. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Dès que la donnée est sensible, la règle est simple : l’IA vient à la donnée, pas l’inverse — on utilise les fonctions là où la donnée vit déjà. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Je contourne par mon téléphone personnel » — changer de terminal ne change pas la nature du traitement : la donnée client quitte le périmètre de l’entreprise, vocale ou tapée. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Pour résumer un article public ou un document sans donnée interne, un outil conversationnel externe validé fait très bien le travail — la sensibilité commande, pas l’habitude.",
+  10: "L’IA ne distingue pas le vrai du plausible et peut inventer l’étude qui accompagne le chiffre : année, organisme, échantillon — tout peut être cohérent et faux. \u003cstrong\u003eSignal à lire :\u003c/strong\u003e Aucun chiffre, fait ou référence issu de l’IA ne part chez un client sans vérification auprès d’une source identifiable : étude, rapport officiel, base interne. \u003cstrong\u003ePiège nommé :\u003c/strong\u003e « Deux IA d’accord se valident » — deux modèles peuvent reproduire la même invention ou la même erreur : la concordance de générations ne vaut pas source. \u003cstrong\u003eContre-cas :\u003c/strong\u003e Pour un ordre d’idée en interne (cadrer une réflexion, dimensionner un hypothétique marché), un chiffre non vérifié clairement marqué « à confirmer » peut suffire — la frontière, c’est l’envoi client."
+};
+
+const LETTER_MAP = ['A', 'B', 'C', 'D'];
+const TOTAL = QUESTIONS.length;
+const PASS_SCORE = 5;
+const RESULT_MODE = "levels"; // 'levels' | 'threshold'
+
+// ============================================================
+// STATE
+// ============================================================
+let currentQ = 0;
+let answers = new Array(TOTAL).fill(null);
+let quizSubmitted = false;
+
+// ============================================================
+// FUNCTIONS — FLOW
+// ============================================================
+
+function startQuiz() {
+  document.getElementById('welcome-screen').classList.add('hidden');
+  document.getElementById('quiz-container').classList.remove('hidden');
+  buildQuiz();
+  showQuestion(0);
+  document.getElementById('quiz-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================================
+// FUNCTIONS — QCM
+// ============================================================
+
+function buildQuiz() {
+  var wrapper = document.getElementById('questions-wrapper');
+  wrapper.innerHTML = '';
+
+  QUESTIONS.forEach(function(q, i) {
+    var div = document.createElement('div');
+    div.className = 'quiz-question' + (i === 0 ? ' active' : '');
+    div.id = 'q-' + i;
+
+    var badgeClass = 'badge-' + q.bucket;
+    var bucketName = BUCKET_NAMES[q.bucket];
+
+    var optionsHtml = '';
+    q.options.forEach(function(opt, oi) {
+      optionsHtml += '<button onclick="selectAnswer(' + i + ',' + oi + ')" id="opt-' + i + '-' + oi + '" class="quiz-option">';
+      optionsHtml += '<span class="opt-letter">' + LETTER_MAP[oi] + '</span><span>' + opt + '</span>';
+      optionsHtml += '</button>';
+    });
+
+    div.innerHTML =
+      '<div class="q-head">' +
+        '<span class="bucket-chip ' + badgeClass + '">' + bucketName + '</span>' +
+        '<p class="q-scenario">' + q.scenario + '</p>' +
+        '<h2 class="q-title">' +
+          '<span class="qnum">Q' + q.id + '.</span> ' + q.question +
+        '</h2>' +
+      '</div>' +
+      '<div class="q-options" id="options-' + i + '">' + optionsHtml + '</div>';
+
+    wrapper.appendChild(div);
+  });
+}
+
+function selectAnswer(qIndex, optIndex) {
+  if (quizSubmitted) return;
+
+  answers[qIndex] = optIndex;
+
+  var options = document.querySelectorAll('#options-' + qIndex + ' .quiz-option');
+  options.forEach(function(opt, i) {
+    if (i === optIndex) {
+      opt.classList.add('selected');
+    } else {
+      opt.classList.remove('selected');
+    }
+  });
+
+  updateNavButtons();
+}
+
+function showQuestion(index) {
+  currentQ = index;
+
+  document.querySelectorAll('.quiz-question').forEach(function(q) { q.classList.remove('active'); });
+  var el = document.getElementById('q-' + index);
+  if (el) el.classList.add('active');
+
+  var pct = ((index + 1) / TOTAL * 100).toFixed(0);
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = 'Question ' + (index + 1) + ' / ' + TOTAL;
+
+  var q = QUESTIONS[index];
+  var badge = document.getElementById('bucket-badge');
+  badge.textContent = BUCKET_NAMES[q.bucket];
+  badge.className = 'bucket-chip badge-' + q.bucket;
+
+  updateNavButtons();
+}
+
+function updateNavButtons() {
+  var prevBtn = document.getElementById('btn-prev');
+  var nextBtn = document.getElementById('btn-next');
+  var submitBtn = document.getElementById('btn-submit');
+
+  prevBtn.disabled = currentQ === 0;
+
+  if (currentQ === TOTAL - 1) {
+    nextBtn.classList.add('hidden');
+    submitBtn.classList.remove('hidden');
+    submitBtn.disabled = answers[currentQ] === null;
+  } else {
+    nextBtn.classList.remove('hidden');
+    submitBtn.classList.add('hidden');
+    nextBtn.disabled = answers[currentQ] === null;
+  }
+}
+
+function nextQuestion() {
+  if (currentQ < TOTAL - 1 && answers[currentQ] !== null) {
+    showQuestion(currentQ + 1);
+  }
+}
+
+function prevQuestion() {
+  if (currentQ > 0) {
+    showQuestion(currentQ - 1);
+  }
+}
+
+// ============================================================
+// FUNCTIONS — SUBMIT & RESULTS
+// ============================================================
+
+function submitQuiz() {
+  if (answers.includes(null)) return;
+  quizSubmitted = true;
+
+  var score = 0;
+  var bucketScores = {};
+  BUCKET_ORDER.forEach(function(b) { bucketScores[b] = 0; });
+  var details = [];
+
+  QUESTIONS.forEach(function(q, i) {
+    var isCorrect = answers[i] === q.correct;
+    if (isCorrect) {
+      score++;
+      bucketScores[q.bucket]++;
+    }
+    details.push({ question: q, userAnswer: answers[i], correct: isCorrect });
+  });
+
+  var passed = score >= PASS_SCORE;
+
+  localStorage.setItem('ia_entreprise_quiz_j1', score);
+  localStorage.setItem('ia_entreprise_quiz_j1_date', new Date().toISOString());
+  localStorage.setItem('ia_entreprise_quiz_j1_details', JSON.stringify(answers));
+
+  // xAPI tracking
+  if (typeof xapiTracker !== 'undefined') {
+    xapiTracker.trackQuizScore('quiz-j1-ia-entreprise', 'Quiz Jour 1 — IA en Entreprise', score, TOTAL);
+  }
+
+  // FormAI bridge
+  if (typeof window.formaiModuleComplete === 'function') {
+    window.formaiModuleComplete(score, TOTAL);
+  }
+
+  // FormAI — remontée complète : détail par question + scores par thème
+  try {
+    var qTotals = {};
+    QUESTIONS.forEach(function(q) { qTotals[q.bucket] = (qTotals[q.bucket] || 0) + 1; });
+    var themeStats = {};
+    Object.keys(bucketScores).forEach(function(b) {
+      themeStats[BUCKET_NAMES[b] || b] = { correct: bucketScores[b], total: qTotals[b] || 0 };
+    });
+    var answerDetail = details.map(function(d) {
+      return {
+        questionId: String(d.question.id),
+        theme: BUCKET_NAMES[d.question.bucket] || d.question.bucket,
+        question: d.question.question,
+        answer: d.userAnswer,
+        answerLabel: d.question.options[d.userAnswer],
+        correctAnswer: d.question.correct,
+        correctLabel: d.question.options[d.question.correct],
+        correct: d.correct
+      };
+    });
+    var quizDetail = {
+      exerciseId: 'quiz-j1-ia-entreprise',
+      quizType: 'evaluation',
+      score: score,
+      max: TOTAL,
+      passed: passed,
+      answers: answerDetail,
+      themes: themeStats
+    };
+    if (typeof window.formaiQuizDetail === 'function') {
+      window.formaiQuizDetail(quizDetail);
+    } else if (typeof xapiTracker !== 'undefined' && xapiTracker.trackQuizDetail) {
+      xapiTracker.trackQuizDetail(quizDetail.exerciseId, document.title, quizDetail);
+    }
+  } catch (e) {}
+
+  showCorrections(details);
+  showResults(score, bucketScores, details, passed);
+
+  if (RESULT_MODE === 'threshold' ? passed : score >= 8) launchConfetti();
+}
+
+function showCorrections(details) {
+  details.forEach(function(d, i) {
+    var options = document.querySelectorAll('#options-' + i + ' .quiz-option');
+    options.forEach(function(opt, oi) {
+      opt.classList.add('locked');
+      if (oi === d.question.correct) {
+        opt.classList.add('correct-show');
+      }
+      if (oi === d.userAnswer && !d.correct) {
+        opt.classList.add('wrong-show');
+      }
+    });
+  });
+}
+
+function showResults(score, bucketScores, details, passed) {
+  var pct = Math.round((score / TOTAL) * 100);
+
+  var levelLabel, levelKey;
+  if (RESULT_MODE === 'threshold') {
+    if (passed) { levelLabel = 'Validé'; levelKey = 'expert'; }
+    else { levelLabel = 'Non validé'; levelKey = 'debutant'; }
+  } else {
+    if (score >= 9) { levelLabel = 'Solide'; levelKey = 'expert'; }
+    else if (score >= 7) { levelLabel = 'Acquis'; levelKey = 'avance'; }
+    else if (score >= 5) { levelLabel = 'Fragile'; levelKey = 'inter'; }
+    else { levelLabel = 'À reprendre'; levelKey = 'debutant'; }
+  }
+
+  var circumference = 2 * Math.PI * 54;
+  var dashOffset = circumference - (pct / 100) * circumference;
+
+  var html = '';
+
+  // ---- Score ring ----
+  html += '<div class="res-head">';
+  html += '<h2>Résultats</h2>';
+  html += '<p class="res-sub">Quiz jour 1 — fondamentaux, cadre d&rsquo;usage &amp; prompting</p>';
+
+  html += '<div class="ring-wrap">';
+  html += '<svg width="140" height="140" viewBox="0 0 120 120">';
+  html += '<circle cx="60" cy="60" r="54" fill="none" stroke-width="7" class="ring-track"/>';
+  html += '<circle cx="60" cy="60" r="54" fill="none" stroke-width="7" stroke-linecap="round" class="score-ring lvl-' + levelKey + '" stroke-dasharray="' + circumference + '" stroke-dashoffset="' + circumference + '" transform="rotate(-90 60 60)" id="score-ring-circle"/>';
+  html += '</svg>';
+  html += '<div class="ring-center">';
+  html += '<span class="ring-num">' + score + '</span>';
+  html += '<span class="ring-den">/ ' + TOTAL + '</span>';
+  html += '</div>';
+  html += '</div>';
+
+  html += '<div class="res-pill-row">';
+  html += '<span class="lvl-pill lvlp-' + levelKey + '">';
+  html += levelLabel + ' — ' + pct + '%';
+  html += '</span>';
+  html += '</div>';
+  html += '<p class="res-note">Point d&rsquo;étape : ce résultat mesure l&rsquo;appropriation des modules du jour 1. Relisez le corrigé commenté des questions manquées — les mêmes réflexes servent demain sur les modules commerciaux.</p>';
+  html += '</div>';
+
+  // ---- Bucket breakdown ----
+  var qTotals = {};
+  QUESTIONS.forEach(function(q) { qTotals[q.bucket] = (qTotals[q.bucket] || 0) + 1; });
+
+  html += '<div class="mods-grid mods-grid-' + BUCKET_ORDER.length + '">';
+  BUCKET_ORDER.forEach(function(bk) {
+    var bScore = bucketScores[bk];
+    var bTotal = qTotals[bk] || 0;
+    var bPct = bTotal ? Math.round((bScore / bTotal) * 100) : 0;
+    var bColor = BUCKET_COLORS[bk];
+    var bName = BUCKET_NAMES[bk];
+
+    html += '<div class="mod-card">';
+    html += '<div class="mod-name">' + bName + '</div>';
+    html += '<div class="mod-score" style="color:' + bColor + '">' + bScore + '/' + bTotal + '</div>';
+    html += '<div class="track mod-track">';
+    html += '<div class="bar-fill" style="width:0%;background:' + bColor + '" id="bar-bucket-' + bk + '"></div>';
+    html += '</div>';
+    html += '<div class="mod-pct">' + bPct + '%</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // ---- Detailed corrections ----
+  html += '<div class="corr-sec">';
+  html += '<h3>Corrigé commenté</h3>';
+  html += '<div class="corr-list">';
+
+  details.forEach(function(d, i) {
+    var q = d.question;
+    var explain = EXPLAINS[q.id] || '';
+    var itemClass = d.correct ? 'ok' : 'ko';
+    var icon = d.correct ? '&#10003;' : '&#10007;';
+
+    html += '<div class="corr-item ' + itemClass + '">';
+    html += '<div class="corr-ic">' + icon + '</div>';
+    html += '<div class="corr-body">';
+    html += '<div class="corr-q"><span class="corr-qn">Q' + q.id + '.</span> ' + q.question + '</div>';
+
+    if (!d.correct) {
+      html += '<div class="corr-ans">';
+      html += '<span class="ans-wrong">Votre réponse : ' + LETTER_MAP[d.userAnswer] + '</span> — ';
+      html += '<span class="ans-right">Bonne réponse : ' + LETTER_MAP[q.correct] + '</span>';
+      html += '</div>';
+    }
+
+    if (explain) {
+      html += '<div class="corr-exp">';
+      html += '<span class="exp-tag">Explication :</span> ' + explain;
+      html += '</div>';
+    }
+
+    html += '</div>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  html += '</div>';
+
+  // ---- Action buttons ----
+  html += '<div class="res-actions no-print">';
+  html += '<button onclick="resetAll()" class="btn-ghost">Recommencer</button>';
+  html += '<button onclick="window.print()" class="btn-cta">';
+  html += '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>';
+  html += 'Imprimer mes résultats</button>';
+  html += '</div>';
+
+  document.getElementById('quiz-container').classList.add('hidden');
+  var resultsEl = document.getElementById('results-container');
+  resultsEl.innerHTML = html;
+  resultsEl.classList.remove('hidden');
+
+  setTimeout(function() {
+    var ring = document.getElementById('score-ring-circle');
+    if (ring) ring.style.strokeDashoffset = dashOffset;
+  }, 100);
+
+  setTimeout(function() {
+    BUCKET_ORDER.forEach(function(bk) {
+      var bar = document.getElementById('bar-bucket-' + bk);
+      if (bar) {
+        var bTotal = qTotals[bk] || 1;
+        var bPct = Math.round((bucketScores[bk] / bTotal) * 100);
+        bar.style.width = bPct + '%';
+      }
+    });
+  }, 300);
+
+  resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetAll() {
+  quizSubmitted = false;
+  answers = new Array(TOTAL).fill(null);
+  currentQ = 0;
+
+  document.getElementById('results-container').classList.add('hidden');
+  document.getElementById('results-container').innerHTML = '';
+  document.getElementById('quiz-container').classList.add('hidden');
+  document.getElementById('welcome-screen').classList.remove('hidden');
+
+  document.getElementById('header-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function launchConfetti() {
+  var colors = ['#2563EB', '#7C3AED', '#06B6D4', '#10B981', '#F59E0B'];
+  for (var i = 0; i < 60; i++) {
+    var piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.width = (Math.random() * 8 + 5) + 'px';
+    piece.style.height = (Math.random() * 8 + 5) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    piece.style.animationDelay = (Math.random() * 1.5) + 's';
+    document.body.appendChild(piece);
+    setTimeout(function(p) { return function() { p.remove(); }; }(piece), 5000);
+  }
+}
+
+// ============================================================
+// DARK MODE TOGGLE
+// ============================================================
+document.getElementById('darkToggle').addEventListener('click', function() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('ia_entreprise_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+});
+
+// ============================================================
+// KEYBOARD NAVIGATION
+// ============================================================
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('quiz-container').classList.contains('hidden')) {
+    if (quizSubmitted) return;
+    if (e.key === 'ArrowRight' || e.key === 'Enter') {
+      if (currentQ === TOTAL - 1) submitQuiz();
+      else nextQuestion();
+    }
+    if (e.key === 'ArrowLeft') prevQuestion();
+    if (e.key >= '1' && e.key <= '4') {
+      selectAnswer(currentQ, parseInt(e.key) - 1);
+    }
+  }
+});
+
+</script>
+
+</body>
+</html>

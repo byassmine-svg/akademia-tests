@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulation « Opération Nouveau Compte » — IA en Entreprise | Akademia Formation</title>
+  <meta name="description" content="Simulation commerciale de la formation IA en Entreprise : 6 productions assistées par l'IA (ciblage, post LinkedIn, email, préparation rendez-vous, proposition, suivi CRM) sur le scénario fictif MERIDIS Agro chez NORDFLOW Industrie.">
+
+  <!-- Dark mode anti-flicker -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('ia_entreprise_theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Polices charte Akademia (Instrument Sans / Inter variable / Instrument Serif / Fragment Mono) -->
+  <link rel="stylesheet" href="assets/css/fonts-akademia.css">
+
+  <style>
+    /* ============================================================
+       CHARTE AKADEMIA — tokens (clair / nuit via html.dark)
+       ============================================================ */
+    :root{
+      --bg:#F7F9FC; --surface:#FFFFFF; --soft:#F1F5FA;
+      --ink:#0F172A; --body-c:#3F4C61; --legend:#64748B; --tert:#94A3B8;
+      --line:#E7EAF2;
+      --blue:#2563EB; --violet:#7C3AED; --g1:#2563EB; --g2:#7C3AED;
+      --blue-soft:rgba(37,99,235,.5);
+      --c-fondamentaux:#2563EB; --c-prompt:#7C3AED; --c-commercial:#0E7490; --c-metiers:#047857;
+      --chip-fond-bg:rgba(37,99,235,.09); --chip-prompt-bg:rgba(124,58,237,.09); --chip-com-bg:rgba(6,182,212,.12); --chip-met-bg:rgba(16,185,129,.12);
+      --ok:#10B981; --ok-ink:#047857; --ok-bg:rgba(16,185,129,.08); --ok-line:rgba(16,185,129,.35);
+      --err:#DC2626; --err-ink:#B91C1C; --err-bg:rgba(220,38,38,.06); --err-line:rgba(220,38,38,.3);
+      --warn:#F97316; --warn-ink:#C2410C; --warn-bg:rgba(249,115,22,.1);
+      --amber:#F59E0B; --star-off:#CBD5E1;
+      --sel-bg:rgba(37,99,235,.07);
+      --exp-bg:rgba(255,255,255,.6);
+      --focus:rgba(37,99,235,.28);
+      --cta-shadow:0 12px 30px rgba(109,40,217,.26);
+      --nav-bg:rgba(255,255,255,.82);
+      --grain-o:.045;
+      --dl:inline-block; --dd:none;
+    }
+    html.dark{
+      --bg:#05070E; --surface:#0A0F1D; --soft:#0D1322;
+      --ink:#F2F5FB; --body-c:#B4BFD1; --legend:#8B99AF; --tert:#5F6C81;
+      --line:rgba(148,163,184,.14);
+      --blue:#5B8DF8; --violet:#A78BFA; --g1:#5B8DF8; --g2:#A78BFA;
+      --blue-soft:rgba(91,141,248,.55);
+      --c-fondamentaux:#5B8DF8; --c-prompt:#A78BFA; --c-commercial:#45C8FF; --c-metiers:#34D399;
+      --chip-fond-bg:rgba(91,141,248,.13); --chip-prompt-bg:rgba(167,139,250,.13); --chip-com-bg:rgba(69,200,255,.11); --chip-met-bg:rgba(52,211,153,.13);
+      --ok:#34D399; --ok-ink:#6EE7B7; --ok-bg:rgba(52,211,153,.09); --ok-line:rgba(52,211,153,.32);
+      --err:#F87171; --err-ink:#FCA5A5; --err-bg:rgba(248,113,113,.08); --err-line:rgba(248,113,113,.32);
+      --warn:#FB923C; --warn-ink:#FDBA74; --warn-bg:rgba(251,146,60,.12);
+      --amber:#FBBF24; --star-off:#39445A;
+      --sel-bg:rgba(91,141,248,.11);
+      --exp-bg:rgba(2,4,10,.4);
+      --focus:rgba(91,141,248,.4);
+      --cta-shadow:0 12px 30px rgba(23,12,58,.55);
+      --nav-bg:rgba(5,7,14,.78);
+      --grain-o:.06;
+      --dl:none; --dd:inline-block;
+    }
+
+    /* ============================================================
+       BASE
+       ============================================================ */
+    *,*::before,*::after{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    body{
+      margin:0; position:relative; min-height:100vh;
+      background:var(--bg); color:var(--body-c);
+      font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+      font-weight:380; font-size:16px; line-height:1.66;
+      transition:background .3s ease,color .3s ease;
+    }
+    /* Grain argentique — SOUS le contenu */
+    body::before{
+      content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+      opacity:var(--grain-o); background-size:260px 260px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    ::selection{background:rgba(124,58,237,.16)}
+    html.dark ::selection{background:rgba(167,139,250,.3)}
+    h1,h2,h3{font-family:'Instrument Sans',system-ui,sans-serif;color:var(--ink);margin:0;text-wrap:balance}
+    p{margin:0}
+    button{font-family:inherit}
+    a{color:var(--blue)}
+    .hidden{display:none !important}
+    .wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:46px 24px 80px}
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .topnav{position:sticky;top:0;z-index:40;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav-in{max-width:880px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .nav-logo{display:inline-flex;align-items:center;border-radius:8px}
+    .nav-logo img{height:22px;width:auto;vertical-align:middle}
+    .logo-l{display:var(--dl)} .logo-d{display:var(--dd)}
+    .nav-right{display:flex;align-items:center;gap:14px}
+    .nav-tag{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--legend);white-space:nowrap}
+    .theme-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--legend);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,color .2s;padding:0}
+    .theme-btn:hover{border-color:var(--tert);color:var(--ink)}
+    .theme-btn svg{width:15px;height:15px}
+    .ic-sun{display:none}
+    html.dark .ic-sun{display:block}
+    html.dark .ic-moon{display:none}
+
+    /* ============================================================
+       TYPO UTILITAIRES
+       ============================================================ */
+    .kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend)}
+    .req{color:var(--err)}
+    .muted{color:var(--tert)}
+    .gradient-text{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+    /* ============================================================
+       BOUTONS
+       ============================================================ */
+    .btn-cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 30px;border-radius:999px;border:0;cursor:pointer;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:14.5px;letter-spacing:.01em;box-shadow:var(--cta-shadow);transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .2s}
+    .btn-cta:hover:not(:disabled){transform:translateY(-1px)}
+    .btn-cta:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+    .btn-cta svg{width:15px;height:15px}
+    .btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:border-color .2s}
+    .btn-ghost:hover:not(:disabled){border-color:var(--tert)}
+    .btn-ghost:disabled{opacity:.4;cursor:not-allowed}
+
+    /* ============================================================
+       ACCUEIL
+       ============================================================ */
+    .hero{text-align:center;padding-top:22px}
+    .hero-kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend);margin-bottom:22px}
+    .hero h1{font-size:clamp(34px,6vw,50px);font-weight:640;letter-spacing:-.015em;line-height:1.05;margin-bottom:12px}
+    .hero-sub{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(19px,3vw,23px);color:var(--ink);margin-bottom:20px}
+    .hero-lede{max-width:660px;margin:0 auto 42px;color:var(--legend);font-size:15.5px;line-height:1.72;text-align:center}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:730px;margin:0 auto 42px;text-align:left}
+    .step-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px;display:flex;align-items:center;gap:16px}
+    .step-num{font-family:'Instrument Serif',Georgia,serif;font-size:34px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0}
+    .step-kick{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--tert);margin-bottom:4px}
+    .step-name{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14px;color:var(--ink);line-height:1.35}
+
+    /* ============================================================
+       TÊTES D'ÉTAPE
+       ============================================================ */
+    .step-head{margin-bottom:30px}
+    .step-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .step-pill{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;white-space:nowrap}
+    .step-note{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tert)}
+    .step-head h2{font-size:29px;font-weight:640;letter-spacing:-.01em;margin-bottom:9px}
+    .step-head .lede{font-size:14.5px;color:var(--legend);max-width:660px;line-height:1.65}
+
+    /* ============================================================
+       FORMULAIRE BESOINS
+       ============================================================ */
+    .f-group{margin-bottom:36px}
+    .f-group h3{font-size:16.5px;font-weight:620;margin-bottom:6px}
+    .f-help{font-size:12.5px;color:var(--legend);margin-bottom:14px}
+    .f-group h3 + .f-grid, .f-group h3 + .f-field{margin-top:14px}
+    .f-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .f-field label{display:block;font-size:13px;font-weight:510;color:var(--body-c);margin-bottom:7px}
+    input[type=text],select,textarea{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:14px;font-weight:400;line-height:1.5;transition:border-color .2s,box-shadow .2s}
+    input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--focus)}
+    ::placeholder{color:var(--tert);opacity:1}
+    textarea{resize:none}
+    select{appearance:none;-webkit-appearance:none;background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2364748B' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+    html.dark select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%238B99AF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+    .obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+    .obj-item,.radio-item{display:flex;align-items:center;gap:11px;padding:11px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;font-size:13.5px;color:var(--body-c);line-height:1.45;transition:border-color .2s,background .2s}
+    .obj-item:hover,.radio-item:hover{border-color:var(--blue-soft)}
+    .obj-item:has(input:checked),.radio-item:has(input:checked){border-color:var(--blue);background:var(--sel-bg)}
+    input[type=checkbox],input[type=radio]{accent-color:var(--blue);width:16px;height:16px;flex-shrink:0;margin:0}
+    .radio-row{display:flex;gap:12px}
+    .f-note{font-size:12px;color:var(--legend);margin-top:7px}
+    .form-err{font-size:13.5px;font-weight:510;color:var(--err);margin-bottom:4px}
+    .f-actions{display:flex;justify-content:flex-end;margin-top:6px}
+
+    /* ============================================================
+       PROGRESSION
+       ============================================================ */
+    .progress-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+    .progress-label{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--legend)}
+    .track{width:100%;height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+    .progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--g1),var(--g2));transition:width .4s ease}
+    .progress-wrap{margin-bottom:34px}
+
+    /* ============================================================
+       AUTO-ÉVALUATION
+       ============================================================ */
+    .ae-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:26px}
+    .autoeval-card{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:16px 17px;transition:border-color .25s}
+    .autoeval-card.rated{border-color:var(--blue-soft)}
+    .ae-label{font-size:13.5px;color:var(--body-c);line-height:1.52;margin:10px 0 2px}
+    .stars{display:flex;gap:2px;margin-top:9px}
+    .star-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1;background:none;border:0;cursor:pointer;padding:0;border-radius:8px;transition:transform .15s,color .15s}
+    .star-btn:hover{transform:scale(1.18)}
+    .star-btn.star-active{color:var(--amber)}
+    .star-btn.star-inactive{color:var(--star-off)}
+    .scale-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:15px 18px;margin-bottom:28px}
+    .scale-title{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--legend);margin-bottom:10px}
+    .scale-grid{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:10px 28px;font-size:12.5px;color:var(--legend)}
+    .scale-grid span.st{color:var(--amber);letter-spacing:1px;margin-right:6px}
+
+    /* ============================================================
+       CHIPS MODULES
+       ============================================================ */
+    .bucket-chip{display:inline-block;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;padding:4px 11px;border-radius:999px;white-space:nowrap}
+    .badge-fondamentaux{background:var(--chip-fond-bg);color:var(--c-fondamentaux)}
+    .badge-prompt{background:var(--chip-prompt-bg);color:var(--c-prompt)}
+    .badge-commercial{background:var(--chip-com-bg);color:var(--c-commercial)}
+    .badge-metiers{background:var(--chip-met-bg);color:var(--c-metiers)}
+
+    /* ============================================================
+       QCM
+       ============================================================ */
+    .quiz-question{display:none}
+    .quiz-question.active{display:block;animation:fadeSlideIn .4s cubic-bezier(.16,1,.3,1)}
+    @keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .q-head{margin-bottom:22px}
+    .q-scenario{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:19px;line-height:1.52;color:var(--body-c);margin:15px 0 13px;max-width:680px}
+    .q-title{font-size:22px;font-weight:620;letter-spacing:-.008em;line-height:1.34;text-wrap:balance}
+    .qnum{font-family:'Instrument Serif',Georgia,serif;font-style:normal;font-weight:400;color:var(--tert)}
+    .q-options{display:flex;flex-direction:column;gap:11px}
+    .quiz-option{display:flex;align-items:flex-start;gap:13px;width:100%;text-align:left;padding:15px 17px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--body-c);font-size:14.5px;font-weight:400;line-height:1.52;cursor:pointer;transition:border-color .2s,background .2s,transform .2s}
+    .quiz-option:hover:not(.locked){border-color:var(--blue-soft);transform:translateY(-1px)}
+    .quiz-option.selected{border-color:var(--blue);background:var(--sel-bg)}
+    .opt-letter{font-family:'Fragment Mono',monospace;font-size:11px;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--legend);margin-top:1px;transition:background .2s,color .2s,border-color .2s}
+    .quiz-option.selected .opt-letter{background:linear-gradient(135deg,var(--g1),var(--g2));border-color:transparent;color:#fff}
+    .quiz-option.correct-show{border-color:var(--ok);background:var(--ok-bg)}
+    .quiz-option.correct-show .opt-letter{background:var(--ok);border-color:var(--ok);color:#fff}
+    .quiz-option.wrong-show{border-color:var(--err);background:var(--err-bg)}
+    .quiz-option.wrong-show .opt-letter{background:var(--err);border-color:var(--err);color:#fff}
+    .quiz-option.locked{cursor:default}
+    .quiz-option.locked:hover{transform:none}
+    .quiz-nav{display:flex;justify-content:space-between;gap:12px;margin-top:32px}
+
+    /* ============================================================
+       RÉSULTATS
+       ============================================================ */
+    .res-head{text-align:center;margin-bottom:42px}
+    .res-head h2{font-size:30px;font-weight:640;letter-spacing:-.01em;margin-bottom:7px}
+    .res-sub{font-size:13.5px;color:var(--legend);margin-bottom:30px}
+    .ring-wrap{position:relative;display:inline-block;margin-bottom:18px}
+    .ring-track{stroke:var(--line)}
+    .score-ring{transition:stroke-dashoffset 1.2s cubic-bezier(.16,1,.3,1)}
+    .lvl-expert{stroke:var(--ok)} .lvl-avance{stroke:var(--blue)} .lvl-inter{stroke:var(--warn)} .lvl-debutant{stroke:var(--err)}
+    .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .ring-num{font-family:'Instrument Serif',Georgia,serif;font-size:52px;line-height:1;color:var(--ink)}
+    .ring-den{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--tert);margin-top:5px}
+    .res-pill-row{display:flex;justify-content:center;margin-bottom:14px}
+    .lvl-pill{display:inline-flex;align-items:center;padding:8px 18px;border-radius:999px;font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+    .lvlp-expert{background:var(--ok-bg);color:var(--ok-ink)}
+    .lvlp-avance{background:var(--sel-bg);color:var(--blue)}
+    .lvlp-inter{background:var(--warn-bg);color:var(--warn-ink)}
+    .lvlp-debutant{background:var(--err-bg);color:var(--err-ink)}
+    .res-note{font-size:12.5px;color:var(--legend);max-width:440px;margin:0 auto;line-height:1.6}
+    .recap-card,.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px 26px;margin-bottom:30px}
+    .recap-card h3,.panel h3{font-size:17px;font-weight:620;margin-bottom:14px}
+    .kv-row{display:flex;gap:14px;padding:8px 0;border-bottom:1px dashed var(--line)}
+    .kv-row:last-child{border-bottom:0}
+    .kv-label{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--tert);width:172px;flex-shrink:0;padding-top:4px;line-height:1.5}
+    .kv-val{font-size:14px;color:var(--body-c);line-height:1.55}
+    .kv-block{padding:8px 0;border-bottom:1px dashed var(--line)}
+    .kv-block:last-child{border-bottom:0}
+    .kv-block .kv-label{width:auto;display:block;margin-bottom:7px;padding-top:0}
+    .chip{display:inline-block;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);font-size:12.5px;color:var(--body-c);margin:0 6px 6px 0}
+    .mods-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px}
+    .mod-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 16px 16px;text-align:center}
+    .mod-name{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--legend);line-height:1.6;margin-bottom:10px;min-height:29px}
+    .mod-score{font-family:'Instrument Serif',Georgia,serif;font-size:34px;line-height:1;margin-bottom:13px}
+    .mod-track{height:5px}
+    .bar-fill{height:100%;border-radius:999px;transition:width 1s cubic-bezier(.16,1,.3,1)}
+    .mod-pct{font-family:'Fragment Mono',monospace;font-size:10px;color:var(--tert);margin-top:9px}
+    .ae-row{display:flex;align-items:center;gap:12px;padding:7px 0;font-size:13.5px}
+    .ae-row .bucket-chip{flex-shrink:0;width:64px;text-align:center}
+    .ae-name{flex:1;min-width:0;color:var(--body-c);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ae-stars{flex-shrink:0;font-size:14px;letter-spacing:1px}
+    .ae-stars .on{color:var(--amber)} .ae-stars .off{color:var(--star-off)}
+    .ae-lvl{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tert);width:96px;text-align:right;flex-shrink:0}
+    .corr-sec{margin-bottom:32px}
+    .corr-sec h3{font-size:17px;font-weight:620;margin-bottom:14px}
+    .corr-list{display:flex;flex-direction:column;gap:12px}
+    .corr-item{display:flex;gap:13px;padding:16px 17px;border-radius:14px;border:1px solid var(--line);background:var(--surface)}
+    .corr-item.ok{border-color:var(--ok-line);background:var(--ok-bg)}
+    .corr-item.ko{border-color:var(--err-line);background:var(--err-bg)}
+    .corr-ic{width:24px;height:24px;border-radius:999px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;margin-top:1px}
+    .corr-item.ok .corr-ic{background:var(--ok)}
+    .corr-item.ko .corr-ic{background:var(--err)}
+    .corr-body{flex:1;min-width:0}
+    .corr-q{font-size:14px;font-weight:510;color:var(--ink);line-height:1.5}
+    .corr-qn{font-family:'Instrument Serif',Georgia,serif;font-weight:400;color:var(--tert)}
+    .corr-ans{font-size:12.5px;margin-top:6px}
+    .ans-wrong{color:var(--err-ink);font-weight:510}
+    .ans-right{color:var(--ok-ink);font-weight:510}
+    .corr-exp{margin-top:10px;padding:12px 14px;border-radius:10px;background:var(--exp-bg);font-size:13px;line-height:1.62;color:var(--legend)}
+    .exp-tag{font-weight:570;color:var(--body-c)}
+    .res-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* ============================================================
+       CONFETTIS
+       ============================================================ */
+    @keyframes confettiFall{
+      0%{transform:translateY(-100vh) rotate(0deg);opacity:1}
+      100%{transform:translateY(100vh) rotate(720deg);opacity:0}
+    }
+    .confetti-piece{position:fixed;top:-10px;width:10px;height:10px;z-index:9999;animation:confettiFall linear forwards;pointer-events:none}
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width:720px){
+      .steps,.f-grid,.obj-grid,.ae-grid,.mods-grid{grid-template-columns:1fr}
+      .kv-row{flex-direction:column;gap:3px}
+      .kv-label{width:auto;padding-top:0}
+      .ae-lvl{display:none}
+      .scale-grid{grid-template-columns:repeat(2,auto)}
+      .wrap{padding:34px 18px 64px}
+      .recap-card,.panel{padding:20px 18px}
+    }
+    @media (max-width:600px){.nav-tag{display:none}}
+
+    /* ============================================================
+       ACCESSIBILITÉ & PRINT
+       ============================================================ */
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+    }
+    @media print{
+      nav,.no-print{display:none !important}
+      body{background:#fff !important;color:#000 !important}
+      body::before{display:none !important}
+      *{color:#000 !important;background:#fff !important;border-color:#ccc !important;box-shadow:none !important;text-shadow:none !important}
+      .gradient-text,.step-num{-webkit-text-fill-color:initial !important;background:none !important;color:#000 !important}
+      .print-only{display:block !important}
+    }
+    .print-only{display:none}
+  /* ============================================================
+   SIMULATION — classes préfixées sq-
+   ============================================================ */
+.sq-lead-panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px 28px;margin-bottom:26px}
+.sq-lead-panel h2,.sq-lead-panel h3{font-size:18px;font-weight:640;margin-bottom:12px}
+.sq-lead-panel p{font-size:14.5px;color:var(--body-c);line-height:1.7}
+.sq-kv{display:flex;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px;line-height:1.6}
+.sq-kv:last-child{border-bottom:0}
+.sq-kv b{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--tert);width:150px;flex-shrink:0;padding-top:4px;font-weight:400}
+.sq-kv span{color:var(--body-c)}
+.sq-signal{display:inline-block;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:4px 11px;border-radius:999px;background:var(--chip-fond-bg);color:var(--c-fondamentaux);margin:0 6px 6px 0}
+.sq-mission-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 26px}
+.sq-mission-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.sq-mission-card .num{font-family:'Instrument Serif',Georgia,serif;font-size:30px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block;margin-bottom:8px}
+.sq-mission-card .t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:13.5px;color:var(--ink);margin-bottom:5px}
+.sq-mission-card p{font-size:12.5px;color:var(--legend);line-height:1.6;margin:0}
+.sq-rules{background:var(--warn-bg);border:1px solid var(--line);border-radius:16px;padding:18px 22px;margin-bottom:34px;font-size:13.5px;line-height:1.7;color:var(--body-c)}
+.sq-rules b{color:var(--warn-ink);font-weight:620}
+
+/* Progression globale */
+.sq-progress{position:sticky;top:58px;z-index:30;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:14px;padding:14px 20px;margin-bottom:40px}
+.sq-progress-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:9px}
+.sq-progress-label{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--legend)}
+.sq-progress-dots{display:flex;gap:7px}
+.sq-dot{width:10px;height:10px;border-radius:999px;background:var(--line);transition:background .3s}
+.sq-dot.done{background:linear-gradient(135deg,var(--g1),var(--g2))}
+
+/* Étapes */
+.sq-step{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:26px 28px;margin-bottom:26px;transition:opacity .3s,border-color .3s}
+.sq-step.sq-locked{opacity:.45}
+.sq-step.sq-locked .sq-body{pointer-events:none;user-select:none;filter:blur(2px)}
+.sq-step.sq-open{border-color:var(--blue-soft)}
+.sq-step.sq-done{border-color:var(--ok-line)}
+.sq-step-top{display:flex;align-items:center;gap:13px;margin-bottom:16px;flex-wrap:wrap}
+.sq-step-num{font-family:'Instrument Serif',Georgia,serif;font-size:30px;line-height:1;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;flex-shrink:0}
+.sq-step.sq-locked .sq-step-num{background:var(--line);color:var(--tert)}
+.sq-step.sq-done .sq-step-num{background:var(--ok)}
+.sq-step-titles{flex:1;min-width:200px}
+.sq-step-kick{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--tert);margin-bottom:3px}
+.sq-step-title{font-family:'Instrument Sans',sans-serif;font-size:20px;font-weight:640;color:var(--ink);letter-spacing:-.008em}
+.sq-lock-pill{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:999px;border:1px solid var(--line);color:var(--tert)}
+.sq-done-pill{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:999px;background:var(--ok-bg);color:var(--ok-ink);display:none}
+.sq-step.sq-done .sq-done-pill{display:inline-block}
+.sq-step.sq-done .sq-lock-pill{display:none}
+.sq-consigne{font-size:14.5px;color:var(--body-c);line-height:1.75;margin-bottom:18px}
+.sq-consigne b{color:var(--ink);font-weight:600}
+details.sq-help{border:1px solid var(--line);border-radius:14px;background:var(--soft);margin-bottom:18px;overflow:hidden}
+details.sq-help summary{cursor:pointer;list-style:none;padding:13px 18px;font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:9px}
+details.sq-help summary::-webkit-details-marker{display:none}
+details.sq-help summary::before{content:"+";font-family:'Instrument Serif',Georgia,serif;font-size:18px;line-height:1;transition:transform .25s}
+details.sq-help[open] summary::before{transform:rotate(45deg)}
+details.sq-help .sq-help-in{padding:2px 20px 18px;font-size:13.5px;line-height:1.7;color:var(--body-c)}
+details.sq-help .sq-help-in ul{margin:8px 0 0;padding-left:18px}
+details.sq-help .sq-help-in li{margin-bottom:6px}
+.sq-prod-label{display:block;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--tert);margin-bottom:8px}
+textarea.sq-prod{width:100%;min-height:170px;padding:13px 15px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-family:'Inter',sans-serif;font-size:13.5px;line-height:1.65;resize:vertical;transition:border-color .2s,box-shadow .2s}
+textarea.sq-prod:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--focus)}
+textarea.sq-prod[readonly]{background:var(--soft);color:var(--legend)}
+.sq-err-inline{display:none;font-size:13px;color:var(--err-ink);margin-top:8px;font-weight:510}
+.sq-actions{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+.sq-count{font-family:'Fragment Mono',monospace;font-size:10px;color:var(--tert);margin-left:auto;align-self:center}
+
+/* Feedback après validation */
+.sq-fb{display:none;margin-top:22px;border-top:1px dashed var(--line);padding-top:20px;animation:fadeSlideIn .45s cubic-bezier(.16,1,.3,1)}
+.sq-step.sq-done .sq-fb{display:block}
+.sq-fb-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sq-fb-card{border-radius:14px;padding:17px 19px;border:1px solid var(--line)}
+.sq-fb-card.ok{background:var(--ok-bg);border-color:var(--ok-line)}
+.sq-fb-card.ko{background:var(--err-bg);border-color:var(--err-line)}
+.sq-fb-t{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
+.sq-fb-card.ok .sq-fb-t{color:var(--ok-ink)}
+.sq-fb-card.ko .sq-fb-t{color:var(--err-ink)}
+.sq-fb-card ul{margin:0;padding-left:17px;font-size:13px;line-height:1.65;color:var(--body-c)}
+.sq-fb-card li{margin-bottom:7px}
+
+/* Grille d'évaluation */
+.sq-eval{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:26px 28px;margin-top:40px}
+.sq-eval-row{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+.sq-eval-row:last-of-type{border-bottom:0}
+.sq-eval-crit{flex:1;min-width:230px}
+.sq-eval-name{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14px;color:var(--ink);margin-bottom:3px}
+.sq-eval-sub{font-size:12.5px;color:var(--legend);line-height:1.5}
+.sq-eval-w{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--tert);width:56px;text-align:center;flex-shrink:0}
+.sq-rate{display:flex;gap:6px;flex-shrink:0}
+.sq-rate button{width:36px;height:36px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--legend);font-family:'Instrument Serif',Georgia,serif;font-size:16px;cursor:pointer;transition:all .2s;padding:0}
+.sq-rate button:hover{border-color:var(--blue-soft)}
+.sq-rate button.on{background:linear-gradient(135deg,var(--g1),var(--g2));border-color:transparent;color:#fff}
+.sq-eval-result{display:none;margin-top:22px;border-radius:16px;padding:22px 24px;border:1px solid var(--line);animation:fadeSlideIn .5s cubic-bezier(.16,1,.3,1)}
+.sq-eval-score{font-family:'Instrument Serif',Georgia,serif;font-size:44px;line-height:1;color:var(--ink);margin-bottom:6px}
+.sq-eval-band{font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
+.sq-eval-txt{font-size:13.5px;color:var(--body-c);line-height:1.7;max-width:620px}
+.sq-eval-err{display:none;font-size:13px;color:var(--err-ink);font-weight:510;margin-top:14px}
+
+/* Récapitulatif */
+.sq-recap{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-top:26px}
+.sq-recap pre{white-space:pre-wrap;word-wrap:break-word;font-family:'Fragment Mono',monospace;font-size:11.5px;line-height:1.7;color:var(--body-c);max-height:340px;overflow:auto;margin:0}
+.sq-copied{display:none;font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ok-ink);align-self:center}
+
+@media (max-width:720px){
+  .sq-mission-grid,.sq-fb-grid{grid-template-columns:1fr}
+  .sq-kv{flex-direction:column;gap:3px}
+  .sq-kv b{width:auto;padding-top:0}
+  .sq-step,.sq-eval,.sq-lead-panel{padding:20px 18px}
+}
+
+    /* ============================================================
+     NAVIGATION DE FIN DE PAGE
+     ============================================================ */
+  .pgnav{display:flex;gap:14px;border-top:1px solid var(--line);padding-top:36px;margin-top:88px}
+  .pgn{flex:1;display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px 22px;transition:border-color .2s,transform .2s}
+  .pgn:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+  .pgn-k{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:6px}
+  .pgn-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14.5px;color:var(--ink);line-height:1.4}
+  .pgn.next{text-align:right}
+  @media (max-width:760px){.pgnav{flex-direction:column}.pgn.next{text-align:left}}
+
+  </style>
+  <script src="assets/js/formai-bridge.js?v=1783300000"></script>
+</head>
+<body>
+
+<nav class="topnav no-print">
+  <div class="nav-in">
+    <a href="/" class="nav-logo" aria-label="Akademia Formation — retour à l'accueil">
+      <img class="logo-l" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDQwMCAxMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnM+CiAgICA8IS0tIEdyYWRpZW50IFByaW5jaXBhbCAtLT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icHJpbWFyeUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzI1NjNFQjtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0MzQUVEO3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIAogICAgPCEtLSBHcmFkaWVudCBBY2NlbnQgLS0+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImFjY2VudEdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxMEI5ODE7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzA2QjZENDtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAKICAgIDwhLS0gU2hhZG93IEZpbHRlciAtLT4KICAgIDxmaWx0ZXIgaWQ9InNoYWRvdyIgeD0iLTUwJSIgeT0iLTUwJSIgd2lkdGg9IjIwMCUiIGhlaWdodD0iMjAwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjgiIGZsb29kLW9wYWNpdHk9IjAuMSIvPgogICAgPC9maWx0ZXI+CiAgPC9kZWZzPgogIAogIDwhLS0gTG9nbyBJY29uIC0tPgogIDxnIGlkPSJha2FkZW1pYS1pY29uIj4KICAgIDwhLS0gQmFja2dyb3VuZCBTaGFwZSAtLT4KICAgIDxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTYiIHJ5PSIxNiIgZmlsbD0idXJsKCNwcmltYXJ5R3JhZGllbnQpIiBmaWx0ZXI9InVybCgjc2hhZG93KSIvPgogICAgCiAgICA8IS0tIExldHRlciBBIERlc2lnbiAtLT4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYwLCA2MCkiPgogICAgICA8IS0tIE1haW4gQSBTaGFwZSAtLT4KICAgICAgPHBhdGggZD0iTSAwIC0yNSBMIC0xNSAxNSBMIC04IDE1IEwgLTYgOCBMIDYgOCBMIDggMTUgTCAxNSAxNSBMIDAgLTI1IFogTSAwIC0xMCBMIC0zIDAgTCAzIDAgTCAwIC0xMCBaIiAKICAgICAgICAgICAgZmlsbD0id2hpdGUiIAogICAgICAgICAgICBvcGFjaXR5PSIxIi8+CiAgICA8L2c+CiAgICAKICAgIDwhLS0gQWNjZW50IENpcmNsZSAtLT4KICAgIDxjaXJjbGUgY3g9Ijc1IiBjeT0iNDUiIHI9IjgiIGZpbGw9InVybCgjYWNjZW50R3JhZGllbnQpIiBvcGFjaXR5PSIwLjkiLz4KICA8L2c+CiAgCiAgPCEtLSBMb2dvIFRleHQgLS0+CiAgPGcgaWQ9ImFrYWRlbWlhLXRleHQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMCwgNjApIj4KICAgIDwhLS0gQUtBREVNSUEgLS0+CiAgICA8dGV4dCB4PSIwIiB5PSI1IiAKICAgICAgICAgIGZvbnQtZmFtaWx5PSJJbnRlciwgLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCAnU2Vnb2UgVUknLCBSb2JvdG8sIHNhbnMtc2VyaWYiIAogICAgICAgICAgZm9udC1zaXplPSIzNiIgCiAgICAgICAgICBmb250LXdlaWdodD0iNzAwIiAKICAgICAgICAgIGZpbGw9IiMwRjE3MkEiCiAgICAgICAgICBsZXR0ZXItc3BhY2luZz0iLTAuMDJlbSI+QUtBREVNSUE8L3RleHQ+CiAgICAKICAgIDwhLS0gRk9STUFUSU9OIC0tPgogICAgPHRleHQgeD0iMCIgeT0iMjgiIAogICAgICAgICAgZm9udC1mYW1pbHk9IkludGVyLCAtYXBwbGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsICdTZWdvZSBVSScsIFJvYm90bywgc2Fucy1zZXJpZiIgCiAgICAgICAgICBmb250LXNpemU9IjE4IiAKICAgICAgICAgIGZvbnQtd2VpZ2h0PSI0MDAiIAogICAgICAgICAgZmlsbD0iIzY0NzQ4QiIKICAgICAgICAgIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+">
+      <img class="logo-d" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjgwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtYWluR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMjU2M0VCO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM3QzNBRUQ7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJhY2NlbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzEwQjk4MTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDZCNkQ0O3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDwhLS0gTG9nbyBJbnZlcnPDqSBwb3VyIGZvbmQgc29tYnJlIC0tPgogIDxnPgogICAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMTIiIGZpbGw9IndoaXRlIi8+CiAgICA8cGF0aCBkPSJNIDMwIDE1IEwgNDAgNDUgTCAzNSA0NSBMIDMzIDM4IEwgMjcgMzggTCAyNSA0NSBMIDIwIDQ1IEwgMzAgMTUgWiBNIDMwIDIzIEwgMjggMzIgTCAzMiAzMiBMIDMwIDIzIFoiIGZpbGw9InVybCgjbWFpbkdyYWRpZW50KSIvPgogICAgPGNpcmNsZSBjeD0iNDUiIGN5PSIyMCIgcj0iNiIgZmlsbD0idXJsKCNhY2NlbnQpIi8+CgogICAgPHRleHQgeD0iNzUiIHk9IjI4IiBmb250LWZhbWlseT0iSW50ZXIsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSJ3aGl0ZSI+QUtBREVNSUE8L3RleHQ+CiAgICA8dGV4dCB4PSI3NSIgeT0iNDYiIGZvbnQtZmFtaWx5PSJJbnRlciwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI0MDAiIGZpbGw9IiM5NEEzQjgiIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+Cg==">
+    </a>
+    <div class="nav-right">
+      <span class="nav-tag">IA en entreprise</span>
+      <button id="darkToggle" class="theme-btn" aria-label="Basculer le thème sombre">
+        <svg class="ic-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <svg class="ic-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ============================================ -->
+  <!-- HERO                                         -->
+  <!-- ============================================ -->
+  <div class="hero" id="header-section" style="margin-bottom:44px">
+    <div class="hero-kick">Simulation &mdash; Jour 2</div>
+    <h1><span class="gradient-text">Op&eacute;ration Nouveau Compte</span></h1>
+    <p class="hero-sub">De l&rsquo;appel d&rsquo;int&eacute;r&ecirc;t au plan de suivi : une s&eacute;quence commerciale compl&egrave;te, assist&eacute;e par l&rsquo;IA</p>
+    <p class="hero-lede">
+      En &eacute;quipe de deux ou trois, vous incarnez le bin&ocirc;me commercial qui reprend un compte entrant &agrave; fort potentiel. Six productions r&eacute;elles &agrave; r&eacute;aliser avec votre outil d&rsquo;IA, puis &agrave; composer dans cette page. Chaque &eacute;tape valid&eacute;e d&eacute;bloque la suivante ; chaque retour int&eacute;gr&eacute; d&eacute;taille les attendus et les erreurs &agrave; &eacute;viter.
+    </p>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- CONTEXTE MERIDIS                             -->
+  <!-- ============================================ -->
+  <div class="sq-lead-panel">
+    <h2>Le sc&eacute;nario : MERIDIS Agro frappe &agrave; la porte de NORDFLOW</h2>
+    <div class="sq-kv"><b>Le compte</b><span><strong>MERIDIS Agro</strong>, groupe agroalimentaire familial, environ 900 collaborateurs, 4 sites de production (Lannion, Lisieux, Lyon, Agen). Sp&eacute;cialit&eacute; : plats pr&eacute;par&eacute;s et conserves pour la grande distribution et la restauration collective.</span></div>
+    <div class="sq-kv"><b>Le signal entrant</b><span>Hier, appel d&rsquo;int&eacute;r&ecirc;t re&ccedil;u via le formulaire du site NORDFLOW, sign&eacute; <strong>Claire Vasseur, responsable investissements &amp; travaux neufs</strong> : &laquo; Nous pr&eacute;parons la modernisation des utilit&eacute;s de deux sites (fluides de process, eau glac&eacute;e, assainissement) pour 2027. Nous cherchons des partenaires capables de nous accompagner du cadrage &agrave; la mise en service. &raquo;</span></div>
+    <div class="sq-kv"><b>Les signaux publics</b><span>Extension annonc&eacute;e du site de Lannion (presse r&eacute;gionale, juillet) ; recrutement en cours d&rsquo;un ing&eacute;nieur maintenance utilit&eacute;s (offre publi&eacute;e il y a trois semaines) ; hausse des cadences annonc&eacute;e &agrave; l&rsquo;occasion d&rsquo;un nouveau contrat de restauration collective.</span></div>
+    <div class="sq-kv"><b>Le contexte concurrentiel</b><span>Un fournisseur allemand, implant&eacute; chez MERIDIS depuis 2014, &eacute;quipe historiquement les pompes de process. Aucun contrat-cadre exclusif n&rsquo;est connu. La d&eacute;cision se prendra au niveau du groupe, avec les directions techniques des deux sites concern&eacute;s.</span></div>
+    <div class="sq-kv"><b>Votre camp côté NORDFLOW</b><span>&Eacute;lise (commerciale s&eacute;dentaire) et Karim (commercial r&eacute;gional) partagent le compte ; Th&eacute;o (marketing) appuie sur LinkedIn ; Maud (charg&eacute;e d&rsquo;affaires technique) interviendra au chiffrage ; Romain (chef des ventes) suit le dossier dans le CRM. NORDFLOW : pompes, vannes et skids pour utilit&eacute;s industrielles, 3 sites, culture de service apr&egrave;s-vente.</span></div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- COMMENT CA MARCHE                            -->
+  <!-- ============================================ -->
+  <div class="sq-mission-grid">
+    <div class="sq-mission-card">
+      <span class="num">1</span>
+      <div class="t">Produire avec votre IA</div>
+      <p>&Agrave; chaque &eacute;tape, r&eacute;digez votre consigne (m&eacute;thode CRISP), obtenez un jet dans votre outil, it&eacute;rez jusqu&rsquo;&agrave; un r&eacute;sultat que vous signer&iacute;ez.</p>
+    </div>
+    <div class="sq-mission-card">
+      <span class="num">2</span>
+      <div class="t">D&eacute;poser dans la page</div>
+      <p>Collez ou composez votre production finale dans la zone pr&eacute;vue, puis validez l&rsquo;&eacute;tape : le retour p&eacute;dagogique s&rsquo;affiche et l&rsquo;&eacute;tape suivante se d&eacute;bloque.</p>
+    </div>
+    <div class="sq-mission-card">
+      <span class="num">3</span>
+      <div class="t">S&rsquo;&eacute;valuer en fin de parcours</div>
+      <p>La grille d&rsquo;&eacute;valuation pond&eacute;r&eacute;e mesure la qualit&eacute; de votre s&eacute;quence compl&egrave;te, et le r&eacute;capitulatif final se copie pour votre playbook.</p>
+    </div>
+  </div>
+
+  <div class="sq-rules">
+    <b>R&egrave;gles du jeu :</b> ne travaillez qu&rsquo;avec les informations du sc&eacute;nario &mdash; tout fait, chiffre ou r&eacute;f&eacute;rence que votre production ajoute devra &ecirc;tre marqu&eacute; &laquo; &agrave; v&eacute;rifier &raquo;. Aucune donn&eacute;e r&eacute;elle client ou entreprise dans vos consignes. Vos productions restent dans cette page (enregistrement local sur votre poste).
+  </div>
+
+  <!-- ============================================ -->
+  <!-- PROGRESSION                                  -->
+  <!-- ============================================ -->
+  <div class="sq-progress no-print">
+    <div class="sq-progress-row">
+      <span class="sq-progress-label" id="sq-progress-label">0 / 6 &eacute;tapes valid&eacute;es</span>
+      <div class="sq-progress-dots">
+        <span class="sq-dot" id="sq-dot-0"></span>
+        <span class="sq-dot" id="sq-dot-1"></span>
+        <span class="sq-dot" id="sq-dot-2"></span>
+        <span class="sq-dot" id="sq-dot-3"></span>
+        <span class="sq-dot" id="sq-dot-4"></span>
+        <span class="sq-dot" id="sq-dot-5"></span>
+      </div>
+    </div>
+    <div class="track"><div id="sq-progress-bar" class="progress-fill" style="width:0%"></div></div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- &Eacute;TAPE 1 &mdash; CIBLAGE & QUALIFICATION      -->
+  <!-- ============================================ -->
+  <div class="sq-step sq-open" id="sq-step-0">
+    <div class="sq-step-top">
+      <span class="sq-step-num">1</span>
+      <div class="sq-step-titles">
+        <div class="sq-step-kick">&Eacute;tape 1 / 6</div>
+        <div class="sq-step-title">Ciblage &amp; qualification : la fiche compte MERIDIS</div>
+      </div>
+      <span class="sq-lock-pill">En cours</span>
+      <span class="sq-done-pill">Valid&eacute;e</span>
+    </div>
+    <div class="sq-body">
+      <p class="sq-consigne">
+        Avant le moindre message, structurez le compte. Produisez une <b>fiche compte MERIDIS</b> en cinq blocs : identit&eacute; (activit&eacute;, sites, taille, organisation), enjeux probables c&ocirc;t&eacute; utilit&eacute;s, <b>signaux d&rsquo;affaire dat&eacute;s</b> (fait observable + date + implication commerciale), hypoth&egrave;se de besoin NORDFLOW en une phrase, et <b>trois questions de qualification</b> couvrant budget, calendrier et circuit de d&eacute;cision.
+      </p>
+      <details class="sq-help">
+        <summary>Aide m&eacute;thodo</summary>
+        <div class="sq-help-in">
+          <ul>
+            <li>Distinguez syst&eacute;matiquement le <b>fait</b> (pr&eacute;sent dans le sc&eacute;nario, dat&eacute;, sour&ccedil;able) de l&rsquo;<b>hypoth&egrave;se</b> (&agrave; valider au premier rendez-vous). Une fiche qui m&eacute;lange les deux induit toute la s&eacute;quence en erreur.</li>
+            <li>Un signal d&rsquo;affaire se formule en trois temps : ce qui a &eacute;t&eacute; observ&eacute;, quand, et ce que cela implique commercialement pour NORDFLOW.</li>
+            <li>Consigne-type &agrave; adapter : &laquo; Tu es un commercial B2B industriel senior. Voici les informations dont je dispose sur un compte [contexte]. Construis une fiche compte en distinguant faits et hypoth&egrave;ses, avec les signaux d&rsquo;affaire dat&eacute;s et trois questions de qualification ouvertes. &raquo;</li>
+            <li>Les questions de qualification s&rsquo;anticipent sur le premier &eacute;change : budget (est-il cadr&eacute; ?), calendrier (jalons 2027 ?), d&eacute;cision (qui signe, qui influence ?).</li>
+          </ul>
+        </div>
+      </details>
+      <label class="sq-prod-label" for="sq-ta-0">Votre production &mdash; fiche compte</label>
+      <textarea class="sq-prod" id="sq-ta-0" placeholder="Collez ou composez ici votre fiche compte MERIDIS (identit&eacute;, enjeux, signaux dat&eacute;s, hypoth&egrave;se de besoin, questions de qualification)&hellip;"></textarea>
+      <div class="sq-err-inline" id="sq-err-0">Production trop courte pour &ecirc;tre &eacute;valu&eacute;e : d&eacute;veloppez votre fiche (au moins 400 caract&egrave;res).</div>
+      <div class="sq-actions">
+        <button class="btn-cta" onclick="sqValidate(0)">Valider l&rsquo;&eacute;tape &#8250;</button>
+        <span class="sq-count" id="sq-count-0"></span>
+      </div>
+      <div class="sq-fb">
+        <div class="sq-fb-grid">
+          <div class="sq-fb-card ok">
+            <div class="sq-fb-t">Ce qu&rsquo;on attendait</div>
+            <ul>
+              <li>Au moins <b>trois signaux dat&eacute;s</b>, chacun reli&eacute; &agrave; une implication commerciale (extension de Lannion &rarr; volumes d&rsquo;utilit&eacute;s suppl&eacute;mentaires ; recrutement maintenance &rarr; charge sur l&rsquo;&eacute;quipe, besoin de fiabilit&eacute; ; contrat restauration &rarr; pression sur les cadences et l&rsquo;hygi&egrave;ne).</li>
+              <li>Une <b>hypoth&egrave;se de besoin en une phrase</b> : remplacement ou extension des pompes et vannes de process sur deux sites, avec continuit&eacute; de production comme contrainte reine.</li>
+              <li>Des questions de qualification <b>ouvertes</b> couvrant budget, calendrier et d&eacute;cideurs &mdash; pas des questions ferm&eacute;es qu&rsquo;on peut &eacute;luder d&rsquo;un &laquo; oui &raquo;.</li>
+            </ul>
+          </div>
+          <div class="sq-fb-card ko">
+            <div class="sq-fb-t">Erreurs fr&eacute;quentes</div>
+            <ul>
+              <li>Paraphraser le sc&eacute;nario sans angle : une fiche qui r&eacute;p&egrave;te l&rsquo;appel d&rsquo;int&eacute;r&ecirc;t n&rsquo;aide pas &agrave; vendre, elle constate.</li>
+              <li>Confondre supposition et signal : &laquo; ils ont un gros budget &raquo; est une hypoth&egrave;se, pas un fait.</li>
+              <li>Inventer des chiffres (chiffre d&rsquo;affaires, enveloppe, nombre de pompes) absents du sc&eacute;nario &mdash; tout ajout doit &ecirc;tre marqu&eacute; &laquo; &agrave; v&eacute;rifier &raquo;.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- &Eacute;TAPE 2 &mdash; POST LINKEDIN               -->
+  <!-- ============================================ -->
+  <div class="sq-step sq-locked" id="sq-step-1">
+    <div class="sq-step-top">
+      <span class="sq-step-num">2</span>
+      <div class="sq-step-titles">
+        <div class="sq-step-kick">&Eacute;tape 2 / 6</div>
+        <div class="sq-step-title">Le post LinkedIn de Th&eacute;o : occuper le terrain</div>
+      </div>
+      <span class="sq-lock-pill">Verrouill&eacute;e</span>
+      <span class="sq-done-pill">Valid&eacute;e</span>
+    </div>
+    <div class="sq-body">
+      <p class="sq-consigne">
+        Th&eacute;o veut publier sur la page NORDFLOW un post qui parle aux responsables utilit&eacute;s et maintenance de l&rsquo;agroalimentaire &mdash; sans jamais nommer MERIDIS. R&eacute;digez le post complet : <b>angle</b> (une id&eacute;e, pas un catalogue), <b>accroche</b> sur deux lignes, trois points de fond, une <b>preuve</b>, et un appel &agrave; l&rsquo;action sobre. Entre 150 et 220 mots.
+      </p>
+      <details class="sq-help">
+        <summary>Aide m&eacute;thodo</summary>
+        <div class="sq-help-in">
+          <ul>
+            <li>Un post utile avant d&rsquo;&ecirc;tre promotionnel : le lecteur doit y gagner quelque chose (un point de vigilance, un retour d&rsquo;exp&eacute;rience, une m&eacute;thode), m&ecirc;me s&rsquo;il ne devient jamais client.</li>
+            <li>Angles possibles : moderniser ses utilit&eacute;s sans arr&ecirc;ter la production ; les trois signes qu&rsquo;une pompe de process co&ucirc;te plus cher &agrave; garder qu&rsquo;&agrave; remplacer ; pourquoi l&rsquo;eau glac&eacute;e est le poste d&rsquo;&eacute;nergie le plus sous-pilot&eacute; du site.</li>
+            <li>Workflow IA : brainstorm de cinq angles, choix collectif, structure, premier jet, puis <b>r&eacute;&eacute;criture avec la voix NORDFLOW</b> &mdash; le copier-coller de jet se rep&egrave;re au premier paragraphe.</li>
+            <li>La preuve se formule sans nommer de client : &laquo; sur une ligne de conserves, le remplacement de trois pompes a fait baisser les arr&ecirc;ts non planifi&eacute;s &raquo; &mdash; tout chiffre doit &ecirc;tre r&eacute;el et v&eacute;rifi&eacute;, sinon on le retire.</li>
+          </ul>
+        </div>
+      </details>
+      <label class="sq-prod-label" for="sq-ta-1">Votre production &mdash; post LinkedIn</label>
+      <textarea class="sq-prod" id="sq-ta-1" placeholder="Accroche, fond, preuve, appel &agrave; l&rsquo;action&hellip;"></textarea>
+      <div class="sq-err-inline" id="sq-err-1">Production trop courte pour &ecirc;tre &eacute;valu&eacute;e : r&eacute;digez le post complet (au moins 700 caract&egrave;res).</div>
+      <div class="sq-actions">
+        <button class="btn-cta" onclick="sqValidate(1)">Valider l&rsquo;&eacute;tape &#8250;</button>
+        <span class="sq-count" id="sq-count-1"></span>
+      </div>
+      <div class="sq-fb">
+        <div class="sq-fb-grid">
+          <div class="sq-fb-card ok">
+            <div class="sq-fb-t">Ce qu&rsquo;on attendait</div>
+            <ul>
+              <li>Une accroche qui parle <b>m&eacute;tier</b> (arr&ecirc;t de ligne, maintenance, &eacute;nergie, hygi&egrave;ne) et non &laquo; nous sommes leader &raquo;.</li>
+              <li>Un seul angle d&eacute;velopp&eacute;, trois points de fond maximum, une preuve concr&egrave;te et v&eacute;rifiable.</li>
+              <li>Un appel &agrave; l&rsquo;action discret : commenter, &eacute;changer, t&eacute;l&eacute;charger un rep&egrave;re &mdash; pas &laquo; contactez-nous vite &raquo;.</li>
+            </ul>
+          </div>
+          <div class="sq-fb-card ko">
+            <div class="sq-fb-t">Erreurs fr&eacute;quentes</div>
+            <ul>
+              <li>La plaquette publicitaire : superlatifs, jargon marketing, z&eacute;ro contenu m&eacute;tier.</li>
+              <li>Citer MERIDIS ou verrouiller le post sur la vente : le social selling cr&eacute;e du terrain, il ne conclut pas.</li>
+              <li>Promesse chiffr&eacute;e invent&eacute;e (&laquo; 40 % d&rsquo;&eacute;conomies garanties &raquo;) : irrattrapable en cr&eacute;dibilit&eacute;, et contraire au r&eacute;flexe source.</li>
+              <li>Douze hashtags dont aucun m&eacute;tier : trois, pr&eacute;cis, suffisent.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- &Eacute;TAPE 3 &mdash; EMAIL DE PROSPECTION          -->
+  <!-- ============================================ -->
+  <div class="sq-step sq-locked" id="sq-step-2">
+    <div class="sq-step-top">
+      <span class="sq-step-num">3</span>
+      <div class="sq-step-titles">
+        <div class="sq-step-kick">&Eacute;tape 3 / 6</div>
+        <div class="sq-step-title">L&rsquo;email &agrave; Claire Vasseur : CRISP appliqu&eacute;</div>
+      </div>
+      <span class="sq-lock-pill">Verrouill&eacute;e</span>
+      <span class="sq-done-pill">Valid&eacute;e</span>
+    </div>
+    <div class="sq-body">
+      <p class="sq-consigne">
+        R&eacute;digez le <b>premier email</b> d&rsquo;&Eacute;lise &agrave; Claire Vasseur, en r&eacute;ponse &agrave; son appel d&rsquo;int&eacute;r&ecirc;t : objet, accroche personnalis&eacute;e qui rebondit sur un signal r&eacute;el, proposition de valeur li&eacute;e &agrave; son programme 2027, une preuve, et <b>un seul appel &agrave; l&rsquo;action</b> (un &eacute;change de 15 minutes). Entre 120 et 160 mots, ton direct, sans pi&egrave;ce jointe.
+      </p>
+      <details class="sq-help">
+        <summary>Aide m&eacute;thodo</summary>
+        <div class="sq-help-in">
+          <ul>
+            <li>Appliquez CRISP &agrave; votre consigne : Contexte (appel d&rsquo;int&eacute;r&ecirc;t re&ccedil;u, programme utilit&eacute;s 2027, deux sites), R&ocirc;le (commercial B2B industriel qui r&eacute;pond &agrave; une demande entrante), Instruction (email de 120-160 mots avec un seul CTA), Style (direct, professionnel, z&eacute;ro flatterie), Param&ecirc;tres (objet inclus, pas de pi&egrave;ce jointe annonc&eacute;e).</li>
+            <li>Le premier paragraphe parle d&rsquo;<b>elle</b>, pas de NORDFLOW : son programme, ses deux sites, son calendrier.</li>
+            <li>La personnalisation doit &ecirc;tre <b>v&eacute;rifiable</b> : rebondir sur l&rsquo;extension de Lannion ou le recrutement maintenance, pas sur des faits invent&eacute;s.</li>
+            <li>Un seul CTA, facile &agrave; accepter : proposer deux cr&eacute;neaux d&rsquo;&eacute;change de 15 minutes, pas un &laquo; rendez-vous sur site &raquo;.</li>
+          </ul>
+        </div>
+      </details>
+      <label class="sq-prod-label" for="sq-ta-2">Votre production &mdash; email de prospection</label>
+      <textarea class="sq-prod" id="sq-ta-2" placeholder="Objet + corps de l&rsquo;email (120-160 mots)&hellip;"></textarea>
+      <div class="sq-err-inline" id="sq-err-2">Production trop courte pour &ecirc;tre &eacute;valu&eacute;e : r&eacute;digez l&rsquo;email complet (au moins 500 caract&egrave;res).</div>
+      <div class="sq-actions">
+        <button class="btn-cta" onclick="sqValidate(2)">Valider l&rsquo;&eacute;tape &#8250;</button>
+        <span class="sq-count" id="sq-count-2"></span>
+      </div>
+      <div class="sq-fb">
+        <div class="sq-fb-grid">
+          <div class="sq-fb-card ok">
+            <div class="sq-fb-t">Ce qu&rsquo;on attendait</div>
+            <ul>
+              <li>Un objet concret qui cite son sujet (&laquo; modernisation des utilit&eacute;s &mdash; Lannion &amp; Lyon &raquo;), pas &laquo; prise de contact &raquo;.</li>
+              <li>Une accroche sur un signal r&eacute;el du sc&eacute;nario, une valeur exprim&eacute;e en b&eacute;n&eacute;fice chantier (continuit&eacute; de production, accompagnement du cadrage &agrave; la mise en service).</li>
+              <li>Un CTA unique, dat&eacute; et l&eacute;ger : deux cr&eacute;neaux propos&eacute;s, 15 minutes, au t&eacute;l&eacute;phone.</li>
+            </ul>
+          </div>
+          <div class="sq-fb-card ko">
+            <div class="sq-fb-t">Erreurs fr&eacute;quentes</div>
+            <ul>
+              <li>Le pav&eacute; &laquo; qui sommes-nous &raquo; en ouverture : NORDFLOW a trois lignes maximum dans ce mail.</li>
+              <li>Trois appels &agrave; l&rsquo;action concurrents (appel + documentation + visite) : le lecteur n&rsquo;en choisit aucun.</li>
+              <li>&laquo; Je me permets de vous contacter &raquo;, formules ampoul&eacute;es, vantardise de r&eacute;f&eacute;rences.</li>
+              <li>Pi&egrave;ce jointe d&egrave;s le premier contact : d&eacute;livrables et pr&eacute;sentations attendront sa demande.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- &Eacute;TAPE 4 &mdash; FICHE PR&Eacute;PARATION RDV        -->
+  <!-- ============================================ -->
+  <div class="sq-step sq-locked" id="sq-step-3">
+    <div class="sq-step-top">
+      <span class="sq-step-num">4</span>
+      <div class="sq-step-titles">
+        <div class="sq-step-kick">&Eacute;tape 4 / 6</div>
+        <div class="sq-step-title">La fiche de pr&eacute;paration du premier rendez-vous</div>
+      </div>
+      <span class="sq-lock-pill">Verrouill&eacute;e</span>
+      <span class="sq-done-pill">Valid&eacute;e</span>
+    </div>
+    <div class="sq-body">
+      <p class="sq-consigne">
+        Claire Vasseur a accept&eacute; un rendez-vous sur le site de Lannion. Construisez la <b>fiche de pr&eacute;paration</b> du bin&ocirc;me : trois objectifs de rendez-vous maximum, un plan de d&eacute;couverte (cinq questions ouvertes), la <b>matrice des quatre objections probables</b> avec leurs r&eacute;ponses, et les sujets &agrave; ne pas aborder &agrave; ce stade. Une des objections est technique : sa r&eacute;ponse doit &ecirc;tre marqu&eacute;e &laquo; &agrave; valider par le bureau d&rsquo;&eacute;tudes avant envoi &raquo;.
+      </p>
+      <details class="sq-help">
+        <summary>Aide m&eacute;thodo</summary>
+        <div class="sq-help-in">
+          <ul>
+            <li>Le premier rendez-vous sert &agrave; <b>comprendre</b>, pas &agrave; argumenter : objectifs types = comprendre le p&eacute;rim&egrave;tre exact du programme, identifier le circuit de d&eacute;cision, repartir avec une prochaine &eacute;tape dat&eacute;e.</li>
+            <li>Les questions ouvertes font parler le client sur son process, ses contraintes (hygi&egrave;ne, arr&ecirc;ts de ligne), son calendrier et sa d&eacute;cision &mdash; jamais de questions auxquelles le site web r&eacute;pond.</li>
+            <li>Matrice objection / r&eacute;ponse en quatre temps : accueillir, creuser, r&eacute;pondre, v&eacute;rifier. Les objections probables : le fournisseur historique, le budget non cadr&eacute;, le calendrier serr&eacute;, l&rsquo;exigence technique (compatibilit&eacute; process alimentaire).</li>
+            <li>Toute r&eacute;ponse technique ou normative produite par l&rsquo;IA est une <b>hypoth&egrave;se de travail</b> : elle se note, elle se v&eacute;rifie, elle ne s&rsquo;improvise pas devant le client.</li>
+          </ul>
+        </div>
+      </details>
+      <label class="sq-prod-label" for="sq-ta-3">Votre production &mdash; fiche de pr&eacute;paration</label>
+      <textarea class="sq-prod" id="sq-ta-3" placeholder="Objectifs, plan de d&eacute;couverte, matrice objections / r&eacute;ponses, sujets &agrave; &eacute;carter&hellip;"></textarea>
+      <div class="sq-err-inline" id="sq-err-3">Production trop courte pour &ecirc;tre &eacute;valu&eacute;e : d&eacute;veloppez la fiche (au moins 600 caract&egrave;res).</div>
+      <div class="sq-actions">
+        <button class="btn-cta" onclick="sqValidate(3)">Valider l&rsquo;&eacute;tape &#8250;</button>
+        <span class="sq-count" id="sq-count-3"></span>
+      </div>
+      <div class="sq-fb">
+        <div class="sq-fb-grid">
+          <div class="sq-fb-card ok">
+            <div class="sq-fb-t">Ce qu&rsquo;on attendait</div>
+            <ul>
+              <li>Des questions de d&eacute;couverte qui explorent le process, les contraintes de production, le calendrier 2027 et le circuit de d&eacute;cision.</li>
+              <li>Quatre objections <b>r&eacute;alistes</b> (fournisseur historique, budget, timing, exigence technique) avec des r&eacute;ponses en quatre temps, pas des d&eacute;n&iacute;s.</li>
+              <li>Au moins une r&eacute;ponse technique explicitement marqu&eacute;e &laquo; &agrave; valider par le bureau d&rsquo;&eacute;tudes &raquo; &mdash; le r&eacute;flexe source appliqu&eacute; au rendez-vous.</li>
+            </ul>
+          </div>
+          <div class="sq-fb-card ko">
+            <div class="sq-fb-t">Erreurs fr&eacute;quentes</div>
+            <ul>
+              <li>L&rsquo;argumentaire avant la d&eacute;couverte : arriver avec la solution, c&rsquo;est renoncer &agrave; comprendre le besoin.</li>
+              <li>Le script mot &agrave; mot : une fiche pr&eacute;pare l&rsquo;&eacute;coute, elle ne la remplace pas.</li>
+              <li>Des objections sans r&eacute;ponse, ou des r&eacute;ponses techniques invent&eacute;es par l&rsquo;IA et jamais v&eacute;rifi&eacute;es.</li>
+              <li>Aborder le prix ou le devis au premier rendez-vous : sujet &agrave; &eacute;carter explicitement &agrave; ce stade.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- &Eacute;TAPE 5 &mdash; TRAME DE PROPOSITION          -->
+  <!-- ============================================ -->
+  <div class="sq-step sq-locked" id="sq-step-4">
+    <div class="sq-step-top">
+      <span class="sq-step-num">5</span>
+      <div class="sq-step-titles">
+        <div class="sq-step-kick">&Eacute;tape 5 / 6</div>
+        <div class="sq-step-title">La trame de proposition commerciale</div>
+      </div>
+      <span class="sq-lock-pill">Verrouill&eacute;e</span>
+      <span class="sq-done-pill">Valid&eacute;e</span>
+    </div>
+    <div class="sq-body">
+      <p class="sq-consigne">
+        Le rendez-vous a confirm&eacute; le besoin. Structurez la <b>trame de la proposition NORDFLOW</b> : huit sections maximum, avec pour chacune le contenu attendu en une ligne et la <b>donn&eacute;e MERIDIS &agrave; y injecter</b> (personnalisation explicite). Terminez par trois points de vigilance &agrave; contr&ocirc;ler avant l&rsquo;envoi.
+      </p>
+      <details class="sq-help">
+        <summary>Aide m&eacute;thodo</summary>
+        <div class="sq-help-in">
+          <ul>
+            <li>Une proposition commence par le <b>besoin reformul&eacute; du client</b> (sa situation, son programme, ses contraintes), jamais par &laquo; qui sommes-nous &raquo; : la pr&eacute;sentation de NORDFLOW vient apr&egrave;s, en appui.</li>
+            <li>Squelette de r&eacute;f&eacute;rence : synth&egrave;se du besoin &middot; solution propos&eacute;e par site &middot; m&eacute;thodologie et continuit&eacute; de production &middot; planning et jalons &middot; r&eacute;f&eacute;rences comparables &middot; budget et options &middot; conditions &middot; prochaine &eacute;tape.</li>
+            <li>Chaque section gagne &agrave; contenir une <b>donn&eacute;e du dossier</b> : les deux sites, le calendrier 2027, la contrainte d&rsquo;hygi&egrave;ne, la continuit&eacute; de production.</li>
+            <li>Points de vigilance avant envoi : v&eacute;rifier chiffres, normes et d&eacute;lais cit&eacute;s ; relecture par un expert technique (Maud) ; coh&eacute;rence prix / options / conditions.</li>
+          </ul>
+        </div>
+      </details>
+      <label class="sq-prod-label" for="sq-ta-4">Votre production &mdash; trame de proposition</label>
+      <textarea class="sq-prod" id="sq-ta-4" placeholder="Sections, contenu attendu, personnalisation MERIDIS, points de vigilance&hellip;"></textarea>
+      <div class="sq-err-inline" id="sq-err-4">Production trop courte pour &ecirc;tre &eacute;valu&eacute;e : d&eacute;veloppez la trame (au moins 500 caract&egrave;res).</div>
+      <div class="sq-actions">
+        <button class="btn-cta" onclick="sqValidate(4)">Valider l&rsquo;&eacute;tape &#8250;</button>
+        <span class="sq-count" id="sq-count-4"></span>
+      </div>
+      <div class="sq-fb">
+        <div class="sq-fb-grid">
+          <div class="sq-fb-card ok">
+            <div class="sq-fb-t">Ce qu&rsquo;on attendait</div>
+            <ul>
+              <li>Une ouverture sur la <b>synth&egrave;se du besoin reformul&eacute;</b> : preuve imm&eacute;diate que le client a &eacute;t&eacute; &eacute;cout&eacute;.</li>
+              <li>Des sections align&eacute;es sur le programme utilit&eacute;s (deux sites, 2027, continuit&eacute; de production), chacune avec sa donn&eacute;e de personnalisation.</li>
+              <li>Des points de vigilance actionnables : v&eacute;rification des faits et normes, relecture experte, hypoth&egrave;ses et options clairement pos&eacute;es autour du prix.</li>
+            </ul>
+          </div>
+          <div class="sq-fb-card ko">
+            <div class="sq-fb-t">Erreurs fr&eacute;quentes</div>
+            <ul>
+              <li>La trame catalogue : sections g&eacute;n&eacute;riques interchangeables d&rsquo;un client &agrave; l&rsquo;autre &mdash; le client le sent d&egrave;s la page deux.</li>
+              <li>&laquo; Qui sommes-nous &raquo; en page 1 : NORDFLOW n&rsquo;est pas le sujet de la proposition.</li>
+              <li>Un prix nu, sans hypoth&egrave;ses ni options : impossible &agrave; d&eacute;fendre en comit&eacute; d&rsquo;achat.</li>
+              <li>Aucune date de relecture technique : une norme invent&eacute;e dans une proposition engage l&rsquo;entreprise.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- &Eacute;TAPE 6 &mdash; PLAN DE SUIVI CRM             -->
+  <!-- ============================================ -->
+  <div class="sq-step sq-locked" id="sq-step-5">
+    <div class="sq-step-top">
+      <span class="sq-step-num">6</span>
+      <div class="sq-step-titles">
+        <div class="sq-step-kick">&Eacute;tape 6 / 6</div>
+        <div class="sq-step-title">Le plan de suivi CRM : six semaines de s&eacute;quence</div>
+      </div>
+      <span class="sq-lock-pill">Verrouill&eacute;e</span>
+      <span class="sq-done-pill">Valid&eacute;e</span>
+    </div>
+    <div class="sq-body">
+      <p class="sq-consigne">
+        La proposition part lundi. Construisez le <b>plan de suivi sur six semaines</b> : cinq &agrave; six actions dat&eacute;es en relatif (J+2, J+7&hellip;) avec canal et objectif de chacune, les champs CRM &agrave; tenir &agrave; jour, et <b>trois indicateurs</b> que Romain suivra chaque semaine. Chaque relance doit apporter quelque chose, pas demander quelque chose.
+      </p>
+      <details class="sq-help">
+        <summary>Aide m&eacute;thodo</summary>
+        <div class="sq-help-in">
+          <ul>
+            <li>Squelette de s&eacute;quence : J+2 compte rendu de la proposition envoy&eacute;e + confirmation de r&eacute;ception &middot; J+7 point sur les questions techniques (avec Maud) &middot; J+14 relance &agrave; valeur ajout&eacute;e (retour d&rsquo;exp&eacute;rience comparable, rep&egrave;re utile) &middot; J+21 proposition d&rsquo;une visite de r&eacute;f&eacute;rence ou d&rsquo;un &eacute;change avec un pair &middot; J+35 point de convergence avant comit&eacute; &middot; J+42 relance de cl&ocirc;ture, plan B si silence.</li>
+            <li>Une relance &agrave; valeur ajout&eacute;e apporte : un retour d&rsquo;exp&eacute;rience, une r&eacute;ponse &agrave; une question rest&eacute;e ouverte, un rep&egrave;re sectoriel v&eacute;rifi&eacute;. Jamais &laquo; avez-vous lu ma proposition ? &raquo;.</li>
+            <li>Champs CRM : &eacute;tape de l&rsquo;affaire, montant estim&eacute;, prochaine action <b>dat&eacute;e</b>, interlocuteurs et leurs r&ocirc;les, dernier contact et son r&eacute;sum&eacute;.</li>
+            <li>Indicateurs pour Romain : taux de r&eacute;ponse aux relances, avancement d&rsquo;&eacute;tape semaine par semaine, part des affaires dont la prochaine action est dat&eacute;e.</li>
+          </ul>
+        </div>
+      </details>
+      <label class="sq-prod-label" for="sq-ta-5">Votre production &mdash; plan de suivi</label>
+      <textarea class="sq-prod" id="sq-ta-5" placeholder="Actions dat&eacute;es J+x, canaux, objectifs, champs CRM, indicateurs&hellip;"></textarea>
+      <div class="sq-err-inline" id="sq-err-5">Production trop courte pour &ecirc;tre &eacute;valu&eacute;e : d&eacute;veloppez le plan (au moins 500 caract&egrave;res).</div>
+      <div class="sq-actions">
+        <button class="btn-cta" onclick="sqValidate(5)">Valider l&rsquo;&eacute;tape &#8250;</button>
+        <span class="sq-count" id="sq-count-5"></span>
+      </div>
+      <div class="sq-fb">
+        <div class="sq-fb-grid">
+          <div class="sq-fb-card ok">
+            <div class="sq-fb-t">Ce qu&rsquo;on attendait</div>
+            <ul>
+              <li>Des actions <b>dat&eacute;es en relatif</b>, espac&eacute;es de fa&ccedil;on r&eacute;aliste, chacune avec un objectif distinct (confirmer, &eacute;clairer, apporter, converger, conclure).</li>
+              <li>Des relances qui apportent de la valeur au client &mdash; un contenu, une r&eacute;ponse, une preuve &mdash; et non une demande de nouvelles.</li>
+              <li>Des indicateurs mesurables et hebdomadaires, dont la prochaine action dat&eacute;e : le signe vital d&rsquo;un pipeline sain.</li>
+            </ul>
+          </div>
+          <div class="sq-fb-card ko">
+            <div class="sq-fb-t">Erreurs fr&eacute;quentes</div>
+            <ul>
+              <li>La rafale : quatre relances en dix jours, qui transforme l&rsquo;int&eacute;r&ecirc;t initial en agacement.</li>
+              <li>&laquo; Avez-vous eu le temps de lire notre proposition ? &raquo; : relance &agrave; valeur nulle, m&eacute;canique et d&eacute;valorisante.</li>
+              <li>Aucune prochaine action dat&eacute;e : une affaire sans date suivante est une affaire morte qui s&rsquo;ignore.</li>
+              <li>Le CRM mis &agrave; jour &laquo; quand on a le temps &raquo; : la synth&egrave;se IA d&rsquo;un compte mal tenu sera pauvre, et trompeuse.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- &Eacute;VALUATION FINALE                            -->
+  <!-- ============================================ -->
+  <div class="sq-eval" id="sq-eval">
+    <div class="step-head" style="margin-bottom:18px">
+      <div class="step-row" style="margin-bottom:10px">
+        <span class="step-pill">Bilan</span>
+        <span class="step-note">Grille d&rsquo;&eacute;valuation pond&eacute;r&eacute;e</span>
+      </div>
+      <h2 style="font-size:24px">&Eacute;valuez votre s&eacute;quence compl&egrave;te</h2>
+      <p class="lede" style="font-size:14px">Pour chaque production, notez-vous en &eacute;quipe : 0 = pas abouti, 1 = fragile, 2 = solide, 3 = exemplaire (comparez aux attendus affich&eacute;s dans chaque retour). Les pond&eacute;rations refl&egrave;tent l&rsquo;enjeu commercial de chaque &eacute;tape.</p>
+    </div>
+
+    <div class="sq-eval-row">
+      <div class="sq-eval-crit">
+        <div class="sq-eval-name">1. Fiche compte &amp; qualification</div>
+        <div class="sq-eval-sub">Signaux dat&eacute;s, faits distingu&eacute;s des hypoth&egrave;ses, questions de qualification ouvertes.</div>
+      </div>
+      <span class="sq-eval-w">15 pts</span>
+      <div class="sq-rate" id="sq-rate-0">
+        <button onclick="sqRate(0,0)">0</button><button onclick="sqRate(0,1)">1</button><button onclick="sqRate(0,2)">2</button><button onclick="sqRate(0,3)">3</button>
+      </div>
+    </div>
+    <div class="sq-eval-row">
+      <div class="sq-eval-crit">
+        <div class="sq-eval-name">2. Post LinkedIn</div>
+        <div class="sq-eval-sub">Angle m&eacute;tier, accroche, preuve v&eacute;rifiable, appel &agrave; l&rsquo;action sobre.</div>
+      </div>
+      <span class="sq-eval-w">15 pts</span>
+      <div class="sq-rate" id="sq-rate-1">
+        <button onclick="sqRate(1,0)">0</button><button onclick="sqRate(1,1)">1</button><button onclick="sqRate(1,2)">2</button><button onclick="sqRate(1,3)">3</button>
+      </div>
+    </div>
+    <div class="sq-eval-row">
+      <div class="sq-eval-crit">
+        <div class="sq-eval-name">3. Email de prospection</div>
+        <div class="sq-eval-sub">Personnalisation v&eacute;rifiable, valeur client, CTA unique, concision.</div>
+      </div>
+      <span class="sq-eval-w">20 pts</span>
+      <div class="sq-rate" id="sq-rate-2">
+        <button onclick="sqRate(2,0)">0</button><button onclick="sqRate(2,1)">1</button><button onclick="sqRate(2,2)">2</button><button onclick="sqRate(2,3)">3</button>
+      </div>
+    </div>
+    <div class="sq-eval-row">
+      <div class="sq-eval-crit">
+        <div class="sq-eval-name">4. Fiche de pr&eacute;paration rendez-vous</div>
+        <div class="sq-eval-sub">Plan de d&eacute;couverte, matrice objections / r&eacute;ponses, r&eacute;flexe &laquo; &agrave; valider &raquo; sur la technique.</div>
+      </div>
+      <span class="sq-eval-w">20 pts</span>
+      <div class="sq-rate" id="sq-rate-3">
+        <button onclick="sqRate(3,0)">0</button><button onclick="sqRate(3,1)">1</button><button onclick="sqRate(3,2)">2</button><button onclick="sqRate(3,3)">3</button>
+      </div>
+    </div>
+    <div class="sq-eval-row">
+      <div class="sq-eval-crit">
+        <div class="sq-eval-name">5. Trame de proposition</div>
+        <div class="sq-eval-sub">Ouverture sur le besoin, personnalisation MERIDIS, points de vigilance avant envoi.</div>
+      </div>
+      <span class="sq-eval-w">15 pts</span>
+      <div class="sq-rate" id="sq-rate-4">
+        <button onclick="sqRate(4,0)">0</button><button onclick="sqRate(4,1)">1</button><button onclick="sqRate(4,2)">2</button><button onclick="sqRate(4,3)">3</button>
+      </div>
+    </div>
+    <div class="sq-eval-row">
+      <div class="sq-eval-crit">
+        <div class="sq-eval-name">6. Plan de suivi CRM</div>
+        <div class="sq-eval-sub">S&eacute;quence dat&eacute;e &agrave; valeur ajout&eacute;e, champs tenus, indicateurs hebdomadaires.</div>
+      </div>
+      <span class="sq-eval-w">15 pts</span>
+      <div class="sq-rate" id="sq-rate-5">
+        <button onclick="sqRate(5,0)">0</button><button onclick="sqRate(5,1)">1</button><button onclick="sqRate(5,2)">2</button><button onclick="sqRate(5,3)">3</button>
+      </div>
+    </div>
+
+    <div class="sq-actions" style="margin-top:20px">
+      <button class="btn-cta" onclick="sqCompute()">Calculer mon score</button>
+      <div class="sq-eval-err" id="sq-eval-err">Notez les six productions avant de calculer le score.</div>
+    </div>
+
+    <div class="sq-eval-result" id="sq-eval-result">
+      <div class="sq-eval-score"><span id="sq-eval-num">0</span> / 100</div>
+      <div class="sq-eval-band" id="sq-eval-band"></div>
+      <p class="sq-eval-txt" id="sq-eval-txt"></p>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- R&Eacute;CAPITULATIF                                -->
+  <!-- ============================================ -->
+  <div class="sq-recap">
+    <div class="step-row" style="margin-bottom:12px">
+      <span class="step-pill">R&eacute;capitulatif</span>
+      <span class="step-note">Vos six productions, pr&ecirc;tes pour le playbook</span>
+    </div>
+    <pre id="sq-recap-pre">Le r&eacute;capitulatif se remplit au fil de vos validations.</pre>
+    <div class="sq-actions">
+      <button class="btn-ghost" onclick="sqCopyRecap()">Copier le r&eacute;capitulatif</button>
+      <span class="sq-copied" id="sq-copied">Copi&eacute; dans le presse-papiers</span>
+    </div>
+  </div>
+
+<!-- ============================================ -->
+<!-- NAVIGATION DE PAGE                             -->
+<!-- ============================================ -->
+<nav class="pgnav no-print" aria-label="Navigation entre modules">
+  <a class="pgn" href="./deck-m3-ia-entreprise.html">
+    <div class="pgn-k">Précédent · Jour 2</div>
+    <div class="pgn-t">Module 3 — IA &amp; performance commerciale</div>
+  </a>
+  <a class="pgn next" href="./deck-m4-ia-entreprise.html">
+    <div class="pgn-k">Suivant · Jour 2</div>
+    <div class="pgn-t">Module 4 — Usages métiers &amp; déploiement</div>
+  </a>
+</nav>
+
+</div>
+
+<!-- Print header (only visible when printing) -->
+<div class="print-only" style="text-align:center; margin-bottom:20px;">
+  <h2>Akademia Formation &mdash; IA en Entreprise</h2>
+  <p>Simulation &laquo; Op&eacute;ration Nouveau Compte &raquo; &mdash; sc&eacute;nario MERIDIS Agro chez NORDFLOW Industrie</p>
+</div>
+
+<!-- xAPI tracker -->
+<script src="assets/js/xapi-tracker.js?v=1783300000"></script>
+
+<script>
+// ============================================================
+// FORMAI — RATTACHEMENT AU COURS
+// ============================================================
+if (typeof xapiTracker !== 'undefined' && xapiTracker.setCourse) {
+  xapiTracker.setCourse('ia-entreprise');
+}
+
+// ============================================================
+// SIMULATION — DÉBLOCAGE PROGRESSIF (classes préfixées sq-)
+// ============================================================
+var SQ_N = 6;
+var SQ_MIN = [400, 700, 500, 600, 500, 500];
+var SQ_WEIGHTS = [15, 15, 20, 20, 15, 15];
+var SQ_STEP_NAMES = [
+  'Fiche compte & qualification',
+  'Post LinkedIn',
+  'Email de prospection',
+  'Fiche de preparation rendez-vous',
+  'Trame de proposition',
+  'Plan de suivi CRM'
+];
+var sqDone = new Array(SQ_N).fill(false);
+var sqRatings = new Array(SQ_N).fill(null);
+
+function sqSave() {
+  try {
+    var prods = [];
+    for (var i = 0; i < SQ_N; i++) {
+      prods.push(document.getElementById('sq-ta-' + i).value);
+    }
+    localStorage.setItem('ia_entreprise_sim_sequence', JSON.stringify({ done: sqDone, prods: prods, ratings: sqRatings }));
+  } catch (e) {}
+}
+
+function sqRestore() {
+  try {
+    var raw = localStorage.getItem('ia_entreprise_sim_sequence');
+    if (!raw) return;
+    var data = JSON.parse(raw);
+    if (data && data.prods) {
+      data.prods.forEach(function(v, i) {
+        if (i < SQ_N && typeof v === 'string') document.getElementById('sq-ta-' + i).value = v;
+      });
+    }
+    if (data && data.done) {
+      data.done.forEach(function(d, i) {
+        if (i < SQ_N && d) sqMarkDone(i, false);
+      });
+    }
+    if (data && data.ratings) {
+      data.ratings.forEach(function(r, i) {
+        if (i < SQ_N && r !== null && r !== undefined) sqRate(i, r, false);
+      });
+    }
+  } catch (e) {}
+}
+
+function sqUpdateProgress() {
+  var n = sqDone.filter(function(d) { return d; }).length;
+  document.getElementById('sq-progress-label').textContent = n + ' / ' + SQ_N + ' étapes validées';
+  document.getElementById('sq-progress-bar').style.width = Math.round(n / SQ_N * 100) + '%';
+  for (var i = 0; i < SQ_N; i++) {
+    var dot = document.getElementById('sq-dot-' + i);
+    if (dot) dot.className = 'sq-dot' + (sqDone[i] ? ' done' : '');
+  }
+}
+
+function sqMarkDone(i, save) {
+  sqDone[i] = true;
+  var step = document.getElementById('sq-step-' + i);
+  step.classList.remove('sq-open');
+  step.classList.add('sq-done');
+  document.getElementById('sq-ta-' + i).setAttribute('readonly', 'readonly');
+  var btn = step.querySelector('.sq-actions .btn-cta');
+  if (btn) btn.disabled = true;
+  // Débloque l'étape suivante
+  if (i + 1 < SQ_N) {
+    var next = document.getElementById('sq-step-' + (i + 1));
+    next.classList.remove('sq-locked');
+    next.classList.add('sq-open');
+    next.querySelector('.sq-lock-pill').textContent = 'En cours';
+  }
+  sqUpdateProgress();
+  sqBuildRecap();
+  if (save !== false) sqSave();
+}
+
+function sqValidate(i) {
+  var ta = document.getElementById('sq-ta-' + i);
+  var err = document.getElementById('sq-err-' + i);
+  var len = ta.value.trim().length;
+  if (len < SQ_MIN[i]) {
+    err.textContent = 'Production trop courte pour être évaluée — développez (au moins ' + SQ_MIN[i] + ' caractères).';
+    err.style.display = 'block';
+    ta.focus();
+    return;
+  }
+  err.style.display = 'none';
+  sqMarkDone(i, true);
+  var next = document.getElementById('sq-step-' + Math.min(i + 1, SQ_N - 1));
+  if (i + 1 < SQ_N && next) {
+    setTimeout(function() { next.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 250);
+  }
+}
+
+function sqCountUpdate(i) {
+  var ta = document.getElementById('sq-ta-' + i);
+  var c = document.getElementById('sq-count-' + i);
+  if (ta && c) c.textContent = ta.value.trim().length + ' car.';
+}
+
+for (var sqi = 0; sqi < SQ_N; sqi++) {
+  (function(i) {
+    var ta = document.getElementById('sq-ta-' + i);
+    ta.addEventListener('input', function() { sqCountUpdate(i); });
+  })(sqi);
+}
+
+// ============================================================
+// ÉVALUATION FINALE
+// ============================================================
+function sqRate(crit, val, save) {
+  sqRatings[crit] = val;
+  var box = document.getElementById('sq-rate-' + crit);
+  var btns = box.querySelectorAll('button');
+  btns.forEach(function(b, bi) {
+    if (bi === val) b.classList.add('on');
+    else b.classList.remove('on');
+  });
+  document.getElementById('sq-eval-err').style.display = 'none';
+  if (save !== false) sqSave();
+}
+
+function sqCompute() {
+  if (sqRatings.indexOf(null) !== -1) {
+    document.getElementById('sq-eval-err').style.display = 'block';
+    return;
+  }
+  var total = 0;
+  for (var i = 0; i < SQ_N; i++) {
+    total += Math.round(sqRatings[i] / 3 * SQ_WEIGHTS[i]);
+  }
+  var band, txt;
+  if (total >= 80) {
+    band = 'Prêt pour le terrain';
+    txt = 'Séquence solide de bout en bout : ciblage documenté, messages personnalisés et vérifiables, préparation complète, suivi piloté. Transposez ce fonctionnement sur votre prochain compte réel — avec la même discipline de vérification.';
+  } else if (total >= 60) {
+    band = 'Base solide, à affiner';
+    txt = 'L\'ossature est bonne. Reprenez les étapes notées 1 ou 2 en comparant votre production aux attendus affichés dans les retours : c\'est là que se joue la différence entre une séquence correcte et une séquence qui gagne.';
+  } else if (total >= 40) {
+    band = 'Bases posées, étapes à reprendre';
+    txt = 'La mécanique est comprise mais plusieurs productions restent fragiles. Reprenez les étapes les plus faibles avec l\'aide méthodo, en retravaillant d\'abord vos consignes (CRISP) avant de régénérer les livrables.';
+  } else {
+    band = 'Reprendre avec l\'aide méthodo';
+    txt = 'La séquence ne tient pas encore. Revenez aux fondamentaux : faits contre hypothèses, consignes structurées, vérification des faits. Refaites les étapes une à une en vous appuyant sur les aides et les retours pédagogiques.';
+  }
+  document.getElementById('sq-eval-num').textContent = total;
+  document.getElementById('sq-eval-band').textContent = band;
+  document.getElementById('sq-eval-txt').textContent = txt;
+  var res = document.getElementById('sq-eval-result');
+  res.style.display = 'block';
+  res.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ============================================================
+// RÉCAPITULATIF
+// ============================================================
+function sqBuildRecap() {
+  var lines = [];
+  lines.push('SIMULATION « OPERATION NOUVEAU COMPTE » — RECAPITULATIF D\'EQUIPE');
+  lines.push('Scenario : MERIDIS Agro chez NORDFLOW Industrie — IA en Entreprise');
+  lines.push('');
+  var any = false;
+  for (var i = 0; i < SQ_N; i++) {
+    var v = document.getElementById('sq-ta-' + i).value.trim();
+    if (sqDone[i] && v) {
+      any = true;
+      lines.push('=== ETAPE ' + (i + 1) + ' — ' + SQ_STEP_NAMES[i].toUpperCase() + ' ===');
+      lines.push(v);
+      lines.push('');
+    }
+  }
+  if (!any) {
+    document.getElementById('sq-recap-pre').textContent = 'Le récapitulatif se remplit au fil de vos validations.';
+    return;
+  }
+  document.getElementById('sq-recap-pre').textContent = lines.join('\n');
+}
+
+function sqCopyRecap() {
+  var txt = document.getElementById('sq-recap-pre').textContent;
+  function done() {
+    var c = document.getElementById('sq-copied');
+    c.style.display = 'inline';
+    setTimeout(function() { c.style.display = 'none'; }, 2500);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(done, function() { sqFallbackCopy(txt); done(); });
+  } else {
+    sqFallbackCopy(txt); done();
+  }
+}
+
+function sqFallbackCopy(txt) {
+  var ta = document.createElement('textarea');
+  ta.value = txt;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+// ============================================================
+// DARK MODE TOGGLE
+// ============================================================
+document.getElementById('darkToggle').addEventListener('click', function() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('ia_entreprise_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+});
+
+// Restauration locale
+sqRestore();
+sqUpdateProgress();
+sqBuildRecap();
+</script>
+
+
+</body>
+</html>

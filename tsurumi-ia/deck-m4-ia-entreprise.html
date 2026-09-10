@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 4 — Usages métiers &amp; déploiement · Deck J2 | IA en Entreprise, Akademia Formation</title>
+  <meta name="description" content="Deck de projection du module 4 « Déployer l'IA dans les métiers administratifs et techniques » (J2, 3 h) : parcours administratif et technique industriel, synthèse de CCTP, charte d'usage IA interne autorisé / encadré / interdit, conduite du changement et feuille de route 30/60/90 jours. Formation IA en Entreprise — Akademia Formation.">
+
+  <!-- Dark mode anti-flicker -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('ia_entreprise_theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Polices charte Akademia (Instrument Sans / Inter variable / Instrument Serif / Fragment Mono) -->
+  <link rel="stylesheet" href="assets/css/fonts-akademia.css">
+
+  <style>
+    /* ============================================================
+       CHARTE AKADEMIA — tokens (clair / nuit via html.dark)
+       Socle cloné de positionnement-ia-entreprise.html
+       ============================================================ */
+    :root{
+      --bg:#F7F9FC; --surface:#FFFFFF; --soft:#F1F5FA;
+      --ink:#0F172A; --body-c:#3F4C61; --legend:#64748B; --tert:#94A3B8;
+      --line:#E7EAF2;
+      --blue:#2563EB; --violet:#7C3AED; --g1:#2563EB; --g2:#7C3AED;
+      --blue-soft:rgba(37,99,235,.5);
+      --c-fondamentaux:#2563EB; --c-prompt:#7C3AED; --c-commercial:#0E7490; --c-metiers:#047857;
+      --chip-fond-bg:rgba(37,99,235,.09); --chip-prompt-bg:rgba(124,58,237,.09); --chip-com-bg:rgba(6,182,212,.12); --chip-met-bg:rgba(16,185,129,.12);
+      --ok:#10B981; --ok-ink:#047857; --ok-bg:rgba(16,185,129,.08); --ok-line:rgba(16,185,129,.35);
+      --err:#DC2626; --err-ink:#B91C1C; --err-bg:rgba(220,38,38,.06); --err-line:rgba(220,38,38,.3);
+      --warn:#F97316; --warn-ink:#C2410C; --warn-bg:rgba(249,115,22,.1);
+      --amber:#F59E0B;
+      --sel-bg:rgba(37,99,235,.07);
+      --focus:rgba(37,99,235,.28);
+      --cta-shadow:0 12px 30px rgba(109,40,217,.26);
+      --nav-bg:rgba(255,255,255,.82);
+      --grain-o:.045;
+      --dl:inline-block; --dd:none;
+    }
+    html.dark{
+      --bg:#05070E; --surface:#0A0F1D; --soft:#0D1322;
+      --ink:#F2F5FB; --body-c:#B4BFD1; --legend:#8B99AF; --tert:#5F6C81;
+      --line:rgba(148,163,184,.14);
+      --blue:#5B8DF8; --violet:#A78BFA; --g1:#5B8DF8; --g2:#A78BFA;
+      --blue-soft:rgba(91,141,248,.55);
+      --c-fondamentaux:#5B8DF8; --c-prompt:#A78BFA; --c-commercial:#45C8FF; --c-metiers:#34D399;
+      --chip-fond-bg:rgba(91,141,248,.13); --chip-prompt-bg:rgba(167,139,250,.13); --chip-com-bg:rgba(69,200,255,.11); --chip-met-bg:rgba(52,211,153,.13);
+      --ok:#34D399; --ok-ink:#6EE7B7; --ok-bg:rgba(52,211,153,.09); --ok-line:rgba(52,211,153,.32);
+      --err:#F87171; --err-ink:#FCA5A5; --err-bg:rgba(248,113,113,.08); --err-line:rgba(248,113,113,.32);
+      --warn:#FB923C; --warn-ink:#FDBA74; --warn-bg:rgba(251,146,60,.12);
+      --amber:#FBBF24;
+      --sel-bg:rgba(91,141,248,.11);
+      --focus:rgba(91,141,248,.4);
+      --cta-shadow:0 12px 30px rgba(23,12,58,.55);
+      --nav-bg:rgba(5,7,14,.78);
+      --grain-o:.06;
+      --dl:none; --dd:inline-block;
+    }
+
+    /* ============================================================
+       BASE
+       ============================================================ */
+    *,*::before,*::after{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+    body{
+      margin:0; position:relative; min-height:100vh;
+      background:var(--bg); color:var(--body-c);
+      font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+      font-weight:380; font-size:16px; line-height:1.66;
+      transition:background .3s ease,color .3s ease;
+    }
+    body::before{
+      content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+      opacity:var(--grain-o); background-size:260px 260px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    ::selection{background:rgba(124,58,237,.16)}
+    html.dark ::selection{background:rgba(167,139,250,.3)}
+    h1,h2,h3{font-family:'Instrument Sans',system-ui,sans-serif;color:var(--ink);margin:0;text-wrap:balance}
+    p{margin:0}
+    button{font-family:inherit}
+    a{color:var(--blue)}
+    .hidden{display:none !important}
+    .wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:46px 24px 80px}
+    a:focus-visible,button:focus-visible,summary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .topnav{position:sticky;top:0;z-index:40;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav-in{max-width:920px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .nav-logo{display:inline-flex;align-items:center;border-radius:8px}
+    .nav-logo img{height:22px;width:auto;vertical-align:middle}
+    .logo-l{display:var(--dl)} .logo-d{display:var(--dd)}
+    .nav-right{display:flex;align-items:center;gap:14px}
+    .nav-tag{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--legend);white-space:nowrap}
+    .theme-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--legend);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,color .2s;padding:0}
+    .theme-btn:hover{border-color:var(--tert);color:var(--ink)}
+    .theme-btn svg{width:15px;height:15px}
+    .ic-sun{display:none}
+    html.dark .ic-sun{display:block}
+    html.dark .ic-moon{display:none}
+
+    /* Barre de progression de lecture */
+    .dm4-progress{position:fixed;top:0;left:0;height:2.5px;width:0;background:linear-gradient(90deg,var(--g1),var(--g2));z-index:60;transition:width .12s linear}
+
+    /* ============================================================
+       TYPO UTILITAIRES
+       ============================================================ */
+    .kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend)}
+    .gradient-text{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+    .dm4-serif-grad{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:0;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .dm4-hero{text-align:center;padding-top:24px;margin-bottom:64px}
+    .dm4-hero-kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend);margin-bottom:22px}
+    .dm4-hero h1{font-size:clamp(34px,5.6vw,52px);font-weight:640;letter-spacing:-.015em;line-height:1.06;margin-bottom:14px}
+    .dm4-hero-sub{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(19px,2.8vw,23px);color:var(--ink);margin-bottom:22px}
+    .dm4-hero-lede{max-width:700px;margin:0 auto 30px;color:var(--legend);font-size:15.5px;line-height:1.75}
+    .dm4-hero-lede b{color:var(--body-c);font-weight:560}
+    .dm4-meta-row{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:44px}
+    .dm4-meta-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--legend)}
+    .dm4-meta-chip i{width:6px;height:6px;border-radius:999px;background:linear-gradient(135deg,var(--g1),var(--g2));flex-shrink:0}
+
+    .dm4-obj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:820px;margin:0 auto;text-align:left}
+    .dm4-obj{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:flex;gap:15px;align-items:flex-start;transition:border-color .25s,transform .25s}
+    .dm4-obj:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+    .dm4-obj-num{font-family:'Instrument Serif',Georgia,serif;font-size:30px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0;padding-top:2px}
+    .dm4-obj-kick{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:5px}
+    .dm4-obj-txt{font-size:13.5px;color:var(--body-c);line-height:1.55}
+
+    .dm4-toc{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;max-width:860px;margin:38px auto 0}
+    .dm4-toc a{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--body-c);font-size:12.5px;text-decoration:none;transition:border-color .2s,color .2s}
+    .dm4-toc a:hover{border-color:var(--blue-soft);color:var(--ink)}
+    .dm4-toc a b{font-family:'Fragment Mono',monospace;font-weight:400;font-size:10px;color:var(--tert);letter-spacing:.1em}
+
+    /* ============================================================
+       SECTIONS ÉDITORIALES
+       ============================================================ */
+    .dm4-sec{margin:84px 0}
+    .dm4-sec-head{margin-bottom:32px}
+    .dm4-sec-top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .dm4-sec-num{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;white-space:nowrap}
+    .dm4-sec-note{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--tert)}
+    .dm4-sec-head h2{font-size:clamp(26px,4vw,33px);font-weight:640;letter-spacing:-.012em;line-height:1.14;margin-bottom:12px}
+    .dm4-sec-lede{font-size:15px;color:var(--legend);max-width:700px;line-height:1.72}
+    .dm4-sec-lede b{color:var(--body-c);font-weight:560}
+    .dm4-sec p.body-p{font-size:14.5px;line-height:1.7;max-width:760px;margin-bottom:16px}
+    .dm4-sec p.body-p b{color:var(--ink);font-weight:560}
+
+    .dm4-h3{font-size:17px;font-weight:620;color:var(--ink);margin:34px 0 14px;display:flex;align-items:center;gap:10px}
+    .dm4-h3::before{content:"";width:8px;height:8px;border-radius:2px;background:linear-gradient(135deg,var(--g1),var(--g2));flex-shrink:0}
+
+    /* ============================================================
+       CARTES & GRILLES
+       ============================================================ */
+    .dm4-grid{display:grid;gap:14px;margin:22px 0}
+    .dm4-grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    .dm4-grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .dm4-grid.cols-4{grid-template-columns:repeat(4,1fr)}
+    .dm4-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 22px;transition:border-color .25s,transform .25s}
+    .dm4-card:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+    .dm4-card-kick{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--tert);margin-bottom:9px}
+    .dm4-card-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:15px;color:var(--ink);line-height:1.35;margin-bottom:8px}
+    .dm4-card p{font-size:13.5px;line-height:1.62;color:var(--body-c)}
+    .dm4-card p + p{margin-top:8px}
+    .dm4-card ul{margin:8px 0 0;padding-left:17px;font-size:13.5px;line-height:1.65}
+    .dm4-card li{margin-bottom:5px}
+    .dm4-card li::marker{color:var(--blue)}
+
+    .dm4-persona{display:inline-flex;align-items:center;gap:8px;padding:4px 13px 4px 5px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:12px;color:var(--body-c);white-space:nowrap}
+    .dm4-persona i{width:22px;height:22px;border-radius:999px;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-style:normal;font-family:'Fragment Mono',monospace;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+    .dm4-case{position:relative;border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:22px 24px 22px 28px;overflow:hidden;margin:22px 0}
+    .dm4-case::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--g1),var(--g2))}
+    .dm4-case-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+    .dm4-case-tag{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert)}
+    .dm4-case p{font-size:13.5px;line-height:1.68}
+    .dm4-case p + p{margin-top:8px}
+    .dm4-case b{color:var(--ink);font-weight:560}
+
+    /* ============================================================
+       CALLOUTS
+       ============================================================ */
+    .dm4-callout{display:flex;gap:15px;border-radius:16px;padding:19px 21px;border:1px solid;margin:22px 0}
+    .dm4-callout.is-info{border-color:var(--blue-soft);background:var(--sel-bg)}
+    .dm4-callout.is-warn{border-color:rgba(249,115,22,.32);background:var(--warn-bg)}
+    .dm4-callout.is-danger{border-color:var(--err-line);background:var(--err-bg)}
+    .dm4-callout.is-ok{border-color:var(--ok-line);background:var(--ok-bg)}
+    .dm4-callout-ic{flex-shrink:0;width:21px;height:21px;margin-top:1px}
+    .dm4-callout.is-info .dm4-callout-ic{color:var(--blue)}
+    .dm4-callout.is-warn .dm4-callout-ic{color:var(--warn)}
+    .dm4-callout.is-danger .dm4-callout-ic{color:var(--err)}
+    .dm4-callout.is-ok .dm4-callout-ic{color:var(--ok)}
+    .dm4-callout-t{font-family:'Instrument Sans',sans-serif;font-weight:620;color:var(--ink);font-size:14.5px;margin-bottom:5px}
+    .dm4-callout p{font-size:13.5px;line-height:1.65}
+    .dm4-callout p + p{margin-top:7px}
+    .dm4-callout b{color:var(--ink);font-weight:580}
+
+    /* ============================================================
+       TABLEAUX PREMIUM
+       ============================================================ */
+    .dm4-tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--surface);margin:22px 0}
+    .dm4-tbl{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.58;min-width:640px}
+    .dm4-tbl th{font-family:'Fragment Mono',monospace;font-weight:400;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--legend);text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);background:var(--soft);white-space:nowrap}
+    .dm4-tbl td{padding:14px 16px;border-bottom:1px solid var(--line);color:var(--body-c);vertical-align:top}
+    .dm4-tbl tbody tr:last-child td{border-bottom:0}
+    .dm4-tbl tbody tr{transition:background .2s}
+    .dm4-tbl tbody tr:hover{background:var(--sel-bg)}
+    .dm4-tbl td b{color:var(--ink);font-weight:580}
+    .dm4-tbl .dm4-cell-main{font-weight:580;color:var(--ink)}
+    .dm4-pill{display:inline-block;padding:3px 11px;border-radius:999px;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+    .dm4-pill.ok{background:var(--ok-bg);color:var(--ok-ink)}
+    .dm4-pill.warn{background:var(--warn-bg);color:var(--warn-ink)}
+    .dm4-pill.err{background:var(--err-bg);color:var(--err-ink)}
+    .dm4-pill.info{background:var(--sel-bg);color:var(--blue)}
+
+    /* ============================================================
+       STATS
+       ============================================================ */
+    .dm4-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+    .dm4-stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px 20px;text-align:center}
+    .dm4-stat-num{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(34px,4.5vw,44px);line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .dm4-stat-cap{font-size:12.5px;color:var(--legend);margin-top:10px;line-height:1.55}
+    .dm4-stat-cap b{color:var(--body-c);font-weight:560}
+
+    /* ============================================================
+       PIPELINE HORIZONTAL (schémas CSS, flèches dessinées)
+       ============================================================ */
+    .dm4-pipe{display:grid;grid-template-columns:1fr 34px 1fr 34px 1fr;align-items:stretch;gap:10px;margin:24px 0}
+    .dm4-pipe-cell{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px 20px}
+    .dm4-pipe-kick{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--tert);margin-bottom:8px}
+    .dm4-pipe-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14.5px;color:var(--ink);margin-bottom:7px}
+    .dm4-pipe-cell p{font-size:12.5px;line-height:1.6}
+    .dm4-pipe-arrow{align-self:center;justify-self:center;width:13px;height:13px;border-top:2.5px solid var(--g2);border-right:2.5px solid var(--g2);transform:rotate(45deg)}
+
+    /* ============================================================
+       FLOW VERTICAL
+       ============================================================ */
+    .dm4-flow{display:flex;flex-direction:column;margin:24px 0}
+    .dm4-flow-step{display:flex;gap:18px;position:relative;padding-bottom:22px}
+    .dm4-flow-step:last-child{padding-bottom:0}
+    .dm4-flow-rail{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:34px}
+    .dm4-flow-dot{width:34px;height:34px;border-radius:999px;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-family:'Instrument Serif',Georgia,serif;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--cta-shadow)}
+    .dm4-flow-line{width:2px;flex:1;margin-top:6px;background:linear-gradient(180deg,var(--g2),transparent 130%)}
+    .dm4-flow-body{flex:1;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px 21px}
+    .dm4-flow-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:15px;color:var(--ink);margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .dm4-flow-sub{font-size:13.5px;line-height:1.62;color:var(--body-c)}
+    .dm4-flow-sub + .dm4-flow-sub{margin-top:8px}
+
+    /* ============================================================
+       MATRICE CHARTE (autorisé / encadré / interdit)
+       ============================================================ */
+    .dm4-matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+    .dm4-mcol{border-radius:16px;border:1px solid;background:var(--surface);overflow:hidden;display:flex;flex-direction:column}
+    .dm4-mcol.ok{border-color:var(--ok-line)}
+    .dm4-mcol.warn{border-color:rgba(249,115,22,.32)}
+    .dm4-mcol.err{border-color:var(--err-line)}
+    .dm4-mcol-head{padding:15px 18px;display:flex;align-items:center;gap:10px}
+    .dm4-mcol.ok .dm4-mcol-head{background:var(--ok-bg)}
+    .dm4-mcol.warn .dm4-mcol-head{background:var(--warn-bg)}
+    .dm4-mcol.err .dm4-mcol-head{background:var(--err-bg)}
+    .dm4-mcol-head-t{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase}
+    .dm4-mcol.ok .dm4-mcol-head-t{color:var(--ok-ink)}
+    .dm4-mcol.warn .dm4-mcol-head-t{color:var(--warn-ink)}
+    .dm4-mcol.err .dm4-mcol-head-t{color:var(--err-ink)}
+    .dm4-mcol-rule{padding:11px 18px;font-size:11.5px;line-height:1.55;color:var(--legend);border-bottom:1px dashed var(--line);font-style:italic}
+    .dm4-mitem{padding:13px 18px;border-top:1px dashed var(--line);font-size:12.5px;line-height:1.6;flex:0 0 auto}
+    .dm4-mitem:first-of-type{border-top:0}
+    .dm4-mitem b{color:var(--ink);font-weight:580}
+    .dm4-mitem .dm4-anchor{display:block;margin-top:5px;font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--tert)}
+
+    /* ============================================================
+       JEU « À VOUS DE CLASSER »
+       ============================================================ */
+    .dm4-game{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;margin:24px 0;position:relative;overflow:hidden}
+    .dm4-game::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g1),var(--g2))}
+    .dm4-game-kick{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--legend);margin-bottom:6px}
+    .dm4-game-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:16px;color:var(--ink);margin-bottom:6px}
+    .dm4-game-help{font-size:13px;color:var(--legend);line-height:1.6;margin-bottom:8px;max-width:640px}
+    .dm4-game-count{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--tert);margin-bottom:18px}
+    .dm4-gcard{border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px;transition:border-color .25s}
+    .dm4-gcard.done-ok{border-color:var(--ok-line);background:var(--ok-bg)}
+    .dm4-gcard.done-ko{border-color:var(--err-line);background:var(--err-bg)}
+    .dm4-gcase{font-size:13.5px;line-height:1.6;color:var(--body-c);margin-bottom:12px}
+    .dm4-gcase b{color:var(--ink);font-weight:580}
+    .dm4-gbtns{display:flex;gap:8px;flex-wrap:wrap}
+    .dm4-gbtn{padding:8px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--body-c);font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:border-color .2s,background .2s}
+    .dm4-gbtn:hover:not(:disabled){border-color:var(--blue-soft)}
+    .dm4-gbtn:disabled{cursor:default;opacity:.45}
+    .dm4-gbtn.hit{border-color:var(--ok);background:var(--ok-bg);color:var(--ok-ink);opacity:1}
+    .dm4-gbtn.miss{border-color:var(--err);background:var(--err-bg);color:var(--err-ink);opacity:1}
+    .dm4-gfb{display:none;margin-top:11px;padding:11px 14px;border-radius:10px;font-size:12.5px;line-height:1.6;background:var(--soft);border:1px dashed var(--line)}
+    .dm4-gfb.show{display:block}
+    .dm4-gfb b{color:var(--ink);font-weight:580}
+    .dm4-game-end{display:none;margin-top:16px;padding:16px 18px;border-radius:12px;background:var(--sel-bg);border:1px solid var(--blue-soft);font-size:13.5px;line-height:1.65}
+    .dm4-game-end.show{display:block}
+    .dm4-game-end b{color:var(--ink);font-weight:580}
+
+    /* ============================================================
+       RÉSISTANCES (conduite du changement)
+       ============================================================ */
+    .dm4-resist{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0}
+    .dm4-rcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
+    .dm4-rquote{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:17px;line-height:1.45;color:var(--ink);margin-bottom:12px}
+    .dm4-rrow{display:flex;gap:10px;padding:7px 0;border-top:1px dashed var(--line);font-size:12.5px;line-height:1.6}
+    .dm4-rrow-k{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--tert);width:86px;flex-shrink:0;padding-top:3px}
+
+    /* ============================================================
+       FRISE 30/60/90
+       ============================================================ */
+    .dm4-road{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;position:relative}
+    .dm4-rstep{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+    .dm4-rstep-head{padding:15px 19px;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff}
+    .dm4-rstep-j{font-family:'Instrument Serif',Georgia,serif;font-size:26px;line-height:1}
+    .dm4-rstep-t{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;opacity:.85;margin-top:5px}
+    .dm4-rstep-body{padding:16px 19px}
+    .dm4-rstep-body ul{margin:0;padding-left:17px;font-size:13px;line-height:1.65}
+    .dm4-rstep-body li{margin-bottom:7px}
+    .dm4-rstep-body li::marker{color:var(--blue)}
+
+    /* ============================================================
+       SOURCES / PAGENAV / REVEAL
+       ============================================================ */
+    .dm4-src{margin-top:26px;font-family:'Fragment Mono',monospace;font-size:10.5px;line-height:1.7;letter-spacing:.02em;color:var(--tert);padding-top:13px;border-top:1px dashed var(--line)}
+    .dm4-src b{color:var(--legend);font-weight:400}
+
+    .dm4-pagenav{display:flex;gap:14px;border-top:1px solid var(--line);padding-top:36px;margin-top:88px}
+    .dm4-pn{flex:1;display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px 22px;transition:border-color .2s,transform .2s}
+    .dm4-pn:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+    .dm4-pn-k{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:6px}
+    .dm4-pn-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14.5px;color:var(--ink);line-height:1.4}
+    .dm4-pn.next{text-align:right}
+    .dm4-footline{margin-top:40px;text-align:center;font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--tert);line-height:1.9}
+
+    .dm4-reveal{opacity:0;transform:translateY(16px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)}
+    .dm4-reveal.visible{opacity:1;transform:none}
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width:760px){
+      .dm4-obj-grid,.dm4-grid.cols-2,.dm4-grid.cols-3,.dm4-grid.cols-4,.dm4-stats,.dm4-matrix,.dm4-resist,.dm4-road{grid-template-columns:1fr}
+      .dm4-pipe{grid-template-columns:1fr}
+      .dm4-pipe-arrow{transform:rotate(135deg);margin:2px auto}
+      .dm4-pagenav{flex-direction:column}
+      .dm4-pn.next{text-align:left}
+      .wrap{padding:34px 18px 64px}
+      .dm4-game{padding:20px 18px}
+    }
+    @media (max-width:600px){.nav-tag{display:none}}
+
+    /* ============================================================
+       ACCESSIBILITÉ & PRINT
+       ============================================================ */
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+      html{scroll-behavior:auto}
+    }
+    @media print{
+      nav,.no-print,.dm4-progress{display:none !important}
+      body{background:#fff !important;color:#000 !important}
+      body::before{display:none !important}
+      *{color:#000 !important;background:#fff !important;border-color:#ccc !important;box-shadow:none !important;text-shadow:none !important}
+      .gradient-text,.dm4-serif-grad,.dm4-obj-num,.dm4-stat-num{-webkit-text-fill-color:initial !important;background:none !important;color:#000 !important}
+      .dm4-reveal{opacity:1 !important;transform:none !important}
+      .dm4-sec{break-inside:avoid-page}
+      .dm4-gbtn:disabled{opacity:1}
+    }
+  </style>
+  <script src="assets/js/xapi-tracker.js?v=1783300000"></script>
+</head>
+<body>
+
+<div class="dm4-progress no-print" id="dm4-progress"></div>
+
+<!-- Top nav -->
+<nav class="topnav no-print">
+  <div class="nav-in">
+    <a href="/" class="nav-logo" aria-label="Akademia Formation — retour à l'accueil">
+      <img class="logo-l" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDQwMCAxMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnM+CiAgICA8IS0tIEdyYWRpZW50IFByaW5jaXBhbCAtLT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icHJpbWFyeUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzI1NjNFQjtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0MzQUVEO3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIAogICAgPCEtLSBHcmFkaWVudCBBY2NlbnQgLS0+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImFjY2VudEdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxMEI5ODE7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzA2QjZENDtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAKICAgIDwhLS0gU2hhZG93IEZpbHRlciAtLT4KICAgIDxmaWx0ZXIgaWQ9InNoYWRvdyIgeD0iLTUwJSIgeT0iLTUwJSIgd2lkdGg9IjIwMCUiIGhlaWdodD0iMjAwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjgiIGZsb29kLW9wYWNpdHk9IjAuMSIvPgogICAgPC9maWx0ZXI+CiAgPC9kZWZzPgogIAogIDwhLS0gTG9nbyBJY29uIC0tPgogIDxnIGlkPSJha2FkZW1pYS1pY29uIj4KICAgIDwhLS0gQmFja2dyb3VuZCBTaGFwZSAtLT4KICAgIDxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTYiIHJ5PSIxNiIgZmlsbD0idXJsKCNwcmltYXJ5R3JhZGllbnQpIiBmaWx0ZXI9InVybCgjc2hhZG93KSIvPgogICAgCiAgICA8IS0tIExldHRlciBBIERlc2lnbiAtLT4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYwLCA2MCkiPgogICAgICA8IS0tIE1haW4gQSBTaGFwZSAtLT4KICAgICAgPHBhdGggZD0iTSAwIC0yNSBMIC0xNSAxNSBMIC04IDE1IEwgLTYgOCBMIDYgOCBMIDggMTUgTCAxNSAxNSBMIDAgLTI1IFogTSAwIC0xMCBMIC0zIDAgTCAzIDAgTCAwIC0xMCBaIiAKICAgICAgICAgICAgZmlsbD0id2hpdGUiIAogICAgICAgICAgICBvcGFjaXR5PSIxIi8+CiAgICA8L2c+CiAgICAKICAgIDwhLS0gQWNjZW50IENpcmNsZSAtLT4KICAgIDxjaXJjbGUgY3g9Ijc1IiBjeT0iNDUiIHI9IjgiIGZpbGw9InVybCgjYWNjZW50R3JhZGllbnQpIiBvcGFjaXR5PSIwLjkiLz4KICA8L2c+CiAgCiAgPCEtLSBMb2dvIFRleHQgLS0+CiAgPGcgaWQ9ImFrYWRlbWlhLXRleHQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMCwgNjApIj4KICAgIDwhLS0gQUtBREVNSUEgLS0+CiAgICA8dGV4dCB4PSIwIiB5PSI1IiAKICAgICAgICAgIGZvbnQtZmFtaWx5PSJJbnRlciwgLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCAnU2Vnb2UgVUknLCBSb2JvdG8sIHNhbnMtc2VyaWYiIAogICAgICAgICAgZm9udC1zaXplPSIzNiIgCiAgICAgICAgICBmb250LXdlaWdodD0iNzAwIiAKICAgICAgICAgIGZpbGw9IiMwRjE3MkEiCiAgICAgICAgICBsZXR0ZXItc3BhY2luZz0iLTAuMDJlbSI+QUtBREVNSUE8L3RleHQ+CiAgICAKICAgIDwhLS0gRk9STUFUSU9OIC0tPgogICAgPHRleHQgeD0iMCIgeT0iMjgiIAogICAgICAgICAgZm9udC1mYW1pbHk9IkludGVyLCAtYXBwbGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsICdTZWdvZSBVSScsIFJvYm90bywgc2Fucy1zZXJpZiIgCiAgICAgICAgICBmb250LXNpemU9IjE4IiAKICAgICAgICAgIGZvbnQtd2VpZ2h0PSI0MDAiIAogICAgICAgICAgZmlsbD0iIzY0NzQ4QiIKICAgICAgICAgIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+">
+      <img class="logo-d" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjgwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtYWluR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMjU2M0VCO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM3QzNBRUQ7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJhY2NlbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzEwQjk4MTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDZCNkQ0O3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDwhLS0gTG9nbyBJbnZlcnPDqSBwb3VyIGZvbmQgc29tYnJlIC0tPgogIDxnPgogICAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMTIiIGZpbGw9IndoaXRlIi8+CiAgICA8cGF0aCBkPSJNIDMwIDE1IEwgNDAgNDUgTCAzNSA0NSBMIDMzIDM4IEwgMjcgMzggTCAyNSA0NSBMIDIwIDQ1IEwgMzAgMTUgWiBNIDMwIDIzIEwgMjggMzIgTCAzMiAzMiBMIDMwIDIzIFoiIGZpbGw9InVybCgjbWFpbkdyYWRpZW50KSIvPgogICAgPGNpcmNsZSBjeD0iNDUiIGN5PSIyMCIgcj0iNiIgZmlsbD0idXJsKCNhY2NlbnQpIi8+CgogICAgPHRleHQgeD0iNzUiIHk9IjI4IiBmb250LWZhbWlseT0iSW50ZXIsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSJ3aGl0ZSI+QUtBREVNSUE8L3RleHQ+CiAgICA8dGV4dCB4PSI3NSIgeT0iNDYiIGZvbnQtZmFtaWx5PSJJbnRlciwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI0MDAiIGZpbGw9IiM5NEEzQjgiIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+Cg==">
+    </a>
+    <div class="nav-right">
+      <span class="nav-tag">IA en entreprise · Module 4</span>
+      <button id="darkToggle" class="theme-btn" aria-label="Basculer le thème sombre">
+        <svg class="ic-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <svg class="ic-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Main container -->
+<div class="wrap">
+
+  <!-- ============================================ -->
+  <!-- HERO                                          -->
+  <!-- ============================================ -->
+  <header class="dm4-hero" id="dm4-top">
+    <div class="dm4-hero-kick">Module 04 · Jour 2 · IA en entreprise</div>
+    <h1>Usages métiers &amp;<br><span class="dm4-serif-grad">déploiement</span></h1>
+    <p class="dm4-hero-sub">De l'essai individuel à l'usage d'équipe — un cadre, des méthodes, une trajectoire.</p>
+    <p class="dm4-hero-lede">
+      Vous savez prompter, vous avez vendu avec l'IA : reste le plus dur, l'<b>ancrage</b>. Ce module étend les usages aux fonctions administratives et techniques de NORDFLOW Industrie — comptes rendus de chantier, traduction FR/EN, documentation de quatre-vingts pages, réponses à CCTP — puis pose les deux conditions d'un déploiement qui tient : une <b>charte d'usage écrite</b> et une <b>conduite du changement</b> qui prend les résistances au sérieux. Vous repartez avec une feuille de route 30/60/90 jours à votre main.
+    </p>
+    <div class="dm4-meta-row">
+      <span class="dm4-meta-chip"><i></i>6 séquences</span>
+      <span class="dm4-meta-chip"><i></i>Livrables : 3 cas d'usage + feuille de route 30/60/90</span>
+    </div>
+
+    <div class="dm4-obj-grid">
+      <div class="dm4-obj dm4-reveal">
+        <span class="dm4-obj-num">1</span>
+        <div>
+          <div class="dm4-obj-kick">Administratif</div>
+          <div class="dm4-obj-txt">Comptes rendus structurés, emails, reporting, traduction FR/EN avec la vigilance qui s'impose sur les termes métier.</div>
+        </div>
+      </div>
+      <div class="dm4-obj dm4-reveal">
+        <span class="dm4-obj-num">2</span>
+        <div>
+          <div class="dm4-obj-kick">Technique &amp; B2B</div>
+          <div class="dm4-obj-txt">Analyse de documentation, fiches produit, synthèse de CCTP et trames de réponse AO — le fond toujours validé par les experts.</div>
+        </div>
+      </div>
+      <div class="dm4-obj dm4-reveal">
+        <span class="dm4-obj-num">3</span>
+        <div>
+          <div class="dm4-obj-kick">Cadre</div>
+          <div class="dm4-obj-txt">Une charte d'usage interne lisible en une minute : ce qui est autorisé, ce qui est encadré, ce qui est interdit — et pourquoi.</div>
+        </div>
+      </div>
+      <div class="dm4-obj dm4-reveal">
+        <span class="dm4-obj-num">4</span>
+        <div>
+          <div class="dm4-obj-kick">Humain</div>
+          <div class="dm4-obj-txt">Accueillir les résistances des collègues sans les braquer, et transformer vos deux ou trois cas d'usage en plan mesuré à 90 jours.</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="dm4-toc" aria-label="Sommaire du module">
+      <a href="#dm4-s1"><b>01</b> Parcours administratif</a>
+      <a href="#dm4-s2"><b>02</b> Parcours technique</a>
+      <a href="#dm4-s3"><b>03</b> Industrie B2B</a>
+      <a href="#dm4-s4"><b>04</b> Charte d'usage</a>
+      <a href="#dm4-s5"><b>05</b> Conduite du changement</a>
+      <a href="#dm4-s6"><b>06</b> Feuille de route</a>
+    </nav>
+  </header>
+
+  <!-- ============================================ -->
+  <!-- 01 — PARCOURS ADMINISTRATIF                   -->
+  <!-- ============================================ -->
+  <section class="dm4-sec" id="dm4-s1">
+    <div class="dm4-sec-head dm4-reveal">
+      <div class="dm4-sec-top">
+        <span class="dm4-sec-num">Séquence 01</span>
+        <span class="dm4-sec-note">Comptes rendus · emails · traduction</span>
+      </div>
+      <h2>Parcours <span class="dm4-serif-grad">administratif</span></h2>
+      <p class="dm4-sec-lede">
+        Le quotidien administratif de NORDFLOW est fait de documents qui se ressemblent sans jamais être identiques : comptes rendus de réunion et de chantier, emails de suivi, reportings hebdomadaires, versions anglaises pour le siège. L'IA excelle sur la <b>mise en structure</b> ; vous restez garant du fond, des noms propres et des chiffres.
+      </p>
+    </div>
+
+    <h3 class="dm4-h3 dm4-reveal">La chaîne du compte rendu — des notes brutes au résumé bilingue</h3>
+    <div class="dm4-pipe dm4-reveal">
+      <div class="dm4-pipe-cell">
+        <div class="dm4-pipe-kick">Entrée · terrain</div>
+        <div class="dm4-pipe-t">Notes brutes</div>
+        <p>Prises pendant la réunion ou la visite : abréviations, chiffres épars, noms de matériel. On y ajoute deux lignes de contexte pour l'IA — objet, participants anonymisés, enjeu.</p>
+      </div>
+      <div class="dm4-pipe-arrow" aria-hidden="true"></div>
+      <div class="dm4-pipe-cell">
+        <div class="dm4-pipe-kick">Traitement · IA</div>
+        <div class="dm4-pipe-t">CR structuré FR</div>
+        <p>Contexte, décisions actées, actions avec responsable et échéance, points ouverts. Vous relisez chaque action : une action mal attribuée est pire qu'une action non notée.</p>
+      </div>
+      <div class="dm4-pipe-arrow" aria-hidden="true"></div>
+      <div class="dm4-pipe-cell">
+        <div class="dm4-pipe-kick">Sortie · diffusion</div>
+        <div class="dm4-pipe-t">Résumé EN pour le siège</div>
+        <p>Version courte en anglais professionnel, huit lignes maximum, termes métier vérifiés un à un contre le glossaire interne. Vous validez avant envoi.</p>
+      </div>
+    </div>
+
+    <div class="dm4-case dm4-reveal">
+      <div class="dm4-case-head">
+        <span class="dm4-persona"><i>M</i>Maud · chargée d'affaires technique</span>
+        <span class="dm4-case-tag">Cas NORDFLOW — la réunion chantier</span>
+      </div>
+      <p>Retour d'une visite de mise en service : une page de notes au crayon, un planning qui glisse, une réserve technique à lever. Maud dicte le contexte à l'IA, colle ses notes <b>débarrassées du nom du client et du site</b>, et obtient en une minute un compte rendu structuré : trois décisions, sept actions datées, deux points ouverts. Elle corrige un responsable mal attribué et une date, puis fait produire le résumé anglais pour le siège. <b>Gain réel :</b> le CR part le jour même au lieu du surlendemain — et les sept actions sont relues, pas seulement générées.</p>
+    </div>
+
+    <div class="dm4-grid cols-2">
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">ADV</div>
+        <div class="dm4-card-t">Sonia — emails &amp; reporting sous charge</div>
+        <p>Accusés de commande, relances de devis en attente, réponses aux demandes de délai : l'IA prépare les brouillons dans le ton maison, Sonia personnalise la ligne qui compte. Le reporting hebdo : l'IA consolide les tableaux en texte lisible, Sonia vérifie chaque chiffre contre le CRM.</p>
+      </div>
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Comptabilité</div>
+        <div class="dm4-card-t">Inès — écrits qui engagent</div>
+        <p>Courriers de relance fournisseurs, clarifications de factures, notes internes : l'IA reformule sans ambiguïté. Règle Inès : jamais de montant, d'IBAN ou de numéro de facture saisi dans un outil grand public — les références restent dans les outils métier.</p>
+      </div>
+    </div>
+
+    <h3 class="dm4-h3 dm4-reveal">Traduction FR/EN — la vigilance termes métier, non négociable</h3>
+    <p class="body-p dm4-reveal">Sur un email courant, l'IA traduit très bien. Sur le vocabulaire d'exploitation, elle peut produire un anglais grammatical et un <b>contresens technique</b>. Le réflexe NORDFLOW : chaque terme métier est vérifié contre le glossaire interne avant envoi.</p>
+    <div class="dm4-tbl-wrap dm4-reveal">
+      <table class="dm4-tbl">
+        <thead>
+          <tr>
+            <th>Terme de chantier</th>
+            <th>Traduction attendue</th>
+            <th>Piège fréquent de l'IA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dm4-cell-main">skid</td>
+            <td><b>skid</b> — le terme ne se traduit pas</td>
+            <td>« frame » ou « chassis » : le lecteur imagine un châssis automobile</td>
+          </tr>
+          <tr>
+            <td class="dm4-cell-main">NPSH</td>
+            <td><b>NPSH</b> — abréviation universelle</td>
+            <td>Un développement inventé ou une « traduction » de l'acronyme</td>
+          </tr>
+          <tr>
+            <td class="dm4-cell-main">vanne de régulation</td>
+            <td><b>control valve</b></td>
+            <td>« regulation valve » : mot à mot, jamais entendu chez un exploitant</td>
+          </tr>
+          <tr>
+            <td class="dm4-cell-main">essai hydrostatique</td>
+            <td><b>hydrostatic test</b></td>
+            <td>« hydraulic essay » : un essai scolaire au lieu d'une épreuve d'étanchéité</td>
+          </tr>
+          <tr>
+            <td class="dm4-cell-main">presse-étoupe</td>
+            <td><b>cable gland</b> ou <b>stuffing box</b> selon le contexte</td>
+            <td>Une seule traduction quel que soit le contexte — câble ou arbre de pompe ?</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="dm4-callout is-info dm4-reveal">
+      <svg class="dm4-callout-ic" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <div>
+        <div class="dm4-callout-t">La règle de la chaîne administrative</div>
+        <p>L'IA traduit et structure ; <b>le métier valide</b>. Deux contrôles systématiques : les termes métier contre le glossaire, et l'anonymisation — noms de clients, de sites et de chantiers remplacés avant toute saisie dans un outil non validé par la charte.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 02 — PARCOURS TECHNIQUE INDUSTRIEL            -->
+  <!-- ============================================ -->
+  <section class="dm4-sec" id="dm4-s2">
+    <div class="dm4-sec-head dm4-reveal">
+      <div class="dm4-sec-top">
+        <span class="dm4-sec-num">Séquence 02</span>
+        <span class="dm4-sec-note">Documentation · fiches · normes</span>
+      </div>
+      <h2>Parcours technique <span class="dm4-serif-grad">industriel</span></h2>
+      <p class="dm4-sec-lede">
+        La technique industrielle est le terrain où l'IA est à la fois la plus utile et la plus dangereuse : utile pour digérer quatre-vingts pages de documentation, dangereuse dès qu'on lui demande un <b>fait</b> — une référence de norme, une compatibilité, un fournisseur. La ligne de partage est nette : l'IA structure, l'expert conclut.
+      </p>
+    </div>
+
+    <div class="dm4-grid cols-3">
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Usage 1</div>
+        <div class="dm4-card-t">Analyser une documentation</div>
+        <p>Dossier constructeur de quatre-vingts pages : l'IA en extrait les points clés — limites d'emploi, courbes, options — sous forme de tableau d'une page. L'expert vérifie les trois valeurs qui comptent contre le document source.</p>
+      </div>
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Usage 2</div>
+        <div class="dm4-card-t">Rédiger une fiche produit</div>
+        <p>Structure fixe — désignation, domaines d'emploi, performances, matériaux, options — remplie par l'IA à partir des données validées. Hervé fournit les valeurs ; l'IA les met en forme ; personne ne les inverse.</p>
+      </div>
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Usage 3</div>
+        <div class="dm4-card-t">Chercher normes &amp; fournisseurs</div>
+        <p>L'IA propose des pistes : familles de normes applicables, types de fournisseurs, mots-clés de recherche. Des pistes, jamais des références — chaque piste termine sur la source officielle.</p>
+      </div>
+    </div>
+
+    <div class="dm4-callout is-danger dm4-reveal">
+      <svg class="dm4-callout-ic" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+      <div>
+        <div class="dm4-callout-t">Vérification obligatoire des références — le cas Élise du module 1</div>
+        <p>Rappel : demandée en urgence, l'IA avait cité à Élise une référence normative parfaitement formatée — numéro, année, intitulé — <b>qui n'existait pas</b>. En documentation technique, toute référence citée par l'IA (EN, ISO, ATEX, DESP…) passe le même filtre : <b>source officielle ouverte, édition et année contrôlées, applicabilité au cas confirmée</b>. Aucune exception, même pressé, surtout pressé.</p>
+      </div>
+    </div>
+
+    <div class="dm4-case dm4-reveal">
+      <div class="dm4-case-head">
+        <span class="dm4-persona"><i>H</i>Hervé · directeur technique</span>
+        <span class="dm4-case-tag">Cas NORDFLOW — le dossier constructeur</span>
+      </div>
+      <p>Un constructeur envoie un dossier de quatre-vingts pages pour une nouvelle gamme. Hervé demande à l'IA un tableau de synthèse : plages de débit et de hauteur, matériaux disponibles, limites de température, options d'étanchéité. Dix minutes plus tard, il vérifie <b>quatre valeurs</b> dans le document source — deux sont justes, une est imprécise, une est fausse. Sans l'IA : deux heures de lecture. Sans sa vérification : une fiche produit erronée chez les clients. <b>Les deux temps sont indissociables.</b></p>
+    </div>
+
+    <h3 class="dm4-h3 dm4-reveal">La checklist de vérification d'une référence technique</h3>
+    <div class="dm4-grid cols-4">
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Contrôle 1</div>
+        <div class="dm4-card-t">Référence exacte</div>
+        <p>Le numéro complet existe-t-il dans le catalogue officiel de l'organisme ?</p>
+      </div>
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Contrôle 2</div>
+        <div class="dm4-card-t">Édition &amp; année</div>
+        <p>La version citée est-elle celle en vigueur, pas une édition remplacée ?</p>
+      </div>
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Contrôle 3</div>
+        <div class="dm4-card-t">Applicabilité</div>
+        <p>Le domaine d'application couvre-t-il réellement votre cas — fluide, zone, usage ?</p>
+      </div>
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Contrôle 4</div>
+        <div class="dm4-card-t">Source officielle</div>
+        <p>L'information vient-elle de l'organisme ou du constructeur, pas d'un résumé de résumé ?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 03 — CAS INDUSTRIE B2B                        -->
+  <!-- ============================================ -->
+  <section class="dm4-sec" id="dm4-s3">
+    <div class="dm4-sec-head dm4-reveal">
+      <div class="dm4-sec-top">
+        <span class="dm4-sec-num">Séquence 03</span>
+        <span class="dm4-sec-note">Argumentaires · CCTP · réponses AO</span>
+      </div>
+      <h2>Cas industrie <span class="dm4-serif-grad">B2B</span></h2>
+      <p class="dm4-sec-lede">
+        Répondre à un appel d'offres industriel, c'est lire un CCTP de soixante pages, en extraire quarante exigences et y répondre point par point — dans un délai qui ne pardonne pas. L'IA change l'économie de ce travail : elle <b>extrait, trie et trame</b> ; l'équipe garde l'analyse, le chiffrage et la signature.
+      </p>
+    </div>
+
+    <h3 class="dm4-h3 dm4-reveal">La méthode CCTP en quatre temps</h3>
+    <div class="dm4-flow">
+      <div class="dm4-flow-step dm4-reveal">
+        <div class="dm4-flow-rail"><div class="dm4-flow-dot">1</div><div class="dm4-flow-line"></div></div>
+        <div class="dm4-flow-body">
+          <div class="dm4-flow-t">Alléger avant de saisir</div>
+          <div class="dm4-flow-sub">Le CCTP brut ne part jamais dans un outil grand public : c'est un document confidentiel de l'acheteur. On travaille par extraits anonymisés — articles techniques copiés sans références nominatives — ou dans l'outil professionnel validé par la charte.</div>
+        </div>
+      </div>
+      <div class="dm4-flow-step dm4-reveal">
+        <div class="dm4-flow-rail"><div class="dm4-flow-dot">2</div><div class="dm4-flow-line"></div></div>
+        <div class="dm4-flow-body">
+          <div class="dm4-flow-t">Extraire les exigences en tableau</div>
+          <div class="dm4-flow-sub">« À partir de cet extrait, liste chaque exigence en une ligne : intitulé, type — technique, administrative, délai, garantie — et article source. Signale toute ambiguïté. » Chaque ligne est revérifiée contre le document : une exigence oubliée est une non-conformité.</div>
+        </div>
+      </div>
+      <div class="dm4-flow-step dm4-reveal">
+        <div class="dm4-flow-rail"><div class="dm4-flow-dot">3</div><div class="dm4-flow-line"></div></div>
+        <div class="dm4-flow-body">
+          <div class="dm4-flow-t">Générer la trame de réponse point par point</div>
+          <div class="dm4-flow-sub">Pour chaque exigence, l'IA propose une structure de réponse — conformité déclarée, moyen, preuve à joindre — que l'équipe complète. L'IA uniformise la forme ; le contenu technique vient des experts.</div>
+        </div>
+      </div>
+      <div class="dm4-flow-step dm4-reveal">
+        <div class="dm4-flow-rail"><div class="dm4-flow-dot">4</div><div class="dm4-flow-line"></div></div>
+        <div class="dm4-flow-body">
+          <div class="dm4-flow-t">Valider avant de chiffrer</div>
+          <div class="dm4-flow-sub">Revue croisée : Romain pilote la cohérence commerciale, Hervé et Maud valident le fond technique, Sonia monte le dossier administratif. Le chiffrage n'intervient qu'après validation du périmètre répondu.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dm4-tbl-wrap dm4-reveal">
+      <table class="dm4-tbl">
+        <thead>
+          <tr>
+            <th>Type d'exigence extraite</th>
+            <th>Exemple NORDFLOW</th>
+            <th>Qui valide la réponse</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="dm4-pill info">Technique</span></td>
+            <td>« Pompes conformes à la directive machines en vigueur, essais en usine documentés »</td>
+            <td>Hervé / Maud — compatibilité et preuves</td>
+          </tr>
+          <tr>
+            <td><span class="dm4-pill info">Délai</span></td>
+            <td>« Mise en service sous seize semaines à compter de la notification »</td>
+            <td>Hervé + production — engageabilité réelle</td>
+          </tr>
+          <tr>
+            <td><span class="dm4-pill warn">Garantie</span></td>
+            <td>« Garantie pièces et main-d'œuvre vingt-quatre mois, astreinte maintenance »</td>
+            <td>Romain — impact marge et risque</td>
+          </tr>
+          <tr>
+            <td><span class="dm4-pill warn">Administrative</span></td>
+            <td>« Attestations d'assurance, références comparables sur trois ans »</td>
+            <td>Sonia — dossier complet et daté</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="dm4-case dm4-reveal">
+      <div class="dm4-case-head">
+        <span class="dm4-persona"><i>R</i>Romain · chef des ventes</span>
+        <span class="dm4-persona"><i>H</i>Hervé · direction technique</span>
+        <span class="dm4-case-tag">Cas NORDFLOW — l'argumentaire technique</span>
+      </div>
+      <p>Pour défendre une solution face à deux concurrents, Romain fait structurer l'argumentaire par l'IA : besoin exprimé, réponse technique, preuve comparable, différenciation. La première version est fluide — et contient deux affirmations invérifiables et une performance surévaluée. Hervé barre, corrige, ajoute les vrais chiffres. <b>L'argumentaire final doit sa force à cette passe experte : un décideur technique achète la précision, pas la fluidité.</b></p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 04 — CHARTE D'USAGE IA INTERNE                -->
+  <!-- ============================================ -->
+  <section class="dm4-sec" id="dm4-s4">
+    <div class="dm4-sec-head dm4-reveal">
+      <div class="dm4-sec-top">
+        <span class="dm4-sec-num">Séquence 04</span>
+        <span class="dm4-sec-note">Autorisé · encadré · interdit</span>
+      </div>
+      <h2>La charte d'usage <span class="dm4-serif-grad">IA interne</span></h2>
+      <p class="dm4-sec-lede">
+        Une bonne charte tient sur une page et se lit en une minute : trois colonnes, des exemples pris dans <b>votre</b> quotidien, et la règle qui va avec chaque colonne. Depuis février 2025, le règlement européen sur l'IA fait de la <b>maîtrise de l'IA par les équipes une obligation légale</b> pour les entreprises qui déploient ces outils (art. 4) : une charte écrite et une formation — celle-ci — en sont la réponse directe.
+      </p>
+    </div>
+
+    <div class="dm4-matrix">
+      <div class="dm4-mcol ok dm4-reveal">
+        <div class="dm4-mcol-head">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" style="color:var(--ok)"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span class="dm4-mcol-head-t">Autorisé</span>
+        </div>
+        <div class="dm4-mcol-rule">Règle unique : relecture humaine systématique avant tout envoi ou diffusion.</div>
+        <div class="dm4-mitem"><b>Brainstorm structuré</b> — idées, angles, plans, variantes</div>
+        <div class="dm4-mitem"><b>Reformulation de textes internes</b> sans donnée personnelle ni confidentielle</div>
+        <div class="dm4-mitem"><b>Traduction de documents publics</b> — plaquettes, normes publiées, articles</div>
+        <div class="dm4-mitem"><b>Structuration de trames</b> — compte rendu, proposition, fiche produit<span class="dm4-anchor">Socle : aucune restriction légale spécifique · art. 4 = maîtrise requise</span></div>
+      </div>
+      <div class="dm4-mcol warn dm4-reveal">
+        <div class="dm4-mcol-head">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" style="color:var(--warn)"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+          <span class="dm4-mcol-head-t">Encadré</span>
+        </div>
+        <div class="dm4-mcol-rule">Trois conditions cumulées : validation humaine + anonymisation + outil professionnel validé.</div>
+        <div class="dm4-mitem"><b>Synthèse de documents clients</b> pseudonymisés — nom et site remplacés</div>
+        <div class="dm4-mitem"><b>Rédaction d'emails clients</b> relus ligne à ligne avant envoi</div>
+        <div class="dm4-mitem"><b>Préparation de rendez-vous</b> à partir d'extraits CRM nettoyés</div>
+        <div class="dm4-mitem"><b>Veille documentée</b> avec vérification de chaque source citée<span class="dm4-anchor">Ancrage : minimisation RGPD · fiches CNIL · transparence si la personne interagit avec le système (art. 50)</span></div>
+      </div>
+      <div class="dm4-mcol err dm4-reveal">
+        <div class="dm4-mcol-head">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" style="color:var(--err)"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+          <span class="dm4-mcol-head-t">Interdit</span>
+        </div>
+        <div class="dm4-mcol-rule">Aucune exception, y compris « juste une fois, en urgence ».</div>
+        <div class="dm4-mitem"><b>Secrets de l'entreprise dans un outil grand public</b> — prix, plans, CCTP, code</div>
+        <div class="dm4-mitem"><b>Données personnelles non anonymisées</b> — fiches salariés, dossiers clients nominatifs</div>
+        <div class="dm4-mitem"><b>Reconnaissance des émotions</b> de collaborateurs ou de candidats<span class="dm4-anchor">Interdit légal · art. 5 IA Act, depuis le 2 fév. 2025 · sanctions jusqu'à 35 M€ ou 7 % du CA mondial</span></div>
+        <div class="dm4-mitem"><b>Décision RH automatisée sans humain</b> — tri de CV, notation, promotion<span class="dm4-anchor">Haut risque · annexe III IA Act</span></div>
+        <div class="dm4-mitem"><b>Présenter un texte généré comme entièrement humain</b> là où la transparence est due<span class="dm4-anchor">Transparence · art. 50, en vigueur depuis août 2026</span></div>
+      </div>
+    </div>
+
+    <!-- Jeu de classification -->
+    <div class="dm4-game dm4-reveal" id="dm4-game">
+      <div class="dm4-game-kick">À vous — six situations réelles</div>
+      <div class="dm4-game-t">Autorisé, encadré ou interdit ? Classez chaque situation.</div>
+      <p class="dm4-game-help">Répondez d'instinct, puis lisez le retour : c'est le raisonnement qui compte, pas le score. Cet échauffement prépare l'atelier où vous compléterez la matrice avec vos propres cas.</p>
+      <div class="dm4-game-count"><span id="dm4-gdone">0</span> / 6 classées</div>
+
+      <div class="dm4-gcard" data-answer="a" data-fb="Aucune donnée personnelle ni confidentielle : c'est de la reformulation interne, autorisée — avec relecture avant diffusion, comme tout texte.">
+        <p class="dm4-gcase"><b>1.</b> Reformuler une note interne de planning de production, sans nom de salarié ni donnée client.</p>
+        <div class="dm4-gbtns">
+          <button type="button" class="dm4-gbtn" data-v="a">Autorisé</button>
+          <button type="button" class="dm4-gbtn" data-v="e">Encadré</button>
+          <button type="button" class="dm4-gbtn" data-v="i">Interdit</button>
+        </div>
+        <div class="dm4-gfb"></div>
+      </div>
+
+      <div class="dm4-gcard" data-answer="e" data-fb="Le contenu reste un document client : la pseudonymisation est la bonne pratique, mais il faut en plus validation humaine et outil validé. Encadré.">
+        <p class="dm4-gcase"><b>2.</b> Résumer le compte rendu d'une réunion client en remplaçant le nom du client par « le client ».</p>
+        <div class="dm4-gbtns">
+          <button type="button" class="dm4-gbtn" data-v="a">Autorisé</button>
+          <button type="button" class="dm4-gbtn" data-v="e">Encadré</button>
+          <button type="button" class="dm4-gbtn" data-v="i">Interdit</button>
+        </div>
+        <div class="dm4-gfb"></div>
+      </div>
+
+      <div class="dm4-gcard" data-answer="i" data-fb="Un CCTP est un document confidentiel de l'acheteur : le coller en entier dans un outil grand public, c'est faire sortir un secret commercial. On travaille par extraits anonymisés, ou dans l'outil professionnel validé.">
+        <p class="dm4-gcase"><b>3.</b> Coller un CCTP complet, reçu d'un acheteur public, dans un assistant grand public pour en extraire les exigences.</p>
+        <div class="dm4-gbtns">
+          <button type="button" class="dm4-gbtn" data-v="a">Autorisé</button>
+          <button type="button" class="dm4-gbtn" data-v="e">Encadré</button>
+          <button type="button" class="dm4-gbtn" data-v="i">Interdit</button>
+        </div>
+        <div class="dm4-gfb"></div>
+      </div>
+
+      <div class="dm4-gcard" data-answer="a" data-fb="Un brainstorm ne contient ni donnée personnelle ni secret : autorisé. La vigilance viendra après — vérifier les faits retenus pour le post final.">
+        <p class="dm4-gcase"><b>4.</b> Demander dix idées d'angles pour un post LinkedIn sur un retour d'expérience de chantier.</p>
+        <div class="dm4-gbtns">
+          <button type="button" class="dm4-gbtn" data-v="a">Autorisé</button>
+          <button type="button" class="dm4-gbtn" data-v="e">Encadré</button>
+          <button type="button" class="dm4-gbtn" data-v="i">Interdit</button>
+        </div>
+        <div class="dm4-gfb"></div>
+      </div>
+
+      <div class="dm4-gcard" data-answer="e" data-fb="Les données CRM sont des données personnelles de contacts professionnels : nettoyées et minimisées, l'usage devient possible — avec validation humaine et outil validé. Encadré.">
+        <p class="dm4-gcase"><b>5.</b> Préparer un rendez-vous à partir d'extraits CRM débarrassés des coordonnées et noms des contacts.</p>
+        <div class="dm4-gbtns">
+          <button type="button" class="dm4-gbtn" data-v="a">Autorisé</button>
+          <button type="button" class="dm4-gbtn" data-v="e">Encadré</button>
+          <button type="button" class="dm4-gbtn" data-v="i">Interdit</button>
+        </div>
+        <div class="dm4-gfb"></div>
+      </div>
+
+      <div class="dm4-gcard" data-answer="i" data-fb="Le tri ou le classement de candidats par IA est classé haut risque (annexe III, emploi) et une décision RH sans intervention humaine est hors cadre. Interdit — point.">
+        <p class="dm4-gcase"><b>6.</b> Faire classer les CV d'un recrutement par l'IA pour ne lire que les « meilleurs ».</p>
+        <div class="dm4-gbtns">
+          <button type="button" class="dm4-gbtn" data-v="a">Autorisé</button>
+          <button type="button" class="dm4-gbtn" data-v="e">Encadré</button>
+          <button type="button" class="dm4-gbtn" data-v="i">Interdit</button>
+        </div>
+        <div class="dm4-gfb"></div>
+      </div>
+
+      <div class="dm4-game-end" id="dm4-game-end">
+        <b>Six sur six.</b> Vous avez le raisonnement de la charte : ce qui change tout, ce n'est pas l'outil ni l'intention — c'est la <b>nature de la donnée</b> qui entre dans le prompt. En atelier, vous ajouterez vos propres lignes à la matrice : un cas « autorisé », un cas « encadré » et un cas « interdit » issus de votre poste.
+      </div>
+    </div>
+
+    <div class="dm4-callout is-info dm4-reveal">
+      <svg class="dm4-callout-ic" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <div>
+        <div class="dm4-callout-t">Le cadre légal en trois repères (état septembre 2026)</div>
+        <p><b>Maîtrise de l'IA (art. 4) :</b> en vigueur depuis le 2 février 2025, fournisseurs et déployeurs doivent assurer un niveau suffisant de maîtrise de l'IA de leurs équipes — la formation est le moyen direct d'y répondre.</p>
+        <p><b>Transparence (art. 50) :</b> en vigueur depuis le 2 août 2026 — informer lorsqu'une personne interagit avec un système d'IA.</p>
+        <p><b>Haut risque (annexe III) :</b> filtrage de CV, évaluation des travailleurs — classification inchangée, obligations reportées au 2 décembre 2027 par le règlement 2026/1744 (« Digital Omnibus »). Le tri RH sans humain reste hors cadre dès aujourd'hui pour une PME : ne pas le faire, tout simplement.</p>
+      </div>
+    </div>
+
+    <p class="dm4-src dm4-reveal"><b>Sources :</b> Règlement (UE) 2024/1689 (« IA Act »), art. 4, 5, 50, 99 et annexe III — eur-lex.europa.eu ; Règlement (UE) 2026/1744 du 8 juillet 2026 — report haut risque au 2 déc. 2027 ; CNIL, fiches pratiques IA (2024-2025) ; EDPB, avis 28/2024 (18 déc. 2024) — anonymat des modèles apprécié au cas par cas. Montants de sanctions : art. 99 (jusqu'à 35 M€ ou 7 % du CA mondial pour les pratiques interdites).</p>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 05 — CONDUITE DU CHANGEMENT                   -->
+  <!-- ============================================ -->
+  <section class="dm4-sec" id="dm4-s5">
+    <div class="dm4-sec-head dm4-reveal">
+      <div class="dm4-sec-top">
+        <span class="dm4-sec-num">Séquence 05</span>
+        <span class="dm4-sec-note">Résistances · postures · relais</span>
+      </div>
+      <h2>Conduite du <span class="dm4-serif-grad">changement</span></h2>
+      <p class="dm4-sec-lede">
+        L'outil ne fait pas l'usage. Selon Microsoft et LinkedIn (données éditeur, 2024), <b>39 % seulement</b> des utilisateurs d'IA au travail ont été formés par leur entreprise — les autres apprennent seuls, par essai-erreur. Et selon le Slack Workforce Index (données éditeur, 2024), les équipes dont l'entreprise a publié des consignes claires expérimentent <b>plusieurs fois plus</b> que les autres. Le cadre n'est pas une contrainte : c'est le déclencheur.
+      </p>
+    </div>
+
+    <div class="dm4-stats">
+      <div class="dm4-stat dm4-reveal">
+        <div class="dm4-stat-num">39 %</div>
+        <div class="dm4-stat-cap">des utilisateurs d'IA au travail ont été <b>formés par leur entreprise</b> — données éditeur Microsoft/LinkedIn, 2024</div>
+      </div>
+      <div class="dm4-stat dm4-reveal">
+        <div class="dm4-stat-num">× 6</div>
+        <div class="dm4-stat-cap">d'expérimentation en plus, environ, quand l'entreprise a publié des <b>consignes claires</b> — données éditeur Slack, 2024</div>
+      </div>
+      <div class="dm4-stat dm4-reveal">
+        <div class="dm4-stat-num">59 %</div>
+        <div class="dm4-stat-cap">des travailleurs devront être <b>formés d'ici 2030</b> — Forum économique mondial, 2025</div>
+      </div>
+    </div>
+
+    <h3 class="dm4-h3 dm4-reveal">Quatre résistances que vous rencontrerez — et ce qu'elles cachent</h3>
+    <div class="dm4-resist">
+      <div class="dm4-rcard dm4-reveal">
+        <p class="dm4-rquote">« Ça va trop vite, tout ça. »</p>
+        <div class="dm4-rrow"><span class="dm4-rrow-k">Elle cache</span><p>La crainte de perdre la maîtrise d'un métier mis des années à construire.</p></div>
+        <div class="dm4-rrow"><span class="dm4-rrow-k">La posture</span><p>Partir de SA tâche la plus pénible et lui laisser choisir ce qui part à l'IA — la maîtrise reste entre ses mains.</p></div>
+      </div>
+      <div class="dm4-rcard dm4-reveal">
+        <p class="dm4-rquote">« J'ai testé une fois, c'était nul. »</p>
+        <div class="dm4-rrow"><span class="dm4-rrow-k">Elle cache</span><p>Un prompt nu sur un vrai cas complexe — l'échec était dans la méthode, pas dans l'outil.</p></div>
+        <div class="dm4-rrow"><span class="dm4-rrow-k">La posture</span><p>Rejouer SON cas ensemble, en direct, avec un prompt travaillé : la démonstration sur son terrain vaut tous les argumentaires.</p></div>
+      </div>
+      <div class="dm4-rcard dm4-reveal">
+        <p class="dm4-rquote">« Je n'ai pas le temps d'apprendre. »</p>
+        <div class="dm4-rrow"><span class="dm4-rrow-k">Elle cache</span><p>Une charge réelle — et l'impression que l'IA est une tâche de plus au lieu d'une tâche en moins.</p></div>
+        <div class="dm4-rrow"><span class="dm4-rrow-k">La posture</span><p>Un seul cas d'usage, quinze minutes par semaine, sur la tâche qui lui mange déjà son vendredi après-midi.</p></div>
+      </div>
+      <div class="dm4-rcard dm4-reveal">
+        <p class="dm4-rquote">« Et mon métier, demain ? »</p>
+        <div class="dm4-rrow"><span class="dm4-rrow-k">Elle cache</span><p>Une inquiétude de fond, légitime, qu'aucun chiffre de productivité n'apaisera.</p></div>
+        <div class="dm4-rrow"><span class="dm4-rrow-k">La posture</span><p>La nommer sans la balayer, puis montrer concrètement ce qui monte en valeur : le jugement, la relation, l'expertise — ce que l'IA ne fait pas.</p></div>
+      </div>
+    </div>
+
+    <h3 class="dm4-h3 dm4-reveal">Le cas de la réunion qui tourne mal — traité en postures</h3>
+    <p class="body-p dm4-reveal">En réunion d'équipe, vous présentez un cas d'usage qui a bien marché chez vous. Face à vous, une collègue se braque : on lui dit qu'elle va « gagner du temps », elle entend qu'elle devra <b>aller plus vite, avec moins de marge</b> — et que ce qu'elle sait faire compterait moins. La scène est banale ; l'issue se joue sur votre posture, pas sur vos arguments.</p>
+
+    <div class="dm4-grid cols-2">
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Ce qui fonctionne</div>
+        <div class="dm4-card-t">Trois postures qui désamorcent</div>
+        <ul>
+          <li><b>Partir de sa tâche pénible</b> — « qu'est-ce qui te prend du temps pour zéro valeur ? » — jamais de sa compétence.</li>
+          <li><b>Montrer sur son cas, en privé ou en petit comité</b> — une démonstration réussie sur SON document, pas un cas générique projeté.</li>
+          <li><b>Lui laisser la main</b> — elle décide de ce qui part à l'IA et de ce qui n'y va pas ; le contrôle est le message.</li>
+        </ul>
+      </div>
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Ce qui braque</div>
+        <div class="dm4-card-t">Trois erreurs à ne pas commettre</div>
+        <ul>
+          <li><b>L'argumentaire technophile</b> — empiler les chiffres et les fonctions face à une inquiétude de métier.</li>
+          <li><b>La pression collective</b> — « tout le monde s'y met » transforme une question en isolement.</li>
+          <li><b>La démonstration en public</b> — projeter son document sans accord l'expose au lieu de la convaincre.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="dm4-h3 dm4-reveal">Faire monter l'équipe en compétences — les relais qui marchent</h3>
+    <div class="dm4-grid cols-4">
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Relais 1</div>
+        <div class="dm4-card-t">Le binôme</div>
+        <p>Deux collègues, un cas d'usage commun, une demi-heure par semaine : on apprend à deux ce qu'on n'ose pas seul.</p>
+      </div>
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Relais 2</div>
+        <div class="dm4-card-t">La bibliothèque partagée</div>
+        <p>Les prompts qui marchent rejoignent la bibliothèque d'équipe du module 2 — avec le nom du cas, pas seulement le texte.</p>
+      </div>
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Relais 3</div>
+        <div class="dm4-card-t">Le rituel court</div>
+        <p>Quinze minutes en réunion d'équipe : un cas partagé, un piège, une décision. Court, régulier, jamais annulé.</p>
+      </div>
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Relais 4</div>
+        <div class="dm4-card-t">Les ambassadeurs</div>
+        <p>Un relais par service — chez NORDFLOW, Théo les anime et fait circuler les réussites avec leurs preuves, temps gagné à l'appui.</p>
+      </div>
+    </div>
+
+    <p class="dm4-src dm4-reveal"><b>Sources :</b> Microsoft / LinkedIn, Work Trend Index 2024 — 39 % formés par l'entreprise (données éditeur) ; Slack Workforce Index, 2024 — consignes claires et expérimentation (données éditeur, facteur présenté comme ordre de grandeur) ; Forum économique mondial, Future of Jobs Report 2025 — 59 % des travailleurs à former d'ici 2030. Postures d'accompagnement : méthode pédagogique Akademia, ancrée sur ces constats documentés.</p>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 06 — FEUILLE DE ROUTE 30/60/90                -->
+  <!-- ============================================ -->
+  <section class="dm4-sec" id="dm4-s6">
+    <div class="dm4-sec-head dm4-reveal">
+      <div class="dm4-sec-top">
+        <span class="dm4-sec-num">Séquence 06</span>
+        <span class="dm4-sec-note">Méthode · indicateurs · pièges</span>
+      </div>
+      <h2>Feuille de route <span class="dm4-serif-grad">30 / 60 / 90 jours</span></h2>
+      <p class="dm4-sec-lede">
+        Les études mesurent des gains de <b>15 à 40 % sur des tâches choisies</b> — et des échecs sur des tâches mal choisies. Le facteur discriminant n'est ni l'outil ni le talent : c'est la <b>sélection des cas d'usage</b>. La feuille de route applique cette leçon : deux ou trois cas à fort gain, mesurés, étendus seulement quand ils tiennent.
+      </p>
+    </div>
+
+    <div class="dm4-stats">
+      <div class="dm4-stat dm4-reveal">
+        <div class="dm4-stat-num">+14 %</div>
+        <div class="dm4-stat-cap">de productivité moyenne au support client — <b>+34 % chez les novices</b>, quasi nul chez les experts (NBER, 2023)</div>
+      </div>
+      <div class="dm4-stat dm4-reveal">
+        <div class="dm4-stat-num">−25 %</div>
+        <div class="dm4-stat-cap">de temps et <b>+40 % de qualité</b> sur les tâches adaptées — consultants BCG avec GPT-4 (Harvard, 2023)</div>
+      </div>
+      <div class="dm4-stat dm4-reveal">
+        <div class="dm4-stat-num">−19 pts</div>
+        <div class="dm4-stat-cap">de bonnes réponses sur la <b>tâche piège</b>, hors frontière des capacités de l'IA — même étude Harvard</div>
+      </div>
+    </div>
+
+    <h3 class="dm4-h3 dm4-reveal">La trajectoire — trois jalons, une décision à chaque fois</h3>
+    <div class="dm4-road">
+      <div class="dm4-rstep dm4-reveal">
+        <div class="dm4-rstep-head">
+          <div class="dm4-rstep-j">J + 30</div>
+          <div class="dm4-rstep-t">Choisir · mesurer le point de départ</div>
+        </div>
+        <div class="dm4-rstep-body">
+          <ul>
+            <li>Sélectionner deux ou trois cas d'usage avec la grille ci-dessous</li>
+            <li>Mesurer le temps actuel sur chaque tâche — sans mesure de départ, pas de preuve</li>
+            <li>Constituer le binôme et poser les prompts initiaux dans la bibliothèque</li>
+          </ul>
+        </div>
+      </div>
+      <div class="dm4-rstep dm4-reveal">
+        <div class="dm4-rstep-head">
+          <div class="dm4-rstep-j">J + 60</div>
+          <div class="dm4-rstep-t">Pratiquer · mesurer · ajuster</div>
+        </div>
+        <div class="dm4-rstep-body">
+          <ul>
+            <li>Pratiquer chaque semaine, sur des cas réels, pas des exercices</li>
+            <li>Mesurer à nouveau : temps, reprises nécessaires, qualité perçue</li>
+            <li>Ajuster les prompts, partager un premier résultat chiffré en rituel d'équipe</li>
+          </ul>
+        </div>
+      </div>
+      <div class="dm4-rstep dm4-reveal">
+        <div class="dm4-rstep-head">
+          <div class="dm4-rstep-j">J + 90</div>
+          <div class="dm4-rstep-t">Décider · documenter · étendre</div>
+        </div>
+        <div class="dm4-rstep-body">
+          <ul>
+            <li>Décider cas par cas : consolider, étendre — ou abandonner ce qui ne tient pas</li>
+            <li>Documenter les cas qui marchent dans la bibliothèque d'équipe</li>
+            <li>Mettre à jour la charte si un usage a changé de colonne, puis ouvrir un troisième cas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="dm4-h3 dm4-reveal">La grille de sélection des cas d'usage</h3>
+    <div class="dm4-tbl-wrap dm4-reveal">
+      <table class="dm4-tbl">
+        <thead>
+          <tr>
+            <th>Critère</th>
+            <th>La question à se poser</th>
+            <th>Le bon signal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dm4-cell-main">Tâche chronophage</td>
+            <td>Combien d'heures par semaine cette tâche coûte-t-elle, mesuré ?</td>
+            <td>Une heure ou plus, récurrente, documentée</td>
+          </tr>
+          <tr>
+            <td class="dm4-cell-main">Valeur</td>
+            <td>Le temps rendu se réinvestit-il sur une tâche à plus forte valeur ?</td>
+            <td>Oui, et vous savez sur laquelle</td>
+          </tr>
+          <tr>
+            <td class="dm4-cell-main">Risque</td>
+            <td>Qu'arrive-t-il si la sortie est fausse et passe le filtre ?</td>
+            <td>Peu, car la relecture est intégrée au geste</td>
+          </tr>
+          <tr>
+            <td class="dm4-cell-main">Outil</td>
+            <td>L'outil validé par la charte couvre-t-il ce cas, avec cette donnée ?</td>
+            <td>Oui — sinon le cas attend, il ne triche pas</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="dm4-h3 dm4-reveal">Les indicateurs — quatre, pas quarante</h3>
+    <div class="dm4-grid cols-4">
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Mesure 1</div>
+        <div class="dm4-card-t">Temps par tâche</div>
+        <p>Avant / après, sur dix occurrences — pas au ressenti.</p>
+      </div>
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Mesure 2</div>
+        <div class="dm4-card-t">Taux de reprise</div>
+        <p>Part de la sortie IA corrigée avant usage : elle doit baisser à mesure que le prompt monte en qualité.</p>
+      </div>
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Mesure 3</div>
+        <div class="dm4-card-t">Volume traité</div>
+        <p>Ce qui part réellement : CR envoyés à J, devis relancés, fiches produites.</p>
+      </div>
+      <div class="dm4-card dm4-reveal">
+        <div class="dm4-card-kick">Mesure 4</div>
+        <div class="dm4-card-t">Adoption d'équipe</div>
+        <p>Prompts ajoutés à la bibliothèque partagée par d'autres que vous — le signe que l'usage essaime.</p>
+      </div>
+    </div>
+
+    <div class="dm4-callout is-warn dm4-reveal">
+      <svg class="dm4-callout-ic" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+      <div>
+        <div class="dm4-callout-t">Les quatre pièges du déploiement</div>
+        <p><b>Le big bang :</b> tout changer d'un coup, dix cas d'usage lancés, aucun mesuré — échec garanti et perte de crédit durable.</p>
+        <p><b>L'outil imposé sans usage :</b> une licence distribuée sans cas d'usage défini finit en icône non ouverte. On déploie un usage, pas un outil.</p>
+        <p><b>L'absence de mesure de départ :</b> sans « avant », tout « après » est indémontrable — et le premier sceptique venu gagne le débat.</p>
+        <p><b>L'essaim sans validation :</b> des usages qui se multiplient hors charte, avec des données qui ne devraient pas y passer. La traçabilité n'est pas de la bureaucratie : c'est ce qui permet de continuer.</p>
+      </div>
+    </div>
+
+    <div class="dm4-callout is-ok dm4-reveal">
+      <svg class="dm4-callout-ic" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      <div>
+        <div class="dm4-callout-t">À vous — atelier « 90 jours pour changer de rythme »</div>
+        <p>Choisissez votre carte poste — commercial sédentaire, commercial régional, ADV, marketing-communication, technique-chantier — et construisez votre propre feuille de route : trois cas d'usage passés à la grille, vos jalons 30/60/90, vos indicateurs, vos alliés et vos risques. Vous repartirez avec votre plan, exporté, prêt à être présenté à votre équipe — y compris à celui ou celle qui se braque : deux postures sont prévues pour ça.</p>
+      </div>
+    </div>
+
+    <p class="dm4-src dm4-reveal"><b>Sources :</b> Brynjolfsson, Li &amp; Raymond, « Generative AI at Work », NBER Working Paper 31161 (2023) — +14 % en moyenne, +34 % chez les agents les moins expérimentés, étude sur un centre de support client ; Dell'Acqua, Mollick, Lakhani et al., « Navigating the Jagged Technological Frontier », Harvard Business School WP 24-013 (2023) — +12 % de tâches, −25 % de temps, +40 % de qualité sur les tâches adaptées, −19 points sur la tâche piège. Gains mesurés sur tâches précises en cadre contrôlé : non généralisables tels quels, d'où la méthode de sélection.</p>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- NAVIGATION DE PAGE                             -->
+  <!-- ============================================ -->
+  <nav class="dm4-pagenav no-print" aria-label="Navigation entre modules">
+    <a class="dm4-pn" href="./sim-sequence-ia-entreprise.html">
+      <div class="dm4-pn-k">Précédent · Jour 2</div>
+      <div class="dm4-pn-t">Simulation — Opération Nouveau Compte</div>
+    </a>
+    <a class="dm4-pn next" href="./sim-feuille-route-ia-entreprise.html">
+      <div class="dm4-pn-k">Suivant · Jour 2</div>
+      <div class="dm4-pn-t">Atelier-simulation — 90 jours pour changer de rythme</div>
+    </a>
+  </nav>
+
+  <p class="dm4-footline">Akademia Formation · IA en Entreprise<br>Booster sa Productivité Commerciale et Métier avec l'IA Générative</p>
+
+</div>
+
+<script>
+// ============================================================
+// THEME TOGGLE
+// ============================================================
+document.getElementById('darkToggle').addEventListener('click', function() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('ia_entreprise_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+});
+
+// ============================================================
+// xAPI — helpers sécurisés
+// ============================================================
+var DM4_PAGE_ID = 'deck-m4-ia-entreprise';
+var DM4_PAGE_NAME = 'Module 4 — Usages métiers et déploiement';
+function dm4xp(fn) {
+  try { if (typeof xapiTracker !== 'undefined') { fn(xapiTracker); } } catch (e) { /* tracking non bloquant */ }
+}
+dm4xp(function(x) { if (x.setCourse) { x.setCourse('ia-entreprise'); } });
+dm4xp(function(x) { x.trackPageView(DM4_PAGE_ID, DM4_PAGE_NAME); });
+
+var _dm4Start = Date.now();
+setInterval(function() {
+  var elapsed = Math.floor((Date.now() - _dm4Start) / 1000);
+  dm4xp(function(x) { x.trackTimeSpent(DM4_PAGE_ID, DM4_PAGE_NAME, elapsed); });
+}, 30000);
+window.addEventListener('beforeunload', function() {
+  var elapsed = Math.floor((Date.now() - _dm4Start) / 1000);
+  dm4xp(function(x) {
+    x.trackTimeSpent(DM4_PAGE_ID, DM4_PAGE_NAME, elapsed);
+    if (elapsed > 60 && x.trackCompleted) { x.trackCompleted(DM4_PAGE_ID, DM4_PAGE_NAME, elapsed); }
+  });
+});
+
+var _dm4MaxScroll = 0;
+window.addEventListener('scroll', function() {
+  var docH = document.documentElement.scrollHeight - window.innerHeight;
+  if (docH <= 0) { return; }
+  var pct = Math.round((window.scrollY / docH) * 100);
+  var bar = document.getElementById('dm4-progress');
+  if (bar) { bar.style.width = pct + '%'; }
+  if (pct > _dm4MaxScroll + 10) {
+    _dm4MaxScroll = pct;
+    dm4xp(function(x) { x.trackScrollDepth(DM4_PAGE_ID, DM4_PAGE_NAME, _dm4MaxScroll); });
+  }
+});
+
+// ============================================================
+// REVEAL ON SCROLL
+// ============================================================
+(function() {
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.dm4-reveal').forEach(function(el) { el.classList.add('visible'); });
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.dm4-reveal').forEach(function(el) { obs.observe(el); });
+})();
+
+// ============================================================
+// JEU « À VOUS DE CLASSER » (séquence 04)
+// ============================================================
+(function() {
+  var done = 0, okCount = 0, tracked = false;
+  var labels = { a: 'Autorisé', e: 'Encadré', i: 'Interdit' };
+
+  document.querySelectorAll('#dm4-game .dm4-gcard').forEach(function(card) {
+    var expected = card.getAttribute('data-answer');
+    var fb = card.querySelector('.dm4-gfb');
+    var fbText = card.getAttribute('data-fb');
+
+    card.querySelectorAll('.dm4-gbtn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var v = btn.getAttribute('data-v');
+        var good = (v === expected);
+        card.querySelectorAll('.dm4-gbtn').forEach(function(b) {
+          b.disabled = true;
+          if (b.getAttribute('data-v') === expected) { b.classList.add('hit'); }
+        });
+        if (!good) { btn.classList.add('miss'); btn.style.opacity = '1'; }
+        card.classList.add(good ? 'done-ok' : 'done-ko');
+        fb.innerHTML = (good ? '<b>Exact.</b> ' : '<b>Pas tout à fait — la bonne réponse est « ' + labels[expected] + ' ».</b> ') + fbText;
+        fb.classList.add('show');
+        done++;
+        if (good) { okCount++; }
+        var counter = document.getElementById('dm4-gdone');
+        if (counter) { counter.textContent = done; }
+        if (done === 6) {
+          document.getElementById('dm4-game-end').classList.add('show');
+          if (!tracked) {
+            tracked = true;
+            dm4xp(function(x) { if (x.trackInteraction) { x.trackInteraction(DM4_PAGE_ID, DM4_PAGE_NAME, 'classify-charte-done-' + okCount + '-6'); } });
+          }
+        }
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

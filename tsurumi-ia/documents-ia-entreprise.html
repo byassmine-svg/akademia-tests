@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bibliothèque des livrables — IA en Entreprise | Akademia Formation</title>
+  <meta name="description" content="Les 6 livrables de la formation IA en Entreprise, en contenu intégral : grille de choix d'outil IA et sécurité des données, méthode CRISP et 15 prompts prêts à copier, playbook commercial et social selling LinkedIn, modèles vierges (cas d'usage, feuille de route 30/60/90), charte d'usage IA interne et références sourcées.">
+
+  <!-- Dark mode anti-flicker -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('ia_entreprise_theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Polices charte Akademia (Instrument Sans / Inter variable / Instrument Serif / Fragment Mono) -->
+  <link rel="stylesheet" href="assets/css/fonts-akademia.css">
+
+  <style>
+    /* ============================================================
+       CHARTE AKADEMIA — tokens (clair / nuit via html.dark)
+       Socle cloné de positionnement-ia-entreprise.html
+       ============================================================ */
+    :root{
+      --bg:#F7F9FC; --surface:#FFFFFF; --soft:#F1F5FA;
+      --ink:#0F172A; --body-c:#3F4C61; --legend:#64748B; --tert:#94A3B8;
+      --line:#E7EAF2;
+      --blue:#2563EB; --violet:#7C3AED; --g1:#2563EB; --g2:#7C3AED;
+      --blue-soft:rgba(37,99,235,.5);
+      --c-fondamentaux:#2563EB; --c-prompt:#7C3AED; --c-commercial:#0E7490; --c-metiers:#047857;
+      --chip-fond-bg:rgba(37,99,235,.09); --chip-prompt-bg:rgba(124,58,237,.09); --chip-com-bg:rgba(6,182,212,.12); --chip-met-bg:rgba(16,185,129,.12);
+      --ok:#10B981; --ok-ink:#047857; --ok-bg:rgba(16,185,129,.08); --ok-line:rgba(16,185,129,.35);
+      --err:#DC2626; --err-ink:#B91C1C; --err-bg:rgba(220,38,38,.06); --err-line:rgba(220,38,38,.3);
+      --warn:#F97316; --warn-ink:#C2410C; --warn-bg:rgba(249,115,22,.1); --warn-line:rgba(249,115,22,.35);
+      --amber:#F59E0B;
+      --sel-bg:rgba(37,99,235,.07);
+      --focus:rgba(37,99,235,.28);
+      --cta-shadow:0 12px 30px rgba(109,40,217,.26);
+      --nav-bg:rgba(255,255,255,.82);
+      --grain-o:.045;
+      --dl:inline-block; --dd:none;
+      --pre-bg:#F6F8FC; --pre-line:#E2E8F2;
+    }
+    html.dark{
+      --bg:#05070E; --surface:#0A0F1D; --soft:#0D1322;
+      --ink:#F2F5FB; --body-c:#B4BFD1; --legend:#8B99AF; --tert:#5F6C81;
+      --line:rgba(148,163,184,.14);
+      --blue:#5B8DF8; --violet:#A78BFA; --g1:#5B8DF8; --g2:#A78BFA;
+      --blue-soft:rgba(91,141,248,.55);
+      --c-fondamentaux:#5B8DF8; --c-prompt:#A78BFA; --c-commercial:#45C8FF; --c-metiers:#34D399;
+      --chip-fond-bg:rgba(91,141,248,.13); --chip-prompt-bg:rgba(167,139,250,.13); --chip-com-bg:rgba(69,200,255,.11); --chip-met-bg:rgba(52,211,153,.13);
+      --ok:#34D399; --ok-ink:#6EE7B7; --ok-bg:rgba(52,211,153,.09); --ok-line:rgba(52,211,153,.32);
+      --err:#F87171; --err-ink:#FCA5A5; --err-bg:rgba(248,113,113,.08); --err-line:rgba(248,113,113,.32);
+      --warn:#FB923C; --warn-ink:#FDBA74; --warn-bg:rgba(251,146,60,.12); --warn-line:rgba(251,146,60,.35);
+      --amber:#FBBF24;
+      --sel-bg:rgba(91,141,248,.11);
+      --focus:rgba(91,141,248,.4);
+      --cta-shadow:0 12px 30px rgba(23,12,58,.55);
+      --nav-bg:rgba(5,7,14,.78);
+      --grain-o:.06;
+      --dl:none; --dd:inline-block;
+      --pre-bg:#0B1120; --pre-line:rgba(148,163,184,.16);
+    }
+
+    /* ============================================================
+       BASE
+       ============================================================ */
+    *,*::before,*::after{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+    body{
+      margin:0; position:relative; min-height:100vh;
+      background:var(--bg); color:var(--body-c);
+      font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+      font-weight:380; font-size:16px; line-height:1.66;
+      transition:background .3s ease;
+    }
+    body::before{
+      content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+      opacity:var(--grain-o); background-size:260px 260px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    ::selection{background:rgba(124,58,237,.16)}
+    html.dark ::selection{background:rgba(167,139,250,.3)}
+    h1,h2,h3,h4{font-family:'Instrument Sans',system-ui,sans-serif;color:var(--ink);margin:0;text-wrap:balance}
+    p{margin:0}
+    button{font-family:inherit}
+    a{color:var(--blue)}
+    .hidden{display:none !important}
+    .wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:46px 24px 80px}
+    a:focus-visible,button:focus-visible,summary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .topnav{position:sticky;top:0;z-index:40;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav-in{max-width:980px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .nav-logo{display:inline-flex;align-items:center;border-radius:8px}
+    .nav-logo img{height:22px;width:auto;vertical-align:middle}
+    .logo-l{display:var(--dl)} .logo-d{display:var(--dd)}
+    .nav-right{display:flex;align-items:center;gap:14px}
+    .nav-tag{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--legend);white-space:nowrap}
+    .theme-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--legend);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,color .2s;padding:0}
+    .theme-btn:hover{border-color:var(--tert);color:var(--ink)}
+    .theme-btn svg{width:15px;height:15px}
+    .ic-sun{display:none}
+    html.dark .ic-sun{display:block}
+    html.dark .ic-moon{display:none}
+
+    /* ============================================================
+       TYPO UTILITAIRES
+       ============================================================ */
+    .kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend)}
+    .muted{color:var(--tert)}
+    .gradient-text{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+    /* ============================================================
+       BOUTONS
+       ============================================================ */
+    .btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:border-color .2s}
+    .btn-ghost:hover{border-color:var(--tert)}
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero{text-align:center;padding-top:22px;margin-bottom:34px}
+    .hero-kick{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--legend);margin-bottom:22px}
+    .hero h1{font-size:clamp(34px,5.6vw,50px);font-weight:640;letter-spacing:-.015em;line-height:1.08;margin-bottom:14px}
+    .dl-title-em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+    .hero-sub{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(18px,2.8vw,22px);color:var(--ink);margin-bottom:20px}
+    .hero-lede{max-width:720px;margin:0 auto;color:var(--legend);font-size:15.5px;line-height:1.72;text-align:center}
+    .dl-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:820px;margin:36px auto 0}
+    .dl-stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 14px 15px;text-align:center}
+    .dl-stat-num{font-family:'Instrument Serif',Georgia,serif;font-size:38px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .dl-stat-lab{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--tert);margin-top:8px;line-height:1.6}
+
+    /* ============================================================
+       BARRE D'OUTILS (sommaire + actions)
+       ============================================================ */
+    .dl-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 18px;margin-bottom:26px}
+    .dl-toc{display:flex;flex-wrap:wrap;gap:8px}
+    .dl-toc a{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--body-c);font-size:12px;font-weight:480;text-decoration:none;transition:border-color .2s,color .2s}
+    .dl-toc a:hover{border-color:var(--blue-soft);color:var(--ink)}
+    .dl-toc .dl-toc-n{font-family:'Fragment Mono',monospace;font-size:9.5px;color:var(--tert)}
+    .dl-toolbar-actions{display:flex;gap:8px;flex-shrink:0}
+
+    /* ============================================================
+       CARTES ACCORDÉON (les 6 livrables)
+       ============================================================ */
+    .dl-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;margin-bottom:22px;overflow:hidden;scroll-margin-top:74px}
+    .dl-card>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:18px;padding:24px 26px;user-select:none}
+    .dl-card>summary::-webkit-details-marker{display:none}
+    .dl-card>summary:hover .dl-sum-title{color:var(--blue)}
+    .dl-num{font-family:'Instrument Serif',Georgia,serif;font-size:44px;line-height:1;flex-shrink:0;width:64px;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .dl-sum-text{flex:1;min-width:0}
+    .dl-sum-kick{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:5px}
+    .dl-sum-title{font-size:20px;font-weight:640;letter-spacing:-.008em;line-height:1.3;color:var(--ink);transition:color .2s}
+    .dl-sum-desc{font-size:13.5px;color:var(--legend);margin-top:5px;line-height:1.55}
+    .dl-chev{flex-shrink:0;width:34px;height:34px;border-radius:10px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--legend);transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .2s,color .2s}
+    .dl-chev svg{width:14px;height:14px}
+    .dl-card[open] .dl-chev{transform:rotate(180deg);border-color:var(--blue-soft);color:var(--blue)}
+    .dl-panel{padding:6px 26px 30px;border-top:1px dashed var(--line)}
+    .dl-panel>*:first-child{margin-top:22px}
+
+    /* ============================================================
+       ÉDITORIAL INTERNE
+       ============================================================ */
+    .dl-h3{font-size:17.5px;font-weight:640;letter-spacing:-.005em;margin:34px 0 6px;display:flex;align-items:center;gap:12px}
+    .dl-h3 .dl-h3-n{font-family:'Fragment Mono',monospace;font-size:10px;color:var(--tert);letter-spacing:.1em;flex-shrink:0}
+    .dl-h4{font-size:14.5px;font-weight:620;margin:26px 0 8px}
+    .dl-lede{font-size:14px;color:var(--legend);line-height:1.7;max-width:760px;margin-bottom:18px}
+    .dl-p{font-size:14px;color:var(--body-c);line-height:1.7;margin-bottom:12px;max-width:780px}
+    .dl-p strong{color:var(--ink);font-weight:560}
+    .dl-src{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.04em;color:var(--tert);line-height:1.75;margin-top:26px;padding-top:14px;border-top:1px dashed var(--line)}
+    .dl-src b{color:var(--legend);font-weight:400;letter-spacing:.14em;text-transform:uppercase}
+
+    /* Puces éditoriales */
+    .dl-ul{margin:10px 0 16px;padding:0;list-style:none}
+    .dl-ul li{position:relative;padding:5px 0 5px 24px;font-size:14px;line-height:1.65;color:var(--body-c)}
+    .dl-ul li::before{content:"";position:absolute;left:6px;top:14px;width:7px;height:7px;border-radius:2px;background:linear-gradient(135deg,var(--g1),var(--g2))}
+    .dl-ul li strong{color:var(--ink);font-weight:560}
+
+    /* Callouts */
+    .dl-callout{border-radius:14px;padding:16px 18px;margin:18px 0;font-size:13.5px;line-height:1.65;border:1px solid}
+    .dl-callout strong{color:var(--ink);font-weight:560}
+    .dl-co-info{background:var(--sel-bg);border-color:var(--blue-soft);color:var(--body-c)}
+    .dl-co-ok{background:var(--ok-bg);border-color:var(--ok-line);color:var(--body-c)}
+    .dl-co-warn{background:var(--warn-bg);border-color:var(--warn-line);color:var(--body-c)}
+    .dl-co-err{background:var(--err-bg);border-color:var(--err-line);color:var(--body-c)}
+    .dl-co-tag{display:inline-block;font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px}
+    .dl-co-info .dl-co-tag{color:var(--blue)}
+    .dl-co-ok .dl-co-tag{color:var(--ok-ink)}
+    .dl-co-warn .dl-co-tag{color:var(--warn-ink)}
+    .dl-co-err .dl-co-tag{color:var(--err-ink)}
+
+    /* Tableaux premium */
+    .dl-tblwrap{overflow-x:auto;margin:14px 0 20px;border:1px solid var(--line);border-radius:14px}
+    .dl-tbl{width:100%;border-collapse:collapse;font-size:13px;line-height:1.55}
+    .dl-tbl th{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--legend);text-align:left;padding:11px 13px;background:var(--soft);border-bottom:1px solid var(--line);white-space:nowrap}
+    .dl-tbl td{padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--body-c)}
+    .dl-tbl tr:last-child td{border-bottom:0}
+    .dl-tbl td strong{color:var(--ink);font-weight:560}
+    .dl-tbl .dl-td-lead{color:var(--ink);font-weight:560}
+    .dl-tbl tbody tr:hover td{background:var(--sel-bg)}
+
+    /* Chips sensibilité / tags */
+    .dl-chip{display:inline-block;font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px;white-space:nowrap}
+    .dl-chip-fond{background:var(--chip-fond-bg);color:var(--c-fondamentaux)}
+    .dl-chip-prompt{background:var(--chip-prompt-bg);color:var(--c-prompt)}
+    .dl-chip-com{background:var(--chip-com-bg);color:var(--c-commercial)}
+    .dl-chip-met{background:var(--chip-met-bg);color:var(--c-metiers)}
+    .dl-chip-ok{background:var(--ok-bg);color:var(--ok-ink)}
+    .dl-chip-warn{background:var(--warn-bg);color:var(--warn-ink)}
+    .dl-chip-err{background:var(--err-bg);color:var(--err-ink)}
+
+    /* Méthode 3 questions / cartes */
+    .dl-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0 20px}
+    .dl-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0 20px}
+    .dl-minicard{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:17px 18px}
+    .dl-minicard .dl-mc-n{font-family:'Instrument Serif',Georgia,serif;font-size:26px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .dl-minicard .dl-mc-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14px;color:var(--ink);margin:8px 0 5px}
+    .dl-minicard .dl-mc-d{font-size:12.5px;color:var(--legend);line-height:1.6}
+
+    /* Règles de sécurité numérotées */
+    .dl-rule{display:flex;gap:15px;padding:14px 0;border-bottom:1px dashed var(--line)}
+    .dl-rule:last-child{border-bottom:0}
+    .dl-rule-n{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--blue);border:1px solid var(--line);border-radius:9px;width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--soft)}
+    .dl-rule-t{font-size:14px;color:var(--ink);font-weight:560;line-height:1.5;margin-bottom:3px}
+    .dl-rule-d{font-size:13px;color:var(--body-c);line-height:1.62}
+    .dl-rule-d .dl-ex{color:var(--legend);font-style:italic}
+
+    /* CRISP */
+    .dl-crisp{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:16px 0 20px}
+    .dl-crisp-card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:16px 15px;text-align:center}
+    .dl-crisp-l{font-family:'Instrument Serif',Georgia,serif;font-size:34px;line-height:1;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .dl-crisp-t{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:12.5px;color:var(--ink);margin:7px 0 5px;letter-spacing:.01em}
+    .dl-crisp-d{font-size:11.5px;color:var(--legend);line-height:1.55;text-align:left}
+
+    /* Avant / Après */
+    .dl-avap{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0 20px}
+    .dl-avap-col{border-radius:14px;padding:17px 18px;border:1px solid}
+    .dl-avap-ko{background:var(--err-bg);border-color:var(--err-line)}
+    .dl-avap-ok{background:var(--ok-bg);border-color:var(--ok-line)}
+    .dl-avap-tag{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:9px;display:block}
+    .dl-avap-ko .dl-avap-tag{color:var(--err-ink)}
+    .dl-avap-ok .dl-avap-tag{color:var(--ok-ink)}
+    .dl-avap-quote{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:15.5px;color:var(--ink);line-height:1.5;margin-bottom:9px}
+    .dl-avap-d{font-size:12.5px;color:var(--body-c);line-height:1.62}
+
+    /* Blocs prompts */
+    .dl-prompt{background:var(--soft);border:1px solid var(--line);border-radius:16px;margin:0 0 14px;overflow:hidden}
+    .dl-prompt-head{display:flex;align-items:center;gap:14px;padding:15px 17px}
+    .dl-prompt-num{font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--blue);border:1px solid var(--blue-soft);background:var(--sel-bg);border-radius:9px;padding:6px 9px;flex-shrink:0}
+    .dl-prompt-meta{flex:1;min-width:0}
+    .dl-prompt-title{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:14.5px;color:var(--ink);line-height:1.35}
+    .dl-prompt-use{font-size:12px;color:var(--legend);margin-top:3px;line-height:1.5}
+    .dl-copy{flex-shrink:0;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--body-c);font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+    .dl-copy:hover{border-color:var(--blue-soft);color:var(--ink)}
+    .dl-copy svg{width:12px;height:12px}
+    .dl-copy.is-copied{border-color:var(--ok-line);background:var(--ok-bg);color:var(--ok-ink)}
+    .dl-pre{margin:0;padding:16px 20px;border-top:1px dashed var(--pre-line);background:var(--pre-bg);font-family:'Inter',system-ui,sans-serif;font-size:12.8px;font-weight:400;line-height:1.72;color:var(--body-c);white-space:pre-wrap;word-wrap:break-word}
+    .dl-pre .dl-pl{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.12em;color:var(--blue);text-transform:uppercase}
+
+    /* Playbook — séquences */
+    .dl-seq{display:flex;gap:15px;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:15px 17px;margin-bottom:11px}
+    .dl-seq-n{font-family:'Instrument Serif',Georgia,serif;font-size:26px;line-height:1.1;flex-shrink:0;width:34px;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .dl-seq-body{flex:1;min-width:0}
+    .dl-seq-top{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-bottom:5px}
+    .dl-seq-t{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:14px;color:var(--ink)}
+    .dl-seq-d{font-size:12.8px;color:var(--body-c);line-height:1.6}
+    .dl-seq-g{font-size:12px;color:var(--legend);margin-top:6px;line-height:1.55}
+    .dl-seq-g b{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--warn-ink);font-weight:400;margin-right:5px}
+
+    /* Matrice charte 3 niveaux */
+    .dl-tier{border-radius:16px;border:1px solid;margin-bottom:14px;overflow:hidden}
+    .dl-tier-head{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid}
+    .dl-tier-dot{width:12px;height:12px;border-radius:999px;flex-shrink:0}
+    .dl-tier-t{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:14.5px}
+    .dl-tier-sub{font-size:11.5px;margin-left:auto;font-family:'Fragment Mono',monospace;letter-spacing:.06em}
+    .dl-tier-ok{background:var(--ok-bg);border-color:var(--ok-line)}
+    .dl-tier-ok .dl-tier-head{border-color:var(--ok-line)}
+    .dl-tier-ok .dl-tier-dot{background:var(--ok)}
+    .dl-tier-ok .dl-tier-t,.dl-tier-ok .dl-tier-sub{color:var(--ok-ink)}
+    .dl-tier-warn{background:var(--warn-bg);border-color:var(--warn-line)}
+    .dl-tier-warn .dl-tier-head{border-color:var(--warn-line)}
+    .dl-tier-warn .dl-tier-dot{background:var(--warn)}
+    .dl-tier-warn .dl-tier-t,.dl-tier-warn .dl-tier-sub{color:var(--warn-ink)}
+    .dl-tier-err{background:var(--err-bg);border-color:var(--err-line)}
+    .dl-tier-err .dl-tier-head{border-color:var(--err-line)}
+    .dl-tier-err .dl-tier-dot{background:var(--err)}
+    .dl-tier-err .dl-tier-t,.dl-tier-err .dl-tier-sub{color:var(--err-ink)}
+    .dl-tier-body{padding:14px 18px}
+
+    /* Frise réglementaire */
+    .dl-tl{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:18px 0 20px;position:relative}
+    .dl-tl::before{content:"";position:absolute;top:7px;left:6%;right:6%;height:2px;background:linear-gradient(90deg,var(--g1),var(--g2));opacity:.5;border-radius:2px}
+    .dl-tl-step{position:relative;padding:0 8px;text-align:center}
+    .dl-tl-dot{width:14px;height:14px;border-radius:999px;margin:0 auto 12px;background:var(--surface);border:3px solid var(--blue);position:relative;z-index:1}
+    .dl-tl-step:last-child .dl-tl-dot{border-color:var(--violet)}
+    .dl-tl-date{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--ink);margin-bottom:5px}
+    .dl-tl-txt{font-size:11.5px;color:var(--legend);line-height:1.5}
+
+    /* Modèles vierges — cellules à remplir */
+    .dl-blank{min-height:56px;background:var(--pre-bg);border-radius:8px;border:1px dashed var(--pre-line)}
+    .dl-ex-row td{background:var(--warn-bg)}
+    .dl-ex-tag{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--warn-ink);display:block;margin-bottom:4px}
+
+    /* Signature */
+    .dl-sign{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .dl-sign-cell{border:1px solid var(--line);border-radius:12px;padding:14px 15px 40px;background:var(--soft)}
+    .dl-sign-l{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--tert)}
+
+    /* Références */
+    .dl-ref-grp{margin-top:26px}
+    .dl-ref a{color:var(--blue);text-decoration:none;border-bottom:1px dotted var(--blue-soft);word-break:break-word}
+    .dl-ref a:hover{border-bottom-style:solid}
+    .dl-tag{display:inline-block;font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;white-space:nowrap}
+    .dl-tag-ok{background:var(--ok-bg);color:var(--ok-ink)}
+    .dl-tag-warn{background:var(--warn-bg);color:var(--warn-ink)}
+    .dl-tag-ed{background:var(--sel-bg);color:var(--blue)}
+    .dl-tag-off{background:var(--chip-com-bg);color:var(--c-commercial)}
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width:860px){
+      .dl-crisp{grid-template-columns:repeat(2,1fr)}
+      .dl-crisp-card:last-child{grid-column:1/-1}
+      .dl-tl{grid-template-columns:1fr;gap:18px}
+      .dl-tl::before{left:6px;right:auto;top:4%;bottom:4%;width:2px;height:auto}
+      .dl-tl-step{display:flex;gap:14px;text-align:left;padding:0}
+      .dl-tl-dot{margin:3px 0 0;flex-shrink:0}
+    }
+    @media (max-width:720px){
+      .dl-stats{grid-template-columns:repeat(2,1fr)}
+      .dl-grid3,.dl-grid2,.dl-avap{grid-template-columns:1fr}
+      .dl-card>summary{padding:19px 18px;gap:13px}
+      .dl-num{font-size:34px;width:46px}
+      .dl-panel{padding:4px 18px 24px}
+      .dl-prompt-head{flex-wrap:wrap}
+      .dl-copy{width:100%;justify-content:center}
+      .dl-toolbar{flex-direction:column;align-items:stretch}
+      .dl-toolbar-actions{justify-content:flex-start}
+      .dl-sign{grid-template-columns:1fr}
+      .wrap{padding:34px 16px 64px}
+    }
+    @media (max-width:600px){.nav-tag{display:none}}
+
+    /* ============================================================
+       ACCESSIBILITÉ & PRINT
+       ============================================================ */
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+      html{scroll-behavior:auto}
+    }
+    @media print{
+      nav,.no-print{display:none !important}
+      body{background:#fff !important;color:#000 !important}
+      body::before{display:none !important}
+      *{color:#000 !important;background:#fff !important;border-color:#ccc !important;box-shadow:none !important;text-shadow:none !important}
+      .gradient-text,.dl-title-em,.dl-num,.dl-stat-num,.dl-mc-n,.dl-crisp-l,.dl-seq-n{-webkit-text-fill-color:initial !important;background:none !important;color:#000 !important}
+      .print-only{display:block !important}
+      details.dl-card{display:block !important}
+      details.dl-card>.dl-panel{display:block !important}
+      .dl-card{break-before:page;border:1px solid #bbb !important}
+      .dl-card:first-of-type{break-before:auto}
+      .dl-card>summary{cursor:default}
+      .dl-chev{display:none !important}
+      .dl-prompt,.dl-tier,.dl-seq,.dl-minicard,.dl-callout,.dl-tblwrap{break-inside:avoid}
+      .dl-pre{background:#fff !important;border:1px solid #ddd !important;border-radius:10px}
+      .dl-ref a::after{content:" — " attr(href);font-size:7.5pt;color:#555 !important;border-bottom:0 !important}
+      a{text-decoration:none !important;border-bottom:0 !important}
+      .wrap{max-width:100%;padding:0}
+      body{font-size:10pt;line-height:1.5}
+    }
+    .print-only{display:none}
+      /* ============================================================
+       NAVIGATION DE FIN DE PAGE
+       ============================================================ */
+    .pgnav{display:flex;gap:14px;border-top:1px solid var(--line);padding-top:36px;margin-top:88px}
+    .pgn{flex:1;display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px 22px;transition:border-color .2s,transform .2s}
+    .pgn:hover{border-color:var(--blue-soft);transform:translateY(-2px)}
+    .pgn-k{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--tert);margin-bottom:6px}
+    .pgn-t{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:14.5px;color:var(--ink);line-height:1.4}
+    .pgn.next{text-align:right}
+    @media (max-width:760px){.pgnav{flex-direction:column}.pgn.next{text-align:left}}
+  </style>
+  <script src="assets/js/formai-bridge.js?v=1783300000"></script>
+</head>
+<body>
+
+<!-- Top nav -->
+<nav class="topnav no-print">
+  <div class="nav-in">
+    <a href="/" class="nav-logo" aria-label="Akademia Formation — retour à l'accueil">
+      <img class="logo-l" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDQwMCAxMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnM+CiAgICA8IS0tIEdyYWRpZW50IFByaW5jaXBhbCAtLT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icHJpbWFyeUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzI1NjNFQjtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0MzQUVEO3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIAogICAgPCEtLSBHcmFkaWVudCBBY2NlbnQgLS0+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImFjY2VudEdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxMEI5ODE7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzA2QjZENDtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAKICAgIDwhLS0gU2hhZG93IEZpbHRlciAtLT4KICAgIDxmaWx0ZXIgaWQ9InNoYWRvdyIgeD0iLTUwJSIgeT0iLTUwJSIgd2lkdGg9IjIwMCUiIGhlaWdodD0iMjAwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjgiIGZsb29kLW9wYWNpdHk9IjAuMSIvPgogICAgPC9maWx0ZXI+CiAgPC9kZWZzPgogIAogIDwhLS0gTG9nbyBJY29uIC0tPgogIDxnIGlkPSJha2FkZW1pYS1pY29uIj4KICAgIDwhLS0gQmFja2dyb3VuZCBTaGFwZSAtLT4KICAgIDxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTYiIHJ5PSIxNiIgZmlsbD0idXJsKCNwcmltYXJ5R3JhZGllbnQpIiBmaWx0ZXI9InVybCgjc2hhZG93KSIvPgogICAgCiAgICA8IS0tIExldHRlciBBIERlc2lnbiAtLT4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYwLCA2MCkiPgogICAgICA8IS0tIE1haW4gQSBTaGFwZSAtLT4KICAgICAgPHBhdGggZD0iTSAwIC0yNSBMIC0xNSAxNSBMIC04IDE1IEwgLTYgOCBMIDYgOCBMIDggMTUgTCAxNSAxNSBMIDAgLTI1IFogTSAwIC0xMCBMIC0zIDAgTCAzIDAgTCAwIC0xMCBaIiAKICAgICAgICAgICAgZmlsbD0id2hpdGUiIAogICAgICAgICAgICBvcGFjaXR5PSIxIi8+CiAgICA8L2c+CiAgICAKICAgIDwhLS0gQWNjZW50IENpcmNsZSAtLT4KICAgIDxjaXJjbGUgY3g9Ijc1IiBjeT0iNDUiIHI9IjgiIGZpbGw9InVybCgjYWNjZW50R3JhZGllbnQpIiBvcGFjaXR5PSIwLjkiLz4KICA8L2c+CiAgCiAgPCEtLSBUZXh0IC0tPgogIDxnIGlkPSJha2FkZW1pYS10ZXh0Ij4KICAgIDwhLS0gTWFpbiBUZXh0IC0tPgogICAgPHRleHQgeD0iMTMwIiB5PSI2NSIgZm9udC1mYW1pbHk9IkludGVyLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMiIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0idXJsKCNwcmltYXJ5R3JhZGllbnQpIiBmb250LXN0eWxlPSJub3JtYWwiPkFLQURFTUlBPC90ZXh0PgogICAgCiAgICA8IS0tIFN1YnRpdGxlIC0tPgogICAgPHRleHQgeD0iMTMwIiB5PSI4NSIgZm9udC1mYW1pbHk9IkludGVyLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjQwMCIgZmlsbD0iIzY0NzQ4QiIgbGV0dGVyLXNwYWNpbmc9IjAuMWVtIj5GT1JNQVRJT048L3RleHQ+CiAgPC9nPgoKPC9zdmc+Cg==">
+      <img class="logo-d" alt="Akademia Formation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjgwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtYWluR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMjU2M0VCO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM3QzNBRUQ7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJhY2NlbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzEwQjk4MTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDZCNkQ0O3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDwhLS0gTG9nbyBJbnZlcnPDqSBwb3VyIGZvbmQgc29tYnJlIC0tPgogIDxnPgogICAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMTIiIGZpbGw9IndoaXRlIi8+CiAgICA8cGF0aCBkPSJNIDMwIDE1IEwgNDAgNDUgTCAzNSA0NSBMIDMzIDM4IEwgMjcgMzggTCAyNSA0NSBMIDIwIDQ1IEwgMzAgMTUgWiBNIDMwIDIzIEwgMjggMzIgTCAzMiAzMiBMIDMwIDIzIFoiIGZpbGw9InVybCgjbWFpbkdyYWRpZW50KSIvPgogICAgPGNpcmNsZSBjeD0iNDUiIGN5PSIyMCIgcj0iNiIgZmlsbD0idXJsKCNhY2NlbnQpIi8+CgogICAgPHRleHQgeD0iNzUiIHk9IjI4IiBmb250LWZhbWlseT0iSW50ZXIsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSJ3aGl0ZSI+QUtBREVNSUE8L3RleHQ+CiAgICA8dGV4dCB4PSI3NSIgeT0iNDYiIGZvbnQtZmFtaWx5PSJJbnRlciwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI0MDAiIGZpbGw9IiM5NEEzQjgiIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+Cg==">
+    </a>
+    <div class="nav-right">
+      <span class="nav-tag">IA en entreprise</span>
+      <button id="darkToggle" class="theme-btn" aria-label="Basculer le thème sombre">
+        <svg class="ic-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <svg class="ic-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ============================================ -->
+  <!-- HERO                                         -->
+  <!-- ============================================ -->
+  <div class="hero">
+    <div class="hero-kick">Bibliothèque des livrables — Formation intra 2 jours</div>
+    <h1>La bibliothèque <span class="dl-title-em">des livrables</span></h1>
+    <p class="hero-sub">IA en Entreprise — Booster sa Productivité Commerciale et Métier avec l'IA Générative</p>
+    <p class="hero-lede">
+      Tout ce que les deux journées vous ont fait construire, en contenu intégral : la grille pour choisir le bon outil et les règles de sécurité, la méthode CRISP et ses 15 prompts prêts à copier, le playbook commercial et la fiche social selling, les modèles vierges pour vos 3 cas d'usage et votre feuille de route 30/60/90, la charte d'usage à adapter, et les références sourcées. Chaque carte se déplie, se copie et s'imprime. Les exemples s'appuient sur NORDFLOW Industrie, la PME fil rouge de la formation (pompes, vannes, skids — 80 salariés, 3 sites) : remplacez-les par votre réalité.
+    </p>
+    <div class="dl-stats">
+      <div class="dl-stat"><div class="dl-stat-num">6</div><div class="dl-stat-lab">Livrables complets</div></div>
+      <div class="dl-stat"><div class="dl-stat-num">15</div><div class="dl-stat-lab">Prompts CRISP prêts à copier</div></div>
+      <div class="dl-stat"><div class="dl-stat-num">10</div><div class="dl-stat-lab">Séquences du playbook</div></div>
+      <div class="dl-stat"><div class="dl-stat-num">24</div><div class="dl-stat-lab">Références sourcées</div></div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- BARRE D'OUTILS                               -->
+  <!-- ============================================ -->
+  <div class="dl-toolbar no-print">
+    <div class="dl-toc">
+      <a href="#doc1"><span class="dl-toc-n">01</span>Outils &amp; sécurité</a>
+      <a href="#doc2"><span class="dl-toc-n">02</span>CRISP &amp; 15 prompts</a>
+      <a href="#doc3"><span class="dl-toc-n">03</span>Playbook &amp; LinkedIn</a>
+      <a href="#doc4"><span class="dl-toc-n">04</span>Modèles vierges</a>
+      <a href="#doc5"><span class="dl-toc-n">05</span>Charte d'usage</a>
+      <a href="#doc6"><span class="dl-toc-n">06</span>Références</a>
+    </div>
+    <div class="dl-toolbar-actions">
+      <button type="button" class="btn-ghost" id="dlExpandAll">Tout déplier</button>
+      <button type="button" class="btn-ghost" id="dlCollapseAll">Tout replier</button>
+      <button type="button" class="btn-ghost" onclick="window.print()">Imprimer</button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- LIVRABLE 1 : GRILLE OUTIL + CHARTE SÉCURITÉ  -->
+  <!-- ============================================ -->
+  <details class="dl-card" id="doc1" open>
+    <summary>
+      <span class="dl-num">01</span>
+      <span class="dl-sum-text">
+        <span class="dl-sum-kick">Livrable 1 — Module 1</span>
+        <span class="dl-sum-title">Grille de choix d'outil IA &amp; sécurité des données</span>
+        <span class="dl-sum-desc">La méthode de décision en 3 questions, la grille cas d'usage × sensibilité × outil calée sur Microsoft 365, le panorama 2026 des outils et les 10 règles concrètes de protection des données.</span>
+      </span>
+      <span class="dl-chev"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
+    </summary>
+    <div class="dl-panel">
+
+      <h3 class="dl-h3"><span class="dl-h3-n">1.1</span>La méthode : 3 questions, dans l'ordre</h3>
+      <p class="dl-lede">Le bon outil ne se choisit pas par habitude ni par bouche-à-oreille. Il se déduit de trois réponses, toujours dans cet ordre : la donnée d'abord, l'environnement ensuite, la tâche enfin.</p>
+      <div class="dl-grid3">
+        <div class="dl-minicard">
+          <div class="dl-mc-n">1</div>
+          <div class="dl-mc-t">Sensibilité de la donnée</div>
+          <div class="dl-mc-d">Que contient ce que je vais saisir ? Toute donnée interne (clients, prix, technique, RH) n'entre que dans une offre professionnelle avec garantie contractuelle de non-entraînement — jamais dans une version gratuite grand public. Données très sensibles : traitement dans le tenant Microsoft 365 (Copilot) ou solution à souveraineté européenne (Mistral, déploiement dédié).</div>
+        </div>
+        <div class="dl-minicard">
+          <div class="dl-mc-n">2</div>
+          <div class="dl-mc-t">Intégration à l'environnement</div>
+          <div class="dl-mc-d">L'entreprise est équipée Microsoft 365 : Copilot est le point d'entrée naturel (résumer un fil Outlook, brouillon, compte rendu Teams) — la donnée reste dans le tenant, les permissions sont héritées, zéro changement d'habitude. ChatGPT ou Claude en offres Business/Enterprise complètent pour la rédaction longue, la veille et l'analyse de documents hors M365.</div>
+        </div>
+        <div class="dl-minicard">
+          <div class="dl-mc-n">3</div>
+          <div class="dl-mc-t">Cas d'usage</div>
+          <div class="dl-mc-d">Productivité bureautique quotidienne : Copilot. Synthèse exigeante de longs documents : Claude ou ChatGPT. Contrainte de souveraineté, de budget ou d'appel d'offres européen : Le Chat de Mistral. Gemini n'a d'intérêt équivalent que sur Google Workspace — ce n'est pas notre environnement : repère comparatif, pas piste de déploiement.</div>
+        </div>
+      </div>
+
+      <h3 class="dl-h3"><span class="dl-h3-n">1.2</span>La grille de décision — situations types NORDFLOW</h3>
+      <p class="dl-lede">Chaque ligne part d'une situation réelle de la formation. Retenez la logique (donnée &rarr; outil), pas seulement la réponse.</p>
+      <div class="dl-tblwrap">
+        <table class="dl-tbl">
+          <thead>
+            <tr><th>Situation de travail</th><th>Donnée en jeu</th><th>Sensibilité</th><th>Outil conseillé</th><th>Pourquoi</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="dl-td-lead">Résumer un long fil de mails fournisseur, préparer la réponse (Outlook)</td>
+              <td>Correspondance interne et client</td>
+              <td><span class="dl-chip dl-chip-com">Interne</span></td>
+              <td><strong>Microsoft 365 Copilot</strong></td>
+              <td>La donnée reste dans le tenant, les permissions sont héritées, l'outil est là où le mail est lu.</td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Compte rendu de réunion Teams avec plan d'action</td>
+              <td>Échanges internes</td>
+              <td><span class="dl-chip dl-chip-com">Interne</span></td>
+              <td><strong>Copilot dans Teams</strong></td>
+              <td>Récapitulatif et points d'action natifs, dans le respect des permissions existantes.</td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Structurer une proposition commerciale longue à partir d'éléments anonymisés</td>
+              <td>Trames et arguments, sans donnée nominative</td>
+              <td><span class="dl-chip dl-chip-ok">Faible après anonymisation</span></td>
+              <td><strong>Claude Team</strong> ou <strong>ChatGPT Business</strong></td>
+              <td>Qualité rédactionnelle et synthèse de longs documents ; offres pro sans entraînement sur vos données.</td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Extraire les exigences d'un CCTP de 80 pages</td>
+              <td>Document client confidentiel (secret d'affaires)</td>
+              <td><span class="dl-chip dl-chip-err">Élevée</span></td>
+              <td><strong>Copilot</strong> (fichier dans SharePoint) ou <strong>Le Chat Enterprise</strong></td>
+              <td>Jamais dans un outil grand public : le CCTP ne quitte pas un environnement maîtrisé.</td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Veille concurrentielle et sectorielle sur sources publiques</td>
+              <td>Publique</td>
+              <td><span class="dl-chip dl-chip-ok">Nulle</span></td>
+              <td><strong>ChatGPT, Claude ou Le Chat</strong></td>
+              <td>Recherche web et « deep research » ; chaque fait collecté reste à vérifier à la source.</td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Traduction FR/EN d'une fiche produit publiée sur le site</td>
+              <td>Publique</td>
+              <td><span class="dl-chip dl-chip-ok">Nulle</span></td>
+              <td><strong>Tout outil pro validé</strong></td>
+              <td>Vigilance métier : verrouiller la terminologie (prompt 10 du livrable 2).</td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Réponse à un appel d'offres européen avec exigence d'hébergement UE</td>
+              <td>Sensible + exigence de souveraineté</td>
+              <td><span class="dl-chip dl-chip-err">Élevée</span></td>
+              <td><strong>Mistral — Le Chat Enterprise</strong>, déploiement dédié si requis</td>
+              <td>Éditeur français, hébergement UE, option de déploiement souverain.</td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Brainstorm d'angles marketing, noms de campagne</td>
+              <td>Interne non sensible</td>
+              <td><span class="dl-chip dl-chip-ok">Faible</span></td>
+              <td><strong>Tout outil pro</strong></td>
+              <td>L'IA produit 20 pistes, l'humain choisit et retravaille.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="dl-callout dl-co-info">
+        <span class="dl-co-tag">Règle transverse</span><br>
+        Quel que soit l'outil retenu, deux réflexes ne changent jamais : <strong>vérification humaine des sorties</strong> (les hallucinations existent sur tous les modèles) et <strong>anonymisation des données personnelles avant toute saisie</strong>.
+      </div>
+
+      <h3 class="dl-h3"><span class="dl-h3-n">1.3</span>Panorama 2026 des outils — repères d'éditeurs</h3>
+      <p class="dl-lede">État des gammes connu à fin 2025, sourcé pages éditeurs. Les gammes et tarifs évoluent vite : revalidez avant toute décision d'achat (les tarifs cités sont ceux publiés en 2025).</p>
+      <div class="dl-tblwrap">
+        <table class="dl-tbl">
+          <thead>
+            <tr><th>Outil</th><th>Génération connue</th><th>Point fort</th><th>Intégration clé</th><th>Données (offre pro)</th><th>Vigilance principale</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="dl-td-lead">Microsoft 365 Copilot</td>
+              <td>Modèles OpenAI (GPT-5 depuis août 2025) + accès à des modèles Anthropic dans certaines fonctions (fin 2025)</td>
+              <td>Assistant natif là où vous travaillez déjà : Outlook, Teams, Word, Excel</td>
+              <td>Natif M365, accès aux données internes via Microsoft Graph dans le respect des permissions</td>
+              <td>Pas d'entraînement des modèles de fondation sur prompts, réponses et données Graph (engagement contractuel) ; option environ 30 $/utilisateur/mois (tarif 2025)</td>
+              <td>Permissions SharePoint/OneDrive trop larges : Copilot fait remonter des documents lisibles mais qui ne devraient pas se croiser — sujet de gouvernance.</td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">ChatGPT (OpenAI)</td>
+              <td>GPT-5 (août 2025)</td>
+              <td>Le plus généraliste ; recherche approfondie (« deep research »), projets, GPTs personnalisés, connecteurs</td>
+              <td>Web, desktop, mobile, API, connecteurs SaaS ; pas d'intégration native M365 comparable à Copilot</td>
+              <td>Business / Enterprise / API : pas d'entraînement sur les données professionnelles par défaut (déclaration éditeur)</td>
+              <td>Versions grand public : le contenu peut servir à l'amélioration des modèles sauf désactivation du réglage dédié ; traitement majoritairement hors UE.</td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Claude (Anthropic)</td>
+              <td>Famille Claude 4 : Sonnet 4.5, Haiku 4.5, Opus 4.5 (fin 2025)</td>
+              <td>Qualité rédactionnelle, synthèse de longs documents (fenêtre 200 000 tokens), Projects et Artefacts pour mutualiser</td>
+              <td>API (aussi via AWS Bedrock et Google Vertex AI), Slack, Google Workspace</td>
+              <td>Team / Enterprise / API : pas d'utilisation pour l'entraînement par défaut (politique éditeur)</td>
+              <td><strong>Grand public : depuis fin 2025, les conversations des comptes gratuits/Pro/Max peuvent servir à l'entraînement sauf refus explicite.</strong> Jamais de donnée d'entreprise dans un compte Claude personnel.</td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Gemini (Google)</td>
+              <td>Gemini 2.5 Pro/Flash (2025), Gemini 3 Pro (nov. 2025)</td>
+              <td>Intégration native Google Workspace, NotebookLM pour la synthèse documentaire</td>
+              <td>Gmail, Docs, Meet, Sheets ; API Google AI / Vertex AI</td>
+              <td>Workspace : prompts et réponses non utilisés pour l'entraînement sans autorisation (déclaration éditeur)</td>
+              <td>Pertinent surtout pour les organisations équipées Google Workspace ; mêmes vigilances grand public que ChatGPT.</td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Mistral — Le Chat</td>
+              <td>Mistral Medium 3, Magistral (mi-2025)</td>
+              <td><strong>Éditeur français (siège à Paris)</strong> : hébergement UE, alignement RGPD, option de déploiement souverain — argument clé pour données sensibles et AO européens</td>
+              <td>API, web, mobile ; pas d'intégration native M365 comparable à Copilot</td>
+              <td>Positionnement « pas d'entraînement sur les données des clients professionnels » (API et offres pro)</td>
+              <td>Écosystème d'intégrations bureautiques plus restreint ; fonctions avancées réservées aux offres payantes.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="dl-h3"><span class="dl-h3-n">1.4</span>Charte de sécurité des données — les 10 règles concrètes</h3>
+      <p class="dl-lede">La traduction opérationnelle du cadre RGPD / IA Act pour un usage quotidien. Chaque règle est illustrée sur une situation NORDFLOW — transposable telle quelle à votre poste.</p>
+
+      <div class="dl-rule">
+        <span class="dl-rule-n">R1</span>
+        <div>
+          <div class="dl-rule-t">Version grand public = données publiques uniquement</div>
+          <div class="dl-rule-d">Ce qui pourrait figurer sur votre site vitrine peut y passer ; tout le reste, non. <span class="dl-ex">Exemple : Théo peut y tester des accroches de campagne ; Karim n'y colle jamais sa liste de comptes ni son pipe.</span></div>
+        </div>
+      </div>
+      <div class="dl-rule">
+        <span class="dl-rule-n">R2</span>
+        <div>
+          <div class="dl-rule-t">Zéro donnée personnelle dans un outil non validé</div>
+          <div class="dl-rule-d">Saisir des données personnelles de clients ou de salariés dans un prompt constitue un traitement au sens du RGPD : par défaut, on s'abstient dans les outils grand public. <span class="dl-ex">Exemple : Sonia remplace « SAS Meridis — J. Martin, directeur de site » par « un industriel agroalimentaire » avant de demander une reformulation.</span></div>
+        </div>
+      </div>
+      <div class="dl-rule">
+        <span class="dl-rule-n">R3</span>
+        <div>
+          <div class="dl-rule-t">Le secret commercial ne quitte pas la maison</div>
+          <div class="dl-rule-d">Prix, marges, plans, CCTP, schémas, code : hors RGPD mais à protéger par la politique interne — uniquement dans le tenant ou une offre pro contractuellement sans entraînement. <span class="dl-ex">Exemple : le CCTP du projet MERIDIS reste dans SharePoint et se synthétise avec Copilot, jamais ailleurs.</span></div>
+        </div>
+      </div>
+      <div class="dl-rule">
+        <span class="dl-rule-n">R4</span>
+        <div>
+          <div class="dl-rule-t">Compte personnel = interdit pour les données d'entreprise</div>
+          <div class="dl-rule-d">Les versions grand public peuvent réutiliser vos saisies pour entraîner les modèles : par défaut sur Claude depuis fin 2025 (sauf refus explicite), sauf opt-out activé sur ChatGPT. <span class="dl-ex">Exemple : même pressée, Maud ne colle pas ses notes de chantier dans son compte personnel — elle utilise l'outil validé par l'entreprise.</span></div>
+        </div>
+      </div>
+      <div class="dl-rule">
+        <span class="dl-rule-n">R5</span>
+        <div>
+          <div class="dl-rule-t">On anonymise avant de saisir</div>
+          <div class="dl-rule-d">Remplacer noms, identifiants, références clients et montants précis par des libellés génériques (« Client A », « une collectivité du Sud-Est »). <span class="dl-ex">Exemple : pour préparer une relance, Élise décrit le contexte du deal sans nommer l'entreprise ni le contact.</span></div>
+        </div>
+      </div>
+      <div class="dl-rule">
+        <span class="dl-rule-n">R6</span>
+        <div>
+          <div class="dl-rule-t">La donnée interne reste dans le tenant</div>
+          <div class="dl-rule-d">Microsoft 365 Copilot : prompts, réponses et données Graph ne servent pas à entraîner les modèles de fondation (engagement contractuel), et les permissions existantes s'appliquent. <span class="dl-ex">Exemple : le résumé du fil de négociation fournisseur se fait avec Copilot dans Outlook, pas en copiant le fil ailleurs.</span></div>
+        </div>
+      </div>
+      <div class="dl-rule">
+        <span class="dl-rule-n">R7</span>
+        <div>
+          <div class="dl-rule-t">Relecture humaine systématique</div>
+          <div class="dl-rule-d">Un chiffre, une norme, un prix, une référence : toujours recoupés à la source avant usage. L'IA génère du texte plausible, pas garanti. <span class="dl-ex">Exemple : la référence normative inventée dans la fiche technique d'Élise — plausible à l'œil, inexistante au référentiel.</span></div>
+        </div>
+      </div>
+      <div class="dl-rule">
+        <span class="dl-rule-n">R8</span>
+        <div>
+          <div class="dl-rule-t">Les permissions se gouvernent</div>
+          <div class="dl-rule-d">Si SharePoint/OneDrive sont trop ouverts, Copilot fait remonter des documents que vous pouvez techniquement lire mais ne devriez pas croiser. <span class="dl-ex">Exemple : un dossier « salaires » mal permissionné remonterait dans une réponse Copilot — à traiter avec l'administrateur, pas à découvrir par hasard.</span></div>
+        </div>
+      </div>
+      <div class="dl-rule">
+        <span class="dl-rule-n">R9</span>
+        <div>
+          <div class="dl-rule-t">Transparence envers les personnes</div>
+          <div class="dl-rule-d">Depuis le 2 août 2026 (art. 50 du règlement IA) : informer lorsqu'une personne interagit avec un système d'IA, et étiqueter les contenus générés quand la transparence est due. <span class="dl-ex">Exemple : un candidat face à un questionnaire automatisé doit le savoir ; un contenu publié généré par IA se signale.</span></div>
+        </div>
+      </div>
+      <div class="dl-rule">
+        <span class="dl-rule-n">R10</span>
+        <div>
+          <div class="dl-rule-t">Le doute tranche en faveur de la prudence</div>
+          <div class="dl-rule-d">Si vous hésitez sur la sensibilité d'une information, ne la saisissez pas et demandez au référent interne. Aucun gain de temps ne vaut une fuite. <span class="dl-ex">Exemple : avant de traiter un nouveau type de document (contrat cadre, dossier RH), on valide une fois la règle, puis on l'applique durablement.</span></div>
+        </div>
+      </div>
+
+      <p class="dl-src"><b>Sources :</b> pages officielles éditeurs — OpenAI (openai.com/enterprise-privacy, help.openai.com), Anthropic (anthropic.com/legal/privacy, annonces 2025), Microsoft Learn (learn.microsoft.com/fr-fr/copilot/microsoft-365, page « privacy »), Google (support.google.com/gemini), Mistral (mistral.ai, 2025) — gammes et tarifs 2025, à revalider ; règlement (UE) 2024/1689, art. 50 (EUR-Lex) ; CNIL, fiches pratiques IA (2024-2025) ; EDPB, avis 28/2024 (18/12/2024). Détail et liens : livrable 6.</p>
+    </div>
+  </details>
+
+  <!-- ============================================ -->
+  <!-- LIVRABLE 2 : CRISP + 15 PROMPTS              -->
+  <!-- ============================================ -->
+  <details class="dl-card" id="doc2">
+    <summary>
+      <span class="dl-num">02</span>
+      <span class="dl-sum-text">
+        <span class="dl-sum-kick">Livrable 2 — Module 2</span>
+        <span class="dl-sum-title">Fiche méthode CRISP &amp; bibliothèque de 15 prompts</span>
+        <span class="dl-sum-desc">La méthode de prompting en 5 lettres, l'avant/après sur un cas réel, puis 15 prompts complets prêts à copier — prospection, LinkedIn, RDV, CCTP, compte rendu chantier, relance cycle long, traduction métier, veille, feuille de route.</span>
+      </span>
+      <span class="dl-chev"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
+    </summary>
+    <div class="dl-panel">
+
+      <h3 class="dl-h3"><span class="dl-h3-n">2.1</span>La méthode CRISP</h3>
+      <p class="dl-lede">Un bon prompt n'est pas une question, c'est un cahier des charges d'une page. Cinq lettres, dans l'ordre ; chacune supprime une cause d'échec.</p>
+      <div class="dl-crisp">
+        <div class="dl-crisp-card">
+          <div class="dl-crisp-l">C</div>
+          <div class="dl-crisp-t">Contexte</div>
+          <div class="dl-crisp-d">Qui vous êtes, l'entreprise, la situation, le destinataire. L'IA ne connaît ni votre métier ni votre client : donnez-lui le décor.</div>
+        </div>
+        <div class="dl-crisp-card">
+          <div class="dl-crisp-l">R</div>
+          <div class="dl-crisp-t">Rôle</div>
+          <div class="dl-crisp-d">L'expertise que vous lui prêtez (« agis comme… »). Un rôle calibre le vocabulaire et le niveau d'exigence de la réponse.</div>
+        </div>
+        <div class="dl-crisp-card">
+          <div class="dl-crisp-l">I</div>
+          <div class="dl-crisp-t">Instruction</div>
+          <div class="dl-crisp-d">Une tâche, un verbe d'action, un livrable. « Rédige un email de 120 mots qui obtient un point d'étape » bat « aide-moi avec ce client ».</div>
+        </div>
+        <div class="dl-crisp-card">
+          <div class="dl-crisp-l">S</div>
+          <div class="dl-crisp-t">Style</div>
+          <div class="dl-crisp-d">Ton, registre, longueur, langue — et idéalement un exemple de votre style à imiter (few-shot). C'est ce qui rend le texte méconnaissable comme « texte IA ».</div>
+        </div>
+        <div class="dl-crisp-card">
+          <div class="dl-crisp-l">P</div>
+          <div class="dl-crisp-t">Paramètres</div>
+          <div class="dl-crisp-d">Format de sortie, contraintes, interdits, structure — et la clause de sécurité : « si une information manque, demande-la au lieu d'inventer ».</div>
+        </div>
+      </div>
+
+      <h3 class="dl-h3"><span class="dl-h3-n">2.2</span>Avant / après — le même besoin, deux prompts</h3>
+      <div class="dl-avap">
+        <div class="dl-avap-col dl-avap-ko">
+          <span class="dl-avap-tag">Avant — prompt nu</span>
+          <p class="dl-avap-quote">« Écris un mail de relance pour le devis. »</p>
+          <p class="dl-avap-d">Résultat : texte générique, ton impersonnel, aucun levier (pas de référence, pas d'échéance, pas de demande précise). À réécrire entièrement — le temps gagné est nul.</p>
+        </div>
+        <div class="dl-avap-col dl-avap-ok">
+          <span class="dl-avap-tag">Après — même besoin en CRISP</span>
+          <p class="dl-avap-quote">« Contexte : ADV chez NORDFLOW, devis pompes doseuses envoyé il y a 12 jours à une collectivité, décision en comité fin du mois. Rôle : assistante commerciale B2B expérimentée. Instruction : rédiger la relance pour obtenir un point d'étape court. Style : courtois, direct, 90 mots max. Paramètres : un seul CTA, rappeler la référence du devis, ne pas s'excuser. »</p>
+          <p class="dl-avap-d">Résultat : un jet exploitable après relecture — personnalisé, actionnable, au ton juste. Reste à faire : vérifier les faits et ajuster deux phrases.</p>
+        </div>
+      </div>
+      <div class="dl-callout dl-co-warn">
+        <span class="dl-co-tag">Avant de copier un prompt</span><br>
+        <strong>Anonymisez</strong> (règles R2 et R5 du livrable 1), <strong>vérifiez</strong> chaque fait et chaque chiffre produit (R7), et <strong>itérez</strong> : un prompt se corrige en 2 ou 3 passages, rarement au premier. Les crochets [ ] sont à remplacer par votre contexte — les exemples NORDFLOW indiqués servent de gabarit.
+      </div>
+
+      <h3 class="dl-h3"><span class="dl-h3-n">2.3</span>La bibliothèque — 15 prompts prêts à copier</h3>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">01</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Prospection B2B industrielle — cibler et repérer les signaux</div>
+            <div class="dl-prompt-use">Persona : Karim (commercial régional) · Avant une campagne sur un secteur ou une région · Aucune donnée nominative nécessaire.</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p01"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p01"><span class="dl-pl">CONTEXTE</span> — Je suis commercial terrain chez [entreprise — ex. : NORDFLOW Industrie, PME de 80 salariés, fabricant d'équipements de fluides industriels : pompes, vannes, skids]. Mes clients : exploitants industriels, collectivités, chantiers BTP. Je cible [secteur / région — ex. : les sites agroalimentaires du Grand Est].
+<span class="dl-pl">RÔLE</span> — Agis comme un consultant senior en développement commercial B2B industriel, rompu aux cycles de vente de 6 à 18 mois et aux comités d'achat multiples.
+<span class="dl-pl">INSTRUCTION</span> — 1) Liste les 5 critères qui font un compte prioritaire pour moi (profil de client idéal). 2) Donne 8 signaux d'affaire observables publiquement (investissements, recrutements, travaux, mise aux normes) qui justifient un contact. 3) Propose un angle d'approche pour chaque signal.
+<span class="dl-pl">STYLE</span> — Concret et opérationnel, vocabulaire de terrain industriel, aucune généralité marketing.
+<span class="dl-pl">PARAMÈTRES</span> — Présente critères et signaux en tableaux ; n'invente aucun nom d'entreprise : si tu cites un exemple, marque-le « à vérifier » ; termine par 3 questions pour affiner mon ciblage.</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">02</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Post LinkedIn de social selling — la preuve terrain</div>
+            <div class="dl-prompt-use">Persona : Théo (marketing &amp; communication) · 1 post par semaine · Réécriture personnelle obligatoire après génération.</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p02"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p02"><span class="dl-pl">CONTEXTE</span> — Je gère la communication de [entreprise — ex. : NORDFLOW Industrie]. Nous venons de [fait réel — ex. : mettre en service un skid de dosage sur une station d'épuration, consommation d'énergie en baisse de 30 %]. Je veux un post LinkedIn qui parle aux exploitants et aux bureaux d'études, pas un post publicitaire.
+<span class="dl-pl">RÔLE</span> — Agis comme un rédacteur LinkedIn B2B industriel qui privilégie la preuve terrain sur l'argumentaire commercial.
+<span class="dl-pl">INSTRUCTION</span> — Propose 3 angles distincts (retour d'expérience chiffré / erreur à éviter / coulisses techniques), indique lequel est le plus fort et pourquoi, puis rédige le post complet pour cet angle.
+<span class="dl-pl">STYLE</span> — Accroche d'une ligne en ouverture, phrases brèves, ton professionnel sans jargon creux, 150 à 220 mots, aucune vantardise.
+<span class="dl-pl">PARAMÈTRES</span> — Pas d'emoji en début de ligne ; au plus 3 hashtags en fin de post ; tout chiffre que je ne t'ai pas fourni doit être marqué [à vérifier] ; termine par une question qui invite à commenter.</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">03</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Email de prospection personnalisé — premier contact</div>
+            <div class="dl-prompt-use">Persona : Élise (commerciale sédentaire) · Premier contact sur un signal d'affaire · Personnalisation vérifiable, jamais de volume impersonnel.</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p03"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p03"><span class="dl-pl">CONTEXTE</span> — Je suis commerciale sédentaire chez [entreprise — ex. : NORDFLOW Industrie, équipements de fluides industriels]. Je contacte [profil — ex. : le responsable maintenance d'un site agroalimentaire] suite à [signal — ex. : un article annonçant l'extension de ses lignes de production]. Je n'ai jamais échangé avec lui.
+<span class="dl-pl">RÔLE</span> — Agis comme une commerciale B2B expérimentée qui obtient des premiers rendez-vous par la pertinence, pas par le volume.
+<span class="dl-pl">INSTRUCTION</span> — Rédige un email de premier contact : accroche liée au signal, un seul bénéfice métier crédible, une preuve courte, un appel à l'action unique et facile (échange de 15 minutes, ou renvoi vers le bon interlocuteur).
+<span class="dl-pl">STYLE</span> — Direct, courtois, 120 mots maximum ; aucune formule creuse (« j'espère que vous allez bien », « je me permets de… »).
+<span class="dl-pl">PARAMÈTRES</span> — Propose 3 variantes d'objet (6 mots maximum chacune) ; un seul CTA ; aucune pièce jointe annoncée ; n'utilise aucune information que je ne t'ai pas fournie — s'il t'en manque une, demande-la avant de rédiger.</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">04</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Fiche de préparation de rendez-vous industriel</div>
+            <div class="dl-prompt-use">Personas : Karim, Maud · Avant une visite site ou chantier · Données CRM extraites manuellement et anonymisées.</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p04"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p04"><span class="dl-pl">CONTEXTE</span> — Je prépare un rendez-vous chez [client — ex. : une collectivité qui exploite 3 stations de pompage] pour [sujet — ex. : fiabiliser ses groupes de surpression]. Voici ce que je sais : [coller ici les éléments publics et les notes CRM anonymisées : historique, équipements en place, interlocuteurs, échéances].
+<span class="dl-pl">RÔLE</span> — Agis comme un chargé d'affaires technique qui prépare systématiquement ses visites.
+<span class="dl-pl">INSTRUCTION</span> — Produis une fiche de préparation en 5 blocs : 1) les enjeux probables du client (techniques, budgétaires, calendrier) ; 2) 8 questions de découverte hiérarchisées ; 3) les arguments et références à mobiliser ; 4) 4 objections probables avec une piste de réponse chacune ; 5) le plan de la visite en 5 étapes.
+<span class="dl-pl">STYLE</span> — Synthétique, puces courtes, orienté action.
+<span class="dl-pl">PARAMÈTRES</span> — Une page maximum ; distingue clairement les faits que je fournis de tes hypothèses (marque chaque hypothèse « hypothèse ») ; aucune norme ni référence technique sans la mention « à vérifier » si tu n'es pas certain.</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">05</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Matrice d'objections — anticiper avant le rendez-vous</div>
+            <div class="dl-prompt-use">Persona : Élise · Préparation d'un deal à enjeu · À relire avec le chef des ventes.</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p05"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p05"><span class="dl-pl">CONTEXTE</span> — Mon opportunité : [décrire — ex. : remplacement de 12 pompes doseuses chez un industriel de la chimie, budget validé, décision à 3 mois, concurrent historique en place]. Interlocuteurs identifiés : [rôles, sans noms].
+<span class="dl-pl">RÔLE</span> — Agis comme un directeur commercial qui prépare ses équipes aux objections.
+<span class="dl-pl">INSTRUCTION</span> — 1) Identifie les 6 objections les plus probables (prix, confiance, changement de fournisseur, calendrier, technique, décisionnaire caché). 2) Pour chacune : la vraie question derrière l'objection, une réponse argumentée en 3 phrases maximum, la preuve à apporter.
+<span class="dl-pl">STYLE</span> — Franc, sans langue de bois ; chaque réponse doit pouvoir être tenue en rendez-vous.
+<span class="dl-pl">PARAMÈTRES</span> — Présentation en tableau ; ajoute pour chaque objection le signal faible qui l'annonce ; ne promets jamais de remise, de délai ni d'engagement à ma place — indique [à arbitrer] si la réponse implique une concession.</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">06</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Compte rendu de chantier — des notes au CR structuré</div>
+            <div class="dl-prompt-use">Persona : Maud (chargée d'affaires technique) · Après une mise en service · Notes anonymisées avant saisie.</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p06"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p06"><span class="dl-pl">CONTEXTE</span> — Je reviens d'une mise en service chez [client — ex. : chantier d'extension d'une usine, site de (ville)]. Voici mes notes brutes : [coller notes anonymisées : travaux réalisés, points en suspens, incidents, réserves du client].
+<span class="dl-pl">RÔLE</span> — Agis comme une chargée d'affaires qui rédige des comptes rendus de chantier nets et contractuels.
+<span class="dl-pl">INSTRUCTION</span> — Structure un compte rendu : 1) synthèse en 5 lignes ; 2) travaux réalisés ; 3) points en suspens, chacun avec un responsable et une date cible ; 4) réserves ou désaccords constatés ; 5) prochaines étapes.
+<span class="dl-pl">STYLE</span> — Factuel, heures et faits, aucune interprétation ; formulations neutres pour les points sensibles.
+<span class="dl-pl">PARAMÈTRES</span> — Toute information absente de mes notes s'écrit « non précisé », jamais d'invention ; produis une version courte (10 lignes) pour le client et une version interne complète ; liste à la fin les photos à joindre, par section.</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">07</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Synthèse de CCTP — extraction des exigences</div>
+            <div class="dl-prompt-use">Persona : Hervé (direction technique) · Réponse à appel d'offres · Document confidentiel : uniquement dans l'outil validé (Copilot sur le fichier SharePoint).</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p07"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p07"><span class="dl-pl">CONTEXTE</span> — Nous répondons à l'appel d'offres [référence — ex. : maintenance des équipements de fluides d'une collectivité]. Le CCTP est confidentiel : je travaille dans l'outil validé par l'entreprise, sur le fichier stocké dans notre espace. Document : [joindre le fichier dans l'outil validé].
+<span class="dl-pl">RÔLE</span> — Agis comme un ingénieur d'affaires spécialiste des marchés publics.
+<span class="dl-pl">INSTRUCTION</span> — Extrais : 1) les exigences techniques obligatoires (une ligne chacune, avec la référence de page ou de section) ; 2) les exigences de service (délais, astreintes, pénalités) ; 3) les critères d'attribution et leur pondération ; 4) les pièces à fournir et les dates limites ; 5) les points ambigus à faire préciser par une question écrite à l'acheteur.
+<span class="dl-pl">STYLE</span> — Précis et exhaustif ; chaque exigence traçable à sa page.
+<span class="dl-pl">PARAMÈTRES</span> — Présentation en tableaux ; si une exigence est ambiguë, cite le passage exact ; ne déduis rien au-delà du texte ; signale toute incohérence interne du CCTP.</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">08</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Trame de proposition commerciale sur-mesure</div>
+            <div class="dl-prompt-use">Persona : Élise · Structuration d'une offre · Relecture experte obligatoire avant envoi (le fond est validé par les experts).</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p08"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p08"><span class="dl-pl">CONTEXTE</span> — Je construis une proposition pour [client] suite à [contexte — ex. : deux visites techniques ; besoin : remplacement progressif des vannes de régulation ; budget indicatif connu ; décision en comité]. Éléments clés : [coller besoins exprimés, contraintes, échéances — anonymisés].
+<span class="dl-pl">RÔLE</span> — Agis comme une ingénieure commerciale qui rédige des propositions qui se lisent en comité de direction.
+<span class="dl-pl">INSTRUCTION</span> — Propose la trame complète : plan des sections avec une phrase d'objectif par section ; les 3 arguments différenciants à placer en ouverture ; les paragraphes à personnaliser pour ce client (et ceux qui restent standards) ; la page de synthèse pour le décideur pressé.
+<span class="dl-pl">STYLE</span> — Orienté bénéfices client, phrases courtes, zéro jargon interne.
+<span class="dl-pl">PARAMÈTRES</span> — Le plan tient sur 2 pages maximum ; signale chaque section qui exige une validation technique avant envoi ; ne rédige ni prix ni délais : insère [à compléter] ; liste à la fin les pièces à joindre.</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">09</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Relance sur cycle long — réveiller un deal dormant</div>
+            <div class="dl-prompt-use">Persona : Karim · Opportunité sans nouvelle depuis 3 mois ou plus · Chaque touche apporte quelque chose, jamais un simple rappel.</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p09"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p09"><span class="dl-pl">CONTEXTE</span> — Opportunité dormante depuis [durée — ex. : 4 mois] : [décrire — ex. : modernisation des utilités d'un groupe agroalimentaire, 4 sites, décision repoussée à la prochaine revue d'investissement]. Dernier échange : [résumer — ex. : visite technique bien notée, puis silence].
+<span class="dl-pl">RÔLE</span> — Agis comme un commercial de grands comptes qui entretient des cycles de 9 mois sans lasser ses contacts.
+<span class="dl-pl">INSTRUCTION</span> — Construis une séquence de relance sur 6 semaines : 4 touches (email, message LinkedIn, email, appel préparé). Chaque touche apporte quelque chose de réel : article secteur commenté, cas client analogue, chiffre utile, invitation — jamais un simple « je me permets de revenir vers vous ».
+<span class="dl-pl">STYLE</span> — Posé, utile, 80 à 120 mots par message, zéro culpabilisation.
+<span class="dl-pl">PARAMÈTRES</span> — Une seule demande par touche ; prévois la sortie élégante (message de clôture qui laisse la porte ouverte) en dernière étape ; chaque apport reposant sur un chiffre ou un fait est marqué [à vérifier].</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">10</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Traduction FR &rarr; EN métier — terminologie verrouillée</div>
+            <div class="dl-prompt-use">Persona : Maud · Résumé de chantier ou documentation pour le siège anglophone · La vigilance porte sur les termes métier.</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p10"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p10"><span class="dl-pl">CONTEXTE</span> — Je dois envoyer au siège (anglophone) le résumé de [document — ex. : mon compte rendu de mise en service]. Texte source : [coller le texte anonymisé].
+<span class="dl-pl">RÔLE</span> — Agis comme un traducteur technique spécialisé en équipements de fluides industriels.
+<span class="dl-pl">INSTRUCTION</span> — Traduis en anglais professionnel en respectant la terminologie métier : pompe doseuse = dosing pump, vanne de régulation = control valve, skid = skid package, mise en service = commissioning, station de pompage = pumping station. Signale tout terme dont la traduction est incertaine.
+<span class="dl-pl">STYLE</span> — Anglais technique clair, phrases courtes, lisible par des non-natifs.
+<span class="dl-pl">PARAMÈTRES</span> — Conserve la structure et les puces du texte source ; ajoute en fin de document le mini-glossaire des termes techniques avec l'équivalent retenu ; marque [à vérifier] toute norme ou référence.</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">11</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Résumé de réunion — décisions et plan d'action</div>
+            <div class="dl-prompt-use">Persona : Sonia · Compte rendu de point d'équipe · Transcription ou notes anonymisées ; dans Teams, Copilot fait aussi ce travail nativement.</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p11"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p11"><span class="dl-pl">CONTEXTE</span> — Voici les notes de notre réunion [objet — ex. : point hebdomadaire ADV / réunion de lancement d'une commande client] : [coller notes ou transcription anonymisée].
+<span class="dl-pl">RÔLE</span> — Agis comme une assistante qui produit des comptes rendus que tout le monde lit vraiment.
+<span class="dl-pl">INSTRUCTION</span> — Rédige : 1) le résumé en 5 lignes ; 2) les décisions actées (une ligne chacune) ; 3) le plan d'action en tableau : tâche, responsable, échéance ; 4) les points reportés au prochain point.
+<span class="dl-pl">STYLE</span> — Neutre, actionnable, tâches à l'infinitif.
+<span class="dl-pl">PARAMÈTRES</span> — Si un responsable ou une date n'apparaît pas dans les notes, écris « à confirmer » — jamais d'attribution inventée ; pas de reformulation interprétative des propos ; longueur : une page.</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">12</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Reformulation d'email ADV — annonces délicates</div>
+            <div class="dl-prompt-use">Persona : Sonia · Retard de livraison, avoir, litige · Ferme sur les faits, soigneux de la relation.</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p12"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p12"><span class="dl-pl">CONTEXTE</span> — Je dois annoncer [situation délicate — ex. : un retard de livraison de 3 semaines sur une commande ferme] à [type de client — ex. : un client historique]. Premier jet de mon email : [coller].
+<span class="dl-pl">RÔLE</span> — Agis comme une responsable ADV expérimentée, ferme sur les faits et soigneuse de la relation client.
+<span class="dl-pl">INSTRUCTION</span> — Réécris l'email : annoncer clairement le fait dès les 2 premières phrases, expliquer la cause en une phrase, proposer une solution ou un point d'étape daté. Pas d'excuse excessive, pas de formulation passive.
+<span class="dl-pl">STYLE</span> — Professionnel, direct, humain ; 100 mots maximum.
+<span class="dl-pl">PARAMÈTRES</span> — Propose 2 variantes (ferme / conciliante) ; ne promets aucun geste commercial non validé — insère [geste éventuel : à valider] si c'est pertinent ; conserve tous les faits (dates, références) exactement comme dans mon jet.</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">13</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Analyse de documentation technique — audit fournisseur</div>
+            <div class="dl-prompt-use">Persona : Hervé · Avant consultation ou choix d'équipement · Toute référence normative produite se revérifie (R7).</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p13"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p13"><span class="dl-pl">CONTEXTE</span> — J'étudie [document — ex. : la documentation d'un fournisseur de moteurs pour un projet de skid]. Extraits : [coller les passages anonymisés, ou travailler sur le fichier dans l'outil validé]. Nos exigences : [coller la liste].
+<span class="dl-pl">RÔLE</span> — Agis comme un directeur technique qui audite une documentation fournisseur avant consultation.
+<span class="dl-pl">INSTRUCTION</span> — 1) Résume les caractéristiques clés en tableau. 2) Compare-les à nos exigences. 3) Liste les écarts, les données manquantes et les questions à poser au fournisseur. 4) Signale toute affirmation commerciale non démontrée dans le document.
+<span class="dl-pl">STYLE</span> — Technique, chiffré, sans interprétation favorable.
+<span class="dl-pl">PARAMÈTRES</span> — Chaque écart renvoie à la ligne ou au tableau source ; aucune norme citée sans la mention « à vérifier » ; conclus par un avis en 3 lignes : compatible / sous réserve / à écarter.</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">14</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Veille concurrentielle — la synthèse mensuelle</div>
+            <div class="dl-prompt-use">Persona : Théo · Revue mensuelle du secteur · Chaque fait relié à sa source ; aucun fait sans source.</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p14"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p14"><span class="dl-pl">CONTEXTE</span> — Je fais la veille de [entreprise] sur [périmètre — ex. : pompes et skids pour l'eau et le process, France]. Voici les éléments collectés ce mois-ci : [coller liens, communiqués, extraits publics avec leurs sources].
+<span class="dl-pl">RÔLE</span> — Agis comme un analyste veille spécialisé en équipements industriels.
+<span class="dl-pl">INSTRUCTION</span> — Produit la synthèse mensuelle : 1) les 5 faits marquants (produits, recrutements, marchés gagnés, salons), chacun avec sa source ; 2) ce que cela change pour nous, en 3 points ; 3) 3 actions suggérées (contenu, argumentaire, prospection).
+<span class="dl-pl">STYLE</span> — Éditorial et factuel ; le fait le plus important en tête.
+<span class="dl-pl">PARAMÈTRES</span> — Aucun fait sans source fournie par moi ; si tu complètes par connaissance, marque « à vérifier » ; une page maximum ; distingue les faits des opinions.</pre>
+      </div>
+
+      <div class="dl-prompt">
+        <div class="dl-prompt-head">
+          <span class="dl-prompt-num">15</span>
+          <div class="dl-prompt-meta">
+            <div class="dl-prompt-title">Feuille de route 30/60/90 — déployer sans big bang</div>
+            <div class="dl-prompt-use">Persona : Romain (chef des ventes) · Formalisation du plan de déploiement IA · À compléter avec le modèle vierge du livrable 4.</div>
+          </div>
+          <button type="button" class="dl-copy" data-copy="p15"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier</button>
+        </div>
+        <pre class="dl-pre" id="p15"><span class="dl-pl">CONTEXTE</span> — Je suis [fonction — ex. : chef des ventes] chez [entreprise]. Nos 3 cas d'usage IA prioritaires : [ex. : 1. comptes rendus de chantier, 2. préparation de rendez-vous, 3. posts LinkedIn]. Équipe : [taille] ; outils validés : [ex. : Microsoft 365 Copilot, Claude Team].
+<span class="dl-pl">RÔLE</span> — Agis comme un consultant en conduite du changement spécialiste des PME industrielles.
+<span class="dl-pl">INSTRUCTION</span> — Construis la feuille de route : à 30 jours (prouver : un binôme pilote par cas d'usage, règles de sécurité rappelées, temps avant/après mesuré) ; à 60 jours (mesurer : indicateurs de gain et de qualité, retours d'usage, prompts ajustés) ; à 90 jours (étendre : formation du reste de l'équipe, bibliothèque de prompts enrichie, bilan chiffré).
+<span class="dl-pl">STYLE</span> — Pragmatique, jalons datés, responsabilités nommées par rôle (pas par prénom).
+<span class="dl-pl">PARAMÈTRES</span> — Pour chaque période : 2 jalons maximum, 2 indicateurs, les alliés internes, le risque principal et sa parade ; termine par les 3 pièges classiques à éviter (big bang, outil imposé sans usage, absence de mesure).</pre>
+      </div>
+
+      <p class="dl-src"><b>Méthode :</b> structure CRISP élaborée pour la formation ; chaque prompt intègre ses garde-fous (anonymisation, mention « à vérifier », clause anti-invention). Les gains de productivité cités en formation sur ce type de tâches : Noy &amp; Zhang, MIT, <i>Science</i> (2023) — écriture professionnelle : −40 % de temps, +18 % de qualité en conditions contrôlées ; Brynjolfsson et al., NBER (2023) — support client : +14 % de productivité, +34 % chez les profils les moins expérimentés. Rappel de cadrage : chiffres mesurés sur des tâches précises, non généralisables tels quels. Détail et liens : livrable 6.</p>
+    </div>
+  </details>
+
+  <!-- ============================================ -->
+  <!-- LIVRABLE 3 : PLAYBOOK + SOCIAL SELLING       -->
+  <!-- ============================================ -->
+  <details class="dl-card" id="doc3">
+    <summary>
+      <span class="dl-num">03</span>
+      <span class="dl-sum-text">
+        <span class="dl-sum-kick">Livrable 3 — Module 3</span>
+        <span class="dl-sum-title">Playbook commercial IA &amp; fiche social selling LinkedIn</span>
+        <span class="dl-sum-desc">Les 10 séquences du cycle de vente B2B long augmenté par l'IA (du ciblage au bilan), la séquence de relance 6 semaines, le scoring de compte simple, et la fiche LinkedIn complète : posture, workflow, cadence, erreurs, mesure.</span>
+      </span>
+      <span class="dl-chev"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
+    </summary>
+    <div class="dl-panel">
+
+      <h3 class="dl-h3"><span class="dl-h3-n">3.1</span>Le playbook — 10 séquences du cycle complet</h3>
+      <p class="dl-lede">Le cycle de vente B2B industriel, de la cible au bilan, étape par étape. Chaque séquence renvoie aux prompts du livrable 2. Le principe directeur : <strong>l'IA démultiplie la personnalisation, pas le spam</strong> — le volume impersonnel est précisément ce que les filtres et les clients rejettent.</p>
+
+      <div class="dl-seq">
+        <span class="dl-seq-n">1</span>
+        <div class="dl-seq-body">
+          <div class="dl-seq-top"><span class="dl-seq-t">Cadrer la cible</span><span class="dl-chip dl-chip-com">Prospection</span></div>
+          <div class="dl-seq-d">Définir le profil de client idéal en 5 critères mesurables (taille, secteur, équipements en place, zone, organisation d'achat). <strong>Prompt 01.</strong> Sortie : la liste de critères avec seuils.</div>
+          <div class="dl-seq-g"><b>Garde-fou</b>Critères validés par le chef des ventes avant toute campagne — la cible est une décision, pas une suggestion d'outil.</div>
+        </div>
+      </div>
+      <div class="dl-seq">
+        <span class="dl-seq-n">2</span>
+        <div class="dl-seq-body">
+          <div class="dl-seq-top"><span class="dl-seq-t">Repérer les signaux d'affaire</span><span class="dl-chip dl-chip-com">Prospection</span></div>
+          <div class="dl-seq-d">Surveiller les signaux publics qui méritent un contact : investissements, recrutements, travaux, mise aux normes. <strong>Prompts 01 et 14.</strong> Sortie : fiche signaux datée, une ligne par compte.</div>
+          <div class="dl-seq-g"><b>Garde-fou</b>Chaque signal est rattaché à une source vérifiable ; un signal « probable » non sourcé ne part jamais dans un message client.</div>
+        </div>
+      </div>
+      <div class="dl-seq">
+        <span class="dl-seq-n">3</span>
+        <div class="dl-seq-body">
+          <div class="dl-seq-top"><span class="dl-seq-t">Prioriser les comptes</span><span class="dl-chip dl-chip-com">Prospection</span></div>
+          <div class="dl-seq-d">Noter chaque compte sur trois critères pondérés (table ci-dessous) : adéquation au profil idéal, force du signal, accessibilité de l'interlocuteur. Sortie : le top 10 du mois.</div>
+          <div class="dl-seq-g"><b>Garde-fou</b>Le score aide à trier, l'humain tranche ; un compte stratégique mal noté reste un compte stratégique.</div>
+        </div>
+      </div>
+      <div class="dl-tblwrap">
+        <table class="dl-tbl">
+          <thead><tr><th>Critère de scoring</th><th>Question posée</th><th>Échelle</th><th>Pondération</th></tr></thead>
+          <tbody>
+            <tr><td class="dl-td-lead">Adéquation au profil idéal</td><td>Le compte coche-t-il les 5 critères de l'étape 1 ?</td><td>0 à 5</td><td><strong>40 %</strong></td></tr>
+            <tr><td class="dl-td-lead">Force du signal d'affaire</td><td>Le signal est-il récent, sûr, lié à notre offre ?</td><td>0 à 5</td><td><strong>35 %</strong></td></tr>
+            <tr><td class="dl-td-lead">Accessibilité</td><td>Avons-nous un contact nommé, une entrée, une recommandation ?</td><td>0 à 5</td><td><strong>25 %</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="dl-seq">
+        <span class="dl-seq-n">4</span>
+        <div class="dl-seq-body">
+          <div class="dl-seq-top"><span class="dl-seq-t">Se rendre visible</span><span class="dl-chip dl-chip-prompt">LinkedIn</span></div>
+          <div class="dl-seq-d">Publier un post à preuve chaque semaine (retour d'expérience, coulisses techniques, erreur à éviter) avant de solliciter. <strong>Prompt 02.</strong> Sortie : 1 post publié, commenté, répondu.</div>
+          <div class="dl-seq-g"><b>Garde-fou</b>Réécriture personnelle systématique (fiche 3.3) ; tout chiffre publié est vérifié et sourçable.</div>
+        </div>
+      </div>
+      <div class="dl-seq">
+        <span class="dl-seq-n">5</span>
+        <div class="dl-seq-body">
+          <div class="dl-seq-top"><span class="dl-seq-t">Prendre contact</span><span class="dl-chip dl-chip-com">Contact</span></div>
+          <div class="dl-seq-d">Email de premier contact : accroche sur le signal, un bénéfice, une preuve, un CTA unique. <strong>Prompt 03.</strong> Sortie : 5 à 10 emails par semaine, un par compte prioritaire — jamais de vague impersonnelle.</div>
+          <div class="dl-seq-g"><b>Garde-fou</b>Personnalisation vérifiable (chaque fait du message tient à une source) et conformité des règles de prospection B2B en vigueur ; le volume ne fait pas la pertinence.</div>
+        </div>
+      </div>
+      <div class="dl-seq">
+        <span class="dl-seq-n">6</span>
+        <div class="dl-seq-body">
+          <div class="dl-seq-top"><span class="dl-seq-t">Préparer le rendez-vous</span><span class="dl-chip dl-chip-com">RDV</span></div>
+          <div class="dl-seq-d">Fiche d'une page : enjeux probables, 8 questions de découverte, arguments, objections, plan de visite. <strong>Prompt 04.</strong> Sortie : la fiche relue la veille, dans la poche le jour J.</div>
+          <div class="dl-seq-g"><b>Garde-fou</b>Données CRM extraites manuellement et anonymisées ; les hypothèses restent marquées comme telles.</div>
+        </div>
+      </div>
+      <div class="dl-seq">
+        <span class="dl-seq-n">7</span>
+        <div class="dl-seq-body">
+          <div class="dl-seq-top"><span class="dl-seq-t">Anticiper les objections</span><span class="dl-chip dl-chip-com">RDV</span></div>
+          <div class="dl-seq-d">La matrice : 6 objections probables, la vraie question derrière, la réponse tenable, la preuve. <strong>Prompt 05.</strong> Sortie : matrice partagée au binôme avant le rendez-vous.</div>
+          <div class="dl-seq-g"><b>Garde-fou</b>Aucune promesse de prix, de délai ou de référence inventée par l'outil : toute concession est arbitrée par un humain.</div>
+        </div>
+      </div>
+      <div class="dl-seq">
+        <span class="dl-seq-n">8</span>
+        <div class="dl-seq-body">
+          <div class="dl-seq-top"><span class="dl-seq-t">Rédiger la proposition</span><span class="dl-chip dl-chip-com">Offre</span></div>
+          <div class="dl-seq-d">Trame personnalisée : sections, arguments d'ouverture, page de synthèse pour le décideur pressé. <strong>Prompt 08.</strong> Sortie : proposition structurée, prête pour personnalisation fine.</div>
+          <div class="dl-seq-g"><b>Garde-fou</b>Relecture experte obligatoire : la structure peut être générée, le fond technique et chiffré est validé par les experts.</div>
+        </div>
+      </div>
+      <div class="dl-seq">
+        <span class="dl-seq-n">9</span>
+        <div class="dl-seq-body">
+          <div class="dl-seq-top"><span class="dl-seq-t">Entretenir le cycle long</span><span class="dl-chip dl-chip-com">Suivi</span></div>
+          <div class="dl-seq-d">Séquence de relance sur 6 semaines, 4 touches à valeur ajoutée (table ci-dessous). <strong>Prompt 09.</strong> Sortie : séquence planifiée dans le CRM avec dates.</div>
+          <div class="dl-seq-g"><b>Garde-fou</b>Une seule demande par touche ; la sortie élégante fait partie de la séquence — insister au-delà abîme le compte.</div>
+        </div>
+      </div>
+      <div class="dl-tblwrap">
+        <table class="dl-tbl">
+          <thead><tr><th>Semaine</th><th>Canal</th><th>Apport (jamais un simple rappel)</th><th>Demande unique</th></tr></thead>
+          <tbody>
+            <tr><td class="dl-td-lead">S1</td><td>Email</td><td>Article secteur commenté en 3 lignes (lien vérifié)</td><td>Point d'étape de 15 minutes</td></tr>
+            <tr><td class="dl-td-lead">S2</td><td>LinkedIn</td><td>Cas client analogue raconté en 5 lignes (anonymisé)</td><td>Aucune — simple présence utile</td></tr>
+            <tr><td class="dl-td-lead">S4</td><td>Email</td><td>Un chiffre utile pour son arbitrage (coût d'immobilisation, énergie) [à vérifier]</td><td>Confirmer le calendrier de décision</td></tr>
+            <tr><td class="dl-td-lead">S6</td><td>Appel préparé + email</td><td>Sortie élégante : synthèse du dossier en 5 points, porte ouverte datée</td><td>Dire si le dossier est clos</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="dl-seq">
+        <span class="dl-seq-n">10</span>
+        <div class="dl-seq-body">
+          <div class="dl-seq-top"><span class="dl-seq-t">Piloter et apprendre</span><span class="dl-chip dl-chip-met">Pilotage</span></div>
+          <div class="dl-seq-d">Suivi CRM : séquence en cours, prochaine action, indicateurs (taux de réponse, rendez-vous obtenus, temps de préparation avant/après). Bilan de deal gagné ou perdu : ce qui a fait la différence, en 5 lignes, partagé à l'équipe.</div>
+          <div class="dl-seq-g"><b>Garde-fou</b>Les résumés IA de comptes (CRM 2026 : Copilot for Sales, HubSpot Breeze, Einstein) ne valent que si les fiches sont à jour — une donnée mal tenue produit une synthèse trompeuse.</div>
+        </div>
+      </div>
+
+      <h3 class="dl-h3"><span class="dl-h3-n">3.2</span>Modèle de message InMail / LinkedIn — premier contact</h3>
+      <div class="dl-callout dl-co-info">
+        <span class="dl-co-tag">Trame en 5 phrases — à personnaliser, jamais à envoyer brute</span><br>
+        1. Accroche sur un fait le concernant (signal vérifié, pas de flatterie) &nbsp;2. Pourquoi ce fait nous concerne &nbsp;3. Un bénéfice métier en une phrase &nbsp;4. Une preuve courte (cas analogue, chiffre sourcé) &nbsp;5. Une demande minuscule et facile (15 minutes, ou « le bon contact ? »). <strong>Interdits :</strong> vendre au premier message, pièce jointe, pavé, « je me permets de vous contacter ».
+      </div>
+
+      <h3 class="dl-h3"><span class="dl-h3-n">3.3</span>Fiche social selling LinkedIn</h3>
+
+      <h4 class="dl-h4">Posture — 4 règles avant tout</h4>
+      <ul class="dl-ul">
+        <li><strong>Crédibilité avant visibilité.</strong> En B2B industriel, un profil qui publie peu mais juste bat un profil qui publie beaucoup et creux. Vos interlocuteurs vérifient votre profil avant de répondre à un message.</li>
+        <li><strong>Parler métier, pas produit.</strong> Ce qui fait commenter un exploitant : un retour d'expérience, une erreur évitée, une coulisse technique — pas une fiche produit déguisée.</li>
+        <li><strong>Preuve et chiffres de terrain.</strong> Un post fort contient au moins un élément vérifiable : chiffre, photo de chantier (autorisée), avant/après, anecdote datée.</li>
+        <li><strong>Régularité plutôt qu'intensité.</strong> Un post par semaine tenu 6 mois construit plus qu'une rafale de 10 posts puis le silence.</li>
+      </ul>
+
+      <h4 class="dl-h4">Workflow IA en 4 temps — et le temps humain qui ne se saute pas</h4>
+      <div class="dl-grid2">
+        <div class="dl-minicard">
+          <div class="dl-mc-n">1</div>
+          <div class="dl-mc-t">Brainstorm d'angles (IA)</div>
+          <div class="dl-mc-d">3 angles distincts par sujet (prompt 02) ; on choisit le plus fort, on écarte les deux autres — l'IA explore, vous décidez.</div>
+        </div>
+        <div class="dl-minicard">
+          <div class="dl-mc-n">2</div>
+          <div class="dl-mc-t">Structure (IA)</div>
+          <div class="dl-mc-d">Accroche d'une ligne, 3 ou 4 blocs courts, question finale. La structure est un gabarit, pas le texte.</div>
+        </div>
+        <div class="dl-minicard">
+          <div class="dl-mc-n">3</div>
+          <div class="dl-mc-t">Premier jet (IA)</div>
+          <div class="dl-mc-d">Généré avec vos faits et vos chiffres — jamais avec les siens. Tout chiffre non fourni reste marqué [à vérifier].</div>
+        </div>
+        <div class="dl-minicard">
+          <div class="dl-mc-n">4</div>
+          <div class="dl-mc-t">Réécriture personnelle (humain, obligatoire)</div>
+          <div class="dl-mc-d">Votre voix, vos formulations, votre anecdote. C'est l'étape qui rend le post indétectable comme « post IA » — et la seule qui ne se délègue pas. Puis vérification finale des faits.</div>
+        </div>
+      </div>
+
+      <h4 class="dl-h4">Cadence hebdomadaire — 1 h 45, tenable dans un agenda de commercial</h4>
+      <div class="dl-tblwrap">
+        <table class="dl-tbl">
+          <thead><tr><th>Moment</th><th>Action</th><th>Durée</th><th>Outil IA associé</th></tr></thead>
+          <tbody>
+            <tr><td class="dl-td-lead">Lundi</td><td>Veille des signaux : comptes cibles, actualités, recrutements</td><td>15 min</td><td>Prompts 01 / 14</td></tr>
+            <tr><td class="dl-td-lead">Mardi</td><td>Rédiger le post de la semaine (workflow 4 temps)</td><td>30 min</td><td>Prompt 02 + réécriture</td></tr>
+            <tr><td class="dl-td-lead">Mercredi</td><td>Commenter utilement 3 publications de cibles ou d'experts</td><td>15 min</td><td>Idées d'angles, reformulation</td></tr>
+            <tr><td class="dl-td-lead">Jeudi</td><td>5 demandes de connexion avec note personnalisée</td><td>20 min</td><td>Trame InMail (3.2) personnalisée</td></tr>
+            <tr><td class="dl-td-lead">Vendredi</td><td>Bilan : réponses, vues du profil, suites à donner</td><td>15 min</td><td>Synthèse + plan de la semaine suivante</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="dl-h4">Les 8 erreurs qui tuent une démarche social selling</h4>
+      <ul class="dl-ul">
+        <li>Publier le jet IA <strong>sans réécrire</strong> : ton lisse repérable, crédibilité perdue durablement.</li>
+        <li>Publier un <strong>chiffre non vérifié</strong> : un seul chiffre faux suffit à griller un profil métier.</li>
+        <li><strong>Vendre dans le premier message</strong> : le pitch au premier contact ferme la porte qu'il prétend ouvrir.</li>
+        <li>Envoyer des demandes de connexion <strong>sans note</strong>, ou avec la même note partout.</li>
+        <li><strong>Automatiser les volumes</strong> (envois massifs, commentaires automatiques) : c'est exactement ce que les filtres et les clients rejettent.</li>
+        <li>Négliger le <strong>profil</strong> : titre flou, aucune preuve, aucune recommandation — le message arrive sur une page vide.</li>
+        <li>Commenter avec des <strong>formules génériques</strong> (« Merci pour ce partage très inspirant ») : pire qu'absent.</li>
+        <li>Confondre <strong>vues et affaires</strong> : la mesure qui compte, ce sont les conversations ouvertes et les rendez-vous obtenus.</li>
+      </ul>
+
+      <h4 class="dl-h4">Mesure — le SSI comme ligne de base</h4>
+      <p class="dl-p">Le <strong>Social Selling Index (SSI)</strong> de LinkedIn note votre pratique sur 100 selon 4 piliers : établir sa marque professionnelle, trouver les bonnes personnes, échanger avec des insights, bâtir des relations. Gratuit, consultable après connexion. Usage recommandé : mesurer son score <strong>avant</strong> de lancer la cadence, puis à 30 / 60 / 90 jours — une ligne de base simple et factuelle.</p>
+
+      <div class="dl-callout dl-co-warn">
+        <span class="dl-co-tag">Ce que disent les chiffres — avec leur niveau de preuve</span><br>
+        Selon <strong>LinkedIn Sales Solutions</strong> (chiffres éditeur, millésime non précisé — ordres de grandeur, pas promesse) : 78 % des vendeurs qui pratiquent le social selling déclarent vendre plus que leurs pairs ; les leaders créeraient 45 % d'opportunités de plus et atteindraient leur quota 51 % plus souvent. Côté études indépendantes : <strong>McKinsey (2021, B2C grand public US)</strong> — 71 % des consommateurs attendent des interactions personnalisées, 76 % sont frustrés quand ce n'est pas le cas ; à lire comme tendance de fond. Et <strong>Salesforce (State of Sales)</strong> : les vendeurs ne consacrent qu'environ 28 à 30 % de leur temps à vendre réellement — chaque heure rendue par l'IA sur l'administratif est une heure rendue à la vente. Aucun taux de conversion chiffré n'est avancé au-delà de ces sources.
+      </div>
+
+      <p class="dl-src"><b>Sources :</b> LinkedIn Sales Solutions, page « Social Selling » (chiffres éditeur, à revalider) ; LinkedIn SSI (linkedin.com/sales/ssi) ; McKinsey, « The value of getting personalization right » (2021) ; Salesforce, State of Sales (édition à revalider) ; IA &amp; CRM 2026 : Microsoft Learn (Copilot for Sales, Dynamics 365), HubSpot (Breeze, tarification à la tâche, avril 2026), Salesforce (Einstein scoring ; Agentforce, 20 Flex Credits par action, 2026) — détail et liens : livrable 6.</p>
+    </div>
+  </details>
+
+  <!-- ============================================ -->
+  <!-- LIVRABLE 4 : MODÈLES VIERGES                 -->
+  <!-- ============================================ -->
+  <details class="dl-card" id="doc4">
+    <summary>
+      <span class="dl-num">04</span>
+      <span class="dl-sum-text">
+        <span class="dl-sum-kick">Livrable 4 — Module 4 &amp; atelier</span>
+        <span class="dl-sum-title">Modèles vierges : 3 cas d'usage opérationnels &amp; feuille de route 30/60/90</span>
+        <span class="dl-sum-desc">Les deux grilles à compléter pour votre poste : la sélection de vos 3 cas d'usage (tâche × valeur × risque × outil) et la feuille de route 30/60/90 jours (jalons, indicateurs, alliés, risques). Conçues pour l'impression A4.</span>
+      </span>
+      <span class="dl-chev"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
+    </summary>
+    <div class="dl-panel">
+
+      <h3 class="dl-h3"><span class="dl-h3-n">4.1</span>Modèle vierge — mes 3 cas d'usage opérationnels</h3>
+      <p class="dl-lede">Règle de sélection : des tâches <strong>chronophages, répétitives, à faible risque</strong> — pas les tâches les plus prestigieuses. Les études de productivité convergent : les gains se gagnent sur des tâches bien choisies, et se perdent sur des tâches mal choisies. La première ligne montre un exemple rempli (à effacer).</p>
+      <div class="dl-tblwrap">
+        <table class="dl-tbl">
+          <thead>
+            <tr><th style="width:19%">Tâche chronophage</th><th style="width:11%">Temps actuel</th><th style="width:17%">Valeur attendue (temps, qualité)</th><th style="width:17%">Risque &amp; sensibilité de la donnée</th><th style="width:17%">Outil retenu &amp; garde-fou</th><th style="width:19%">Premier test (quoi, quand)</th></tr>
+          </thead>
+          <tbody>
+            <tr class="dl-ex-row">
+              <td><span class="dl-ex-tag">Exemple — à effacer</span>Compte rendu de chantier après mise en service</td>
+              <td>45 min / CR</td>
+              <td>CR structuré en 10 min, relu ; version client + interne</td>
+              <td>Notes chantier pseudonymisées (règle R5)</td>
+              <td>Copilot dans le tenant + prompt 06 ; relecture humaine</td>
+              <td>Prochaine mise en service, semaine du [date]</td>
+            </tr>
+            <tr><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td></tr>
+            <tr><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td></tr>
+            <tr><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td><td><div class="dl-blank"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="dl-callout dl-co-info">
+        <span class="dl-co-tag">Test de la bonne tâche</span><br>
+        Avant de retenir un cas d'usage, trois questions : 1. Est-ce que je le fais <strong>au moins une fois par semaine</strong> ? 2. Est-ce que le résultat se <strong>vérifie facilement</strong> (relecture rapide) ? 3. Est-ce qu'une erreur resterait <strong>rattrapable</strong> ? Trois « oui » : cas d'usage retenu. Un « non » : on garde pour plus tard.
+      </div>
+
+      <h3 class="dl-h3"><span class="dl-h3-n">4.2</span>Modèle vierge — feuille de route 30/60/90 jours</h3>
+      <p class="dl-lede">La méthode : 2 ou 3 cas d'usage à fort gain, on prouve à 30 jours, on mesure à 60, on étend à 90. Deux jalons maximum par période — une feuille de route qui tient en une page est une feuille de route qui s'exécute.</p>
+      <div class="dl-tblwrap">
+        <table class="dl-tbl">
+          <thead>
+            <tr><th style="width:16%"></th><th style="width:28%">30 jours — Prouver</th><th style="width:28%">60 jours — Mesurer</th><th style="width:28%">90 jours — Étendre</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="dl-td-lead">Objectif</td>
+              <td><div class="dl-blank"></div></td>
+              <td><div class="dl-blank"></div></td>
+              <td><div class="dl-blank"></div></td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Jalons &amp; actions (2 max)</td>
+              <td><div class="dl-blank"></div></td>
+              <td><div class="dl-blank"></div></td>
+              <td><div class="dl-blank"></div></td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Indicateurs de réussite (2 max : temps gagné, qualité, adoption)</td>
+              <td><div class="dl-blank"></div></td>
+              <td><div class="dl-blank"></div></td>
+              <td><div class="dl-blank"></div></td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Alliés &amp; ressources (binôme pilote, référent, outil validé)</td>
+              <td><div class="dl-blank"></div></td>
+              <td><div class="dl-blank"></div></td>
+              <td><div class="dl-blank"></div></td>
+            </tr>
+            <tr>
+              <td class="dl-td-lead">Risque principal &amp; parade</td>
+              <td><div class="dl-blank"></div></td>
+              <td><div class="dl-blank"></div></td>
+              <td><div class="dl-blank"></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="dl-callout dl-co-warn">
+        <span class="dl-co-tag">Les 3 pièges classiques</span><br>
+        <strong>1. Le big bang</strong> : tout déployer à tous en une fois — on n'apprend rien et on décourage. <strong>2. L'outil imposé sans usage</strong> : une licence distribuée sans cas d'usage identifié devient un coût, pas un levier. <strong>3. L'absence de mesure</strong> : sans temps avant/après ni indicateur, le projet ne survit pas à la première revue de budget.
+      </div>
+
+      <p class="dl-src"><b>Méthode :</b> grille de sélection et feuille de route élaborées pour la formation ; le facteur discriminant documenté entre pilotes réussis et échoués est le choix des cas d'usage et leur intégration au flux de travail (McKinsey, State of AI, 2025 ; Dell'Acqua et al., Harvard/BCG, 2023 — « frontière irrégulière » : très gros gains sur les tâches adaptées, chute de discernement hors de celles-ci). Détail et liens : livrable 6.</p>
+    </div>
+  </details>
+
+  <!-- ============================================ -->
+  <!-- LIVRABLE 5 : CHARTE D'USAGE IA INTERNE       -->
+  <!-- ============================================ -->
+  <details class="dl-card" id="doc5">
+    <summary>
+      <span class="dl-num">05</span>
+      <span class="dl-sum-text">
+        <span class="dl-sum-kick">Livrable 5 — Module 4</span>
+        <span class="dl-sum-title">Modèle de charte d'usage IA interne</span>
+        <span class="dl-sum-desc">Préambule prêt à adapter, matrice autorisé / encadré / interdit avec exemples de PME, rappel du cadre européen 2026 (IA Act, sanctions), articles types et bloc de validation. Une page de règles claires est le déclencheur d'adoption le mieux documenté.</span>
+      </span>
+      <span class="dl-chev"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
+    </summary>
+    <div class="dl-panel">
+
+      <h3 class="dl-h3"><span class="dl-h3-n">5.1</span>Préambule type — à adapter</h3>
+      <div class="dl-callout dl-co-info">
+        <span class="dl-co-tag">Texte de préambule — personnaliser entre crochets</span><br>
+        « [Entreprise] encourage l'usage des outils d'intelligence artificielle pour améliorer la qualité et l'efficacité du travail de chacun. Cet usage s'exerce dans un cadre simple : il protège nos clients, nos données et nos collaborateurs ; il laisse à l'humain la responsabilité finale de tout ce qui sort de l'entreprise. La présente charte définit ce qui est autorisé, ce qui est encadré et ce qui est interdit. Elle s'applique à tous les salariés et à toute personne utilisant ces outils pour le compte de [Entreprise]. Elle répond à l'obligation européenne de maîtrise de l'IA par les équipes (art. 4 du règlement (UE) 2024/1689, en vigueur depuis le 2 février 2025) et sera révisée chaque année. »
+      </div>
+
+      <h3 class="dl-h3"><span class="dl-h3-n">5.2</span>La matrice — autorisé / encadré / interdit</h3>
+
+      <div class="dl-tier dl-tier-ok">
+        <div class="dl-tier-head">
+          <span class="dl-tier-dot"></span>
+          <span class="dl-tier-t">Autorisé</span>
+          <span class="dl-tier-sub">relecture humaine systématique</span>
+        </div>
+        <div class="dl-tier-body">
+          <ul class="dl-ul" style="margin-bottom:0">
+            <li><strong>Brainstorm et structuration</strong> : idées d'angles, plans de documents, trames (compte rendu, proposition, réunion).</li>
+            <li><strong>Reformulation de textes internes</strong> sans donnée personnelle ni confidentielle (notes de service, consignes, supports internes).</li>
+            <li><strong>Traduction de documents publics</strong> (fiches publiées, documentation ouverte).</li>
+            <li><strong>Aide à la prise en main des outils</strong> : formules Excel, résumés de documents publics, préparation de réunion sur informations publiques.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dl-tier dl-tier-warn">
+        <div class="dl-tier-head">
+          <span class="dl-tier-dot"></span>
+          <span class="dl-tier-t">Encadré</span>
+          <span class="dl-tier-sub">validation humaine + anonymisation + outil professionnel validé</span>
+        </div>
+        <div class="dl-tier-body">
+          <ul class="dl-ul" style="margin-bottom:0">
+            <li><strong>Synthèse de documents clients</strong> après pseudonymisation (noms, contacts et montants remplacés par des libellés génériques).</li>
+            <li><strong>Rédaction d'emails clients</strong> : jet par l'IA, relecture et envoi par un humain — toujours.</li>
+            <li><strong>Préparation de rendez-vous</strong> à partir de données CRM extraites manuellement et nettoyées.</li>
+            <li><strong>Veille documentée</strong> : chaque fait collecté est rattaché à sa source et vérifié avant diffusion.</li>
+            <li><strong>Transparence</strong> : quand une personne interagit avec un système d'IA, elle en est informée (art. 50, en vigueur depuis le 2 août 2026).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dl-tier dl-tier-err">
+        <div class="dl-tier-head">
+          <span class="dl-tier-dot"></span>
+          <span class="dl-tier-t">Interdit</span>
+          <span class="dl-tier-sub">dont deux interdictions légales</span>
+        </div>
+        <div class="dl-tier-body">
+          <ul class="dl-ul" style="margin-bottom:0">
+            <li><strong>Secrets commerciaux dans un outil grand public</strong> : prix, marges, plans, CCTP, schémas, code — jamais hors environnement maîtrisé.</li>
+            <li><strong>Données personnelles non anonymisées</strong> : fiches salariés, dossiers clients nominatifs, coordonnées — jamais dans un outil non validé.</li>
+            <li><strong>Reconnaissance des émotions de collaborateurs ou de candidats</strong> — interdiction légale depuis le 2 février 2025 (art. 5 du règlement IA ; sanctions jusqu'à 35 M€ ou 7 % du chiffre d'affaires mondial).</li>
+            <li><strong>Décision RH automatisée sans intervention humaine</strong> (tri de CV, notation, promotion, licenciement) — systèmes classés haut risque par l'IA Act (annexe III, point 4). En pratique : aucune décision RH n'est déléguée à un outil d'IA sans validation humaine, point.</li>
+            <li><strong>Présenter un texte généré comme entièrement humain</strong> là où la transparence est due (art. 50).</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="dl-h3"><span class="dl-h3-n">5.3</span>Rappel du cadre européen — où on en est fin 2026</h3>
+      <div class="dl-tl">
+        <div class="dl-tl-step">
+          <div class="dl-tl-dot"></div>
+          <div class="dl-tl-date">02/02/2025</div>
+          <div class="dl-tl-txt">Pratiques interdites (art. 5, dont reconnaissance des émotions au travail) + maîtrise de l'IA des équipes (art. 4). <strong>En vigueur.</strong></div>
+        </div>
+        <div class="dl-tl-step">
+          <div class="dl-tl-dot"></div>
+          <div class="dl-tl-date">02/08/2025</div>
+          <div class="dl-tl-txt">Obligations des modèles d'IA à usage général (GPAI), gouvernance, sanctions. <strong>En vigueur.</strong></div>
+        </div>
+        <div class="dl-tl-step">
+          <div class="dl-tl-dot"></div>
+          <div class="dl-tl-date">02/08/2026</div>
+          <div class="dl-tl-txt">Transparence (art. 50) : informer les personnes exposées, étiqueter les contenus générés. <strong>En vigueur.</strong></div>
+        </div>
+        <div class="dl-tl-step">
+          <div class="dl-tl-dot"></div>
+          <div class="dl-tl-date">02/12/2027</div>
+          <div class="dl-tl-txt">Obligations « haut risque » annexe III (dont certains usages RH) — reportées par le règlement (UE) 2026/1744 « Digital Omnibus ». Classification inchangée.</div>
+        </div>
+        <div class="dl-tl-step">
+          <div class="dl-tl-dot"></div>
+          <div class="dl-tl-date">02/08/2028</div>
+          <div class="dl-tl-txt">Haut risque annexe I (IA intégrée à des produits réglementés) — reporté par le même règlement 2026/1744.</div>
+        </div>
+      </div>
+      <p class="dl-p">Sanctions prévues par l'art. 99 : jusqu'à <strong>35 M€ ou 7 % du chiffre d'affaires annuel mondial</strong> pour les pratiques interdites ; jusqu'à <strong>15 M€ ou 3 %</strong> pour la plupart des autres manquements ; jusqu'à <strong>7,5 M€ ou 1 %</strong> pour informations trompeuses aux autorités. Pour une PME « déployeur » n'utilisant pas d'outils RH sensibles, l'essentiel de l'exigible en 2026 : interdictions de l'art. 5, maîtrise de l'IA (art. 4 — cette formation y répond directement), transparence (art. 50).</p>
+
+      <h3 class="dl-h3"><span class="dl-h3-n">5.4</span>Articles types de la charte — squelette en 8 points</h3>
+      <ul class="dl-ul">
+        <li><strong>Art. 1 — Outils validés.</strong> Liste tenue par [référent] : seuls les outils et offres contractuellement sans entraînement sur nos données sont utilisables pour des données internes.</li>
+        <li><strong>Art. 2 — Responsabilité humaine.</strong> Tout contenu destiné à un client, un partenaire ou une publication est relu, vérifié et assumé par un humain identifié. L'IA n'est jamais auteur de responsabilité.</li>
+        <li><strong>Art. 3 — Anonymisation.</strong> Avant toute saisie : suppression ou remplacement des noms, coordonnées, références clients et montants précis, sauf outil dans le tenant validé.</li>
+        <li><strong>Art. 4 — Transparence.</strong> Toute personne interagissant avec un système d'IA en est informée ; les contenus générés sont signalés quand la transparence est due.</li>
+        <li><strong>Art. 5 — Traçabilité.</strong> Les usages sensibles (synthèse de documents clients, propositions, réponses à AO) sont documentés : outil utilisé, date, relecteur.</li>
+        <li><strong>Art. 6 — Usages RH.</strong> Aucun outil d'IA n'est utilisé pour évaluer, noter ou surveiller les collaborateurs ou les candidats sans validation préalable de la direction et conformité au règlement IA.</li>
+        <li><strong>Art. 7 — Incidents.</strong> Toute saisie par erreur de données sensibles dans un outil non validé est signalée sans délai à [référent], qui applique la procédure (retrait, évaluation, notification si requise).</li>
+        <li><strong>Art. 8 — Révision.</strong> La charte est révisée chaque année (textes européens, outils, retours d'usage) et communiquée à tous. Chaque salarié en accuse réception.</li>
+      </ul>
+
+      <div class="dl-sign">
+        <div class="dl-sign-cell"><span class="dl-sign-l">Nom &amp; fonction</span></div>
+        <div class="dl-sign-cell"><span class="dl-sign-l">Date &amp; lieu</span></div>
+        <div class="dl-sign-cell"><span class="dl-sign-l">Signature</span></div>
+      </div>
+
+      <p class="dl-src"><b>Sources :</b> règlement (UE) 2024/1689, art. 4, 5, 50, 99 et annexe III (EUR-Lex, 2024) ; règlement (UE) 2026/1744 « Digital Omnibus on AI » (JOUE 24/07/2026, en vigueur 27/07/2026) ; AI Act Service Desk, Commission européenne (art. 4, 99) ; CNIL, fiches pratiques IA (depuis avril 2024) et recommandations du 19/06/2025 ; EDPB, avis 28/2024 (18/12/2024). Le libellé réécrit de l'art. 4 par le règlement 2026/1744 (« favoriser » plutôt que « garantir ») est corroboré par le Service Desk — à confirmer sur EUR-Lex avant citation littérale. Détail et liens : livrable 6.</p>
+    </div>
+  </details>
+
+  <!-- ============================================ -->
+  <!-- LIVRABLE 6 : RÉFÉRENCES SOURCÉES             -->
+  <!-- ============================================ -->
+  <details class="dl-card" id="doc6">
+    <summary>
+      <span class="dl-num">06</span>
+      <span class="dl-sum-text">
+        <span class="dl-sum-kick">Livrable 6 — Transverse</span>
+        <span class="dl-sum-title">Références sourcées</span>
+        <span class="dl-sum-desc">Les 24 références derrière les chiffres et règles cités pendant la formation : textes européens, doctrine CNIL et EDPB, études d'adoption et de productivité, sources social selling — chacune avec son niveau de fiabilité.</span>
+      </span>
+      <span class="dl-chev"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
+    </summary>
+    <div class="dl-panel">
+
+      <p class="dl-lede">Chaque référence est accompagnée de ce que la formation en retient et d'un niveau de fiabilité honnête :
+        <span class="dl-tag dl-tag-off">Texte officiel</span> texte ou doctrine de référence (règlement, régulateur) ;
+        <span class="dl-tag dl-tag-ok">Étude établie</span> citation sûre dans sa forme générale ;
+        <span class="dl-tag dl-tag-warn">À revérifier</span> chiffre ou URL à revalider avant toute citation externe ;
+        <span class="dl-tag dl-tag-ed">Source éditeur</span> intérêt commercial — à présenter comme tel.
+        Les éléments non vérifiables des fiches de recherche (rapport MIT NANDA, étude METR, recommandation ANSSI…) sont volontairement absents de cette bibliothèque : ce qui n'est pas sourcé ne s'affirme pas.
+      </p>
+
+      <div class="dl-ref-grp">
+        <h3 class="dl-h3"><span class="dl-h3-n">6.1</span>Textes européens &amp; régulateurs</h3>
+        <div class="dl-tblwrap">
+          <table class="dl-tbl dl-ref">
+            <thead><tr><th style="width:34%">Référence</th><th style="width:14%">Éditeur / année</th><th style="width:40%">Ce que la formation en retient</th><th style="width:12%">Fiabilité</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener">Règlement (UE) 2024/1689 — « IA Act »</a></td>
+                <td>UE / EUR-Lex, 2024</td>
+                <td>Le texte de référence : interdictions (art. 5), maîtrise de l'IA (art. 4), transparence (art. 50), sanctions (art. 99), application par étapes depuis le 1er août 2024.</td>
+                <td><span class="dl-tag dl-tag-off">Texte officiel</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://eur-lex.europa.eu/eli/reg/2026/1744/oj?locale=fr" target="_blank" rel="noopener">Règlement (UE) 2026/1744 — « Digital Omnibus on AI »</a></td>
+                <td>UE / EUR-Lex, 2026</td>
+                <td>Modifie le calendrier de l'IA Act : obligations haut risque annexe III reportées au 02/12/2027, annexe I au 02/08/2028 ; article 4 réécrit. Toute fiche antérieure à juillet 2026 est probablement obsolète.</td>
+                <td><span class="dl-tag dl-tag-off">Texte officiel</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://ai-act-service-desk.ec.europa.eu/fr/ai-act/article-4" target="_blank" rel="noopener">AI Act Service Desk — Article 4, maîtrise de l'IA</a></td>
+                <td>Commission européenne, 2025-2026</td>
+                <td>Fournisseurs et déployeurs doivent développer la maîtrise de l'IA de leur personnel depuis le 02/02/2025 — le socle légal de la formation. Pas d'amende directe, mais un risque de responsabilité.</td>
+                <td><span class="dl-tag dl-tag-off">Texte officiel</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://ai-act-service-desk.ec.europa.eu/fr/ai-act/article-99" target="_blank" rel="noopener">AI Act Service Desk — Article 99, sanctions</a></td>
+                <td>Commission européenne, 2025</td>
+                <td>Jusqu'à 35 M€ ou 7 % du CA mondial (pratiques interdites), 15 M€ ou 3 % (plupart des autres manquements), 7,5 M€ ou 1 % (informations trompeuses).</td>
+                <td><span class="dl-tag dl-tag-off">Texte officiel</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://ai-act-service-desk.ec.europa.eu/fr/ai-act/annex-3" target="_blank" rel="noopener">AI Act — Annexe III, systèmes à haut risque</a></td>
+                <td>Commission européenne, 2024</td>
+                <td>Point 4 (emploi) : filtrage de CV, décisions affectant la relation de travail, surveillance et évaluation des travailleurs = haut risque. Obligations exigibles au 02/12/2027.</td>
+                <td><span class="dl-tag dl-tag-off">Texte officiel</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.cnil.fr/fr/les-fiches-pratiques-ia" target="_blank" rel="noopener">CNIL — Les fiches pratiques IA</a></td>
+                <td>CNIL, 2024-2025</td>
+                <td>La déclinaison opérationnelle du RGPD pour l'IA : base de la règle « pas de données personnelles dans les outils non validés », minimisation, exercice des droits.</td>
+                <td><span class="dl-tag dl-tag-off">Texte officiel</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.cnil.fr/fr/ia-et-rgpd-la-cnil-publie-ses-nouvelles-recommandations-pour-accompagner-une-innovation-responsable" target="_blank" rel="noopener">CNIL — Recommandations IA &amp; RGPD (fév. 2025)</a></td>
+                <td>CNIL, 2025</td>
+                <td>Information des personnes dont les données servent à entraîner des modèles ; facilitation de l'exercice des droits (accès, rectification, opposition, effacement).</td>
+                <td><span class="dl-tag dl-tag-off">Texte officiel</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.edpb.europa.eu/documents/opinion-of-the-board-art-64/opinion-282024-on-certain-data-protection-aspects-related-to_fr" target="_blank" rel="noopener">EDPB — Avis 28/2024, modèles d'IA et RGPD</a></td>
+                <td>EDPB, 18/12/2024</td>
+                <td>Un modèle entraîné sur des données personnelles n'est pas présumé anonyme (appréciation au cas par cas) ; intérêt légitime possible après test en trois étapes.</td>
+                <td><span class="dl-tag dl-tag-off">Texte officiel</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="dl-ref-grp">
+        <h3 class="dl-h3"><span class="dl-h3-n">6.2</span>Études — adoption &amp; productivité</h3>
+        <div class="dl-tblwrap">
+          <table class="dl-tbl dl-ref">
+            <thead><tr><th style="width:34%">Référence</th><th style="width:14%">Éditeur / année</th><th style="width:40%">Ce que la formation en retient</th><th style="width:12%">Fiabilité</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-how-organizations-are-rewiring-to-capture-value" target="_blank" rel="noopener">McKinsey — The State of AI (mars 2025)</a></td>
+                <td>McKinsey, 2025</td>
+                <td>78 % des organisations utilisent l'IA dans au moins une fonction, 71 % l'IA générative — mais la grande majorité sans impact tangible sur le résultat. L'adoption est là, pas la valeur à l'échelle.</td>
+                <td><span class="dl-tag dl-tag-warn">À revérifier</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/superagency-in-the-workplace-empowering-people-to-unlock-ais-full-potential-at-work" target="_blank" rel="noopener">McKinsey — Superagency in the workplace</a></td>
+                <td>McKinsey, janv. 2025</td>
+                <td>92 % des entreprises prévoient d'augmenter leurs investissements IA, 1 % des dirigeants jugent leur déploiement mature ; usage réel par les salariés sous-estimé d'un facteur 3 par les dirigeants.</td>
+                <td><span class="dl-tag dl-tag-warn">À revérifier</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.microsoft.com/en-us/worklab/work-trend-index/ai-at-work-is-here-now-comes-the-hard-part" target="_blank" rel="noopener">Work Trend Index 2024 — « AI at Work Is Here »</a></td>
+                <td>Microsoft × LinkedIn, 2024</td>
+                <td>75 % des travailleurs du savoir utilisent l'IA ; 78 % apportent leurs propres outils (BYOAI = « shadow AI ») ; 39 % seulement ont été formés par leur entreprise.</td>
+                <td><span class="dl-tag dl-tag-ed">Source éditeur</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.microsoft.com/en-us/worklab/work-trend-index/2025-the-year-the-frontier-firm-is-born" target="_blank" rel="noopener">Work Trend Index 2025 — « The Frontier Firm »</a></td>
+                <td>Microsoft × LinkedIn, 2025</td>
+                <td>82 % des dirigeants jugent l'année pivot ; 46 % disent utiliser des agents pour automatiser des flux — la bascule copilote vers agent.</td>
+                <td><span class="dl-tag dl-tag-ed">Source éditeur</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.microsoft.com/en-us/worklab/work-trend-index/breaking-down-the-infinite-workday" target="_blank" rel="noopener">WTI — « Breaking down the infinite workday »</a></td>
+                <td>Microsoft, juin 2025</td>
+                <td>Télémétrie Microsoft 365 : une interruption toutes les 2 minutes en moyenne (environ 275 par jour). L'accroche « pourquoi maintenant » : le problème est la capacité, pas la motivation.</td>
+                <td><span class="dl-tag dl-tag-ed">Source éditeur</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://slack.com/blog/news" target="_blank" rel="noopener">Slack Workforce Index (hub)</a></td>
+                <td>Slack / Salesforce, 2024</td>
+                <td>Les salariés dont l'entreprise a publié des consignes claires sont environ 6 fois plus susceptibles d'avoir expérimenté l'IA : le cadre écrit est le déclencheur d'adoption.</td>
+                <td><span class="dl-tag dl-tag-warn">À revérifier</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.nber.org/papers/w31161" target="_blank" rel="noopener">Brynjolfsson, Li &amp; Raymond — « Generative AI at Work »</a></td>
+                <td>NBER WP 31161, 2023</td>
+                <td>5 179 agents de support : +14 % de productivité moyenne, +34 % pour les moins expérimentés — l'IA transfère l'expérience des meilleurs vers tous. Un métier, une entreprise : ne pas extrapoler.</td>
+                <td><span class="dl-tag dl-tag-ok">Étude établie</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.science.org/doi/10.1126/science.adh2586" target="_blank" rel="noopener">Noy &amp; Zhang — « Experimental Evidence on the Productivity Effects of Generative AI »</a></td>
+                <td>MIT / Science, 2023</td>
+                <td>453 professionnels, tâches d'écriture : −40 % de temps, +18 % de qualité (jugée en aveugle). Le socle chiffré des prompts du livrable 2 — en conditions contrôlées.</td>
+                <td><span class="dl-tag dl-tag-ok">Étude établie</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.hbs.edu/faculty/Pages/item.aspx?num=64700" target="_blank" rel="noopener">Dell'Acqua et al. — « Navigating the Jagged Technological Frontier »</a></td>
+                <td>Harvard × BCG, 2023</td>
+                <td>758 consultants : +12 % de tâches, −25 % de temps, +40 % de qualité sur les tâches adaptées ; −19 points de bonnes réponses sur la tâche piège. D'où le réflexe vérification.</td>
+                <td><span class="dl-tag dl-tag-ok">Étude établie</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Use_of_artificial_intelligence_in_enterprises" target="_blank" rel="noopener">Eurostat — Use of AI in enterprises (éd. 2024)</a></td>
+                <td>Eurostat, 2024</td>
+                <td>13,5 % des entreprises de l'UE (10 salariés et plus) utilisaient l'IA en 2024, contre 8 % en 2023 ; forte pente de taille : la fenêtre d'avantage compétitif d'une PME est grande ouverte.</td>
+                <td><span class="dl-tag dl-tag-warn">À revérifier</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://hai.stanford.edu/ai-index/2025-ai-index-report" target="_blank" rel="noopener">Stanford HAI — AI Index Report 2025</a></td>
+                <td>Stanford, 2025</td>
+                <td>Adoption IA par les organisations : 78 % en 2024 contre 55 % en 2023 ; investissement privé américain de 109,1 Md$ en 2024 — l'échelle mondiale du mouvement.</td>
+                <td><span class="dl-tag dl-tag-warn">À revérifier</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.weforum.org/publications/the-future-of-jobs-report-2025/" target="_blank" rel="noopener">WEF — Future of Jobs Report 2025</a></td>
+                <td>Forum économique mondial, 2025</td>
+                <td>59 % des travailleurs devront suivre une formation d'ici 2030 ; « IA et big data » = compétence technologique à la plus forte croissance de demande.</td>
+                <td><span class="dl-tag dl-tag-warn">À revérifier</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="dl-ref-grp">
+        <h3 class="dl-h3"><span class="dl-h3-n">6.3</span>Social selling &amp; vente</h3>
+        <div class="dl-tblwrap">
+          <table class="dl-tbl dl-ref">
+            <thead><tr><th style="width:34%">Référence</th><th style="width:14%">Éditeur / année</th><th style="width:40%">Ce que la formation en retient</th><th style="width:12%">Fiabilité</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><a href="https://business.linkedin.com/sales-solutions/social-selling" target="_blank" rel="noopener">LinkedIn Sales Solutions — Social Selling</a></td>
+                <td>LinkedIn, millésime non précisé</td>
+                <td>78 % des vendeurs pratiquant le social selling vendraient plus que leurs pairs ; +45 % d'opportunités ; +51 % d'atteinte de quota. Ordres de grandeur éditeur, jamais une promesse.</td>
+                <td><span class="dl-tag dl-tag-ed">Source éditeur</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.linkedin.com/sales/ssi" target="_blank" rel="noopener">LinkedIn — Social Selling Index (SSI)</a></td>
+                <td>LinkedIn, en ligne</td>
+                <td>Score sur 100, 4 piliers (marque professionnelle, bonnes personnes, insights, relations) ; gratuit après connexion. La ligne de base avant/après de la fiche 3.3.</td>
+                <td><span class="dl-tag dl-tag-ok">Étude établie</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/the-value-of-getting-personalization-right-or-wrong-is-multiplying" target="_blank" rel="noopener">McKinsey — The value of getting personalization right</a></td>
+                <td>McKinsey, 2021</td>
+                <td>71 % des consommateurs attendent des interactions personnalisées, 76 % sont frustrés sinon. Étude B2C grand public US : tendance de fond, pas preuve spécifique B2B.</td>
+                <td><span class="dl-tag dl-tag-ok">Étude établie</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://www.salesforce.com/resources/research-reports/state-of-sales/" target="_blank" rel="noopener">Salesforce — State of Sales</a></td>
+                <td>Salesforce, édition à revalider</td>
+                <td>Les vendeurs ne consacrent qu'environ 28 à 30 % de leur temps à vendre réellement — chaque heure rendue par l'IA sur l'administratif est une heure rendue à la vente.</td>
+                <td><span class="dl-tag dl-tag-ed">Source éditeur</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="dl-src"><b>Note de méthode :</b> références rassemblées dans les fiches de recherche de la formation (septembre 2026). Les liens proviennent des pages officielles citées ; les mentions « À revérifier » signalent un chiffre, un millésime ou une URL à revalider en ligne avant toute réutilisation externe. Les sources éditeurs (Microsoft, LinkedIn, Salesforce, Slack) ont un intérêt commercial : leurs chiffres se présentent comme des ordres de grandeur, jamais comme des études indépendantes.</p>
+    </div>
+  </details>
+
+<!-- ============================================ -->
+<!-- NAVIGATION DE PAGE                             -->
+<!-- ============================================ -->
+<nav class="pgnav no-print" aria-label="Navigation entre modules">
+  <a class="pgn" href="./quiz-final-ia-entreprise.html">
+    <div class="pgn-k">Précédent · Jour 2</div>
+    <div class="pgn-t">QCM final de validation</div>
+  </a>
+</nav>
+
+</div>
+
+<!-- Print header (only visible when printing) -->
+<div class="print-only" style="text-align:center; margin-bottom:20px;">
+  <h2>Akademia Formation — IA en Entreprise — Booster sa Productivité Commerciale et Métier avec l'IA Générative</h2>
+  <p>Bibliothèque des livrables — contenu intégral (6 livrables, 15 prompts, modèles vierges, charte d'usage, références)</p>
+</div>
+
+<!-- xAPI tracker -->
+<script src="assets/js/xapi-tracker.js?v=1783300000"></script>
+
+<script>
+// ============================================================
+// FORMAI — RATTACHEMENT AU COURS
+// ============================================================
+if (typeof xapiTracker !== 'undefined' && xapiTracker.setCourse) {
+  xapiTracker.setCourse('ia-entreprise');
+  if (xapiTracker.trackPageView) {
+    xapiTracker.trackPageView('documents-ia-entreprise', 'Bibliothèque des livrables — IA en Entreprise');
+  }
+}
+
+// ============================================================
+// DARK MODE TOGGLE
+// ============================================================
+document.getElementById('darkToggle').addEventListener('click', function() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('ia_entreprise_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+});
+
+// ============================================================
+// ACCORDÉONS — tout déplier / tout replier
+// ============================================================
+var dlCards = Array.prototype.slice.call(document.querySelectorAll('details.dl-card'));
+
+document.getElementById('dlExpandAll').addEventListener('click', function() {
+  dlCards.forEach(function(d) { d.open = true; });
+});
+document.getElementById('dlCollapseAll').addEventListener('click', function() {
+  dlCards.forEach(function(d) { d.open = false; });
+});
+
+// Les ancres du sommaire ouvrent la carte ciblée
+document.querySelectorAll('.dl-toc a[href^="#"]').forEach(function(link) {
+  link.addEventListener('click', function() {
+    var target = document.querySelector(link.getAttribute('href'));
+    if (target && target.tagName.toLowerCase() === 'details') target.open = true;
+  });
+});
+
+// ============================================================
+// BOUTONS COPIER (prompts)
+// ============================================================
+function dlCopyText(text, btn) {
+  function done(ok) {
+    var label = btn.querySelector('.dl-copy-label');
+    if (!label) return;
+    btn.classList.add('is-copied');
+    label.textContent = ok ? 'Copié' : 'Sélectionnez le texte';
+    setTimeout(function() {
+      btn.classList.remove('is-copied');
+      label.textContent = 'Copier';
+    }, 1800);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() { done(true); }, function() { fallback(); });
+  } else {
+    fallback();
+  }
+  function fallback() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    done(ok);
+  }
+}
+
+document.querySelectorAll('.dl-copy').forEach(function(btn) {
+  // Contenu normalisé : icône + libellé enveloppé pour l'état "Copié"
+  btn.innerHTML = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><span class="dl-copy-label">Copier</span>';
+
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var pre = document.getElementById(btn.getAttribute('data-copy'));
+    if (pre) dlCopyText(pre.innerText, btn);
+  });
+});
+
+// ============================================================
+// IMPRESSION — déplier toutes les sections, puis restaurer
+// ============================================================
+var dlPrintState = null;
+window.addEventListener('beforeprint', function() {
+  dlPrintState = dlCards.map(function(d) { return d.open; });
+  dlCards.forEach(function(d) { d.open = true; });
+});
+window.addEventListener('afterprint', function() {
+  if (!dlPrintState) return;
+  dlCards.forEach(function(d, i) { d.open = dlPrintState[i]; });
+  dlPrintState = null;
+});
+</script>
+
+</body>
+</html>
