@@ -183,7 +183,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .keycard.violet .kl{color:#C4B5FD}
 
 /* ---------------- tableaux ---------------- */
-.tblwrap{margin-top:20px;flex:1;min-height:0;display:flex;flex-direction:column}
+.tblwrap{margin-top:20px;flex:0 0 auto;display:flex;flex-direction:column}
 .tbl{width:100%;border-collapse:collapse}
 .tbl th{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--cap);text-align:left;padding:8px 14px;border-bottom:1px solid var(--ink);background:var(--bg)}
@@ -317,12 +317,12 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 /* ---------------- à retenir (takeaways) ---------------- */
 .tkgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;flex:1;min-height:0}
 .tkcard{border:1px solid var(--line);border-radius:18px;background:var(--white);
-  padding:18px 24px;display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:0}
+  padding:15px 22px;display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:0}
 .tkcard::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
 .tkcard .tn{font-family:'Instrument Serif',serif;font-size:24px;color:var(--ter)}
 .tkcard b{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:17.5px;
   color:var(--ink);margin-top:4px;letter-spacing:-.008em;line-height:1.25}
-.tkcard p{font-size:13.6px;line-height:1.55;color:var(--body);margin-top:8px}
+.tkcard p{font-size:13.2px;line-height:1.5;color:var(--body);margin-top:7px}
 .nextband{display:flex;justify-content:space-between;align-items:center;gap:20px;
   margin-top:14px;padding-top:4px}
 .nextband a{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;
@@ -489,7 +489,8 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   border-top:1px solid var(--line);padding:4px 0}
 .qzg-wrap .qz:first-child{border-top:0}
 .qzg .qz-q{display:flex;gap:12px;align-items:baseline;font-family:'Instrument Sans',sans-serif;
-  font-weight:620;font-size:16.5px;letter-spacing:-0.008em;color:var(--ink);line-height:1.35;margin-top:0}
+  font-weight:620;font-size:16.5px;letter-spacing:-0.008em;color:var(--ink);line-height:1.35;margin-top:0;width:100%;max-width:none}
+.qzg .qz-q .qtx{flex:1;min-width:0}
 .qzg .qz-n{flex:none;font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.12em;
   color:var(--blue);border:1px solid rgba(37,99,235,.32);border-radius:999px;padding:4px 9px}
 .qzg .qz-opts{display:grid;gap:9px;margin-top:9px}
@@ -507,9 +508,9 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .qzg .qz-o.ko .qz-l{background:var(--err);border-color:var(--err);color:#fff}
 .qzg .qz.done .qz-o{pointer-events:none}
 .qzg .qz.done .qz-o:not(.ok):not(.ko){opacity:.42}
-.qzg .qz-fb{display:none;font-family:'Inter',system-ui,sans-serif;font-weight:380;font-size:13px;
+.qzg .qz-fb{display:block;visibility:hidden;font-family:'Inter',system-ui,sans-serif;font-weight:380;font-size:13px;
   line-height:1.5;letter-spacing:normal;text-transform:none;color:var(--body);margin-top:8px}
-.qzg .qz-fb.on{display:block}
+.qzg .qz-fb.on{visibility:visible}
 .qzg .qz-fb b{color:var(--ink)}
 .qzg .qz-fb.ok-l .qz-fb-l{color:#047857}
 .qzg .qz-fb.ko-l .qz-fb-l{color:#B91C1C}
@@ -517,6 +518,18 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .tt-hint{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;
   text-transform:uppercase;color:var(--ter);margin-top:16px}
 .qzg-bar .tt-hint{margin-top:0}
+
+/* ---- quizg : lisible ET contenu (question pleine largeur, blocs 2×2) ---- */
+.qzg-wrap{margin-top:8px}
+.qzg-wrap .qz{padding:5px 0}
+.qzg .qz-q{font-size:15px;line-height:1.32;font-weight:640}
+.qzg .qz-opts{gap:8px;margin-top:8px}
+.qzg .qz-o{min-height:0;padding:8px 12px;font-size:12px;line-height:1.32;border-radius:11px}
+.qzg .qz-l{width:21px;height:21px;font-size:9px}
+.qzg .qz-fb{display:block;visibility:hidden;min-height:36px;font-size:12px;line-height:1.38;margin-top:5px}
+.qzg .qz-fb.on{visibility:visible}
+.qzg-bar{margin-top:8px}
+.s-quizg .foot{padding-top:9px}
 
 /* ---- panneau piloté lv-* : expérience guidée (xp) + avant/après (ab) ---- */
 .lv-panel{border:1px solid var(--line);border-radius:18px;background:var(--white);
@@ -660,7 +673,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .chart-box svg{width:100%;height:100%;display:block}
 
 /* ---- excal : encarts Excel / Copilot ---- */
-.xc-grid{display:grid;gap:16px;margin-top:18px;flex:1;min-height:0;align-content:start}
+.xc-grid{display:grid;gap:12px;margin-top:14px;flex:1;min-height:0;align-content:start}
 .xc-h{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.2em;
   text-transform:uppercase;display:block;margin-bottom:10px}
 .xc-excel{border-radius:18px;background:var(--card-n);color:var(--body-n);padding:20px 24px;
@@ -683,9 +696,273 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   padding:10px 14px;margin-top:10px}
 .xc-ph{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--cap);display:block;margin-bottom:4px}
-.xc-pr p{font-style:italic;font-size:13.5px;line-height:1.5;color:var(--ink)}
+.xc-pr p{font-style:italic;font-size:12.4px;line-height:1.42;color:var(--ink)}
 .xc-warn{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.14em;
   text-transform:uppercase;color:#B45309;margin-top:14px}
+
+
+/* ---- s-formateur · slide formateur nuit typographique (médaillon gradient) ---- */
+#s-formateur .fo-glow{position:absolute;right:-220px;top:-260px;width:720px;height:720px;
+  border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.26),rgba(37,99,235,.09) 55%,transparent 72%)}
+#s-formateur .fo-glow2{position:absolute;left:-260px;bottom:-320px;width:640px;height:640px;
+  border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.18),transparent 70%)}
+#s-formateur .fo-band{display:flex;align-items:center;gap:30px;margin-top:26px}
+#s-formateur .fo-med{flex:none;width:116px;height:116px;border-radius:50%;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;
+  font-size:45px;color:#fff;letter-spacing:.02em;box-shadow:0 18px 50px -12px rgba(124,58,237,.55)}
+#s-formateur .fo-name{font-family:'Instrument Serif',serif;font-size:47px;line-height:1.05;
+  color:var(--ink-n);letter-spacing:-0.01em}
+#s-formateur .fo-role{font-family:'Fragment Mono',monospace;font-size:11.5px;letter-spacing:.22em;
+  text-transform:uppercase;margin-top:10px;background:var(--gradn);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+#s-formateur .fo-hook{font-size:16px;line-height:1.58;color:var(--body-n);margin-top:11px;max-width:860px}
+#s-formateur .fo-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:46px;flex:1;min-height:0;margin-top:24px}
+#s-formateur .fo-lab{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--cap-n);margin-bottom:4px}
+#s-formateur .fo-rows{display:flex;flex-direction:column}
+#s-formateur .fo-row{display:grid;grid-template-columns:282px 1fr;gap:18px;align-items:baseline;
+  padding:9.5px 2px;border-top:1px solid var(--line-n)}
+#s-formateur .fo-row:last-child{border-bottom:1px solid var(--line-n)}
+#s-formateur .fo-row b{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:15px;
+  color:var(--ink-n);letter-spacing:-0.005em}
+#s-formateur .fo-row span{font-size:13.2px;line-height:1.48;color:var(--body-n)}
+#s-formateur .fo-right{display:flex;flex-direction:column}
+#s-formateur .fo-pills{display:flex;flex-wrap:wrap;gap:8px}
+#s-formateur .fo-pills span{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-n);border:1px solid var(--line-n);border-radius:999px;
+  padding:7px 13px;background:rgba(148,163,184,.06)}
+#s-formateur .fo-ped{border:1px solid var(--line-n);border-radius:16px;padding:17px 20px;background:var(--card-n)}
+#s-formateur .fo-ped p{font-size:13.6px;line-height:1.58;color:var(--body-n)}
+#s-formateur .fo-ped p+p{margin-top:7px}
+#s-formateur .fo-ped b{color:var(--ink-n);font-weight:600}
+
+
+
+/* ---- pré-module organisme (règles reprises du deck Initiation à l'IA) ---- */
+/* ---- complément design 3 points + catalogue (deck consolidé Initiation IA) ---- */
+.cat-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:40px;margin-top:22px;flex:1;min-height:0}
+.coord{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  color:var(--cap);white-space:nowrap}
+.dotp{width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none}
+.g-kick{position:relative;font-family:'Fragment Mono',monospace;font-size:10px;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cap-n)}
+.g-later{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;white-space:nowrap;color:var(--cap-n);border:1px solid var(--line-n);
+  border-radius:999px;padding:6px 12px}
+.g-note-sm{position:relative;font-size:13.5px;color:var(--cap-n);margin-top:auto;padding-top:14px}
+.g-note-sm b{color:var(--body-n);font-weight:510}
+.g-row{position:relative;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:12px 2px;border-top:1px solid var(--line-n);flex:1 1 0;min-height:0}
+.g-row:first-of-type{border-top:0}
+.g-row .nm{display:flex;align-items:baseline;gap:16px;font-size:19px;font-weight:420;color:var(--body-n)}
+.g-row .nm .rn{font-family:'Instrument Serif',serif;font-size:22px;color:var(--cap-n)}
+.g-row .nm small{display:block;font-size:12.5px;color:var(--cap-n);margin-top:3px;font-weight:380}
+.g-row.onx .nm{color:var(--ink-n);font-weight:510}
+.g-title{position:relative;font-family:'Instrument Sans',sans-serif;font-weight:620;
+  font-size:20px;line-height:1.3;color:var(--ink-n);margin:9px 0 14px;letter-spacing:-0.008em}
+.gamme{position:relative;border-radius:18px;background:var(--card-n);color:var(--body-n);
+  padding:24px 30px;overflow:hidden;display:flex;flex-direction:column;margin-top:26px;flex:1;min-height:0}
+.gamme .gg{position:absolute;right:-120px;top:-140px;width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,.35),transparent 66%);pointer-events:none}
+.here{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;
+  margin-top:20px;padding:15px 22px;border:1px solid var(--line);border-radius:18px;background:var(--bg)}
+.here-badge{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
+  font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--blue);border:1px solid rgba(37,99,235,.28);border-radius:999px;padding:8px 15px}
+.here p{font-size:14.5px;line-height:1.55;color:var(--body)}
+.here p b{color:var(--ink);font-weight:600}
+.here .coord{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  color:var(--cap);white-space:nowrap}
+.nm{display:flex;align-items:baseline;gap:16px;font-size:19px;font-weight:420;color:var(--body-n)}
+.nm .rn{font-family:'Instrument Serif',serif;font-size:22px;color:var(--cap-n)}
+.nm small{display:block;font-size:12.5px;color:var(--cap-n);margin-top:3px;font-weight:380}
+.nm{color:var(--ink-n);font-weight:510}
+.nm{font-size:13px;color:var(--body)}
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.pill{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink);border:1px solid var(--line);
+  border-radius:999px;padding:8px 14px;background:var(--white)}
+.rowi{display:grid;grid-template-columns:64px 300px 1fr;gap:20px;align-items:baseline;
+  padding:15px 4px;border-top:1px solid var(--line)}
+.rowi:last-child{border-bottom:1px solid var(--line)}
+.rowi .rn{font-family:'Instrument Serif',serif;font-size:27px;color:var(--ter)}
+.rowi b{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:18px;
+  color:var(--ink);letter-spacing:-0.008em}
+.rowi p{font-size:15px;line-height:1.58;color:var(--body)}
+.rows{display:flex;flex-direction:column;margin-top:22px}
+
+.dotm{width:11px;height:11px;border-radius:50%;flex:none;background:var(--grad);
+  box-shadow:0 0 0 2.5px var(--white),0 0 0 3.5px var(--line)}
+.dotm.hq{width:15px;height:15px}
+.geo-grid{display:grid;grid-template-columns:1fr 392px;gap:48px;margin-top:14px;flex:1;min-height:0}
+.geo-lede{font-size:15px;line-height:1.6;color:var(--body);max-width:52ch}
+.geo-stats{display:flex;flex-direction:column;gap:15px;padding-top:4px}
+.geo-stats .stat2{border-top:1px solid var(--line);padding-top:12px}
+.geo-stats .sv{font-size:44px}
+.hq{width:15px;height:15px}
+.hq::before{width:15px;height:15px}
+.map-box{position:relative;width:392px}
+.map-box>svg{display:block;width:100%;height:auto}
+.map-hint{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ter)}
+.map-note{font-size:13.5px;line-height:1.55;color:var(--cap);border-top:1px solid var(--line);padding-top:13px}
+.map-note b{color:var(--ink);font-weight:600}
+.map-tip{position:absolute;z-index:12;width:max-content;min-width:200px;max-width:250px;
+  background:var(--white);border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 18px 44px -14px rgba(15,23,42,.3);padding:14px 16px 12px;
+  opacity:0;pointer-events:none;transform:translate(-50%,calc(-100% - 16px)) scale(.97);
+  transition:opacity .18s ease,transform .22s var(--ease)}
+.map-tip::before{content:"";position:absolute;top:0;left:16px;right:16px;height:3px;
+  border-radius:0 0 3px 3px;background:var(--grad)}
+.map-tip b{display:block;font-family:'Instrument Sans',sans-serif;font-weight:640;
+  font-size:14.5px;letter-spacing:-0.01em;color:var(--ink)}
+.map-tip .tr{display:block;font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ter);margin:4px 0 6px}
+.map-tip p{margin:0;font-size:12.5px;line-height:1.5;color:var(--body)}
+.mk{position:absolute;width:26px;height:26px;transform:translate(-50%,-50%);border:0;
+  background:transparent;padding:0;z-index:3}
+.mk::before{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;
+  transform:translate(-50%,-50%);background:var(--grad);
+  box-shadow:0 0 0 2.5px var(--white),0 3px 10px rgba(37,99,235,.4)}
+.mk::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;
+  transform:translate(-50%,-50%);border-radius:50%;
+  box-shadow:0 0 0 0 rgba(37,99,235,.4);animation:mkp 2.8s ease-out infinite}
+.mk.hq::before{width:15px;height:15px}
+.mk:hover::before,.mk:focus-visible::before{box-shadow:0 0 0 2.5px var(--white),0 0 0 5px rgba(124,58,237,.28),0 3px 12px rgba(37,99,235,.5)}
+.mk:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:50%}
+.mk-lab{position:absolute;font-family:'Fragment Mono',monospace;font-size:8px;letter-spacing:.08em;
+  text-transform:uppercase;color:#5F6C81;white-space:nowrap;pointer-events:none;transform:translateY(-50%);z-index:2}
+  function show(mk){
+    open=mk;
+  }
+  });
+  }
+.stat2 .sv{font-family:'Instrument Serif',serif;font-size:62px;line-height:1;color:var(--ink)}
+.stat2 .sv em{font-style:normal;background:var(--grad);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.stat2 .sl{font-size:14px;color:var(--cap);margin-top:7px}
+.stat2{border-top:1px solid var(--line);padding-top:12px}
+.stats2{display:flex;gap:44px}
+.ref{display:flex;gap:12px;align-items:flex-start}
+.ref .rl{height:23px;width:auto;max-width:78px;object-fit:contain;flex:none;margin-top:1px}
+.ref-t{flex:1;min-width:0}
+.refgrp{margin-top:8px}
+.refgrp+.refgrp{margin-top:8px}
+.ref{border-bottom:1px solid var(--line);padding:5px 0 6px}
+.ref b{display:block;font-family:'Instrument Sans',sans-serif;font-weight:620;
+  font-size:14.3px;letter-spacing:-0.008em;color:var(--ink)}
+.ref p{margin:2px 0 0;font-size:12px;line-height:1.42;color:var(--cap)}
+.rg-c{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:16px;color:var(--ter)}
+.rg-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 44px}
+.rg-h{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  border-bottom:1px solid var(--ink);padding-bottom:4px}
+.rg-h .rg-t{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink)}
+.rg-h .rg-c{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:16px;color:var(--ter)}
+.rg-t{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink)}
+.rl2{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:#BFD3FE;display:block;margin-bottom:8px}
+.rl{height:23px;width:auto;max-width:78px;object-fit:contain;flex:none;margin-top:1px}
+.legend{display:flex;flex-direction:column;gap:9px;border-top:1px solid var(--line);padding-top:13px}
+.leg{display:flex;align-items:center;gap:11px;font-family:'Fragment Mono',monospace;
+  font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--cap)}
+.slide{position:absolute;inset:0;background:var(--white);opacity:0;visibility:hidden;
+  transition:opacity .42s var(--ease),visibility 0s linear .42s;overflow:hidden}
+.slide.on{opacity:1;visibility:visible;transition:opacity .42s var(--ease)}
+.slide .rail{position:relative;z-index:2;height:100%;padding:50px 72px 42px;display:flex;flex-direction:column}
+.slide.night{background:var(--night);color:var(--body-n)}
+.slide.night::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.05;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")}
+.slide.night .kick{color:var(--cap-n)}
+.slide.night h2{color:var(--ink-n)}
+.slide.night .gw{background:var(--gradn);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+.slide.night .lede{color:var(--body-n)}
+.slide.night .lede b{color:var(--ink-n)}
+.slide.night .pt p{color:var(--body-n)}
+.slide.night .pt p b{color:var(--ink-n)}
+.slide.night .foot{border-top-color:var(--line-n);color:var(--cap-n)}
+.slide.night ::selection{background:rgba(167,139,250,.3)}
+.slide.on .reveal{opacity:1;transform:none}
+.slide.instant .reveal{transition-duration:0s;transition-delay:0s}
+.slide.night .pause-note{border-color:var(--cap-n);color:var(--cap-n)}
+.slide.night .pause-note::before{border-color:var(--cap-n)}
+.slide.on .circle{opacity:1;transform:scale(1)}
+.slide.instant .circle{transition:none}
+.slide{transition:none}
+.sl{font-size:14px;color:var(--cap);margin-top:7px}
+  var cur=-1;
+
+  function fit(){
+    var s=Math.min(window.innerWidth/1280, window.innerHeight/720);
+    stage.style.transform='translate(-50%,-50%) scale('+s+')';
+  }
+.slice.call(dots.children);
+
+  function pad(n){return (n<10?'0':'')+n;}
+      if(c.classList.contains('act')){
+        c.classList.remove('act');c.classList.add('done');
+        pause();
+      }
+  function show(mk){
+    open=mk;
+  }
+  var pans={
+  }
+.sv{font-family:'Instrument Serif',serif;font-size:62px;line-height:1;color:var(--ink)}
+.sv em{font-style:normal;background:var(--grad);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.sv{font-size:44px}
+.tr{display:block;font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ter);margin:4px 0 6px}
+.transform='translate(-50%,-50%) scale('+s+')';
+  }
+
+    d.className='dot'; d.type='button';
+    d.setAttribute('aria-label','Slide '+(i+1));
+.trap){
+        sp.setAttribute('data-trap',seg.trap);
+        if(!firstTrapDone&&w!==''){sp.classList.add('tp-first');firstTrapDone=true;}
+  function show(mk){
+    open=mk;
+  }
+.transform='rotate(-32deg)';
+  }
+  function done(){
+  }
+.transform='rotate('+STEPS[idx]+'deg)';
+    }
+  }
+  function start(){
+    if(playing)return;
+    if(idx>=PTS.length)reset();
+    iv=setInterval(step,240);
+  }
+
+
+/* ================= LISIBILITÉ (passe finale, 10/09) ================= */
+/* contenu « roomy » : répartition verticale quand la slide est peu dense */
+.roomy .rail{justify-content:flex-start}
+.roomy .lede{font-size:17.5px;line-height:1.66;margin-top:16px}
+.roomy .pts{margin-top:auto;margin-bottom:auto;display:flex;flex-direction:column;gap:26px}
+.roomy .pt{padding:10px 2px}
+.roomy .pt .pb p{font-size:15.5px;line-height:1.58}
+.roomy .pt .pb .psub{font-size:12.8px;margin-top:4px;line-height:1.5}
+.roomy .pt .pn{font-size:19px;width:40px}
+.roomy .keycard{margin-top:18px}
+/* atelier : descriptions de tâches LISIBLES (fini le mono 8px en capitales) */
+.pcard .ps{font-family:'Inter',system-ui,sans-serif;font-weight:380;font-size:11.8px;
+  letter-spacing:normal;text-transform:none;line-height:1.5;color:var(--body);margin-top:6px}
+.pcard{padding:15px 18px}
+.pcard .pn{font-size:15.5px}
+.t-lab{font-family:'Inter',system-ui,sans-serif;font-size:11.5px;font-weight:500;
+  letter-spacing:normal;text-transform:none;line-height:1.5;margin-top:12px}
+/* scénario : conséquences un peu plus lisibles */
+.posc .pos-c{font-size:13.8px;line-height:1.55}
+/* xp : statut et légende plus lisibles */
+.lv-status,.lv-count{font-size:10px}
+.lv-leg{font-size:10px}
 
 </style>
 </head>
@@ -700,10 +977,10 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   <div class="hairline"></div>
   
   <div class="rail">
-    <div class="toprow"><span class="kick">Jour 1 · Après-midi · 13h30 — 17h00</span><span class="pgr">01 · 19</span></div>
+    <div class="toprow"><span class="kick">Jour 1 · Après-midi · 13h30 — 17h00</span><span class="pgr">01 · 24</span></div>
     <div class="sec-mid">
       <h2 class="reveal" style="--i:0">Module 2 · Méthodes de prévision</h2>
-      <p class="sec-sub reveal" style="--i:1">Qualitatif et quantitatif : choisir, calculer, transposer — des ventes de produits aux flux entrants de services. 3 h 30, mise en pratique Excel incluse.</p>
+      <p class="sec-sub reveal" style="--i:1">Qualitatif, moyennes mobiles, lissages, saisonnalité, intermittence, sans-historique, Excel et Copilot : choisir la bonne méthode sur la structure de la donnée — des ventes pharma aux flux entrants. 3 h 30, atelier Excel inclus.</p>
     </div>
     <div class="cover-foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
@@ -711,7 +988,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 <!-- 02 · CONTENU -->
 <section class="slide dense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">02 · 19</span></div>
+    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">02 · 24</span></div>
     <h2>Panorama : <span class="gw">qualitatif vs quantitatif — l&#x27;arbre de choix</span></h2>
     <p class="lede reveal" style="--i:0">Avant toute formule, une question de structure : de quelles données dispose-t-on, pour quel horizon, avec quelle stabilité ? C&#x27;est cette anatomie de la série — et non la mode du moment — qui commande le choix de la méthode.</p>
     <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Deux grandes familles : les méthodes <b>qualitatives</b> (jugement structuré : expertise, analogie, Delphi) quand l&#x27;historique est absent, court ou non pertinent — lancement, rupture de marché, changement réglementaire.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Les méthodes <b>quantitatives</b> (moyennes mobiles, lissages, décomposition) dès qu&#x27;un historique exploitable existe — en pratique des flux de services, on récupère jusqu&#x27;à <b>36 mois d&#x27;historique</b> pour identifier tendance et saisonnalités.</p><p class="psub">Pratique recommandée du workforce management (littérature éditeurs WFM, non datée).</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>L&#x27;arbre de choix pose quatre questions : <b>historique disponible ?</b> · <b>horizon visé ?</b> · <b>tendance ?</b> · <b>saisonnalité ou intermittence ?</b> — chaque réponse élimine des familles entières de méthodes.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Chez NOVADIS, la même semaine, on prévoit une référence chronique stable (lissage), une gamme hivernale (indices saisonniers) et une référence hospitalière rare (Croston) : <b>trois méthodes cohabitent</b> dans un même portefeuille.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Chez ALTÉA, le volume d&#x27;appels (saisonnier, historique long) relève du quantitatif ; le lancement d&#x27;une nouvelle offre (zéro historique) relève du qualitatif — <b>même organisation, deux régimes de prévision</b>.</p></div></div></div>
@@ -722,7 +999,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 <!-- 03 · CONTENU -->
 <section class="slide dense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">03 · 19</span></div>
+    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">03 · 24</span></div>
     <h2>Méthodes qualitatives : <span class="gw">expertise, analogie, Delphi — forces et biais</span></h2>
     <p class="lede reveal" style="--i:0">Quand la donnée manque, le jugement n&#x27;est pas une excuse pour improviser : il existe des méthodes qui le structurent, le confrontent et le tracent. C&#x27;est le régime normal des lancements — nouvelle spécialité chez NOVADIS, nouvelle offre chez ALTÉA.</p>
     <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Expertise commerciale</b> : les forces de vente estiment par client ou par canal ; force = la connaissance du terrain, faiblesses = l&#x27;optimisme d&#x27;objectif et le biais du mois écoulé.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Analogie</b> : caler la courbe du nouveau produit sur une référence comparable (même canal, même clientèle, mécanique de marché proche) — pratique standard du domaine, à documenter explicitement (référence choisie, écarts assumés).</p><p class="psub">Point méthodologique présenté comme pratique standard — pas de source primaire vérifiée dans la recherche.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Méthode Delphi</b> : rounds itératifs de questionnaires, <b>anonymat</b> des réponses et feedback contrôlé entre les rounds jusqu&#x27;à convergence — formalisée par Dalkey et Helmer (Management Science, 1963, travaux de la RAND).</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Biais à neutraliser : <b>ancrage</b> (le premier chiffre prononcé verrouille la discussion), <b>autorité</b> (le senior parle, les autres se taisent), <b>pression des objectifs</b> (la prévision devient un vœu).</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Transposition services : pour estimer les flux d&#x27;une nouvelle offre ALTÉA, un mini-Delphi interne (3 experts métier, 2 rounds, 10 jours) produit une <b>fourchette assumée</b> plutôt qu&#x27;un chiffre « au feeling ».</p></div></div></div>
@@ -733,10 +1010,10 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 <!-- 04 · CONTENU -->
 <section class="slide dense xdense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">04 · 19</span></div>
+    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">04 · 24</span></div>
     <h2>Moyennes mobiles simple et pondérée : <span class="gw">principe, fenêtre, décalage</span></h2>
     <p class="lede reveal" style="--i:0">La moyenne mobile est le premier réflexe de lissage : elle gomme les fluctuations transitoires pour faire apparaître la structure. Encore faut-il savoir ce qu&#x27;elle fait exactement — elle retarde, et elle retarde d&#x27;une quantité précise.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Principe</b> : chaque valeur est remplacée par la moyenne des n dernières observations ; les accidents de parcours (jour férié, pic isolé) s&#x27;effacent, la tendance reste.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Propriété clé</b> : appliquée à une tendance régulière, une moyenne mobile simple d&#x27;ordre n <b>retarde de (n−1)/2 périodes</b> — avec n = 3, elle vit un mois dans le passé ; avec n = 12, cinq mois et demi.</p><p class="psub">Propriété algébrique standard des manuels — démontrable, formulation non revérifiée sur une source primaire.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Démonstration minute : sur la série 100, 110, 120, 130, 140 (pente +10), la MM3 donne 110, 120, 130 — soit exactement la valeur de la période précédente, en permanence.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Moyenne mobile pondérée</b> : on accentue le récent (poids type 0,5 · 0,3 · 0,2 sur les 3 derniers mois) — plus réactive, mais toujours en retard sur une tendance.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Usage correct : la moyenne mobile <b>centrée</b> sert à lire le passé (elle est au cœur de la décomposition saisonnière, slide suivante) ; pour <b>prévoir</b> une série qui monte, elle est inadaptée — direction Holt.</p></div></div><div class="pt reveal" style="--i:5"><span class="pn">06</span><div class="pb"><p>Transposition ALTÉA : une MM7 sur les appels quotidiens neutralise l&#x27;effet lundi-vendredi et révèle la vraie pente hebdomadaire des flux entrants.</p></div></div></div>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Principe</b> : chaque valeur est remplacée par la moyenne des n dernières observations ; les accidents de parcours (jour férié, pic isolé) s&#x27;effacent, la tendance reste.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Propriété clé</b> : appliquée à une tendance régulière, une moyenne mobile simple d&#x27;ordre n <b>retarde de (n−1)/2 périodes</b> — avec n = 3, elle vit un mois dans le passé ; avec n = 12, cinq mois et demi.</p><p class="psub">Propriété algébrique standard des manuels — démontrable, formulation non revérifiée sur une source primaire.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Démonstration minute : sur la série 100, 110, 120, 130, 140 (pente +10), la MM3 donne 110, 120, 130 — soit exactement la valeur de la période précédente, en permanence.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Moyenne mobile pondérée</b> : on accentue le récent (poids type 0,5 · 0,3 · 0,2 sur les 3 derniers mois) — plus réactive, mais toujours en retard sur une tendance.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Usage correct : la moyenne mobile <b>centrée</b> sert à lire le passé (elle est au cœur de la décomposition saisonnière, slide des indices) ; pour <b>prévoir</b> une série qui monte, elle est inadaptée — direction Holt.</p></div></div><div class="pt reveal" style="--i:5"><span class="pn">06</span><div class="pb"><p>Transposition ALTÉA : une MM7 sur les appels quotidiens neutralise l&#x27;effet lundi-vendredi et révèle la vraie pente hebdomadaire des flux entrants.</p></div></div></div>
     <div class="keycard reveal" style="--i:6"><span class="kl">À retenir</span><p>La moyenne mobile lisse le passé ; elle ne prévoit pas l&#x27;avenir quand la série a une tendance.</p></div>
     <div class="foot"><span>fr.wikipedia.org/wiki/Moyenne_mobile (appoint, consulté le 08/09/2026) ; retard (n−1)/2 : propriété algébrique standard</span><span>Akademia Formation</span></div>
   </div>
@@ -744,7 +1021,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 <!-- 05 · ÉTAPES -->
 <section class="slide s-steps" data-steps="st4">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 2 · Lissage exponentiel</span><span class="pgr">05 · 19</span></div>
+    <div class="toprow"><span class="kick">Module 2 · Lissage exponentiel</span><span class="pgr">05 · 24</span></div>
     <h2>Lissage exponentiel simple : <span class="gw">le calcul, pas à pas (NOVADIS, alpha = 0,3)</span></h2>
     <div class="stgrid reveal" style="--i:0">
       <div class="stlist"><div class="stit"><span class="stn">01</span><span class="stt">Amorçage</span></div><div class="stit"><span class="stn">02</span><span class="stt">Prévision semaine 3</span></div><div class="stit"><span class="stn">03</span><span class="stt">Prévision semaine 4</span></div><div class="stit"><span class="stn">04</span><span class="stt">Prévision semaine 5</span></div><div class="stit"><span class="stn">05</span><span class="stt">Prévision semaine 6</span></div><div class="stit"><span class="stn">06</span><span class="stt">Prévision semaine 7</span></div></div>
@@ -762,10 +1039,32 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <div class="foot"><span>fr.wikipedia.org/wiki/Lissage_exponentiel (appoint, 08/09/2026) ; données NOVADIS construites pour l&#x27;exercice</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 06 · CONTENU -->
+<!-- 06 · EXPÉRIENCE GUIDÉE -->
+<section class="slide s-xp" data-xp="xp5">
+  <div class="rail">
+    <div class="toprow"><span class="kick">Expérience pilotée · Interactif</span><span class="pgr">06 · 24</span></div>
+    <h2>« Sentir le lissage » — la même série, trois alpha (0,1 · 0,3 · 0,8)</h2>
+    <div class="xp-pills reveal" style="--i:0"><span class="abp cur">Observer la série</span><span class="abp">Voter son alpha</span><span class="abp">3 lissages révélés</span><span class="abp">La règle</span></div>
+    <div class="lv-panel xp-panel reveal" style="--i:1">
+      <div class="lv-head">
+        <span class="lv-status" data-xp-status></span>
+        <span class="lv-count" data-xp-count></span>
+      </div>
+      <div class="xp-prog"><i data-xp-fill></i></div>
+      <div class="lv-stage" data-xp-stage></div>
+      <div class="lv-foot">
+        <span class="lv-leg" data-xp-leg></span>
+        <button type="button" class="lvb" data-xp-reset>Rejouer</button>
+        <button type="button" class="lvb prim" data-xp-go></button>
+      </div>
+    </div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 07 · CONTENU -->
 <section class="slide dense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">06 · 19</span></div>
+    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">07 · 24</span></div>
     <h2>Tendance et saisonnalité : <span class="gw">Holt (double lissage) et Winters (triple lissage)</span></h2>
     <p class="lede reveal" style="--i:0">Quand la série monte ou descend durablement, il faut donner au modèle une deuxième mémoire : la pente. Et quand les saisons reviennent chaque année, une troisième : le profil saisonnier. C&#x27;est la logique cumulative de la famille du lissage exponentiel.</p>
     <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Holt (double lissage, 1957)</b> : deux équations lissent séparément le <b>niveau</b> et la <b>tendance</b> ; la prévision à horizon h = niveau + h × pente — le retard systématique du SES disparaît.</p><p class="psub">Mémo de 1957, réédité dans l&#x27;International Journal of Forecasting en 2004.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Chez ALTÉA, les e-mails entrants croissent structurellement (digitalisation des échanges) : Holt suit la pente là où le SES sous-estime chaque mois.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Winters (triple lissage, 1960)</b> ajoute la <b>composante saisonnière</b> : le modèle apprend simultanément niveau, pente et profil des 12 mois — c&#x27;est le moteur des pics de janvier comme des hivers pharmaceutiques.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Additive ou multiplicative ?</b> Règle pratique : amplitude du pic <b>constante en volume</b> (le pic d&#x27;appels de janvier chez ALTÉA ajoute chaque année environ le même nombre d&#x27;appels) › additive ; amplitude <b>proportionnelle au niveau</b> (gamme hivernale NOVADIS en croissance : le pic gonfle avec la gamme) › multiplicative.</p><p class="psub">Règle pratique standard du modèle de Winters — formulation non revérifiée sur source primaire.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Le test de terrain : comparer l&#x27;amplitude du pic sur 2 à 3 ans — si elle grandit avec les ventes, l&#x27;additif sous-estimera les pics et surestimera les creux.</p></div></div></div>
@@ -773,10 +1072,45 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <div class="foot"><span>Holt 1957 (rééd. IJF 2004) — doi.org/10.1016/j.ijforecast.2003.09.015 ; Winters 1960 — doi.org/10.1287/mnsc.6.3.324</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 07 · TABLE -->
+<!-- 08 · GRAPHIQUE -->
+<section class="slide s-chart">
+  <div class="rail">
+    <div class="toprow"><span class="kick">Module 2 · Saisonnalité</span><span class="pgr">08 · 24</span></div>
+    <h2>24 mois d&#x27;appels entrants ALTÉA : <span class="gw">lisez la série avant de la modéliser</span></h2>
+    <p class="lede reveal" style="--i:0">Pic de janvier, creux d&#x27;août, deux événements marqués : la courbe raconte déjà la moitié du modèle. Moyenne des 24 mois : 156,2 k appels.</p>
+    <div class="chart-wrap reveal" style="--i:1">
+      <div class="chart-legend"><span class="cl"><i style="background:#2563EB"></i>Appels entrants (k/mois)</span></div>
+      <div class="chart-box"><svg viewBox="0 0 1160 400" role="img"><line x1="64" y1="356.0" x2="1144" y2="356.0" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="360.0" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">0</text><line x1="64" y1="272.5" x2="1144" y2="272.5" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="276.5" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">50</text><line x1="64" y1="189.0" x2="1144" y2="189.0" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="193.0" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">100</text><line x1="64" y1="105.5" x2="1144" y2="105.5" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="109.5" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">150</text><line x1="64" y1="22.0" x2="1144" y2="22.0" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="26.0" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">200</text><text x="86.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">janv. 25</text><text x="131.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">févr. 25</text><text x="176.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">mars 25</text><text x="221.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">avr. 25</text><text x="266.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">mai 25</text><text x="311.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">juin 25</text><text x="356.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">juil. 25</text><text x="401.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">août 25</text><text x="446.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">sept. 25</text><text x="491.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">oct. 25</text><text x="536.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">nov. 25</text><text x="581.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">déc. 25</text><text x="626.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">janv. 26</text><text x="671.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">févr. 26</text><text x="716.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">mars 26</text><text x="761.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">avr. 26</text><text x="806.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">mai 26</text><text x="851.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">juin 26</text><text x="896.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">juil. 26</text><text x="941.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">août 26</text><text x="986.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">sept. 26</text><text x="1031.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">oct. 26</text><text x="1076.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">nov. 26</text><text x="1121.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">déc. 26</text><line x1="446.5" y1="22" x2="446.5" y2="356" stroke="#DC2626" stroke-width="1.2" stroke-dasharray="5 4"/><text x="452.5" y="34" font-family="Fragment Mono" font-size="10" fill="#DC2626">Grève transport : pic d&#x27;appels +15 %</text><line x1="626.5" y1="22" x2="626.5" y2="356" stroke="#DC2626" stroke-width="1.2" stroke-dasharray="5 4"/><text x="632.5" y="49" font-family="Fragment Mono" font-size="10" fill="#DC2626">Bascule décompte électronique : −6 % structurel</text><line x1="64" y1="95.1" x2="1144" y2="95.1" stroke="#F59E0B" stroke-width="1.4" stroke-dasharray="7 5"/><text x="1140" y="89.1" text-anchor="end" font-family="Fragment Mono" font-size="10" fill="#B45309">Moyenne : 156,2 k</text><polyline points="86.5,28.8 131.5,52.9 176.5,75.9 221.5,82.8 266.5,88.1 311.5,121.0 356.5,129.0 401.5,147.1 446.5,75.8 491.5,75.8 536.5,71.8 581.5,66.3 626.5,49.4 671.5,79.8 716.5,85.8 761.5,102.2 806.5,121.5 851.5,127.4 896.5,141.9 941.5,155.1 986.5,122.4 1031.5,100.3 1076.5,94.0 1121.5,89.6" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="86.5" cy="28.8" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="131.5" cy="52.9" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="176.5" cy="75.9" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="221.5" cy="82.8" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="266.5" cy="88.1" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="311.5" cy="121.0" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="356.5" cy="129.0" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="401.5" cy="147.1" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="446.5" cy="75.8" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="491.5" cy="75.8" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="536.5" cy="71.8" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="581.5" cy="66.3" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="626.5" cy="49.4" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="671.5" cy="79.8" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="716.5" cy="85.8" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="761.5" cy="102.2" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="806.5" cy="121.5" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="851.5" cy="127.4" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="896.5" cy="141.9" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="941.5" cy="155.1" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="986.5" cy="122.4" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="1031.5" cy="100.3" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="1076.5" cy="94.0" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="1121.5" cy="89.6" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><text x="64" y="14" font-family="Fragment Mono" font-size="10" fill="#94A3B8">k appels / mois</text></svg></div>
+    </div>
+    <div class="keycard reveal" style="--i:2"><span class="kl">Indices saisonniers calculés (24 mois)</span><p>janv. 1,22 · févr. 1,11 · mars 1,05 · avr. 1,01 · mai 0,96 · juin 0,89 · juil. 0,85 · août 0,79 · sept. 0,99 · oct. 1,03 · nov. 1,05 · déc. 1,07 — le calcul exact est à la slide suivante.</p></div>
+    <div class="foot"><span>Données pédagogiques construites ALTÉA — jeu figé 24 mois (09/2026)</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 09 · ÉTAPES -->
+<section class="slide s-steps" data-steps="st8">
+  <div class="rail">
+    <div class="toprow"><span class="kick">Module 2 · Saisonnalité</span><span class="pgr">09 · 24</span></div>
+    <h2>Indices saisonniers par décomposition : <span class="gw">24 mois de flux ALTÉA</span></h2>
+    <div class="stgrid reveal" style="--i:0">
+      <div class="stlist"><div class="stit"><span class="stn">01</span><span class="stt">Estimer la tendance-cycle</span></div><div class="stit"><span class="stn">02</span><span class="stt">Calculer les rapports au trend</span></div><div class="stit"><span class="stn">03</span><span class="stt">Moyenner par mois calendaire</span></div><div class="stit"><span class="stn">04</span><span class="stt">Désaisonnaliser</span></div><div class="stit"><span class="stn">05</span><span class="stt">Prévoir</span></div><div class="stit"><span class="stn">06</span><span class="stt">Traduire en charge</span></div></div>
+      <div class="stpanel">
+        <div class="stp-swap">
+          <span class="stp-k">Étape <b class="stp-cur">1</b> / 6</span>
+          <h3 class="stp-t"></h3>
+          <p class="stp-d"></p>
+        </div>
+        <div class="stp-v"><span class="svv"></span></div>
+      </div>
+    </div>
+    <div class="keycard st-callout"><span class="kl">Lecture</span><p>Un indice de 1,22 se lit : « janvier pèse 22 % de plus qu&#x27;un mois moyen ». Désaisonnaliser = diviser par l&#x27;indice.</p></div>
+    <span class="st-hint">Espace / flèche → · révéler l'étape suivante</span>
+    <div class="foot"><span>Méthode classique de décomposition (standard méthodologique) ; moyenne mobile centrée : fr.wikipedia.org/wiki/Moyenne_mobile (appoint) ; données ALTÉA construites, jeu figé 24 mois</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 10 · TABLE -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">07 · 19</span></div>
+    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">10 · 24</span></div>
     <h2>Choisir sa méthode selon le profil de la série</h2>
     <div class="tblwrap">
       <table class="tbl">
@@ -789,83 +1123,69 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <div class="foot"><span>Taxonomie standard du domaine — fr.wikipedia.org/wiki/Prévision_de_la_demande (appoint, consulté le 08/09/2026)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 08 · CONTENU -->
+<!-- 11 · CONTENU -->
 <section class="slide dense xdense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">08 · 19</span></div>
+    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">11 · 24</span></div>
     <h2>La demande intermittente : <span class="gw">la méthode de Croston respecte les zéros</span></h2>
     <p class="lede reveal" style="--i:0">Certaines références ne se vendent pas chaque semaine : des zéros, puis une commande, puis des zéros. Sur ces séries, le lissage classique se trompe de nature — il mélange deux phénomènes qu&#x27;il faut séparer.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Le problème</b> : sur une demande intermittente, lisser la série brute confond « quand ça commande » et « combien ça commande » — la prévision devient nerveuse et biaisée, et les réassorts s&#x27;affolent.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Méthode de Croston (1972)</b> : lisser <b>séparément</b> la taille des demandes non nulles (z) et l&#x27;intervalle entre demandes (p), puis combiner : prévision = z / p.</p><p class="psub">Operational Research Quarterly, 1972.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Correction SBA</b> : Croston surestime systématiquement (biais démontré par Syntetos et Boylan en 2001) ; la correction publiée en 2005 multiplie la prévision par <b>(1 − alpha/2)</b>.</p><p class="psub">International Journal of Forecasting, 2005 — facteur (1−alpha/2) : présentation standard de la SBA.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Démo NOVADIS (référence hospitalière, 12 semaines : 0 · 4 · 0 · 0 · 3 · 0 · 0 · 0 · 5 · 0 · 0 · 2) : z = 3,5 unités, p = environ 3,3 semaines › Croston : environ 1,05 u./sem. › SBA (alpha = 0,2) : environ 0,95 u./sem. — la moyenne naïve donne 1,17.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Piège pharma</b> : un zéro de vente pendant une rupture n&#x27;est pas un zéro de demande — la demande existait, elle était <b>censurée</b> par le stock ; nettoyer l&#x27;historique avant tout lissage.</p></div></div><div class="pt reveal" style="--i:5"><span class="pn">06</span><div class="pb"><p>Côté ALTÉA, l&#x27;intermittence est moins naturelle (les flux sont massifs) ; elle apparaît sur des événements rares mais coûteux — dossiers contentieux, prestations exceptionnelles.</p></div></div></div>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Le problème</b> : sur une demande intermittente, lisser la série brute confond « quand ça commande » et « combien ça commande » — la prévision devient nerveuse et biaisée, et les réassorts s&#x27;affolent.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Méthode de Croston (1972)</b> : lisser <b>séparément</b> la taille des demandes non nulles (z) et l&#x27;intervalle entre demandes (p), puis combiner : prévision = z / p.</p><p class="psub">Operational Research Quarterly, 1972.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Correction SBA</b> : Croston surestime systématiquement (biais démontré par Syntetos et Boylan en 2001) ; la correction publiée en 2005 multiplie la prévision par <b>(1 − alpha/2)</b>.</p><p class="psub">International Journal of Forecasting, 2005 — facteur (1−alpha/2) : présentation standard de la SBA.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Démo NOVADIS (référence hospitalière, 12 semaines : 0 · 4 · 0 · 0 · 3 · 0 · 0 · 0 · 5 · 0 · 0 · 2) : z = 3,5 unités, p = environ 3,3 semaines › Croston : environ 1,05 u./sem. › SBA (alpha = 0,2) : environ 0,95 u./sem. — la moyenne naïve donne 1,17.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Piège pharma</b> : le zéro d&#x27;avr. 26 dans la série R (rupture fournisseur) n&#x27;est pas un zéro de demande — la demande existait, elle était <b>censurée</b> par le stock ; nettoyer l&#x27;historique avant tout lissage, sinon on sous-prévoit la reprise.</p></div></div><div class="pt reveal" style="--i:5"><span class="pn">06</span><div class="pb"><p>Côté ALTÉA, l&#x27;intermittence est moins naturelle (les flux sont massifs) ; elle apparaît sur des événements rares mais coûteux — dossiers contentieux, prestations exceptionnelles.</p></div></div></div>
     <div class="keycard reveal" style="--i:6"><span class="kl">Repères 2001 · 2005</span><p>Biais haussier de Croston démontré en 2001 ; correction SBA publiée dans l&#x27;International Journal of Forecasting en 2005.</p></div>
     <div class="foot"><span>Croston 1972 — doi.org/10.2307/3007885 ; Syntetos-Boylan 2001 — doi.org/10.1016/S0925-5273(00)00143-2 ; SBA 2005 — doi.org/10.1016/j.ijforecast.2004.10.001</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 09 · ÉTAPES -->
-<section class="slide s-steps" data-steps="st8">
+<!-- 12 · CONTENU -->
+<section class="slide dense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 2 · Saisonnalité</span><span class="pgr">09 · 19</span></div>
-    <h2>Indices saisonniers par décomposition : <span class="gw">12 mois de flux ALTÉA</span></h2>
-    <div class="stgrid reveal" style="--i:0">
-      <div class="stlist"><div class="stit"><span class="stn">01</span><span class="stt">Estimer la tendance-cycle</span></div><div class="stit"><span class="stn">02</span><span class="stt">Calculer les rapports au trend</span></div><div class="stit"><span class="stn">03</span><span class="stt">Moyenner par mois calendaire</span></div><div class="stit"><span class="stn">04</span><span class="stt">Désaisonnaliser</span></div><div class="stit"><span class="stn">05</span><span class="stt">Prévoir</span></div><div class="stit"><span class="stn">06</span><span class="stt">Traduire en charge</span></div></div>
-      <div class="stpanel">
-        <div class="stp-swap">
-          <span class="stp-k">Étape <b class="stp-cur">1</b> / 6</span>
-          <h3 class="stp-t"></h3>
-          <p class="stp-d"></p>
-        </div>
-        <div class="stp-v"><span class="svv"></span></div>
-      </div>
-    </div>
-    <div class="keycard st-callout"><span class="kl">Lecture</span><p>Un indice de 1,18 se lit : « janvier pèse 18 % de plus qu&#x27;un mois moyen ». Désaisonnaliser = diviser par l&#x27;indice.</p></div>
-    <span class="st-hint">Espace / flèche → · révéler l'étape suivante</span>
-    <div class="foot"><span>Méthode classique de décomposition (standard méthodologique) ; moyenne mobile centrée : fr.wikipedia.org/wiki/Moyenne_mobile (appoint) ; données ALTÉA construites</span><span>Akademia Formation</span></div>
-  </div>
-</section>
-<!-- 10 · CONTENU -->
-<section class="slide">
-  <div class="rail">
-    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">10 · 19</span></div>
+    <div class="toprow"><span class="kick">Module 2 · Méthodes de prévision</span><span class="pgr">12 · 24</span></div>
     <h2>Prévoir sans historique : <span class="gw">nouveaux produits, fins de vie et cannibalisation</span></h2>
     <p class="lede reveal" style="--i:0">L&#x27;extrapolation statistique suppose que demain ressemble à hier. Les lancements et les fins de vie violent précisément cette hypothèse : c&#x27;est là que le jugement structuré reprend la main — avec une discipline de révision.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Lancement sans historique</b> : Delphi et analogie dominent — on cale la courbe sur une référence comparable et on explicite chaque hypothèse (taux de pénétration, canal, calendrier de montée).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Révision hebdomadaire</b> : la précision d&#x27;un lancement vient de la vitesse de mise à jour, pas du modèle — chaque semaine, on pondère l&#x27;analogie initiale et le réel observé (le réel pèse peu les premières semaines, puis de plus en plus).</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Fin de vie en pharma</b> : la perte de brevet ne détruit pas le volume de la molécule — il le <b>redistribue</b> du princeps vers les génériques ; le prévisionniste gère un transfert entre codes-produits, pas une disparition.</p><p class="psub">Mécanisme sectoriel établi — chiffres France précis non vérifiés dans la recherche : aucun chiffre avancé ici.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Cannibalisation et phase-out</b> : l&#x27;arrivée d&#x27;une nouvelle offre ponctionne l&#x27;ancienne ; modéliser le transfert (part reprise, vitesse) plutôt que sommer deux prévisions indépendantes — sinon on double le volume prévu.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Transposition ALTÉA : le lancement d&#x27;une nouvelle offre santé se prévoit comme un produit — mini-Delphi interne, analogie avec une offre proche, révision hebdomadaire des flux entrants pendant les 8 premières semaines.</p></div></div></div>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Lancement sans historique</b> : Delphi et analogie dominent — on cale la courbe sur une référence comparable et on explicite chaque hypothèse (taux de pénétration, canal, calendrier de montée).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Révision hebdomadaire</b> : la précision d&#x27;un lancement vient de la vitesse de mise à jour, pas du modèle — chaque semaine, on pondère l&#x27;analogie initiale et le réel observé (90 % analogie la semaine 1, l&#x27;inverse à la semaine 8).</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Fin de vie en pharma</b> : la perte de brevet ne détruit pas le volume de la molécule — il le <b>redistribue</b> du princeps vers les génériques ; le prévisionniste gère un transfert entre codes-produits, pas une disparition.</p><p class="psub">Mécanisme sectoriel établi — chiffres France précis non vérifiés dans la recherche : aucun chiffre avancé ici.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Cannibalisation et phase-out</b> : en juil. 26, NOVADIS lance une spécialité adjacente — la référence R perd durablement <b>environ 8 %</b> de son niveau ; modéliser le transfert (part reprise, vitesse) plutôt que sommer deux prévisions indépendantes, sinon on double le volume prévu.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Transposition ALTÉA : le lancement d&#x27;une nouvelle offre santé se prévoit comme un produit — mini-Delphi interne, analogie avec une offre proche, révision hebdomadaire des flux entrants pendant les 8 premières semaines.</p></div></div></div>
     <div class="keycard reveal" style="--i:5"><span class="kl">Règle d&#x27;atelier</span><p>Sans historique : hypothèses écrites, révision hebdomadaire, fourchette plutôt que chiffre unique.</p></div>
     <div class="foot"><span>Delphi — doi.org/10.1287/mnsc.9.3.458 (1963) ; mécanismes cycle de vie pharma : concepts sectoriels établis (LEEM — chiffres clés) ; analogie : pratique standard</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 11 · CONTENU -->
-<section class="slide dense">
+<!-- 13 · EXCEL / COPILOT -->
+<section class="slide s-excal">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 2 · Outils</span><span class="pgr">11 · 19</span></div>
-    <h2>Excel avancé : <span class="gw">PREVISION.ETS, TENDANCE, PREVISION.LINEAIRE — et Copilot</span></h2>
-    <p class="lede reveal" style="--i:0">Bonne nouvelle : les méthodes vues depuis 13h30 sont déjà dans votre tableur. Excel automatise le lissage exponentiel ; Copilot accélère l&#x27;exploration. Reste à savoir ce qu&#x27;ils calculent — et ce qu&#x27;ils ignorent.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>PREVISION.ETS</b> : prévision par lissage exponentiel automatisé (famille Holt-Winters), avec <b>saisonnalité détectée automatiquement</b> et intervalle de confiance ; la chronologie doit avoir un <b>pas constant</b> (ex. valeurs au 1er de chaque mois) — trous ou doublons de dates = saisonnalité fantaisiste.</p><p class="psub">Fonctions associées : PREVISION.ETS.SAISONNIERE, PREVISION.ETS.INTCONFIANCE — noms français usuels, localisation standard non revérifiée.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>PREVISION.LINEAIRE</b> : régression linéaire simple (moindres carrés) — utile sur un phénomène réellement linéaire, à horizon court ; dangereuse extrapolée à l&#x27;infini (une droite ne s&#x27;arrête jamais).</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>TENDANCE</b> : ajuste une droite des moindres carrés et accepte plusieurs variables explicatives — ex. prévoir les appels ALTÉA en fonction du nombre de contrats et du calendrier des campagnes.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Copilot dans Excel</b> : questions en langage naturel sur vos données, graphiques et formules suggérés, analyses avancées via Python — idéal pour explorer les écarts prévision/réel et documenter les hypothèses d&#x27;un fichier.</p><p class="psub">Pages Support et Microsoft Learn « Copilot dans Excel », consultées le 08/09/2026.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Deux disciplines non négociables</b> : chaque sortie de Copilot se <b>vérifie</b> (l&#x27;outil génère du plausible, pas du garanti) et <b>aucune donnée nominative</b> d&#x27;assuré ou de patient ne se soumet à l&#x27;outil.</p></div></div></div>
-    <div class="keycard reveal" style="--i:5"><span class="kl">Point de vigilance</span><p>PREVISION.ETS exige une chronologie à pas constant (documentation Microsoft, consultée le 08/09/2026) — la première minute de tout exercice sert à vérifier les dates.</p></div>
-    <div class="foot"><span>support.microsoft.com — forecast-ets-function, forecasting-functions-reference, trend-function, forecast-and-forecast-linear-functions (08/09/2026) ; learn.microsoft.com — Copilot</span><span>Akademia Formation</span></div>
+    <div class="toprow"><span class="kick">Module 2 · Outils · Excel pas à pas</span><span class="pgr">13 · 24</span></div>
+    <h2>PREVISION.ETS en 4 étapes — sur les 24 mois d&#x27;appels ALTÉA</h2>
+    <div class="xc-grid" style="grid-template-columns:repeat(1,1fr)"><div class="xc-excel reveal" style="--i:0"><span class="xc-h">Le pas-à-pas projeté (partage d&#x27;écran en direct)</span><div class="xc-step"><span class="xc-n">01</span><div class="xc-b"><span class="xc-k">1 · Vérifier la chronologie</span><p>Une colonne de dates au pas constant (1er de chaque mois), 24 lignes, ni trou ni doublon : c&#x27;est l&#x27;exigence n° 1 de la fonction — la première minute de tout exercice sert à cela (documentation Microsoft, 08/09/2026).</p></div></div><div class="xc-step"><span class="xc-n">02</span><div class="xc-b"><span class="xc-k">2 · Lancer la prévision</span><p>=PREVISION.ETS(date cible ; plage de valeurs ; plage de dates) — la fonction applique un lissage exponentiel avec détection automatique de la saisonnalité : vous savez désormais ce qu&#x27;il y a derrière le bouton.</p></div></div><div class="xc-step"><span class="xc-n">03</span><div class="xc-b"><span class="xc-k">3 · Contrôler le cycle détecté</span><p>La fonction de saisonnalité de la famille (FORECAST.ETS.SEASONALITY en version anglaise) doit renvoyer 12 sur des données mensuelles à profil annuel — sinon, forcer l&#x27;argument saisonnalité à 12 ou soupçonner une chronologie sale.</p></div></div><div class="xc-step"><span class="xc-n">04</span><div class="xc-b"><span class="xc-k">4 · Encadrer la prévision</span><p>La fonction d&#x27;intervalle de la famille (FORECAST.ETS.CONFINT) donne la borne de confiance : porter en demand review « environ 183 k, plus ou moins la borne » plutôt qu&#x27;un point sec — et comparer avec TENDANCE en appoint : une droite ne voit pas la saison.</p></div></div></div></div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 12 · CONTENU -->
+<!-- 14 · EXCEL / COPILOT -->
+<section class="slide s-excal">
+  <div class="rail">
+    <div class="toprow"><span class="kick">Module 2 · Outils · Copilot métier</span><span class="pgr">14 · 24</span></div>
+    <h2>Prompts Copilot pour la prévision</h2>
+    <div class="xc-grid" style="grid-template-columns:repeat(2,1fr)"><div class="xc-copilot reveal" style="--i:0"><span class="xc-h">Prompt 1 · Analyser les écarts prévision/réel</span><div class="xc-pr"><span class="xc-ph">Le prompt</span><p>«&nbsp;Voici 24 mois de flux entrants et les prévisions associées. Calcule l&#x27;écart en % par mois, repère les 3 mois les plus faux et propose 3 causes plausibles pour chacun.&nbsp;»</p></div><div class="xc-pr"><span class="xc-ph">À vérifier à la main</span><p>«&nbsp;Recalculer 2 lignes à la calculatrice ; confronter chaque « cause plausible » au calendrier réel — l&#x27;outil propose du plausible, pas du prouvé.&nbsp;»</p></div><p class="xc-warn">À vérifier à la main — Copilot se trompe parfois avec aplomb</p></div><div class="xc-copilot reveal" style="--i:1"><span class="xc-h">Prompt 2 · Rédiger les hypothèses de la demand review</span><div class="xc-pr"><span class="xc-ph">Le prompt</span><p>«&nbsp;Rédige en 5 points les hypothèses de cette prévision de janvier : base statistique, indice saisonnier, événements attendus, risques, donnée manquante.&nbsp;»</p></div><div class="xc-pr"><span class="xc-ph">À vérifier à la main</span><p>«&nbsp;Chaque chiffre cité doit exister dans le fichier (l&#x27;outil peut en inventer) ; faire relire par une paire avant la réunion.&nbsp;»</p></div><p class="xc-warn">À vérifier à la main — Copilot se trompe parfois avec aplomb</p></div><div class="xc-copilot reveal" style="--i:2"><span class="xc-h">Deux disciplines non négociables</span><div class="xc-pr"><span class="xc-ph">Confidentialité</span><p>«&nbsp;Jamais de données nominatives d&#x27;assurés ou de patients dans l&#x27;outil : uniquement des données agrégées et anonymisées.&nbsp;»</p></div><div class="xc-pr"><span class="xc-ph">Validation</span><p>«&nbsp;Copilot accélère l&#x27;exploration ; l&#x27;analyste valide chaque sortie : l&#x27;outil génère du plausible, pas du garanti (Microsoft Learn, 08/09/2026).&nbsp;»</p></div><p class="xc-warn">À vérifier à la main — Copilot se trompe parfois avec aplomb</p></div><div class="xc-copilot reveal" style="--i:3"><span class="xc-h">Micro-atelier (10 min) — votre bibliothèque de prompts</span><div class="xc-pr"><p>«&nbsp;Chacune rédige son prompt d&#x27;analyse d&#x27;écarts adapté à son fichier et le colle au chat — la salle retient 6 à 8 prompts communs (livrable 2).&nbsp;»</p></div><p class="xc-warn">À vérifier à la main — Copilot se trompe parfois avec aplomb</p></div></div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 15 · CONTENU -->
 <section class="slide dense xdense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 2 · Outils</span><span class="pgr">12 · 19</span></div>
+    <div class="toprow"><span class="kick">Module 2 · Outils</span><span class="pgr">15 · 24</span></div>
     <h2>Solutions spécialisées et IA : <span class="gw">ce qu&#x27;elles changent, ce qu&#x27;elles ne changent pas</span></h2>
     <p class="lede reveal" style="--i:0">Au-delà du tableur, des plateformes industrialisent la prévision à l&#x27;échelle de milliers de références. Les compétitions internationales de prévision, elles, offrent une boussole précieuse sur ce que l&#x27;IA peut — et ne peut pas — promettre.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>SAP IBP</b> : suite intégrée de planification supply chain grand compte, de la prévision au S&amp;OP, avec une brique « demand sensing » — affinage court terme de la prévision par signaux récents (positionnement produit usuel ; détails non revérifiés).</p><p class="psub">Pages produit et documentation SAP, URL vérifiées le 08/09/2026.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>FuturMaster — qui devient Sunstice</b> : spécialiste français de la planification de la demande (plus de 600 clients revendiqués, plateforme Bloom) ; en septembre 2026, fusion avec PlaniSense et changement de marque — vous croiserez les deux noms.</p><p class="psub">Communiqués Sunstice, début septembre 2026.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Ce qu&#x27;elles changent : <b>calcul massif</b> multi-niveaux, workflow collaboratif, traçabilité des hypothèses et des ajustements. Ce qu&#x27;elles ne changent pas : la qualité des données, la discipline de la revue, la gouvernance — un mauvais process motorisé reste un mauvais process.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Compétition M4 (2018)</b> : 100 000 séries réelles — les 6 méthodes de machine learning pur finissent toutes derrière le benchmark statistique ; 12 des 17 meilleures méthodes sont des <b>combinaisons</b> ; le gagnant est un hybride lissage exponentiel + réseau de neurones.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Compétition M5 (2020-2022)</b> : environ 42 000 séries journalières hiérarchiques d&#x27;un grand distributeur — cette fois le machine learning (gradient boosting, réseaux profonds) domine, et les 3 premiers sont des <b>ensembles</b> de modèles.</p></div></div><div class="pt reveal" style="--i:5"><span class="pn">06</span><div class="pb"><p>Synthèse opérationnelle : sur vos séries mensuelles (courtes, nombreuses), la robustesse va aux méthodes simples et aux combinaisons ; le ML s&#x27;impose avec des données massives, journalières et enrichies de variables explicatives — <b>la donnée décide</b>.</p></div></div></div>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>SAP IBP</b> : suite intégrée de planification supply chain grand compte, de la prévision au S&amp;OP, avec une brique « demand sensing » — affinage court terme de la prévision par signaux récents (positionnement produit usuel ; détails non revérifiés).</p><p class="psub">Pages produit et documentation SAP, URL vérifiées le 08/09/2026.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>FuturMaster — qui devient Sunstice</b> : spécialiste français de la planification de la demande (plus de 600 clients revendiqués, plateforme Bloom) ; en septembre 2026, fusion avec PlaniSense et changement de marque — vous croiserez les deux noms.</p><p class="psub">Communiqués Sunstice, début septembre 2026.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Ce qu&#x27;elles changent : <b>calcul massif</b> multi-niveaux, workflow collaboratif, traçabilité des hypothèses et des ajustements. Ce qu&#x27;elles ne changent pas : la qualité des données, la discipline de la revue, la gouvernance — un mauvais process motorisé reste un mauvais process.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Compétition M4 (2018)</b> : 100 000 séries réelles — les 6 méthodes de machine learning pur finissent toutes derrière le benchmark statistique ; 12 des 17 meilleures méthodes sont des <b>combinaisons</b> ; le gagnant est un hybride lissage exponentiel + réseau de neurones.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Compétition M5 (2020-2022)</b> : environ 42 800 séries journalières hiérarchiques d&#x27;un grand distributeur — cette fois le machine learning (gradient boosting, réseaux profonds) domine, et les 3 premiers sont des <b>ensembles</b> de modèles.</p></div></div><div class="pt reveal" style="--i:5"><span class="pn">06</span><div class="pb"><p>Synthèse opérationnelle : sur vos séries mensuelles (courtes, nombreuses), la robustesse va aux méthodes simples et aux combinaisons ; le ML s&#x27;impose avec des données massives, journalières et enrichies de variables explicatives — <b>la donnée décide</b>.</p></div></div></div>
     <div class="keycard reveal" style="--i:6"><span class="kl">Repères 2018 · 2020</span><p>M4 : le ML pur perd sur 100 000 séries réelles. M5 : le ML domine sur données massives journalières. Deux leçons, une boussole.</p></div>
     <div class="foot"><span>M4 : IJF 2020 — doi.org/10.1016/j.ijforecast.2019.04.014 ; M5 : IJF 2022 — doi.org/10.1016/j.ijforecast.2021.11.013 ; sap.com ; sunstice.com/public-release (09/2026)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 13 · CAS PRATIQUE -->
+<!-- 16 · CAS PRATIQUE -->
 <section class="slide s-case">
   <div class="rail">
-    <div class="toprow"><span class="kick g">Cas pratique · Sous-groupes</span><span class="pgr">13 · 19</span></div>
+    <div class="toprow"><span class="kick g">Cas pratique · Interactif</span><span class="pgr">16 · 24</span></div>
     <h2>Cas croisé : <span class="gw">prévoir mars — référence NOVADIS et flux ALTÉA</span></h2>
     <div class="casectx reveal" style="--i:0">
       <span class="ck">Le contexte</span>
-      <p>NOVADIS — référence hivernale « R » (saison grippe). Ventes mensuelles N-1 (k boîtes) : mars 49 · avr. 43 · mai 30 · juin 31 · juil. 23 · août 28 · sept. 36 · oct. 60 · nov. 66 · déc. 90 · janv. 88 · févr. 65 (moyenne 50,8 k). Indices construits sur N-2 : mars 1,02 · oct. 1,09 · déc. 1,70 · janv. 1,83 (les 12 indices au cahier). Dernier niveau lissé SES fin février : 69,2 (alpha = 0,3). ALTÉA — appels entrants (k) : janv. 198 · févr. 172 · mars 176 · avr. 158 · mai 160 · juin 143 · juil. 146 · août 128 · sept. 158 · oct. 170 · nov. 166 · déc. 169 (moyenne 162 k). Indices de l&#x27;année précédente : janv. 1,20 · mars 1,06 (les 12 au cahier). Dernier niveau lissé SES fin décembre : 159,9 (alpha = 0,3).</p>
+      <p>NOVADIS — référence hivernale « R » (saison grippe). Ventes mensuelles N-1 (k boîtes) : mars 49 · avr. 43 · mai 30 · juin 31 · juil. 23 · août 28 · sept. 36 · oct. 60 · nov. 66 · déc. 90 · janv. 88 · févr. 65 (moyenne 50,8 k). Indices construits sur N-2 : mars 1,02 · oct. 1,09 · déc. 1,70 · janv. 1,83 (les 12 indices au cahier). Dernier niveau lissé SES fin février : 69,2 (alpha = 0,3). ALTÉA — appels entrants (k) : janv. 198 · févr. 172 · mars 176 · avr. 158 · mai 160 · juin 143 · juil. 146 · août 128 · sept. 158 · oct. 170 · nov. 166 · déc. 169 (moyenne 162 k). Indices de l&#x27;année précédente : janv. 1,20 · mars 1,06 (les 12 au cahier). Dernier niveau lissé SES fin décembre : 159,9 (alpha = 0,3). Fenêtre d&#x27;exercice N-1, autonome : ses moyennes (162 k, indices 1,20 et 1,06) sont propres à ce cas — ne pas les confondre avec le fichier 24 mois étudié plus tôt cet après-midi (156,2 k, indices 1,22 et 0,79).</p>
     </div>
     <div class="caseqs"><div class="caseq reveal" style="--i:1"><span class="qn">01</span><p>Pour chaque série, quelle méthode retenez-vous pour prévoir mars ? Justifiez par la structure de la série (amplitude, saison, tendance).</p></div><div class="caseq reveal" style="--i:2"><span class="qn">02</span><p>Calculez la prévision de mars avec les trois méthodes : moyenne mobile 3 mois, SES (alpha = 0,3, niveau lissé fourni), indice saisonnier × base retenue.</p></div><div class="caseq reveal" style="--i:3"><span class="qn">03</span><p>On a calculé les MAPE historiques des trois méthodes (NOVADIS : indices 8 % · MM3 31 % · SES 33 % — ALTÉA : indices 3 % · MM3 11 % · SES 12 %). Confirment-elles votre choix ? Quelle prévision portez-vous en demand review, avec quelles hypothèses écrites ?</p></div></div>
     <div class="casebar">
-      <span class="casehint">Cherchez d'abord · le corrigé s'ouvre à la slide suivante</span>
+      <span class="casehint">Cherchez d&#x27;abord · le corrigé s&#x27;ouvre à la slide suivante</span>
       <button class="btncase" type="button" data-gonext>Voir le corrigé
         <svg viewBox="0 0 16 16" fill="none"><path d="M6 3 L11 8 L6 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
@@ -873,61 +1193,117 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <div class="foot"><span>Données pédagogiques construites NOVADIS / ALTÉA ; méthodes : Winters 1960, lissage exponentiel (références du module)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 14 · CORRIGÉ -->
+<!-- 17 · CORRIGÉ -->
 <section class="slide s-sol">
   <div class="rail">
-    <div class="toprow"><span class="kick v">Corrigé du cas</span><span class="pgr">14 · 19</span></div>
+    <div class="toprow"><span class="kick v">Corrigé du cas</span><span class="pgr">17 · 24</span></div>
     <h2>Corrigé comparatif : <span class="gw">deux séries, deux régimes de prévision</span></h2>
-    <p class="lede reveal" style="--i:0">La même question — « combien en mars ? » — appelle deux réponses très différentes, et l&#x27;écart entre méthodes se lit directement dans l&#x27;amplitude saisonnière des deux séries.</p>
+    <p class="lede reveal" style="--i:0">« Combien en mars ? » appelle deux réponses très différentes — l&#x27;écart se lit dans l&#x27;amplitude saisonnière des deux séries.</p>
     <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>NOVADIS</b> : amplitude forte (indice janvier 1,83 contre environ 0,5 en juillet) › méthode de référence : l&#x27;<b>indice saisonnier</b> — prévision mars = base 50,8 k × 1,02 = environ <b>52 k boîtes</b> ; MM3 (81 k) et SES (68 k) courent après le pic de décembre-janvier.</p><p class="psub">MAPE historiques : indices 8 % · MM3 31 % · SES 33 %.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>ALTÉA</b> : amplitude modérée (indice janvier 1,20) › l&#x27;indice reste le meilleur choix — mars = base 162 k × 1,06 = environ <b>172 k appels</b> ; MM3 (168 k) et SES (163 k) restent proches car la saisonnalité est douce.</p><p class="psub">MAPE historiques : indices 3 % · MM3 11 % · SES 12 %.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>La règle qui émerge</b> : plus l&#x27;amplitude saisonnière est forte, plus les indices écrasent les lissages ; sur série peu marquée, un lissage bien réglé fait presque aussi bien — rassurant pour les flux moins saisonniers.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Ce qu&#x27;on porte en demand review</b> : la prévision statistique ET ses hypothèses écrites — saison de grippe « moyenne » chez NOVADIS, reconduction de la campagne de janvier chez ALTÉA ; le jugement enrichira en réunion (module 3).</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Réflexe intervalle</b> : 52 k ou 172 k <b>± l&#x27;erreur historique de la méthode</b> — on dimensionne stocks et effectifs sur une plage, pas sur un point.</p></div></div></div>
     <div class="keycard violet reveal" style="--i:5"><span class="kl">À retenir</span><p>Sur le cas NOVADIS, l&#x27;indice saisonnier divise l&#x27;erreur par 4 par rapport aux lissages (8 % contre 31-33 % de MAPE historique).</p></div>
     <div class="foot"><span>Données pédagogiques construites NOVADIS / ALTÉA ; méthodes : Winters 1960 — doi.org/10.1287/mnsc.6.3.324</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 15 · ERREURS FRÉQUENTES -->
+<!-- 18 · SCÉNARIO POSTURES -->
+<section class="slide s-scn" data-scn>
+  <div class="rail">
+    <div class="toprow"><span class="kick">Choisissez votre posture · Demande review</span><span class="pgr">18 · 24</span></div>
+    <h2>Le commercial annonce +30 % pour mars sur la référence R</h2>
+    <div class="casectx reveal" style="--i:0">
+      <span class="ck">Le contexte</span>
+      <p>Demande review de février, référence « R ». La base statistique pour mars ressort à 52 k boîtes (indice 1,02 × base 50,8 k — le calcul du cas croisé). Le directeur commercial débarque : « avec la campagne pharmacies de mars, faites +30 % ». Seul repère documenté : la campagne comparable de juil. 25 avait mesuré +12 % pendant 2 mois dans la série.</p>
+    </div>
+    <p class="scn-q reveal" style="--i:1">Que faites-vous de ce +30 % ?</p>
+    <div class="pos3"><button type="button" class="posc reveal v-bad" style="--i:1" data-verdict="bad"><span class="pos-l">Posture A</span><span class="pos-t">Intégrer +30 % tel quel — prévision 67,6 k</span><span class="pos-c">Si l&#x27;effet réel tourne autour de +12 % (58,2 k), il reste environ 9,4 k boîtes invendues fin mars — environ 18 % du mois en surstock, avec le risque de péremption d&#x27;une gamme saisonnière, et un chiffre que personne ne saura défendre à la réunion suivante.</span><span class="pos-v v-bad">À éviter</span><span class="pos-more">Cliquer pour explorer</span></button><button type="button" class="posc reveal v-good" style="--i:2" data-verdict="good"><span class="pos-l">Posture B</span><span class="pos-t">Scénariser +12 % documenté — prévision 58,2 k</span><span class="pos-c">Hypothèse écrite : « effet campagne = +12 %, mesuré en juil. 25 », révision hebdomadaire dès les premiers sell-in de mars, réserve logistique activable si le rythme dépasse le scénario. Service tenu, hypothèse traçable, écart mesurable : la posture de demand review.</span><span class="pos-v v-good">Recommandé</span><span class="pos-more">Cliquer pour explorer</span></button><button type="button" class="posc reveal v-warn" style="--i:3" data-verdict="warn"><span class="pos-l">Posture C</span><span class="pos-t">Refuser : pas de données, pas de changement — prévision 52 k</span><span class="pos-c">Si la campagne mord ne serait-ce qu&#x27;à +12 %, il manque environ 6,2 k boîtes en fin de mois — taux de service entamé sur la fin du pic. Et le commercial retient que remonter l&#x27;info ne sert à rien : il ne la remontera plus.</span><span class="pos-v v-warn">À manier avec prudence</span><span class="pos-more">Cliquer pour explorer</span></button></div>
+    <div class="cp-band ok scn-band" data-scn-band><span class="cb-t">La bonne pratique</span><p><b>Posture B — Scénariser +12 % documenté — prévision 58,2 k.</b></p></div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 19 · ERREURS FRÉQUENTES -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick a">Pièges fréquents</span><span class="pgr">15 · 19</span></div>
+    <div class="toprow"><span class="kick a">Pièges fréquents</span><span class="pgr">19 · 24</span></div>
     <h2>Erreurs fréquentes dans l&#x27;application des méthodes</h2>
     <div class="pflist"><div class="pfi reveal" style="--i:0"><span class="pm"></span><p><b>Moyenne mobile simple sur série à tendance</b> — le retard de (n−1)/2 périodes fait courir après la réalité ; la MM sert à lire le passé (centrée), pour prévoir une tendance : Holt.</p></div><div class="pfi reveal" style="--i:1"><span class="pm"></span><p><b>Confondre saisonnalité additive et multiplicative</b> — si l&#x27;amplitude du pic grandit avec le niveau, l&#x27;additif sous-estime les pics et surestime les creux ; comparer l&#x27;amplitude sur 2-3 ans avant de choisir.</p></div><div class="pfi reveal" style="--i:2"><span class="pm"></span><p><b>Régler alpha au feeling</b> — trop haut, le lissage épouse le bruit et les plannings tremblent ; trop bas, il rate les vraies ruptures ; on choisit alpha en minimisant l&#x27;erreur historique ET en restant défendable en réunion.</p></div><div class="pfi reveal" style="--i:3"><span class="pm"></span><p><b>Lisser une série intermittente comme une série normale</b> — Croston sans correction SBA surestime systématiquement ; et un zéro de vente en rupture n&#x27;est pas un zéro de demande (demande censurée).</p></div><div class="pfi reveal" style="--i:4"><span class="pm"></span><p><b>Lancer PREVISION.ETS sur une chronologie sale</b> — pas non constant, trous, doublons : la saisonnalité détectée est fantaisiste ; et la fonction ignore promotions, grèves et campagnes : la base statistique reste à enrichir.</p></div><div class="pfi reveal" style="--i:5"><span class="pm"></span><p><b>Croire que « ML = mieux »</b> — M4 (2018) : le ML pur perd sur 100 000 séries courtes ; M5 (2020-2022) : il gagne sur données massives journalières ; on choisit selon la donnée disponible, pas selon la mode.</p></div></div>
     <div class="foot"><span>Pièges de terrain recoupés avec doi.org/10.1016/j.ijforecast.2019.04.014 ; support.microsoft.com — forecast-ets-function (08/09/2026)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 16 · CONTENU -->
-<section class="slide">
+<!-- 20 · CONTENU -->
+<section class="slide dense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Livrable 2</span><span class="pgr">16 · 19</span></div>
+    <div class="toprow"><span class="kick">Livrable 2</span><span class="pgr">20 · 24</span></div>
     <h2>Livrable 2 : <span class="gw">cahier d&#x27;exercices Excel + jeux de données (24 mois)</span></h2>
-    <p class="lede reveal" style="--i:0">Vous repartez avec un cahier d&#x27;exercices Excel prêt à l&#x27;emploi et deux jeux de données de 24 mois calqués sur vos deux contextes — pour rejouer chaque méthode du module, en séance puis au poste.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Deux jeux de données</b> : NOVADIS (24 mois de ventes mensuelles multi-références : stable, saisonnière, intermittente) et ALTÉA (24 mois de flux entrants par canal : appels, e-mails, demandes de remboursement).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Cinq exercices guidés</b> : moyenne mobile et SES avec recherche du meilleur alpha · Holt-Winters via PREVISION.ETS · calcul d&#x27;indices saisonniers · Croston + correction SBA · le cas croisé du jour — chacun avec son corrigé pas à pas.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Onglet « hypothèses » obligatoire</b> : chaque prévision s&#x27;accompagne de ses hypothèses écrites (alpha choisi, base retenue, événements) — c&#x27;est la pièce que la demand review du module 3 consommera demain matin.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Mode d&#x27;emploi en séance (16h45-17h00 et en autonomie)</b> : objectif du jour — produire trois prévisions de mars sur votre jeu de données et comparer les MAPE ; le reste du cahier se termine au poste, corrigés à l&#x27;appui.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Après la formation</b> : remplacer les données fictives par 24 mois de vos données réelles — exercice 0 préalable : vérifier la chronologie (pas constant, zéros documentés, mois contraints marqués).</p></div></div></div>
-    <div class="keycard reveal" style="--i:5"><span class="kl">Objectif séance</span><p>Chacune repart avec trois prévisions de mars calculées sur son jeu de données — et la MAPE de chaque méthode.</p></div>
-    <div class="foot"><span>Livrable pédagogique Akademia — données fictives construites NOVADIS / ALTÉA</span><span>Akademia Formation</span></div>
+    <p class="lede reveal" style="--i:0">Vous repartez avec un cahier d&#x27;exercices Excel prêt à l&#x27;emploi et deux jeux de données figés de 24 mois calqués sur vos deux contextes — pour rejouer chaque méthode du module, en séance puis au poste.</p>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Deux jeux de données figés (24 mois)</b> : NOVADIS « R » — ventes mensuelles avec événements marqués (campagne juil.-août 25 +12 % · rupture fournisseur avr. 26 · cannibalisation depuis juil. 26) ; ALTÉA — appels entrants groupe + le détail des <b>4 établissements</b> (Lyon 42 % · Bordeaux 26 % · Madrid 19 % · Porto 13 % des flux, productivités de 18,4 à 15,6 dossiers/ETP/jour).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Cinq exercices guidés</b> : moyenne mobile et SES avec recherche du meilleur alpha · indices saisonniers par décomposition · Holt-Winters via PREVISION.ETS · Croston + correction SBA · le cas croisé du jour — chacun avec son corrigé pas à pas.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Onglet « hypothèses » obligatoire</b> : chaque prévision s&#x27;accompagne de ses hypothèses écrites (alpha choisi, base retenue, événements) — c&#x27;est la pièce que la demand review du module 3 consommera demain matin.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Mode d&#x27;emploi en séance</b> : atelier guidé de 25 min juste après cette slide — trois tâches sur votre contexte, puis relecture croisée des chronologies ; le reste du cahier se termine au poste, corrigés à l&#x27;appui.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Après la formation</b> : remplacer les données fictives par 24 mois de vos données réelles — exercice 0 préalable : vérifier la chronologie (pas constant, zéros documentés, mois contraints marqués).</p></div></div></div>
+    <div class="keycard reveal" style="--i:5"><span class="kl">Objectif séance</span><p>Chacune repart avec trois prévisions de mars calculées sur son jeu de données — et la mesure d&#x27;erreur de chaque méthode.</p></div>
+    <div class="foot"><span>Livrable pédagogique Akademia — jeux de données fictifs figés NOVADIS / ALTÉA (09/2026)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 17 · QUIZ -->
-<section class="slide s-quiz">
+<!-- 21 · ATELIER CHRONOMÉTRÉ -->
+<section class="slide s-atelier">
   <div class="rail">
-    <div class="toprow"><span class="kick">Quiz</span><span class="pgr">17 · 19</span></div>
-    <h2>Quiz — Module 2 · Méthodes de prévision (1/2)</h2>
-    <div class="qzbox" data-qbox="qz16"></div>
+    <div class="toprow"><span class="kick">Mise en pratique · Atelier Excel guidé</span><span class="pgr">21 · 24</span></div>
+    <h2>Atelier Excel : <span class="gw">trois tâches, 25 minutes, vos deux jeux de données</span></h2>
+    <p class="lede reveal" style="--i:0">25 minutes chronométrées, trois tâches sur votre jeu de données — consignes écrites au chat, corrigés projetés à la fin. Objectif : repartir avec trois prévisions chiffrées et l&#x27;erreur mesurée de chaque méthode.</p>
+    <div class="atw-grid reveal" style="--i:1">
+      <div class="atw-timer">
+        <div class="timer" data-timer data-total="1500">
+          <svg viewBox="0 0 230 230" aria-hidden="true">
+            <defs><linearGradient id="tg20" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#7C3AED"/>
+            </linearGradient></defs>
+            <circle class="tk" cx="115" cy="115" r="98"/>
+            <circle class="tp" cx="115" cy="115" r="98" style="stroke:url(#tg20)"/>
+          </svg>
+          <div class="t-mid"><span class="t-dig" data-tdig>25:00</span></div>
+        </div>
+        <span class="t-lab" data-tlab>Atelier · 25 minutes</span>
+        <div class="t-ctrl">
+          <button class="tbtn prim" type="button" data-tgo>Lancer</button>
+          <button class="tbtn" type="button" data-trst>Réinitialiser</button>
+        </div>
+      </div>
+      <div class="atw-right">
+        <div class="pcards" style="grid-template-columns:repeat(3,1fr)"><button class="pcard" type="button" data-sec="480" data-label="Tâche 1 · Le meilleur alpha" data-short="Sur le fichier ALTÉA (24 mois d&#x27;appels) : calculer un SES avec alpha 0,1, 0,3 puis 0,8 sur juil.-déc. 26 ; mesurer l&#x27;erreur absolue moyenne de chaque réglage ; retenir le meilleur alpha et l&#x27;écrire dans l&#x27;onglet hypothèses."><span class="pn">Tâche 1 · Le meilleur alpha</span><span class="ps">Sur le fichier ALTÉA (24 mois d&#x27;appels) : calculer un SES avec alpha 0,1, 0,3 puis 0,8 sur juil.-déc. 26 ; mesurer l&#x27;erreur absolue moyenne de chaque réglage ; retenir le meilleur alpha et l&#x27;écrire dans l&#x27;onglet hypothèses.</span><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5 L10 17.5 L19 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="pcard" type="button" data-sec="540" data-label="Tâche 2 · Vos indices saisonniers" data-short="Toujours sur ALTÉA : calculer les 24 rapports mois/moyenne (156,2 k), moyenner par mois calendaire, normaliser (moyenne des 12 = 1,00) ; comparer vos indices au corrigé (janv. 1,22 · août 0,79) et expliquer l&#x27;écart de septembre."><span class="pn">Tâche 2 · Vos indices saisonniers</span><span class="ps">Toujours sur ALTÉA : calculer les 24 rapports mois/moyenne (156,2 k), moyenner par mois calendaire, normaliser (moyenne des 12 = 1,00) ; comparer vos indices au corrigé (janv. 1,22 · août 0,79) et expliquer l&#x27;écart de septembre.</span><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5 L10 17.5 L19 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="pcard" type="button" data-sec="480" data-label="Tâche 3 · Trois méthodes, une décision" data-short="Sur NOVADIS « R » : produire la prévision de mars 26 par MM3, SES (alpha 0,3) et indice (base 52,5 × 1,18) ; mesurer l&#x27;écart de chacune au réel (60,7 k) ; rédiger en 3 lignes la prévision portée en demand review, avec hypothèses."><span class="pn">Tâche 3 · Trois méthodes, une décision</span><span class="ps">Sur NOVADIS « R » : produire la prévision de mars 26 par MM3, SES (alpha 0,3) et indice (base 52,5 × 1,18) ; mesurer l&#x27;écart de chacune au réel (60,7 k) ; rédiger en 3 lignes la prévision portée en demand review, avec hypothèses.</span><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5 L10 17.5 L19 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+        <p class="tt-hint">Un clic sur une tâche règle et lance son chrono · un second clic la marque faite</p>
+        <div class="cp-band atw-debrief" data-debrief><span class="cb-t">Débrief</span><p>Restitution (5 min) : chacune montre son écran — l&#x27;alpha retenu et son erreur · ses 2 indices les plus éloignés du corrigé · sa prévision de mars et sa méthode gagnante. Corrigé projeté : mars 26 réel 60,7 k — indice environ 62 k (écart environ 2 %) · SES environ 77 k (environ 26 %) · MM3 environ 90 k (environ 49 %). Septembre : l&#x27;indice 0,99 est gonflé par la grève de sept. 25 — un événement se marque, puis se nettoie (module 4).</p></div>
+      </div>
+    </div>
     <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 18 · QUIZ -->
-<section class="slide s-quiz">
+<!-- 22 · QUIZ GROUPÉ -->
+<section class="slide s-quizg qzg" data-qzg>
   <div class="rail">
-    <div class="toprow"><span class="kick">Quiz</span><span class="pgr">18 · 19</span></div>
-    <h2>Quiz — Module 2 · Méthodes de prévision (2/2)</h2>
-    <div class="qzbox" data-qbox="qz17"></div>
+    <div class="toprow"><span class="kick">Évaluation · Module 2</span><span class="pgr">22 · 24</span></div>
+    <h2>Quiz 2 · Méthodes de prévision — et les idées à emporter</h2>
+    <div class="qzg-wrap"><div class="qz reveal" style="--i:0" data-ok="2"><p class="qz-q"><span class="qz-n">Q1</span><span class="qtx">Chez NOVADIS, pour « prévoir » l&#x27;hiver prochain sur la référence R (24 mois, pic janvier 97,0 k, creux juillet 25,4 k), un collègue propose une moyenne mobile sur 12 mois. Quel est le principal problème ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>La MM12 supprime la tendance mais conserve la saisonnalité intacte</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>La MM12 exige au moins 36 mois d&#x27;historique pour fonctionner</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>La MM12 retarde la structure d&#x27;environ 5,5 mois : le pic lissé arrive après l&#x27;hiver — elle lit le passé, elle ne prévoit pas une saison</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>La MM12 ne peut pas se calculer sur des ventes mensuelles</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>La MM12 lisserait vers la moyenne (52,5 k) sans voir ni le pic (97 k) ni le creux (25,4 k) : pour une saison, indices saisonniers ou Holt-Winters ; la MM centrée garde un rôle dans la décomposition.</p></div><div class="qz reveal" style="--i:1" data-ok="0"><p class="qz-q"><span class="qz-n">Q2</span><span class="qtx">Une référence hospitalière NOVADIS se vend par intermittence (12 semaines : 0 · 4 · 0 · 0 · 3 · 0 · 0 · 0 · 5 · 0 · 0 · 2). Le réassort actuel utilise la moyenne simple (1,17 u./sem.) et le stock dormant s&#x27;accumule. Que recommandez-vous ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>Croston avec correction SBA : lisser séparément la taille (3,5 u.) et l&#x27;intervalle (3,3 sem.) — prévision environ 0,95 u./sem.</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>Une moyenne mobile sur 4 semaines, plus stable que la moyenne simple</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>Un lissage exponentiel simple avec alpha élevé (0,8) pour réagir vite aux semaines non nulles</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Une TENDANCE sur les 12 semaines pour capter la dynamique</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>Croston (1972) lisse séparément la taille des demandes non nulles (z = 3,5 u.) et l&#x27;intervalle entre elles (p = environ 3,3 sem.), prévision = z/p = environ 1,05 u./sem.</p></div></div>
+    <div class="qzg-bar reveal" style="--i:2">
+      <p class="tt-hint">La salle vote à main levée · le formateur clique la réponse de la salle</p>
+      <button type="button" class="tbtn" data-qzg-reset>Réinitialiser le quiz</button>
+    </div>
     <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 19 · À RETENIR -->
+<!-- 23 · QUIZ GROUPÉ -->
+<section class="slide s-quizg qzg" data-qzg>
+  <div class="rail">
+    <div class="toprow"><span class="kick">Évaluation · Module 2</span><span class="pgr">23 · 24</span></div>
+    <h2>Quiz 2 · Méthodes de prévision — et les idées à emporter (2/2)</h2>
+    <div class="qzg-wrap"><div class="qz reveal" style="--i:0" data-ok="1"><p class="qz-q"><span class="qz-n">Q1</span><span class="qtx">Chez ALTÉA, la planificatrice règle alpha à 0,9 « pour être réactive » sur les appels quotidiens ; les prévisions tremblent, les plannings aussi. Que lui conseillez-vous d&#x27;abord ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>Abandonner le lissage pour PREVISION.ETS, qui choisit ses paramètres seule — plus rien à justifier</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>Mesurer : tester plusieurs alpha sur l&#x27;historique, retenir celui qui minimise l&#x27;erreur à 1 pas — et documenter ce réglage pour le défendre en comité</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>Baisser alpha à 0,05 : plus le lissage est fort, plus la prévision est juste</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Garder 0,9 mais lisser la série en amont avec une MM7</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>Alpha est un curseur entre nervosité et stabilité : il se choisit en mesurant l&#x27;erreur à 1 pas sur l&#x27;historique (plusieurs candidats, on retient le minimum), puis se documente dans l&#x27;onglet hypothèses pour être défendu.</p></div></div>
+    <div class="qzg-bar reveal" style="--i:1">
+      <p class="tt-hint">La salle vote à main levée · le formateur clique la réponse de la salle</p>
+      <button type="button" class="tbtn" data-qzg-reset>Réinitialiser le quiz</button>
+    </div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 24 · À RETENIR -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Synthèse du module</span><span class="pgr">19 · 19</span></div>
+    <div class="toprow"><span class="kick">Synthèse du module</span><span class="pgr">24 · 24</span></div>
     <h2>Ce qu&#x27;il faut retenir — Module 2</h2>
-    <div class="tkgrid"><div class="tkcard reveal" style="--i:0"><span class="tn">01</span><b>La structure commande la méthode</b><p>Tendance, saison, intermittence, absence d&#x27;historique : chaque profil a sa famille — Holt, Winters/indices, Croston + SBA, qualitatif structuré. L&#x27;arbre de choix se pose avant toute formule.</p></div><div class="tkcard reveal" style="--i:1"><span class="tn">02</span><b>Le lissage retarde, les indices anticipent</b><p>SES et moyennes mobiles courent après toute évolution ; sur série fortement saisonnière, les indices écrasent les lissages (cas NOVADIS : 8 % contre 31-33 % de MAPE historique).</p></div><div class="tkcard reveal" style="--i:2"><span class="tn">03</span><b>Excel calcule, l&#x27;analyste valide</b><p>PREVISION.ETS automatise le lissage (chronologie à pas constant exigée) ; Copilot accélère l&#x27;analyse des écarts mais chaque sortie se vérifie — et jamais de données nominatives.</p></div><div class="tkcard reveal" style="--i:3"><span class="tn">04</span><b>Ni mode, ni miracle</b><p>M4 (2018) : le ML pur perd sur séries courtes ; M5 (2020-2022) : il domine sur données massives. La prévision s&#x27;énonce avec ses hypothèses écrites et sa plage, pas en point sec.</p></div></div>
+    <div class="tkgrid"><div class="tkcard reveal" style="--i:0"><span class="tn">01</span><b>Le bon outil au bon profil</b><p>Stable : moyenne mobile ou lissage simple. Tendance : Holt. Saison : Winters ou indices. Intermittent : Croston.</p></div><div class="tkcard reveal" style="--i:1"><span class="tn">02</span><b>La méthode se juge en MAPE</b><p>On ne débat pas de goût : on mesure l&#x27;erreur de chaque méthode sur l&#x27;historique, et on documente l&#x27;hypothèse retenue.</p></div><div class="tkcard reveal" style="--i:2"><span class="tn">03</span><b>Excel suffit pour démarrer</b><p>PREVISION.ETS, TENDANCE, indices calculés à la main — et Copilot pour explorer, jamais pour valider à votre place.</p></div><div class="tkcard reveal" style="--i:3"><span class="tn">04</span><b>Sans historique, du jugement structuré</b><p>Nouveaux produits : analogie et courbes de lancement, hypothèses écrites et révisées dès les premiers réels.</p></div></div>
     <div class="nextband reveal" style="--i:4"><a href="index.html#9">← Sommaire des modules</a><a class="primary" href="m3.html">Module 3 · Le processus S&OP →</a></div>
     <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
@@ -957,18 +1333,16 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 <div class="czone" id="zoneR" aria-hidden="true"><span><svg viewBox="0 0 16 16" fill="none"><path d="M6 3 L11 8 L6 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
 
 
-<script>window.STEPS = {"st4": [{"t": "Amorçage", "d": "Série des ventes hebdomadaires d&#x27;une référence hivernale NOVADIS, hors pic (unités) : S1 412 · S2 425 · S3 418 · S4 430 · S5 436 · S6 441. Convention : la prévision de la semaine 1 égale le réel observé (F1 = x1).", "v": "F1 = 412"}, {"t": "Prévision semaine 3", "d": "F3 = 0,3 × 425 + 0,7 × 412 — la prévision de la semaine 2 était 412 (erreur constatée : 13 unités).", "v": "= 415,9"}, {"t": "Prévision semaine 4", "d": "F4 = 0,3 × 418 + 0,7 × 415,9 — le réel passe sous la prévision : le modèle corrige doucement.", "v": "= 416,5"}, {"t": "Prévision semaine 5", "d": "F5 = 0,3 × 430 + 0,7 × 416,5.", "v": "= 420,6"}, {"t": "Prévision semaine 6", "d": "F6 = 0,3 × 436 + 0,7 × 420,6.", "v": "= 425,2"}, {"t": "Prévision semaine 7", "d": "F7 = 0,3 × 441 + 0,7 × 425,2 — c&#x27;est la prévision à porter au réassort de la semaine prochaine.", "v": "environ 430 u."}], "st8": [{"t": "Estimer la tendance-cycle", "d": "Moyenne mobile centrée sur 12 mois (2×12-MA) : elle lisse les saisons sans déphasage. Série ALTÉA année écoulée (k appels) : janv. 195 · févr. 178 · mars 172 · avr. 160 · mai 155 · juin 148 · juil. 140 · août 132 · sept. 161 · oct. 165 · nov. 170 · déc. 168 — moyenne annuelle : 162 k/mois.", "v": "162 k/mois"}, {"t": "Calculer les rapports au trend", "d": "Diviser chaque mois par sa moyenne mobile centrée. Janvier : 195 / 162.", "v": "= 1,20"}, {"t": "Moyenner par mois calendaire", "d": "Moyenne des rapports de chaque mois sur 3 ans, normalisée pour que la moyenne des 12 indices vaille 1,00. Indice de janvier retenu sur 3 ans : 1,18.", "v": "1,18"}, {"t": "Désaisonnaliser", "d": "Diviser le réel par l&#x27;indice pour comparer les mois entre eux : février 178 / 1,10 — un février « hors saison » se compare enfin à un août.", "v": "environ 162 k"}, {"t": "Prévoir", "d": "Tendance projetée × indice : janvier prochain, base retenue 165 k × 1,18.", "v": "environ 195 k"}, {"t": "Traduire en charge", "d": "195 k appels × 6 minutes de traitement moyen : la prévision de volume devient une prévision d&#x27;heures — la matière première du plan d&#x27;effectifs.", "v": "environ 19 500 h"}]};</script>
+<script>window.STEPS = {"st4": [{"t": "Amorçage", "d": "Série des ventes hebdomadaires d&#x27;une référence hivernale NOVADIS, hors pic (unités) : S1 412 · S2 425 · S3 418 · S4 430 · S5 436 · S6 441. Convention : la prévision de la semaine 1 égale le réel observé (F1 = x1).", "v": "F1 = 412"}, {"t": "Prévision semaine 3", "d": "F3 = 0,3 × 425 + 0,7 × 412 — la prévision de la semaine 2 était 412 (erreur constatée : 13 unités).", "v": "= 415,9"}, {"t": "Prévision semaine 4", "d": "F4 = 0,3 × 418 + 0,7 × 415,9 — le réel passe sous la prévision : le modèle corrige doucement.", "v": "= 416,5"}, {"t": "Prévision semaine 5", "d": "F5 = 0,3 × 430 + 0,7 × 416,5.", "v": "= 420,6"}, {"t": "Prévision semaine 6", "d": "F6 = 0,3 × 436 + 0,7 × 420,6.", "v": "= 425,2"}, {"t": "Prévision semaine 7", "d": "F7 = 0,3 × 441 + 0,7 × 425,2 — c&#x27;est la prévision à porter au réassort de la semaine prochaine.", "v": "environ 430 u."}], "st8": [{"t": "Estimer la tendance-cycle", "d": "Moyenne des 24 mois : la base de la méthode simple (la moyenne mobile centrée exacte affinerait les bords de série).", "v": "156,2 k/mois"}, {"t": "Calculer les rapports au trend", "d": "Diviser chaque mois par la moyenne de la série. Janv. 25 : 195,9 / 156,2 ; janv. 26 : 183,6 / 156,2.", "v": "1,25 et 1,18"}, {"t": "Moyenner par mois calendaire", "d": "Moyenne des rapports de chaque mois (ici 2 saisons glissantes ; en pratique on vise 2 à 3 ans), puis normalisation pour que la moyenne des 12 indices vaille 1,00. Indice de janvier retenu.", "v": "1,22"}, {"t": "Désaisonnaliser", "d": "Diviser le réel par l&#x27;indice pour comparer les mois entre eux : déc. 26 réel 159,5 / 1,07 — un décembre « hors saison » se compare enfin à un août.", "v": "environ 149 k"}, {"t": "Prévoir", "d": "Tendance projetée × indice : janvier prochain, base désaisonnalisée retenue 150 k × 1,22.", "v": "environ 183 k"}, {"t": "Traduire en charge", "d": "Environ 183 k appels × 6 minutes de traitement moyen : la prévision de volume devient une prévision d&#x27;heures — la matière première du plan d&#x27;effectifs.", "v": "environ 18 300 h"}]};</script>
 <script>
 const QUESTIONS = [
-  {id: 'qz16q1', box: 'qz16', n: 1, q: "Sur une série à tendance régulière, la moyenne mobile simple d'ordre n…", options: ["Supprime la tendance de la série", "Retarde la tendance de (n−1)/2 périodes", "Anticipe la tendance d'une période", "N'a aucun effet systématique"], correct: 1, explain: "Propriété algébrique standard de la moyenne mobile : sur tendance linéaire, la MM simple d&#x27;ordre n retarde de (n−1)/2 périodes — pour prévoir une tendance, on utilise Holt (1957, rééd. IJF 2004 — doi.org/10.1016/j.ijforecast.2003.09.015)."},
-  {id: 'qz16q2', box: 'qz16', n: 2, q: "Dans un lissage exponentiel simple, un coefficient alpha proche de 1 produit une prévision…", options: ["Débarrassée de toute saisonnalité", "Lisse et sans mémoire du passé", "Plus stable, mais lente à réagir", "Réactive au récent, mais nerveuse"], correct: 3, explain: "Le lissage exponentiel affecte aux observations des poids décroissant exponentiellement avec l&#x27;ancienneté ; α proche de 1 concentre le poids sur le récent (mémoire courte, nerveuse), α proche de 0 lisse davantage (stable mais lente) — fr.wikipedia.org/wiki/Lissage_exponentiel (appoint, 08/09/2026)."},
-  {id: 'qz16q3', box: 'qz16', n: 3, q: "Une référence hospitalière se vend par intermittence (nombreuses semaines à zéro). La méthode de référence est…", options: ["Croston : lisser séparément la taille des demandes et l'intervalle entre elles", "Le lissage exponentiel simple avec alpha = 0,9", "La moyenne mobile sur 12 semaines", "La régression linéaire sur l'année"], correct: 0, explain: "Croston (1972 — doi.org/10.2307/3007885) : lisser séparément la taille (z) et l&#x27;intervalle (p), prévision = z/p ; la correction SBA (× (1 − α/2)) de 2005 corrige le biais haussier démontré en 2001 — doi.org/10.1016/j.ijforecast.2004.10.001."},
-  {id: 'qz17q1', box: 'qz17', n: 4, q: "Le pic hivernal d'une gamme grandit proportionnellement au niveau des ventes. Il faut une saisonnalité…", options: ["Inexistante : lisser la série brute", "Multiplicative", "Additive", "Intermittente : méthode de Croston"], correct: 1, explain: "Modèle de Winters (1960 — doi.org/10.1287/mnsc.6.3.324) : amplitude constante en volume › variante additive ; amplitude proportionnelle au niveau › variante multiplicative (règle pratique standard). Test terrain : comparer l&#x27;amplitude du pic sur 2-3 ans."},
-  {id: 'qz17q2', box: 'qz17', n: 5, q: "Pour fonctionner correctement, PREVISION.ETS exige…", options: ["Des données sans aucune valeur nulle", "Au moins dix ans d'historique mensuel", "Une licence Excel spéciale prévision", "Une chronologie à pas constant"], correct: 3, explain: "La documentation Microsoft exige une chronologie à pas constant (ex. valeurs au 1er de chaque mois) ; trous ou doublons de dates faussent la détection automatique de la saisonnalité — support.microsoft.com, forecast-ets-function (consulté le 08/09/2026)."},
-  {id: 'qz17q3', box: 'qz17', n: 6, q: "L'enseignement des compétitions M4 (2018) et M5 (2020-2022) est que…", options: ["Seules les combinaisons manuelles sont fiables", "Le machine learning pur gagne dans tous les cas", "La structure des données détermine la famille gagnante", "Les méthodes simples gagnent dans tous les cas"], correct: 2, explain: "M4 (100 000 séries réelles) : les 6 méthodes de ML pur toutes derrière le benchmark statistique, le gagnant est hybride ; M5 (données massives journalières enrichies) : le ML pur domine — IJF 2020 doi.org/10.1016/j.ijforecast.2019.04.014 ; IJF 2022 doi.org/10.1016/j.ijforecast.2021.11.013."},
+  {id: 'qzg21q1', box: 'qzg21', n: 1, q: "Chez NOVADIS, pour « prévoir » l'hiver prochain sur la référence R (24 mois, pic janvier 97,0 k, creux juillet 25,4 k), un collègue propose une moyenne mobile sur 12 mois. Quel est le principal problème ?", options: ["La MM12 supprime la tendance mais conserve la saisonnalité intacte", "La MM12 exige au moins 36 mois d'historique pour fonctionner", "La MM12 retarde la structure d'environ 5,5 mois : le pic lissé arrive après l'hiver — elle lit le passé, elle ne prévoit pas une saison", "La MM12 ne peut pas se calculer sur des ventes mensuelles"], correct: 2, explain: "La MM12 lisserait vers la moyenne (52,5 k) sans voir ni le pic (97 k) ni le creux (25,4 k) : pour une saison, indices saisonniers ou Holt-Winters ; la MM centrée garde un rôle dans la décomposition."},
+  {id: 'qzg21q2', box: 'qzg21', n: 2, q: "Une référence hospitalière NOVADIS se vend par intermittence (12 semaines : 0 · 4 · 0 · 0 · 3 · 0 · 0 · 0 · 5 · 0 · 0 · 2). Le réassort actuel utilise la moyenne simple (1,17 u./sem.) et le stock dormant s'accumule. Que recommandez-vous ?", options: ["Croston avec correction SBA : lisser séparément la taille (3,5 u.) et l'intervalle (3,3 sem.) — prévision environ 0,95 u./sem.", "Une moyenne mobile sur 4 semaines, plus stable que la moyenne simple", "Un lissage exponentiel simple avec alpha élevé (0,8) pour réagir vite aux semaines non nulles", "Une TENDANCE sur les 12 semaines pour capter la dynamique"], correct: 0, explain: "Croston (1972) lisse séparément la taille des demandes non nulles (z = 3,5 u.) et l&#x27;intervalle entre elles (p = environ 3,3 sem.), prévision = z/p = environ 1,05 u./sem."},
+  {id: 'qzg22q1', box: 'qzg22', n: 1, q: "Chez ALTÉA, la planificatrice règle alpha à 0,9 « pour être réactive » sur les appels quotidiens ; les prévisions tremblent, les plannings aussi. Que lui conseillez-vous d'abord ?", options: ["Abandonner le lissage pour PREVISION.ETS, qui choisit ses paramètres seule — plus rien à justifier", "Mesurer : tester plusieurs alpha sur l'historique, retenir celui qui minimise l'erreur à 1 pas — et documenter ce réglage pour le défendre en comité", "Baisser alpha à 0,05 : plus le lissage est fort, plus la prévision est juste", "Garder 0,9 mais lisser la série en amont avec une MM7"], correct: 1, explain: "Alpha est un curseur entre nervosité et stabilité : il se choisit en mesurant l&#x27;erreur à 1 pas sur l&#x27;historique (plusieurs candidats, on retient le minimum), puis se documente dans l&#x27;onglet hypothèses pour être défendu."},
 ];
 window.QUESTIONS = QUESTIONS;
 </script>
+<script>window.XPDATA = {"xp5": {"phases": [{"status": "En direct · 90 secondes", "legend": "Phase 1 · Observez la série", "html": "<div><p><b>Les ventes hebdomadaires de la référence hivernale NOVADIS (unités)</b></p><div class=\"mem-grid6\"><div><b>S1</b><br>412</div><div><b>S2</b><br>425</div><div><b>S3</b><br>418</div><div><b>S4</b><br>430</div><div><b>S5</b><br>436</div><div><b>S6</b><br>441</div></div><p>90 secondes : quelle prévision donnez-vous pour la semaine 7 ? Notez votre chiffre avant de voter.</p></div>", "timer_sec": 90}, {"status": "Vote au chat · 60 secondes", "legend": "Phase 2 · Choisissez votre alpha", "html": "<div><p><b>Le même réflexe de lissage, trois réglages possibles</b></p><p>Pour prévoir S7 sur cette série, vous réglez alpha à…</p><p><b>A.</b> 0,1 — très lisse, très stable<br><b>B.</b> 0,3 — le réglage calculé à la main à l'instant<br><b>C.</b> 0,8 — très réactif au dernier point</p><p>60 secondes — un vote à l'instinct, sans calcul.</p></div>", "timer_sec": 60}, {"status": "Révélation", "legend": "Phase 3 · Trois lissages, trois semaines 7", "html": "<div><p><b>Trois lissages, trois prévisions de S7</b></p><p><b>Alpha 0,1</b> › environ 420 · erreur moyenne 15,6 u. — les erreurs montent (+13 › +23,5) : trop lent pour la dérive.<br><b>Alpha 0,3</b> › environ 430 · erreur moyenne 12,0 u. — le calcul à la main de tout à l'heure.<br><b>Alpha 0,8</b> › environ 440 · erreur moyenne 8,7 u. — il suit la montée… mais il épouserait le bruit d'une série stable.</p><p>Sur CETTE série qui dérive, l'alpha élevé gagne. Ce n'est pas une loi : c'est un résultat mesuré sur cet historique.</p></div>", "timer_sec": null}, {"status": "Verdict", "legend": "Phase 4 · La règle de réglage", "html": "<div><p><b>La règle de réglage d'alpha</b></p><p>1 · Tester plusieurs alpha sur l'historique et mesurer l'erreur à 1 pas.<br>2 · Retenir celui qui la minimise — pas celui qui « fait pro ».<br>3 · Documenter le choix dans l'onglet hypothèses : en demand review, un alpha se défend avec un chiffre, pas avec une habitude.</p><p><b>Transposition ALTÉA</b> — sur les appels quotidiens bruités, un alpha haut ferait trembler les plannings ; sur les e-mails en croissance, un alpha bas retarderait chaque mois la capacité.</p></div>", "timer_sec": null}], "labels": ["Lancer l'observation (90 s)", "Ouvrir le vote (60 s)", "Révéler les 3 lissages", "Afficher la règle"]}};</script>
 
 <script>
 /* ================= moteur STEPS — reveal progressif (avant la nav) ================= */
@@ -1483,6 +1857,18 @@ window.__stepsRender = function(slideEl){
 /* corrigés des cas : le bouton « Voir le corrigé » avance à la slide solution */
 document.querySelectorAll('[data-gonext]').forEach(function(b){
   b.addEventListener('click',function(){window.__nav.go(window.__nav.cur()+1);});
+});
+/* variantes : corrigé plus loin que la slide suivante (simulations en plusieurs
+   tours) — on cherche la prochaine slide de type corrigé (.s-sol) */
+document.querySelectorAll('[data-gosol]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var slides=Array.prototype.slice.call(document.querySelectorAll('section.slide'));
+    var cur=window.__nav.cur();
+    for(var i=cur+1;i<slides.length;i++){
+      if(slides[i].classList.contains('s-sol')){window.__nav.go(i);return;}
+    }
+    window.__nav.go(cur+1);
+  });
 });
 </script>
 

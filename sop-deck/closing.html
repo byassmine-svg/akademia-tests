@@ -183,7 +183,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .keycard.violet .kl{color:#C4B5FD}
 
 /* ---------------- tableaux ---------------- */
-.tblwrap{margin-top:20px;flex:1;min-height:0;display:flex;flex-direction:column}
+.tblwrap{margin-top:20px;flex:0 0 auto;display:flex;flex-direction:column}
 .tbl{width:100%;border-collapse:collapse}
 .tbl th{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--cap);text-align:left;padding:8px 14px;border-bottom:1px solid var(--ink);background:var(--bg)}
@@ -317,12 +317,12 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 /* ---------------- à retenir (takeaways) ---------------- */
 .tkgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;flex:1;min-height:0}
 .tkcard{border:1px solid var(--line);border-radius:18px;background:var(--white);
-  padding:18px 24px;display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:0}
+  padding:15px 22px;display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:0}
 .tkcard::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
 .tkcard .tn{font-family:'Instrument Serif',serif;font-size:24px;color:var(--ter)}
 .tkcard b{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:17.5px;
   color:var(--ink);margin-top:4px;letter-spacing:-.008em;line-height:1.25}
-.tkcard p{font-size:13.6px;line-height:1.55;color:var(--body);margin-top:8px}
+.tkcard p{font-size:13.2px;line-height:1.5;color:var(--body);margin-top:7px}
 .nextband{display:flex;justify-content:space-between;align-items:center;gap:20px;
   margin-top:14px;padding-top:4px}
 .nextband a{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;
@@ -489,7 +489,8 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   border-top:1px solid var(--line);padding:4px 0}
 .qzg-wrap .qz:first-child{border-top:0}
 .qzg .qz-q{display:flex;gap:12px;align-items:baseline;font-family:'Instrument Sans',sans-serif;
-  font-weight:620;font-size:16.5px;letter-spacing:-0.008em;color:var(--ink);line-height:1.35;margin-top:0}
+  font-weight:620;font-size:16.5px;letter-spacing:-0.008em;color:var(--ink);line-height:1.35;margin-top:0;width:100%;max-width:none}
+.qzg .qz-q .qtx{flex:1;min-width:0}
 .qzg .qz-n{flex:none;font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.12em;
   color:var(--blue);border:1px solid rgba(37,99,235,.32);border-radius:999px;padding:4px 9px}
 .qzg .qz-opts{display:grid;gap:9px;margin-top:9px}
@@ -507,9 +508,9 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .qzg .qz-o.ko .qz-l{background:var(--err);border-color:var(--err);color:#fff}
 .qzg .qz.done .qz-o{pointer-events:none}
 .qzg .qz.done .qz-o:not(.ok):not(.ko){opacity:.42}
-.qzg .qz-fb{display:none;font-family:'Inter',system-ui,sans-serif;font-weight:380;font-size:13px;
+.qzg .qz-fb{display:block;visibility:hidden;font-family:'Inter',system-ui,sans-serif;font-weight:380;font-size:13px;
   line-height:1.5;letter-spacing:normal;text-transform:none;color:var(--body);margin-top:8px}
-.qzg .qz-fb.on{display:block}
+.qzg .qz-fb.on{visibility:visible}
 .qzg .qz-fb b{color:var(--ink)}
 .qzg .qz-fb.ok-l .qz-fb-l{color:#047857}
 .qzg .qz-fb.ko-l .qz-fb-l{color:#B91C1C}
@@ -517,6 +518,18 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .tt-hint{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;
   text-transform:uppercase;color:var(--ter);margin-top:16px}
 .qzg-bar .tt-hint{margin-top:0}
+
+/* ---- quizg : lisible ET contenu (question pleine largeur, blocs 2×2) ---- */
+.qzg-wrap{margin-top:8px}
+.qzg-wrap .qz{padding:5px 0}
+.qzg .qz-q{font-size:15px;line-height:1.32;font-weight:640}
+.qzg .qz-opts{gap:8px;margin-top:8px}
+.qzg .qz-o{min-height:0;padding:8px 12px;font-size:12px;line-height:1.32;border-radius:11px}
+.qzg .qz-l{width:21px;height:21px;font-size:9px}
+.qzg .qz-fb{display:block;visibility:hidden;min-height:36px;font-size:12px;line-height:1.38;margin-top:5px}
+.qzg .qz-fb.on{visibility:visible}
+.qzg-bar{margin-top:8px}
+.s-quizg .foot{padding-top:9px}
 
 /* ---- panneau piloté lv-* : expérience guidée (xp) + avant/après (ab) ---- */
 .lv-panel{border:1px solid var(--line);border-radius:18px;background:var(--white);
@@ -660,7 +673,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .chart-box svg{width:100%;height:100%;display:block}
 
 /* ---- excal : encarts Excel / Copilot ---- */
-.xc-grid{display:grid;gap:16px;margin-top:18px;flex:1;min-height:0;align-content:start}
+.xc-grid{display:grid;gap:12px;margin-top:14px;flex:1;min-height:0;align-content:start}
 .xc-h{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.2em;
   text-transform:uppercase;display:block;margin-bottom:10px}
 .xc-excel{border-radius:18px;background:var(--card-n);color:var(--body-n);padding:20px 24px;
@@ -683,9 +696,273 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   padding:10px 14px;margin-top:10px}
 .xc-ph{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--cap);display:block;margin-bottom:4px}
-.xc-pr p{font-style:italic;font-size:13.5px;line-height:1.5;color:var(--ink)}
+.xc-pr p{font-style:italic;font-size:12.4px;line-height:1.42;color:var(--ink)}
 .xc-warn{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.14em;
   text-transform:uppercase;color:#B45309;margin-top:14px}
+
+
+/* ---- s-formateur · slide formateur nuit typographique (médaillon gradient) ---- */
+#s-formateur .fo-glow{position:absolute;right:-220px;top:-260px;width:720px;height:720px;
+  border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.26),rgba(37,99,235,.09) 55%,transparent 72%)}
+#s-formateur .fo-glow2{position:absolute;left:-260px;bottom:-320px;width:640px;height:640px;
+  border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.18),transparent 70%)}
+#s-formateur .fo-band{display:flex;align-items:center;gap:30px;margin-top:26px}
+#s-formateur .fo-med{flex:none;width:116px;height:116px;border-radius:50%;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;
+  font-size:45px;color:#fff;letter-spacing:.02em;box-shadow:0 18px 50px -12px rgba(124,58,237,.55)}
+#s-formateur .fo-name{font-family:'Instrument Serif',serif;font-size:47px;line-height:1.05;
+  color:var(--ink-n);letter-spacing:-0.01em}
+#s-formateur .fo-role{font-family:'Fragment Mono',monospace;font-size:11.5px;letter-spacing:.22em;
+  text-transform:uppercase;margin-top:10px;background:var(--gradn);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+#s-formateur .fo-hook{font-size:16px;line-height:1.58;color:var(--body-n);margin-top:11px;max-width:860px}
+#s-formateur .fo-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:46px;flex:1;min-height:0;margin-top:24px}
+#s-formateur .fo-lab{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--cap-n);margin-bottom:4px}
+#s-formateur .fo-rows{display:flex;flex-direction:column}
+#s-formateur .fo-row{display:grid;grid-template-columns:282px 1fr;gap:18px;align-items:baseline;
+  padding:9.5px 2px;border-top:1px solid var(--line-n)}
+#s-formateur .fo-row:last-child{border-bottom:1px solid var(--line-n)}
+#s-formateur .fo-row b{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:15px;
+  color:var(--ink-n);letter-spacing:-0.005em}
+#s-formateur .fo-row span{font-size:13.2px;line-height:1.48;color:var(--body-n)}
+#s-formateur .fo-right{display:flex;flex-direction:column}
+#s-formateur .fo-pills{display:flex;flex-wrap:wrap;gap:8px}
+#s-formateur .fo-pills span{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-n);border:1px solid var(--line-n);border-radius:999px;
+  padding:7px 13px;background:rgba(148,163,184,.06)}
+#s-formateur .fo-ped{border:1px solid var(--line-n);border-radius:16px;padding:17px 20px;background:var(--card-n)}
+#s-formateur .fo-ped p{font-size:13.6px;line-height:1.58;color:var(--body-n)}
+#s-formateur .fo-ped p+p{margin-top:7px}
+#s-formateur .fo-ped b{color:var(--ink-n);font-weight:600}
+
+
+
+/* ---- pré-module organisme (règles reprises du deck Initiation à l'IA) ---- */
+/* ---- complément design 3 points + catalogue (deck consolidé Initiation IA) ---- */
+.cat-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:40px;margin-top:22px;flex:1;min-height:0}
+.coord{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  color:var(--cap);white-space:nowrap}
+.dotp{width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none}
+.g-kick{position:relative;font-family:'Fragment Mono',monospace;font-size:10px;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cap-n)}
+.g-later{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;white-space:nowrap;color:var(--cap-n);border:1px solid var(--line-n);
+  border-radius:999px;padding:6px 12px}
+.g-note-sm{position:relative;font-size:13.5px;color:var(--cap-n);margin-top:auto;padding-top:14px}
+.g-note-sm b{color:var(--body-n);font-weight:510}
+.g-row{position:relative;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:12px 2px;border-top:1px solid var(--line-n);flex:1 1 0;min-height:0}
+.g-row:first-of-type{border-top:0}
+.g-row .nm{display:flex;align-items:baseline;gap:16px;font-size:19px;font-weight:420;color:var(--body-n)}
+.g-row .nm .rn{font-family:'Instrument Serif',serif;font-size:22px;color:var(--cap-n)}
+.g-row .nm small{display:block;font-size:12.5px;color:var(--cap-n);margin-top:3px;font-weight:380}
+.g-row.onx .nm{color:var(--ink-n);font-weight:510}
+.g-title{position:relative;font-family:'Instrument Sans',sans-serif;font-weight:620;
+  font-size:20px;line-height:1.3;color:var(--ink-n);margin:9px 0 14px;letter-spacing:-0.008em}
+.gamme{position:relative;border-radius:18px;background:var(--card-n);color:var(--body-n);
+  padding:24px 30px;overflow:hidden;display:flex;flex-direction:column;margin-top:26px;flex:1;min-height:0}
+.gamme .gg{position:absolute;right:-120px;top:-140px;width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,.35),transparent 66%);pointer-events:none}
+.here{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;
+  margin-top:20px;padding:15px 22px;border:1px solid var(--line);border-radius:18px;background:var(--bg)}
+.here-badge{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
+  font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--blue);border:1px solid rgba(37,99,235,.28);border-radius:999px;padding:8px 15px}
+.here p{font-size:14.5px;line-height:1.55;color:var(--body)}
+.here p b{color:var(--ink);font-weight:600}
+.here .coord{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  color:var(--cap);white-space:nowrap}
+.nm{display:flex;align-items:baseline;gap:16px;font-size:19px;font-weight:420;color:var(--body-n)}
+.nm .rn{font-family:'Instrument Serif',serif;font-size:22px;color:var(--cap-n)}
+.nm small{display:block;font-size:12.5px;color:var(--cap-n);margin-top:3px;font-weight:380}
+.nm{color:var(--ink-n);font-weight:510}
+.nm{font-size:13px;color:var(--body)}
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.pill{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink);border:1px solid var(--line);
+  border-radius:999px;padding:8px 14px;background:var(--white)}
+.rowi{display:grid;grid-template-columns:64px 300px 1fr;gap:20px;align-items:baseline;
+  padding:15px 4px;border-top:1px solid var(--line)}
+.rowi:last-child{border-bottom:1px solid var(--line)}
+.rowi .rn{font-family:'Instrument Serif',serif;font-size:27px;color:var(--ter)}
+.rowi b{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:18px;
+  color:var(--ink);letter-spacing:-0.008em}
+.rowi p{font-size:15px;line-height:1.58;color:var(--body)}
+.rows{display:flex;flex-direction:column;margin-top:22px}
+
+.dotm{width:11px;height:11px;border-radius:50%;flex:none;background:var(--grad);
+  box-shadow:0 0 0 2.5px var(--white),0 0 0 3.5px var(--line)}
+.dotm.hq{width:15px;height:15px}
+.geo-grid{display:grid;grid-template-columns:1fr 392px;gap:48px;margin-top:14px;flex:1;min-height:0}
+.geo-lede{font-size:15px;line-height:1.6;color:var(--body);max-width:52ch}
+.geo-stats{display:flex;flex-direction:column;gap:15px;padding-top:4px}
+.geo-stats .stat2{border-top:1px solid var(--line);padding-top:12px}
+.geo-stats .sv{font-size:44px}
+.hq{width:15px;height:15px}
+.hq::before{width:15px;height:15px}
+.map-box{position:relative;width:392px}
+.map-box>svg{display:block;width:100%;height:auto}
+.map-hint{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ter)}
+.map-note{font-size:13.5px;line-height:1.55;color:var(--cap);border-top:1px solid var(--line);padding-top:13px}
+.map-note b{color:var(--ink);font-weight:600}
+.map-tip{position:absolute;z-index:12;width:max-content;min-width:200px;max-width:250px;
+  background:var(--white);border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 18px 44px -14px rgba(15,23,42,.3);padding:14px 16px 12px;
+  opacity:0;pointer-events:none;transform:translate(-50%,calc(-100% - 16px)) scale(.97);
+  transition:opacity .18s ease,transform .22s var(--ease)}
+.map-tip::before{content:"";position:absolute;top:0;left:16px;right:16px;height:3px;
+  border-radius:0 0 3px 3px;background:var(--grad)}
+.map-tip b{display:block;font-family:'Instrument Sans',sans-serif;font-weight:640;
+  font-size:14.5px;letter-spacing:-0.01em;color:var(--ink)}
+.map-tip .tr{display:block;font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ter);margin:4px 0 6px}
+.map-tip p{margin:0;font-size:12.5px;line-height:1.5;color:var(--body)}
+.mk{position:absolute;width:26px;height:26px;transform:translate(-50%,-50%);border:0;
+  background:transparent;padding:0;z-index:3}
+.mk::before{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;
+  transform:translate(-50%,-50%);background:var(--grad);
+  box-shadow:0 0 0 2.5px var(--white),0 3px 10px rgba(37,99,235,.4)}
+.mk::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;
+  transform:translate(-50%,-50%);border-radius:50%;
+  box-shadow:0 0 0 0 rgba(37,99,235,.4);animation:mkp 2.8s ease-out infinite}
+.mk.hq::before{width:15px;height:15px}
+.mk:hover::before,.mk:focus-visible::before{box-shadow:0 0 0 2.5px var(--white),0 0 0 5px rgba(124,58,237,.28),0 3px 12px rgba(37,99,235,.5)}
+.mk:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:50%}
+.mk-lab{position:absolute;font-family:'Fragment Mono',monospace;font-size:8px;letter-spacing:.08em;
+  text-transform:uppercase;color:#5F6C81;white-space:nowrap;pointer-events:none;transform:translateY(-50%);z-index:2}
+  function show(mk){
+    open=mk;
+  }
+  });
+  }
+.stat2 .sv{font-family:'Instrument Serif',serif;font-size:62px;line-height:1;color:var(--ink)}
+.stat2 .sv em{font-style:normal;background:var(--grad);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.stat2 .sl{font-size:14px;color:var(--cap);margin-top:7px}
+.stat2{border-top:1px solid var(--line);padding-top:12px}
+.stats2{display:flex;gap:44px}
+.ref{display:flex;gap:12px;align-items:flex-start}
+.ref .rl{height:23px;width:auto;max-width:78px;object-fit:contain;flex:none;margin-top:1px}
+.ref-t{flex:1;min-width:0}
+.refgrp{margin-top:8px}
+.refgrp+.refgrp{margin-top:8px}
+.ref{border-bottom:1px solid var(--line);padding:5px 0 6px}
+.ref b{display:block;font-family:'Instrument Sans',sans-serif;font-weight:620;
+  font-size:14.3px;letter-spacing:-0.008em;color:var(--ink)}
+.ref p{margin:2px 0 0;font-size:12px;line-height:1.42;color:var(--cap)}
+.rg-c{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:16px;color:var(--ter)}
+.rg-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 44px}
+.rg-h{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  border-bottom:1px solid var(--ink);padding-bottom:4px}
+.rg-h .rg-t{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink)}
+.rg-h .rg-c{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:16px;color:var(--ter)}
+.rg-t{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink)}
+.rl2{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:#BFD3FE;display:block;margin-bottom:8px}
+.rl{height:23px;width:auto;max-width:78px;object-fit:contain;flex:none;margin-top:1px}
+.legend{display:flex;flex-direction:column;gap:9px;border-top:1px solid var(--line);padding-top:13px}
+.leg{display:flex;align-items:center;gap:11px;font-family:'Fragment Mono',monospace;
+  font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--cap)}
+.slide{position:absolute;inset:0;background:var(--white);opacity:0;visibility:hidden;
+  transition:opacity .42s var(--ease),visibility 0s linear .42s;overflow:hidden}
+.slide.on{opacity:1;visibility:visible;transition:opacity .42s var(--ease)}
+.slide .rail{position:relative;z-index:2;height:100%;padding:50px 72px 42px;display:flex;flex-direction:column}
+.slide.night{background:var(--night);color:var(--body-n)}
+.slide.night::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.05;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")}
+.slide.night .kick{color:var(--cap-n)}
+.slide.night h2{color:var(--ink-n)}
+.slide.night .gw{background:var(--gradn);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+.slide.night .lede{color:var(--body-n)}
+.slide.night .lede b{color:var(--ink-n)}
+.slide.night .pt p{color:var(--body-n)}
+.slide.night .pt p b{color:var(--ink-n)}
+.slide.night .foot{border-top-color:var(--line-n);color:var(--cap-n)}
+.slide.night ::selection{background:rgba(167,139,250,.3)}
+.slide.on .reveal{opacity:1;transform:none}
+.slide.instant .reveal{transition-duration:0s;transition-delay:0s}
+.slide.night .pause-note{border-color:var(--cap-n);color:var(--cap-n)}
+.slide.night .pause-note::before{border-color:var(--cap-n)}
+.slide.on .circle{opacity:1;transform:scale(1)}
+.slide.instant .circle{transition:none}
+.slide{transition:none}
+.sl{font-size:14px;color:var(--cap);margin-top:7px}
+  var cur=-1;
+
+  function fit(){
+    var s=Math.min(window.innerWidth/1280, window.innerHeight/720);
+    stage.style.transform='translate(-50%,-50%) scale('+s+')';
+  }
+.slice.call(dots.children);
+
+  function pad(n){return (n<10?'0':'')+n;}
+      if(c.classList.contains('act')){
+        c.classList.remove('act');c.classList.add('done');
+        pause();
+      }
+  function show(mk){
+    open=mk;
+  }
+  var pans={
+  }
+.sv{font-family:'Instrument Serif',serif;font-size:62px;line-height:1;color:var(--ink)}
+.sv em{font-style:normal;background:var(--grad);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.sv{font-size:44px}
+.tr{display:block;font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ter);margin:4px 0 6px}
+.transform='translate(-50%,-50%) scale('+s+')';
+  }
+
+    d.className='dot'; d.type='button';
+    d.setAttribute('aria-label','Slide '+(i+1));
+.trap){
+        sp.setAttribute('data-trap',seg.trap);
+        if(!firstTrapDone&&w!==''){sp.classList.add('tp-first');firstTrapDone=true;}
+  function show(mk){
+    open=mk;
+  }
+.transform='rotate(-32deg)';
+  }
+  function done(){
+  }
+.transform='rotate('+STEPS[idx]+'deg)';
+    }
+  }
+  function start(){
+    if(playing)return;
+    if(idx>=PTS.length)reset();
+    iv=setInterval(step,240);
+  }
+
+
+/* ================= LISIBILITÉ (passe finale, 10/09) ================= */
+/* contenu « roomy » : répartition verticale quand la slide est peu dense */
+.roomy .rail{justify-content:flex-start}
+.roomy .lede{font-size:17.5px;line-height:1.66;margin-top:16px}
+.roomy .pts{margin-top:auto;margin-bottom:auto;display:flex;flex-direction:column;gap:26px}
+.roomy .pt{padding:10px 2px}
+.roomy .pt .pb p{font-size:15.5px;line-height:1.58}
+.roomy .pt .pb .psub{font-size:12.8px;margin-top:4px;line-height:1.5}
+.roomy .pt .pn{font-size:19px;width:40px}
+.roomy .keycard{margin-top:18px}
+/* atelier : descriptions de tâches LISIBLES (fini le mono 8px en capitales) */
+.pcard .ps{font-family:'Inter',system-ui,sans-serif;font-weight:380;font-size:11.8px;
+  letter-spacing:normal;text-transform:none;line-height:1.5;color:var(--body);margin-top:6px}
+.pcard{padding:15px 18px}
+.pcard .pn{font-size:15.5px}
+.t-lab{font-family:'Inter',system-ui,sans-serif;font-size:11.5px;font-weight:500;
+  letter-spacing:normal;text-transform:none;line-height:1.5;margin-top:12px}
+/* scénario : conséquences un peu plus lisibles */
+.posc .pos-c{font-size:13.8px;line-height:1.55}
+/* xp : statut et légende plus lisibles */
+.lv-status,.lv-count{font-size:10px}
+.lv-leg{font-size:10px}
 
 </style>
 </head>
@@ -700,10 +977,10 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   <div class="hairline"></div>
   <div class="glowb glow-a"></div><div class="glowb glow-b"></div>
   <div class="rail">
-    <div class="toprow"><span class="kick">Synthèse</span><span class="pgr">01 · 08</span></div>
+    <div class="toprow"><span class="kick">Jour 2 · 16h30 - 17h00 · évaluation finale, plan d&#x27;action et clôture</span><span class="pgr">01 · 10</span></div>
     <div class="sec-mid">
-      <h2 class="reveal" style="--i:0">Ce que nous avons construit ensemble</h2>
-      
+      <h2 class="reveal" style="--i:0">Synthèse · Ce que nous avons construit ensemble</h2>
+      <p class="sec-sub reveal" style="--i:1">Quatre modules, quatre livrables, deux mondes — produits et flux. Il reste 30 minutes : vérifier les acquis, puis transformer la formation en premières actions datées.</p>
     </div>
     <div class="cover-foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
@@ -711,70 +988,104 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 <!-- 02 · À RETENIR -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Synthèse du module</span><span class="pgr">02 · 08</span></div>
-    <h2>Ce qu&#x27;il faut retenir — l&#x27;essentiel</h2>
-    <div class="tkgrid"><div class="tkcard reveal" style="--i:0"><span class="tn">01</span><b>M1 · Fondamentaux</b><p>La prévision sert à décider : stocks, capacité, effectifs. L&#x27;erreur est inévitable, la piloter est un choix d&#x27;organisation — maille, horizon, responsabilités.</p></div><div class="tkcard reveal" style="--i:1"><span class="tn">02</span><b>M2 · Méthodes</b><p>Pas de méthode universelle : profiler la demande (stable, tendance, saisonnière, intermittente) avant de choisir. Excel suffit pour démarrer, PREVISION.ETS et les indices saisonniers couvrent l&#x27;essentiel.</p></div><div class="tkcard reveal" style="--i:2"><span class="tn">03</span><b>M3 · Processus S&amp;OP</b><p>Un cycle mensuel en 5 étapes, des rôles nommés, des réunions cadrées et des décisions tracées : le S&amp;OP aligne demande et capacité — y compris flux et effectifs en services.</p></div><div class="tkcard reveal" style="--i:3"><span class="tn">04</span><b>M4 · Pilotage</b><p>Ce qui n&#x27;est pas mesuré ne s&#x27;améliore pas : MAPE, biais et FVA pour objectiver, ABC/XYZ pour prioriser, une revue mensuelle pour corriger en continu.</p></div></div>
+    <div class="toprow"><span class="kick">Synthèse du module</span><span class="pgr">02 · 10</span></div>
+    <h2>Ce qu&#x27;il faut retenir — l&#x27;essentiel des 4 modules</h2>
+    <div class="tkgrid"><div class="tkcard reveal" style="--i:0"><span class="tn">01</span><b>M1 · Fondamentaux — prévoir pour décider</b><p>La prévision alimente toute la chaîne : stocks et approvisionnements chez NOVADIS, charge et recrutements chez ALTÉA. L&#x27;erreur est inévitable mais se pilote : maille (l&#x27;agrégation a divisé le stock de sécurité par 4 : 6 580 › 1 645 unités), horizon (un recrutement pour le pic de janvier se décide mi-septembre), responsable unique de la prévision.</p></div><div class="tkcard reveal" style="--i:1"><span class="tn">02</span><b>M2 · Méthodes — le profil commande la méthode</b><p>Stable, tendance, saisonnier, intermittent : à chaque profil sa méthode. Lissage exponentiel simple (alpha = 0,3) sur série stable, indices saisonniers sur les appels ALTÉA (moyenne 156,2 k/mois, janvier 1,22, août 0,79), Croston/SBA sur l&#x27;intermittent — et PREVISION.ETS dans Excel pour industrialiser sans attendre un outil spécialisé.</p></div><div class="tkcard reveal" style="--i:2"><span class="tn">03</span><b>M3 · S&amp;OP — un plan unique, des décisions tracées</b><p>Cinq étapes mensuelles, de la collecte au comité exécutif. Les arbitrages se comparent en scénarios chiffrés : face au pic de 122 k en M6 (capacité 105 k), le scénario « heures sup M4-M6 + intérim M5-M6 » aboutit à 69,5 k de stock fin M6 — cible tenue avec environ 1,5 jour de marge, là où les deux autres scénarios manquent ou dépassent la cible.</p></div><div class="tkcard reveal" style="--i:3"><span class="tn">04</span><b>M4 · Pilotage — mesurer pour agir</b><p>Erreur ET biais, jamais l&#x27;un sans l&#x27;autre : Respir-8 affiche WMAPE 19,1 %, MASE 0,59 et biais −9,8 %. Jamais de MAPE sur une série avec des zéros ; le FVA objectivise chaque retouche (−5,2 points pour les ajustements non documentés, +1,8 point quand ils le sont) ; alerte du tracking signal au-delà de 4.</p></div></div>
     
     <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 03 · QUIZ -->
-<section class="slide s-quiz">
+<!-- 03 · QUIZ GROUPÉ -->
+<section class="slide s-quizg qzg" data-qzg>
   <div class="rail">
-    <div class="toprow"><span class="kick">Quiz</span><span class="pgr">03 · 08</span></div>
-    <h2>Quiz final — l&#x27;essentiel des 4 modules (1/2)</h2>
-    <div class="qzbox" data-qbox="qz2"></div>
+    <div class="toprow"><span class="kick">Évaluation des acquis · Quiz final · manche 1 sur 2</span><span class="pgr">03 · 10</span></div>
+    <h2>Quiz final — fondamentaux et méthodes (3 questions)</h2>
+    <div class="qzg-wrap"><div class="qz reveal" style="--i:0" data-ok="3"><p class="qz-q"><span class="qz-n">Q1</span><span class="qtx">ALTÉA consolide les prévisions d&#x27;appels de ses 4 établissements (Lyon 42 %, Bordeaux 26 %, Madrid 19 %, Porto 13 % des volumes). Chaque mois, l&#x27;erreur relative au niveau groupe est plus faible que la moyenne des erreurs par établissement. Quelle explication retenir ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>Les données consolidées sont plus récentes et mieux saisies que les données locales</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>La consolidation supprime la saisonnalité propre à chaque établissement</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>Les outils de calcul sont plus précis sur les volumes agrégés</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Les erreurs de prévision se compensent partiellement d&#x27;un établissement à l&#x27;autre</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>C&#x27;est le risk pooling (Eppen, 1979) : à erreurs indépendantes, la variabilité de la somme croît en racine du nombre de séries, pas proportionnellement — l&#x27;erreur relative fond donc à l&#x27;agrégation.</p></div><div class="qz reveal" style="--i:1" data-ok="1"><p class="qz-q"><span class="qz-n">Q2</span><span class="qtx">La référence « R » de NOVADIS affiche 24 mois d&#x27;historique, une tendance de +1,5 % par an et une saisonnalité multiplicative marquée (indice janvier 1,83, creux juillet 0,45). Quelle famille de méthodes est la plus adaptée ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>Lissage exponentiel simple avec alpha = 0,3, la méthode calculée à l&#x27;atelier Excel</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>Holt-Winters (triple lissage) ou décomposition avec indices saisonniers</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>Méthode de Croston, qui sépare taille et fréquence de la demande</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Moyenne mobile sur 3 mois, pour réagir vite aux variations</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>Le profil commande la méthode : tendance + saisonnalité exigent un modèle qui représente les deux (Winters, 1960) ; la décomposition avec indices saisonniers est l&#x27;alternative de référence.</p></div></div>
+    <div class="qzg-bar reveal" style="--i:2">
+      <p class="tt-hint">La salle vote à main levée · le formateur clique la réponse de la salle</p>
+      <button type="button" class="tbtn" data-qzg-reset>Réinitialiser le quiz</button>
+    </div>
     <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 04 · QUIZ -->
-<section class="slide s-quiz">
+<!-- 04 · QUIZ GROUPÉ -->
+<section class="slide s-quizg qzg" data-qzg>
   <div class="rail">
-    <div class="toprow"><span class="kick">Quiz</span><span class="pgr">04 · 08</span></div>
-    <h2>Quiz final — l&#x27;essentiel des 4 modules (2/2)</h2>
-    <div class="qzbox" data-qbox="qz3"></div>
+    <div class="toprow"><span class="kick">Évaluation des acquis · Quiz final · manche 1 sur 2</span><span class="pgr">04 · 10</span></div>
+    <h2>Quiz final — fondamentaux et méthodes (3 questions) (2/2)</h2>
+    <div class="qzg-wrap"><div class="qz reveal" style="--i:0" data-ok="3"><p class="qz-q"><span class="qz-n">Q1</span><span class="qtx">Dans le segment CZ de NOVADIS (410 références à faible rotation, vendues quelques mois par an en quantités irrégulières), le lissage actuel affiche un MASE de 1,21. Quelle approche recommandez-vous ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>Un lissage exponentiel simple avec alpha élevé, pour réagir aux mois de vente</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>Une moyenne mobile sur 12 mois, pour absorber les mois creux</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>Une méthode Delphi, faute de données suffisantes</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Croston ou sa variante SBA, conçues pour la demande intermittente</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>Un MASE supérieur à 1 signifie que la méthode fait pire qu&#x27;une prévision naïve — on paie un effort de prévision qui détruit de la valeur.</p></div></div>
+    <div class="qzg-bar reveal" style="--i:1">
+      <p class="tt-hint">La salle vote à main levée · le formateur clique la réponse de la salle</p>
+      <button type="button" class="tbtn" data-qzg-reset>Réinitialiser le quiz</button>
+    </div>
     <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 05 · CONTENU -->
+<!-- 05 · QUIZ GROUPÉ -->
+<section class="slide s-quizg qzg" data-qzg>
+  <div class="rail">
+    <div class="toprow"><span class="kick">Évaluation des acquis · Quiz final · manche 2 sur 2</span><span class="pgr">05 · 10</span></div>
+    <h2>Quiz final — processus S&amp;OP et pilotage (3 questions)</h2>
+    <div class="qzg-wrap"><div class="qz reveal" style="--i:0" data-ok="2"><p class="qz-q"><span class="qz-n">Q1</span><span class="qtx">En comité S&amp;OP exécutif, la direction de NOVADIS vient de trancher l&#x27;arbitrage capacité du pic de M6 (demande 122 k, capacité 105 k). Par quelles étapes, dans l&#x27;ordre…</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>Supply review › collecte › demand review › pré-S&amp;OP</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>Pré-S&amp;OP › supply review › demand review › collecte</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>Collecte › demand review › supply review › pré-S&amp;OP</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Demand review › supply review › pré-S&amp;OP › collecte</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>Le FVA mesure la valeur de chaque ajustement : un ajustement qui dégrade la précision s&#x27;arrête — le débat devient factuel, plus de procès en méthode.</p></div><div class="qz reveal" style="--i:1" data-ok="0"><p class="qz-q"><span class="qz-n">Q2</span><span class="qtx">Sur la référence « Respir-8 », la cellule MAPE du mois de rupture (réel = 0) affiche #DIV/0! et l&#x27;indicateur annuel devient inexploitable. Que décidez-vous pour le tableau de bord ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>Basculer sur le couple WMAPE + MASE, qui reste calculable avec des zéros</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>Exclure le mois de rupture du calcul pour conserver un MAPE lisible</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>Conserver le MAPE en multipliant l&#x27;erreur du mois à zéro par un coefficient correcteur</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Remplacer le zéro par la moyenne des mois voisins avant de calculer</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>La MAPE divise par le réel : indéfinie dès qu&#x27;une réalisation vaut zéro. WMAPE et MASE restent calculables — sur Respir-8 : WMAPE 19,1 %, MASE 0,59, biais −9,8 %.</p></div></div>
+    <div class="qzg-bar reveal" style="--i:2">
+      <p class="tt-hint">La salle vote à main levée · le formateur clique la réponse de la salle</p>
+      <button type="button" class="tbtn" data-qzg-reset>Réinitialiser le quiz</button>
+    </div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 06 · QUIZ GROUPÉ -->
+<section class="slide s-quizg qzg" data-qzg>
+  <div class="rail">
+    <div class="toprow"><span class="kick">Évaluation des acquis · Quiz final · manche 2 sur 2</span><span class="pgr">06 · 10</span></div>
+    <h2>Quiz final — processus S&amp;OP et pilotage (3 questions) (2/2)</h2>
+    <div class="qzg-wrap"><div class="qz reveal" style="--i:0" data-ok="3"><p class="qz-q"><span class="qz-n">Q1</span><span class="qtx">Chez NOVADIS, les ajustements manuels « au jugé » affichent un FVA de −5,2 points ; chez ALTÉA, les ajustements documentés (campagnes) ajoutent au contraire +1,8 point. Quelle décision de processus est la bonne ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>Laisser chaque contributeur ajuster librement : le terrain sait mieux que le modèle</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>Changer de méthode statistique : c&#x27;est elle qui produit l&#x27;écart</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>Interdire tout ajustement manuel et ne diffuser que la prévision statistique brute</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Encadrer l&#x27;ajustement : journal statistique brute vs prévision finale, code-raison obligatoire, revue FVA mensuelle</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>Le FVA (forecast value added, Gilliland) compare la précision avant et après chaque intervention humaine : il transforme un débat d&#x27;opinions en mesure.</p></div></div>
+    <div class="qzg-bar reveal" style="--i:1">
+      <p class="tt-hint">La salle vote à main levée · le formateur clique la réponse de la salle</p>
+      <button type="button" class="tbtn" data-qzg-reset>Réinitialiser le quiz</button>
+    </div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 07 · CONTENU -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Passage à l&#x27;action</span><span class="pgr">05 · 08</span></div>
+    <div class="toprow"><span class="kick">Passage à l&#x27;action</span><span class="pgr">07 · 10</span></div>
     <h2>Votre plan d&#x27;action à 90 jours</h2>
-    <p class="lede reveal" style="--i:0">Le vrai succès d&#x27;une formation se mesure au transfert : ce que vous mettrez réellement en place. Repartez avec une à trois actions précises, datées et mesurables — ancrées sur votre contexte, produits ou flux.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Reprenez la <b>question prioritaire</b> notée au tour de table : quelle première action y répond ?</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Formulez chaque action au format <b>SMART</b> : spécifique, mesurable, atteignable, réaliste, datée.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Commencez par la <b>mesure</b> si elle n&#x27;existe pas : calculer MAPE et biais sur 6 à 12 mois d&#x27;historique coûte une heure sur Excel et change tous les débats.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Fixez une <b>échéance</b> et un <b>indicateur</b> de réussite pour chacune, et un point d&#x27;auto-évaluation à J+90.</p></div></div></div>
-    <div class="keycard reveal" style="--i:4"><span class="kl">Méthode</span><p>Plan d&#x27;action = niveau 3 de Kirkpatrick (transfert au poste). C&#x27;est lui qui transforme la formation en résultats.</p></div>
+    <p class="lede reveal" style="--i:0">Le vrai succès de la formation se mesure au transfert. Trois étapes, une action SMART, un point de mesure à J+90.</p>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>J+0 à J+30 — Mesurer le point de départ</b> : MAE, WMAPE et biais sur 6 à 12 mois, sur un périmètre pilote (top références ou 2 plus gros flux).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>J+0 à J+30 — Documenter les hypothèses</b> : chaque prévision sort avec ses hypothèses écrites, relues en demand review.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>J+30 à J+60 — Appliquer la méthode</b> : indices saisonniers et PREVISION.ETS sur le pilote ; comparer 3 méthodes en MAPE historique.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>J+30 à J+60 — Lancer le cycle</b> : un premier rendez-vous mensuel demande-capacité, décisions au format décision › responsable › échéance.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>J+60 à J+90 — Revoir et étendre</b> : première revue de performance (erreur, biais, FVA) ; étendre le cockpit au périmètre suivant.</p></div></div><div class="pt reveal" style="--i:5"><span class="pn">06</span><div class="pb"><p><b>Transposition flux</b> : chez ALTÉA comme chez vous, le même plan déclenche la même chaîne — prévision de flux › charge › effectifs › recrutements décidés à temps.</p></div></div></div>
+    <div class="keycard reveal" style="--i:6"><span class="kl">Méthode</span><p>Plan d&#x27;action = niveau 3 de Kirkpatrick (transfert au poste) : c&#x27;est lui qui transforme la formation en résultats.</p></div>
     <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 06 · SMART -->
+<!-- 08 · SMART -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Passage à l’action</span><span class="pgr">06 · 08</span></div>
+    <div class="toprow"><span class="kick">Passage à l’action</span><span class="pgr">08 · 10</span></div>
     <h2>Exemple d&#x27;objectif bien formulé</h2>
     <div class="smgrid reveal" style="--i:0" data-smart>
       <div class="smlist"><button class="smrow cur" type="button" data-l="S"><span class="sl">S</span><span class="st">Spécifique — un périmètre, un levier</span></button><button class="smrow" type="button" data-l="M"><span class="sl">M</span><span class="st">Mesurable — indicateur et cible chiffrés</span></button><button class="smrow" type="button" data-l="A"><span class="sl">A</span><span class="st">Atteignable — moyens et temps identifiés</span></button><button class="smrow" type="button" data-l="R"><span class="sl">R</span><span class="st">Réaliste — ancré sur votre activité</span></button><button class="smrow" type="button" data-l="T"><span class="sl">T</span><span class="st">Temporel — dates de mesure et de revue</span></button></div>
       <div class="smpanel">
         <div class="gg"></div>
         <span class="smL">S</span>
-        <p class="smd">Réduire l&#x27;erreur de prévision sur le périmètre pilote : les 50 plus grosses références (ou les 2 plus gros flux) de mon activité</p>
+        <p class="smd">Réduire l&#x27;erreur de prévision sur le périmètre pilote : les 50 plus grosses références (ou les 2 plus gros flux entrants) de mon activité</p>
         <span class="smp-hint">Cliquez une lettre pour afficher le détail</span>
       </div>
     </div>
     <div class="foot"><span>Modèle inspiré de la grille SMART (Doran, 1981) — exemple pédagogique construit</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 07 · RESSOURCES -->
+<!-- 09 · RESSOURCES -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Pour aller plus loin</span><span class="pgr">07 · 08</span></div>
+    <div class="toprow"><span class="kick">Pour aller plus loin</span><span class="pgr">09 · 10</span></div>
     <h2>Pour aller plus loin — sources officielles</h2>
-    <div class="reslist"><div class="resi reveal" style="--i:0"><span class="rn">01</span><p>ASCM — Association for Supply Chain Management : référentiels demand planning et S&amp;OP (ascm.org)</p></div><div class="resi reveal" style="--i:1"><span class="rn">02</span><p>Oliver Wight — publications publiques sur le S&amp;OP et l&#x27;Integrated Business Planning (oliverwight.com)</p></div><div class="resi reveal" style="--i:2"><span class="rn">03</span><p>International Journal of Forecasting et Foresight : études sur les méthodes de prévision et les compétitions M (Makridakis)</p></div><div class="resi reveal" style="--i:3"><span class="rn">04</span><p>Hyndman &amp; Koehler (2006) — « Another look at measures of forecast accuracy » : MAPE, sMAPE, MASE</p></div><div class="resi reveal" style="--i:4"><span class="rn">05</span><p>Gilliland, M. — « The Business Forecasting Deal » (SAS) : le forecast value added en pratique</p></div><div class="resi reveal" style="--i:5"><span class="rn">06</span><p>Microsoft Learn / Support — fonctions PREVISION.ETS, TENDANCE, PREVISION.LINEAIRE et Copilot dans Excel</p></div><div class="resi reveal" style="--i:6"><span class="rn">07</span><p>ANSM — rapports publics sur les ruptures de stock de médicaments (ansm.sante.fr)</p></div><div class="resi reveal" style="--i:7"><span class="rn">08</span><p>Gans, Koole &amp; Mandelbaum (2003) — état de l&#x27;art sur la planification des centres de contacts (dimensionnement des flux)</p></div></div>
+    <div class="reslist"><div class="resi reveal" style="--i:0"><span class="rn">01</span><p>ASCM — Association for Supply Chain Management : référentiels demand planning et S&amp;OP (ascm.org)</p></div><div class="resi reveal" style="--i:1"><span class="rn">02</span><p>Oliver Wight — publications publiques sur le S&amp;OP et l&#x27;Integrated Business Planning (oliverwight.com)</p></div><div class="resi reveal" style="--i:2"><span class="rn">03</span><p>International Journal of Forecasting et Foresight (forecasters.org) : méthodes de prévision et compétitions M de Makridakis</p></div><div class="resi reveal" style="--i:3"><span class="rn">04</span><p>Hyndman &amp; Koehler (2006) — « Another look at measures of forecast accuracy » : MAPE, sMAPE, MASE (robjhyndman.com)</p></div><div class="resi reveal" style="--i:4"><span class="rn">05</span><p>Gilliland, M. — « The Business Forecasting Deal » et le blog SAS Forecasting : le forecast value added en pratique (blogs.sas.com)</p></div><div class="resi reveal" style="--i:5"><span class="rn">06</span><p>Microsoft Learn / Support — PREVISION.ETS, PREVISION.ETS.SAISONNALITE, TENDANCE et Copilot dans Excel</p></div><div class="resi reveal" style="--i:6"><span class="rn">07</span><p>ANSM — base publique des ruptures de stock et risques de rupture de médicaments (data.ansm.sante.fr)</p></div><div class="resi reveal" style="--i:7"><span class="rn">08</span><p>Gans, Koole &amp; Mandelbaum (2003) — état de l&#x27;art de la planification des centres de contacts : prévision de flux et dimensionnement</p></div><div class="resi reveal" style="--i:8"><span class="rn">09</span><p>SentiWeb — données épidémiologiques publiques françaises, utiles au demand sensing des produits saisonniers (sentiweb.fr)</p></div></div>
     <div class="nextband"><a href="index.html#9">← Sommaire des modules</a></div>
     <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 08 · CLÔTURE -->
+<!-- 10 · CLÔTURE -->
 <section class="slide night s-cover">
   <img class="ph" src="assets/closing.jpg" alt="Formateur avec casque en visioconférence depuis un bureau lumineux — classe virtuelle en direct, carnet ouvert à côté">
   <div class="veil"></div><div class="glow1"></div>
@@ -782,12 +1093,12 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   <div class="rail">
     <div class="toprow" style="align-items:center">
       <img class="cover-logo" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjgwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtYWluR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMjU2M0VCO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM3QzNBRUQ7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJhY2NlbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzEwQjk4MTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDZCNkQ0O3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDwhLS0gTG9nbyBJbnZlcnPDqSBwb3VyIGZvbmQgc29tYnJlIC0tPgogIDxnPgogICAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMTIiIGZpbGw9IndoaXRlIi8+CiAgICA8cGF0aCBkPSJNIDMwIDE1IEwgNDAgNDUgTCAzNSA0NSBMIDMzIDM4IEwgMjcgMzggTCAyNSA0NSBMIDIwIDQ1IEwgMzAgMTUgWiBNIDMwIDIzIEwgMjggMzIgTCAzMiAzMiBMIDMwIDIzIFoiIGZpbGw9InVybCgjbWFpbkdyYWRpZW50KSIvPgogICAgPGNpcmNsZSBjeD0iNDUiIGN5PSIyMCIgcj0iNiIgZmlsbD0idXJsKCNhY2NlbnQpIi8+CgogICAgPHRleHQgeD0iNzUiIHk9IjI4IiBmb250LWZhbWlseT0iSW50ZXIsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSJ3aGl0ZSI+QUtBREVNSUE8L3RleHQ+CiAgICA8dGV4dCB4PSI3NSIgeT0iNDYiIGZvbnQtZmFtaWx5PSJJbnRlciwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI0MDAiIGZpbGw9IiM5NEEzQjgiIGxldHRlci1zcGFjaW5nPSIwLjFlbSI+Rk9STUFUSU9OPC90ZXh0PgogIDwvZz4KPC9zdmc+Cg==" alt="Akademia Formation">
-      <span class="pgr">08 · 08</span>
+      <span class="pgr">10 · 10</span>
     </div>
     <div class="cover-mid">
       <p class="kick reveal" style="--i:0">Fin de la formation</p>
       <h1 class="reveal" style="--i:1">Merci.</h1>
-      <p class="cover-sub reveal" style="--i:2">Gardez vos livrables à portée de main — et lancez votre première mesure dès cette semaine.</p>
+      <p class="cover-sub reveal" style="--i:2">Gardez vos quatre livrables à portée de main — et lancez votre première mesure dès cette semaine : le reste suivra.</p>
       <a class="menu-link reveal" style="--i:3" href="index.html#9">← Sommaire des modules</a>
     </div>
     <div class="cover-foot"><span>Akademia Formation</span><span>akademiaformation.com</span></div>
@@ -820,16 +1131,16 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 
 <script>
 const QUESTIONS = [
-  {id: 'qz2q1', box: 'qz2', n: 1, q: "Pourquoi une prévision est-elle généralement plus fiable à maille agrégée (famille, global) qu'à maille fine ?", options: ["Parce que les erreurs se compensent partiellement entre les éléments agrégés", "Parce que les données agrégées sont plus récentes", "Parce que les outils calculent mieux à maille haute", "Parce que l'agrégation supprime la saisonnalité"], correct: 0, explain: "Le risque de plusieurs séries agrégées se mutualise : la variabilité relative diminue (effet de pooling, Eppen 1979). La compensation des écarts, pas la fraîcheur des données, explique le gain de précision."},
-  {id: 'qz2q2', box: 'qz2', n: 2, q: "Votre série présente une tendance nette ET une saisonnalité annuelle marquée. Quelle famille de méthodes est la plus adaptée ?", options: ["Méthode de Croston", "Holt-Winters (triple lissage) ou décomposition avec indices saisonniers", "Moyenne mobile simple sur 3 périodes", "Lissage exponentiel simple avec alpha faible"], correct: 1, explain: "Holt-Winters modélise conjointement niveau, tendance et saisonnalité (Winters 1960) ; la décomposition avec indices saisonniers est l&#x27;alternative de référence. Croston est réservé à la demande intermittente."},
-  {id: 'qz2q3', box: 'qz2', n: 3, q: "Une référence n'est vendue que 4 mois sur 12, en quantités irrégulières. Quelle approche recommander ?", options: ["Le lissage exponentiel simple, qui lisse naturellement les zéros", "La méthode Delphi, faute de données", "La méthode de Croston (ou sa variante SBA), conçue pour la demande intermittente", "La moyenne mobile sur 12 mois, pour absorber les creux"], correct: 2, explain: "Croston (1972) sépare la prévision de la taille des demandes non nulles et de l&#x27;intervalle entre elles ; le lissage classique biaise fortement les prévisions sur séries intermittentes (Syntetos-Boylan)."},
-  {id: 'qz3q1', box: 'qz3', n: 4, q: "Quel est l'ordre correct du cycle S&OP mensuel ?", options: ["Collecte › demand review › supply review › pré-S&OP › S&OP exécutif", "Demand review › collecte › pré-S&OP › supply review › S&OP exécutif", "S&OP exécutif › demand review › supply review › pré-S&OP › collecte", "Collecte › supply review › demand review › S&OP exécutif › pré-S&OP"], correct: 0, explain: "Le cycle standard part des données (collecte), construit la prévision de demande, confronte la capacité, prépare les arbitrages (pré-S&amp;OP) et fait décider la direction (S&amp;OP exécutif)."},
-  {id: 'qz3q2', box: 'qz3', n: 5, q: "Votre MAPE explose sur une série comportant plusieurs mois à zéro. Que faire ?", options: ["Multiplier la MAPE par le nombre de zéros", "Passer à un indicateur robuste aux zéros : MAE, WMAPE ou MASE", "Supprimer les mois à zéro de l'historique", "Changer de méthode de prévision : le problème vient d'elle"], correct: 1, explain: "La MAPE divise par la valeur réelle : indéfinie ou explosée dès qu&#x27;une réalisation vaut zéro (Hyndman &amp; Koehler 2006). MAE, WMAPE (rapport des sommes) ou MASE restent calculables et interprétables."},
-  {id: 'qz3q3', box: 'qz3', n: 6, q: "Votre direction ajuste systématiquement les prévisions statistiques à la hausse, et l'erreur s'aggrave. Quel indicateur le prouve objectivement ?", options: ["Le forecast value added (FVA), qui mesure la valeur ajoutée de chaque étape et de chaque ajustement", "La segmentation ABC/XYZ", "Le tracking signal, qui cumule les écarts", "Le taux de service client"], correct: 0, explain: "Le FVA (Gilliland, SAS) compare la précision avant et après chaque intervention humaine : une étape qui dégrade la précision a un FVA négatif — le débat devient factuel."},
+  {id: 'qzg2q1', box: 'qzg2', n: 1, q: "ALTÉA consolide les prévisions d'appels de ses 4 établissements (Lyon 42 %, Bordeaux 26 %, Madrid 19 %, Porto 13 % des volumes). Chaque mois, l'erreur relative au niveau groupe est plus faible que la moyenne des erreurs par établissement. Quelle explication retenir ?", options: ["Les données consolidées sont plus récentes et mieux saisies que les données locales", "La consolidation supprime la saisonnalité propre à chaque établissement", "Les outils de calcul sont plus précis sur les volumes agrégés", "Les erreurs de prévision se compensent partiellement d'un établissement à l'autre"], correct: 3, explain: "C&#x27;est le risk pooling (Eppen, 1979) : à erreurs indépendantes, la variabilité de la somme croît en racine du nombre de séries, pas proportionnellement — l&#x27;erreur relative fond donc à l&#x27;agrégation."},
+  {id: 'qzg2q2', box: 'qzg2', n: 2, q: "La référence « R » de NOVADIS affiche 24 mois d'historique, une tendance de +1,5 % par an et une saisonnalité multiplicative marquée (indice janvier 1,83, creux juillet 0,45). Quelle famille de méthodes est la plus adaptée ?", options: ["Lissage exponentiel simple avec alpha = 0,3, la méthode calculée à l'atelier Excel", "Holt-Winters (triple lissage) ou décomposition avec indices saisonniers", "Méthode de Croston, qui sépare taille et fréquence de la demande", "Moyenne mobile sur 3 mois, pour réagir vite aux variations"], correct: 1, explain: "Le profil commande la méthode : tendance + saisonnalité exigent un modèle qui représente les deux (Winters, 1960) ; la décomposition avec indices saisonniers est l&#x27;alternative de référence."},
+  {id: 'qzg3q1', box: 'qzg3', n: 1, q: "Dans le segment CZ de NOVADIS (410 références à faible rotation, vendues quelques mois par an en quantités irrégulières), le lissage actuel affiche un MASE de 1,21. Quelle approche recommandez-vous ?", options: ["Un lissage exponentiel simple avec alpha élevé, pour réagir aux mois de vente", "Une moyenne mobile sur 12 mois, pour absorber les mois creux", "Une méthode Delphi, faute de données suffisantes", "Croston ou sa variante SBA, conçues pour la demande intermittente"], correct: 3, explain: "Un MASE supérieur à 1 signifie que la méthode fait pire qu&#x27;une prévision naïve — on paie un effort de prévision qui détruit de la valeur."},
+  {id: 'qzg4q1', box: 'qzg4', n: 1, q: "En comité S&OP exécutif, la direction de NOVADIS vient de trancher l'arbitrage capacité du pic de M6 (demande 122 k, capacité 105 k). Par quelles étapes, dans l'ordre…", options: ["Supply review › collecte › demand review › pré-S&OP", "Pré-S&OP › supply review › demand review › collecte", "Collecte › demand review › supply review › pré-S&OP", "Demand review › supply review › pré-S&OP › collecte"], correct: 2, explain: "Le FVA mesure la valeur de chaque ajustement : un ajustement qui dégrade la précision s&#x27;arrête — le débat devient factuel, plus de procès en méthode."},
+  {id: 'qzg4q2', box: 'qzg4', n: 2, q: "Sur la référence « Respir-8 », la cellule MAPE du mois de rupture (réel = 0) affiche #DIV/0! et l'indicateur annuel devient inexploitable. Que décidez-vous pour le tableau de bord ?", options: ["Basculer sur le couple WMAPE + MASE, qui reste calculable avec des zéros", "Exclure le mois de rupture du calcul pour conserver un MAPE lisible", "Conserver le MAPE en multipliant l'erreur du mois à zéro par un coefficient correcteur", "Remplacer le zéro par la moyenne des mois voisins avant de calculer"], correct: 0, explain: "La MAPE divise par le réel : indéfinie dès qu&#x27;une réalisation vaut zéro. WMAPE et MASE restent calculables — sur Respir-8 : WMAPE 19,1 %, MASE 0,59, biais −9,8 %."},
+  {id: 'qzg5q1', box: 'qzg5', n: 1, q: "Chez NOVADIS, les ajustements manuels « au jugé » affichent un FVA de −5,2 points ; chez ALTÉA, les ajustements documentés (campagnes) ajoutent au contraire +1,8 point. Quelle décision de processus est la bonne ?", options: ["Laisser chaque contributeur ajuster librement : le terrain sait mieux que le modèle", "Changer de méthode statistique : c'est elle qui produit l'écart", "Interdire tout ajustement manuel et ne diffuser que la prévision statistique brute", "Encadrer l'ajustement : journal statistique brute vs prévision finale, code-raison obligatoire, revue FVA mensuelle"], correct: 3, explain: "Le FVA (forecast value added, Gilliland) compare la précision avant et après chaque intervention humaine : il transforme un débat d&#x27;opinions en mesure."},
 ];
 window.QUESTIONS = QUESTIONS;
 </script>
-<script>window.SMART = {"desc": {"S": "Réduire l&#x27;erreur de prévision sur le périmètre pilote : les 50 plus grosses références (ou les 2 plus gros flux) de mon activité", "M": "MAPE mensuelle mesurée sur Excel : de 32 % à 22 % ; biais ramené entre -5 % et +5 %", "A": "Atteignable : la méthode (indices saisonniers + revue mensuelle) est maîtrisée après la formation ; 1 h par semaine suffit", "R": "Réaliste et utile : le périmètre pilote couvre l&#x27;essentiel de la valeur ; le résultat sert de preuve pour généraliser", "T": "Échéance : premier calcul sous 2 semaines, cible atteinte à J+90, revue en réunion de performance mensuelle"}, "rows": [["S", "Spécifique — un périmètre, un levier"], ["M", "Mesurable — indicateur et cible chiffrés"], ["A", "Atteignable — moyens et temps identifiés"], ["R", "Réaliste — ancré sur votre activité"], ["T", "Temporel — dates de mesure et de revue"]]};</script>
+<script>window.SMART = {"desc": {"S": "Réduire l&#x27;erreur de prévision sur le périmètre pilote : les 50 plus grosses références (ou les 2 plus gros flux entrants) de mon activité", "M": "WMAPE mensuel mesuré sur Excel : de 32 % à 22 % ; biais ramené entre -5 % et +5 % ; journal des ajustements tenu à 100 %", "A": "Atteignable : la méthode (indices saisonniers + revue mensuelle) est maîtrisée après la formation ; 1 h par semaine suffit sur un périmètre de 50 séries", "R": "Réaliste et utile : le périmètre pilote couvre l&#x27;essentiel de la valeur ; le résultat sert de preuve pour généraliser au reste du portefeuille", "T": "Échéance : premier calcul sous 2 semaines, cible atteinte à J+90, revue en réunion de performance mensuelle"}, "rows": [["S", "Spécifique — un périmètre, un levier"], ["M", "Mesurable — indicateur et cible chiffrés"], ["A", "Atteignable — moyens et temps identifiés"], ["R", "Réaliste — ancré sur votre activité"], ["T", "Temporel — dates de mesure et de revue"]]};</script>
 
 <script>
 /* ================= moteur STEPS — reveal progressif (avant la nav) ================= */
@@ -1344,6 +1655,18 @@ window.__stepsRender = function(slideEl){
 /* corrigés des cas : le bouton « Voir le corrigé » avance à la slide solution */
 document.querySelectorAll('[data-gonext]').forEach(function(b){
   b.addEventListener('click',function(){window.__nav.go(window.__nav.cur()+1);});
+});
+/* variantes : corrigé plus loin que la slide suivante (simulations en plusieurs
+   tours) — on cherche la prochaine slide de type corrigé (.s-sol) */
+document.querySelectorAll('[data-gosol]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var slides=Array.prototype.slice.call(document.querySelectorAll('section.slide'));
+    var cur=window.__nav.cur();
+    for(var i=cur+1;i<slides.length;i++){
+      if(slides[i].classList.contains('s-sol')){window.__nav.go(i);return;}
+    }
+    window.__nav.go(cur+1);
+  });
 });
 </script>
 

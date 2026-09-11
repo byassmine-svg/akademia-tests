@@ -183,7 +183,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .keycard.violet .kl{color:#C4B5FD}
 
 /* ---------------- tableaux ---------------- */
-.tblwrap{margin-top:20px;flex:1;min-height:0;display:flex;flex-direction:column}
+.tblwrap{margin-top:20px;flex:0 0 auto;display:flex;flex-direction:column}
 .tbl{width:100%;border-collapse:collapse}
 .tbl th{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--cap);text-align:left;padding:8px 14px;border-bottom:1px solid var(--ink);background:var(--bg)}
@@ -317,12 +317,12 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 /* ---------------- à retenir (takeaways) ---------------- */
 .tkgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;flex:1;min-height:0}
 .tkcard{border:1px solid var(--line);border-radius:18px;background:var(--white);
-  padding:18px 24px;display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:0}
+  padding:15px 22px;display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:0}
 .tkcard::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
 .tkcard .tn{font-family:'Instrument Serif',serif;font-size:24px;color:var(--ter)}
 .tkcard b{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:17.5px;
   color:var(--ink);margin-top:4px;letter-spacing:-.008em;line-height:1.25}
-.tkcard p{font-size:13.6px;line-height:1.55;color:var(--body);margin-top:8px}
+.tkcard p{font-size:13.2px;line-height:1.5;color:var(--body);margin-top:7px}
 .nextband{display:flex;justify-content:space-between;align-items:center;gap:20px;
   margin-top:14px;padding-top:4px}
 .nextband a{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;
@@ -489,7 +489,8 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   border-top:1px solid var(--line);padding:4px 0}
 .qzg-wrap .qz:first-child{border-top:0}
 .qzg .qz-q{display:flex;gap:12px;align-items:baseline;font-family:'Instrument Sans',sans-serif;
-  font-weight:620;font-size:16.5px;letter-spacing:-0.008em;color:var(--ink);line-height:1.35;margin-top:0}
+  font-weight:620;font-size:16.5px;letter-spacing:-0.008em;color:var(--ink);line-height:1.35;margin-top:0;width:100%;max-width:none}
+.qzg .qz-q .qtx{flex:1;min-width:0}
 .qzg .qz-n{flex:none;font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.12em;
   color:var(--blue);border:1px solid rgba(37,99,235,.32);border-radius:999px;padding:4px 9px}
 .qzg .qz-opts{display:grid;gap:9px;margin-top:9px}
@@ -507,9 +508,9 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .qzg .qz-o.ko .qz-l{background:var(--err);border-color:var(--err);color:#fff}
 .qzg .qz.done .qz-o{pointer-events:none}
 .qzg .qz.done .qz-o:not(.ok):not(.ko){opacity:.42}
-.qzg .qz-fb{display:none;font-family:'Inter',system-ui,sans-serif;font-weight:380;font-size:13px;
+.qzg .qz-fb{display:block;visibility:hidden;font-family:'Inter',system-ui,sans-serif;font-weight:380;font-size:13px;
   line-height:1.5;letter-spacing:normal;text-transform:none;color:var(--body);margin-top:8px}
-.qzg .qz-fb.on{display:block}
+.qzg .qz-fb.on{visibility:visible}
 .qzg .qz-fb b{color:var(--ink)}
 .qzg .qz-fb.ok-l .qz-fb-l{color:#047857}
 .qzg .qz-fb.ko-l .qz-fb-l{color:#B91C1C}
@@ -517,6 +518,18 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .tt-hint{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;
   text-transform:uppercase;color:var(--ter);margin-top:16px}
 .qzg-bar .tt-hint{margin-top:0}
+
+/* ---- quizg : lisible ET contenu (question pleine largeur, blocs 2×2) ---- */
+.qzg-wrap{margin-top:8px}
+.qzg-wrap .qz{padding:5px 0}
+.qzg .qz-q{font-size:15px;line-height:1.32;font-weight:640}
+.qzg .qz-opts{gap:8px;margin-top:8px}
+.qzg .qz-o{min-height:0;padding:8px 12px;font-size:12px;line-height:1.32;border-radius:11px}
+.qzg .qz-l{width:21px;height:21px;font-size:9px}
+.qzg .qz-fb{display:block;visibility:hidden;min-height:36px;font-size:12px;line-height:1.38;margin-top:5px}
+.qzg .qz-fb.on{visibility:visible}
+.qzg-bar{margin-top:8px}
+.s-quizg .foot{padding-top:9px}
 
 /* ---- panneau piloté lv-* : expérience guidée (xp) + avant/après (ab) ---- */
 .lv-panel{border:1px solid var(--line);border-radius:18px;background:var(--white);
@@ -660,7 +673,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .chart-box svg{width:100%;height:100%;display:block}
 
 /* ---- excal : encarts Excel / Copilot ---- */
-.xc-grid{display:grid;gap:16px;margin-top:18px;flex:1;min-height:0;align-content:start}
+.xc-grid{display:grid;gap:12px;margin-top:14px;flex:1;min-height:0;align-content:start}
 .xc-h{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.2em;
   text-transform:uppercase;display:block;margin-bottom:10px}
 .xc-excel{border-radius:18px;background:var(--card-n);color:var(--body-n);padding:20px 24px;
@@ -683,9 +696,273 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   padding:10px 14px;margin-top:10px}
 .xc-ph{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--cap);display:block;margin-bottom:4px}
-.xc-pr p{font-style:italic;font-size:13.5px;line-height:1.5;color:var(--ink)}
+.xc-pr p{font-style:italic;font-size:12.4px;line-height:1.42;color:var(--ink)}
 .xc-warn{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.14em;
   text-transform:uppercase;color:#B45309;margin-top:14px}
+
+
+/* ---- s-formateur · slide formateur nuit typographique (médaillon gradient) ---- */
+#s-formateur .fo-glow{position:absolute;right:-220px;top:-260px;width:720px;height:720px;
+  border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.26),rgba(37,99,235,.09) 55%,transparent 72%)}
+#s-formateur .fo-glow2{position:absolute;left:-260px;bottom:-320px;width:640px;height:640px;
+  border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.18),transparent 70%)}
+#s-formateur .fo-band{display:flex;align-items:center;gap:30px;margin-top:26px}
+#s-formateur .fo-med{flex:none;width:116px;height:116px;border-radius:50%;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;
+  font-size:45px;color:#fff;letter-spacing:.02em;box-shadow:0 18px 50px -12px rgba(124,58,237,.55)}
+#s-formateur .fo-name{font-family:'Instrument Serif',serif;font-size:47px;line-height:1.05;
+  color:var(--ink-n);letter-spacing:-0.01em}
+#s-formateur .fo-role{font-family:'Fragment Mono',monospace;font-size:11.5px;letter-spacing:.22em;
+  text-transform:uppercase;margin-top:10px;background:var(--gradn);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+#s-formateur .fo-hook{font-size:16px;line-height:1.58;color:var(--body-n);margin-top:11px;max-width:860px}
+#s-formateur .fo-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:46px;flex:1;min-height:0;margin-top:24px}
+#s-formateur .fo-lab{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--cap-n);margin-bottom:4px}
+#s-formateur .fo-rows{display:flex;flex-direction:column}
+#s-formateur .fo-row{display:grid;grid-template-columns:282px 1fr;gap:18px;align-items:baseline;
+  padding:9.5px 2px;border-top:1px solid var(--line-n)}
+#s-formateur .fo-row:last-child{border-bottom:1px solid var(--line-n)}
+#s-formateur .fo-row b{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:15px;
+  color:var(--ink-n);letter-spacing:-0.005em}
+#s-formateur .fo-row span{font-size:13.2px;line-height:1.48;color:var(--body-n)}
+#s-formateur .fo-right{display:flex;flex-direction:column}
+#s-formateur .fo-pills{display:flex;flex-wrap:wrap;gap:8px}
+#s-formateur .fo-pills span{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-n);border:1px solid var(--line-n);border-radius:999px;
+  padding:7px 13px;background:rgba(148,163,184,.06)}
+#s-formateur .fo-ped{border:1px solid var(--line-n);border-radius:16px;padding:17px 20px;background:var(--card-n)}
+#s-formateur .fo-ped p{font-size:13.6px;line-height:1.58;color:var(--body-n)}
+#s-formateur .fo-ped p+p{margin-top:7px}
+#s-formateur .fo-ped b{color:var(--ink-n);font-weight:600}
+
+
+
+/* ---- pré-module organisme (règles reprises du deck Initiation à l'IA) ---- */
+/* ---- complément design 3 points + catalogue (deck consolidé Initiation IA) ---- */
+.cat-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:40px;margin-top:22px;flex:1;min-height:0}
+.coord{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  color:var(--cap);white-space:nowrap}
+.dotp{width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none}
+.g-kick{position:relative;font-family:'Fragment Mono',monospace;font-size:10px;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cap-n)}
+.g-later{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;white-space:nowrap;color:var(--cap-n);border:1px solid var(--line-n);
+  border-radius:999px;padding:6px 12px}
+.g-note-sm{position:relative;font-size:13.5px;color:var(--cap-n);margin-top:auto;padding-top:14px}
+.g-note-sm b{color:var(--body-n);font-weight:510}
+.g-row{position:relative;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:12px 2px;border-top:1px solid var(--line-n);flex:1 1 0;min-height:0}
+.g-row:first-of-type{border-top:0}
+.g-row .nm{display:flex;align-items:baseline;gap:16px;font-size:19px;font-weight:420;color:var(--body-n)}
+.g-row .nm .rn{font-family:'Instrument Serif',serif;font-size:22px;color:var(--cap-n)}
+.g-row .nm small{display:block;font-size:12.5px;color:var(--cap-n);margin-top:3px;font-weight:380}
+.g-row.onx .nm{color:var(--ink-n);font-weight:510}
+.g-title{position:relative;font-family:'Instrument Sans',sans-serif;font-weight:620;
+  font-size:20px;line-height:1.3;color:var(--ink-n);margin:9px 0 14px;letter-spacing:-0.008em}
+.gamme{position:relative;border-radius:18px;background:var(--card-n);color:var(--body-n);
+  padding:24px 30px;overflow:hidden;display:flex;flex-direction:column;margin-top:26px;flex:1;min-height:0}
+.gamme .gg{position:absolute;right:-120px;top:-140px;width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,.35),transparent 66%);pointer-events:none}
+.here{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;
+  margin-top:20px;padding:15px 22px;border:1px solid var(--line);border-radius:18px;background:var(--bg)}
+.here-badge{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
+  font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--blue);border:1px solid rgba(37,99,235,.28);border-radius:999px;padding:8px 15px}
+.here p{font-size:14.5px;line-height:1.55;color:var(--body)}
+.here p b{color:var(--ink);font-weight:600}
+.here .coord{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  color:var(--cap);white-space:nowrap}
+.nm{display:flex;align-items:baseline;gap:16px;font-size:19px;font-weight:420;color:var(--body-n)}
+.nm .rn{font-family:'Instrument Serif',serif;font-size:22px;color:var(--cap-n)}
+.nm small{display:block;font-size:12.5px;color:var(--cap-n);margin-top:3px;font-weight:380}
+.nm{color:var(--ink-n);font-weight:510}
+.nm{font-size:13px;color:var(--body)}
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.pill{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink);border:1px solid var(--line);
+  border-radius:999px;padding:8px 14px;background:var(--white)}
+.rowi{display:grid;grid-template-columns:64px 300px 1fr;gap:20px;align-items:baseline;
+  padding:15px 4px;border-top:1px solid var(--line)}
+.rowi:last-child{border-bottom:1px solid var(--line)}
+.rowi .rn{font-family:'Instrument Serif',serif;font-size:27px;color:var(--ter)}
+.rowi b{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:18px;
+  color:var(--ink);letter-spacing:-0.008em}
+.rowi p{font-size:15px;line-height:1.58;color:var(--body)}
+.rows{display:flex;flex-direction:column;margin-top:22px}
+
+.dotm{width:11px;height:11px;border-radius:50%;flex:none;background:var(--grad);
+  box-shadow:0 0 0 2.5px var(--white),0 0 0 3.5px var(--line)}
+.dotm.hq{width:15px;height:15px}
+.geo-grid{display:grid;grid-template-columns:1fr 392px;gap:48px;margin-top:14px;flex:1;min-height:0}
+.geo-lede{font-size:15px;line-height:1.6;color:var(--body);max-width:52ch}
+.geo-stats{display:flex;flex-direction:column;gap:15px;padding-top:4px}
+.geo-stats .stat2{border-top:1px solid var(--line);padding-top:12px}
+.geo-stats .sv{font-size:44px}
+.hq{width:15px;height:15px}
+.hq::before{width:15px;height:15px}
+.map-box{position:relative;width:392px}
+.map-box>svg{display:block;width:100%;height:auto}
+.map-hint{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ter)}
+.map-note{font-size:13.5px;line-height:1.55;color:var(--cap);border-top:1px solid var(--line);padding-top:13px}
+.map-note b{color:var(--ink);font-weight:600}
+.map-tip{position:absolute;z-index:12;width:max-content;min-width:200px;max-width:250px;
+  background:var(--white);border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 18px 44px -14px rgba(15,23,42,.3);padding:14px 16px 12px;
+  opacity:0;pointer-events:none;transform:translate(-50%,calc(-100% - 16px)) scale(.97);
+  transition:opacity .18s ease,transform .22s var(--ease)}
+.map-tip::before{content:"";position:absolute;top:0;left:16px;right:16px;height:3px;
+  border-radius:0 0 3px 3px;background:var(--grad)}
+.map-tip b{display:block;font-family:'Instrument Sans',sans-serif;font-weight:640;
+  font-size:14.5px;letter-spacing:-0.01em;color:var(--ink)}
+.map-tip .tr{display:block;font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ter);margin:4px 0 6px}
+.map-tip p{margin:0;font-size:12.5px;line-height:1.5;color:var(--body)}
+.mk{position:absolute;width:26px;height:26px;transform:translate(-50%,-50%);border:0;
+  background:transparent;padding:0;z-index:3}
+.mk::before{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;
+  transform:translate(-50%,-50%);background:var(--grad);
+  box-shadow:0 0 0 2.5px var(--white),0 3px 10px rgba(37,99,235,.4)}
+.mk::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;
+  transform:translate(-50%,-50%);border-radius:50%;
+  box-shadow:0 0 0 0 rgba(37,99,235,.4);animation:mkp 2.8s ease-out infinite}
+.mk.hq::before{width:15px;height:15px}
+.mk:hover::before,.mk:focus-visible::before{box-shadow:0 0 0 2.5px var(--white),0 0 0 5px rgba(124,58,237,.28),0 3px 12px rgba(37,99,235,.5)}
+.mk:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:50%}
+.mk-lab{position:absolute;font-family:'Fragment Mono',monospace;font-size:8px;letter-spacing:.08em;
+  text-transform:uppercase;color:#5F6C81;white-space:nowrap;pointer-events:none;transform:translateY(-50%);z-index:2}
+  function show(mk){
+    open=mk;
+  }
+  });
+  }
+.stat2 .sv{font-family:'Instrument Serif',serif;font-size:62px;line-height:1;color:var(--ink)}
+.stat2 .sv em{font-style:normal;background:var(--grad);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.stat2 .sl{font-size:14px;color:var(--cap);margin-top:7px}
+.stat2{border-top:1px solid var(--line);padding-top:12px}
+.stats2{display:flex;gap:44px}
+.ref{display:flex;gap:12px;align-items:flex-start}
+.ref .rl{height:23px;width:auto;max-width:78px;object-fit:contain;flex:none;margin-top:1px}
+.ref-t{flex:1;min-width:0}
+.refgrp{margin-top:8px}
+.refgrp+.refgrp{margin-top:8px}
+.ref{border-bottom:1px solid var(--line);padding:5px 0 6px}
+.ref b{display:block;font-family:'Instrument Sans',sans-serif;font-weight:620;
+  font-size:14.3px;letter-spacing:-0.008em;color:var(--ink)}
+.ref p{margin:2px 0 0;font-size:12px;line-height:1.42;color:var(--cap)}
+.rg-c{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:16px;color:var(--ter)}
+.rg-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 44px}
+.rg-h{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  border-bottom:1px solid var(--ink);padding-bottom:4px}
+.rg-h .rg-t{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink)}
+.rg-h .rg-c{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:16px;color:var(--ter)}
+.rg-t{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink)}
+.rl2{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:#BFD3FE;display:block;margin-bottom:8px}
+.rl{height:23px;width:auto;max-width:78px;object-fit:contain;flex:none;margin-top:1px}
+.legend{display:flex;flex-direction:column;gap:9px;border-top:1px solid var(--line);padding-top:13px}
+.leg{display:flex;align-items:center;gap:11px;font-family:'Fragment Mono',monospace;
+  font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--cap)}
+.slide{position:absolute;inset:0;background:var(--white);opacity:0;visibility:hidden;
+  transition:opacity .42s var(--ease),visibility 0s linear .42s;overflow:hidden}
+.slide.on{opacity:1;visibility:visible;transition:opacity .42s var(--ease)}
+.slide .rail{position:relative;z-index:2;height:100%;padding:50px 72px 42px;display:flex;flex-direction:column}
+.slide.night{background:var(--night);color:var(--body-n)}
+.slide.night::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.05;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")}
+.slide.night .kick{color:var(--cap-n)}
+.slide.night h2{color:var(--ink-n)}
+.slide.night .gw{background:var(--gradn);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+.slide.night .lede{color:var(--body-n)}
+.slide.night .lede b{color:var(--ink-n)}
+.slide.night .pt p{color:var(--body-n)}
+.slide.night .pt p b{color:var(--ink-n)}
+.slide.night .foot{border-top-color:var(--line-n);color:var(--cap-n)}
+.slide.night ::selection{background:rgba(167,139,250,.3)}
+.slide.on .reveal{opacity:1;transform:none}
+.slide.instant .reveal{transition-duration:0s;transition-delay:0s}
+.slide.night .pause-note{border-color:var(--cap-n);color:var(--cap-n)}
+.slide.night .pause-note::before{border-color:var(--cap-n)}
+.slide.on .circle{opacity:1;transform:scale(1)}
+.slide.instant .circle{transition:none}
+.slide{transition:none}
+.sl{font-size:14px;color:var(--cap);margin-top:7px}
+  var cur=-1;
+
+  function fit(){
+    var s=Math.min(window.innerWidth/1280, window.innerHeight/720);
+    stage.style.transform='translate(-50%,-50%) scale('+s+')';
+  }
+.slice.call(dots.children);
+
+  function pad(n){return (n<10?'0':'')+n;}
+      if(c.classList.contains('act')){
+        c.classList.remove('act');c.classList.add('done');
+        pause();
+      }
+  function show(mk){
+    open=mk;
+  }
+  var pans={
+  }
+.sv{font-family:'Instrument Serif',serif;font-size:62px;line-height:1;color:var(--ink)}
+.sv em{font-style:normal;background:var(--grad);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.sv{font-size:44px}
+.tr{display:block;font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ter);margin:4px 0 6px}
+.transform='translate(-50%,-50%) scale('+s+')';
+  }
+
+    d.className='dot'; d.type='button';
+    d.setAttribute('aria-label','Slide '+(i+1));
+.trap){
+        sp.setAttribute('data-trap',seg.trap);
+        if(!firstTrapDone&&w!==''){sp.classList.add('tp-first');firstTrapDone=true;}
+  function show(mk){
+    open=mk;
+  }
+.transform='rotate(-32deg)';
+  }
+  function done(){
+  }
+.transform='rotate('+STEPS[idx]+'deg)';
+    }
+  }
+  function start(){
+    if(playing)return;
+    if(idx>=PTS.length)reset();
+    iv=setInterval(step,240);
+  }
+
+
+/* ================= LISIBILITÉ (passe finale, 10/09) ================= */
+/* contenu « roomy » : répartition verticale quand la slide est peu dense */
+.roomy .rail{justify-content:flex-start}
+.roomy .lede{font-size:17.5px;line-height:1.66;margin-top:16px}
+.roomy .pts{margin-top:auto;margin-bottom:auto;display:flex;flex-direction:column;gap:26px}
+.roomy .pt{padding:10px 2px}
+.roomy .pt .pb p{font-size:15.5px;line-height:1.58}
+.roomy .pt .pb .psub{font-size:12.8px;margin-top:4px;line-height:1.5}
+.roomy .pt .pn{font-size:19px;width:40px}
+.roomy .keycard{margin-top:18px}
+/* atelier : descriptions de tâches LISIBLES (fini le mono 8px en capitales) */
+.pcard .ps{font-family:'Inter',system-ui,sans-serif;font-weight:380;font-size:11.8px;
+  letter-spacing:normal;text-transform:none;line-height:1.5;color:var(--body);margin-top:6px}
+.pcard{padding:15px 18px}
+.pcard .pn{font-size:15.5px}
+.t-lab{font-family:'Inter',system-ui,sans-serif;font-size:11.5px;font-weight:500;
+  letter-spacing:normal;text-transform:none;line-height:1.5;margin-top:12px}
+/* scénario : conséquences un peu plus lisibles */
+.posc .pos-c{font-size:13.8px;line-height:1.55}
+/* xp : statut et légende plus lisibles */
+.lv-status,.lv-count{font-size:10px}
+.lv-leg{font-size:10px}
 
 </style>
 </head>
@@ -700,10 +977,10 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   <div class="hairline"></div>
   
   <div class="rail">
-    <div class="toprow"><span class="kick">Jour 2 · 09h00-12h30</span><span class="pgr">01 · 18</span></div>
+    <div class="toprow"><span class="kick">Jour 2 · 09h00-12h30</span><span class="pgr">01 · 21</span></div>
     <div class="sec-mid">
       <h2 class="reveal" style="--i:0">Module 3 · Le processus S&amp;OP</h2>
-      <p class="sec-sub reveal" style="--i:1">Aligner demande et capacité dans un plan unique : cycle mensuel, rôles, réunions, arbitrages — et la transposition aux flux de services</p>
+      <p class="sec-sub reveal" style="--i:1">Aligner demande et capacité dans un plan unique : cycle mensuel, rôles, réunions qui tranchent — puis simulation d&#x27;un comité S&amp;OP.</p>
     </div>
     <div class="cover-foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
@@ -711,45 +988,29 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 <!-- 02 · CONTENU -->
 <section class="slide dense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">02 · 18</span></div>
-    <h2>Définition et objectifs : <span class="gw">un plan unique pour aligner demande et capacité</span></h2>
+    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">02 · 21</span></div>
+    <h2>Définition et objectifs : <span class="gw">un plan unique, horizon ferme de 3 à 18 mois (orientations jusqu’à 36)</span></h2>
     <p class="lede reveal" style="--i:0">Hier, vous avez construit des prévisions fiables. Mais une prévision ne vaut que si l&#x27;organisation entière décide avec : le S&amp;OP est le processus qui transforme vos chiffres en un plan unique, partagé par les ventes, les opérations et la finance.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Le <b>S&amp;OP</b> (sales and operations planning) est un processus intégré de gestion qui crée le <b>consensus</b> pour équilibrer l&#x27;offre et la demande : il aligne ventes, marketing, produit, production, achats, finance et comptabilité sur des objectifs communs (SAP, 2026).</p><p class="psub">La sortie : <b>un seul jeu de chiffres</b> — un plan de demande et un plan opérationnel uniques et glissants.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Pour l&#x27;<b>APICS/ASCM</b>, il s&#x27;agit de fixer le niveau global des activités pour satisfaire les ventes planifiées, dans le respect de la rentabilité, de la productivité et des délais du plan d&#x27;affaires — la <b>main-d&#x27;œuvre</b> figure parmi les ressources à planifier.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>L&#x27;horizon est <b>tactique</b> : un plan glissant de <b>18 à 36 mois</b> revu chaque mois (SAP, page mise à jour en janvier 2026) ; la littérature académique le borne à 18 mois à la maille <b>famille de produits</b> — retenir « 3 à 18 mois fermes, au-delà en orientations ».</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Créé par <b>Oliver Wight</b> au début des années 1980, le processus s&#x27;enrichit de l&#x27;<b>intégration financière</b> à la fin des années 1980, puis de la <b>gestion de portefeuille produits</b> à la fin des années 1990 — l&#x27;ancêtre direct de l&#x27;IBP (integrated business planning).</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Transposition flux de services</b> : la définition incluant la main-d&#x27;œuvre, le S&amp;OP s&#x27;applique aux services (Bower, Journal of Business Forecasting, 2015) — chez ALTÉA, la « capacité » à aligner sur les flux entrants, c&#x27;est effectifs × productivité.</p></div></div></div>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Le <b>S&amp;OP</b> (sales and operations planning) est un processus intégré de gestion qui crée le <b>consensus</b> pour équilibrer l&#x27;offre et la demande : il aligne ventes, marketing, produit, production, achats, finance et comptabilité sur des objectifs communs (SAP, 2026).</p><p class="psub">La sortie : <b>un seul jeu de chiffres</b> — un plan de demande et un plan opérationnel uniques et glissants.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Pour l&#x27;<b>APICS/ASCM</b>, il s&#x27;agit de fixer le niveau global des activités pour satisfaire les ventes planifiées, dans le respect de la rentabilité, de la productivité et des délais du plan d&#x27;affaires — la <b>main-d&#x27;œuvre</b> figure explicitement parmi les ressources à planifier.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>L&#x27;horizon est <b>tactique</b> : un plan glissant de <b>3 à 18 mois fermes, orientations jusqu’à 36</b> revu chaque mois (SAP, page mise à jour en janvier 2026) ; la littérature académique le borne à 18 mois à la maille <b>famille de produits</b> — retenir « 3 à 18 mois fermes, au-delà en orientations ».</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Créé par <b>Oliver Wight</b> au début des années 1980, le processus s&#x27;enrichit de l&#x27;<b>intégration financière</b> à la fin des années 1980, puis de la <b>gestion de portefeuille produits</b> à la fin des années 1990 — l&#x27;ancêtre direct de l&#x27;IBP (integrated business planning).</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Transposition flux de services</b> : le S&amp;OP s&#x27;applique aux services (Bower, Journal of Business Forecasting, 2015) — chez ALTÉA, la « capacité » à aligner sur les flux entrants, c&#x27;est effectifs × productivité, nets d&#x27;absentéisme.</p></div></div></div>
     <div class="keycard reveal" style="--i:5"><span class="kl">Repère</span><p>Début des années 1980 : Oliver Wight crée le S&amp;OP ; fin des années 1990 : le terme IBP apparaît (oliverwight-eame.com, consulté en 2026).</p></div>
-    <div class="foot"><span>sap.com — Sales and operations planning (2026) · en.wikipedia.org — S&amp;OP (corroboration APICS/ASCM, consulté 2026)</span><span>Akademia Formation</span></div>
+    <div class="foot"><span>sap.com — Sales and operations planning (2026) · en.wikipedia.org — S&amp;OP (corroboration APICS/ASCM et Bower 2015, consulté 2026)</span><span>Akademia Formation</span></div>
   </div>
 </section>
 <!-- 03 · CONTENU -->
 <section class="slide dense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">03 · 18</span></div>
-    <h2>Les bénéfices attendus — ce que la recherche confirme (et ce qu&#x27;elle ne prouve pas)</h2>
-    <p class="lede reveal" style="--i:0">Avant d&#x27;installer un cycle mensuel qui mobilise toute l&#x27;entreprise, il faut savoir quelle valeur en attendre. Les preuves existent — mais elles sont plus nuancées que les brochures d&#x27;éditeurs, et c&#x27;est précisément cette honnêteté qui rend le dossier crédible devant une direction.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>SAP (2026)</b> recense 5 bénéfices : une rentabilité supérieure (service client amélioré, stocks et gaspillage réduits), de meilleures décisions grâce aux <b>simulations what-if</b>, un cycle de planification raccourci, une collaboration inter-services renforcée et une <b>boucle de rétroaction continue</b>.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Thomé, Sousa et Scavarda (2013)</b> — 725 fabricants dans 34 pays : le S&amp;OP interne a un effet positif, de modéré à fort, sur la <b>livraison</b>, la <b>qualité</b> et la <b>flexibilité</b> ; l&#x27;intégration des fournisseurs amplifie cet effet.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Thomé et al. (2012)</b> — revue systématique de 271 résumés et 55 articles : le lien entre S&amp;OP et performance de l&#x27;entreprise est réel mais <b>partiellement prouvé</b> ; peu d&#x27;études le quantifient rigoureusement.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Honnêteté de sourcing</b> : les pourcentages de gains précis (type « moins 20 % de stock ») qui circulent dans la presse d&#x27;éditeurs ne sont <b>pas vérifiés</b> dans des sources publiques primaires — à ne pas reprendre tels quels dans un dossier de comité.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Oliva et Watson (2011)</b> : la valeur vient de l&#x27;<b>intégration réelle</b> — qualité de l&#x27;information, qualité procédurale, alignement et engagement constructif des participants — et non d&#x27;une simple coordination entre services.</p></div></div></div>
+    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">03 · 21</span></div>
+    <h2>Bénéfices prouvés et maturité : <span class="gw">ce que la recherche confirme — et d&#x27;où vous partez</span></h2>
+    <p class="lede reveal" style="--i:0">Avant d&#x27;installer un cycle qui mobilise toute l&#x27;entreprise chaque mois, deux questions : quelle valeur en attendre, et d&#x27;où partir. Les preuves existent — plus nuancées que les brochures d&#x27;éditeurs — et la maturité se mesure sur une échelle publiée.</p>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>SAP (2026)</b> recense 5 bénéfices : rentabilité supérieure (service client amélioré, stocks et gaspillage réduits), meilleures décisions grâce aux <b>simulations what-if</b>, cycle de planification raccourci, collaboration inter-services renforcée et <b>boucle de rétroaction continue</b> sur la prévision.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Thomé, Sousa et Scavarda (2013)</b> — 725 fabricants dans 34 pays : le S&amp;OP interne a un effet positif, de modéré à fort, sur la <b>livraison</b>, la <b>qualité</b> et la <b>flexibilité</b> ; l&#x27;intégration des fournisseurs amplifie cet effet.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Honnêteté de sourcing</b> : la revue systématique de Thomé et al. (2012 — 271 résumés, 55 articles) conclut à un lien réel mais <b>partiellement prouvé</b> ; les pourcentages de gains précis (type « moins 20 % de stock ») de la presse vendeur ne sont <b>pas vérifiés</b> en sources primaires — à ne jamais brandir devant un comité.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Maturité Gartner (10 septembre 2013)</b> : 5 stades — <b>React</b> (coup par coup, les tableurs règnent) › <b>Anticipate</b> (prévisions en silos) › <b>Integrate</b> (cycle mensuel, plan unique) › <b>Collaborate</b> (chaîne étendue) › <b>Orchestrate</b> (pilotage quasi continu) ; la plupart des organisations plafonnent au <b>stade 3</b>.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Grimson et Pyke (2007, 15 entreprises)</b> : les <b>processus métier</b> habilitent le S&amp;OP, l&#x27;IT n&#x27;en est pas clairement un — un tableur discipliné vaut mieux qu&#x27;un logiciel sans gouvernance. Références parallèles : Wagner et al. (2014, 6 stades) et le référentiel Class A d&#x27;Oliver Wight (9 domaines, dont l&#x27;IBP).</p></div></div></div>
     <div class="keycard reveal" style="--i:5"><span class="kl">Repère 2013</span><p>725 fabricants, 34 pays : le S&amp;OP améliore significativement livraison, qualité et flexibilité (International Journal of Production Research, 2013).</p></div>
-    <div class="foot"><span>doi.org/10.1080/00207543.2013.853889 (2013) · doi.org/10.1108/17410401211212643 (2012) · sap.com (2026)</span><span>Akademia Formation</span></div>
+    <div class="foot"><span>doi.org/10.1080/00207543.2013.853889 (2013) · doi.org/10.1108/17410401211212643 (2012) · gartner.com/en/documents/2587021 (2013) · doi.org/10.1108/09574090710835093 (2007) · sap.com (2026)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 04 · TABLE -->
-<section class="slide">
+<!-- 04 · ÉTAPES -->
+<section class="slide s-steps" data-steps="st3">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">04 · 18</span></div>
-    <h2>Les 5 stades de maturité S&amp;OP (modèle Gartner, 2013)</h2>
-    <div class="tblwrap">
-      <table class="tbl">
-        <colgroup><col style="width:12.5%"><col style="width:25.0%"><col style="width:62.5%"></colgroup>
-        <tr><th>Stade</th><th>Nom (Gartner)</th><th>Ce qui le caractérise</th></tr>
-        <tr class="reveal" style="--i:0"><td class="b">1</td><td><b>React</b></td><td>Décisions au coup par coup, aucun processus formalisé ; les tableurs règnent</td></tr><tr class="reveal" style="--i:1"><td class="b">2</td><td><b>Anticipate</b></td><td>Prévisions formalisées mais en silos : demande et offre planifiées séparément</td></tr><tr class="reveal" style="--i:2"><td class="b">3</td><td><b>Integrate</b></td><td>Cycle S&amp;OP mensuel complet, un plan unique ; la plupart des organisations plafonnent à ce stade</td></tr><tr class="reveal" style="--i:3"><td class="b">4</td><td><b>Collaborate</b></td><td>Collaboration interne ET externe (fournisseurs, clients) ; scénarios partagés</td></tr><tr class="reveal" style="--i:4"><td class="b">5</td><td><b>Orchestrate</b></td><td>Planification orchestrée sur la chaîne étendue, pilotée par la demande en quasi-continu</td></tr>
-      </table>
-    </div>
-    <div class="keycard reveal" style="--i:5"><span class="kl">À noter</span><p>Modèles académiques parallèles : Grimson et Pyke (2007, 5 stades, 15 entreprises) ; Wagner et al. (2014, 6 stades) ; référentiel Class A d&#x27;Oliver Wight (9 domaines, dont l&#x27;IBP).</p></div>
-    <div class="foot"><span>gartner.com/en/documents/2587021 (10 septembre 2013) · consumergoods.com (consulté 2026) · doi.org/10.1108/09574090710835093 (2007)</span><span>Akademia Formation</span></div>
-  </div>
-</section>
-<!-- 05 · ÉTAPES -->
-<section class="slide s-steps" data-steps="st4">
-  <div class="rail">
-    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">05 · 18</span></div>
+    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">04 · 21</span></div>
     <h2>Le cycle mensuel en 5 étapes : <span class="gw">de la donnée à la décision</span></h2>
     <div class="stgrid reveal" style="--i:0">
       <div class="stlist"><div class="stit"><span class="stn">01</span><span class="stt">Semaine 1 · Collecte des données</span></div><div class="stit"><span class="stn">02</span><span class="stt">Semaine 2 · Demand review</span></div><div class="stit"><span class="stn">03</span><span class="stt">Semaine 3 · Supply review</span></div><div class="stit"><span class="stn">04</span><span class="stt">Semaine 4 · Pré-S&amp;OP</span></div><div class="stit"><span class="stn">05</span><span class="stt">Semaine 4 · S&amp;OP exécutif</span></div></div>
@@ -762,15 +1023,15 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
         <div class="stp-v"><span class="svv"></span></div>
       </div>
     </div>
-    <div class="keycard st-callout"><span class="kl">Repère 2026</span><p>SAP (page mise à jour en janvier 2026) : un plan de demande et un plan opérationnel glissants et uniques, sur 18 à 36 mois, revus chaque mois.</p></div>
+    <div class="keycard st-callout"><span class="kl">Repère 2026</span><p>SAP (page mise à jour en janvier 2026) : un plan de demande et un plan opérationnel glissants et uniques, sur 3 à 18 mois (orientations jusqu&#x27;à 36), revus chaque mois.</p></div>
     <span class="st-hint">Espace / flèche → · révéler l'étape suivante</span>
     <div class="foot"><span>sap.com — S&amp;OP (2026) · en.wikipedia.org — S&amp;OP (5 étapes canoniques, corroboration, consulté 2026)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 06 · TABLE -->
+<!-- 05 · TABLE -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">06 · 18</span></div>
+    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">05 · 21</span></div>
     <h2>Rôles et responsabilités : <span class="gw">qui fait quoi dans le cycle (RACI)</span></h2>
     <div class="tblwrap">
       <table class="tbl">
@@ -783,53 +1044,31 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <div class="foot"><span>RACI pédagogique appuyé sur sap.com (2026) et doi.org/10.1016/j.ijpe.2016.08.035 (2016)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 07 · CONTENU -->
+<!-- 06 · CONTENU -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">07 · 18</span></div>
+    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">06 · 21</span></div>
     <h2>Les réunions S&amp;OP qui fonctionnent : <span class="gw">agenda, participants, livrables, décisions tracées</span></h2>
     <p class="lede reveal" style="--i:0">La réunion exécutive dure 90 à 120 minutes et elle tranche — elle ne discute pas. Cette efficacité ne tient qu&#x27;à une condition : tout a été préparé dans les étapes précédentes, et chaque point de l&#x27;agenda a un porteur identifié.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>1 · Revue des KPI</b> : écarts plan vs réel du mois écoulé — la <b>boucle de rétroaction</b> systématique (précision des prévisions, niveau de service, stock ou backlog).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>2 · Synthèse demand review</b> : hypothèses de demande, risques et opportunités (saison, lancements, campagnes, concurrence).</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>3 · Synthèse supply review</b> : contraintes et goulets, projection de <b>stock ou de capacité</b> sur tout l&#x27;horizon.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>4 · Écarts demande/offre</b> : scénarios what-if <b>chiffrés en €</b>, préparés au pré-S&amp;OP — sans chiffrage, pas d&#x27;arbitrage possible.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>5 · Arbitrages et décisions</b> : service vs coûts, investissements de capacité ou recrutements, lancements/retraits de produits, révision d&#x27;objectifs.</p></div></div><div class="pt reveal" style="--i:5"><span class="pn">06</span><div class="pb"><p><b>6 · Validation du plan unique</b> sur 18-36 mois + <b>journal des actions</b> : chaque décision ressort tracée avec un responsable et une échéance.</p></div></div></div>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>1 · Revue des KPI</b> : écarts plan vs réel du mois écoulé — la <b>boucle de rétroaction</b> systématique (précision, service, stock).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>2 · Synthèse demand review</b> : hypothèses de demande, risques et opportunités (saison, lancements, campagnes, concurrence).</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>3 · Synthèse supply review</b> : contraintes et goulets, projection de <b>stock ou de capacité</b> sur tout l&#x27;horizon.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>4 · Écarts demande/offre</b> : scénarios what-if <b>chiffrés en €</b>, préparés au pré-S&amp;OP — sans chiffrage, pas d&#x27;arbitrage possible.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>5 · Arbitrages et décisions</b> : service vs coûts, investissements de capacité ou recrutements, lancements/retraits de produits, révision d&#x27;objectifs.</p></div></div><div class="pt reveal" style="--i:5"><span class="pn">06</span><div class="pb"><p><b>6 · Validation du plan unique</b> sur 3 à 18 mois (orientations jusqu&#x27;à 36) + <b>journal des actions</b> : décision › responsable › échéance.</p></div></div></div>
     <div class="keycard reveal" style="--i:6"><span class="kl">Règle d&#x27;or</span><p>Une décision sans responsable ni échéance est une intention : le compte rendu trace décision › responsable › échéance.</p></div>
     <div class="foot"><span>sap.com — S&amp;OP, agenda et livrables du cycle (2026) · oliverwight-eame.com — du S&amp;OP à l&#x27;IBP (consulté 2026)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 08 · CONTENU -->
+<!-- 07 · DEUX MONDES -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">08 · 18</span></div>
-    <h2>Du S&amp;OP au S&amp;OE : <span class="gw">verrouiller l&#x27;exécution au plus court terme</span></h2>
-    <p class="lede reveal" style="--i:0">Un plan mensuel ne survit pas aux aléas sans étage d&#x27;exécution : c&#x27;est le rôle du S&amp;OE (sales and operations execution). Bien articulés, les deux processus se protègent mutuellement — mal articulés, les urgences mangent la stratégie.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Le <b>S&amp;OP</b> traite le tactique : horizon d&#x27;<b>un à trois ans</b>, réunion <b>mensuelle</b>, plan unique ; le <b>S&amp;OE</b> traite l&#x27;exécution : horizon de <b>quelques semaines à un trimestre</b>, pilotage <b>hebdomadaire</b> (Wipro, consulté 2026).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Le S&amp;OE absorbe les fluctuations de jours/semaines — pénuries, retards fournisseurs, aléas, pics d&#x27;appels — <b>sans déstabiliser le plan mensuel</b> validé en S&amp;OP.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Sans S&amp;OE, les équipes <b>sur-réagissent</b> aux micro-disruptions : la réunion mensuelle dérive sur les urgences et le processus S&amp;OP reste rudimentaire (Wipro, consulté 2026).</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Prudence de sourcing</b> : la borne « 0-13 semaines » souvent citée pour le S&amp;OE n&#x27;est pas vérifiable dans les sources publiques consultées — retenir « quelques semaines à un trimestre » (à confirmer).</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Transposition ALTÉA</b> : point hebdomadaire des files d&#x27;attente, réaffectation temporaire de gestionnaires entre canaux (appels / décomptes) les semaines de pic, seuil d&#x27;alerte sur le délai moyen de réponse.</p></div></div></div>
-    <div class="keycard reveal" style="--i:5"><span class="kl">À retenir</span><p>S&amp;OP = mensuel, 1 à 3 ans · S&amp;OE = hebdomadaire, quelques semaines à un trimestre : l&#x27;un protège l&#x27;autre (Wipro, consulté 2026).</p></div>
-    <div class="foot"><span>wipro.com — deconstructing sales and operations execution (consulté 2026) · gartner.com — glossaire S&amp;OE (titre confirmé, 2026)</span><span>Akademia Formation</span></div>
-  </div>
-</section>
-<!-- 09 · DEUX MONDES -->
-<section class="slide">
-  <div class="rail">
-    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">09 · 18</span></div>
+    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">07 · 21</span></div>
     <h2>S&amp;OP « produits » vs S&amp;OP « capacité » : <span class="gw">même logique, autres leviers</span></h2>
     <div class="tc2"><div class="tcc reveal" style="--i:0"><h3>NOVADIS · distribution pharmaceutique</h3><div class="tci"><span class="ta">›</span><p>La <b>demande</b> : les commandes des <b>2 100 pharmacies</b>, par famille — avec la saisonnalité grippe et allergies.</p></div><div class="tci"><span class="ta">›</span><p>La <b>capacité</b> : les lignes de préparation des <b>3 entrepôts</b> et la disponibilité fournisseurs (quotas, allocations).</p></div><div class="tci"><span class="ta">›</span><p>Le <b>tampon</b> : le <b>stock</b>, dont la cible s&#x27;exprime en jours de demande — il se conserve, mais il coûte.</p></div><div class="tci"><span class="ta">›</span><p><b>Arbitrages types</b> : heures supplémentaires, intérim, stock d&#x27;anticipation, priorisation de références.</p></div></div><div class="tcc reveal" style="--i:1"><h3>ALTÉA Prévoyance · flux entrants</h3><div class="tci"><span class="ta">›</span><p>La <b>demande</b> : les <b>flux entrants</b> prévus — 2,3 M d&#x27;appels, 9,8 M de décomptes, 1,1 M d&#x27;e-mails par an — par canal et par établissement.</p></div><div class="tci"><span class="ta">›</span><p>La <b>capacité</b> : <b>780 gestionnaires</b> × productivité, nets d&#x27;absentéisme et de congés — <b>périssable</b>, non stockable.</p></div><div class="tci"><span class="ta">›</span><p>Le <b>tampon</b> : le <b>backlog</b> (demandes en attente) et les heures supplémentaires — coûteux en délais comme en euros.</p></div><div class="tci"><span class="ta">›</span><p><b>Arbitrages types</b> : recrutement (variable la plus lente), mobilité inter-établissements, formation, délestage vers le digital.</p></div></div></div>
     <div class="keycard reveal" style="--i:2"><span class="kl">Point commun</span><p>Dans les deux mondes : un plan de demande, un plan de capacité contraint, un écart daté, des scénarios chiffrés, une décision de direction.</p></div>
     <div class="foot"><span>en.wikipedia.org — S&amp;OP, applicabilité aux services (corroboration, consulté 2026) · Gans, Koole et Mandelbaum, M&amp;SOM (2003)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 10 · CONTENU -->
-<section class="slide">
+<!-- 08 · ÉTAPES -->
+<section class="slide s-steps" data-steps="st7">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">10 · 18</span></div>
-    <h2>Transposer le S&amp;OP aux services : <span class="gw">le cycle mensuel charge/ressources</span></h2>
-    <p class="lede reveal" style="--i:0">Dans les services, il n&#x27;y a pas de stock : la capacité se consomme à l&#x27;heure où elle est disponible. Le S&amp;OP y devient un cycle mensuel de planification charge/ressources — et c&#x27;est lui qui pilote les recrutements, pas l&#x27;inverse.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>La littérature de référence confirme l&#x27;applicabilité du S&amp;OP aux <b>entreprises de services</b> (Bower, Journal of Business Forecasting, 2015) ; la définition APICS inclut explicitement la <b>main-d&#x27;œuvre</b> parmi les ressources à planifier.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>La <b>cascade du workforce management</b> (Gans, Koole et Mandelbaum, 2003) : prévision du volume › charge (volume × temps de traitement) › besoin en effectifs › plannings — l&#x27;exact analogue du couple demand review / supply review.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>La capacité est <b>périssable</b> : une heure de gestionnaire non utilisée est perdue ; le dimensionnement doit déduire congés, formation et absentéisme — le <b>shrinkage</b>, ordre de grandeur de pratique <b>30 à 35 %</b> en 2026 (sources éditeurs).</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Le <b>recrutement est la variable la plus lente</b> : délai de recrutement + formation initiale + montée en compétence imposent de décider des mois avant le besoin — c&#x27;est une règle de planification du WFM, et c&#x27;est exactement l&#x27;intérêt de l&#x27;horizon 18 mois.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Décisions typiques du comité charge/ressources</b> : heures supplémentaires, mobilité inter-établissements, recrutement par flux et par pays, plan de formation, délestage vers le self-care digital.</p></div></div></div>
-    <div class="keycard reveal" style="--i:5"><span class="kl">Repère 2003</span><p>Le tutoriel de Gans, Koole et Mandelbaum (M&amp;SOM, vol. 5 n° 2, 2003) formalise la chaîne complète : prévision des arrivées › charge › dimensionnement › horaires.</p></div>
-    <div class="foot"><span>pubsonline.informs.org — Gans et al. (2003) · en.wikipedia.org — S&amp;OP (Bower 2015, APICS, corroboration)</span><span>Akademia Formation</span></div>
-  </div>
-</section>
-<!-- 11 · ÉTAPES -->
-<section class="slide s-steps" data-steps="st10">
-  <div class="rail">
-    <div class="toprow"><span class="kick">Module 3 · Transposition services</span><span class="pgr">11 · 18</span></div>
+    <div class="toprow"><span class="kick">Module 3 · Transposition services</span><span class="pgr">08 · 21</span></div>
     <h2>Le cycle mensuel charge/ressources d&#x27;ALTÉA, semaine par semaine</h2>
     <div class="stgrid reveal" style="--i:0">
       <div class="stlist"><div class="stit"><span class="stn">01</span><span class="stt">S1 · Collecte</span></div><div class="stit"><span class="stn">02</span><span class="stt">S2 · Demand review des flux</span></div><div class="stit"><span class="stn">03</span><span class="stt">S3 · Supply review des effectifs</span></div><div class="stit"><span class="stn">04</span><span class="stt">S4 · Pré-S&amp;OP RH/ops</span></div><div class="stit"><span class="stn">05</span><span class="stt">S4 · Comité charge direction</span></div></div>
@@ -844,52 +1083,44 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     </div>
     <div class="keycard st-callout"><span class="kl">Règle d&#x27;or</span><p>Le recrutement est la variable la plus lente : le pic de janvier se couvre par des décisions prises à l&#x27;automne — règle de planification du workforce management.</p></div>
     <span class="st-hint">Espace / flèche → · révéler l'étape suivante</span>
-    <div class="foot"><span>Construction pédagogique appuyée sur sap.com (2026) et Gans et al., M&amp;SOM vol. 5 n° 2 (2003)</span><span>Akademia Formation</span></div>
+    <div class="foot"><span>Construction pédagogique appuyée sur sap.com (2026), Gans et al., M&amp;SOM vol. 5 n° 2 (2003) et les données ALTÉA du fil rouge</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 12 · CAS PRATIQUE -->
-<section class="slide s-case">
-  <div class="rail">
-    <div class="toprow"><span class="kick g">Mise en pratique · Simulation S&amp;OP</span><span class="pgr">12 · 18</span></div>
-    <h2>Simulation · La réunion S&amp;OP de NOVADIS (famille « génériques chroniques »)</h2>
-    <div class="casectx reveal" style="--i:0">
-      <span class="ck">Le contexte</span>
-      <p>Vous préparez le cycle S&amp;OP de NOVADIS (grossiste-répartiteur pharmaceutique, 340 M€ de CA, 3 entrepôts régionaux) pour la famille « génériques chroniques ». La demand review a validé les prévisions (en milliers de colis/mois) : M1 = 100 · M2 = 104 · M3 = 108 · M4 = 112 · M5 = 118 · M6 = 122, et M7 est estimé à 126. Capacité nominale d&#x27;entrepôt : 105 k colis/mois ; heures supplémentaires possibles : +10 % (+10,5 k/mois) ; intérim mobilisable : +6 k/mois à partir de M5. Stock initial : 60 k ; stock cible : 50 % de la demande du mois suivant (environ 15 jours), soit 63 k à tenir fin M6. Trois tensions sont sur la table : la demande dépasse la capacité nominale dès M4 ; le stock s&#x27;érode sous la cible sans action ; le taux de service est déjà à 96,1 % (cible 98,5 %) alors que la finance veut limiter le coût des heures supplémentaires et de l&#x27;intérim.</p>
-    </div>
-    <div class="caseqs"><div class="caseq reveal" style="--i:1"><span class="qn">01</span><p>Sans action, projetez le stock fin de mois sur M1-M6 : quel est le premier mois de rupture de la cible, et quel est l&#x27;écart fin M6 ?</p></div><div class="caseq reveal" style="--i:2"><span class="qn">02</span><p>Chiffrez au moins deux scénarios (heures supplémentaires, intérim) : quel stock projeté fin M6, et quel surcoût ou surstock pour chacun ?</p></div><div class="caseq reveal" style="--i:3"><span class="qn">03</span><p>Rédigez les trois arbitrages à faire trancher au S&amp;OP exécutif, au format décision › responsable › échéance.</p></div></div>
-    <div class="casebar">
-      <span class="casehint">Cherchez d'abord · le corrigé s'ouvre à la slide suivante</span>
-      <button class="btncase" type="button" data-gonext>Voir le corrigé
-        <svg viewBox="0 0 16 16" fill="none"><path d="M6 3 L11 8 L6 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    </div>
-    <div class="foot"><span>Données pédagogiques construites (cas NOVADIS) — méthode : sap.com, S&amp;OP (2026)</span><span>Akademia Formation</span></div>
-  </div>
-</section>
-<!-- 13 · CORRIGÉ -->
-<section class="slide s-sol dense">
-  <div class="rail">
-    <div class="toprow"><span class="kick v">Corrigé du cas</span><span class="pgr">13 · 18</span></div>
-    <h2>Corrigé de la simulation : <span class="gw">les décisions attendues au S&amp;OP exécutif de NOVADIS</span></h2>
-    <p class="lede reveal" style="--i:0">Sans action, la capacité cumulée (630 k) ne couvre pas la demande (664 k) : le stock passe sous sa cible dès fin M4 et s&#x27;effondre à 26 k fin M6. Le scénario retenu combine heures supplémentaires tardives et intérim — cible tenue au moindre coût.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Q1 — Le diagnostic</b> : stocks projetés 65 · 66 · 63 · 56 · 43 · 26 k contre des cibles de 52 · 54 · 56 · 59 · 61 · 63 k — <b>première rupture de cible fin M4</b> (56 k contre 59 k) et <b>37 k manquants fin M6</b> : c&#x27;est le mois de bascule à montrer en supply review.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Q2 — Les scénarios chiffrés</b> : heures sup M4-M6 (+31,5 k) › 57,5 k fin M6, encore <b>5,5 k sous la cible</b> ; heures sup dès M2 (+52,5 k) › 78,5 k, soit <b>15,5 k de surstock</b> (environ 4 jours de possession inutile) ; heures sup M4-M6 <b>+ intérim M5-M6</b> › 69,5 k fin M6 — <b>cible tenue</b> avec environ 1,5 jour de marge.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Q3 — Les décisions à faire trancher</b> : activer les heures supplémentaires <b>dès M4</b> (et non M2 : même service, coût moindre) ; autoriser l&#x27;<b>intérim pour M5-M6</b> ; confirmer le <b>stock cible à 15 jours</b> et revoir le point en M5.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Le compte rendu type</b> : « heures sup M4-M6 › directeur des opérations › confirmation RH sous 8 j » · « intérim 6 k M5-M6 › responsable d&#x27;entrepôt › lancement sous 15 j » · « revue du point › demand planner › ordre du jour du cycle suivant ».</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Lecture services</b> : la même mécanique pilote les effectifs chez ALTÉA — besoin en ETP mois par mois, la montée en compétence des recrues jouant le rôle de « capacité additionnelle » à délai long : même logique, mêmes arbitrages, autres leviers.</p></div></div></div>
-    <div class="keycard violet reveal" style="--i:5"><span class="kl">À retenir</span><p>Le bon scénario n&#x27;est ni le plus tôt ni le plus gros : c&#x27;est celui qui tient la cible au moindre coût — décidé en amont, jamais au mois du besoin.</p></div>
-    <div class="foot"><span>Données pédagogiques construites (cas NOVADIS) — méthode : sap.com, S&amp;OP (2026)</span><span>Akademia Formation</span></div>
-  </div>
-</section>
-<!-- 14 · ERREURS FRÉQUENTES -->
+<!-- 09 · CONTENU -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick a">Pièges fréquents</span><span class="pgr">14 · 18</span></div>
+    <div class="toprow"><span class="kick">Module 3 · Le processus S&amp;OP</span><span class="pgr">09 · 21</span></div>
+    <h2>Du S&amp;OP au S&amp;OE : <span class="gw">verrouiller l&#x27;exécution au plus court terme</span></h2>
+    <p class="lede reveal" style="--i:0">Un plan mensuel ne survit pas aux aléas sans étage d&#x27;exécution : c&#x27;est le rôle du S&amp;OE (sales and operations execution). Bien articulés, les deux processus se protègent mutuellement — mal articulés, les urgences mangent la stratégie.</p>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Le <b>S&amp;OP</b> traite le tactique : horizon de <b>3 à 18 mois</b> (orientations jusqu&#x27;à 36), réunion <b>mensuelle</b>, plan unique ; le <b>S&amp;OE</b> traite l&#x27;exécution : horizon de <b>quelques semaines à un trimestre</b>, pilotage <b>hebdomadaire</b> (Wipro, consulté 2026).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Le S&amp;OE absorbe les fluctuations de jours/semaines — pénuries, retards fournisseurs, aléas, pics d&#x27;appels — <b>sans déstabiliser le plan mensuel</b> validé en S&amp;OP.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Sans S&amp;OE, les équipes <b>sur-réagissent</b> aux micro-disruptions : la réunion mensuelle dérive sur les urgences et le processus S&amp;OP reste rudimentaire (Wipro, consulté 2026).</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Prudence de sourcing</b> : la borne « 0-13 semaines » souvent citée pour le S&amp;OE n&#x27;est pas vérifiable dans les sources publiques consultées — retenir « quelques semaines à un trimestre » (à confirmer).</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Transposition ALTÉA</b> : point hebdomadaire des files d&#x27;attente, réaffectation temporaire de gestionnaires entre canaux (appels / décomptes) les semaines de pic, seuil d&#x27;alerte sur le délai moyen de réponse.</p></div></div></div>
+    <div class="keycard reveal" style="--i:5"><span class="kl">À retenir</span><p>S&amp;OP = mensuel, 1 à 3 ans · S&amp;OE = hebdomadaire, quelques semaines à un trimestre : l&#x27;un protège l&#x27;autre (Wipro, consulté 2026).</p></div>
+    <div class="foot"><span>wipro.com — deconstructing sales and operations execution (consulté 2026) · gartner.com — glossaire S&amp;OE (titre confirmé, 2026)</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 10 · CONTENU -->
+<section class="slide dense">
+  <div class="rail">
+    <div class="toprow"><span class="kick">Module 3 · Transposition services</span><span class="pgr">10 · 21</span></div>
+    <h2>Le comité charge/ressources d&#x27;ALTÉA : <span class="gw">les mêmes arbitrages, en ETP</span></h2>
+    <p class="lede reveal" style="--i:0">Chez ALTÉA, la simulation NOVADIS se rejoue chaque mois avec des gestionnaires à la place des colis : un flux prévu, une capacité nette d&#x27;absentéisme, un écart daté, des scénarios chiffrés. Voici le cycle réel du canal « appels adhérents ».</p>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>La demande</b> : 16 000 appels en M1, puis la campagne nouvelle offre gonfle le flux à <b>19 100 en M4</b> et <b>19 900 en M6</b> (+15 %) — la productivité nette est de <b>1 104 appels/ETP/mois</b> (1 200 bruts, moins 8 % d&#x27;absentéisme et congés) ; l&#x27;effectif actuel de 14 ETP plafonne à 15 456 appels/mois.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Le besoin calculé en supply review</b> : 15 ETP dès M1, <b>18 ETP en M4</b>, 19 ETP en M6 — soit +4 ETP au cœur de la campagne, daté mois par mois.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>La décision prise au comité de M1</b> : recruter 4 ETP (délai de recrutement seul : 2 mois — compter environ 4 mois pour une autonomie complète) — capacité M4 = <b>19 872 appels</b> contre 19 100 prévus : marge de 4 %.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Le point dur détecté au pré-S&amp;OP</b> : M6 = 19 872 contre 19 900 prévus — trois options chiffrées : une 5e recrue (20 976 appels, à décider en M3) · heures sup +2 % (<b>+397 appels</b>) · délestage de 2 % vers le self-care ; le comité choisit les heures sup, la 5e recrue si la campagne est reconduite.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Les arbitrages types du comité</b> : heures sup, mobilité inter-établissements (productivités de <b>15,6 à 18,4 dossiers/ETP/jour</b> entre les 4 sites), recrutement par flux et par pays, plan de formation, délestage digital.</p></div></div></div>
+    <div class="keycard reveal" style="--i:5"><span class="kl">Règle d&#x27;or</span><p>En janvier, on livre ce qu&#x27;on a décidé en septembre : délai de recrutement, formation et montée en compétence font du recrutement la variable la plus lente du cycle (règle de planification du workforce management).</p></div>
+    <div class="foot"><span>Données pédagogiques construites (cas ALTÉA) — méthode : Gans, Koole et Mandelbaum, M&amp;SOM vol. 5 n° 2 (2003) · Bower, Journal of Business Forecasting (2015)</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 11 · ERREURS FRÉQUENTES -->
+<section class="slide">
+  <div class="rail">
+    <div class="toprow"><span class="kick a">Pièges fréquents</span><span class="pgr">11 · 21</span></div>
     <h2>Erreurs fréquentes — dans la mise en place d&#x27;un S&amp;OP</h2>
     <div class="pflist"><div class="pfi reveal" style="--i:0"><span class="pm"></span><p><b>Réduire le S&amp;OP à une réunion mensuelle</b> — c&#x27;est un cycle en 5 étapes ; la réunion exécutive n&#x27;est que l&#x27;étape de décision finale, tout se joue en amont dans les données et les scénarios (SAP, 2026).</p></div><div class="pfi reveal" style="--i:1"><span class="pm"></span><p><b>Direction absente ou sans pouvoir de décision</b> — le soutien de la direction et un responsable de processus désigné sont des facteurs habilitants documentés ; la culture en silos est la barrière n° 1 (Pedroso et al., 2016).</p></div><div class="pfi reveal" style="--i:2"><span class="pm"></span><p><b>Acheter l&#x27;outil avant de construire le processus</b> — dès 2007, Grimson et Pyke montrent que l&#x27;IT n&#x27;est pas le facteur déterminant : un tableur discipliné vaut mieux qu&#x27;un logiciel sans gouvernance.</p></div><div class="pfi reveal" style="--i:3"><span class="pm"></span><p><b>Valider un plan de demande non contraint</b> — sans supply review qui chiffre contraintes et projection de stock/capacité, on produit des plans irréalisables (SAP, 2026).</p></div><div class="pfi reveal" style="--i:4"><span class="pm"></span><p><b>Laisser la réunion mensuelle dériver sur les urgences du jour</b> — les aléas relèvent du S&amp;OE hebdomadaire ; sans lui, sur-réaction permanente aux micro-disruptions (Wipro, consulté 2026).</p></div><div class="pfi reveal" style="--i:5"><span class="pm"></span><p><b>En services : raisonner en effectif nominal</b> — oublier absentéisme, congés et montée en compétence, ou décider un recrutement au mois du besoin : le pic est perdu d&#x27;avance (règle de planification WFM).</p></div></div>
     <div class="foot"><span>sap.com (2026) · doi.org/10.1016/j.ijpe.2016.08.035 (2016) · doi.org/10.1108/09574090710835093 (2007) · wipro.com (consulté 2026)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 15 · CONTENU -->
+<!-- 12 · CONTENU -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Livrable du module</span><span class="pgr">15 · 18</span></div>
+    <div class="toprow"><span class="kick">Livrable du module</span><span class="pgr">12 · 21</span></div>
     <h2>Livrable 3 : <span class="gw">la trame de réunion S&amp;OP — agenda, tableaux d&#x27;entrée, grille de décisions</span></h2>
     <p class="lede reveal" style="--i:0">Vous repartez avec une trame complète, utilisable telle quelle pour lancer ou fiabiliser votre cycle mensuel — en version « produits » et en version « flux de services ».</p>
     <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>L&#x27;agenda de réunion exécutive</b> en 6 points (90-120 min) : KPI et écarts, synthèse demand review, synthèse supply review, écarts et scénarios chiffrés, arbitrages, validation du plan unique et journal des actions.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Les tableaux d&#x27;entrée</b> : pack demande (prévision enrichie, hypothèses, risques) et pack offre (contraintes, projection de stock/capacité, besoins en effectifs) — qui les prépare, et pour quand.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>La grille de décisions</b> : décision › responsable › échéance › impact chiffré en € — le compte rendu de la simulation NOVADIS en est l&#x27;exemple rempli.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>La version services</b> : cycle charge/ressources avec tableaux de flux par canal et établissement, projection d&#x27;effectifs nets (absentéisme, montée en compétence) et leviers (mobilité, recrutement, délestage digital).</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Le mode d&#x27;emploi</b> : le calendrier semaine 1 à 4, les rôles (RACI), et les 5 questions à se poser avant chaque réunion pour ne pas dérailler.</p></div></div></div>
@@ -897,30 +1128,146 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <div class="foot"><span>Trame construite sur sap.com — S&amp;OP (2026) et l&#x27;agenda type du module</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 16 · QUIZ -->
-<section class="slide s-quiz">
+<!-- 13 · ATELIER CHRONOMÉTRÉ -->
+<section class="slide s-atelier">
   <div class="rail">
-    <div class="toprow"><span class="kick">Quiz</span><span class="pgr">16 · 18</span></div>
-    <h2>Quiz — Module 3 (1/2)</h2>
-    <div class="qzbox" data-qbox="qz15"></div>
+    <div class="toprow"><span class="kick">Mise en pratique · Atelier</span><span class="pgr">13 · 21</span></div>
+    <h2>Votre cycle S&amp;OP en 20 minutes : <span class="gw">cartographier QUI, QUAND, QUOI</span></h2>
+    <p class="lede reveal" style="--i:0">Chacune travaille SON contexte — distribution pharmaceutique ou flux entrants de mutuelle. Livrable à produire : une page « cycle + RACI + date du premier comité », déposée au chat à la fin du chrono. Les consignes sont écrites au chat ; le formateur circule et challenge.</p>
+    <div class="atw-grid reveal" style="--i:1">
+      <div class="atw-timer">
+        <div class="timer" data-timer data-total="1080">
+          <svg viewBox="0 0 230 230" aria-hidden="true">
+            <defs><linearGradient id="tg12" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#7C3AED"/>
+            </linearGradient></defs>
+            <circle class="tk" cx="115" cy="115" r="98"/>
+            <circle class="tp" cx="115" cy="115" r="98" style="stroke:url(#tg12)"/>
+          </svg>
+          <div class="t-mid"><span class="t-dig" data-tdig>18:00</span></div>
+        </div>
+        <span class="t-lab" data-tlab>Atelier · 18 minutes</span>
+        <div class="t-ctrl">
+          <button class="tbtn prim" type="button" data-tgo>Lancer</button>
+          <button class="tbtn" type="button" data-trst>Réinitialiser</button>
+        </div>
+      </div>
+      <div class="atw-right">
+        <div class="pcards" style="grid-template-columns:repeat(2,1fr)"><button class="pcard" type="button" data-sec="600" data-label="Cartographier votre cycle en 5 étapes" data-short="Pour chaque étape (collecte › demand review › supply review › pré-S&amp;OP › exécutif) : nom adapté à votre contexte, semaine du mois, participants, données d&#x27;entrée, livrable de sortie. Version flux : remplacer stock par backlog et capacité par ETP nets."><span class="pn">Cartographier votre cycle en 5 étapes</span><span class="ps">Pour chaque étape (collecte › demand review › supply review › pré-S&amp;OP › exécutif) : nom adapté à votre contexte, semaine du mois, participants, données d&#x27;entrée, livrable de sortie. Version flux : remplacer stock par backlog et capacité par ETP nets.</span><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5 L10 17.5 L19 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="pcard" type="button" data-sec="480" data-label="Caster les rôles et fixer le premier comité" data-short="Attribuer R · A · C par étape (un seul A par étape), nommer le sponsor du processus, fixer la date du premier cycle et noter les 3 décisions qu&#x27;il devra trancher — chiffrées et datées."><span class="pn">Caster les rôles et fixer le premier comité</span><span class="ps">Attribuer R · A · C par étape (un seul A par étape), nommer le sponsor du processus, fixer la date du premier cycle et noter les 3 décisions qu&#x27;il devra trancher — chiffrées et datées.</span><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5 L10 17.5 L19 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+        <p class="tt-hint">Un clic sur une tâche règle et lance son chrono · un second clic la marque faite</p>
+        <div class="cp-band atw-debrief" data-debrief><span class="cb-t">Débrief</span><p>Débrief 3 min : chacune présente son cycle en 90 secondes ; le formateur challenge deux points — qui porte le A de l&#x27;exécutif, et quelle décision datée sortira du premier comité. Erreur classique à relever : un cycle calqué sur le modèle sans tenir compte des données déjà disponibles (productivités par établissement, saisonnalité mesurée au module 2).</p></div>
+      </div>
+    </div>
     <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 17 · QUIZ -->
-<section class="slide s-quiz">
+<!-- 14 · CAS PRATIQUE -->
+<section class="slide s-case">
   <div class="rail">
-    <div class="toprow"><span class="kick">Quiz</span><span class="pgr">17 · 18</span></div>
-    <h2>Quiz — Module 3 (2/2)</h2>
-    <div class="qzbox" data-qbox="qz16"></div>
+    <div class="toprow"><span class="kick g">Mise en pratique · Simulation S&amp;OP — le pack</span><span class="pgr">14 · 21</span></div>
+    <h2>Le pack de la réunion : <span class="gw">la famille « génériques chroniques » à 6 mois</span></h2>
+    <div class="casectx reveal" style="--i:0">
+      <span class="ck">Le contexte</span>
+      <p>Vous préparez le cycle S&amp;OP de NOVADIS (grossiste-répartiteur pharmaceutique, 340 M€ de CA, 3 entrepôts régionaux) pour la famille « génériques chroniques ». La demand review a validé les prévisions (en milliers de colis/mois) : M1 = 100 · M2 = 104 · M3 = 108 · M4 = 112 · M5 = 118 · M6 = 122, et M7 est estimé à 126. Capacité nominale d&#x27;entrepôt : 105 k colis/mois ; heures supplémentaires possibles : +10 % (+10,5 k/mois) ; intérim mobilisable : +6 k/mois à partir de M5. Stock initial : 60 k ; stock cible : 50 % de la demande du mois suivant (environ 15 jours), soit 63 k à tenir fin M6. Trois tensions sont sur la table : la demande dépasse la capacité nominale dès M4 ; le stock s&#x27;érode sous la cible sans action ; le taux de service est déjà à 96,1 % (cible 98,5 %) alors que la finance veut limiter le coût des heures supplémentaires et de l&#x27;intérim.</p>
+    </div>
+    <div class="caseqs"><div class="caseq reveal" style="--i:1"><span class="qn">01</span><p>Sans action, projetez le stock fin de mois sur M1-M6 : quel est le premier mois de rupture de la cible, et quel est l&#x27;écart fin M6 ?</p></div><div class="caseq reveal" style="--i:2"><span class="qn">02</span><p>Chiffrez au moins deux scénarios (heures supplémentaires, intérim) : quel stock projeté fin M6, et quel surcoût ou surstock pour chacun ?</p></div><div class="caseq reveal" style="--i:3"><span class="qn">03</span><p>Rédigez les trois arbitrages à faire trancher au S&amp;OP exécutif, au format décision › responsable › échéance.</p></div></div>
+    <div class="casebar">
+      <span class="casehint">Cherchez d&#x27;abord, chiffres à l&#x27;appui · le corrigé s&#x27;ouvre après les trois tours d&#x27;arbitrage</span>
+      <button class="btncase" type="button" data-gosol>Voir le corrigé
+        <svg viewBox="0 0 16 16" fill="none"><path d="M6 3 L11 8 L6 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="foot"><span>Données pédagogiques construites (cas NOVADIS, jeu de données figé) — méthode : sap.com, S&amp;OP (2026)</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 15 · SCÉNARIO POSTURES -->
+<section class="slide s-scn" data-scn>
+  <div class="rail">
+    <div class="toprow"><span class="kick">Simulation S&amp;OP · Tour 1 sur 3 — Demand review</span><span class="pgr">15 · 21</span></div>
+    <h2>Le commerce exige +25 % sur M4-M6 pour sa promo : <span class="gw">que faites-vous du chiffre ?</span></h2>
+    <div class="casectx reveal" style="--i:0">
+      <span class="ck">Le contexte</span>
+      <p>Semaine 2 du cycle. Votre prévision statistique sur la famille « génériques chroniques » ressort à 112 · 118 · 122 k colis sur M4-M6. Le directeur commercial débarque : « Ma promo de M4 va cartonner, je veux +25 % dans le plan » — soit 140 · 147,5 · 152,5 k, contre 105 k de capacité nominale. La dernière campagne comparable (été 2025) avait été mesurée à +12 % sur deux mois.</p>
+    </div>
+    <p class="scn-q reveal" style="--i:1">Vous êtes le demand planner. Quelle posture adoptez-vous en demand review ?</p>
+    <div class="pos3"><button type="button" class="posc reveal v-bad" style="--i:1" data-verdict="bad"><span class="pos-l">Posture A</span><span class="pos-t">Intégrer +25 % tel quel dans le plan de demande</span><span class="pos-c">Le plan sort à 440 k cumulés sur M4-M6 ; même à capacité maximale (heures sup + intérim, 121,5 k/mois), il manque environ 75 k colis. Le supply review chiffre un plan irréaliste, le taux de service — déjà 96,1 % contre 98,5 % visé — s&#x27;effondre au pic, et la demand review perd toute crédibilité au premier écart mesuré.</span><span class="pos-v v-bad">À éviter</span><span class="pos-more">Cliquer pour explorer</span></button><button type="button" class="posc reveal v-good" style="--i:2" data-verdict="good"><span class="pos-l">Posture B</span><span class="pos-t">Demander les fondements, scénariser et historiser</span><span class="pos-c">Vous gardez le plan de base à 112 · 118 · 122 k et créez un scénario promo plafonné à +12 % — la mesure de la campagne comparable de 2025 — chiffré en € avec une date de mesure d&#x27;effet. Le pré-S&amp;OP compare les deux scénarios ; l&#x27;hypothèse commerciale est tracée et sera mesurée. C&#x27;est la posture qui protège à la fois le service, les coûts et la crédibilité du processus.</span><span class="pos-v v-good">Recommandé</span><span class="pos-more">Cliquer pour explorer</span></button><button type="button" class="posc reveal v-warn" style="--i:3" data-verdict="warn"><span class="pos-l">Posture C</span><span class="pos-t">Opposer le stock et la capacité : refuser toute hausse</span><span class="pos-c">Vous produisez un plan de demande déjà contraint — le rôle de la supply review, pas le vôtre. Le commerce se sent jugé plutôt qu&#x27;écouté : la prochaine fois, il passera en direct à la direction, hors processus. Et si la promo marche vraiment, la rupture aura été décidée en réunion, jamais mesurée.</span><span class="pos-v v-warn">À manier avec prudence</span><span class="pos-more">Cliquer pour explorer</span></button></div>
+    <div class="cp-band ok scn-band" data-scn-band><span class="cb-t">La bonne pratique</span><p><b>Posture B — Demander les fondements, scénariser et historiser.</b></p></div>
     <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 18 · À RETENIR -->
+<!-- 16 · SCÉNARIO POSTURES -->
+<section class="slide s-scn" data-scn>
+  <div class="rail">
+    <div class="toprow"><span class="kick">Simulation S&amp;OP · Tour 2 sur 3 — Supply review</span><span class="pgr">16 · 21</span></div>
+    <h2>Capacité 105 k, pic à 122 k en M6 : <span class="gw">quel scénario portez-vous au pré-S&amp;OP ?</span></h2>
+    <div class="casectx reveal" style="--i:0">
+      <span class="ck">Le contexte</span>
+      <p>Semaine 3 du cycle. Le diagnostic est sur la table : sans action, le stock passe sous sa cible dès fin M4 (56 k contre 59 k) et tombe à 26 k fin M6 — 37 k sous la cible de 63 k. Leviers disponibles : heures supplémentaires (+10 % de capacité, soit 10,5 k par mois) et intérim (+6 k par mois, mobilisable à partir de M5). Le taux de service est déjà à 96,1 % ; la finance surveille chaque euro d&#x27;heures supplémentaires.</p>
+    </div>
+    <p class="scn-q reveal" style="--i:1">Vous êtes le supply planner. Quel scénario présentez-vous au pré-S&amp;OP ?</p>
+    <div class="pos3"><button type="button" class="posc reveal v-warn" style="--i:1" data-verdict="warn"><span class="pos-l">Posture A</span><span class="pos-t">Heures supplémentaires M4-M6 (+31,5 k)</span><span class="pos-c">Stock projeté fin M6 : 57,5 k — encore 5,5 k sous la cible de 63 k, soit environ 1,3 jour de demande de marge en moins. Le mois M7 (126 k estimés) démarre avec un stock sous cible : le service reste exposé exactement au moment du pic. Scénario honnête, mais insuffisant.</span><span class="pos-v v-warn">À manier avec prudence</span><span class="pos-more">Cliquer pour explorer</span></button><button type="button" class="posc reveal v-bad" style="--i:2" data-verdict="bad"><span class="pos-l">Posture B</span><span class="pos-t">Heures supplémentaires dès M2 (+52,5 k)</span><span class="pos-c">Stock projeté fin M6 : 78,5 k — 15,5 k au-dessus de la cible, environ 4 jours de possession inutile, avec des heures supplémentaires payées dès M2-M3 alors que le stock y est déjà confortable (66 k). Le service est garanti deux fois : la seconde coûte cher et n&#x27;achète rien.</span><span class="pos-v v-bad">À éviter</span><span class="pos-more">Cliquer pour explorer</span></button><button type="button" class="posc reveal v-good" style="--i:3" data-verdict="good"><span class="pos-l">Posture C</span><span class="pos-t">Heures supplémentaires M4-M6 + intérim 6 k en M5-M6</span><span class="pos-c">Stocks projetés : 66,5 · 70 · 69,5 k — cible tenue chaque mois, marge finale d&#x27;environ 1,5 jour. Le coût tombe uniquement sur les mois de tension, et l&#x27;intérim n&#x27;est engagé que lorsqu&#x27;il est mobilisable (à partir de M5) : c&#x27;est le scénario que le pré-S&amp;OP chiffre en € et que l&#x27;exécutif valide.</span><span class="pos-v v-good">Recommandé</span><span class="pos-more">Cliquer pour explorer</span></button></div>
+    <div class="cp-band ok scn-band" data-scn-band><span class="cb-t">La bonne pratique</span><p><b>Posture C — Heures supplémentaires M4-M6 + intérim 6 k en M5-M6.</b></p></div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 17 · SCÉNARIO POSTURES -->
+<section class="slide s-scn" data-scn>
+  <div class="rail">
+    <div class="toprow"><span class="kick">Simulation S&amp;OP · Tour 3 sur 3 — S&amp;OP exécutif</span><span class="pgr">17 · 21</span></div>
+    <h2>Il reste 10 minutes et 3 arbitrages : <span class="gw">comment le comité tranche-t-il ?</span></h2>
+    <div class="casectx reveal" style="--i:0">
+      <span class="ck">Le contexte</span>
+      <p>Réunion exécutive, il est 10h50. Le scénario capacité (heures sup M4-M6 + intérim M5-M6) vient d&#x27;être validé. Trois points restent à l&#x27;agenda : le budget de la promo prévue en M7, l&#x27;embauche de 2 préparateurs pour l&#x27;entrepôt, et une demande de la logistique de monter le stock cible de 15 à 20 jours « par précaution ».</p>
+    </div>
+    <p class="scn-q reveal" style="--i:1">Vous êtes la direction. Quelle conduite de fin de réunion adoptez-vous ?</p>
+    <div class="pos3"><button type="button" class="posc reveal v-good" style="--i:1" data-verdict="good"><span class="pos-l">Posture A</span><span class="pos-t">Trancher les 3 points en séance, au format décision › responsable › échéance</span><span class="pos-c">Budget promo M7 validé à condition d&#x27;une mesure d&#x27;effet historisée — sinon, nouvel « événement inexpliqué » dans l&#x27;historique. Embauche des 2 préparateurs décidée maintenant : recrutement plus montée en compétence, ils sont opérationnels pour le pic M5-M6. Hausse du stock cible refusée : le scénario retenu tient la cible à 15 jours (69,5 k contre 63 k) — chaque jour ajouté serait de la possession payée sans service mesurable. Réunion bouclée à l&#x27;heure, plan unique validé.</span><span class="pos-v v-good">Recommandé</span><span class="pos-more">Cliquer pour explorer</span></button><button type="button" class="posc reveal v-bad" style="--i:2" data-verdict="bad"><span class="pos-l">Posture B</span><span class="pos-t">Renvoyer les 3 points « pour étude » au cycle suivant</span><span class="pos-c">L&#x27;embauche décidée dans un mois arrive trop tard : délai de recrutement plus montée en compétence, les préparateurs manquent le pic M5-M6 — qui se couvrira en heures supplémentaires d&#x27;urgence et en intérim prolongé, au coût maximal. Le comité devient une chambre d&#x27;enregistrement : comportement typique du stade 1 « React » du modèle Gartner.</span><span class="pos-v v-bad">À éviter</span><span class="pos-more">Cliquer pour explorer</span></button><button type="button" class="posc reveal v-warn" style="--i:3" data-verdict="warn"><span class="pos-l">Posture C</span><span class="pos-t">Trancher le budget promo, déléguer embauche et stock cible aux opérationnels</span><span class="pos-c">Le comité garde le point le plus confortable et repousse les deux arbitrages qui fâchent. Sans scénario chiffré ni décision tracée, les deux sujets reviendront en urgence par e-mail entre deux cycles — et le plan unique perd ses deux jambes : la capacité long terme et la politique de stock.</span><span class="pos-v v-warn">À manier avec prudence</span><span class="pos-more">Cliquer pour explorer</span></button></div>
+    <div class="cp-band ok scn-band" data-scn-band><span class="cb-t">La bonne pratique</span><p><b>Posture A — Trancher les 3 points en séance, au format décision › responsable › échéance.</b></p></div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 18 · CORRIGÉ -->
+<section class="slide s-sol">
+  <div class="rail">
+    <div class="toprow"><span class="kick v">Simulation S&amp;OP · Compte rendu</span><span class="pgr">18 · 21</span></div>
+    <h2>Le compte rendu type de la réunion : <span class="gw">ce qui devait sortir tracé</span></h2>
+    <p class="lede reveal" style="--i:0">Fait établi au pack : sans action, la capacité (630 k) ne couvre pas la demande (664 k) — rupture de cible fin M4, stock 37 k sous la cible fin M6. Voici les décisions qu&#x27;un bon cycle fait sortir, au format décision › responsable › échéance.</p>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Demand review</b> : le +25 % du commerce est reçu mais non entériné — un scénario promo plafonné à <b>+12 %</b> (mesure de la campagne comparable de 2025) est intégré comme hypothèse historisée › demand planner › mesure d&#x27;effet au cycle de M7.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Supply review</b> : le scénario <b>heures sup M4-M6</b> (+10 %, soit 10,5 k par mois) <b>+ intérim 6 k en M5-M6</b> est retenu — stocks 66,5 · 70 · <b>69,5 k</b>, cible de 63 k tenue avec environ 1,5 jour de marge › directeur des opérations › confirmation RH sous 8 jours.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Capacité long terme</b> : embauche de <b>2 préparateurs</b> décidée maintenant pour être opérationnels au pic M5-M6 › RH › ouverture des postes sous 15 jours.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Politique de stock</b> : cible maintenue à <b>15 jours</b> (50 % du mois suivant) — la hausse à 20 jours est refusée, coût sans service mesuré › supply planner › revue du point en M5.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Lecture services</b> : chez ALTÉA, le même compte rendu porte sur des ETP — besoin par flux et établissement, recrutements décidés 2 à 3 mois avant le pic, leviers heures sup · mobilité · délestage digital.</p></div></div></div>
+    <div class="keycard violet reveal" style="--i:5"><span class="kl">À retenir</span><p>Le bon scénario n&#x27;est ni le plus tôt ni le plus gros : c&#x27;est celui qui tient la cible au moindre coût — décidé en amont, jamais au mois du besoin.</p></div>
+    <div class="foot"><span>Données pédagogiques construites (cas NOVADIS, jeu de données figé) — méthode : sap.com, S&amp;OP (2026)</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 19 · QUIZ GROUPÉ -->
+<section class="slide s-quizg qzg" data-qzg>
+  <div class="rail">
+    <div class="toprow"><span class="kick">Quiz · Module 3</span><span class="pgr">19 · 21</span></div>
+    <h2>Trois situations, une décision — à vous de trancher</h2>
+    <div class="qzg-wrap"><div class="qz reveal" style="--i:0" data-ok="0"><p class="qz-q"><span class="qz-n">Q1</span><span class="qtx">Vous rejoignez une équipe qui « fait du S&amp;OP » : on vous convie directement à la réunion de direction de fin de mois. Pour préparer le prochain cycle, dans quel ordre les étapes doivent-elles s&#x27;enchaîner ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>Collecte › demand review › supply review › pré-S&amp;OP › S&amp;OP exécutif</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>Collecte › supply review › demand review › pré-S&amp;OP › S&amp;OP exécutif</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>Collecte › demand review › pré-S&amp;OP › supply review › S&amp;OP exécutif</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Demand review › collecte › supply review › S&amp;OP exécutif › pré-S&amp;OP</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>On rafraîchit les données, on projette la demande NON contrainte, puis on la confronte aux contraintes (supply review), puis on chiffre les scénarios au pré-S&amp;OP — la direction n&#x27;a plus qu&#x27;à trancher.</p></div><div class="qz reveal" style="--i:1" data-ok="2"><p class="qz-q"><span class="qz-n">Q2</span><span class="qtx">Chez ALTÉA, le plan de recrutement de 4 gestionnaires pour le pic de janvier est au point mort depuis deux cycles : les opérations et les RH se renvoient la décision. Que faut-il corriger en premier ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>Ajouter un outil de planification partagé pour fluidifier l&#x27;information</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>Confier la décision au demand planner, qui connaît le mieux les chiffres</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>Trancher explicitement qui porte le « A » du plan de recrutement — un seul approbateur, côté direction — et tracer la décision au journal</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Passer la réunion en hebdomadaire pour accélérer les arbitrages</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>Facteur clé (Pedroso et al., 2016) : un responsable de processus désigné, des rôles attribués et le soutien de la direction. Le demand planner prépare (R), il ne tranche pas (A).</p></div></div>
+    <div class="qzg-bar reveal" style="--i:2">
+      <p class="tt-hint">La salle vote à main levée · le formateur clique la réponse de la salle</p>
+      <button type="button" class="tbtn" data-qzg-reset>Réinitialiser le quiz</button>
+    </div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 20 · QUIZ GROUPÉ -->
+<section class="slide s-quizg qzg" data-qzg>
+  <div class="rail">
+    <div class="toprow"><span class="kick">Quiz · Module 3</span><span class="pgr">20 · 21</span></div>
+    <h2>Trois situations, une décision — à vous de trancher (2/2)</h2>
+    <div class="qzg-wrap"><div class="qz reveal" style="--i:0" data-ok="3"><p class="qz-q"><span class="qz-n">Q1</span><span class="qtx">Lundi 8h12 chez NOVADIS : un fournisseur annonce 3 jours de retard sur une référence ; le même matin, la réunion S&amp;OP mensuelle doit valider le plan à 18 mois. Que faire de ce retard ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>Attendre le S&amp;OP suivant, dans trois semaines, pour statuer</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>L&#x27;ouvrir en premier point de l&#x27;agenda du S&amp;OP mensuel, quitte à décaler le plan</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>Réviser immédiatement le plan unique à 18 mois pour intégrer le retard</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Le traiter au point d&#x27;exécution hebdomadaire (S&amp;OE) et ne le remonter au S&amp;OP que si la dérive dépasse le seuil convenu</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>S&amp;OP = mensuel, horizon 3 à 18 mois (orientations jusqu&#x27;à 36) ; S&amp;OE = hebdomadaire, horizon de quelques semaines à un trimestre (Wipro, consulté 2026) : l&#x27;un protège l&#x27;autre.</p></div></div>
+    <div class="qzg-bar reveal" style="--i:1">
+      <p class="tt-hint">La salle vote à main levée · le formateur clique la réponse de la salle</p>
+      <button type="button" class="tbtn" data-qzg-reset>Réinitialiser le quiz</button>
+    </div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 21 · À RETENIR -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Synthèse du module</span><span class="pgr">18 · 18</span></div>
+    <div class="toprow"><span class="kick">Synthèse du module</span><span class="pgr">21 · 21</span></div>
     <h2>Ce qu&#x27;il faut retenir — Module 3</h2>
-    <div class="tkgrid"><div class="tkcard reveal" style="--i:0"><span class="tn">01</span><b>Un cycle, pas une réunion</b><p>Cinq étapes mensuelles : la réunion de direction n&#x27;est que la dernière. Tout se joue avant, dans la qualité des données et des scénarios chiffrés.</p></div><div class="tkcard reveal" style="--i:1"><span class="tn">02</span><b>Un seul jeu de chiffres</b><p>Un plan demande-offre unique, glissant sur 18 à 36 mois, partagé par les ventes, les opérations et la finance — trois chiffres concurrents, c&#x27;est trois réunions, pas un S&amp;OP.</p></div><div class="tkcard reveal" style="--i:2"><span class="tn">03</span><b>Préparer pour trancher</b><p>Le pré-S&amp;OP chiffre les arbitrages en € ; l&#x27;exécutif décide en 90-120 minutes ; chaque décision sort avec un responsable et une échéance.</p></div><div class="tkcard reveal" style="--i:3"><span class="tn">04</span><b>Produits ou services, même logique</b><p>Dans les services, la capacité — périssable — remplace le stock : le cycle charge/ressources pilote les recrutements des mois en amont du besoin.</p></div></div>
+    <div class="tkgrid"><div class="tkcard reveal" style="--i:0"><span class="tn">01</span><b>Un plan unique</b><p>Le S&amp;OP aligne demande et capacité dans un plan chiffré, à horizon 3 à 18 mois — produits comme effectifs.</p></div><div class="tkcard reveal" style="--i:1"><span class="tn">02</span><b>Un cycle en 5 étapes</b><p>Collecte › demand review › supply review › pré-S&amp;OP › S&amp;OP exécutif. Chaque étape a ses entrées, son propriétaire, sa sortie.</p></div><div class="tkcard reveal" style="--i:2"><span class="tn">03</span><b>Des décisions tracées</b><p>Une réunion qui ne produit pas de décisions datées, avec un responsable nommé, n&#x27;est pas un S&amp;OP — c&#x27;est une revue d&#x27;actualité.</p></div><div class="tkcard reveal" style="--i:3"><span class="tn">04</span><b>Transposable aux services</b><p>Même logique pour les flux : prévision de charge, écarts en ETP, arbitrages heures supplémentaires, mobilité, recrutement.</p></div></div>
     <div class="nextband reveal" style="--i:4"><a href="index.html#9">← Sommaire des modules</a><a class="primary" href="m4.html">Module 4 · Piloter et améliorer les prévisions →</a></div>
     <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
@@ -950,15 +1297,12 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 <div class="czone" id="zoneR" aria-hidden="true"><span><svg viewBox="0 0 16 16" fill="none"><path d="M6 3 L11 8 L6 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
 
 
-<script>window.STEPS = {"st4": [{"t": "Semaine 1 · Collecte des données", "d": "Rafraîchir les réels du mois écoulé (ventes ou flux, stocks ou backlog), la précision des prévisions et les KPI.", "v": "Entrées fiables"}, {"t": "Semaine 2 · Demand review", "d": "Prévision statistique enrichie (événements, lancements, prix, concurrence, campagnes) › plan de demande consensus, volontairement non contraint.", "v": "Plan de demande"}, {"t": "Semaine 3 · Supply review", "d": "Confronter la demande aux contraintes (capacité, approvisionnements, effectifs) ; projeter stock ou couverture sur tout l&#x27;horizon.", "v": "Plan d'offre contraint"}, {"t": "Semaine 4 · Pré-S&OP", "d": "Réconcilier demande et offre ; chiffrer les écarts et les scénarios what-if en € ; préparer les arbitrages pour la direction.", "v": "Scénarios chiffrés"}, {"t": "Semaine 4 · S&OP exécutif", "d": "La direction tranche les arbitrages, valide le plan unique sur 18-36 mois et le journal des actions.", "v": "Décisions tracées"}], "st10": [{"t": "S1 · Collecte", "d": "Flux réels par canal et établissement, productivités mesurées, absentéisme, backlog et délais de remboursement.", "v": "KPI fiables"}, {"t": "S2 · Demand review des flux", "d": "Prévision des flux entrants par canal et pays à 18 mois, enrichie des événements (campagnes, rééditions de cartes, évolutions réglementaires).", "v": "Flux prévus"}, {"t": "S3 · Supply review des effectifs", "d": "Conversion en besoin ETP (charge divisée par la productivité nette), projection des effectifs disponibles (départs, congés, montée en compétence).", "v": "Écarts ETP datés"}, {"t": "S4 · Pré-S&OP RH/ops", "d": "Scénarios chiffrés : heures sup, mobilité inter-établissements, recrutement, formation, délestage digital — coût et impact service de chacun.", "v": "Scénarios €"}, {"t": "S4 · Comité charge direction", "d": "Arbitrages validés : plan de recrutement par flux, établissement et pays, budget heures sup, objectifs de niveau de service.", "v": "Décisions tracées"}]};</script>
+<script>window.STEPS = {"st3": [{"t": "Semaine 1 · Collecte des données", "d": "Rafraîchir les réels du mois écoulé (ventes ou flux, stocks ou backlog), la précision des prévisions et les KPI.", "v": "Entrées fiables"}, {"t": "Semaine 2 · Demand review", "d": "Prévision statistique enrichie (événements, lancements, prix, concurrence, campagnes) › plan de demande consensus, volontairement non contraint.", "v": "Plan de demande"}, {"t": "Semaine 3 · Supply review", "d": "Confronter la demande aux contraintes (capacité, approvisionnements, effectifs) ; projeter stock ou couverture sur tout l&#x27;horizon.", "v": "Plan d'offre contraint"}, {"t": "Semaine 4 · Pré-S&OP", "d": "Réconcilier demande et offre ; chiffrer les écarts et les scénarios what-if en € ; préparer les arbitrages pour la direction.", "v": "Scénarios chiffrés"}, {"t": "Semaine 4 · S&OP exécutif", "d": "La direction tranche les arbitrages, valide le plan unique sur 3 à 18 mois (orientations jusqu&#x27;à 36) et le journal des actions.", "v": "Décisions tracées"}], "st7": [{"t": "S1 · Collecte", "d": "Flux réels par canal et établissement, productivités mesurées, absentéisme, backlog et délais de remboursement.", "v": "KPI fiables"}, {"t": "S2 · Demand review des flux", "d": "Prévision des flux entrants par canal et pays à 18 mois, enrichie des événements (campagnes, rééditions de cartes, évolutions réglementaires).", "v": "Flux prévus"}, {"t": "S3 · Supply review des effectifs", "d": "Conversion en besoin ETP (charge divisée par la productivité nette — de 15,6 dossiers/ETP/jour à Porto à 18,4 à Lyon), projection des effectifs disponibles (départs, congés, montée en compétence).", "v": "Écarts ETP datés"}, {"t": "S4 · Pré-S&OP RH/ops", "d": "Scénarios chiffrés : heures sup, mobilité inter-établissements, recrutement, formation, délestage digital — coût et impact service de chacun.", "v": "Scénarios €"}, {"t": "S4 · Comité charge direction", "d": "Arbitrages validés : plan de recrutement par flux, établissement et pays, budget heures sup, objectifs de niveau de service.", "v": "Décisions tracées"}]};</script>
 <script>
 const QUESTIONS = [
-  {id: 'qz15q1', box: 'qz15', n: 1, q: "Dans quel ordre s'enchaînent les 5 étapes du cycle mensuel S&OP ?", options: ["Pré-S&OP › collecte › demand review › supply review › S&OP exécutif", "Collecte › supply review › demand review › pré-S&OP › S&OP exécutif", "Demand review › collecte › supply review › S&OP exécutif › pré-S&OP", "Collecte › demand review › supply review › pré-S&OP › S&OP exécutif"], correct: 3, explain: "Ordre canonique : collecte des données › demand review › supply review › pré-S&amp;OP › S&amp;OP exécutif (sap.com — S&amp;OP, 2026 ; corroboré par en.wikipedia.org — Sales and operations planning)."},
-  {id: 'qz15q2', box: 'qz15', n: 2, q: "Selon SAP (page mise à jour en 2026), sur quel horizon s'étend typiquement le plan unique produit par le S&OP ?", options: ["La semaine en cours uniquement", "18 à 36 mois, en glissant, revu chaque mois", "5 ans, aligné sur le plan stratégique", "3 à 6 mois, figé entre chaque réunion"], correct: 1, explain: "SAP (2026) : le processus produit un plan opérationnel et un plan de demande glissants et uniques sur 18 à 36 mois, revus mensuellement ; la littérature académique le borne à 18 mois en tactique (en.wikipedia.org, corroboration)."},
-  {id: 'qz15q3', box: 'qz15', n: 3, q: "D'après Grimson et Pyke (2007, 15 entreprises étudiées), quel facteur est clairement habilitant pour le S&OP ?", options: ["Les outils informatiques de planification", "Le nombre de participants aux réunions", "Les processus métier : réunions, rôles, mesures, intégration du plan", "La taille de l'entreprise"], correct: 2, explain: "Grimson &amp; Pyke (2007) : les processus métier sont des facteurs habilitants du S&amp;OP, l&#x27;IT n&#x27;en est pas clairement un — un tableur discipliné vaut mieux qu&#x27;un logiciel sans gouvernance (doi.org/10.1108/09574090710835093)."},
-  {id: 'qz16q1', box: 'qz16', n: 4, q: "Quel couple cadence/horizon décrit correctement S&OP et S&OE ?", options: ["S&OP mensuel sur 1 à 3 ans · S&OE hebdomadaire sur quelques semaines à un trimestre", "S&OP quotidien · S&OE annuel", "Les deux sont mensuels, sur le même horizon", "S&OP hebdomadaire sur 1 semaine · S&OE mensuel sur 3 ans"], correct: 0, explain: "Wipro (consulté 2026) : S&amp;OP mensuel sur un à trois ans ; S&amp;OE hebdomadaire sur un horizon de quelques semaines à un trimestre. La borne « 0-13 semaines » souvent citée n&#x27;est pas vérifiable en sources publiques."},
-  {id: 'qz16q2', box: 'qz16', n: 5, q: "Dans le modèle de maturité Gartner (2013), où la plupart des organisations plafonnent-elles ?", options: ["Stade 1 « React »", "Stade 2 « Anticipate »", "Stade 5 « Orchestrate »", "Stade 3 « Integrate »"], correct: 3, explain: "Modèle Gartner en 5 stades publié le 10 septembre 2013 (gartner.com/en/documents/2587021) ; selon l&#x27;analyse associée (consumergoods.com, consulté 2026), la plupart des entreprises peinent à atteindre le stade 3 « Integrate »."},
-  {id: 'qz16q3', box: 'qz16', n: 6, q: "Dans un S&OP transposé aux services (mutuelle, plateforme d'appels), que remplace le stock ?", options: ["Le nombre de contrats gérés", "Le chiffre d'affaires prévisionnel", "La capacité de traitement — effectifs × productivité — périssable et non stockable", "Les outils digitaux self-care"], correct: 2, explain: "Le S&amp;OP s&#x27;applique aux services (Bower, Journal of Business Forecasting, 2015, via en.wikipedia.org) ; la capacité y est périssable — cascade volume › charge › effectifs de Gans et al. (2003) ; la définition APICS inclut la main-d&#x27;œuvre."},
+  {id: 'qzg18q1', box: 'qzg18', n: 1, q: "Vous rejoignez une équipe qui « fait du S&OP » : on vous convie directement à la réunion de direction de fin de mois. Pour préparer le prochain cycle, dans quel ordre les étapes doivent-elles s'enchaîner ?", options: ["Collecte › demand review › supply review › pré-S&OP › S&OP exécutif", "Collecte › supply review › demand review › pré-S&OP › S&OP exécutif", "Collecte › demand review › pré-S&OP › supply review › S&OP exécutif", "Demand review › collecte › supply review › S&OP exécutif › pré-S&OP"], correct: 0, explain: "On rafraîchit les données, on projette la demande NON contrainte, puis on la confronte aux contraintes (supply review), puis on chiffre les scénarios au pré-S&amp;OP — la direction n&#x27;a plus qu&#x27;à trancher."},
+  {id: 'qzg18q2', box: 'qzg18', n: 2, q: "Chez ALTÉA, le plan de recrutement de 4 gestionnaires pour le pic de janvier est au point mort depuis deux cycles : les opérations et les RH se renvoient la décision. Que faut-il corriger en premier ?", options: ["Ajouter un outil de planification partagé pour fluidifier l'information", "Confier la décision au demand planner, qui connaît le mieux les chiffres", "Trancher explicitement qui porte le « A » du plan de recrutement — un seul approbateur, côté direction — et tracer la décision au journal", "Passer la réunion en hebdomadaire pour accélérer les arbitrages"], correct: 2, explain: "Facteur clé (Pedroso et al., 2016) : un responsable de processus désigné, des rôles attribués et le soutien de la direction. Le demand planner prépare (R), il ne tranche pas (A)."},
+  {id: 'qzg19q1', box: 'qzg19', n: 1, q: "Lundi 8h12 chez NOVADIS : un fournisseur annonce 3 jours de retard sur une référence ; le même matin, la réunion S&OP mensuelle doit valider le plan à 18 mois. Que faire de ce retard ?", options: ["Attendre le S&OP suivant, dans trois semaines, pour statuer", "L'ouvrir en premier point de l'agenda du S&OP mensuel, quitte à décaler le plan", "Réviser immédiatement le plan unique à 18 mois pour intégrer le retard", "Le traiter au point d'exécution hebdomadaire (S&OE) et ne le remonter au S&OP que si la dérive dépasse le seuil convenu"], correct: 3, explain: "S&amp;OP = mensuel, horizon 3 à 18 mois (orientations jusqu&#x27;à 36) ; S&amp;OE = hebdomadaire, horizon de quelques semaines à un trimestre (Wipro, consulté 2026) : l&#x27;un protège l&#x27;autre."},
 ];
 window.QUESTIONS = QUESTIONS;
 </script>
@@ -1476,6 +1820,18 @@ window.__stepsRender = function(slideEl){
 /* corrigés des cas : le bouton « Voir le corrigé » avance à la slide solution */
 document.querySelectorAll('[data-gonext]').forEach(function(b){
   b.addEventListener('click',function(){window.__nav.go(window.__nav.cur()+1);});
+});
+/* variantes : corrigé plus loin que la slide suivante (simulations en plusieurs
+   tours) — on cherche la prochaine slide de type corrigé (.s-sol) */
+document.querySelectorAll('[data-gosol]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var slides=Array.prototype.slice.call(document.querySelectorAll('section.slide'));
+    var cur=window.__nav.cur();
+    for(var i=cur+1;i<slides.length;i++){
+      if(slides[i].classList.contains('s-sol')){window.__nav.go(i);return;}
+    }
+    window.__nav.go(cur+1);
+  });
 });
 </script>
 

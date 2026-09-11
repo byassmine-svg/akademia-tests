@@ -183,7 +183,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .keycard.violet .kl{color:#C4B5FD}
 
 /* ---------------- tableaux ---------------- */
-.tblwrap{margin-top:20px;flex:1;min-height:0;display:flex;flex-direction:column}
+.tblwrap{margin-top:20px;flex:0 0 auto;display:flex;flex-direction:column}
 .tbl{width:100%;border-collapse:collapse}
 .tbl th{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--cap);text-align:left;padding:8px 14px;border-bottom:1px solid var(--ink);background:var(--bg)}
@@ -317,12 +317,12 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 /* ---------------- à retenir (takeaways) ---------------- */
 .tkgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;flex:1;min-height:0}
 .tkcard{border:1px solid var(--line);border-radius:18px;background:var(--white);
-  padding:18px 24px;display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:0}
+  padding:15px 22px;display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:0}
 .tkcard::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
 .tkcard .tn{font-family:'Instrument Serif',serif;font-size:24px;color:var(--ter)}
 .tkcard b{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:17.5px;
   color:var(--ink);margin-top:4px;letter-spacing:-.008em;line-height:1.25}
-.tkcard p{font-size:13.6px;line-height:1.55;color:var(--body);margin-top:8px}
+.tkcard p{font-size:13.2px;line-height:1.5;color:var(--body);margin-top:7px}
 .nextband{display:flex;justify-content:space-between;align-items:center;gap:20px;
   margin-top:14px;padding-top:4px}
 .nextband a{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;
@@ -489,7 +489,8 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   border-top:1px solid var(--line);padding:4px 0}
 .qzg-wrap .qz:first-child{border-top:0}
 .qzg .qz-q{display:flex;gap:12px;align-items:baseline;font-family:'Instrument Sans',sans-serif;
-  font-weight:620;font-size:16.5px;letter-spacing:-0.008em;color:var(--ink);line-height:1.35;margin-top:0}
+  font-weight:620;font-size:16.5px;letter-spacing:-0.008em;color:var(--ink);line-height:1.35;margin-top:0;width:100%;max-width:none}
+.qzg .qz-q .qtx{flex:1;min-width:0}
 .qzg .qz-n{flex:none;font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.12em;
   color:var(--blue);border:1px solid rgba(37,99,235,.32);border-radius:999px;padding:4px 9px}
 .qzg .qz-opts{display:grid;gap:9px;margin-top:9px}
@@ -507,9 +508,9 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .qzg .qz-o.ko .qz-l{background:var(--err);border-color:var(--err);color:#fff}
 .qzg .qz.done .qz-o{pointer-events:none}
 .qzg .qz.done .qz-o:not(.ok):not(.ko){opacity:.42}
-.qzg .qz-fb{display:none;font-family:'Inter',system-ui,sans-serif;font-weight:380;font-size:13px;
+.qzg .qz-fb{display:block;visibility:hidden;font-family:'Inter',system-ui,sans-serif;font-weight:380;font-size:13px;
   line-height:1.5;letter-spacing:normal;text-transform:none;color:var(--body);margin-top:8px}
-.qzg .qz-fb.on{display:block}
+.qzg .qz-fb.on{visibility:visible}
 .qzg .qz-fb b{color:var(--ink)}
 .qzg .qz-fb.ok-l .qz-fb-l{color:#047857}
 .qzg .qz-fb.ko-l .qz-fb-l{color:#B91C1C}
@@ -517,6 +518,18 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .tt-hint{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;
   text-transform:uppercase;color:var(--ter);margin-top:16px}
 .qzg-bar .tt-hint{margin-top:0}
+
+/* ---- quizg : lisible ET contenu (question pleine largeur, blocs 2×2) ---- */
+.qzg-wrap{margin-top:8px}
+.qzg-wrap .qz{padding:5px 0}
+.qzg .qz-q{font-size:15px;line-height:1.32;font-weight:640}
+.qzg .qz-opts{gap:8px;margin-top:8px}
+.qzg .qz-o{min-height:0;padding:8px 12px;font-size:12px;line-height:1.32;border-radius:11px}
+.qzg .qz-l{width:21px;height:21px;font-size:9px}
+.qzg .qz-fb{display:block;visibility:hidden;min-height:36px;font-size:12px;line-height:1.38;margin-top:5px}
+.qzg .qz-fb.on{visibility:visible}
+.qzg-bar{margin-top:8px}
+.s-quizg .foot{padding-top:9px}
 
 /* ---- panneau piloté lv-* : expérience guidée (xp) + avant/après (ab) ---- */
 .lv-panel{border:1px solid var(--line);border-radius:18px;background:var(--white);
@@ -660,7 +673,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 .chart-box svg{width:100%;height:100%;display:block}
 
 /* ---- excal : encarts Excel / Copilot ---- */
-.xc-grid{display:grid;gap:16px;margin-top:18px;flex:1;min-height:0;align-content:start}
+.xc-grid{display:grid;gap:12px;margin-top:14px;flex:1;min-height:0;align-content:start}
 .xc-h{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.2em;
   text-transform:uppercase;display:block;margin-bottom:10px}
 .xc-excel{border-radius:18px;background:var(--card-n);color:var(--body-n);padding:20px 24px;
@@ -683,9 +696,273 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   padding:10px 14px;margin-top:10px}
 .xc-ph{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--cap);display:block;margin-bottom:4px}
-.xc-pr p{font-style:italic;font-size:13.5px;line-height:1.5;color:var(--ink)}
+.xc-pr p{font-style:italic;font-size:12.4px;line-height:1.42;color:var(--ink)}
 .xc-warn{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.14em;
   text-transform:uppercase;color:#B45309;margin-top:14px}
+
+
+/* ---- s-formateur · slide formateur nuit typographique (médaillon gradient) ---- */
+#s-formateur .fo-glow{position:absolute;right:-220px;top:-260px;width:720px;height:720px;
+  border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.26),rgba(37,99,235,.09) 55%,transparent 72%)}
+#s-formateur .fo-glow2{position:absolute;left:-260px;bottom:-320px;width:640px;height:640px;
+  border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.18),transparent 70%)}
+#s-formateur .fo-band{display:flex;align-items:center;gap:30px;margin-top:26px}
+#s-formateur .fo-med{flex:none;width:116px;height:116px;border-radius:50%;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;
+  font-size:45px;color:#fff;letter-spacing:.02em;box-shadow:0 18px 50px -12px rgba(124,58,237,.55)}
+#s-formateur .fo-name{font-family:'Instrument Serif',serif;font-size:47px;line-height:1.05;
+  color:var(--ink-n);letter-spacing:-0.01em}
+#s-formateur .fo-role{font-family:'Fragment Mono',monospace;font-size:11.5px;letter-spacing:.22em;
+  text-transform:uppercase;margin-top:10px;background:var(--gradn);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+#s-formateur .fo-hook{font-size:16px;line-height:1.58;color:var(--body-n);margin-top:11px;max-width:860px}
+#s-formateur .fo-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:46px;flex:1;min-height:0;margin-top:24px}
+#s-formateur .fo-lab{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--cap-n);margin-bottom:4px}
+#s-formateur .fo-rows{display:flex;flex-direction:column}
+#s-formateur .fo-row{display:grid;grid-template-columns:282px 1fr;gap:18px;align-items:baseline;
+  padding:9.5px 2px;border-top:1px solid var(--line-n)}
+#s-formateur .fo-row:last-child{border-bottom:1px solid var(--line-n)}
+#s-formateur .fo-row b{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:15px;
+  color:var(--ink-n);letter-spacing:-0.005em}
+#s-formateur .fo-row span{font-size:13.2px;line-height:1.48;color:var(--body-n)}
+#s-formateur .fo-right{display:flex;flex-direction:column}
+#s-formateur .fo-pills{display:flex;flex-wrap:wrap;gap:8px}
+#s-formateur .fo-pills span{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-n);border:1px solid var(--line-n);border-radius:999px;
+  padding:7px 13px;background:rgba(148,163,184,.06)}
+#s-formateur .fo-ped{border:1px solid var(--line-n);border-radius:16px;padding:17px 20px;background:var(--card-n)}
+#s-formateur .fo-ped p{font-size:13.6px;line-height:1.58;color:var(--body-n)}
+#s-formateur .fo-ped p+p{margin-top:7px}
+#s-formateur .fo-ped b{color:var(--ink-n);font-weight:600}
+
+
+
+/* ---- pré-module organisme (règles reprises du deck Initiation à l'IA) ---- */
+/* ---- complément design 3 points + catalogue (deck consolidé Initiation IA) ---- */
+.cat-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:40px;margin-top:22px;flex:1;min-height:0}
+.coord{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  color:var(--cap);white-space:nowrap}
+.dotp{width:7px;height:7px;border-radius:50%;background:var(--grad);flex:none}
+.g-kick{position:relative;font-family:'Fragment Mono',monospace;font-size:10px;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cap-n)}
+.g-later{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;white-space:nowrap;color:var(--cap-n);border:1px solid var(--line-n);
+  border-radius:999px;padding:6px 12px}
+.g-note-sm{position:relative;font-size:13.5px;color:var(--cap-n);margin-top:auto;padding-top:14px}
+.g-note-sm b{color:var(--body-n);font-weight:510}
+.g-row{position:relative;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:12px 2px;border-top:1px solid var(--line-n);flex:1 1 0;min-height:0}
+.g-row:first-of-type{border-top:0}
+.g-row .nm{display:flex;align-items:baseline;gap:16px;font-size:19px;font-weight:420;color:var(--body-n)}
+.g-row .nm .rn{font-family:'Instrument Serif',serif;font-size:22px;color:var(--cap-n)}
+.g-row .nm small{display:block;font-size:12.5px;color:var(--cap-n);margin-top:3px;font-weight:380}
+.g-row.onx .nm{color:var(--ink-n);font-weight:510}
+.g-title{position:relative;font-family:'Instrument Sans',sans-serif;font-weight:620;
+  font-size:20px;line-height:1.3;color:var(--ink-n);margin:9px 0 14px;letter-spacing:-0.008em}
+.gamme{position:relative;border-radius:18px;background:var(--card-n);color:var(--body-n);
+  padding:24px 30px;overflow:hidden;display:flex;flex-direction:column;margin-top:26px;flex:1;min-height:0}
+.gamme .gg{position:absolute;right:-120px;top:-140px;width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,.35),transparent 66%);pointer-events:none}
+.here{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;
+  margin-top:20px;padding:15px 22px;border:1px solid var(--line);border-radius:18px;background:var(--bg)}
+.here-badge{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
+  font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--blue);border:1px solid rgba(37,99,235,.28);border-radius:999px;padding:8px 15px}
+.here p{font-size:14.5px;line-height:1.55;color:var(--body)}
+.here p b{color:var(--ink);font-weight:600}
+.here .coord{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  color:var(--cap);white-space:nowrap}
+.nm{display:flex;align-items:baseline;gap:16px;font-size:19px;font-weight:420;color:var(--body-n)}
+.nm .rn{font-family:'Instrument Serif',serif;font-size:22px;color:var(--cap-n)}
+.nm small{display:block;font-size:12.5px;color:var(--cap-n);margin-top:3px;font-weight:380}
+.nm{color:var(--ink-n);font-weight:510}
+.nm{font-size:13px;color:var(--body)}
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.pill{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink);border:1px solid var(--line);
+  border-radius:999px;padding:8px 14px;background:var(--white)}
+.rowi{display:grid;grid-template-columns:64px 300px 1fr;gap:20px;align-items:baseline;
+  padding:15px 4px;border-top:1px solid var(--line)}
+.rowi:last-child{border-bottom:1px solid var(--line)}
+.rowi .rn{font-family:'Instrument Serif',serif;font-size:27px;color:var(--ter)}
+.rowi b{font-family:'Instrument Sans',sans-serif;font-weight:620;font-size:18px;
+  color:var(--ink);letter-spacing:-0.008em}
+.rowi p{font-size:15px;line-height:1.58;color:var(--body)}
+.rows{display:flex;flex-direction:column;margin-top:22px}
+
+.dotm{width:11px;height:11px;border-radius:50%;flex:none;background:var(--grad);
+  box-shadow:0 0 0 2.5px var(--white),0 0 0 3.5px var(--line)}
+.dotm.hq{width:15px;height:15px}
+.geo-grid{display:grid;grid-template-columns:1fr 392px;gap:48px;margin-top:14px;flex:1;min-height:0}
+.geo-lede{font-size:15px;line-height:1.6;color:var(--body);max-width:52ch}
+.geo-stats{display:flex;flex-direction:column;gap:15px;padding-top:4px}
+.geo-stats .stat2{border-top:1px solid var(--line);padding-top:12px}
+.geo-stats .sv{font-size:44px}
+.hq{width:15px;height:15px}
+.hq::before{width:15px;height:15px}
+.map-box{position:relative;width:392px}
+.map-box>svg{display:block;width:100%;height:auto}
+.map-hint{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ter)}
+.map-note{font-size:13.5px;line-height:1.55;color:var(--cap);border-top:1px solid var(--line);padding-top:13px}
+.map-note b{color:var(--ink);font-weight:600}
+.map-tip{position:absolute;z-index:12;width:max-content;min-width:200px;max-width:250px;
+  background:var(--white);border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 18px 44px -14px rgba(15,23,42,.3);padding:14px 16px 12px;
+  opacity:0;pointer-events:none;transform:translate(-50%,calc(-100% - 16px)) scale(.97);
+  transition:opacity .18s ease,transform .22s var(--ease)}
+.map-tip::before{content:"";position:absolute;top:0;left:16px;right:16px;height:3px;
+  border-radius:0 0 3px 3px;background:var(--grad)}
+.map-tip b{display:block;font-family:'Instrument Sans',sans-serif;font-weight:640;
+  font-size:14.5px;letter-spacing:-0.01em;color:var(--ink)}
+.map-tip .tr{display:block;font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ter);margin:4px 0 6px}
+.map-tip p{margin:0;font-size:12.5px;line-height:1.5;color:var(--body)}
+.mk{position:absolute;width:26px;height:26px;transform:translate(-50%,-50%);border:0;
+  background:transparent;padding:0;z-index:3}
+.mk::before{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;
+  transform:translate(-50%,-50%);background:var(--grad);
+  box-shadow:0 0 0 2.5px var(--white),0 3px 10px rgba(37,99,235,.4)}
+.mk::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;
+  transform:translate(-50%,-50%);border-radius:50%;
+  box-shadow:0 0 0 0 rgba(37,99,235,.4);animation:mkp 2.8s ease-out infinite}
+.mk.hq::before{width:15px;height:15px}
+.mk:hover::before,.mk:focus-visible::before{box-shadow:0 0 0 2.5px var(--white),0 0 0 5px rgba(124,58,237,.28),0 3px 12px rgba(37,99,235,.5)}
+.mk:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:50%}
+.mk-lab{position:absolute;font-family:'Fragment Mono',monospace;font-size:8px;letter-spacing:.08em;
+  text-transform:uppercase;color:#5F6C81;white-space:nowrap;pointer-events:none;transform:translateY(-50%);z-index:2}
+  function show(mk){
+    open=mk;
+  }
+  });
+  }
+.stat2 .sv{font-family:'Instrument Serif',serif;font-size:62px;line-height:1;color:var(--ink)}
+.stat2 .sv em{font-style:normal;background:var(--grad);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.stat2 .sl{font-size:14px;color:var(--cap);margin-top:7px}
+.stat2{border-top:1px solid var(--line);padding-top:12px}
+.stats2{display:flex;gap:44px}
+.ref{display:flex;gap:12px;align-items:flex-start}
+.ref .rl{height:23px;width:auto;max-width:78px;object-fit:contain;flex:none;margin-top:1px}
+.ref-t{flex:1;min-width:0}
+.refgrp{margin-top:8px}
+.refgrp+.refgrp{margin-top:8px}
+.ref{border-bottom:1px solid var(--line);padding:5px 0 6px}
+.ref b{display:block;font-family:'Instrument Sans',sans-serif;font-weight:620;
+  font-size:14.3px;letter-spacing:-0.008em;color:var(--ink)}
+.ref p{margin:2px 0 0;font-size:12px;line-height:1.42;color:var(--cap)}
+.rg-c{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:16px;color:var(--ter)}
+.rg-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 44px}
+.rg-h{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  border-bottom:1px solid var(--ink);padding-bottom:4px}
+.rg-h .rg-t{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink)}
+.rg-h .rg-c{font-family:'Instrument Sans',sans-serif;font-weight:640;font-size:16px;color:var(--ter)}
+.rg-t{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink)}
+.rl2{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:#BFD3FE;display:block;margin-bottom:8px}
+.rl{height:23px;width:auto;max-width:78px;object-fit:contain;flex:none;margin-top:1px}
+.legend{display:flex;flex-direction:column;gap:9px;border-top:1px solid var(--line);padding-top:13px}
+.leg{display:flex;align-items:center;gap:11px;font-family:'Fragment Mono',monospace;
+  font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--cap)}
+.slide{position:absolute;inset:0;background:var(--white);opacity:0;visibility:hidden;
+  transition:opacity .42s var(--ease),visibility 0s linear .42s;overflow:hidden}
+.slide.on{opacity:1;visibility:visible;transition:opacity .42s var(--ease)}
+.slide .rail{position:relative;z-index:2;height:100%;padding:50px 72px 42px;display:flex;flex-direction:column}
+.slide.night{background:var(--night);color:var(--body-n)}
+.slide.night::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.05;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")}
+.slide.night .kick{color:var(--cap-n)}
+.slide.night h2{color:var(--ink-n)}
+.slide.night .gw{background:var(--gradn);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+.slide.night .lede{color:var(--body-n)}
+.slide.night .lede b{color:var(--ink-n)}
+.slide.night .pt p{color:var(--body-n)}
+.slide.night .pt p b{color:var(--ink-n)}
+.slide.night .foot{border-top-color:var(--line-n);color:var(--cap-n)}
+.slide.night ::selection{background:rgba(167,139,250,.3)}
+.slide.on .reveal{opacity:1;transform:none}
+.slide.instant .reveal{transition-duration:0s;transition-delay:0s}
+.slide.night .pause-note{border-color:var(--cap-n);color:var(--cap-n)}
+.slide.night .pause-note::before{border-color:var(--cap-n)}
+.slide.on .circle{opacity:1;transform:scale(1)}
+.slide.instant .circle{transition:none}
+.slide{transition:none}
+.sl{font-size:14px;color:var(--cap);margin-top:7px}
+  var cur=-1;
+
+  function fit(){
+    var s=Math.min(window.innerWidth/1280, window.innerHeight/720);
+    stage.style.transform='translate(-50%,-50%) scale('+s+')';
+  }
+.slice.call(dots.children);
+
+  function pad(n){return (n<10?'0':'')+n;}
+      if(c.classList.contains('act')){
+        c.classList.remove('act');c.classList.add('done');
+        pause();
+      }
+  function show(mk){
+    open=mk;
+  }
+  var pans={
+  }
+.sv{font-family:'Instrument Serif',serif;font-size:62px;line-height:1;color:var(--ink)}
+.sv em{font-style:normal;background:var(--grad);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.sv{font-size:44px}
+.tr{display:block;font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ter);margin:4px 0 6px}
+.transform='translate(-50%,-50%) scale('+s+')';
+  }
+
+    d.className='dot'; d.type='button';
+    d.setAttribute('aria-label','Slide '+(i+1));
+.trap){
+        sp.setAttribute('data-trap',seg.trap);
+        if(!firstTrapDone&&w!==''){sp.classList.add('tp-first');firstTrapDone=true;}
+  function show(mk){
+    open=mk;
+  }
+.transform='rotate(-32deg)';
+  }
+  function done(){
+  }
+.transform='rotate('+STEPS[idx]+'deg)';
+    }
+  }
+  function start(){
+    if(playing)return;
+    if(idx>=PTS.length)reset();
+    iv=setInterval(step,240);
+  }
+
+
+/* ================= LISIBILITÉ (passe finale, 10/09) ================= */
+/* contenu « roomy » : répartition verticale quand la slide est peu dense */
+.roomy .rail{justify-content:flex-start}
+.roomy .lede{font-size:17.5px;line-height:1.66;margin-top:16px}
+.roomy .pts{margin-top:auto;margin-bottom:auto;display:flex;flex-direction:column;gap:26px}
+.roomy .pt{padding:10px 2px}
+.roomy .pt .pb p{font-size:15.5px;line-height:1.58}
+.roomy .pt .pb .psub{font-size:12.8px;margin-top:4px;line-height:1.5}
+.roomy .pt .pn{font-size:19px;width:40px}
+.roomy .keycard{margin-top:18px}
+/* atelier : descriptions de tâches LISIBLES (fini le mono 8px en capitales) */
+.pcard .ps{font-family:'Inter',system-ui,sans-serif;font-weight:380;font-size:11.8px;
+  letter-spacing:normal;text-transform:none;line-height:1.5;color:var(--body);margin-top:6px}
+.pcard{padding:15px 18px}
+.pcard .pn{font-size:15.5px}
+.t-lab{font-family:'Inter',system-ui,sans-serif;font-size:11.5px;font-weight:500;
+  letter-spacing:normal;text-transform:none;line-height:1.5;margin-top:12px}
+/* scénario : conséquences un peu plus lisibles */
+.posc .pos-c{font-size:13.8px;line-height:1.55}
+/* xp : statut et légende plus lisibles */
+.lv-status,.lv-count{font-size:10px}
+.lv-leg{font-size:10px}
 
 </style>
 </head>
@@ -700,10 +977,10 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
   <div class="hairline"></div>
   
   <div class="rail">
-    <div class="toprow"><span class="kick">Jour 1 · 09h30 - 12h30 · apports puis diagnostic</span><span class="pgr">01 · 18</span></div>
+    <div class="toprow"><span class="kick">Jour 1 · 09h33-12h30 · apports, expériences, diagnostics</span><span class="pgr">01 · 21</span></div>
     <div class="sec-mid">
       <h2 class="reveal" style="--i:0">Module 1 · Enjeux et fondamentaux de la prévision</h2>
-      <p class="sec-sub reveal" style="--i:1">Pourquoi prévoir, à quel horizon, à quelle maille — et ce que l&#x27;erreur coûte vraiment, en produits comme en flux de services.</p>
+      <p class="sec-sub reveal" style="--i:1">Pourquoi prévoir, à quel horizon, à quelle maille, avec qui — et ce que l&#x27;erreur coûte vraiment, en produits comme en flux de services.</p>
     </div>
     <div class="cover-foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
@@ -711,29 +988,43 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 <!-- 02 · CONTENU -->
 <section class="slide dense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 1 · Enjeux</span><span class="pgr">02 · 18</span></div>
+    <div class="toprow"><span class="kick">Module 1 · Enjeux</span><span class="pgr">02 · 21</span></div>
     <h2>Pourquoi prévoir : <span class="gw">l&#x27;erreur se paie toujours deux fois</span></h2>
     <p class="lede reveal" style="--i:0">Toute décision d&#x27;approvisionnement, de capacité ou d&#x27;effectif est un pari sur l&#x27;avenir : on commande, on dimensionne et on recrute <b>avant</b> de connaître la demande. Quand le pari est raté, la facture arrive des deux côtés — et elle peut arriver des deux côtés en même temps.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Côté <b>rupture</b> : ventes perdues, service client dégradé, expéditions urgentes — le cabinet IHL Group évalue à environ <b>1 770 Md$</b> les ventes perdues en 2023 dans le retail mondial du fait des ruptures de stock (estimation à confirmer, qui donne l&#x27;échelle du phénomène).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Côté <b>surstock</b> : le coût de possession d&#x27;un stock (capital immobilisé, stockage, assurance, obsolescence) représente usuellement <b>20 % à 30 % de sa valeur par an</b> — ordre de grandeur des référentiels supply chain (ASCM).</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>En distribution pharmaceutique, la rupture est un <b>régime permanent</b> : environ <b>400 présentations de médicaments</b> étaient en rupture de stock en France au 31 décembre 2024, en recul après trois années de hausse des tensions (DREES, 2025).</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Transposition flux de services : la rupture devient du <b>backlog</b> (dossiers en attente, appels abandonnés) et le surstock devient du <b>sureffectif</b> — la capacité non utilisée ne se stocke pas, elle se paie qu&#x27;elle serve ou non.</p><p class="psub">Chez ALTÉA Prévoyance : plus de 1 400 dossiers de retard, c&#x27;est l&#x27;équivalent « services » d&#x27;une rupture de stock.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Le <b>taux de service</b> résulte du couple précision de prévision × stock de sécurité : à stock égal, toute amélioration de précision se convertit en points de service ; à service égal, en baisse de stock.</p></div></div></div>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Côté <b>rupture</b> : ventes perdues, service client dégradé, expéditions urgentes — en distribution pharmaceutique, environ <b>400 présentations de médicaments</b> étaient en rupture de stock en France au 31 décembre 2024 (DREES, 2025).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Côté <b>surstock</b> : le coût de possession (capital immobilisé, stockage, assurance, obsolescence) est usuellement estimé entre <b>20 % et 30 % de la valeur du stock par an</b> — ordre de grandeur des référentiels supply chain, à recaler avec vos propres coûts (ASCM).</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>En pharma, le taux de service n&#x27;est pas un objectif flexible : l&#x27;<b>obligation de service public</b> (art. L5124-17-2 CSP) impose d&#x27;approvisionner en continu toutes les officines du territoire — la précision de prévision est une exigence réglementaire autant qu&#x27;économique.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Transposition flux de services : la rupture devient du <b>backlog</b> (dossiers en attente, appels abandonnés) et le surstock devient du <b>sureffectif</b> — la capacité non utilisée ne se stocke pas, elle se paie qu&#x27;elle serve ou non.</p><p class="psub">Chez ALTÉA Prévoyance : plus de 1 400 dossiers de retard, c&#x27;est l&#x27;équivalent « services » d&#x27;une rupture de stock.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Le <b>taux de service</b> résulte du couple précision de prévision × stock de sécurité : à stock égal, toute amélioration de précision se convertit en points de service ; à service égal, en baisse de stock.</p></div></div></div>
     <div class="keycard reveal" style="--i:5"><span class="kl">Repère 2025</span><p>Environ 400 présentations de médicaments en rupture de stock en France au 31/12/2024, après une hausse des tensions de 2021 à 2023 (DREES, Études et Résultats n° 1335, mars 2025).</p></div>
-    <div class="foot"><span>DREES, Études et Résultats n° 1335 (2025) · ASCM · IHL Group (2023, à confirmer)</span><span>Akademia Formation</span></div>
+    <div class="foot"><span>DREES, Études et Résultats n° 1335 (2025) · art. L5124-17-2 CSP · ASCM (ordre de grandeur)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 03 · CONTENU -->
-<section class="slide">
+<!-- 03 · GRAPHIQUE -->
+<section class="slide s-chart">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 1 · Enjeux</span><span class="pgr">03 · 18</span></div>
-    <h2>La prévision au cœur de la chaîne de décision</h2>
+    <div class="toprow"><span class="kick">Module 1 · Lire une série — atelier du regard</span><span class="pgr">03 · 21</span></div>
+    <h2>24 mois de ventes de l&#x27;antigrippal « R » (NOVADIS) : <span class="gw">que voyez-vous ?</span></h2>
+    <p class="lede reveal" style="--i:0">Avant tout déroulé : 60 secondes pour observer en silence, puis écrivez au chat — 1 motif récurrent, 1 accident, 1 question que cette série vous pose.</p>
+    <div class="chart-wrap reveal" style="--i:1">
+      <div class="chart-legend"><span class="cl"><i style="background:#2563EB"></i>Ventes référence R (k boîtes / mois)</span></div>
+      <div class="chart-box"><svg viewBox="0 0 1160 400" role="img"><line x1="64" y1="356.0" x2="1144" y2="356.0" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="360.0" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">0</text><line x1="64" y1="272.5" x2="1144" y2="272.5" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="276.5" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">25</text><line x1="64" y1="189.0" x2="1144" y2="189.0" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="193.0" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">50</text><line x1="64" y1="105.5" x2="1144" y2="105.5" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="109.5" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">75</text><line x1="64" y1="22.0" x2="1144" y2="22.0" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="26.0" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">100</text><text x="86.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">janv. 25</text><text x="131.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">févr. 25</text><text x="176.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">mars 25</text><text x="221.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">avr. 25</text><text x="266.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">mai 25</text><text x="311.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">juin 25</text><text x="356.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">juil. 25</text><text x="401.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">août 25</text><text x="446.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">sept. 25</text><text x="491.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">oct. 25</text><text x="536.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">nov. 25</text><text x="581.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">déc. 25</text><text x="626.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">janv. 26</text><text x="671.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">févr. 26</text><text x="716.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">mars 26</text><text x="761.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">avr. 26</text><text x="806.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">mai 26</text><text x="851.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">juin 26</text><text x="896.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">juil. 26</text><text x="941.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">août 26</text><text x="986.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">sept. 26</text><text x="1031.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">oct. 26</text><text x="1076.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">nov. 26</text><text x="1121.5" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">déc. 26</text><line x1="356.5" y1="22" x2="356.5" y2="356" stroke="#DC2626" stroke-width="1.2" stroke-dasharray="5 4"/><text x="362.5" y="34" font-family="Fragment Mono" font-size="10" fill="#DC2626">campagne marketing (+12 %)</text><line x1="401.5" y1="22" x2="401.5" y2="356" stroke="#DC2626" stroke-width="1.2" stroke-dasharray="5 4"/><text x="407.5" y="49" font-family="Fragment Mono" font-size="10" fill="#DC2626">campagne marketing (suite)</text><line x1="761.5" y1="22" x2="761.5" y2="356" stroke="#DC2626" stroke-width="1.2" stroke-dasharray="5 4"/><text x="767.5" y="34" font-family="Fragment Mono" font-size="10" fill="#DC2626">rupture fournisseur · zéro vente</text><line x1="896.5" y1="22" x2="896.5" y2="356" stroke="#DC2626" stroke-width="1.2" stroke-dasharray="5 4"/><text x="902.5" y="49" font-family="Fragment Mono" font-size="10" fill="#DC2626">lancement adjacent · cannibalisation −8 %</text><line x1="64" y1="180.7" x2="1144" y2="180.7" stroke="#F59E0B" stroke-width="1.4" stroke-dasharray="7 5"/><text x="1140" y="174.7" text-anchor="end" font-family="Fragment Mono" font-size="10" fill="#B45309">moyenne 52,5 k</text><polyline points="86.5,61.4 131.5,79.1 176.5,162.3 221.5,194.0 266.5,208.0 311.5,240.1 356.5,271.2 401.5,262.1 446.5,227.4 491.5,184.7 536.5,112.2 581.5,56.4 626.5,32.0 671.5,76.1 716.5,153.3 761.5,356.0 806.5,209.0 851.5,234.8 896.5,287.5 941.5,270.5 986.5,241.8 1031.5,189.3 1076.5,143.2 1121.5,84.1" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="86.5" cy="61.4" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="131.5" cy="79.1" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="176.5" cy="162.3" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="221.5" cy="194.0" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="266.5" cy="208.0" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="311.5" cy="240.1" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="356.5" cy="271.2" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="401.5" cy="262.1" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="446.5" cy="227.4" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="491.5" cy="184.7" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="536.5" cy="112.2" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="581.5" cy="56.4" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="626.5" cy="32.0" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="671.5" cy="76.1" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="716.5" cy="153.3" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="761.5" cy="356.0" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="806.5" cy="209.0" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="851.5" cy="234.8" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="896.5" cy="287.5" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="941.5" cy="270.5" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="986.5" cy="241.8" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="1031.5" cy="189.3" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="1076.5" cy="143.2" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="1121.5" cy="84.1" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><text x="64" y="14" font-family="Fragment Mono" font-size="10" fill="#94A3B8">k boîtes / mois</text></svg></div>
+    </div>
+    <div class="keycard reveal" style="--i:2"><span class="kl">Ce que l&#x27;œil entraîné doit voir</span><p>Une saisonnalité multiplicative (pic décembre-janvier, creux juillet), une tendance légèrement haussière — et 3 événements qui ne sont PAS de la demande : campagne (+12 %), rupture (zéro vente), cannibalisation (−8 %).</p></div>
+    <div class="foot"><span>Données pédagogiques construites NOVADIS (série figée 2025-2026)</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 04 · CONTENU -->
+<section class="slide dense">
+  <div class="rail">
+    <div class="toprow"><span class="kick">Module 1 · Enjeux</span><span class="pgr">04 · 21</span></div>
+    <h2>La prévision alimente toute la chaîne de décision</h2>
     <p class="lede reveal" style="--i:0">Une prévision n&#x27;a de valeur que par les décisions qu&#x27;elle déclenche. La même « demande prévue » descend en cascade vers l&#x27;approvisionnement, la capacité et les effectifs — et chaque maillon hérite de l&#x27;erreur du précédent.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Côté produits : la <b>prévision de demande</b> alimente le <b>plan d&#x27;approvisionnement</b>, les <b>stocks</b>, la <b>capacité logistique</b> et les <b>achats</b> — une erreur de 10 % en amont se retrouve en ruptures ou en surstocks en aval.</p><p class="psub">Exemple NOVADIS : 8 500 références actives et 3 entrepôts — chaque prévision référence déclenche commandes fournisseurs et répartitions régionales.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Côté services : la prévision de <b>flux entrants</b> se convertit en <b>charge</b> (volume × temps de traitement), puis en <b>besoin en effectifs</b>, puis en <b>plan de recrutement</b> — la cascade du workforce management (Gans, Koole, Mandelbaum, 2003).</p><p class="psub">Exemple ALTÉA : à 45 min par dossier, 1 000 dossiers prévus en plus représentent 750 heures de charge à couvrir.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Une seule prévision de demande doit alimenter <b>supply, finance et RH</b> : c&#x27;est le principe du <b>one-number forecast</b> — sinon chaque fonction planifie sur son propre chiffre.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Le <b>budget commercial n&#x27;est pas une prévision</b> : c&#x27;est un objectif ; si la cible pilote la prévision, stocks et effectifs suivent l&#x27;espoir, pas la demande.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Une prévision se juge à la <b>décision qu&#x27;elle éclaire</b> : prévoir finement ce qu&#x27;on ne peut plus influencer n&#x27;a pas de valeur — l&#x27;horizon doit couvrir le délai d&#x27;action.</p></div></div></div>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Côté produits : la <b>prévision de demande</b> alimente le <b>plan d&#x27;approvisionnement</b>, les <b>stocks</b>, la <b>capacité logistique</b> et les <b>achats</b> — une erreur de 10 % en amont se retrouve en ruptures ou en surstocks en aval.</p><p class="psub">Exemple NOVADIS : 8 500 références actives et 3 entrepôts — chaque prévision référence déclenche commandes fournisseurs et répartitions régionales.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Côté services : la prévision de <b>flux entrants</b> se convertit en <b>charge</b> (volume × temps de traitement), puis en <b>besoin en effectifs</b>, puis en <b>plan de recrutement</b> — la cascade du workforce management (Gans, Koole, Mandelbaum, 2003).</p><p class="psub">Exemple ALTÉA : à 45 min par dossier, 1 000 dossiers prévus en plus représentent 750 heures de charge à couvrir.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Une seule prévision de demande doit alimenter <b>supply, finance et RH</b> : c&#x27;est le principe du <b>one-number forecast</b> — sinon chaque fonction planifie sur son propre chiffre (méthodologie Oliver Wight).</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Le <b>budget commercial n&#x27;est pas une prévision</b> : c&#x27;est un objectif ; si la cible pilote la prévision, stocks et effectifs suivent l&#x27;espoir, pas la demande.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Une prévision se juge à la <b>décision qu&#x27;elle éclaire</b> : prévoir finement ce qu&#x27;on ne peut plus influencer n&#x27;a pas de valeur — l&#x27;horizon doit couvrir le délai d&#x27;action (Armstrong, 2001).</p></div></div></div>
     <div class="keycard reveal" style="--i:5"><span class="kl">À retenir</span><p>Prévision = intrant de décision. Une seule prévision de demande pour toute l&#x27;entreprise ; le budget est un objectif, pas une prévision.</p></div>
     <div class="foot"><span>Oliver Wight (méthodologie S&amp;OP) · Gans et al., M&amp;SOM (2003) · Armstrong (2001)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 04 · TABLE -->
+<!-- 05 · TABLE -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 1 · Fondamentaux</span><span class="pgr">04 · 18</span></div>
+    <div class="toprow"><span class="kick">Module 1 · Fondamentaux</span><span class="pgr">05 · 21</span></div>
     <h2>Trois horizons de prévision, trois usages</h2>
     <div class="tblwrap">
       <table class="tbl">
@@ -746,32 +1037,54 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <div class="foot"><span>Armstrong, Principles of Forecasting (2001) · Gans et al. (2003) · pratiques WFM</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 05 · CONTENU -->
+<!-- 06 · CONTENU -->
 <section class="slide dense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 1 · Fondamentaux</span><span class="pgr">05 · 18</span></div>
-    <h2>La maille de prévision : <span class="gw">prévoir au bon niveau d&#x27;agrégation</span></h2>
-    <p class="lede reveal" style="--i:0">On ne prévoit jamais « la demande » en général : on prévoit un croisement de dimensions — produit, client, géographie, temps. Le choix de ce croisement conditionne à la fois la précision obtenue et l&#x27;usage possible du résultat.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Quatre dimensions se croisent : <b>produit</b> (référence › famille › portefeuille), <b>client</b> (compte › canal › marché), <b>géographie</b> (site › région › national) et <b>temps</b> (jour › semaine › mois).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Chaque usage a sa maille : réassort = <b>référence × site × semaine</b> ; S&amp;OP = <b>famille × région × mois</b> ; plan stratégique = <b>segment × année</b>.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Règle de choix : <b>prévoir à la maille de la décision</b>, puis agréger ou désagréger pour les autres niveaux — les prévisions hiérarchiques réconcilient formellement les niveaux entre eux (Hyndman et al., 2011).</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Prévoir <b>trop fin</b> dégrade la précision (le bruit domine) ; prévoir <b>trop grossier</b> rend le résultat inutilisable pour l&#x27;exécution — on paie le bruit sans en tirer le service.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Transposition flux de services : la référence devient le <b>type de flux</b> (appel, e-mail, dossier), la famille le <b>métier</b> (remboursements, tiers payant), la région l&#x27;<b>établissement</b> — avec une maille <b>intra-journalière</b> (tranches de 15/30 min) sans équivalent produit.</p><p class="psub">Pratique WFM : 48 intervalles de 30 minutes dessinent la courbe de charge d&#x27;une journée de plateforme.</p></div></div></div>
+    <div class="toprow"><span class="kick">Module 1 · Fondamentaux</span><span class="pgr">06 · 21</span></div>
+    <h2>Maille et agrégation : <span class="gw">prévoir au niveau fiable, exécuter au niveau fin</span></h2>
+    <p class="lede reveal" style="--i:0">On ne prévoit jamais « la demande » en général : on prévoit un croisement de dimensions. Le choix de ce croisement conditionne à la fois la précision obtenue et l&#x27;usage possible du résultat.</p>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Quatre dimensions se croisent : <b>produit</b> (référence › famille › portefeuille), <b>client</b> (compte › canal › marché), <b>géographie</b> (site › région › national) et <b>temps</b> (jour › semaine › mois).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Chaque usage a sa maille : réassort = <b>référence × site × semaine</b> ; S&amp;OP = <b>famille × région × mois</b> ; plan stratégique = <b>segment × année</b>.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Règle de choix : <b>prévoir à la maille de la décision</b>, puis agréger ou désagréger pour les autres niveaux — les prévisions hiérarchiques réconcilient formellement les niveaux entre eux (Hyndman et al., 2011).</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Prévoir <b>trop fin</b> dégrade la précision (le bruit domine) ; prévoir <b>trop grossier</b> rend le résultat inutilisable pour l&#x27;exécution — on prévoit au niveau agrégé (fiable) et on désagrège par coefficients de mix, jamais l&#x27;inverse.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Transposition flux de services : la référence devient le <b>type de flux</b> (appel, e-mail, dossier), la famille le <b>métier</b> (remboursements, tiers payant), la région l&#x27;<b>établissement</b> — avec une maille <b>intra-journalière</b> (tranches de 15/30 min, 48 intervalles par jour) sans équivalent produit.</p><p class="psub">Pratique WFM : 48 intervalles de 30 minutes dessinent la courbe de charge d&#x27;une journée de plateforme.</p></div></div></div>
     <div class="keycard reveal" style="--i:5"><span class="kl">Le réflexe</span><p>Avant de prévoir, demandez : quelle décision va utiliser ce chiffre, à quel niveau de détail ? C&#x27;est cette réponse qui fixe la maille.</p></div>
     <div class="foot"><span>Oliver Wight · Hyndman et al., CSDA (2011) · Gans et al. (2003) · WFM Labs</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 06 · CONTENU -->
-<section class="slide">
+<!-- 07 · EXPÉRIENCE GUIDÉE -->
+<section class="slide s-xp" data-xp="xp6">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 1 · Fondamentaux</span><span class="pgr">06 · 18</span></div>
-    <h2>L&#x27;erreur de prévision : <span class="gw">inévitable, mais maîtrisable</span></h2>
-    <p class="lede reveal" style="--i:0">Une prévision est toujours fausse — la question est de combien, et avec quel pilotage. Deux leviers structurels réduisent l&#x27;erreur sans aucun modèle sophistiqué : distinguer les types d&#x27;aléa, et exploiter l&#x27;effet de l&#x27;agrégation.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Distinguer la <b>variabilité</b> (aléa mesurable autour d&#x27;un niveau stable, qui se compense en agrégeant) de l&#x27;<b>incertitude</b> (événements, ruptures de série, qui se traite par scénarios et jugement structuré).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>Effet de l&#x27;<b>agrégation</b> : pour n demandes indépendantes de même écart-type, l&#x27;écart-type du total ne croît qu&#x27;en <b>racine de n</b> — regrouper 16 références donne un écart-type total 4 fois celui d&#x27;une référence, et non 16 fois (Eppen, 1979).</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Conséquence mesurable : la MAPE « naturelle » d&#x27;une prévision <b>famille × mois</b> est structurellement plus basse que celle d&#x27;une prévision <b>référence × semaine</b> — comparer des MAPE entre mailles différentes n&#x27;a aucun sens.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>La bonne pratique : prévoir au niveau <b>agrégé</b> (fiable), puis <b>désagréger</b> avec des coefficients de mix et des profils — les compétitions M (M4, 2018 ; M5, 2022) confirment la robustesse des méthodes simples et des combinaisons.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Nuance de terrain : l&#x27;agrégation gomme le <b>mix</b> — deux produits aux saisonnalités opposées font un total très plat… et deux problèmes cachés.</p><p class="psub">Chez ALTÉA : un total plateforme stable peut masquer un établissement en tension pendant qu&#x27;un autre est en sureffectif.</p></div></div></div>
-    <div class="keycard reveal" style="--i:5"><span class="kl">Repère statistique</span><p>16 références indépendantes regroupées : écart-type de la demande totale = racine de 16 = 4 fois celui d&#x27;une référence — le stock de sécurité suit le même rapport (Eppen, Management Science, 1979).</p></div>
-    <div class="foot"><span>Eppen, Management Science (1979) · Armstrong (2001) · IJF, compétitions M4 (2018) / M5 (2022)</span><span>Akademia Formation</span></div>
+    <div class="toprow"><span class="kick">Module 1 · Expérience pilotée — le risk pooling en direct</span><span class="pgr">07 · 21</span></div>
+    <h2>L&#x27;agrégation en direct : <span class="gw">16 références, une seule famille</span></h2>
+    <div class="xp-pills reveal" style="--i:0"><span class="abp cur">1 · Vos intuitions</span><span class="abp">2 · La loi racine de n</span><span class="abp">3 · Le stock NOVADIS</span><span class="abp">4 · Débrief</span></div>
+    <div class="lv-panel xp-panel reveal" style="--i:1">
+      <div class="lv-head">
+        <span class="lv-status" data-xp-status></span>
+        <span class="lv-count" data-xp-count></span>
+      </div>
+      <div class="xp-prog"><i data-xp-fill></i></div>
+      <div class="lv-stage" data-xp-stage></div>
+      <div class="lv-foot">
+        <span class="lv-leg" data-xp-leg></span>
+        <button type="button" class="lvb" data-xp-reset>Rejouer</button>
+        <button type="button" class="lvb prim" data-xp-go></button>
+      </div>
+    </div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 07 · ÉTAPES -->
-<section class="slide s-steps" data-steps="st6">
+<!-- 08 · CONTENU -->
+<section class="slide dense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 1 · Effet coup de fouet — série pédagogique construite</span><span class="pgr">07 · 18</span></div>
+    <div class="toprow"><span class="kick">Module 1 · Fondamentaux</span><span class="pgr">08 · 21</span></div>
+    <h2>L&#x27;erreur de prévision : <span class="gw">inévitable, mesurable, pilotable</span></h2>
+    <p class="lede reveal" style="--i:0">Une prévision est toujours fausse — la question est de combien, pour quelle cause, et avec quel pilotage. Deux sortes d&#x27;aléa n&#x27;appellent pas la même réponse.</p>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>La <b>variabilité</b> : un aléa mesurable autour d&#x27;un niveau stable — elle se réduit par l&#x27;<b>agrégation</b> (loi racine de n) et se couvre par le stock de sécurité ou le coussin de capacité.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>L&#x27;<b>incertitude</b> : événements, ruptures de série (campagne, rupture fournisseur, réforme de remboursement) — elle se traite par <b>scénarios</b> et jugement structuré, pas par la statistique seule.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>La MAPE « naturelle » dépend de la maille : une prévision <b>famille × mois</b> sera structurellement meilleure qu&#x27;une <b>référence × semaine</b> — comparer des MAPE entre mailles n&#x27;a aucun sens ; comparer à maille égale, ou rien.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>La sophistication n&#x27;est pas le premier levier : les compétitions M (référence mondiale de la prévision) montrent que les <b>méthodes simples et leurs combinaisons</b> restent difficiles à battre (M4, 2018) ; le machine learning ne gagne net que sur de très grands volumes granulaires (M5, 2022 : <b>42 840 séries</b> hiérarchiques).</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Transposition flux : un total plateforme stable peut masquer un établissement saturé — mesurer l&#x27;erreur <b>par flux et par établissement</b>, pas seulement au global.</p><p class="psub">Chez ALTÉA : 4 établissements, 4 productivités distinctes (de 15,6 à 18,4 dossiers/ETP/jour) — la moyenne groupe ne suffit pas à planifier.</p></div></div></div>
+    <div class="keycard reveal" style="--i:5"><span class="kl">À retenir</span><p>On ne supprime pas l&#x27;erreur, on la pilote : mesurer à la bonne maille, traiter la variabilité par l&#x27;agrégation, l&#x27;incertitude par les scénarios.</p></div>
+    <div class="foot"><span>Eppen (1979) · IJF, compétitions M4 (2018) / M5 (2022) · Armstrong (2001) · données ALTÉA construites</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 09 · ÉTAPES -->
+<section class="slide s-steps" data-steps="st8">
+  <div class="rail">
+    <div class="toprow"><span class="kick">Module 1 · Effet coup de fouet — série pédagogique construite</span><span class="pgr">09 · 21</span></div>
     <h2>L&#x27;effet coup de fouet : <span class="gw">+10 % chez le patient, le double à l&#x27;usine</span></h2>
     <div class="stgrid reveal" style="--i:0">
       <div class="stlist"><div class="stit"><span class="stn">01</span><span class="stt">Semaine 1 — la demande finale fait un pic</span></div><div class="stit"><span class="stn">02</span><span class="stt">Semaine 1 — la pharmacie sur-réagit</span></div><div class="stit"><span class="stn">03</span><span class="stt">Semaine 1 — le grossiste amplifie</span></div><div class="stit"><span class="stn">04</span><span class="stt">Semaine 1 — l&#x27;usine planifie le double</span></div><div class="stit"><span class="stn">05</span><span class="stt">Semaine 2 — le reflux en cascade</span></div><div class="stit"><span class="stn">06</span><span class="stt">Semaines 3 et 4 — résorption lente</span></div></div>
@@ -789,31 +1102,71 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <div class="foot"><span>Forrester, HBR (1958) · Lee et al., MIT SMR (1997) · Sterman, Management Science (1989)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 08 · DEUX MONDES -->
-<section class="slide">
+<!-- 10 · GRAPHIQUE -->
+<section class="slide s-chart">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 1 · Transposition services</span><span class="pgr">08 · 18</span></div>
-    <h2>Prévoir des produits vs prévoir des flux entrants</h2>
-    <div class="tc2"><div class="tcc reveal" style="--i:0"><h3>Produits — NOVADIS (distribution pharma)</h3><div class="tci"><span class="ta">›</span><p>La demande visible = <b>commandes des officines</b> (sell-in) ; la demande patient réelle (sell-out) reste masquée par le stock du canal.</p></div><div class="tci"><span class="ta">›</span><p>Le <b>stock</b> tamponne l&#x27;erreur : on peut constituer en amont des pics (grippe, allergies) — la capacité d&#x27;entrepôt, elle, se planifie.</p></div><div class="tci"><span class="ta">›</span><p>La rupture = vente perdue ou reportée, mesurée en <b>taux de service</b> ; l&#x27;obligation de service public (art. L5124-17-2 CSP) en fait une contrainte légale, pas un objectif flexible.</p></div><div class="tci"><span class="ta">›</span><p>Saisonnalité <b>épidémiologique et calendaire</b> : l&#x27;intensité varie d&#x27;une année sur l&#x27;autre — travailler en scénarios (saison faible / moyenne / forte).</p></div></div><div class="tcc reveal" style="--i:1"><h3>Flux entrants — ALTÉA (mutuelle santé)</h3><div class="tci"><span class="ta">›</span><p>La demande = appels et dossiers <b>offerts</b> ; les appels <b>traités</b> sous-comptent la demande quand des contacts abandonnent (demande censurée, comme les ventes sous rupture).</p></div><div class="tci"><span class="ta">›</span><p>La capacité <b>ne se stocke pas</b> : une heure de gestionnaire inutilisée est perdue ; le « stock » prend la forme d&#x27;un <b>backlog</b> de dossiers en attente.</p></div><div class="tci"><span class="ta">›</span><p>La rupture = files d&#x27;attente, délais de remboursement, abandons ; le service se mesure en <b>délai de réponse</b> (standard 80/20 : 80 % des appels en moins de 20 secondes).</p></div><div class="tci"><span class="ta">›</span><p>Saisonnalité <b>calendaire</b> forte : pic de début d&#x27;année (décomptes annuels, cartes de tiers payant), creux estival — indices observés de 0,75 à 1,35 sur l&#x27;année.</p></div></div></div>
-    <div class="keycard reveal" style="--i:2"><span class="kl">Point commun</span><p>Même cascade demande › charge › capacité — et mêmes maladies : demande censurée, saisonnalité ignorée, prévision à plusieurs mains.</p></div>
-    <div class="foot"><span>Gans et al., M&amp;SOM (2003) · Lee et al. (1997) · art. L5124-17-2 CSP · pratiques WFM</span><span>Akademia Formation</span></div>
+    <div class="toprow"><span class="kick">Module 1 · Effet coup de fouet — visualisation</span><span class="pgr">10 · 21</span></div>
+    <h2>Le même pic, quatre vérités : <span class="gw">l&#x27;amplification échelon par échelon</span></h2>
+    <p class="lede reveal" style="--i:0">La série de la démo, en courbes : une demande patient quasi stable, et des commandes qui explosent puis s&#x27;effondrent en remontant la chaîne.</p>
+    <div class="chart-wrap reveal" style="--i:1">
+      <div class="chart-legend"><span class="cl"><i style="background:#64748B"></i>Demande patient</span><span class="cl"><i style="background:#2563EB"></i>Commande pharmacie</span><span class="cl"><i style="background:#7C3AED"></i>Commande grossiste</span><span class="cl"><i style="background:#EF4444"></i>Plan usine</span></div>
+      <div class="chart-box"><svg viewBox="0 0 1160 400" role="img"><line x1="64" y1="356.0" x2="1144" y2="356.0" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="360.0" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">0</text><line x1="64" y1="272.5" x2="1144" y2="272.5" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="276.5" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">50</text><line x1="64" y1="189.0" x2="1144" y2="189.0" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="193.0" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">100</text><line x1="64" y1="105.5" x2="1144" y2="105.5" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="109.5" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">150</text><line x1="64" y1="22.0" x2="1144" y2="22.0" stroke="#E7EAF2" stroke-width="1"/><text x="54" y="26.0" text-anchor="end" font-family="Fragment Mono" font-size="11" fill="#94A3B8">200</text><text x="199.0" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">Semaine 1</text><text x="469.0" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">Semaine 2</text><text x="739.0" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">Semaine 3</text><text x="1009.0" y="386" text-anchor="middle" font-family="Fragment Mono" font-size="11" fill="#64748B">Semaine 4</text><line x1="64" y1="189.0" x2="1144" y2="189.0" stroke="#F59E0B" stroke-width="1.4" stroke-dasharray="7 5"/><text x="1140" y="183.0" text-anchor="end" font-family="Fragment Mono" font-size="10" fill="#B45309">demande stable · 100 u</text><polyline points="199.0,172.3 469.0,189.0 739.0,189.0 1009.0,189.0" fill="none" stroke="#64748B" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="199.0" cy="172.3" r="4" fill="#fff" stroke="#64748B" stroke-width="2.2"/><circle cx="469.0" cy="189.0" r="4" fill="#fff" stroke="#64748B" stroke-width="2.2"/><circle cx="739.0" cy="189.0" r="4" fill="#fff" stroke="#64748B" stroke-width="2.2"/><circle cx="1009.0" cy="189.0" r="4" fill="#fff" stroke="#64748B" stroke-width="2.2"/><polyline points="199.0,138.9 469.0,205.7 739.0,197.3 1009.0,189.0" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="199.0" cy="138.9" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="469.0" cy="205.7" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="739.0" cy="197.3" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><circle cx="1009.0" cy="189.0" r="4" fill="#fff" stroke="#2563EB" stroke-width="2.2"/><polyline points="199.0,88.8 469.0,255.8 739.0,189.0 1009.0,189.0" fill="none" stroke="#7C3AED" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="199.0" cy="88.8" r="4" fill="#fff" stroke="#7C3AED" stroke-width="2.2"/><circle cx="469.0" cy="255.8" r="4" fill="#fff" stroke="#7C3AED" stroke-width="2.2"/><circle cx="739.0" cy="189.0" r="4" fill="#fff" stroke="#7C3AED" stroke-width="2.2"/><circle cx="1009.0" cy="189.0" r="4" fill="#fff" stroke="#7C3AED" stroke-width="2.2"/><polyline points="199.0,22.0 469.0,305.9 739.0,180.7 1009.0,189.0" fill="none" stroke="#EF4444" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="199.0" cy="22.0" r="4" fill="#fff" stroke="#EF4444" stroke-width="2.2"/><circle cx="469.0" cy="305.9" r="4" fill="#fff" stroke="#EF4444" stroke-width="2.2"/><circle cx="739.0" cy="180.7" r="4" fill="#fff" stroke="#EF4444" stroke-width="2.2"/><circle cx="1009.0" cy="189.0" r="4" fill="#fff" stroke="#EF4444" stroke-width="2.2"/><text x="64" y="14" font-family="Fragment Mono" font-size="10" fill="#94A3B8">unités / semaine</text></svg></div>
+    </div>
+    <div class="keycard reveal" style="--i:2"><span class="kl">Lecture</span><p>+10 % chez le patient deviennent +100 % au plan usine, puis −70 % la semaine suivante : amplitude démultipliée et déphasée — la structure amplifie, pas les personnes.</p></div>
+    <div class="foot"><span>Série pédagogique construite, cohérente avec Sterman, Management Science (1989) · Lee et al. (1997)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 09 · CONTENU -->
+<!-- 11 · DEUX MONDES -->
+<section class="slide">
+  <div class="rail">
+    <div class="toprow"><span class="kick">Module 1 · Transposition services</span><span class="pgr">11 · 21</span></div>
+    <h2>Prévoir des produits vs prévoir des flux entrants : <span class="gw">ce qui change, ce qui est identique</span></h2>
+    <div class="tc2"><div class="tcc reveal" style="--i:0"><h3>Produits — NOVADIS (distribution pharma)</h3><div class="tci"><span class="ta">›</span><p>La demande visible = <b>commandes des officines</b> (sell-in) ; la demande patient réelle (sell-out) reste masquée par le stock du canal.</p></div><div class="tci"><span class="ta">›</span><p>Le <b>stock</b> tamponne l&#x27;erreur : on peut constituer en amont des pics (grippe, allergies) — la capacité d&#x27;entrepôt, elle, se planifie.</p></div><div class="tci"><span class="ta">›</span><p>La rupture = vente perdue ou reportée, mesurée en <b>taux de service</b> ; l&#x27;obligation de service public (art. L5124-17-2 CSP) en fait une contrainte légale, pas un objectif flexible.</p></div><div class="tci"><span class="ta">›</span><p>Saisonnalité <b>épidémiologique et calendaire</b> : l&#x27;intensité varie d&#x27;une année sur l&#x27;autre — travailler en scénarios (saison faible / moyenne / forte).</p></div></div><div class="tcc reveal" style="--i:1"><h3>Flux entrants — ALTÉA (mutuelle santé)</h3><div class="tci"><span class="ta">›</span><p>La demande = appels et dossiers <b>offerts</b> ; les appels <b>traités</b> sous-comptent la demande quand des contacts abandonnent (demande censurée, comme les ventes sous rupture).</p></div><div class="tci"><span class="ta">›</span><p>La capacité <b>ne se stocke pas</b> : une heure de gestionnaire inutilisée est perdue ; le « stock » prend la forme d&#x27;un <b>backlog</b> de dossiers en attente.</p></div><div class="tci"><span class="ta">›</span><p>La rupture = files d&#x27;attente, délais de remboursement, abandons ; le service se mesure en <b>délai de réponse</b> (standard 80/20 : 80 % des appels en moins de 20 secondes).</p></div><div class="tci"><span class="ta">›</span><p>Saisonnalité <b>calendaire</b> forte : pic de début d&#x27;année (décomptes annuels, cartes de tiers payant), creux estival — indices de <b>0,79 à 1,22</b> sur les appels groupe (24 mois), de <b>0,75 à 1,35</b> sur la plateforme de gestion du cas.</p></div></div></div>
+    <div class="keycard reveal" style="--i:2"><span class="kl">Point commun</span><p>Même cascade demande › charge › capacité — et mêmes maladies : demande censurée, saisonnalité ignorée, prévision à plusieurs mains.</p></div>
+    <div class="foot"><span>Gans et al., M&amp;SOM (2003) · Lee et al. (1997) · art. L5124-17-2 CSP · pratiques WFM · données ALTÉA construites</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 12 · CONTENU -->
 <section class="slide dense">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 1 · Organisation</span><span class="pgr">09 · 18</span></div>
+    <div class="toprow"><span class="kick">Module 1 · Organisation</span><span class="pgr">12 · 21</span></div>
     <h2>Qui prévoit quoi : <span class="gw">le coût des prévisions « à plusieurs mains »</span></h2>
     <p class="lede reveal" style="--i:0">Une prévision fiable est d&#x27;abord une affaire d&#x27;organisation : sans propriétaire identifié ni mesure de l&#x27;erreur, les chiffres se multiplient, se contredisent — et chacun planifie sur le sien.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Le <b>demand planner</b> est le propriétaire de la <b>baseline statistique</b> et l&#x27;animateur du consensus : il n&#x27;a pas à « deviner » la demande, il industrialise sa production — modèles, exceptions, mesure d&#x27;erreur (référentiels APICS / ASCM).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>La chaîne de production : le <b>système</b> produit la baseline › le demand planner contrôle et traite les exceptions › <b>ventes, marketing, grands comptes</b> enrichissent (promotions, gains ou pertes de clients, lancements) › la prévision <b>consensuelle unique</b> est validée en revue demande du cycle S&amp;OP.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Le coût des prévisions « à plusieurs mains » : doubles saisies, versions concurrentes entre services, stocks et effectifs calés sur l&#x27;espoir — et l&#x27;impossibilité de savoir ensuite <b>qui avait raison</b>.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Transposition flux de services : un <b>planificateur WFM</b> porte la prévision de flux, les <b>opérations et les RH</b> la convertissent en effectifs et recrutements, la <b>finance</b> la traduit en budget — même exigence d&#x27;unicité.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Le <b>Forecast Value Added</b> (FVA) mesure ce que chaque retouche manuelle ajoute ou retire par rapport à la baseline : la littérature de référence (Foresight) montre qu&#x27;une part substantielle des ajustements n&#x27;ajoute pas de valeur, voire en détruit (quantum à confirmer).</p></div></div></div>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p>Le <b>demand planner</b> est le propriétaire de la <b>baseline statistique</b> et l&#x27;animateur du consensus : il n&#x27;a pas à « deviner » la demande, il industrialise sa production — modèles, exceptions, mesure d&#x27;erreur (référentiels APICS / ASCM).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p>La chaîne de production : le <b>système</b> produit la baseline › le demand planner contrôle et traite les exceptions › <b>ventes, marketing, grands comptes</b> enrichissent (promotions, gains ou pertes de clients, lancements) › la prévision <b>consensuelle unique</b> est validée en revue demande du cycle S&amp;OP (méthodologie Oliver Wight).</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p>Le coût des prévisions « à plusieurs mains » : chez NOVADIS, <b>deux personnes ajustent la même prévision chacune de leur côté</b>, sans historique des modifications — doubles saisies, versions concurrentes, et l&#x27;impossibilité de savoir ensuite qui avait raison.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p>Transposition flux de services : un <b>planificateur WFM</b> porte la prévision de flux, les <b>opérations et les RH</b> la convertissent en effectifs et recrutements, la <b>finance</b> la traduit en budget — même exigence d&#x27;unicité.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p>Le <b>Forecast Value Added</b> (FVA) mesure ce que chaque retouche manuelle ajoute ou retire par rapport à la baseline : la littérature de référence (Foresight) montre qu&#x27;une part substantielle des ajustements n&#x27;ajoute pas de valeur, voire en détruit (quantum à confirmer).</p></div></div></div>
     <div class="keycard reveal" style="--i:5"><span class="kl">À retenir</span><p>Une prévision = un propriétaire, une baseline mesurée, un enrichissement tracé, une validation unique — pas quatre fichiers qui se concurrencent.</p></div>
     <div class="foot"><span>ASCM / APICS · Oliver Wight · Foresight (forecasters.org)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 10 · CAS PRATIQUE -->
+<!-- 13 · QUIZ GROUPÉ -->
+<section class="slide s-quizg qzg" data-qzg>
+  <div class="rail">
+    <div class="toprow"><span class="kick">Module 1 · Consolidation interactive</span><span class="pgr">13 · 21</span></div>
+    <h2>Quiz 1 — trois situations, trois réflexes</h2>
+    <div class="qzg-wrap"><div class="qz reveal" style="--i:0" data-ok="1"><p class="qz-q"><span class="qz-n">Q1</span><span class="qtx">Chez NOVADIS, la cheffe de projet propose de piloter la famille « automédication hiver » (16 références indépendantes, écart-type 250 u chacune) en une seule prévision agrégée. Un collègue objecte : « Le total sera forcément 16 fois plus volatil qu&#x27;une référence. » Quel est l&#x27;écart-type réel de la demande totale ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>16 fois celui d&#x27;une référence, soit 4 000 u</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>4 fois celui d&#x27;une référence, soit 1 000 u</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>8 fois celui d&#x27;une référence, soit 2 000 u</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Inchangé : 250 u, l&#x27;agrégation ne change rien</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>Pour n demandes indépendantes de même écart-type, l&#x27;écart-type du total croît en racine de n — racine de 16 = 4 (risk pooling, Eppen, Management Science, 1979).</p></div><div class="qz reveal" style="--i:1" data-ok="0"><p class="qz-q"><span class="qz-n">Q2</span><span class="qtx">Chez ALTÉA, le pic d&#x27;appels de janvier exige 9 ETP supplémentaires, formés et autonomes au 2 janvier. Compter 6 semaines de recrutement, 4 de formation et 6 de montée en compétence. Nous sommes mi-septembre : que doit décider le comité ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>Lancer le recrutement des 9 ETP maintenant, sur la prévision mensuelle disponible</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>Couvrir le pic uniquement en heures supplémentaires, sans recruter</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>Attendre janvier pour mesurer le besoin réel avant d&#x27;engager le moindre recrutement</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Attendre la prévision intra-horaire de décembre, bien plus précise, avant de décider</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>Règle d&#x27;or : l&#x27;horizon de prévision doit couvrir au moins le délai de décision (Armstrong, 2001). Ici le délai RH cumule environ 16 semaines : la décision devait être prise mi-septembre, sur une prévision à maille mois.</p></div></div>
+    <div class="qzg-bar reveal" style="--i:2">
+      <p class="tt-hint">La salle vote à main levée · le formateur clique la réponse de la salle</p>
+      <button type="button" class="tbtn" data-qzg-reset>Réinitialiser le quiz</button>
+    </div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 14 · QUIZ GROUPÉ -->
+<section class="slide s-quizg qzg" data-qzg>
+  <div class="rail">
+    <div class="toprow"><span class="kick">Module 1 · Consolidation interactive</span><span class="pgr">14 · 21</span></div>
+    <h2>Quiz 1 — trois situations, trois réflexes (2/2)</h2>
+    <div class="qzg-wrap"><div class="qz reveal" style="--i:0" data-ok="1"><p class="qz-q"><span class="qz-n">Q1</span><span class="qtx">En comité de direction, le directeur commercial de NOVADIS exige que la prévision de décembre soit « alignée sur l&#x27;objectif : +12 % ». Quelle est la bonne posture du demand planner ?</span></p><div class="qz-opts" style="grid-template-columns:repeat(2,1fr)"><button type="button" class="qz-o"><span class="qz-l">A</span><span>Publier la moyenne entre la prévision statistique et l&#x27;objectif, pour ménager les deux parties</span></button><button type="button" class="qz-o"><span class="qz-l">B</span><span>Prévoir la demande attendue, documenter l&#x27;écart avec l&#x27;objectif, et laisser le comité S&amp;OP arbitrer</span></button><button type="button" class="qz-o"><span class="qz-l">C</span><span>Refuser de produire tout chiffre tant que le commerce n&#x27;a pas justifié son +12 %</span></button><button type="button" class="qz-o"><span class="qz-l">D</span><span>Aligner la prévision sur l&#x27;objectif : la cible commerciale est la meilleure estimation disponible</span></button></div><p class="qz-fb"><b class="qz-fb-l">Exact&nbsp;: </b>Le budget est un objectif, pas une prévision : si la cible pilote la prévision, stocks et effectifs suivent l&#x27;espoir, pas la demande (méthodologie S&amp;OP, Oliver Wight).</p></div></div>
+    <div class="qzg-bar reveal" style="--i:1">
+      <p class="tt-hint">La salle vote à main levée · le formateur clique la réponse de la salle</p>
+      <button type="button" class="tbtn" data-qzg-reset>Réinitialiser le quiz</button>
+    </div>
+    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
+  </div>
+</section>
+<!-- 15 · CAS PRATIQUE -->
 <section class="slide s-case">
   <div class="rail">
-    <div class="toprow"><span class="kick g">Cas pratique · NOVADIS</span><span class="pgr">10 · 18</span></div>
+    <div class="toprow"><span class="kick g">Cas pratique · NOVADIS</span><span class="pgr">15 · 21</span></div>
     <h2>Service en baisse, stock en hausse : <span class="gw">le paradoxe NOVADIS</span></h2>
     <div class="casectx reveal" style="--i:0">
       <span class="ck">Le contexte</span>
@@ -821,7 +1174,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     </div>
     <div class="caseqs"><div class="caseq reveal" style="--i:1"><span class="qn">01</span><p>1. Expliquez le paradoxe : comment le taux de service peut-il baisser alors que le stock augmente ?</p></div><div class="caseq reveal" style="--i:2"><span class="qn">02</span><p>2. Chiffrez l&#x27;effet d&#x27;un pilotage à la maille famille × mois sur le stock de sécurité (formule : z × écart-type).</p></div><div class="caseq reveal" style="--i:3"><span class="qn">03</span><p>3. Proposez trois mesures organisationnelles pour fiabiliser durablement la prévision.</p></div></div>
     <div class="casebar">
-      <span class="casehint">Cherchez d'abord · le corrigé s'ouvre à la slide suivante</span>
+      <span class="casehint">Cherchez d&#x27;abord · le corrigé s&#x27;ouvre à la slide suivante</span>
       <button class="btncase" type="button" data-gonext>Voir le corrigé
         <svg viewBox="0 0 16 16" fill="none"><path d="M6 3 L11 8 L6 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
@@ -829,10 +1182,10 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <div class="foot"><span>Eppen, Management Science (1979) — application · données NOVADIS construites</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 11 · CORRIGÉ -->
+<!-- 16 · CORRIGÉ -->
 <section class="slide s-sol">
   <div class="rail">
-    <div class="toprow"><span class="kick v">Corrigé du cas</span><span class="pgr">11 · 18</span></div>
+    <div class="toprow"><span class="kick v">Corrigé du cas</span><span class="pgr">16 · 21</span></div>
     <h2>Corrigé NOVADIS : <span class="gw">le stock était au mauvais endroit</span></h2>
     <p class="lede reveal" style="--i:0">Le paradoxe tient en une phrase : prévue trop fin, la prévision se trompe partout à la fois — le stock de sécurité s&#x27;empile sur les références surestimées pendant que les sous-estimées rupturent.</p>
     <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Diagnostic</b> : à la maille référence × semaine (MAPE 42 %), l&#x27;erreur est positive ici, négative là — le stock global monte de 18 % <b>et</b> le service chute à 93,8 % : le stock est au mauvais endroit, aggravé par deux mains qui ajustent sans mesure.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Stock de sécurité actuel</b> : 16 références × 1,645 × 250 u = <b>6 580 unités</b>, calculé référence par référence.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Stock de sécurité à la maille famille</b> : écart-type = racine de 16 × 250 = 1 000 u › SS = 1,645 × 1 000 = <b>1 645 unités</b> — le risk pooling absorbe les erreurs qui se compensent (Eppen, 1979).</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Gain chiffré</b> : 4 935 unités en moins (−75 %), soit <b>20 727 €</b> d&#x27;immobilisation évitée et environ <b>5 180 €/an</b> de possession économisée — à niveau de service égal ou supérieur.</p><p class="psub">Coût de l&#x27;erreur illustré : un mois à 17 800 u réalisées contre 16 000 prévues = 1 800 u de rupture × 1,80 € de marge = environ 3 240 € perdus sur le mois.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>Trois mesures</b> : prévoir en famille × mois et désagréger par coefficients de mix ; suivre MAPE + biais par maille avec un <b>FVA</b> sur chaque retouche ; nommer un <b>propriétaire unique</b> de la prévision — fin des doubles saisies.</p></div></div></div>
@@ -840,10 +1193,10 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <div class="foot"><span>Eppen, Management Science (1979) · données NOVADIS (construites)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 12 · CAS PRATIQUE -->
+<!-- 17 · CAS PRATIQUE -->
 <section class="slide s-case">
   <div class="rail">
-    <div class="toprow"><span class="kick g">Cas pratique · ALTÉA Prévoyance</span><span class="pgr">12 · 18</span></div>
+    <div class="toprow"><span class="kick g">Cas pratique · ALTÉA Prévoyance</span><span class="pgr">17 · 21</span></div>
     <h2>Backlog et recrutements en urgence : <span class="gw">le cas ALTÉA</span></h2>
     <div class="casectx reveal" style="--i:0">
       <span class="ck">Le contexte</span>
@@ -851,7 +1204,7 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     </div>
     <div class="caseqs"><div class="caseq reveal" style="--i:1"><span class="qn">01</span><p>1. Convertissez le flux de janvier en besoin d&#x27;effectif : quel est le déficit, en ETP et en dossiers ?</p></div><div class="caseq reveal" style="--i:2"><span class="qn">02</span><p>2. Que révèle la série sur la saisonnalité ? Que produit un effectif constant de 27 ETP sur un tel flux ?</p></div><div class="caseq reveal" style="--i:3"><span class="qn">03</span><p>3. À quelle date fallait-il décider les recrutements pour être prêt début janvier (6 semaines de recrutement, 4 de formation, 6 de montée en compétence) ?</p></div></div>
     <div class="casebar">
-      <span class="casehint">Cherchez d'abord · le corrigé s'ouvre à la slide suivante</span>
+      <span class="casehint">Cherchez d&#x27;abord · le corrigé s&#x27;ouvre à la slide suivante</span>
       <button class="btncase" type="button" data-gonext>Voir le corrigé
         <svg viewBox="0 0 16 16" fill="none"><path d="M6 3 L11 8 L6 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
@@ -859,62 +1212,67 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
     <div class="foot"><span>Cascade WFM : Gans et al., M&amp;SOM (2003) · données ALTÉA construites</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 13 · CORRIGÉ -->
+<!-- 18 · CORRIGÉ -->
 <section class="slide s-sol dense">
   <div class="rail">
-    <div class="toprow"><span class="kick v">Corrigé du cas</span><span class="pgr">13 · 18</span></div>
+    <div class="toprow"><span class="kick v">Corrigé du cas</span><span class="pgr">18 · 21</span></div>
     <h2>Corrigé ALTÉA : <span class="gw">le backlog de mars s&#x27;est décidé en septembre</span></h2>
     <p class="lede reveal" style="--i:0">La lecture de la série change tout : derrière un « coup de charge » présenté comme imprévisible se cachent une saisonnalité récurrente, un déficit d&#x27;effectif chiffrable — et une décision prise quatre mois trop tard.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Du flux aux ETP</b> : un ETP produit 5,6 h × 21 j = 117,6 h/mois, soit environ <b>157 dossiers/mois</b> (45 min par dossier) ; janvier exige 5 670 / 157 = environ <b>36 ETP, contre 27 en place</b> — déficit d&#x27;environ 9 ETP.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Le backlog mesuré</b> : 9 ETP manquants × 117,6 h = environ 1 058 heures perdues, soit environ <b>1 400 dossiers</b> non traités sur le seul mois de janvier — exactement le backlog constaté.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Saisonnalité non modélisée</b> : indices de <b>0,75 (juillet) à 1,35 (janvier)</b> — planifier un effectif constant (capacité d&#x27;environ 4 240 dossiers/mois) sur un flux saisonnier, c&#x27;est choisir d&#x27;être en sous-effectif 5 mois par an et en sureffectif 5 autres (2 mois quasi neutres).</p><p class="psub">Le pic de début d&#x27;année (décomptes annuels, cartes de tiers payant) est récurrent : c&#x27;est un événement prévisible, pas du bruit.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Le rétro-planning</b> : recrutement (6 semaines) + formation (4 semaines) + montée en compétence (6 semaines à environ 70 % de productivité) = environ <b>4 mois</b> — les 9 ETP devaient être décidés <b>mi-septembre</b> pour être autonomes début janvier.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>La bonne boucle</b> : prévision de flux à 4-6 mois (maille mois) › besoin en effectifs › écart › décision (recrutement, mobilité inter-établissements, heures supplémentaires, formation) — c&#x27;est un <b>cycle S&amp;OP de capacité</b>, développé au Module 3.</p></div></div></div>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Du flux aux ETP</b> : un ETP produit 5,6 h × 21 j = 117,6 h/mois, soit environ <b>157 dossiers/mois</b> (45 min par dossier) ; janvier exige 5 670 / 157 = environ <b>36 ETP, contre 27 en place</b> — déficit d&#x27;environ 9 ETP.</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Le backlog mesuré</b> : 9 ETP manquants × 117,6 h = environ 1 058 heures perdues, soit environ <b>1 400 dossiers</b> non traités sur le seul mois de janvier — exactement le backlog constaté.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Saisonnalité non modélisée</b> : indices de <b>0,75 (juillet) à 1,35 (janvier)</b> — planifier un effectif constant (capacité d&#x27;environ 4 240 dossiers/mois) sur un flux saisonnier, c&#x27;est choisir d&#x27;être en sous-effectif 5 mois par an et en sureffectif 5 autres (2 mois quasi neutres).</p><p class="psub">Le pic de début d&#x27;année (décomptes annuels, cartes de tiers payant) est récurrent : c&#x27;est un événement prévisible, pas du bruit.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Le rétro-planning</b> : recrutement (6 semaines) + formation (4 semaines) + montée en compétence (6 semaines à environ 70 % de productivité) = environ <b>4 mois</b> — les 9 ETP devaient être décidés <b>mi-septembre</b> pour être autonomes début janvier.</p></div></div><div class="pt reveal" style="--i:4"><span class="pn">05</span><div class="pb"><p><b>La bonne boucle</b> : prévision de flux à 4-6 mois (maille mois) › besoin en effectifs › écart › décision (recrutement, mobilité inter-établissements, heures supplémentaires, formation) — c&#x27;est un <b>cycle S&amp;OP de capacité</b>, développé au module 3.</p></div></div></div>
     <div class="keycard violet reveal" style="--i:5"><span class="kl">À retenir</span><p>En janvier, on livre ce qu&#x27;on a décidé en septembre : l&#x27;horizon de la prévision doit couvrir le délai d&#x27;action RH (environ 4 à 6 mois).</p></div>
     <div class="foot"><span>Gans et al., M&amp;SOM (2003) · données ALTÉA (construites)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 14 · ERREURS FRÉQUENTES -->
+<!-- 19 · ERREURS FRÉQUENTES -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick a">Pièges fréquents</span><span class="pgr">14 · 18</span></div>
+    <div class="toprow"><span class="kick a">Pièges fréquents</span><span class="pgr">19 · 21</span></div>
     <h2>Erreurs fréquentes — fondamentaux de la prévision</h2>
     <div class="pflist"><div class="pfi reveal" style="--i:0"><span class="pm"></span><p><b>Confondre prévision et objectif</b> : le budget ou la cible commerciale n&#x27;est pas une prévision de demande — si la cible pilote la prévision, stocks et effectifs suivent l&#x27;espoir, pas la demande.</p></div><div class="pfi reveal" style="--i:1"><span class="pm"></span><p><b>Prendre les ventes pour la demande</b> : les ventes sont une demande censurée par les ruptures (on ne vend que ce qu&#x27;on a) ; en flux, les appels traités sous-comptent les appels offerts — prévoir sur du censuré sous-estime structurellement.</p></div><div class="pfi reveal" style="--i:2"><span class="pm"></span><p><b>Retoucher la baseline sans mesurer</b> : sans suivi (FVA), impossible de savoir qui ajoute de la précision — la littérature montre qu&#x27;une part substantielle des ajustements manuels dégrade la prévision (quantum à confirmer).</p></div><div class="pfi reveal" style="--i:3"><span class="pm"></span><p><b>Comparer des MAPE entre mailles</b> : une MAPE référence × semaine sera toujours bien plus mauvaise qu&#x27;une MAPE famille × mois, sans que le prévisionniste soit en cause — comparer à maille égale, ou rien.</p></div><div class="pfi reveal" style="--i:4"><span class="pm"></span><p><b>Amplifier soi-même le coup de fouet</b> : promotions de fin de trimestre, objectifs de fin de mois, minima de commande, réappro « au calendrier » — les 4 causes de Lee et al. (1997) sont souvent auto-infligées.</p></div><div class="pfi reveal" style="--i:5"><span class="pm"></span><p><b>Recruter quand le pic est déjà là</b> : ignorer recrutement + formation + montée en compétence (environ 4 à 6 mois) condamne à tenir le pic en heures supplémentaires, avec un service dégradé.</p></div></div>
     <div class="foot"><span>Lee et al. (1997) · Oliver Wight · Foresight (forecasters.org) · retours terrain</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 15 · CONTENU -->
+<!-- 20 · CONTENU -->
 <section class="slide">
   <div class="rail">
-    <div class="toprow"><span class="kick">Module 1 · Livrable 1</span><span class="pgr">15 · 18</span></div>
-    <h2>Livrable 1 : <span class="gw">la grille de diagnostic prévisionnel</span></h2>
-    <p class="lede reveal" style="--i:0">Ce module se termine par un diagnostic de votre propre performance prévisionnelle : une grille d&#x27;auto-évaluation construite sur les cinq fondamentaux vus ce matin. C&#x27;est le premier des quatre livrables de la formation — et la matière première du plan d&#x27;amélioration du Module 4.</p>
-    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Contenu</b> : cinq blocs alignés sur le module — impact et coûts de l&#x27;erreur, horizons et mailles, mesure de l&#x27;erreur, organisation et responsabilités, lien prévision › décisions (achats, capacité, recrutements).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Mode d&#x27;emploi</b> : pour chaque ligne, cotez la pratique actuelle de « absente » à « industrialisée », joignez une <b>preuve concrète</b> (un chiffre, un exemple daté) et chiffrez l&#x27;enjeu quand c&#x27;est possible.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>En séance (12h00 - 12h30)</b> : chacune remplit sa grille sur son propre contexte — portefeuille produits pour l&#x27;une, flux entrants et effectifs pour l&#x27;autre — puis restitution d&#x27;un point fort et d&#x27;un chantier prioritaire.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Après la formation</b> : la grille alimente directement le <b>plan d&#x27;amélioration de la fiabilité</b> (livrable 4) — conservez-la et faites-la relire à froid par un pair ou un manager.</p></div></div></div>
+    <div class="toprow"><span class="kick">Module 1 · Livrable 1</span><span class="pgr">20 · 21</span></div>
+    <h2>Livrable 1 : <span class="gw">la grille de diagnostic prévisionnel — mode d&#x27;emploi</span></h2>
+    <p class="lede reveal" style="--i:0">Ce module se termine par un diagnostic de votre propre performance prévisionnelle : une grille d&#x27;auto-évaluation construite sur les fondamentaux vus ce matin. C&#x27;est le premier des quatre livrables — et la matière première du plan d&#x27;amélioration du module 4.</p>
+    <div class="pts"><div class="pt reveal" style="--i:0"><span class="pn">01</span><div class="pb"><p><b>Contenu</b> : cinq blocs alignés sur le module — impact et coûts de l&#x27;erreur · horizons et mailles · mesure de l&#x27;erreur · organisation et responsabilités · lien prévision › décisions (achats, capacité, recrutements).</p></div></div><div class="pt reveal" style="--i:1"><span class="pn">02</span><div class="pb"><p><b>Mode d&#x27;emploi</b> : pour chaque ligne, cotez la pratique actuelle de « absente » à « industrialisée », joignez une <b>preuve concrète</b> (un chiffre, un exemple daté) et chiffrez l&#x27;enjeu quand c&#x27;est possible.</p></div></div><div class="pt reveal" style="--i:2"><span class="pn">03</span><div class="pb"><p><b>Adaptation aux deux mondes</b> : en produits, la maille se lit référence / famille × région × mois et l&#x27;erreur en euros de stock ; en flux, elle se lit flux × établissement × mois et l&#x27;erreur en heures de backlog ou en ETP.</p></div></div><div class="pt reveal" style="--i:3"><span class="pn">04</span><div class="pb"><p><b>Après la formation</b> : la grille alimente directement le <b>plan d&#x27;amélioration de la fiabilité</b> (livrable 4) — conservez-la et faites-la relire à froid par un pair ou un manager.</p></div></div></div>
     <div class="keycard reveal" style="--i:4"><span class="kl">Règle d&#x27;usage</span><p>Un diagnostic honnête vaut mieux qu&#x27;un diagnostic flatteur : cotez les preuves, pas les intentions.</p></div>
     <div class="foot"><span>Grille construite sur les référentiels du module (ASCM · Oliver Wight · Foresight)</span><span>Akademia Formation</span></div>
   </div>
 </section>
-<!-- 16 · QUIZ -->
-<section class="slide s-quiz">
+<!-- 21 · ATELIER CHRONOMÉTRÉ -->
+<section class="slide s-atelier">
   <div class="rail">
-    <div class="toprow"><span class="kick">Quiz</span><span class="pgr">16 · 18</span></div>
-    <h2>Quiz — Module 1 (1/2)</h2>
-    <div class="qzbox" data-qbox="qz15"></div>
-    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
-  </div>
-</section>
-<!-- 17 · QUIZ -->
-<section class="slide s-quiz">
-  <div class="rail">
-    <div class="toprow"><span class="kick">Quiz</span><span class="pgr">17 · 18</span></div>
-    <h2>Quiz — Module 1 (2/2)</h2>
-    <div class="qzbox" data-qbox="qz16"></div>
-    <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
-  </div>
-</section>
-<!-- 18 · À RETENIR -->
-<section class="slide">
-  <div class="rail">
-    <div class="toprow"><span class="kick">Synthèse du module</span><span class="pgr">18 · 18</span></div>
-    <h2>Ce qu&#x27;il faut retenir — Module 1</h2>
-    <div class="tkgrid"><div class="tkcard reveal" style="--i:0"><span class="tn">01</span><b>L&#x27;erreur se paie deux fois</b><p>Rupture et surstock sont les deux faces de la même erreur — en services, lisez backlog et sureffectif. La précision est le seul levier qui traite les deux à la fois.</p></div><div class="tkcard reveal" style="--i:1"><span class="tn">02</span><b>L&#x27;horizon couvre le délai de décision</b><p>Recruter, investir ou ouvrir un site exige une prévision longue, même imparfaite : en janvier, on livre ce qu&#x27;on a décidé en septembre.</p></div><div class="tkcard reveal" style="--i:2"><span class="tn">03</span><b>Prévoir agrégé, exécuter fin</b><p>L&#x27;agrégation réduit mécaniquement l&#x27;incertitude (16 références regroupées : écart-type multiplié par 4 au lieu de 16). On prévoit en famille, on désagrège en référence — jamais l&#x27;inverse.</p></div><div class="tkcard reveal" style="--i:3"><span class="tn">04</span><b>Une prévision, un propriétaire</b><p>Une seule prévision de demande pour supply, finance et RH ; une baseline mesurée ; chaque retouche manuelle doit prouver sa valeur (FVA).</p></div></div>
-    <div class="nextband reveal" style="--i:4"><a href="index.html#9">← Sommaire des modules</a><a class="primary" href="m2.html">Module 2 · Méthodes de prévision →</a></div>
+    <div class="toprow"><span class="kick">Module 1 · Mise en pratique — sur VOTRE contexte</span><span class="pgr">21 · 21</span></div>
+    <h2>Atelier · Diagnostic express de votre performance prévisionnelle</h2>
+    <p class="lede reveal" style="--i:0">12 minutes chronométrées pour appliquer la grille de diagnostic à votre propre contexte — portefeuille produits pour l&#x27;une, flux entrants et effectifs pour l&#x27;autre. Travail en binôme en salle d&#x27;attente (ou seule si vous préférez) ; consignes écrites au chat ; le formateur reste joignable.</p>
+    <div class="atw-grid reveal" style="--i:1">
+      <div class="atw-timer">
+        <div class="timer" data-timer data-total="720">
+          <svg viewBox="0 0 230 230" aria-hidden="true">
+            <defs><linearGradient id="tg20" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#7C3AED"/>
+            </linearGradient></defs>
+            <circle class="tk" cx="115" cy="115" r="98"/>
+            <circle class="tp" cx="115" cy="115" r="98" style="stroke:url(#tg20)"/>
+          </svg>
+          <div class="t-mid"><span class="t-dig" data-tdig>12:00</span></div>
+        </div>
+        <span class="t-lab" data-tlab>Atelier · 12 minutes</span>
+        <div class="t-ctrl">
+          <button class="tbtn prim" type="button" data-tgo>Lancer</button>
+          <button class="tbtn" type="button" data-trst>Réinitialiser</button>
+        </div>
+      </div>
+      <div class="atw-right">
+        <div class="pcards" style="grid-template-columns:repeat(3,1fr)"><button class="pcard" type="button" data-sec="240" data-label="Tâche 1 · Votre maille actuelle" data-short="À quelle maille prévoyez-vous (produit/flux × lieu × temps) ? À quelle maille les décisions sont-elles prises ? Notez l&#x27;écart entre les deux."><span class="pn">Tâche 1 · Votre maille actuelle</span><span class="ps">À quelle maille prévoyez-vous (produit/flux × lieu × temps) ? À quelle maille les décisions sont-elles prises ? Notez l&#x27;écart entre les deux.</span><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5 L10 17.5 L19 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="pcard" type="button" data-sec="240" data-label="Tâche 2 · Votre erreur mesurée" data-short="Avez-vous un indicateur d&#x27;erreur (MAPE, biais) ? Quelle valeur, à quelle maille, quelle date ? Si non, écrivez « non mesuré » — c&#x27;est déjà un constat."><span class="pn">Tâche 2 · Votre erreur mesurée</span><span class="ps">Avez-vous un indicateur d&#x27;erreur (MAPE, biais) ? Quelle valeur, à quelle maille, quelle date ? Si non, écrivez « non mesuré » — c&#x27;est déjà un constat.</span><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5 L10 17.5 L19 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="pcard" type="button" data-sec="240" data-label="Tâche 3 · Qui prévoit quoi" data-short="Comptez les mains qui modifient votre prévision. Qui la valide ? Une seule version alimente-t-elle achats, finance et RH — ou chaque service a-t-il son chiffre ?"><span class="pn">Tâche 3 · Qui prévoit quoi</span><span class="ps">Comptez les mains qui modifient votre prévision. Qui la valide ? Une seule version alimente-t-elle achats, finance et RH — ou chaque service a-t-il son chiffre ?</span><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5 L10 17.5 L19 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+        <p class="tt-hint">Un clic sur une tâche règle et lance son chrono · un second clic la marque faite</p>
+        <div class="cp-band atw-debrief" data-debrief><span class="cb-t">Débrief</span><p>Débrief (4 min) : chacune partage un point fort et un chantier prioritaire. Synthèse du module — 4 idées-force : (1) l&#x27;erreur se paie deux fois (rupture/surstock · backlog/sureffectif) ; (2) l&#x27;horizon couvre le délai de décision — en janvier, on livre ce qu&#x27;on a décidé en septembre ; (3) prévoir agrégé, exécuter fin (racine de 16 = 4 : le stock de sécurité suit le même rapport) ; (4) une prévision, un propriétaire — baseline mesurée, retouches tracées (FVA).</p></div>
+      </div>
+    </div>
     <div class="foot"><span>Prévision des Ventes &amp; S&OP</span><span>Akademia Formation</span></div>
   </div>
 </section>
@@ -943,18 +1301,16 @@ h2{font-family:'Instrument Sans',sans-serif;font-weight:640;letter-spacing:-0.01
 <div class="czone" id="zoneR" aria-hidden="true"><span><svg viewBox="0 0 16 16" fill="none"><path d="M6 3 L11 8 L6 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
 
 
-<script>window.STEPS = {"st6": [{"t": "Semaine 1 — la demande finale fait un pic", "d": "Une promotion fait passer la demande patient de 100 à 110 unités. Règle de chaque échelon : commander la demande observée + une marge proportionnelle à la hausse perçue.", "v": "110 u"}, {"t": "Semaine 1 — la pharmacie sur-réagit", "d": "Commande = demande observée + reconstitution d&#x27;une marge de sécurité : +18 % par rapport à la demande observée.", "v": "130 u"}, {"t": "Semaine 1 — le grossiste amplifie", "d": "Même règle un échelon plus haut, appliquée au signal déjà gonflé de la pharmacie.", "v": "160 u"}, {"t": "Semaine 1 — l'usine planifie le double", "d": "Une variation finale de +10 % est devenue +100 % au niveau du plan usine, en trois échelons.", "v": "200 u"}, {"t": "Semaine 2 — le reflux en cascade", "d": "La demande retombe à 100 ; chaque échelon purge son surstock : la pharmacie commande 90, le grossiste 60, l&#x27;usine 30.", "v": "−70 % usine"}, {"t": "Semaines 3 et 4 — résorption lente", "d": "95, puis 100 : il faut encore deux semaines pour effacer l&#x27;onde de choc d&#x27;un pic de 10 %.", "v": "100 u"}]};</script>
+<script>window.STEPS = {"st8": [{"t": "Semaine 1 — la demande finale fait un pic", "d": "Une promotion fait passer la demande patient de 100 à 110 unités. Règle de chaque échelon : commander la demande observée + une marge proportionnelle à la hausse perçue.", "v": "110 u"}, {"t": "Semaine 1 — la pharmacie sur-réagit", "d": "Commande = demande observée + reconstitution d&#x27;une marge de sécurité : +18 % par rapport à la demande observée.", "v": "130 u"}, {"t": "Semaine 1 — le grossiste amplifie", "d": "Même règle un échelon plus haut, appliquée au signal déjà gonflé de la pharmacie.", "v": "160 u"}, {"t": "Semaine 1 — l'usine planifie le double", "d": "Une variation finale de +10 % est devenue +100 % au niveau du plan usine, en trois échelons.", "v": "200 u"}, {"t": "Semaine 2 — le reflux en cascade", "d": "La demande retombe à 100 ; chaque échelon purge son surstock : la pharmacie commande 90, le grossiste 60, l&#x27;usine 30.", "v": "−70 % usine"}, {"t": "Semaines 3 et 4 — résorption lente", "d": "95, puis 100 : il faut encore deux semaines pour effacer l&#x27;onde de choc d&#x27;un pic de 10 %.", "v": "100 u"}]};</script>
 <script>
 const QUESTIONS = [
-  {id: 'qz15q1', box: 'qz15', n: 1, q: "Une amélioration de la précision de prévision, à objectif de service constant, permet avant tout de…", options: ["Supprimer la saisonnalité", "Augmenter le stock de sécurité", "Allonger les délais fournisseurs", "Réduire le stock de sécurité à service égal"], correct: 3, explain: "Le taux de service dépend du couple précision × stock de sécurité (formule z × σ) : à service égal, toute amélioration de précision se convertit en baisse de stock — et inversement (principe standard de la gestion des stocks)."},
-  {id: 'qz15q2', box: 'qz15', n: 2, q: "Un recrutement de gestionnaires exige environ 4 mois (recrutement, formation, montée en compétence). Pour tenir un pic prévu en janvier, la prévision de flux utile est…", options: ["Une prévision mensuelle disponible au plus tard mi-septembre", "Une prévision intra-horaire de la première semaine de janvier", "Une prévision jour par jour publiée en décembre", "Une moyenne annuelle lissée sur 3 ans"], correct: 0, explain: "Règle d&#x27;or : l&#x27;horizon de prévision doit couvrir au moins le délai de décision (Armstrong, Principles of Forecasting, 2001). Décision RH = environ 4 mois › prévision de flux à maille mois disponible mi-septembre — c&#x27;est le corrigé du cas ALTÉA."},
-  {id: 'qz15q3', box: 'qz15', n: 3, q: "On regroupe 16 références indépendantes de même variabilité. L'écart-type de la demande totale est multiplié par…", options: ["8", "16", "4", "1 — il est inchangé"], correct: 2, explain: "Risk pooling : pour n demandes indépendantes, l&#x27;écart-type du total croît en √n — √16 = 4 (Eppen, Management Science, 1979). C&#x27;est pourquoi on prévoit au niveau agrégé puis on désagrège."},
-  {id: 'qz16q1', box: 'qz16', n: 4, q: "Au « jeu de la bière », avec une demande client quasi constante, les commandes s'amplifient fortement en remontant la chaîne. La cause principale est…", options: ["La volatilité de la demande finale", "Le hasard des arrivées", "L'incompétence des joueurs", "La structure de la chaîne : délais, information locale, règles de décision"], correct: 3, explain: "Sterman (Management Science, 1989) montre que l&#x27;amplification se reproduit avec des joueurs compétents et une demande constante : l&#x27;effet vient de la structure. Lee, Padmanabhan et Whang (1997) en identifient 4 causes : traitement du signal, rationnement, regroupement des commandes, fluctuations de prix."},
-  {id: 'qz16q2', box: 'qz16', n: 5, q: "En période de rupture ou de quota, prévoir sur l'historique des ventes conduit à…", options: ["Une prévision exacte, car les ventes sont factuelles", "Sous-estimer la demande réelle", "Surestimer la demande", "Lisser la saisonnalité"], correct: 1, explain: "Les ventes sont une demande censurée : on ne vend que ce qu&#x27;on a. Prévoir sur les ventes plafonnées sous-estime structurellement la demande et rate le rebond à la levée du quota ; en services, les appels traités sous-comptent les appels offerts (lié à la cause n° 2 de Lee et al., 1997)."},
-  {id: 'qz16q3', box: 'qz16', n: 6, q: "Le principe du « one-number forecast » signifie…", options: ["Une prévision unique par produit, sans aucune retouche", "Une seule personne a le droit de prévoir", "Une seule prévision de demande alimente supply, finance et RH", "Le budget commercial sert de prévision"], correct: 2, explain: "Une seule prévision de demande pour toute l&#x27;entreprise — sinon chaque fonction planifie sur son propre chiffre ; le budget est un objectif, pas une prévision (méthodologie S&amp;OP, Oliver Wight)."},
+  {id: 'qzg12q1', box: 'qzg12', n: 1, q: "Chez NOVADIS, la cheffe de projet propose de piloter la famille « automédication hiver » (16 références indépendantes, écart-type 250 u chacune) en une seule prévision agrégée. Un collègue objecte : « Le total sera forcément 16 fois plus volatil qu'une référence. » Quel est l'écart-type réel de la demande totale ?", options: ["16 fois celui d'une référence, soit 4 000 u", "4 fois celui d'une référence, soit 1 000 u", "8 fois celui d'une référence, soit 2 000 u", "Inchangé : 250 u, l'agrégation ne change rien"], correct: 1, explain: "Pour n demandes indépendantes de même écart-type, l&#x27;écart-type du total croît en racine de n — racine de 16 = 4 (risk pooling, Eppen, Management Science, 1979)."},
+  {id: 'qzg12q2', box: 'qzg12', n: 2, q: "Chez ALTÉA, le pic d'appels de janvier exige 9 ETP supplémentaires, formés et autonomes au 2 janvier. Compter 6 semaines de recrutement, 4 de formation et 6 de montée en compétence. Nous sommes mi-septembre : que doit décider le comité ?", options: ["Lancer le recrutement des 9 ETP maintenant, sur la prévision mensuelle disponible", "Couvrir le pic uniquement en heures supplémentaires, sans recruter", "Attendre janvier pour mesurer le besoin réel avant d'engager le moindre recrutement", "Attendre la prévision intra-horaire de décembre, bien plus précise, avant de décider"], correct: 0, explain: "Règle d&#x27;or : l&#x27;horizon de prévision doit couvrir au moins le délai de décision (Armstrong, 2001). Ici le délai RH cumule environ 16 semaines : la décision devait être prise mi-septembre, sur une prévision à maille mois."},
+  {id: 'qzg13q1', box: 'qzg13', n: 1, q: "En comité de direction, le directeur commercial de NOVADIS exige que la prévision de décembre soit « alignée sur l'objectif : +12 % ». Quelle est la bonne posture du demand planner ?", options: ["Publier la moyenne entre la prévision statistique et l'objectif, pour ménager les deux parties", "Prévoir la demande attendue, documenter l'écart avec l'objectif, et laisser le comité S&OP arbitrer", "Refuser de produire tout chiffre tant que le commerce n'a pas justifié son +12 %", "Aligner la prévision sur l'objectif : la cible commerciale est la meilleure estimation disponible"], correct: 1, explain: "Le budget est un objectif, pas une prévision : si la cible pilote la prévision, stocks et effectifs suivent l&#x27;espoir, pas la demande (méthodologie S&amp;OP, Oliver Wight)."},
 ];
 window.QUESTIONS = QUESTIONS;
 </script>
+<script>window.XPDATA = {"xp6": {"phases": [{"status": "Phase 1 · À vous — 90 secondes", "legend": "16 références de la famille « automédication hiver », demandes indépendantes : chacune 1 000 u/mois en moyenne, écart-type 250 u. Sans calculer : quel est l'écart-type de la demande TOTALE de la famille ? Votre chiffre au chat.", "html": "<div class='mem-grid6' style='grid-template-columns:repeat(4,1fr);height:auto'><div><b>R01</b><p>1 000 u/mois · σ 250</p></div><div><b>R02</b><p>1 000 u/mois · σ 250</p></div><div><b>R03</b><p>1 000 u/mois · σ 250</p></div><div><b>R04</b><p>1 000 u/mois · σ 250</p></div><div><b>R05</b><p>1 000 u/mois · σ 250</p></div><div><b>R06</b><p>1 000 u/mois · σ 250</p></div><div><b>R07</b><p>1 000 u/mois · σ 250</p></div><div><b>R08</b><p>1 000 u/mois · σ 250</p></div><div><b>R09</b><p>1 000 u/mois · σ 250</p></div><div><b>R10</b><p>1 000 u/mois · σ 250</p></div><div><b>R11</b><p>1 000 u/mois · σ 250</p></div><div><b>R12</b><p>1 000 u/mois · σ 250</p></div><div><b>R13</b><p>1 000 u/mois · σ 250</p></div><div><b>R14</b><p>1 000 u/mois · σ 250</p></div><div><b>R15</b><p>1 000 u/mois · σ 250</p></div><div><b>R16</b><p>1 000 u/mois · σ 250</p></div></div><p style='margin-top:18px'>Demande totale de la famille : environ <b>16 000 u/mois</b>. Et son écart-type ? <b>Votre intuition au chat.</b></p>", "timer_sec": 90}, {"status": "Phase 2 · La révélation", "legend": "L'intuition dominante répond 4 000 (16 × 250) : c'est l'addition des écarts-types, valable seulement si toutes les demandes bougent exactement ensemble. Pour des demandes indépendantes, l'écart-type du total croît en racine de n.", "html": "<p>Racine de 16 = <b>4</b></p><p>σ de la famille = 4 × 250 = <b>1 000 u</b> — quatre fois moins que l'intuition « 16 × 250 ».</p><p>Principe du <b>risk pooling</b> (Eppen, Management Science, 1979) : les erreurs se compensent partiellement quand on regroupe — les hauts des unes absorbent les bas des autres.</p>", "timer_sec": null}, {"status": "Phase 3 · Application NOVADIS", "legend": "Le stock de sécurité (z × σ) suit exactement le même rapport — c'est le calcul que NOVADIS n'a jamais fait.", "html": "<p>Référence par référence : 16 × 1,645 × 250 = <b>6 580 u</b> de stock de sécurité</p><p>À la maille famille : 1,645 × 1 000 = <b>1 645 u</b></p><p>Gain : <b>−75 %</b> de stock de sécurité, soit 4 935 u en moins · <b>20 727 €</b> d'immobilisation évitée · environ <b>5 180 €/an</b> de possession économisée — à niveau de service égal ou supérieur.</p>", "timer_sec": null}, {"status": "Phase 4 · Débrief", "legend": "Ce qu'il faut retenir de l'expérience — et ses limites.", "html": "<p><b>Prévoir agrégé, exécuter fin</b> : on prévoit en famille, on désagrège en référence — jamais l'inverse.</p><p>L'agrégation améliore la précision <b>du total</b>, pas la visibilité du détail : deux références aux saisonnalités opposées font un total plat… et deux problèmes cachés.</p><p>Chez ALTÉA : un total plateforme stable peut masquer un établissement en tension pendant qu'un autre est en sureffectif — mesurer aussi par flux et par établissement.</p>", "timer_sec": null}], "labels": ["Révéler la loi √n", "Appliquer au stock NOVADIS", "Passer au débrief"]}};</script>
 
 <script>
 /* ================= moteur STEPS — reveal progressif (avant la nav) ================= */
@@ -1469,6 +1825,18 @@ window.__stepsRender = function(slideEl){
 /* corrigés des cas : le bouton « Voir le corrigé » avance à la slide solution */
 document.querySelectorAll('[data-gonext]').forEach(function(b){
   b.addEventListener('click',function(){window.__nav.go(window.__nav.cur()+1);});
+});
+/* variantes : corrigé plus loin que la slide suivante (simulations en plusieurs
+   tours) — on cherche la prochaine slide de type corrigé (.s-sol) */
+document.querySelectorAll('[data-gosol]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var slides=Array.prototype.slice.call(document.querySelectorAll('section.slide'));
+    var cur=window.__nav.cur();
+    for(var i=cur+1;i<slides.length;i++){
+      if(slides[i].classList.contains('s-sol')){window.__nav.go(i);return;}
+    }
+    window.__nav.go(cur+1);
+  });
 });
 </script>
 
